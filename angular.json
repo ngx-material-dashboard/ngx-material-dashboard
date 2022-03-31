@@ -3,5 +3,37 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "JsonApi": {
+      "projectType": "library",
+      "root": "projects/json-api",
+      "sourceRoot": "projects/json-api/src",
+      "prefix": "ngx-material-dashboard",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/json-api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/json-api/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/json-api/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/json-api/src/test.ts",
+            "tsConfig": "projects/json-api/tsconfig.spec.json",
+            "karmaConfig": "projects/json-api/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "JsonApi"
 }
