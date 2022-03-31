@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+@include mat.core();
+
+$primary: mat.define-palette(mat.$blue-palette);
+
+.mat-list-item {
+    /* Setting box-sizing to border-box ensures the border-right
+    is added inside the border of the element instead of outside
+    of it. Otherwise the border can be hidden by main area content. */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-right: 3px solid transparent;
+}
+
+.mat-list-item:hover,
+.selected-list-item {
+    background: mat.get-color-from-palette($primary, 50);
+    background-color: mat.get-color-from-palette($primary, 50);
+}
+
+.mat-nav-list {
+    /* Remove space between top of list and top of sidenav content. */
+    padding-top: 0px;
+}
+
+.selected-list-item {
+    border-right: 3px solid mat.get-color-from-palette($primary, 700);
+}

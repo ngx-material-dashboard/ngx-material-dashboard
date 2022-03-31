@@ -1,0 +1,5 @@
+<app-table-toolbar [buttons]="toolbarButtons" (buttonClick)="onTableToolbarButtonClick($event)">
+    <ng-content select="[filter]"></ng-content>
+</app-table-toolbar>
+<!-- paged-table -->
+<ng-content select="[table]"></ng-content>

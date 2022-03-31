@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+    <span>
+        <fa-icon [icon]="faTrash"></fa-icon>
+        {{title}}
+    </span>
+</div>
+<mat-dialog-content>
+    {{content}}
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button (click)="cancel()" class="marker-action-cancel">Cancel</button>
+    <button mat-raised-button 
+            color="primary" 
+            type="submit" 
+            (click)="delete()"
+            class="marker-action-delete">
+        <span>Delete</span>
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,20 @@
+<header>
+    <mat-toolbar color="primary">
+        <button mat-icon-button (click)="onToggleSidenav()" class="marker-bars-button">
+            <fa-icon [icon]="faBars"></fa-icon>
+            <div class="mat-button-focus-overlay"></div>
+            <div class="mat-button-ripple mat-ripple"></div>
+        </button>
+        <button mat-button
+                class="mat-button marker-home-button"
+                [routerLink]="['/']">
+            <span>{{logo}}</span>
+            <div class="mat-button-focus-overlay"></div>
+            <div class="mat-button-ripple mat-ripple"></div>
+        </button>
+<!--
+        <span fxFlex></span>
+        <app-header-user-login></app-header-user-login>
+-->
+    </mat-toolbar>
+</header>

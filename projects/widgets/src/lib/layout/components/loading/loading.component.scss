@@ -1,0 +1,15 @@
+.loading-wrapper {
+    z-index: 100000; /* set high so it will display above modal dialogs */
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.6);
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

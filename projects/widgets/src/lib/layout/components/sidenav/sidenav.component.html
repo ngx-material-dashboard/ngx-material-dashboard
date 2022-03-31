@@ -1,0 +1,40 @@
+<mat-nav-list>
+    <div *ngFor="let item of sidenavItems; let i = index">
+        <mat-list-item class="marker-list-item-button-{{item.text}}"
+                        [class.selected-list-item]="isActive(item)"
+                        (click)="select(i)">
+            <div *ngIf="item.children !== undefined">
+                <fa-icon *ngIf="!toggle[i].toggle; else angleDown" [icon]="faAngleRight" class="marker-angle-right"></fa-icon>
+                <ng-template #angleDown>
+                    <fa-icon [icon]="faAngleDown" class="marker-angle-down"></fa-icon>
+                </ng-template>
+            </div>        
+            <span fxFlex="0 0 auto" class="marker-list-item">
+                <fa-icon *ngIf="item.icon" [icon]="item.icon" [ngClass]="{ 'pl-2': item.children && item.icon }"></fa-icon>
+                <span class="pl-2 marker-list-item-text">{{item.text}}</span>
+            </span>
+        </mat-list-item>
+        <div *ngIf="toggle[i].toggle">
+            <div *ngFor="let child of item.children; let iChild = index">
+                <mat-list-item class="marker-list-item-button-{{child.text}}"
+                               [class.selected-list-item]="isActive(child)"
+                               (click)="selectChild(i, iChild)">
+                    <span fxFlex="0 0 auto" class="marker-list-item pl-4">
+                        <span class="pl-2 marker-list-item-text">{{child.text}}</span>
+                    </span>
+                </mat-list-item>
+            </div>
+        </div>
+    </div>
+<!--
+    <mat-list-item *ngFor="let item of sidenavItems"
+        class="marker-list-item-button-{{item.text}}"
+        [class.selected-list-item]="isActive(item)"
+        (click)="select(item)">
+            <span fxFlex="0 0 auto">
+                <fa-icon *ngIf="item.icon" [icon]="item.icon"></fa-icon>
+                <span class="marker-list-item-text">{{item.text}}</span>
+            </span>
+    </mat-list-item>
+-->
+</mat-nav-list>

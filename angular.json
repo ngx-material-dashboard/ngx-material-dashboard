@@ -33,6 +33,37 @@
           }
         }
       }
+    },
+    "widgets": {
+      "projectType": "library",
+      "root": "projects/widgets",
+      "sourceRoot": "projects/widgets/src",
+      "prefix": "ngx-material-dashboard",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/widgets/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/widgets/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/widgets/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/widgets/src/test.ts",
+            "tsConfig": "projects/widgets/tsconfig.spec.json",
+            "karmaConfig": "projects/widgets/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "JsonApi"

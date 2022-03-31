@@ -1,0 +1,10 @@
+<app-header-user-menu *ngIf="username; else loginButton" [username]="username"></app-header-user-menu>
+<ng-template #loginButton>
+    <button mat-button
+            class="mat-button marker-login-button"
+            (click)="login()">
+        <span>Login</span>
+        <div class="mat-button-focus-overlay"></div>
+        <div class="mat-button-ripple mat-ripple"></div>
+    </button>
+</ng-template>

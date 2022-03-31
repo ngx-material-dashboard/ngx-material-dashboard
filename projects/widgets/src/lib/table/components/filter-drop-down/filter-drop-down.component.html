@@ -1,0 +1,25 @@
+<div floatLabel="never" fxFlex fxLayout="column" #searchField [matMenuTriggerFor]="filterMenu">
+    <!-- <input placeholder="Search..."
+            matInput
+            formControlName="search"> -->
+    <div fxFlex fxLayout="row">
+        <fa-icon class="pr-2" matPrefix [icon]="faSearch"></fa-icon>
+        <span fxFlex>Search...</span>
+        <fa-icon [icon]="faCaretDown"></fa-icon>
+    </div>
+    <mat-divider fxFlex></mat-divider>
+</div>
+<mat-menu class="container search-menu" xPosition="before" yPosition="below" #filterMenu="matMenu">
+    <div [style.width.px]="menuWidth" fxLayout="column" fxLayoutGap="10px" matMenuContent #filterMenuContent>
+        <span>Filter results</span>
+        <form appClickStopPropagation appTabStopPropagation> <!-- (keydown.tab)="$event.stopPropagation()" -->
+            <!-- include search filters defined in tag where this component is used -->
+            <ng-content></ng-content>
+        </form>
+        <div fxLayout="row">
+            <div fxFlex></div>
+            <button mat-flat-button (click)="clear()">Clear</button>
+            <button mat-raised-button color="primary" (click)="search()">Search</button>
+        </div>
+    </div>
+</mat-menu>

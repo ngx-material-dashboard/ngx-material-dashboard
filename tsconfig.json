@@ -10,6 +10,14 @@
             "@ngx-material-dashboard/json-api": [
                 "dist/json-api/*",
                 "dist/json-api"
+            ],
+            "@ngx-material-dashboard/widgets/*": [
+                "projects/widgets/*",
+                "projects/widgets"
+            ],
+            "@ngx-material-dashboard/widgets": [
+              "dist/widgets/*",
+              "dist/widgets"
             ]
         },
         "baseUrl": "./",

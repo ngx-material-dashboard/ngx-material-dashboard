@@ -1,0 +1,61 @@
+/* For devices smaller than 768px */
+h1, h2 {
+    margin-bottom: 0px;
+    font-variant: small-caps;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+.bar-bottom {
+    color: white;
+    font-variant: small-caps;
+    width: auto;
+}
+
+.bar-top {
+    color: white;
+    max-height: 25px;
+    width: auto;
+}
+
+.header-image {
+    background-position: center center;
+    background-size: 100% 100%;
+}
+
+.large-font {
+    font-size: 5em;
+}
+
+.logo {
+    height: 20px;
+}
+
+/* For devices 768px and larger */
+@media only screen and (min-device-width: 768px) {
+    .bar-bottom {
+        height: auto;
+        width: auto;
+    }
+    
+    .bar-top {
+        height: auto;
+        max-height: 100%;
+        width: auto;
+    }
+
+    .logo {
+        height: 29px;
+    }
+}
+
+app-header {
+    z-index: 2;
+}

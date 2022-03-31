@@ -1,0 +1,9 @@
+<button mat-button
+        class="mat-button marker-menu-trigger"
+        [matMenuTriggerFor]="menu">
+    <span>{{username}}</span>
+    <fa-icon class="pl-2" [icon]="caretDown"></fa-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item class="marker-logout-button" (click)="logout()">Logout</button>
+</mat-menu>
