@@ -51,11 +51,5 @@
   },
   "publishConfig": {
     "@ngx-material-dashboard:registry": "http://localhost:8080/api/v4/projects/9/packages/npm/"
-  },
-  "files": [
-      "dist/*.ts",
-      "dist/**/*.ts",
-      "dist/*.js",
-      "dist/**/*.js"
-  ]
+  }
 }
