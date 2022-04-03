@@ -1,5 +1,5 @@
 {
-  "name": "ngx-material-dashboard",
+  "name": "@ngx-material-dashboard/ngx-material-dashboard",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~13.1.0",
     "@angular/cdk": "^13.3.2",
@@ -49,5 +48,14 @@
     "ng-packagr": "^13.0.0",
     "qs": "^6.10.3",
     "typescript": "~4.5.2"
-  }
+  },
+  "publishConfig": {
+    "@ngx-material-dashboard:registry": "http://localhost:8080/api/v4/projects/9/packages/npm/"
+  },
+  "files": [
+      "dist/*.ts",
+      "dist/**/*.ts",
+      "dist/*.js",
+      "dist/**/*.js"
+  ]
 }

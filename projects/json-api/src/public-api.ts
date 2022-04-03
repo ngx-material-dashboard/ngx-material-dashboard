@@ -12,6 +12,8 @@ export * from './lib/decorators/json-api-model-config.decorator';
 export * from './lib/decorators/json-attribute.decorator';
 export * from './lib/decorators/nested-attribute.decorator';
 
+export * from './lib/interfaces/datastore-config.interface';
+
 export * from './lib/models/error-response.model';
 export * from './lib/models/json-api-meta.model';
 export * from './lib/models/json-api-query-data';
