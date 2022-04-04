@@ -11,6 +11,8 @@ export * from './lib/form/interfaces/validation-messages.interface';
 export * from './lib/form/pages/field-error/field-error.component';
 export * from './lib/form/form.module';
 
+export * from './lib/layout/interfaces/sidenav.interface';
+export * from './lib/layout/services/loading.service';
 export * from './lib/layout/pages/default-layout/default-layout.component';
 export * from './lib/layout/layout.module';
 
