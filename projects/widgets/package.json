@@ -1,6 +1,10 @@
 {
     "name": "@ngx-material-dashboard/widgets",
     "version": "0.0.1",
+    "scripts": {
+        "ng": "ng",
+        "test": "ng test widgets"
+    },
     "peerDependencies": {
         "@angular/cdk": "^13.3.2",
         "@angular/common": "^13.1.0",
