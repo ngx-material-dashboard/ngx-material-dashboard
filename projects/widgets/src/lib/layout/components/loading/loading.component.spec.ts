@@ -3,6 +3,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MockModule } from 'ng-mocks';
 
 import { Page } from '../../../../../test/helpers/page.helper';
+import { LoadingService } from '../../services/loading.service';
 import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent', () => {
@@ -15,6 +16,9 @@ describe('LoadingComponent', () => {
             declarations: [ LoadingComponent ],
             imports: [
                 MockModule(MatProgressSpinnerModule)
+            ],
+            providers: [
+                LoadingService
             ]
         });
     });

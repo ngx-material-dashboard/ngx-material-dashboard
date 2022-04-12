@@ -37,12 +37,12 @@ describe('HeaderComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should render "GsCloud Managment" in the toolbar', () => {
+    it('should render "My App" in the toolbar by default', () => {
         // given: the native element at the root of the component
         const compiled = fixture.nativeElement;
 
-        // expect: the text "GsCloud Management" should be rendered
-        expect(compiled.querySelector('.marker-home-button').textContent).toContain('GsCloud Management');
+        // expect: the text "My App" should be rendered
+        expect(compiled.querySelector('.marker-home-button').textContent).toContain('My App');
     });
 
     it('should emit true when bars button is clicked in top bar', () => {

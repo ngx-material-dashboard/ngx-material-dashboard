@@ -14,17 +14,24 @@ import { JsonApiModel } from '@ngx-material-dashboard/json-api';
 import { TableButton } from '../../interfaces/table-button.interface';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
 import { TablePageHelper } from '../../../../../test/helpers/table-page.helper';
+import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
+// import { RemoteDataSource as RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-source.service';
 import { PagedTableComponent } from './paged-table.component';
 import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
+// import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ModelType } from '@ngx-material-dashboard/json-api';
 import { JsonApiQueryData } from '@ngx-material-dashboard/json-api';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 
 const pageSize = 5;
 const testData: DummyObject[] = [];
+for (let i = 0; i < 20; i++) {
+    testData.push({ id: i.toString() } as DummyObject);
+}
 
 @Component({
     template: `
@@ -32,10 +39,6 @@ const testData: DummyObject[] = [];
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="isActive">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
-            <mat-cell class="col2-cell" *matCellDef="let obj">{{obj.isActive}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="noData">
             <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
@@ -45,10 +48,10 @@ const testData: DummyObject[] = [];
     </app-paged-table>
     `
 }) class TestPagedTableComponent {
-    @ViewChild(PagedTableComponent) table!: PagedTableComponent<JsonApiModel>;
+    @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
     buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
     data: JsonApiModel[] = [];
-    displayedColumns: string[] = ['select', 'id', 'isActive', 'actions'];
+    displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 }
 
@@ -59,10 +62,6 @@ const testData: DummyObject[] = [];
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="isActive">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
-            <mat-cell class="col2-cell" *matCellDef="let obj">{{obj.isActive}}</mat-cell>
-        </ng-container>
         <ng-container matColumnDef="noData">
             <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
                 No data found
@@ -71,14 +70,14 @@ const testData: DummyObject[] = [];
     </app-paged-table>
     `
 }) class TestRemotePagedTableComponent {
-    @ViewChild(PagedTableComponent) table!: PagedTableComponent<JsonApiModel>;
+    @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
     buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
-    dataSource: RemoteDataSource<JsonApiModel>;
-    displayedColumns: string[] = ['select', 'id', 'isActive', 'actions'];
+    dataSource: RemoteDataSource<DummyObject>;
+    displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 
-    constructor(private JsonApiDatastore: JsonApiDatastore) {
-        this.dataSource = new RemoteDataSource<JsonApiModel>(JsonApiModel, this.JsonApiDatastore);
+    constructor(private jsonApiDatastore: JsonApiDatastore) {
+        this.dataSource = new RemoteDataSource<DummyObject>(DummyObject, this.jsonApiDatastore);
     }
 }
 
@@ -89,10 +88,11 @@ describe('PagedTableComponent', () => {
     describe('Local data source', () => {
         let page: TablePageHelper<TestPagedTableComponent>;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
                 declarations: [ PagedTableComponent, TestPagedTableComponent ],
                 imports: [
+                    HttpClientTestingModule,
                     MatButtonModule,
                     MatCheckboxModule,
                     MatPaginatorModule,
@@ -101,13 +101,14 @@ describe('PagedTableComponent', () => {
                     NoopAnimationsModule,
                     MockModule(FlexLayoutModule),
                     MockModule(FontAwesomeModule)
+                ],
+                providers: [
+                    { provide: Datastore, deps: [HttpClient] },
+                    { provide: JsonApiDatastore, useClass: Datastore, deps: [HttpClient] }
                 ]
-            });
+            }).compileComponents();
 
             datastore = TestBed.inject(JsonApiDatastore);
-            for (let i = 0; i < 20; i++) {
-                testData.push(new DummyObject(datastore, { id: i.toString() }));
-            }
         });
     
         describe('No Table Data', () => {
@@ -274,11 +275,10 @@ describe('PagedTableComponent', () => {
     });
 
     describe('Remote data source', () => {
-        let jsonApiDatastore: JsonApiDatastore;
         let page: TablePageHelper<TestRemotePagedTableComponent>;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
+        beforeEach(async() => {
+            await TestBed.configureTestingModule({
                 declarations: [ PagedTableComponent, TestRemotePagedTableComponent ],
                 imports: [
                     HttpClientTestingModule,
@@ -292,22 +292,15 @@ describe('PagedTableComponent', () => {
                     MockModule(FontAwesomeModule)
                 ],
                 providers: [
-                    JsonApiDatastore
+                    { provide: RemoteDataSource, deps: [Datastore] },
+                    { provide: Datastore, deps: [HttpClient] },
+                    { provide: JsonApiDatastore, useClass: Datastore, deps: [HttpClient] }
                 ]
-            });
-
-            jsonApiDatastore = TestBed.inject(JsonApiDatastore);
-            for (let i = 0; i < 20; i++) {
-                testData.push(new DummyObject(jsonApiDatastore, { id: i.toString() }));
-            }
+            }).compileComponents();
         });
 
         describe('No Table data', () => {
             beforeEach(() => {
-                const queryData = new JsonApiQueryData<DummyObject>([]);
-                const metaModel: any = Reflect.getMetadata('JsonApiModelConfig', DummyObject).meta;
-                const mm = new metaModel({});
-                spyOn(jsonApiDatastore, 'findAll').and.returnValue(of(queryData, mm));
                 page = initRemote();
             });
 
@@ -328,18 +321,9 @@ describe('PagedTableComponent', () => {
         });
 
         describe('With Table data', () => {
-            beforeEach(() => {
-                const metaModel: any = Reflect.getMetadata('JsonApiModelConfig', DummyObject).meta;
-                const mm = new metaModel({});
 
-                spyOn(jsonApiDatastore, 'findAll').and.callFake((modelType: ModelType<DummyObject>, params: any) => {
-                    const mT = modelType;
-                    const pageNum = parseInt(params.page, 10);
-                    const pageSize = parseInt(params.page_size, 10);
-                    const queryData = new JsonApiQueryData<DummyObject>(testData.slice(pageNum * pageSize, (pageNum * pageSize) + pageSize));
-                    return of(queryData, mm);
-                });
-                page = initRemote();
+            beforeEach(() => {
+                page = initRemote(testData);
             });
 
             it('should not display no data row', () => {
@@ -399,6 +383,7 @@ function init(
  * @returns A page helper to aid in tests.
  */
 function initRemote(
+    data: DummyObject[] = [],
     multiple = true,
     pageSize = 5
 ): TablePageHelper<TestRemotePagedTableComponent> {
@@ -411,6 +396,24 @@ function initRemote(
     // and child PagedTableComponent exists
     component.table.pageSize = pageSize;
     if (component.table.dataSource$ instanceof RemoteDataSource) {
+        const remoteDataSource: RemoteDataSource<DummyObject> = component.table.dataSource$;
+        spyOn(component.table.dataSource$, 'load').and.callFake(
+            (
+                filter?: {},
+                sort?: string,
+                order?: string,
+                pageIndex: number = 0,
+                pageSize: number = 5,
+                include?: string,
+                headers?: HttpHeaders
+            ) => {
+                remoteDataSource.total = data.length;
+                remoteDataSource.totalPages = remoteDataSource.total / pageSize;
+                if (data.length > 0) {
+                    remoteDataSource.data = data.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
+                }
+            }
+        )
         // also set pageSize on table datasource and refresh; need instanceof
         // RemoteDataSource since table.dataSource$ has multiple types even
         // though it should be RemoteDataSource type for these tests 

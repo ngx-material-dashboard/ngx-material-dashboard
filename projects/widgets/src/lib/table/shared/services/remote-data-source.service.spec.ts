@@ -1,7 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
 
+import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { RemoteDataSource } from './remote-data-source.service';
 
 /**
@@ -17,7 +18,8 @@ describe('RemoteDataSourceService', () => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: JsonApiModel, useClass: JsonApiModelMock },
+                { provide: JsonApiDatastore, useValue: Datastore },
+                { provide: JsonApiModel, useClass: JsonApiModelMock }
             ]
         });
         service = TestBed.inject(RemoteDataSource);

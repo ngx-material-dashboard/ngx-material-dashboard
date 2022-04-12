@@ -7,7 +7,9 @@ describe('LoadingService', () => {
     let service: LoadingService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            providers: [LoadingService]
+        });
         service = TestBed.inject(LoadingService);
 
         // subscribe to loading behavioursubject so it is available for tests

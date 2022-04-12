@@ -12,9 +12,7 @@ import { BehaviorSubject } from 'rxjs';
  * taken directly from below blog.
  * https://medium.com/swlh/angular-loading-spinner-using-http-interceptor-63c1bb76517b
  */
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class LoadingService {
 
     /**

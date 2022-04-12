@@ -1,25 +1,32 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { FilterDropDownComponent } from './filter-drop-down.component';
 
 describe('FilterDropDownComponent', () => {
-  let component: FilterDropDownComponent;
-  let fixture: ComponentFixture<FilterDropDownComponent>;
+    let component: FilterDropDownComponent;
+    let fixture: ComponentFixture<FilterDropDownComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ FilterDropDownComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ FilterDropDownComponent ],
+            imports: [
+                ReactiveFormsModule,
+                MatMenuModule
+            ]
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FilterDropDownComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FilterDropDownComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

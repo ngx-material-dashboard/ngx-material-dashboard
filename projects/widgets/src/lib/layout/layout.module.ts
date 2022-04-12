@@ -17,6 +17,7 @@ import { HeaderUserMenuComponent } from './components/header-user-menu/header-us
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DefaultLayoutComponent } from './pages/default-layout/default-layout.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { LoadingService } from './services/loading.service';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,9 @@ import { LoadingComponent } from './components/loading/loading.component';
         MatSidenavModule,
         MatToolbarModule,
         FontAwesomeModule
+    ],
+    providers: [
+        LoadingService
     ]
 })
 export class LayoutModule { }

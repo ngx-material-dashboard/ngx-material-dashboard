@@ -1,19 +1,26 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { TestBed } from '@angular/core/testing';
 
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
+
+import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../table-toolbar-buttons';
 import { SelectionService } from './selection.service';
-import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
 
 describe('SelectionService', () => {
     let jsonApiDatastore: JsonApiDatastore;
     let service: SelectionService<JsonApiModel>;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            providers: [
+                { provide: JsonApiDatastore, useValue: Datastore }
+            ]
+        });
         service = TestBed.inject(SelectionService);
         jsonApiDatastore = TestBed.inject(JsonApiDatastore);
     });
