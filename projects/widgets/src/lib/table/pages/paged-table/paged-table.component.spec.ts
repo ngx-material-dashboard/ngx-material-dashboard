@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,24 +10,16 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { CheckboxElement, PagedTableElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
 import { TableButton } from '../../interfaces/table-button.interface';
+import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
-import { TablePageHelper } from '../../../../../test/helpers/table-page.helper';
 import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
-// import { RemoteDataSource as RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-source.service';
 import { PagedTableComponent } from './paged-table.component';
-import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
-// import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
-import { of } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ModelType } from '@ngx-material-dashboard/json-api';
-import { JsonApiQueryData } from '@ngx-material-dashboard/json-api';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 
 const pageSize = 5;
 const testData: DummyObject[] = [];
@@ -35,7 +29,7 @@ for (let i = 0; i < 20; i++) {
 
 @Component({
     template: `
-    <app-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple">
+    <app-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -57,7 +51,7 @@ for (let i = 0; i < 20; i++) {
 
 @Component({
     template: `
-    <app-paged-table matSort [buttons]="buttons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple">
+    <app-paged-table matSort [buttons]="buttons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -86,7 +80,7 @@ describe('PagedTableComponent', () => {
     let datastore: JsonApiDatastore;
 
     describe('Local data source', () => {
-        let page: TablePageHelper<TestPagedTableComponent>;
+        let page: PagedTableElement;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -135,7 +129,7 @@ describe('PagedTableComponent', () => {
             });
     
             it('should display "0 of 0" in paginator range label', () => {
-                expect(page.pagingatorRange.innerText).toEqual('0 of 0');
+                expect(page.paginator.pagingatorRange.innerText).toEqual('0 of 0');
             });
         });
     
@@ -171,15 +165,15 @@ describe('PagedTableComponent', () => {
                 });
     
                 it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
-                    expect(page.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+                    expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
                 });
     
                 it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
                     // when: next page button is clicked
-                    page.clickNextPageButton();
+                    page.paginator.clickNextButton();
     
                     // then: the paginator range label should update to next page
-                    expect(page.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+                    expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
                 });
             });
     
@@ -205,9 +199,9 @@ describe('PagedTableComponent', () => {
     
                         // and: all rows should have their checkboxes checked
                         const checkBoxes: HTMLElement[] = page.rowCheckboxes;
-                        checkBoxes.forEach((checkbox: HTMLElement) => {
-                            const input: HTMLInputElement = page.getCheckboxInput(checkbox);
-                            expect(input.checked).toBeTrue();
+                        checkBoxes.forEach((checkboxHTMLElement: HTMLElement) => {
+                            const checkbox: CheckboxElement = new CheckboxElement(page.fixture, checkboxHTMLElement);
+                            expect(checkbox.checked).toBeTrue();
                         });
                     });
     
@@ -220,9 +214,9 @@ describe('PagedTableComponent', () => {
     
                         // then: no rows should have their checkboxes checked
                         const checkBoxes: HTMLElement[] = page.rowCheckboxes;
-                        checkBoxes.forEach((checkbox: HTMLElement) => {
-                            const input: HTMLInputElement = page.getCheckboxInput(checkbox);
-                            expect(input.checked).toBeFalse();
+                        checkBoxes.forEach((checkboxHTMLElement: HTMLElement) => {
+                            const checkbox: CheckboxElement = new CheckboxElement(page.fixture, checkboxHTMLElement);
+                            expect(checkbox.checked).toBeFalse();
                         });
                     });
                 });
@@ -235,47 +229,36 @@ describe('PagedTableComponent', () => {
                 });
     
                 it('should allow row to be selected and deselected', () => {
-                    // setup: get the checkbox from the first row
-                    const checkbox: HTMLElement = page.getRowCheckboxByIndex(0);
-                    const input: HTMLInputElement = page.getCheckboxInput(checkbox);
+                    // when: the checkbox is checked in first row
+                    page.selectRow(0);
     
-                    // when: the checkbox is checked
-                    page.clickCheckbox(input);
-    
-                    // then: the checkbox should have the mat-checkbox-checked attribute
-                    expect(input.checked).toBeTrue();
+                    // then: the checkbox should be checked
+                    expect(page.isRowSelected(0)).toBeTrue();
     
                     // when: the checkbox is unchecked
-                    page.clickCheckbox(input);
+                    page.selectRow(0);
     
                     // then: checkbox should be unchecked
-                    expect(input.checked).toBeFalse();
+                    expect(page.isRowSelected(0)).toBeFalse();
                 });
     
                 it('should only select one row at a time', () => {
-                    // setup: get all of the checkboxes in the component
-                    const checkboxes: HTMLElement[] = page.rowCheckboxes;
-    
-                    // and: get the input elements for the first 2 checkboxes
-                    const checkbox1InputElement: HTMLInputElement = page.getCheckboxInput(checkboxes[0]);
-                    const checkbox2InputElement: HTMLInputElement = page.getCheckboxInput(checkboxes[1]);
-    
                     // when: the first checkbox is checked
-                    page.clickCheckbox(checkbox1InputElement);
+                    page.selectRow(0); //.clickCheckbox(checkbox1InputElement);
     
                     // and: the second checkbox is checked
-                    page.clickCheckbox(checkbox2InputElement);
+                    page.selectRow(1); //age.clickCheckbox(checkbox2InputElement);
     
                     // then: the second checkbox should be the only checkbox checked
-                    expect(checkbox1InputElement.checked).toBeFalse();
-                    expect(checkbox2InputElement.checked).toBeTrue();
+                    expect(page.isRowSelected(0)).toBeFalse();
+                    expect(page.isRowSelected(1)).toBeTrue();
                 });
             });
         });
     });
 
     describe('Remote data source', () => {
-        let page: TablePageHelper<TestRemotePagedTableComponent>;
+        let page: PagedTableElement;
 
         beforeEach(async() => {
             await TestBed.configureTestingModule({
@@ -316,7 +299,7 @@ describe('PagedTableComponent', () => {
             });
     
             it('should display "0 of 0" in paginator range label', () => {
-                expect(page.pagingatorRange.innerText).toEqual('0 of 0');
+                expect(page.paginator.pagingatorRange.innerText).toEqual('0 of 0');
             });
         });
 
@@ -336,15 +319,15 @@ describe('PagedTableComponent', () => {
             });
 
             it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
-                expect(page.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+                expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
             });
 
             it(`should display "${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
                 // when: next page button is clicked
-                page.clickNextPageButton();
+                page.paginator.clickNextButton();
 
                 // then: the paginator range label should update to next page
-                expect(page.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+                expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
             });
         });
     });
@@ -360,7 +343,7 @@ describe('PagedTableComponent', () => {
 function init(
     data: JsonApiModel[] = [],
     multiple = true
-): TablePageHelper<TestPagedTableComponent> {
+): PagedTableElement {
     const fixture: ComponentFixture<TestPagedTableComponent> = TestBed.createComponent(TestPagedTableComponent);
     const component = fixture.componentInstance;
     component.data = data;
@@ -372,7 +355,7 @@ function init(
     component.table.pageSize = pageSize;
     fixture.detectChanges();
 
-    return new TablePageHelper<TestPagedTableComponent>(fixture);
+    return new PagedTableElement(fixture, '.marker-paged-table');
 }
 
 /**
@@ -386,7 +369,7 @@ function initRemote(
     data: DummyObject[] = [],
     multiple = true,
     pageSize = 5
-): TablePageHelper<TestRemotePagedTableComponent> {
+): PagedTableElement {
     const fixture: ComponentFixture<TestRemotePagedTableComponent> = TestBed.createComponent(TestRemotePagedTableComponent);
     const component = fixture.componentInstance;
     component.multiple = multiple;
@@ -422,5 +405,5 @@ function initRemote(
     }
     fixture.detectChanges();
 
-    return new TablePageHelper<TestRemotePagedTableComponent>(fixture);
+    return new PagedTableElement(fixture, '.marker-paged-table');
 }
