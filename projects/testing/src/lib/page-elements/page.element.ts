@@ -24,10 +24,15 @@ export class PageElement {
             if (res) {
                 return res as T;
             } else {
-                throw Error(`Error searching for ${selector} in ${element.nodeName}`);
+                throw Error(`${selector} not found in ${element.nodeName}`);
             }
         } else {
-            return this.fixture.nativeElement.querySelector(selector);
+            const res = this.fixture.nativeElement.querySelector(selector);
+            if (res) {
+                return res;
+            } else {
+                throw Error(`${selector} not found in fixture`);
+            }
         }
     }
 
