@@ -17,11 +17,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
+import { PagedTableWithToolbarElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { Datastore } from '../../../../../test/mocks/datastore.service';
-import { TablePageHelper } from '../../../../../test/helpers/table-page.helper';
 import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
 import { RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-source.service';
 import { PagedTableWithToolbar } from '../../interfaces/paged-table-with-toolbar.interface';
@@ -42,7 +42,7 @@ const testData: DummyObject[] = [
         <app-filter-drop-down filter>
             <!-- filter form goes here -->
         </app-filter-drop-down>
-        <app-paged-table matSort [buttons]="tableButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table>
+        <app-paged-table matSort [buttons]="tableButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table class="marker-paged-table">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -90,7 +90,7 @@ const testData: DummyObject[] = [
 describe('PagedTableWithToolbarComponent', () => {
     let component: TestPagedTableWithToolbarComponent;
     let fixture: ComponentFixture<TestPagedTableWithToolbarComponent>;
-    let page: TablePageHelper<TestPagedTableWithToolbarComponent>;
+    let page: PagedTableWithToolbarElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -132,7 +132,11 @@ describe('PagedTableWithToolbarComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
 
-        page = new TablePageHelper<TestPagedTableWithToolbarComponent>(fixture);
+        page = new PagedTableWithToolbarElement(
+            fixture,
+            '.marker-paged-table',
+            ['.marker-action-create', '.marker-action-edit', '.marker-action-delete']
+        );
     });
 
     // it('should filter out buttons that cannot be disabled by default', () => {
@@ -146,14 +150,11 @@ describe('PagedTableWithToolbarComponent', () => {
             // given: a spy on the buttonClick for the PagedTableWithToolbarComponent
             const spy = spyOn(component, 'onButtonClick');
 
-            // and: a button from the toolbar
-            const button: HTMLButtonElement = page.query('.marker-action-edit');
-
             // and: a selected row
-            page.selectRow(0);
+            page.table.selectRow(0);
 
             // when: the button is clicked
-            button.click();
+            page.toolbar.clickButton('.marker-action-edit');
 
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.dataSource.data[0] });
@@ -163,11 +164,8 @@ describe('PagedTableWithToolbarComponent', () => {
             // given: a spy on the buttonClick for the PagedTableWithToolbarComponent
             const spy = spyOn(component, 'onButtonClick');
 
-            // and: a button from the toolbar
-            const button: HTMLButtonElement = page.query('.marker-action-create');
-
             // when: the button is clicked
-            button.click();
+            page.toolbar.clickButton('.marker-action-create');
 
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'create' });
@@ -202,7 +200,7 @@ describe('PagedTableWithToolbarComponent', () => {
             const spy = spyOn(component, 'onButtonClick');
 
             // when: a button is clicked in one of the rows
-            page.clickTableButton('edit', 0);
+            page.table.clickTableButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.dataSource.data[0] });
