@@ -23,14 +23,13 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { TablePageHelper } from '../../../../../test/helpers/table-page.helper';
 import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
+import { RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-source.service';
 import { PagedTableWithToolbar } from '../../interfaces/paged-table-with-toolbar.interface';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { AbstractPagedTableWithToolbarComponent } from '../abstract-paged-table-with-toolbar/abstract-paged-table-with-toolbar.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
-import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,

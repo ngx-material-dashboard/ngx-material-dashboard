@@ -11,6 +11,14 @@
                 "dist/json-api/*",
                 "dist/json-api"
             ],
+            "@ngx-material-dashboard/testing/*": [
+                "projects/testing/*",
+                "projects/testing"
+            ],
+            "@ngx-material-dashboard/testing": [
+                "dist/testing/*",
+                "dist/testing"
+            ],
             "@ngx-material-dashboard/widgets/*": [
                 "projects/widgets/*",
                 "projects/widgets"

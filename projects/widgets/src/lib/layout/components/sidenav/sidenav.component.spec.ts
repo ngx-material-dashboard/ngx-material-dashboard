@@ -4,18 +4,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SidenavElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
+import { of } from 'rxjs';
 
-import { Page } from '../../../../../test/helpers/page.helper';
 import { SidenavComponent } from './sidenav.component';
 import { SidenavItem } from '../../interfaces/sidenav.interface';
-import { of } from 'rxjs';
 
 describe('SidenavComponent', () => {
     let component: SidenavComponent;
     let fixture: ComponentFixture<SidenavComponent>;
     let mockRouter: any;
-    let page: Page<SidenavComponent>;
+    let pageElement: SidenavElement;
 
     describe('Root route (i.e. "/")', () => {
 
@@ -28,26 +28,24 @@ describe('SidenavComponent', () => {
 
             fixture = TestBed.createComponent(SidenavComponent);
             component = fixture.componentInstance;
-            component.sidenavItems = [{ route: [''], text: 'Home' }];
+            component.sidenavItems = [{ route: [''], selector: 'home', text: 'Home' }];
             fixture.detectChanges();
 
-            page = new Page<SidenavComponent>(fixture);
+            pageElement = new SidenavElement(fixture, ['home']);
         });
 
         it('should highlight sidenav item when route matches "/"', () => {
             // expect: there should only be one highlighted sidenav item
-            const selectedSidenavItemElements: HTMLElement[] = page.queryAll('.selected-list-item');
+            const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
             expect(selectedSidenavItemElements.length).toEqual(1);
 
-            // and: the active sidenavItem content should match the current sidenavItem
-            const selectedSidenavItem = selectedSidenavItemElements[0];
-            const appListItem = selectedSidenavItem.getElementsByClassName('marker-list-item-text').item(0);
-            expect(appListItem?.innerHTML).toEqual('Home');
+            // and: the active sidenavItem content should match the 'Home' sidenavItem
+            expect(pageElement.isListItemActive('home')).toEqual(true);
         });
     });
 
     describe('Basic SidenavItems', () => {
-        const sidenavItems: SidenavItem[] = [{ route: ['1'], text: '1' }, { route: ['2'], text: '2' }];
+        const sidenavItems: SidenavItem[] = [{ route: ['1'], selector: '1', text: '1' }, { route: ['2'], selector: '2', text: '2' }];
 
         /**
          * Loop through each of the sidenavItems for the tests below.
@@ -71,29 +69,24 @@ describe('SidenavComponent', () => {
                     component.sidenavItems = sidenavItems;
                     fixture.detectChanges();
 
-                    page = new Page<SidenavComponent>(fixture);
+                    pageElement = new SidenavElement(fixture, ['1', '2']);
                 });
 
                 it(`should highlight sidenav item with text "${item.text}" when route matches`, () => {
                     // expect: there should only be one highlighted sidenav item
-                    const selectedSidenavItemElements: HTMLElement[] = page.queryAll('.selected-list-item');
+                    const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
                     expect(selectedSidenavItemElements.length).toEqual(1);
 
                     // and: the active sidenavItem content should match the current sidenavItem
-                    const selectedSidenavItem = selectedSidenavItemElements[0];
-                    const appListItem = selectedSidenavItem.getElementsByClassName('marker-list-item-text').item(0);
-                    expect(appListItem?.innerHTML).toEqual(item.text);
+                    expect(pageElement.isListItemActive(item.selector)).toEqual(true);
                 });
 
                 it('should navigate to route of given sidenavItem when item clicked', () => {
-                    // given: the button in the sidenavItem
-                    const button: HTMLButtonElement = page.query(`.marker-list-item-button-${item.text}`);
-
-                    // and: a spy on the navigate function
+                    // given: a spy on the navigate function
                     const spy = spyOn(mockRouter, 'navigate');
 
                     // when: the button is clicked
-                    button.click();
+                    pageElement.clickListItem(item.selector);
 
                     // then: the navigate function should have been called
                     expect(spy).toHaveBeenCalled();
@@ -103,7 +96,7 @@ describe('SidenavComponent', () => {
     });
 
     describe('SidenavItem with queryParams', () => {
-        const sidenavItems: SidenavItem[] = [{ route: ['requests'], text: 'Pending Requests', queryParams: { status: 'Pending' } }];
+        const sidenavItems: SidenavItem[] = [{ route: ['requests'], selector: 'pendingRequests', text: 'Pending Requests', queryParams: { status: 'Pending' } }];
 
         describe('Route matches sidenavItem', () => {
             beforeEach(() => {
@@ -118,18 +111,16 @@ describe('SidenavComponent', () => {
                 component.sidenavItems = sidenavItems;
                 fixture.detectChanges();
     
-                page = new Page<SidenavComponent>(fixture);
+                pageElement = new SidenavElement(fixture, ['pendingRequests']);
             });
     
             it('should highlight sidenav item', () => {
                 // expect: there should only be one highlighted sidenav item
-                const selectedSidenavItemElements: HTMLElement[] = page.queryAll('.selected-list-item');
+                const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
                 expect(selectedSidenavItemElements.length).toEqual(1);
     
                 // and: the active sidenavItem content should match the current sidenavItem
-                const selectedSidenavItem = selectedSidenavItemElements[0];
-                const appListItem = selectedSidenavItem.getElementsByClassName('marker-list-item-text').item(0);
-                expect(appListItem?.innerHTML).toEqual('Pending Requests');
+                expect(pageElement.isListItemActive('pendingRequests')).toEqual(true);
             });
         });
 
@@ -148,22 +139,19 @@ describe('SidenavComponent', () => {
                     component.sidenavItems = sidenavItems;
                     fixture.detectChanges();
         
-                    page = new Page<SidenavComponent>(fixture);
+                    pageElement = new SidenavElement(fixture, ['pendingRequests']);
                 });
     
                 it('should not highlight sidnav item', () => {
-                    expect(page.queryAll('.selected-list-item').length).toEqual(0);
+                    expect(pageElement.queryAll('.selected-list-item').length).toEqual(0);
                 });
     
-                it('should navigate to route of given sidenavItem when item clicked', () => {
-                    // given: the button in the sidenavItem
-                    const button: HTMLButtonElement = page.query(`.marker-list-item-button-Pending`);
-    
-                    // and: a spy on the navigate function
+                it('should navigate to route of given sidenavItem when item clicked', async() => {
+                    // given: a spy on the navigate function
                     const spy = spyOn(mockRouter, 'navigate');
     
                     // when: the button is clicked
-                    button.click();
+                    pageElement.clickListItem('pendingRequests');
     
                     // then: the navigate function should have been called
                     expect(spy).toHaveBeenCalled();
@@ -183,22 +171,19 @@ describe('SidenavComponent', () => {
                     component.sidenavItems = sidenavItems;
                     fixture.detectChanges();
         
-                    page = new Page<SidenavComponent>(fixture);
+                    pageElement = new SidenavElement(fixture, ['pendingRequests']);
                 });
     
                 it('should not highlight sidnav item', () => {
-                    expect(page.queryAll('.selected-list-item').length).toEqual(0);
+                    expect(pageElement.queryAll('.selected-list-item').length).toEqual(0);
                 });
     
-                it('should navigate to route of given sidenavItem when item clicked', () => {
-                    // given: the button in the sidenavItem
-                    const button: HTMLButtonElement = page.query(`.marker-list-item-button-Pending`);
-    
-                    // and: a spy on the navigate function
+                it('should navigate to route of given sidenavItem when item clicked', async() => {
+                    // given: a spy on the navigate function
                     const spy = spyOn(mockRouter, 'navigate');
     
                     // when: the button is clicked
-                    button.click();
+                    await pageElement.clickListItem('pendingRequests');
     
                     // then: the navigate function should have been called
                     expect(spy).toHaveBeenCalled();
@@ -218,22 +203,19 @@ describe('SidenavComponent', () => {
                     component.sidenavItems = sidenavItems;
                     fixture.detectChanges();
         
-                    page = new Page<SidenavComponent>(fixture);
+                    pageElement = new SidenavElement(fixture, ['pendingRequests']);
                 });
     
                 it('should not highlight sidnav item', () => {
-                    expect(page.queryAll('.selected-list-item').length).toEqual(0);
+                    expect(pageElement.queryAll('.selected-list-item').length).toEqual(0);
                 });
     
-                it('should navigate to route of given sidenavItem when item clicked', () => {
-                    // given: the button in the sidenavItem
-                    const button: HTMLButtonElement = page.query(`.marker-list-item-button-Pending`);
-    
-                    // and: a spy on the navigate function
+                it('should navigate to route of given sidenavItem when item clicked', async() => {
+                    // given: a spy on the navigate function
                     const spy = spyOn(mockRouter, 'navigate');
     
                     // when: the button is clicked
-                    button.click();
+                    await pageElement.clickListItem('pendingRequests');
     
                     // then: the navigate function should have been called
                     expect(spy).toHaveBeenCalled();
@@ -243,8 +225,8 @@ describe('SidenavComponent', () => {
     });
 
     describe('Sidenavitems with children', () => {
-        const children: SidenavItem[] = [{ route: ['1'], text: '1'}, { route: ['2'], text: '2', queryParams: { status: 'Pending' }}];
-        const sidenavItems: SidenavItem[] = [{ children: children, text: 'Requests' }];
+        const children: SidenavItem[] = [{ route: ['1'], selector: '1', text: '1'}, { route: ['2'], selector: '2', text: '2', queryParams: { status: 'Pending' }}];
+        const sidenavItems: SidenavItem[] = [{ children: children, selector: 'requests', text: 'Requests' }];
 
         beforeEach(() => {
             mockRouter = {
@@ -258,44 +240,35 @@ describe('SidenavComponent', () => {
             component.sidenavItems = sidenavItems;
             fixture.detectChanges();
 
-            page = new Page<SidenavComponent>(fixture);
+            pageElement = new SidenavElement(fixture, ['requests'], ['1', '2']);
         });
 
         it('should expand parent sidenavItem and highlight child', () => {
             // expect: there should only be one highlighted sidenav item
-            const selectedSidenavItemElements: HTMLElement[] = page.queryAll('.selected-list-item');
+            const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
             expect(selectedSidenavItemElements.length).toEqual(1);
 
             // and: the active sidenavItem content should match the current sidenavItem
-            const selectedSidenavItem = selectedSidenavItemElements[0];
-            const appListItem = selectedSidenavItem.getElementsByClassName('marker-list-item-text').item(0);
-            expect(appListItem?.innerHTML).toEqual('1');
+            expect(pageElement.isListItemActive('1')).toEqual(true);
 
             // and: the parent should be expanded (i.e. have angle down icon)
-            const parent: HTMLElement = page.query('.marker-list-item-button-Requests');
-            expect(parent.querySelector('.marker-angle-down')).toBeDefined();
+            expect(pageElement.isListItemExpanded('requests')).toEqual(true);
         });
 
         it('should close parent when sidenavItem is clicked', () => {
-            // given: the button in the sidenavItem
-            const button: HTMLButtonElement = page.query('.marker-list-item-button-Requests');
-
             // when: the button is clicked
-            button.click();
+            pageElement.clickListItem('requests');
 
             // then: the parent should be collapsed (i.e. have angle right icon)
-            expect(button.querySelector('.marker-angle-right')).toBeDefined();
+            expect(pageElement.isListItemExpanded('requests')).toEqual(false);
         });
 
-        it('should navigate to 2nd child when sidenavItem is clicked', () => {
-            // given: the button in the sidenavItem
-            const button: HTMLButtonElement = page.query('.marker-list-item-button-2');
-    
-            // and: a spy on the navigate function
+        it('should navigate to 2nd child when sidenavItem is clicked', async() => {
+            // given: a spy on the navigate function
             const spy = spyOn(mockRouter, 'navigate');
 
             // when: the button is clicked
-            button.click();
+            await pageElement.clickListItem('2');
 
             // then: the navigate function should have been called
             expect(spy).toHaveBeenCalled();
@@ -325,6 +298,7 @@ function init(mockRouter: any, queryParams: any = {}): void {
             MockModule(MatSidenavModule),
             MockModule(FontAwesomeModule)
         ],
-        providers
+        providers,
+        teardown: { destroyAfterEach: false }
     });
 }

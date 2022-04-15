@@ -1,6 +1,6 @@
 import { HttpHeaders } from "@angular/common/http";
 import { JsonApiModel } from "@ngx-material-dashboard/json-api";
-import { RemoteDataSource } from "@ngx-material-dashboard/widgets";
+import { RemoteDataSource } from "../../src/lib/table/shared/services/remote-data-source.service";
 
 /**
  * The RemoteDataSourceMock class is meant to mock the basic behavior of the
