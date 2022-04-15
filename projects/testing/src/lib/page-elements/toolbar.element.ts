@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { ButtonElement } from './button.element';
+import { ButtonElement } from './button/button.element';
 import { PageElement } from './page.element';
 
 /**

@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { PageElement } from './page.element';
+import { PageElement } from '../page.element';
 
 /**
  * The ButtonElement class defines properties and functions useful for testing
@@ -16,10 +16,14 @@ export class ButtonElement extends PageElement {
      * @param marker The CSS class marker used to find the button. 
      * @param fixture {@link ComponentFixture} where button is rendered.
      */
-    constructor(fixture: ComponentFixture<any>, private marker: string) {
+    constructor(
+        fixture: ComponentFixture<any>,
+        private marker: string,
+        private element?: HTMLElement
+    ) {
         super(fixture);
 
-        this.button = this.query<HTMLButtonElement>(this.marker);
+        this.button = this.query<HTMLButtonElement>(this.marker, this.element);
     }
 
     /**
