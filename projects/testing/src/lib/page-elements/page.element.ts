@@ -2,7 +2,11 @@ import { ComponentFixture } from '@angular/core/testing';
 
 export class PageElement {
     
-    constructor(protected fixture: ComponentFixture<any>) {}
+    fixture: ComponentFixture<any>
+
+    constructor(fixture: ComponentFixture<any>) {
+        this.fixture = fixture;
+    }
 
     //// query helpers ////
 
