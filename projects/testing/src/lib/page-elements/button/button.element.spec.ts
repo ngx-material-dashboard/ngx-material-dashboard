@@ -22,8 +22,6 @@ import { ButtonElement } from "./button.element";
     onClick(): void {}
 }
 
-@Component({ template: `<div></div>` }) class UndefinedButtonComponent {}
-
 describe('ButtonElement', () => {
 
     let buttonClickSpy: jasmine.Spy;
@@ -89,17 +87,6 @@ describe('ButtonElement', () => {
 
             // then: the buttonClickSpy should have been called
             expect(buttonClickSpy).toHaveBeenCalledTimes(0);
-        });
-    });
-
-    describe('Button not Defined in Component', () => {
-
-        it('should throw an Error when creating the ButtonElement with HTMLButtonElement', () => {
-            expect(() => init(UndefinedButtonComponent, 'div')).toThrowError('.marker-button not found in DIV');
-        });
-
-        it('should throw an Error when creating without HTMLButtonElement', () => {
-            expect(() => init(UndefinedButtonComponent)).toThrowError('.marker-button not found in fixture');
         });
     });
 });
