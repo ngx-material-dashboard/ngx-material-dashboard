@@ -14,9 +14,15 @@ import { ComponentFixture } from '@angular/core/testing';
  * what they did wrong in structuring their component or their tests.
  */
 export class PageElement {
-    
+
+    /** The fixture for component under test. */
     fixture: ComponentFixture<any>
 
+    /**
+     * Creates a new PageElement.
+     *
+     * @param fixture The fixture for component under test. 
+     */
     constructor(fixture: ComponentFixture<any>) {
         this.fixture = fixture;
     }
@@ -88,11 +94,11 @@ export class PageElement {
     /**
      * Utility function to perform query. This just helps to dry up some of the
      * error handling.
-     * 
-     * @param selector CSS selector used to find element(s). 
+     *
+     * @param selector CSS selector used to find element(s).
      * @param closure Function to perform query.
      * @param element Optional element to query from.
-     * @returns 
+     * @returns The element(s) that match given selector (if the exist in fixture or given element).
      */
     private queryUtil<T>(
         selector: string,
@@ -101,7 +107,7 @@ export class PageElement {
     ): T {
         const res = closure(selector);
         if (
-            (res && !(res instanceof NodeList)) || 
+            (res && !(res instanceof NodeList)) ||
             (res && res instanceof NodeList && res.length > 0)
         ) {
             // if the result is just a single element (query), then it should
