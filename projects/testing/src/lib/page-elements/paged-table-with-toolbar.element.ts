@@ -1,5 +1,5 @@
 import { ComponentFixture } from "@angular/core/testing";
-import { PageElement } from "./page.element";
+import { PageElement } from "./page/page.element";
 import { PagedTableElement } from "./paged-table.element";
 import { ToolbarElement } from "./toolbar.element";
 

@@ -1,7 +1,7 @@
 import { ComponentFixture } from "@angular/core/testing";
 import { JsonApiModel } from "@ngx-material-dashboard/json-api";
 import { CheckboxElement } from "./checkbox.element";
-import { PageElement } from "./page.element";
+import { PageElement } from "./page/page.element";
 import { PaginatorElement } from "./paginator.element";
 
 /**

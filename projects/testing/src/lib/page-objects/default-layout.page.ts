@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { PageElement } from '../page-elements/page.element';
+import { PageElement } from '../page-elements/page/page.element';
 import { SidenavElement } from '../page-elements/sidenav.element';
 import { ToolbarHeaderElement } from '../page-elements/toolbar-header.element';
 

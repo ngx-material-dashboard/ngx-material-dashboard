@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { PageElement } from './page.element';
+import { PageElement } from './page/page.element';
 
 /**
  * The SidenavElement class defines properties and functions for testing

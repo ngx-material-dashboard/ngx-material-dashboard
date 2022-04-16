@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
 import { ButtonElement } from './button/button.element';
-import { PageElement } from './page.element';
+import { PageElement } from './page/page.element';
 
 /**
  * The ToolbarElement class represents a material toolbar.
