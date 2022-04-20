@@ -142,8 +142,8 @@ describe('SidenavComponent', () => {
                     pageElement = new SidenavElement(fixture, ['pendingRequests']);
                 });
     
-                it('should not highlight sidnav item', () => {
-                    expect(pageElement.queryAll('.selected-list-item').length).toEqual(0);
+                it('should not highlight sidenav item', () => {
+                    expect(pageElement.isListItemActive('pendingRequests')).toBeFalse();
                 });
     
                 it('should navigate to route of given sidenavItem when item clicked', async() => {
@@ -174,8 +174,8 @@ describe('SidenavComponent', () => {
                     pageElement = new SidenavElement(fixture, ['pendingRequests']);
                 });
     
-                it('should not highlight sidnav item', () => {
-                    expect(pageElement.queryAll('.selected-list-item').length).toEqual(0);
+                it('should not highlight sidenav item', () => {
+                    expect(pageElement.isListItemActive('pendingRequests')).toBeFalse();
                 });
     
                 it('should navigate to route of given sidenavItem when item clicked', async() => {
@@ -206,8 +206,8 @@ describe('SidenavComponent', () => {
                     pageElement = new SidenavElement(fixture, ['pendingRequests']);
                 });
     
-                it('should not highlight sidnav item', () => {
-                    expect(pageElement.queryAll('.selected-list-item').length).toEqual(0);
+                it('should not highlight sidenav item', () => {
+                    expect(pageElement.isListItemActive('pendingRequests')).toBeFalse();
                 });
     
                 it('should navigate to route of given sidenavItem when item clicked', async() => {
@@ -298,7 +298,6 @@ function init(mockRouter: any, queryParams: any = {}): void {
             MockModule(MatSidenavModule),
             MockModule(FontAwesomeModule)
         ],
-        providers,
-        teardown: { destroyAfterEach: false }
+        providers
     });
 }

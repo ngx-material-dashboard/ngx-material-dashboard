@@ -198,9 +198,8 @@ describe('PagedTableComponent', () => {
                         expect(page.component.table.isAllSelected()).toEqual(true);
     
                         // and: all rows should have their checkboxes checked
-                        const checkBoxes: HTMLElement[] = page.rowCheckboxes;
-                        checkBoxes.forEach((checkboxHTMLElement: HTMLElement) => {
-                            const checkbox: CheckboxElement = new CheckboxElement(page.fixture, checkboxHTMLElement);
+                        const checkBoxes: CheckboxElement[] = page.rowCheckboxes;
+                        checkBoxes.forEach((checkbox: CheckboxElement) => {
                             expect(checkbox.checked).toBeTrue();
                         });
                     });
@@ -213,9 +212,8 @@ describe('PagedTableComponent', () => {
                         page.selectAll();
     
                         // then: no rows should have their checkboxes checked
-                        const checkBoxes: HTMLElement[] = page.rowCheckboxes;
-                        checkBoxes.forEach((checkboxHTMLElement: HTMLElement) => {
-                            const checkbox: CheckboxElement = new CheckboxElement(page.fixture, checkboxHTMLElement);
+                        const checkBoxes: CheckboxElement[] = page.rowCheckboxes;
+                        checkBoxes.forEach((checkbox: CheckboxElement) => {
                             expect(checkbox.checked).toBeFalse();
                         });
                     });
