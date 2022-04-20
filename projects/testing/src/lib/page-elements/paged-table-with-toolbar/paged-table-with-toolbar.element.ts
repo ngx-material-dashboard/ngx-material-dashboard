@@ -1,7 +1,7 @@
 import { ComponentFixture } from "@angular/core/testing";
-import { PageElement } from "./page/page.element";
-import { PagedTableElement } from "./paged-table.element";
-import { ToolbarElement } from "./toolbar.element";
+import { PageElement } from "../page/page.element";
+import { PagedTableElement } from "../paged-table/paged-table.element";
+import { ToolbarElement } from "../toolbar/toolbar.element";
 
 /**
  * The PagedTableWithToolbarElement defines properties and functions useful for
@@ -28,7 +28,7 @@ export class PagedTableWithToolbarElement extends PageElement {
         tableSelector: string,
         buttonSelectors: string[],
         selectable = true,
-        private noDataColumnSelector = 'noData'
+        noDataColumnSelector = 'noData'
     ) {
         super(fixture);
 

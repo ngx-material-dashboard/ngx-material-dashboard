@@ -8,3 +8,8 @@ import { JsonApiModelConfig } from '@ngx-material-dashboard/json-api';
 export class DummyObject extends JsonApiModel {
 
 }
+
+export const DUMMY_OBJECT_DATA: DummyObject[] = [];
+for(let i = 0; i < 200; i++) {
+    DUMMY_OBJECT_DATA.push({ id: i.toString() } as DummyObject);
+}

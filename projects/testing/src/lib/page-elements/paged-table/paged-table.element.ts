@@ -1,8 +1,8 @@
 import { ComponentFixture } from "@angular/core/testing";
 import { JsonApiModel } from "@ngx-material-dashboard/json-api";
-import { CheckboxElement } from "./checkbox.element";
-import { PageElement } from "./page/page.element";
-import { PaginatorElement } from "./paginator.element";
+import { CheckboxElement } from "../checkbox/checkbox.element";
+import { PageElement } from "../page/page.element";
+import { PaginatorElement } from "../paginator/paginator.element";
 
 /**
  * The PagedTableElement defines properties and functions useful for testing
@@ -22,12 +22,9 @@ export class PagedTableElement extends PageElement {
     /** The paginator element included with the table. */
     paginator: PaginatorElement;
     /** An array of all HTMLElement rows from the table. */
-    rows: HTMLElement[];
-    /** 
-     * An array of all HTMLElement checkboxes from the rows in the table
-     * (excludes the select all checkbox from the header).
-     */
-    rowCheckboxes: HTMLElement[];
+    rows!: HTMLElement[];
+    /** Array of all checkboxes in table (excludes header checkbox).*/
+    rowCheckboxes!: CheckboxElement[];
 
     /**
      * Creates a new PagedTableElement.
@@ -40,7 +37,7 @@ export class PagedTableElement extends PageElement {
     constructor(
         fixture: ComponentFixture<any>,
         selector: string,
-        selectable = true,
+        private selectable = true,
         private noDataColumnSelector = 'noData'
     ) {
         super(fixture);
@@ -48,14 +45,7 @@ export class PagedTableElement extends PageElement {
         this.component = fixture.componentInstance;
         this.tableElement = this.query<HTMLElement>(selector);
         this.paginator = new PaginatorElement(fixture, this.tableElement);
-        this.rows = this.queryAll<HTMLElement>('mat-row', this.tableElement);
-
-        if (selectable) {
-            // only query for row checkboxes if table is selectable
-            this.rowCheckboxes = this.queryAll<HTMLElement>('.marker-checkbox-row-select', this.tableElement);
-        } else {
-            this.rowCheckboxes = [];
-        }
+        this.initRowsAndCheckboxes();
     }
 
     /**
@@ -79,8 +69,9 @@ export class PagedTableElement extends PageElement {
     /**
      * Returns the checkbox in the header for selecting all visible rows.
      */
-    get selectAllCheckbox(): HTMLElement {
-        return this.query<HTMLElement>('.marker-checkbox-select-all', this.tableElement);
+    get selectAllCheckbox(): CheckboxElement {
+        const element: HTMLElement = this.query<HTMLElement>('.marker-checkbox-select-all', this.tableElement);
+        return new CheckboxElement(this.fixture, element);
     }
 
     /**
@@ -89,6 +80,40 @@ export class PagedTableElement extends PageElement {
     set data(data: JsonApiModel[]) {
         this.component.data = data;
         this.fixture.detectChanges();
+        this.initRowsAndCheckboxes();
+    }
+
+    /**
+     * Initializes the rows and row checkboxes. Called when element initially
+     * created, and when data set for element (so rows and corresponding
+     * checkboxes are updated accordingly).
+     */
+    private initRowsAndCheckboxes() {
+        try {
+            this.rows = this.queryAll<HTMLElement>('mat-row', this.tableElement);
+        } catch(error: any) {
+            if (error.message.toString().includes('mat-row not found in')) {
+                // this should happen when no data loaded in table; might be
+                // possible that mat-row just not defined though...
+                this.rows = [];
+            } else {
+                // something else happened; throw error so user can see (not
+                // really sure what this would be but throw error just in case)
+                throw error;
+            }
+        }
+
+        // re-initialize row checkboxes and query for CSS selectors if applicable
+        this.rowCheckboxes = [];
+        if (this.rows.length > 0 && this.selectable) {
+            // only query for row checkboxes if rows available and table selectable 
+            const checkboxes: HTMLElement[] = this.queryAll<HTMLElement>('.marker-checkbox-row-select', this.tableElement);
+
+            // add each checkbox HTML element to row checkboxes
+            checkboxes.forEach((checkbox: HTMLElement) => {
+                this.rowCheckboxes.push(new CheckboxElement(this.fixture, checkbox));
+            })
+        }
     }
 
     /**
@@ -103,7 +128,7 @@ export class PagedTableElement extends PageElement {
         const button: HTMLButtonElement | null = buttonCell.querySelector(`.button-marker-${click}`);
         if (button == null) {
             // throw an error if the button is not found
-            throw new Error('Expected HTMLButtonElement in table actions column');
+            throw new Error(`Expected HTMLButtonElement with CSS selector ".button-marker-${click}" in table actions column`);
         } else {
             // click the button if it is not null
             button.click();
@@ -123,6 +148,15 @@ export class PagedTableElement extends PageElement {
     }
 
     /**
+     * Returns true if header checkbox is checked.
+     *
+     * @returns True if header checkbox is checked. 
+     */
+    isAllSelected(): boolean {
+        return this.selectAllCheckbox.checked;
+    }
+
+    /**
      * Returns true if the row with the given index is selected (i.e. that it's
      * checkbox is checked).
      *
@@ -130,9 +164,7 @@ export class PagedTableElement extends PageElement {
      * @returns True if the row with the given index is selected.
      */
     isRowSelected(index: number): boolean {
-        const checkboxHTMLElement: HTMLElement = this.rowCheckboxes[index];
-        const checkBox: CheckboxElement = new CheckboxElement(this.fixture, checkboxHTMLElement);
-        return checkBox.checked;
+        return this.rowCheckboxes[index].checked;
     }
 
     /**
@@ -141,9 +173,7 @@ export class PagedTableElement extends PageElement {
      * @param index The row to click the checkbox in.
      */
     public async selectRow(index: number): Promise<void> {
-        const checkboxHTMLElement: HTMLElement = this.rowCheckboxes[index];
-        const checkBox: CheckboxElement = new CheckboxElement(this.fixture, checkboxHTMLElement);
-        await checkBox.click();
+        await this.rowCheckboxes[index].click();
     }
 
     /**
@@ -151,8 +181,6 @@ export class PagedTableElement extends PageElement {
      * visible checkboxes as selected (i.e. checked).
      */
      public async selectAll(): Promise<void> {
-        const checkboxHTMLElement: HTMLElement = this.selectAllCheckbox;
-        const checkBox: CheckboxElement = new CheckboxElement(this.fixture, checkboxHTMLElement);
-        await checkBox.click();
+        await this.selectAllCheckbox.click();
     }
 }

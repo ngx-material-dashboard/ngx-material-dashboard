@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { ToolbarElement } from './toolbar.element';
+import { ToolbarElement } from '../toolbar/toolbar.element';
 
 /**
  * The ToolbarHeaderElement class defines properties and functions for testing
