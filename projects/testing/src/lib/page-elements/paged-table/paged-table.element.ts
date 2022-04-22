@@ -1,5 +1,5 @@
 import { ComponentFixture } from "@angular/core/testing";
-import { JsonApiModel } from "@ngx-material-dashboard/json-api";
+import { JsonModel } from "@ngx-material-dashboard/base-json";
 import { CheckboxElement } from "../checkbox/checkbox.element";
 import { PageElement } from "../page/page.element";
 import { PaginatorElement } from "../paginator/paginator.element";
@@ -77,7 +77,7 @@ export class PagedTableElement extends PageElement {
     /**
      * Sets the data for the table.
      */
-    set data(data: JsonApiModel[]) {
+    set data(data: JsonModel[]) {
         this.component.data = data;
         this.fixture.detectChanges();
         this.initRowsAndCheckboxes();

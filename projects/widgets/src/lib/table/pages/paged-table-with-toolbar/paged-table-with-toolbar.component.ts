@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
 import { ButtonClick } from '../../interfaces/button-click.interface';
@@ -12,6 +11,7 @@ import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interf
 import { SelectionService } from '../../shared/services/selection.service';
 import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
+import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 /**
  * The PagedTableWithToolbarComponent represents a paged table with toolbar
@@ -34,7 +34,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
     templateUrl: './paged-table-with-toolbar.component.html',
     styleUrls: ['./paged-table-with-toolbar.component.scss']
 })
-export class PagedTableWithToolbarComponent<T extends JsonApiModel> implements AfterContentInit, OnDestroy, OnInit {
+export class PagedTableWithToolbarComponent<T extends JsonModel> implements AfterContentInit, OnDestroy, OnInit {
 
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
     @ContentChild(MatSort) sort!: MatSort;

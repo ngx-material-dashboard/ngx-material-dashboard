@@ -1,5 +1,5 @@
 import { Attribute } from '@ngx-material-dashboard/json-api/src/lib/decorators/attribute.decorator';
-import { JsonApiModelConfig } from '@ngx-material-dashboard/json-api/src/lib/decorators/json-api-model-config.decorator';
+import { JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
 import { Book } from './book.model';
 
 @JsonApiModelConfig({

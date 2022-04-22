@@ -2,17 +2,17 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule } from 'ngx-toastr';
 
 import { Datastore } from '../../../../../test/mocks/datastore.service';
-import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
 import { AbstractPagedTableWithToolbarComponent } from './abstract-paged-table-with-toolbar.component';
 
 describe('AbstractPagedTableWithToolbarComponent', () => {
-    let component: AbstractPagedTableWithToolbarComponent<DummyObject>;
-    let fixture: ComponentFixture<AbstractPagedTableWithToolbarComponent<DummyObject>>;
+    let component: AbstractPagedTableWithToolbarComponent<JsonModel>;
+    let fixture: ComponentFixture<AbstractPagedTableWithToolbarComponent<JsonModel>>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -24,8 +24,8 @@ describe('AbstractPagedTableWithToolbarComponent', () => {
                 MockModule(ToastrModule.forRoot())
             ],
             providers: [
-                { provide: JsonApiDatastore, useValue: Datastore },
-                { provide: JsonApiModel, useClass: DummyObject }
+                { provide: JsonDatastore, useValue: Datastore },
+                { provide: JsonModel, useClass: DummyObject }
             ]
         });
     });

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { JsonApiDatastoreConfig } from '@ngx-material-dashboard/base-json';
 
-import { JsonApiDatastoreConfig } from '@ngx-material-dashboard/json-api/src/lib/decorators/json-api-datastore-config.decorator';
 import { JsonApiDatastore } from '@ngx-material-dashboard/json-api/src/lib/services/json-api-datastore.service';
 import { Author } from './models/author.model';
 import { Book } from './models/book.model';

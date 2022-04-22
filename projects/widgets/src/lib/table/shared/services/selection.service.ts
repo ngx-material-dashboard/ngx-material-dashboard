@@ -1,13 +1,12 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SelectionService<T extends JsonApiModel> {
+export class SelectionService<T> {
 
     /** The observable that tracks the model that tracks items selected in table. */
     selection: Observable<SelectionModel<T>>;

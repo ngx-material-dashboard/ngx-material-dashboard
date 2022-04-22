@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+    DatastoreConfig,
+    JsonApiQueryData,
+    JsonDatastore,
+    ModelConfig,
+    ModelType
+} from '@ngx-material-dashboard/base-json';
 import { find } from 'lodash-es';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import * as qs from 'qs';
 import 'reflect-metadata';
 
-import { JsonApiModel } from '../models/json-api.model';
 import { ErrorResponse } from '../models/error-response.model';
-import { JsonApiQueryData } from '../models/json-api-query-data';
-import { DatastoreConfig } from '../interfaces/datastore-config.interface';
-import { ModelConfig } from '../interfaces/model-config.interface';
+import { JsonApiModel } from '../models/json-api.model';
 import { AttributeMetadata } from '../constants/symbols';
-
-export type ModelType<T extends JsonApiModel> = new(datastore: JsonApiDatastore, data: any) => T;
 
 /**
  * HACK/FIXME:
@@ -25,9 +27,9 @@ export type ModelType<T extends JsonApiModel> = new(datastore: JsonApiDatastore,
 const AttributeMetadataIndex: string | symbol = AttributeMetadata as any;
 
 @Injectable()
-export class JsonApiDatastore {
+export class JsonApiDatastore extends JsonDatastore {
 
-    protected config!: DatastoreConfig;
+    protected override config!: DatastoreConfig;
     private globalHeaders!: HttpHeaders;
     private globalRequestOptions: object = {};
     private internalStore: { [type: string]: { [id: string]: JsonApiModel } } = {};
@@ -36,6 +38,7 @@ export class JsonApiDatastore {
             this.datastoreConfig.overrides.toQueryString : this._toQueryString;
 
     constructor(protected http: HttpClient) {
+        super();
     }
 
     set headers(headers: HttpHeaders) {

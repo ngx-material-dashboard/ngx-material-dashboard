@@ -10,7 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
 import { CheckboxElement, PagedTableElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
@@ -44,7 +44,7 @@ for (let i = 0; i < 20; i++) {
 }) class TestPagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
     buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
-    data: JsonApiModel[] = [];
+    data: JsonModel[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 }
@@ -70,14 +70,14 @@ for (let i = 0; i < 20; i++) {
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 
-    constructor(private jsonApiDatastore: JsonApiDatastore) {
+    constructor(private jsonApiDatastore: JsonDatastore) {
         this.dataSource = new RemoteDataSource<DummyObject>(DummyObject, this.jsonApiDatastore);
     }
 }
 
 describe('PagedTableComponent', () => {
 
-    let datastore: JsonApiDatastore;
+    let datastore: JsonDatastore;
 
     describe('Local data source', () => {
         let page: PagedTableElement;
@@ -98,11 +98,11 @@ describe('PagedTableComponent', () => {
                 ],
                 providers: [
                     { provide: Datastore, deps: [HttpClient] },
-                    { provide: JsonApiDatastore, useClass: Datastore, deps: [HttpClient] }
+                    { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
                 ]
             }).compileComponents();
 
-            datastore = TestBed.inject(JsonApiDatastore);
+            datastore = TestBed.inject(JsonDatastore);
         });
     
         describe('No Table Data', () => {
@@ -275,7 +275,7 @@ describe('PagedTableComponent', () => {
                 providers: [
                     { provide: RemoteDataSource, deps: [Datastore] },
                     { provide: Datastore, deps: [HttpClient] },
-                    { provide: JsonApiDatastore, useClass: Datastore, deps: [HttpClient] }
+                    { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
                 ]
             }).compileComponents();
         });
@@ -339,7 +339,7 @@ describe('PagedTableComponent', () => {
  * @return A page helper to aid in tests.
  */
 function init(
-    data: JsonApiModel[] = [],
+    data: JsonModel[] = [],
     multiple = true
 ): PagedTableElement {
     const fixture: ComponentFixture<TestPagedTableComponent> = TestBed.createComponent(TestPagedTableComponent);

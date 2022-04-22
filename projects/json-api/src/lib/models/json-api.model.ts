@@ -1,11 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
+import { JsonModel, ModelConfig, ModelType } from '@ngx-material-dashboard/base-json';
 import { find, includes } from 'lodash-es';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 import { AttributeMetadata } from '../constants/symbols';
-import { ModelConfig } from '../interfaces/model-config.interface';
-import { JsonApiDatastore, ModelType } from '../services/json-api-datastore.service';
+import { JsonApiDatastore } from '../services/json-api-datastore.service';
 
 /**
  * HACK/FIXME:
@@ -16,8 +16,7 @@ import { JsonApiDatastore, ModelType } from '../services/json-api-datastore.serv
 // tslint:disable-next-line:variable-name
 const AttributeMetadataIndex: string = AttributeMetadata as any;
 
-export class JsonApiModel {
-    id?: string;
+export class JsonApiModel extends JsonModel {
     public modelInitialization = false;
 
     [key: string]: any;
@@ -25,6 +24,8 @@ export class JsonApiModel {
     lastSyncModels: Array<any> = [];
 
     constructor(private internalDatastore: JsonApiDatastore, data?: any) {
+        super();
+
         if (data) {
             this.modelInitialization = true;
             this.id = data.id;

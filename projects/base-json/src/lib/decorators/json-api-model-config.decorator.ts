@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ModelConfig } from '../interfaces/model-config.interface';
 import { JsonApiMetaModel } from '../models/json-api-meta.model';
 

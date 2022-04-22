@@ -4,6 +4,7 @@
     "peerDependencies": {
         "@angular/common": "^13.1.0",
         "@angular/core": "^13.1.0",
+        "@ngx-material-dashboard/base-json": "^0.0.1",
         "date-fns": "^2.28.0",
         "lodash-es": "^4.17.21",
         "qs": "^6.10.3"

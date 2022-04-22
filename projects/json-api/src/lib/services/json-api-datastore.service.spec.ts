@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { parseISO } from 'date-fns';
 
+import { JsonApiQueryData, ModelConfig } from '@ngx-material-dashboard/base-json';
 import { API_VERSION, BASE_URL, Datastore } from '@ngx-material-dashboard/json-api/test/datastore.service';
 import { API_VERSION_FROM_CONFIG, BASE_URL_FROM_CONFIG, DatastoreWithConfig } from '@ngx-material-dashboard/json-api/test/datastore-with-config.service';
 import { Author } from '@ngx-material-dashboard/json-api/test/models/author.model';
@@ -14,9 +15,7 @@ import { AUTHOR_API_VERSION, AUTHOR_MODEL_ENDPOINT_URL, CustomAuthor } from '@ng
 import { AUTHOR_BIRTH, AUTHOR_ID, AUTHOR_NAME, BOOK_TITLE, getAuthorData } from '@ngx-material-dashboard/json-api/test/fixtures/author.fixture';
 import { getSampleBook } from '@ngx-material-dashboard/json-api/test/fixtures/book.fixture';
 import { getSampleThing } from '@ngx-material-dashboard/json-api/test/fixtures/thing.fixture';
-import { ModelConfig } from '../interfaces/model-config.interface';
 import { ErrorResponse } from '../models/error-response.model';
-import { JsonApiQueryData } from '../models/json-api-query-data';
 
 describe('JsonApiDatastore', () => {
 

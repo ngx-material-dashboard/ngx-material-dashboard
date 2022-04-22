@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
+import { DatastoreConfig, JsonApiDatastoreConfig } from '@ngx-material-dashboard/base-json';
+
+
 import { Author } from './models/author.model';
 import { Book } from './models/book.model';
 import { Chapter } from './models/chapter.model';
 import { Section } from './models/section.model';
 import { Paragraph } from './models/paragraph.model';
 import { Sentence } from './models/sentence.model';
-import { JsonApiDatastoreConfig } from '@ngx-material-dashboard/json-api/src/lib/decorators/json-api-datastore-config.decorator';
 import { JsonApiDatastore } from '@ngx-material-dashboard/json-api/src/lib/services/json-api-datastore.service';
-import { DatastoreConfig } from '@ngx-material-dashboard/json-api/src/lib/interfaces/datastore-config.interface';
 
 const BASE_URL = 'http://localhost:8080';
 const API_VERSION = 'v1';

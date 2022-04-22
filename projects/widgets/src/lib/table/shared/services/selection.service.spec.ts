@@ -2,7 +2,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 
 import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
@@ -11,18 +12,18 @@ import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../table-toolbar-but
 import { SelectionService } from './selection.service';
 
 describe('SelectionService', () => {
-    let jsonApiDatastore: JsonApiDatastore;
-    let service: SelectionService<JsonApiModel>;
+    let jsonApiDatastore: JsonDatastore;
+    let service: SelectionService<JsonModel>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: JsonApiDatastore, useValue: Datastore }
+                { provide: JsonDatastore, useValue: Datastore }
             ]
         });
         service = TestBed.inject(SelectionService);
-        jsonApiDatastore = TestBed.inject(JsonApiDatastore);
+        jsonApiDatastore = TestBed.inject(JsonDatastore);
     });
 
     describe('No Selections Initially', () => {
@@ -68,7 +69,7 @@ describe('SelectionService', () => {
             const data: DummyObject[] = [new DummyObject(jsonApiDatastore, { id: '1' }), new DummyObject(jsonApiDatastore, { id: '2' })];
 
             // and: multiple selections
-            service.selectionSubject.next(new SelectionModel<JsonApiModel>(true, data));
+            service.selectionSubject.next(new SelectionModel<JsonModel>(true, data));
 
             // when: the toggleButtons method is called
             service.toggleButtons(false, buttons);
@@ -87,7 +88,7 @@ describe('SelectionService', () => {
         //     const o1 = new DummyObject('1');
         //     o1.deletable = false;
         //     const data: DummyObject[] = [o1, new DummyObject('2')];
-        //     service.selectionSubject.next(new SelectionModel<JsonApiModel>(true, data));
+        //     service.selectionSubject.next(new SelectionModel<JsonModel>(true, data));
 
         //     // when: the toggleButtons method is called
         //     service.toggleButtons(false, buttons);
@@ -104,7 +105,7 @@ describe('SelectionService', () => {
 
         //     // and: some dummy data
         //     const data: DummyObject[] = [new DummyObject('1'), new DummyObject('2')];
-        //     service.selectionSubject.next(new SelectionModel<JsonApiModel>(true, data));
+        //     service.selectionSubject.next(new SelectionModel<JsonModel>(true, data));
 
         //     // when: the toggleButtons method is called
         //     service.toggleButtons(false, buttons);

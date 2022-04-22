@@ -1,7 +1,6 @@
 import { AbstractControl, FormGroup } from "@angular/forms";
 import { MatSort } from "@angular/material/sort";
-import { JsonApiModel } from "@ngx-material-dashboard/json-api";
-import { JsonApiDatastore } from "@ngx-material-dashboard/json-api";
+import { JsonDatastore, JsonModel } from "@ngx-material-dashboard/base-json";
 import { filter, Subscription } from "rxjs";
 import { FilterDropDownComponent } from "../components/filter-drop-down/filter-drop-down.component";
 import { PagedTableComponent } from "../pages/paged-table/paged-table.component";
@@ -10,7 +9,7 @@ import { ButtonClick } from "./button-click.interface";
 import { TableButton } from "./table-button.interface";
 import { TableToolbarButton } from "./table-toolbar-button.interface";
 
-export interface PagedTableWithToolbar<T extends JsonApiModel> {
+export interface PagedTableWithToolbar<T extends JsonModel> {
 
     /** The form for the search filter in toolbar. */
     form: FormGroup;
@@ -19,7 +18,7 @@ export interface PagedTableWithToolbar<T extends JsonApiModel> {
     /** The list of columns to display in table. */
     displayedColumns: string[];
     /** Service for interacting with server API. */
-    jsonApiService: JsonApiDatastore;
+    jsonApiService: JsonDatastore;
     /** Shared subscription that is meant to hold all subscriptions in component. */
     sub: Subscription;
     /** The list of buttons to display in each row of table. */

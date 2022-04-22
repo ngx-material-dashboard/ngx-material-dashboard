@@ -5,9 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Subscription } from 'rxjs';
 
-import { ModelType } from '@ngx-material-dashboard/json-api';
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
-import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
+import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { TableButton } from '../../interfaces/table-button.interface';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
@@ -29,22 +27,22 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
 @Component({
     template: ''
 })
-export class AbstractPagedTableWithToolbarComponent<T extends JsonApiModel> 
+export class AbstractPagedTableWithToolbarComponent<T extends JsonModel> 
     implements PagedTableWithToolbar<T> {
 
     form!: FormGroup;
     dataSource: RemoteDataSource<T>;
     displayedColumns!: string[];
-    jsonApiService: JsonApiDatastore;
+    jsonApiService: JsonDatastore;
     sub: Subscription;
     tableButtons: TableButton[] = [];
     toolbarButtons: TableToolbarButton[] = [];
 
     constructor(
-        @Inject(JsonApiModel) private modelType: ModelType<T>,
+        @Inject(JsonModel) private modelType: ModelType<T>,
         private dialog: MatDialog,
         private formBuilder: FormBuilder,
-        jsonApiService: JsonApiDatastore,
+        jsonApiService: JsonDatastore,
         private toastrService: ToastrService
     ) {
         this.jsonApiService = jsonApiService;

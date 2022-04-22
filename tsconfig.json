@@ -3,6 +3,14 @@
     "compileOnSave": false,
     "compilerOptions": {
         "paths": {
+            "@ngx-material-dashboard/base-json/*": [
+                "projects/base-json/*",
+                "projects/base-json"
+            ],
+            "@ngx-material-dashboard/base-json": [
+                "dist/base-json/*",
+                "dist/base-json"
+            ],
             "@ngx-material-dashboard/json-api/*": [
                 "projects/json-api/*",
                 "projects/json-api"

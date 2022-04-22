@@ -1,5 +1,5 @@
 import { HttpHeaders } from "@angular/common/http";
-import { JsonApiModel } from "@ngx-material-dashboard/json-api";
+import { JsonModel } from "@ngx-material-dashboard/base-json";
 import { RemoteDataSource } from "../../src/lib/table/shared/services/remote-data-source.service";
 
 /**
@@ -8,7 +8,7 @@ import { RemoteDataSource } from "../../src/lib/table/shared/services/remote-dat
  * function that needs to be mocked is the load function to avoid making any
  * actual requests.
  */
-export class RemoteDataSourceMock<T extends JsonApiModel> extends RemoteDataSource<T> {
+export class RemoteDataSourceMock<T extends JsonModel> extends RemoteDataSource<T> {
     
     /** The test data to use when the load method is called. */
     private testData: T[] = [];

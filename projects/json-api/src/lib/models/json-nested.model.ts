@@ -1,4 +1,4 @@
-import { ModelConfig } from '../interfaces/model-config.interface';
+import { ModelConfig } from '@ngx-material-dashboard/base-json';
 import { JsonApiModel } from './json-api.model';
 
 export class JsonApiNestedModel {

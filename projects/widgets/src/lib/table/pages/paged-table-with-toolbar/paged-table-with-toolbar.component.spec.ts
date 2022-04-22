@@ -16,7 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
+import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { PagedTableWithToolbarElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
@@ -60,12 +60,12 @@ const testData: DummyObject[] = [
     implements PagedTableWithToolbar<DummyObject> {
 
     override displayedColumns: string[] = ['select', 'id', 'actions'];
-    override jsonApiService: JsonApiDatastore;
+    override jsonApiService: JsonDatastore;
 
     constructor(
         dialog: MatDialog,
         formBuilder: FormBuilder,
-        jsonApiService: JsonApiDatastore,
+        jsonApiService: JsonDatastore,
         toastrService: ToastrService
     ) {
         super(DummyObject, dialog, formBuilder, jsonApiService, toastrService);
@@ -122,7 +122,7 @@ describe('PagedTableWithToolbarComponent', () => {
             ],
             providers: [
                 { provide: Datastore, deps: [HttpClient] },
-                { provide: JsonApiDatastore, useClass: Datastore, deps: [HttpClient] }
+                { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
             ]
         });
     });

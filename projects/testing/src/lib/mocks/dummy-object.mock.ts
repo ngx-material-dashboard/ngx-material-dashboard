@@ -1,12 +1,20 @@
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
-import { JsonApiModelConfig } from '@ngx-material-dashboard/json-api';
+import { HttpHeaders } from '@angular/common/http';
+import { JsonModel, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
+import { Observable, of } from 'rxjs';
 
 /** A dummy object that can be used while testing. */
 @JsonApiModelConfig({
     type: 'dummy-object'
 })
-export class DummyObject extends JsonApiModel {
+export class DummyObject extends JsonModel {
 
+    public save(
+        params?: any,
+        headers?: HttpHeaders,
+        customUrl?: string
+    ): Observable<this> {
+        return of(this);
+    }
 }
 
 export const DUMMY_OBJECT_DATA: DummyObject[] = [];

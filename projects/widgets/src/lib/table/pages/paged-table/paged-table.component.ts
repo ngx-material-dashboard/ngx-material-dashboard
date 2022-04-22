@@ -3,9 +3,9 @@ import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitt
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/table';
+import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { TableButton } from '../../interfaces/table-button.interface';
 import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
@@ -42,7 +42,7 @@ import { SelectionService } from '../../shared/services/selection.service';
     templateUrl: './paged-table.component.html',
     styleUrls: ['./paged-table.component.scss']
 })
-export class PagedTableComponent<T extends JsonApiModel> implements AfterContentInit, AfterViewInit, OnDestroy, OnInit {
+export class PagedTableComponent<T extends JsonModel> implements AfterContentInit, AfterViewInit, OnDestroy, OnInit {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
@@ -173,7 +173,7 @@ export class PagedTableComponent<T extends JsonApiModel> implements AfterContent
     ngOnInit(): void {
     }
 
-    onActionButtonClick(buttonClick: string, row: JsonApiModel): void {
+    onActionButtonClick(buttonClick: string, row: JsonModel): void {
         this.tableButtonClick.emit({ click: buttonClick, row });
     }
 

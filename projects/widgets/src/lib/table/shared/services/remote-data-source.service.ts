@@ -1,17 +1,9 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { JsonApiModel } from '@ngx-material-dashboard/json-api';
-import { JsonApiDatastore } from '@ngx-material-dashboard/json-api';
-import { ModelType } from '@ngx-material-dashboard/json-api';
-import { JsonApiQueryData } from '@ngx-material-dashboard/json-api';
-
-@Injectable({
-    providedIn: 'root'
-})
-export class RemoteDataSource<T extends JsonApiModel> extends DataSource<T> {
+import { JsonDatastore, JsonApiQueryData, ModelType, JsonModel } from '@ngx-material-dashboard/base-json';
+export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
 
     /** The data to display in the table. */
     data: T[];
@@ -36,15 +28,15 @@ export class RemoteDataSource<T extends JsonApiModel> extends DataSource<T> {
     /** The total number of pages. */
     totalPages?: number;
     /** The model type for the datastore. */
-    // type: ModelType<JsonApiModel>;
+    // type: ModelType<JsonModel>;
     /** Subject for dataSource connection. */
     protected dataSubject: BehaviorSubject<T[]>;
     /** Subject for when connection to load data is active. */
     protected loadingSubject: BehaviorSubject<boolean>;
 
     constructor(
-        @Inject(JsonApiModel) private modelType: ModelType<T>,
-        private baseModelService: JsonApiDatastore
+        private modelType: ModelType<T>,
+        private baseModelService: JsonDatastore
     ) {
         super();
 

@@ -1,6 +1,9 @@
 /*
  * Public API Surface of testing
  */
+
+export * from './lib/mocks/dummy-object.mock';
+
 export * from './lib/page-elements/button/button.element';
 export * from './lib/page-elements/checkbox/checkbox.element';
 export * from './lib/page-elements/page/page.element';

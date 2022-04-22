@@ -1,6 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { JsonApiDatastore, JsonApiModel } from '@ngx-material-dashboard/json-api';
+import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
+import { Observable, of } from 'rxjs';
 
 import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { RemoteDataSource } from './remote-data-source.service';
@@ -9,20 +11,29 @@ import { RemoteDataSource } from './remote-data-source.service';
  * Use a mock of the JsonApiModel so we don't need to worry about
  * including providers for data parameters in tests.
  */
-class JsonApiModelMock {}
+class JsonModelMock extends JsonModel {
+    public save(
+        params?: any,
+        headers?: HttpHeaders,
+        customUrl?: string
+    ): Observable<this> {
+        return of(this);
+    }
+}
 
 describe('RemoteDataSourceService', () => {
-    let service: RemoteDataSource<JsonApiModel>;
+    let service: RemoteDataSource<JsonModelMock>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: JsonApiDatastore, useValue: Datastore },
-                { provide: JsonApiModel, useClass: JsonApiModelMock }
+                { provide: JsonDatastore, useValue: Datastore },
+                { provide: JsonModel, useClass: JsonModelMock }
             ]
         });
-        service = TestBed.inject(RemoteDataSource);
+        const datastore = TestBed.inject(JsonDatastore);
+        service = new RemoteDataSource(JsonModelMock, datastore);
     });
 
     it('should be created', () => {
