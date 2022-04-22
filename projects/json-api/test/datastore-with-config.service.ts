@@ -19,6 +19,7 @@ export const API_VERSION_FROM_CONFIG = 'v2';
 @JsonApiDatastoreConfig({
     baseUrl: BASE_URL,
     apiVersion: API_VERSION,
+    contentType: 'application/vnd.api+json',
     models: {
         authors: Author,
         books: Book,

@@ -10,7 +10,6 @@ import {
 import { find } from 'lodash-es';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
-import * as qs from 'qs';
 import 'reflect-metadata';
 
 import { ErrorResponse } from '../models/error-response.model';
@@ -30,28 +29,10 @@ const AttributeMetadataIndex: string | symbol = AttributeMetadata as any;
 export class JsonApiDatastore extends JsonDatastore {
 
     protected override config!: DatastoreConfig;
-    private globalHeaders!: HttpHeaders;
-    private globalRequestOptions: object = {};
     private internalStore: { [type: string]: { [id: string]: JsonApiModel } } = {};
-    private toQueryString: (params: any) => string = this.datastoreConfig.overrides
-        && this.datastoreConfig.overrides.toQueryString ?
-            this.datastoreConfig.overrides.toQueryString : this._toQueryString;
 
     constructor(protected http: HttpClient) {
         super();
-    }
-
-    set headers(headers: HttpHeaders) {
-        this.globalHeaders = headers;
-    }
-
-    set requestOptions(requestOptions: object) {
-        this.globalRequestOptions = requestOptions;
-    }
-
-    public get datastoreConfig(): DatastoreConfig {
-        const configFromDecorator: DatastoreConfig = Reflect.getMetadata('JsonApiDatastoreConfig', this.constructor);
-        return Object.assign(configFromDecorator, this.config);
     }
 
     private get getDirtyAttributes() {
@@ -384,30 +365,6 @@ export class JsonApiDatastore extends JsonDatastore {
         );
     }
 
-    protected buildUrl<T extends JsonApiModel>(
-        modelType: ModelType<T>,
-        params?: any,
-        id?: string,
-        customUrl?: string
-    ): string {
-        // TODO: use HttpParams instead of appending a string to the url
-        const queryParams: string = this.toQueryString(params);
-
-        if (customUrl) {
-            return queryParams ? `${customUrl}?${queryParams}` : customUrl;
-        }
-
-        const modelConfig: ModelConfig = Reflect.getMetadata('JsonApiModelConfig', modelType);
-
-        const baseUrl = modelConfig.baseUrl || this.datastoreConfig.baseUrl;
-        const apiVersion = modelConfig.apiVersion || this.datastoreConfig.apiVersion;
-        const modelEndpointUrl: string = modelConfig.modelEndpointUrl || modelConfig.type;
-
-        const url: string = [baseUrl, apiVersion, modelEndpointUrl, id].filter((x) => x).join('/');
-
-        return queryParams ? `${url}?${queryParams}` : url;
-    }
-
     protected getRelationships(data: any): any {
         let relationships: any;
 
@@ -578,37 +535,6 @@ export class JsonApiDatastore extends JsonDatastore {
         };
     }
 
-    protected buildHttpHeaders(customHeaders?: HttpHeaders): HttpHeaders {
-        let requestHeaders: HttpHeaders = new HttpHeaders({
-            Accept: 'application/vnd.api+json',
-            'Content-Type': 'application/vnd.api+json'
-        });
-
-        if (this.globalHeaders) {
-            this.globalHeaders.keys().forEach((key) => {
-                if (this.globalHeaders.has(key)) {
-                    const val = this.globalHeaders.get(key);
-                    if (val) {
-                        requestHeaders = requestHeaders.set(key, val);
-                    }                
-                }
-            });
-        }
-
-        if (customHeaders) {
-            customHeaders.keys().forEach((key) => {
-                if (customHeaders.has(key)) {
-                    const val = customHeaders.get(key);
-                    if (val) {
-                        requestHeaders = requestHeaders.set(key, val);
-                    }
-                }
-            });
-        }
-
-        return requestHeaders;
-    }
-
     protected resetMetadataAttributes<T extends JsonApiModel>(res: T, attributesMetadata: any, modelType: ModelType<T>) {
         for (const propertyName in attributesMetadata) {
             if (attributesMetadata.hasOwnProperty(propertyName)) {
@@ -655,19 +581,5 @@ export class JsonApiDatastore extends JsonDatastore {
 
     protected getModelPropertyNames(model: JsonApiModel) {
         return Reflect.getMetadata('AttributeMapping', model) || [];
-    }
-
-    private buildRequestOptions(customOptions: any = {}): object {
-        const httpHeaders: HttpHeaders = this.buildHttpHeaders(customOptions.headers);
-
-        const requestOptions: object = Object.assign(customOptions, {
-            headers: httpHeaders
-        });
-
-        return Object.assign(this.globalRequestOptions, requestOptions);
-    }
-
-    private _toQueryString(params: any): string {
-        return qs.stringify(params, {arrayFormat: 'brackets'});
     }
 }

@@ -6,14 +6,12 @@
         "@angular/core": "^13.1.0",
         "@ngx-material-dashboard/base-json": "^0.0.1",
         "date-fns": "^2.28.0",
-        "lodash-es": "^4.17.21",
-        "qs": "^6.10.3"
+        "lodash-es": "^4.17.21"
     },
     "dependencies": {
         "tslib": "^2.3.0"
     },
     "devDependencies": {
-        "@types/lodash-es": "^4.17.6",
-        "@types/qs": "^6.9.7"
+        "@types/lodash-es": "^4.17.6"
     }
 }
