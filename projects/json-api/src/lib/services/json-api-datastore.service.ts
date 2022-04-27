@@ -61,24 +61,6 @@ export class JsonApiDatastore extends JsonDatastore {
         return dirtyData;
     }
 
-    /**
-     * @deprecated use findAll method to take all models
-     */
-    query<T extends JsonApiModel>(
-        modelType: ModelType<T>,
-        params?: any,
-        headers?: HttpHeaders,
-        customUrl?: string
-    ): Observable<T[]> {
-        const requestHeaders: HttpHeaders = this.buildHttpHeaders(headers);
-        const url: string = this.buildUrl(modelType, params, undefined, customUrl);
-        return this.http.get(url, {headers: requestHeaders})
-        .pipe(
-            map((res: any) => this.extractQueryData(res, modelType) as T[]),
-            catchError((res: any) => this.handleError(res))
-        );
-    }
-
     public findAll<T extends JsonApiModel>(
         modelType: ModelType<T>,
         params?: any,
