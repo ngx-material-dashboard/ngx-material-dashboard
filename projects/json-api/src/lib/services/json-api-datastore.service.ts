@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {
+    AttributeMetadata,
     DatastoreConfig,
     JsonApiQueryData,
     JsonDatastore,
@@ -14,7 +15,6 @@ import 'reflect-metadata';
 
 import { ErrorResponse } from '../models/error-response.model';
 import { JsonApiModel } from '../models/json-api.model';
-import { AttributeMetadata } from '../constants/symbols';
 
 /**
  * HACK/FIXME:

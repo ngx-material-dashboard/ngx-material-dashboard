@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
 
-import { AttributeMetadata } from '../constants/symbols';
-import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-options.interface';
+import { AttributeDecoratorOptions, AttributeMetadata } from '@ngx-material-dashboard/base-json';
 
 export function NestedAttribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {

@@ -1,10 +1,6 @@
 /*
  * Public API Surface of json-api
  */
-
-export * from './lib/constants/symbols';
-
-export * from './lib/decorators/attribute.decorator';
 export * from './lib/decorators/belongs-to.decorator';
 export * from './lib/decorators/has-many.decorator';
 export * from './lib/decorators/json-attribute.decorator';

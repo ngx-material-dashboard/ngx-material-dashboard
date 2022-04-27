@@ -1,10 +1,9 @@
 import { HttpHeaders } from '@angular/common/http';
-import { JsonModel, ModelConfig, ModelType } from '@ngx-material-dashboard/base-json';
+import { AttributeMetadata, JsonModel, ModelConfig, ModelType } from '@ngx-material-dashboard/base-json';
 import { find, includes } from 'lodash-es';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
-import { AttributeMetadata } from '../constants/symbols';
 import { JsonApiDatastore } from '../services/json-api-datastore.service';
 
 /**
@@ -17,7 +16,6 @@ import { JsonApiDatastore } from '../services/json-api-datastore.service';
 const AttributeMetadataIndex: string = AttributeMetadata as any;
 
 export class JsonApiModel extends JsonModel {
-    public modelInitialization = false;
 
     [key: string]: any;
 

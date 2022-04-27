@@ -1,6 +1,5 @@
-import { DateConverter } from '../converters/date/date.converter';
-import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-options.interface';
 
+import { AttributeDecoratorOptions, DateConverter } from '@ngx-material-dashboard/base-json';
 export function JsonAttribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
   return (target: any, propertyName: string | symbol) => {
         const converter = (dataType: any, value: any, forSerialisation = false): any => {
