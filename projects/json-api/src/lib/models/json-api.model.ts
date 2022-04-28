@@ -1,28 +1,15 @@
-import { HttpHeaders } from '@angular/common/http';
-import { AttributeMetadata, JsonModel, ModelConfig, ModelType } from '@ngx-material-dashboard/base-json';
+import { JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
 import { find, includes } from 'lodash-es';
-import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 import { JsonApiDatastore } from '../services/json-api-datastore.service';
 
-/**
- * HACK/FIXME:
- * Type 'symbol' cannot be used as an index type.
- * TypeScript 2.9.x
- * See https://github.com/Microsoft/TypeScript/issues/24587.
- */
-// tslint:disable-next-line:variable-name
-const AttributeMetadataIndex: string = AttributeMetadata as any;
-
 export class JsonApiModel extends JsonModel {
-
-    [key: string]: any;
 
     lastSyncModels: Array<any> = [];
 
-    constructor(private internalDatastore: JsonApiDatastore, data?: any) {
-        super();
+    constructor(internalDatastore: JsonApiDatastore, data?: any) {
+        super(internalDatastore);
 
         if (data) {
             this.modelInitialization = true;
@@ -30,10 +17,6 @@ export class JsonApiModel extends JsonModel {
             Object.assign(this, data.attributes);
             this.modelInitialization = false;
         }
-    }
-
-    public isModelInitialization(): boolean {
-        return this.modelInitialization;
     }
 
     public syncRelationships(data: any, included: any, remainingModels?: Array<any>): void {
@@ -53,63 +36,6 @@ export class JsonApiModel extends JsonModel {
         }
 
         this.lastSyncModels = included;
-    }
-
-    public save(params?: any, headers?: HttpHeaders, customUrl?: string): Observable<this> {
-        this.checkChanges();
-        const attributesMetadata: any = this[AttributeMetadataIndex];
-        return this.internalDatastore.saveRecord(attributesMetadata, this, params, headers, customUrl);
-    }
-
-    get hasDirtyAttributes() {
-        this.checkChanges();
-        const attributesMetadata: any = this[AttributeMetadataIndex];
-        let hasDirtyAttributes = false;
-        for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
-                const metadata: any = attributesMetadata[propertyName];
-                if (metadata.hasDirtyAttributes) {
-                    hasDirtyAttributes = true;
-                    break;
-                }
-            }
-        }
-        return hasDirtyAttributes;
-    }
-
-    private checkChanges() {
-        const attributesMetadata: any = this[AttributeMetadata];
-        for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
-                const metadata: any = attributesMetadata[propertyName];
-                if (metadata.nested) {
-                    this[AttributeMetadata][propertyName].hasDirtyAttributes = !_.isEqual(
-                        attributesMetadata[propertyName].oldValue,
-                        attributesMetadata[propertyName].newValue
-                    );
-                    this[AttributeMetadata][propertyName].serialisationValue = attributesMetadata[propertyName].converter(
-                        Reflect.getMetadata('design:type', this, propertyName),
-                        _.cloneDeep(attributesMetadata[propertyName].newValue),
-                        true
-                    );
-                }
-            }
-        }
-    }
-
-    public rollbackAttributes(): void {
-        const attributesMetadata: any = this[AttributeMetadataIndex];
-        for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
-                if (attributesMetadata[propertyName].hasDirtyAttributes) {
-                    this[propertyName] = _.cloneDeep(attributesMetadata[propertyName].oldValue);
-                }
-            }
-        }
-    }
-
-    get modelConfig(): ModelConfig {
-        return Reflect.getMetadata('JsonApiModelConfig', this.constructor);
     }
 
     private parseHasMany(data: any, included: any, remainingModels: Array<any>): void {

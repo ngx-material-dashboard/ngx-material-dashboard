@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angul
 import { Injectable } from '@angular/core';
 import { DatastoreConfig, JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '@ngx-material-dashboard/base-json';
 import { Observable, map, catchError, throwError, of } from 'rxjs';
-import { ErrorResponse } from '../models/error-response.model';
 
 import { JsonModel } from '../models/json.model';
 
@@ -69,23 +68,6 @@ export class JsonDatastore extends BaseJsonDatastore {
         return new modelType(this, data);
     }
 
-    public transformSerializedNamesToPropertyNames<T extends JsonModel>(modelType: ModelType<T>, attributes: any) {
-        const serializedNameToPropertyName = this.getModelPropertyNames(modelType.prototype);
-        const properties: any = {};
-
-        Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
-            if (attributes && attributes[serializedName] !== null && attributes[serializedName] !== undefined) {
-                properties[serializedNameToPropertyName[serializedName]] = attributes[serializedName];
-            }
-        });
-
-        return properties;
-    }
-
-    protected getModelPropertyNames(model: JsonModel) {
-        return Reflect.getMetadata('AttributeMapping', model) || [];
-    }
-
     /**
      * Returns a list of objects along with meta data (i.e. total results).
      *
@@ -128,11 +110,6 @@ export class JsonDatastore extends BaseJsonDatastore {
         }
 
         return models;
-    }
-
-    protected parseMeta(body: any, modelType: ModelType<JsonModel>): any {
-        const metaModel: any = Reflect.getMetadata('JsonApiModelConfig', modelType).meta;
-        return new metaModel(body);
     }
 
     /**
@@ -276,19 +253,5 @@ export class JsonDatastore extends BaseJsonDatastore {
         // }
 
         return deserializedModel;
-    }
-
-    protected handleError(error: any): Observable<any> {
-        if (
-            error instanceof HttpErrorResponse &&
-            error.error instanceof Object &&
-            error.error.errors &&
-            error.error.errors instanceof Array
-        ) {
-            const errors: ErrorResponse = new ErrorResponse(error.error.errors);
-            return throwError(() => errors);
-        }
-
-        return throwError(() => error);
     }
 }

@@ -13,7 +13,6 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import 'reflect-metadata';
 
-import { ErrorResponse } from '../models/error-response.model';
 import { JsonApiModel } from '../models/json-api.model';
 
 /**
@@ -29,7 +28,7 @@ const AttributeMetadataIndex: string | symbol = AttributeMetadata as any;
 export class JsonApiDatastore extends JsonDatastore {
 
     protected override config!: DatastoreConfig;
-    private internalStore: { [type: string]: { [id: string]: JsonApiModel } } = {};
+    // private internalStore: { [type: string]: { [id: string]: JsonApiModel } } = {};
 
     constructor(protected http: HttpClient) {
         super();
@@ -231,49 +230,9 @@ export class JsonApiDatastore extends JsonDatastore {
     //     }
     // }
 
-    public peekRecord<T extends JsonApiModel>(modelType: ModelType<T>, id: string): T | null {
-        const type: string = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
-        return this.internalStore[type] ? this.internalStore[type][id] as T : null;
-    }
-
-    public peekAll<T extends JsonApiModel>(modelType: ModelType<T>): Array<T> {
-        const type = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
-        const typeStore = this.internalStore[type];
-        return typeStore ? Object.keys(typeStore).map((key) => typeStore[key] as T) : [];
-    }
-
-    public deserializeModel<T extends JsonApiModel>(modelType: ModelType<T>, data: any) {
+    public deserializeModel<T extends JsonApiModel>(modelType: ModelType<T>, data: any): T {
         data.attributes = this.transformSerializedNamesToPropertyNames(modelType, data.attributes);
         return new modelType(this, data);
-    }
-
-    public addToStore(modelOrModels: JsonApiModel | JsonApiModel[]): void {
-        const models = Array.isArray(modelOrModels) ? modelOrModels : [modelOrModels];
-        const type: string = models[0].modelConfig.type;
-        let typeStore = this.internalStore[type];
-
-        if (!typeStore) {
-            typeStore = this.internalStore[type] = {};
-        }
-
-        for (const model of models) {
-            if (model.id) {
-                typeStore[model.id] = model;
-            }
-        }
-    }
-
-    public transformSerializedNamesToPropertyNames<T extends JsonApiModel>(modelType: ModelType<T>, attributes: any) {
-        const serializedNameToPropertyName = this.getModelPropertyNames(modelType.prototype);
-        const properties: any = {};
-
-        Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
-            if (attributes && attributes[serializedName] !== null && attributes[serializedName] !== undefined) {
-                properties[serializedNameToPropertyName[serializedName]] = attributes[serializedName];
-            }
-        });
-
-        return properties;
     }
 
     /**
@@ -488,26 +447,6 @@ export class JsonApiDatastore extends JsonDatastore {
         return deserializedModel;
     }
 
-    // TODO FIX DEPRECATED CODE
-    protected handleError(error: any): Observable<any> {
-        if (
-            error instanceof HttpErrorResponse &&
-            error.error instanceof Object &&
-            error.error.errors &&
-            error.error.errors instanceof Array
-        ) {
-            const errors: ErrorResponse = new ErrorResponse(error.error.errors);
-            return throwError(errors);
-        }
-
-        return throwError(error);
-    }
-
-    protected parseMeta(body: any, modelType: ModelType<JsonApiModel>): any {
-        const metaModel: any = Reflect.getMetadata('JsonApiModelConfig', modelType).meta;
-        return new metaModel(body);
-    }
-
     /**
      * @deprecated use buildHttpHeaders method to build request headers
      */
@@ -559,9 +498,5 @@ export class JsonApiDatastore extends JsonDatastore {
         }
 
         return model;
-    }
-
-    protected getModelPropertyNames(model: JsonApiModel) {
-        return Reflect.getMetadata('AttributeMapping', model) || [];
     }
 }

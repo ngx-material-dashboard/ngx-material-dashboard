@@ -11,13 +11,3 @@ export interface JsonApiError {
     };
     meta?: any;
 }
-
-export class ErrorResponse {
-    errors?: JsonApiError[] = [];
-
-    constructor(errors ?: JsonApiError[]) {
-        if (errors) {
-            this.errors = errors;
-        }
-    }
-}

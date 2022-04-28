@@ -1,11 +1,13 @@
-import { HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
 import * as qs from 'qs';
 
 import { DatastoreConfig } from "../interfaces/datastore-config.interface";
 import { ModelConfig } from "../interfaces/model-config.interface";
 import { ModelType } from "../interfaces/model-type.interface";
 import { JsonApiQueryData } from "../models/json-api-query-data";
+import { JsonModel } from "../models/json.model";
+import { ErrorResponse } from "../models/error-response.model";
 
 /**
  * The JsonDatastore is the main datastore that should be used to interface
@@ -20,6 +22,7 @@ import { JsonApiQueryData } from "../models/json-api-query-data";
 export abstract class JsonDatastore {
 
     protected config!: DatastoreConfig;
+    protected internalStore: { [type: string]: { [id: string]: any } } = {};
     private globalHeaders!: HttpHeaders;
     private globalRequestOptions: object = {};
     private toQueryString: (params: any) => string = this.datastoreConfig.overrides
@@ -88,6 +91,32 @@ export abstract class JsonDatastore {
         customUrl?: string
     ): Observable<any>;
 
+    abstract saveRecord(
+        attributesMetadata: any,
+        model: any,
+        params?: any,
+        headers?: HttpHeaders,
+        customUrl?: string
+    ): Observable<any>;
+
+    abstract deserializeModel(modelType: ModelType<any>, data: any): any;
+
+    public addToStore(modelOrModels: JsonModel | JsonModel[]): void {
+        const models = Array.isArray(modelOrModels) ? modelOrModels : [modelOrModels];
+        const type: string = models[0].modelConfig.type;
+        let typeStore = this.internalStore[type];
+
+        if (!typeStore) {
+            typeStore = this.internalStore[type] = {};
+        }
+
+        for (const model of models) {
+            if (model.id) {
+                typeStore[model.id] = model;
+            }
+        }
+    }
+
     buildRequestOptions(customOptions: any = {}): object {
         const httpHeaders: HttpHeaders = this.buildHttpHeaders(customOptions.headers);
 
@@ -155,6 +184,53 @@ export abstract class JsonDatastore {
         const url: string = [baseUrl, apiVersion, modelEndpointUrl, id].filter((x) => x).join('/');
 
         return queryParams ? `${url}?${queryParams}` : url;
+    }
+
+    protected getModelPropertyNames(model: JsonModel) {
+        return Reflect.getMetadata('AttributeMapping', model) || [];
+    }
+
+    protected handleError(error: any): Observable<any> {
+        if (
+            error instanceof HttpErrorResponse &&
+            error.error instanceof Object &&
+            error.error.errors &&
+            error.error.errors instanceof Array
+        ) {
+            const errors: ErrorResponse = new ErrorResponse(error.error.errors);
+            return throwError(() => errors);
+        }
+
+        return throwError(() => error);
+    }
+
+    protected parseMeta(body: any, modelType: ModelType<JsonModel>): any {
+        const metaModel: any = Reflect.getMetadata('JsonApiModelConfig', modelType).meta;
+        return new metaModel(body);
+    }
+
+    public peekRecord<T>(modelType: ModelType<T>, id: string): T | null {
+        const type: string = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
+        return this.internalStore[type] ? this.internalStore[type][id] as T : null;
+    }
+
+    public peekAll<T>(modelType: ModelType<T>): Array<T> {
+        const type = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
+        const typeStore = this.internalStore[type];
+        return typeStore ? Object.keys(typeStore).map((key) => typeStore[key] as T) : [];
+    }
+
+    public transformSerializedNamesToPropertyNames<T>(modelType: ModelType<T>, attributes: any): any {
+        const serializedNameToPropertyName = this.getModelPropertyNames(modelType.prototype);
+        const properties: any = {};
+
+        Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
+            if (attributes && attributes[serializedName] !== null && attributes[serializedName] !== undefined) {
+                properties[serializedNameToPropertyName[serializedName]] = attributes[serializedName];
+            }
+        });
+
+        return properties;
     }
 
     private _toQueryString(params: any): string {
