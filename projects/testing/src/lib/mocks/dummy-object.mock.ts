@@ -1,6 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
-import { JsonModel, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
-import { Observable, of } from 'rxjs';
+import { JsonModel, JsonApiModelConfig, JsonDatastore } from '@ngx-material-dashboard/base-json';
 
 /** A dummy object that can be used while testing. */
 @JsonApiModelConfig({
@@ -8,12 +6,15 @@ import { Observable, of } from 'rxjs';
 })
 export class DummyObject extends JsonModel {
 
-    public save(
-        params?: any,
-        headers?: HttpHeaders,
-        customUrl?: string
-    ): Observable<this> {
-        return of(this);
+    constructor(internalDatastore: JsonDatastore, data?: any) {
+        super(internalDatastore);
+
+        if (data) {
+            this.modelInitialization = true;
+            this.id = data.id;
+            Object.assign(this, data);
+            this.modelInitialization = false;
+        }
     }
 }
 

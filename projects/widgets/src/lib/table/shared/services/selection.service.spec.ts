@@ -5,8 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 
-import { Datastore } from '../../../../../test/mocks/datastore.service';
-import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
+import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../table-toolbar-buttons';
 import { SelectionService } from './selection.service';

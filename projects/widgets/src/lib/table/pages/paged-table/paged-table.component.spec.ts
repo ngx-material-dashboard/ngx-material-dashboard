@@ -11,14 +11,12 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
-import { CheckboxElement, PagedTableElement } from '@ngx-material-dashboard/testing';
+import { CheckboxElement, Datastore, DummyObject, PagedTableElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
 import { TableButton } from '../../interfaces/table-button.interface';
 import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
-import { Datastore } from '../../../../../test/mocks/datastore.service';
-import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
 import { PagedTableComponent } from './paged-table.component';
 
 const pageSize = 5;

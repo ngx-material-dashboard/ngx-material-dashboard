@@ -17,12 +17,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { PagedTableWithToolbarElement } from '@ngx-material-dashboard/testing';
+import { Datastore, DummyObject, PagedTableWithToolbarElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-import { Datastore } from '../../../../../test/mocks/datastore.service';
-import { DummyObject } from '../../../../../test/mocks/dummy-object.mock';
 import { RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-source.service';
 import { PagedTableWithToolbar } from '../../interfaces/paged-table-with-toolbar.interface';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
