@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
-import { DummyObject } from '@ngx-material-dashboard/testing';
+import { Datastore } from '@ngx-material-dashboard/testing';
+import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-model.mock';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule } from 'ngx-toastr';
 
-import { Datastore } from '../../../../../test/mocks/datastore.service';
 import { AbstractPagedTableWithToolbarComponent } from './abstract-paged-table-with-toolbar.component';
 
 describe('AbstractPagedTableWithToolbarComponent', () => {
@@ -25,7 +25,7 @@ describe('AbstractPagedTableWithToolbarComponent', () => {
             ],
             providers: [
                 { provide: JsonDatastore, useValue: Datastore },
-                { provide: JsonModel, useClass: DummyObject }
+                { provide: JsonModel, useClass: JsonModelMock }
             ]
         });
     });
