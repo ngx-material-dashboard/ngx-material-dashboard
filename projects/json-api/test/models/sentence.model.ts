@@ -1,6 +1,5 @@
-import { JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
+import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
 import { JsonApiModel } from '@ngx-material-dashboard/json-api/src/lib/models/json-api.model';
-import { Attribute } from '@ngx-material-dashboard/json-api/src/lib/decorators/attribute.decorator';
 import { BelongsTo } from '@ngx-material-dashboard/json-api/src/lib/decorators/belongs-to.decorator';
 import { Paragraph } from './paragraph.model';
 

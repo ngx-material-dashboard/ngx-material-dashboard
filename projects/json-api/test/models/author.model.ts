@@ -1,6 +1,5 @@
-import { JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
+import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
 import { JsonApiModel } from '@ngx-material-dashboard/json-api/src/lib/models/json-api.model';
-import { Attribute } from '@ngx-material-dashboard/json-api/src/lib/decorators/attribute.decorator';
 import { HasMany } from '@ngx-material-dashboard/json-api/src/lib/decorators/has-many.decorator';
 import { NestedAttribute } from '@ngx-material-dashboard/json-api/src/lib/decorators/nested-attribute.decorator';
 import { JsonModelConverter } from '@ngx-material-dashboard/json-api/src/lib/converters/json-model/json-model.converter';

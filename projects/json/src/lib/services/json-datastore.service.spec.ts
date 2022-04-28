@@ -9,9 +9,8 @@ import { AUTHOR_BIRTH, AUTHOR_ID, AUTHOR_NAME, BOOK_TITLE, getAuthorData } from 
 import { Author } from '@ngx-material-dashboard/json/test/models/author.model';
 import { parseISO } from 'date-fns';
 import { Book } from '@ngx-material-dashboard/json/test/models/book.model';
-import { ErrorResponse } from '../models/error-response.model';
 import { getSampleBook } from '@ngx-material-dashboard/json/test/fixtures/book.fixture';
-import { JsonApiQueryData, ModelConfig } from '@ngx-material-dashboard/base-json';
+import { ErrorResponse, JsonApiQueryData, ModelConfig } from '@ngx-material-dashboard/base-json';
 
 describe('JsonDatastoreService', () => {
 

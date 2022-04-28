@@ -2,9 +2,8 @@
 import { Chapter } from './chapter.model';
 import { Author } from './author.model';
 import { Category } from './category.model';
-import { JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
+import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
 import { JsonApiModel } from '@ngx-material-dashboard/json-api/src/lib/models/json-api.model';
-import { Attribute } from '@ngx-material-dashboard/json-api/src/lib/decorators/attribute.decorator';
 import { HasMany } from '@ngx-material-dashboard/json-api/src/lib/decorators/has-many.decorator';
 import { BelongsTo } from '@ngx-material-dashboard/json-api/src/lib/decorators/belongs-to.decorator';
 

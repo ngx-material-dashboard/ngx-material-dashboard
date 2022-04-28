@@ -1,5 +1,6 @@
+import { PropertyConverter } from '@ngx-material-dashboard/base-json';
+
 import { JsonModelConverterConfig } from '../../interfaces/json-model-converter-config.interface';
-import { PropertyConverter } from '../../interfaces/property-converter.interface';
 import { JsonApiNestedModel } from '../../models/json-nested.model';
 
 export const DEFAULT_OPTIONS: JsonModelConverterConfig = {
