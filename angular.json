@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "JsonApi": {
+    "json-api": {
       "projectType": "library",
       "root": "projects/json-api",
       "sourceRoot": "projects/json-api/src",
