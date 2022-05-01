@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { DatastoreConfig, JsonDatastore, JsonApiDatastoreConfig, ModelType, JsonApiQueryData } from '@ngx-material-dashboard/base-json';
 import { Observable, of } from 'rxjs';
 import { DummyObject } from './dummy-object.mock';
@@ -17,11 +17,7 @@ export class Datastore extends JsonDatastore {
         apiVersion: 'v1'
     };
 
-    constructor(http: HttpClient) {
-        super();
-    }
-
-    findAll(
+    public override findAll(
         modelType: ModelType<any>,
         params?: any,
         headers?: HttpHeaders,
@@ -34,7 +30,7 @@ export class Datastore extends JsonDatastore {
         return new modelType(data);
     }
 
-    deleteRecord(
+    public override deleteRecord(
         modelType: ModelType<any>,
         id: string,
         headers?: HttpHeaders,
@@ -43,7 +39,7 @@ export class Datastore extends JsonDatastore {
         return of();
     }
 
-    saveRecord(
+    public override saveRecord(
         attributesMetadata: any,
         model: any,
         params?: any,
@@ -53,9 +49,20 @@ export class Datastore extends JsonDatastore {
         return of(model);
     }
 
-
     deserializeModel(modelType: ModelType<any>, data: any) {
         data = this.transformSerializedNamesToPropertyNames(modelType, data);
         return new modelType(this, data);
+    }
+
+    serializeModel(model: any, attributesMetadata: any, transition?: string, includeRelationships?: boolean) {
+        
+    }
+
+    protected extractQueryData(response: HttpResponse<object>, modelType: ModelType<any>, withMeta?: boolean): any[] | JsonApiQueryData<any> {
+        return [];
+    }
+
+    protected extractRecordData(res: HttpResponse<object>, modelType: ModelType<any>, model?: any) {
+        
     }
 }

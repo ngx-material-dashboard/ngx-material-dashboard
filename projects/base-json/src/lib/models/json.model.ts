@@ -16,18 +16,33 @@ import { JsonDatastore } from "../services/json-datastore.service";
 // tslint:disable-next-line:variable-name
 const AttributeMetadataIndex: string = AttributeMetadata as any;
 
+/**
+ * The JsonModel class represents the base model object for all client side
+ * data models. All client side data models that will interface with server
+ * side APIs through this library should extend this class.
+ */
 export abstract class JsonModel {
 
+    /** The primary key identifier for the model. */
     @Attribute() id?: string;
+    /** The datastore service that performs CRUD operations. */
     internalDatastore: JsonDatastore
+    /** Boolean value indicating whether model is being initialized. */
     modelInitialization = false;
+    /** Map of strings to any objects, used for tracking object meta data. */
     [key: string]: any;
 
     constructor(internalDatastore: JsonDatastore) {
         this.internalDatastore = internalDatastore;
     }
 
-    get hasDirtyAttributes() {
+    /**
+     * Returns true if this model has dirty attributes. A model has dirty
+     * attributes if any of it's properties changed.
+     * 
+     * @returns true if the model has dirty attributes.
+     */
+    get hasDirtyAttributes(): boolean {
         this.checkChanges();
         const attributesMetadata: any = this[AttributeMetadataIndex];
         let hasDirtyAttributes = false;
@@ -47,6 +62,10 @@ export abstract class JsonModel {
         return Reflect.getMetadata('JsonApiModelConfig', this.constructor);
     }
 
+    /**
+     * 
+     * @returns 
+     */
     public isModelInitialization(): boolean {
         return this.modelInitialization;
     }

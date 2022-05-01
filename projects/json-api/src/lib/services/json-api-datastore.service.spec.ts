@@ -16,7 +16,7 @@ import { AUTHOR_BIRTH, AUTHOR_ID, AUTHOR_NAME, BOOK_TITLE, getAuthorData } from 
 import { getSampleBook } from '@ngx-material-dashboard/json-api/test/fixtures/book.fixture';
 import { getSampleThing } from '@ngx-material-dashboard/json-api/test/fixtures/thing.fixture';
 
-describe('JsonApiDatastore', () => {
+fdescribe('JsonApiDatastore', () => {
 
     let datastore: Datastore;
     let datastoreWithConfig: DatastoreWithConfig;
@@ -332,7 +332,7 @@ describe('JsonApiDatastore', () => {
                 date_of_birth: AUTHOR_BIRTH
             });
 
-            author.save().subscribe((val) => {
+            author.save().subscribe((val: Author) => {
                 expect(val.id).toBeDefined();
                 expect(val.id).toEqual(AUTHOR_ID);
             });
@@ -366,7 +366,7 @@ describe('JsonApiDatastore', () => {
 
             author.save().subscribe({
                 next: () => fail('should throw error'),
-                error: (error) => expect(error).toEqual(new Error('no body in response'))
+                error: (error: any) => expect(error).toEqual(new Error('no body in response'))
             });
 
             const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
@@ -381,7 +381,7 @@ describe('JsonApiDatastore', () => {
 
             author.save().subscribe({
                 next: () => fail('should throw error'),
-                error: (error) => expect(error).toEqual(new Error('expected data in response'))
+                error: (error: any) => expect(error).toEqual(new Error('expected data in response'))
             });
 
             const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
@@ -394,7 +394,7 @@ describe('JsonApiDatastore', () => {
                 name: AUTHOR_NAME
             });
 
-            author.save().subscribe((val) => {
+            author.save().subscribe((val: Author) => {
                 expect(val).toBeDefined();
             });
 

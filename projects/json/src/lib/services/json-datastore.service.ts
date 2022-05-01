@@ -1,156 +1,22 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DatastoreConfig, JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '@ngx-material-dashboard/base-json';
-import { Observable, map, catchError, throwError, of } from 'rxjs';
-
+import { JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '@ngx-material-dashboard/base-json';
 import { JsonModel } from '../models/json.model';
 
 @Injectable()
 export class JsonDatastore extends BaseJsonDatastore {
 
-    protected override config!: DatastoreConfig;
-
-    constructor(protected httpClient: HttpClient) {
-        super();
-    }
-
-    private get getAttributes() {
-        if (this.datastoreConfig.overrides
-            && this.datastoreConfig.overrides.getDirtyAttributes
-        ) {
-            return this.datastoreConfig.overrides.getDirtyAttributes;
-        }
-        return JsonDatastore.getAttributes;
-    }
-
-    private static getAttributes(attributesMetadata: any): { string: any } {
-        const data: any = {};
-
-        for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
-                const metadata: any = attributesMetadata[propertyName];
-
-                if (metadata.hasDirtyAttributes) {
-                    const attributeName = metadata.serializedName != null ? metadata.serializedName : propertyName;
-                    data[attributeName] = metadata.serialisationValue ? metadata.serialisationValue : metadata.newValue;
-                }
-            }
-        }
-
-        return data;
-    }
-
-    /**
-     * Creates a new model using the given partial data.
-     *
-     * @param modelType The type of model to create.
-     * @param data The data to use when creating the model.
-     * @returns A newly created model based on the given data.
-     */
     public createRecord<T extends JsonModel>(modelType: ModelType<T>, data: Partial<T>): T {
         return new modelType(this, data);
     }
 
-    /**
-     * Deletes the object with the given id.
-     *
-     * @param modelType The type of model to delete.
-     * @param id The id of the object ot delete.
-     * @returns An empty observable.
-     */
-    public deleteRecord<T extends JsonModel>(modelType: ModelType<T>, id: string): Observable<any> {
-        const url = this.buildUrl(modelType);
-        return this.httpClient.delete(`${url}/${id}`);
-    }
-
-    public deserializeModel<T extends JsonModel>(modelType: ModelType<T>, data: any) {
+    public deserializeModel<T extends JsonModel>(modelType: ModelType<T>, data: any): T {
         data = this.transformSerializedNamesToPropertyNames(modelType, data);
         return new modelType(this, data);
     }
 
-    /**
-     * Returns a list of objects along with meta data (i.e. total results).
-     *
-     * @param modelType The type of models to retrieve.
-     * @param params Any parameters to include in the request (i.e. filter, sorting, etc).
-     * @returns A list of objects along with meta data.
-     */
-    public findAll<T extends JsonModel>(
-        modelType: ModelType<T>,
-        params?: any,
-        headers?: HttpHeaders,
-        customUrl?: string
-    ): Observable<JsonApiQueryData<T>> {
-        const requestOptions: object = this.buildRequestOptions({headers, observe: 'response'});
-        const url = this.buildUrl(modelType, params, undefined, customUrl);
-        return this.httpClient.get<any>(url, requestOptions).pipe(
-            map((res: any) => {
-                return this.extractQueryData(res, modelType, true) as JsonApiQueryData<T>;
-            }),
-            catchError((res: any) => this.handleError(res))
-        );
-    }
-
-    protected extractQueryData<T extends JsonModel>(
-        response: HttpResponse<object>,
-        modelType: ModelType<T>,
-        withMeta = false
-    ): Array<T> | JsonApiQueryData<T> {
-        const body: any = response.body;
-        const models: T[] = [];
-
-        body.data.forEach((data: any) => {
-            const model: T = this.deserializeModel(modelType, data);
-            // this.addToStore(model);
-            models.push(model);
-        });
-
-        if (withMeta && withMeta === true) {
-            return new JsonApiQueryData(models, this.parseMeta(body, modelType));
-        }
-
-        return models;
-    }
-
-    /**
-     * Returns the details for a single model.
-     *
-     * @param modelType The type of model to return.
-     * @param id The id of the model to return.
-     * @returns The requested model.
-     */
-    public findRecord<T extends JsonModel>(
-        modelType: ModelType<T>,
-        id: string,
-        params?: any,
-        headers?: HttpHeaders,
-        customUrl?: string
-    ): Observable<T> {
-        const requestOptions: object = this.buildRequestOptions({headers, observe: 'response'});
-        const url = this.buildUrl(modelType, params, id, customUrl);
-        return this.httpClient.get<{ data: T }>(url, requestOptions).pipe(
-            map((res: any) => this.extractRecordData(res, modelType))
-        );
-    }
-
-    /**
-     * Updates the given object.
-     *
-     * @param id The id of the object to update.
-     * @param model The object to update.
-     * @returns The updated object.
-     */
-    public updateRecord<T extends JsonModel>(
-        model: T,
-        transition?: string,
-        params?: { [param: string]: string | string[] } 
-    ): Observable<T> {
-        const modelType = model.constructor as ModelType<T>;
-        const requestHeaders: HttpHeaders = this.buildHttpHeaders();
-        const url = this.buildUrl(modelType, '', model.id);
-
-        const attributesMetadata: any = Reflect.getMetadata('Attribute', model);
-        const data: any = this.getAttributes(attributesMetadata, model);
+    public serializeModel(model: any, attributesMetadata: any, transition?: string): any {
+        const data: any = this.getDirtyAttributes(attributesMetadata, model);
 
         let body;
         if (transition) {
@@ -164,58 +30,28 @@ export class JsonDatastore extends BaseJsonDatastore {
             body = data;
         }
 
-        return this.httpClient.put(url, body, { headers: requestHeaders, observe: 'response', params }).pipe(
-            map((res: HttpResponse<object>) => {
-                return [200, 201].indexOf(res.status) !== -1 ? this.extractRecordData(res, modelType, model) as T : model as T;
-            }),
-            catchError((res) => {
-                if (res == null) {
-                    return of(model);
-                }
-
-                return this.handleError(res);
-            })
-        );
+        return body;
     }
 
-    /**
-     * Creates or updates the given object based on whether the object exists
-     * in the DB already. For now an object exists if it has an id property.
-     * This method helps reduce logic in components so you can just call save
-     * regardless of whether object exists or not.
-     *
-     * @param model Object to create or update.
-     * @returns The new or updated object.
-     */
-    public saveRecord<T extends JsonModel>(
-        attributesMetadata: any,
-        model: T,
-        params?: any,
-        headers?: HttpHeaders,
-        customUrl?: string
-    ): Observable<T> {
-        const modelType = model.constructor as ModelType<T>;
-        const requestOptions: object = this.buildRequestOptions({headers, observe: 'response'});
-        const url = this.buildUrl(modelType, params, model.id, customUrl);
+    protected extractQueryData<T extends JsonModel>(
+        response: HttpResponse<object>,
+        modelType: ModelType<T>,
+        withMeta = false
+    ): Array<T> | JsonApiQueryData<T> {
+        const body: any = response.body;
+        const models: T[] = [];
 
-        let httpCall: Observable<HttpResponse<object>>;
-        const body: any = this.getAttributes(attributesMetadata, model);
+        body.data.forEach((data: any) => {
+            const model: T = this.deserializeModel(modelType, data);
+            this.addToStore(model);
+            models.push(model);
+        });
 
-        if (model.id) {
-            httpCall = this.httpClient.patch<object>(url, body, requestOptions) as Observable<HttpResponse<object>>;
-        } else {
-            httpCall = this.httpClient.post<object>(url, body, requestOptions) as Observable<HttpResponse<object>>;
+        if (withMeta && withMeta === true) {
+            return new JsonApiQueryData(models, this.parseMeta(body, modelType));
         }
 
-        return httpCall.pipe(
-            map((res) => [200, 201].indexOf(res.status) !== -1 ? this.extractRecordData(res, modelType, model) : model),
-            catchError((res) => {
-                if (res == null) {
-                    return of(model);
-                }
-                return this.handleError(res);
-            })
-        );
+        return models;
     }
 
     protected extractRecordData<T extends JsonModel>(
@@ -246,7 +82,7 @@ export class JsonDatastore extends BaseJsonDatastore {
         }
 
         const deserializedModel = model || this.deserializeModel(modelType, body.data);
-        // this.addToStore(deserializedModel);
+        this.addToStore(deserializedModel);
         // if (body.included) {
         //     deserializedModel.syncRelationships(body.data, body.included);
         //     this.addToStore(deserializedModel);
