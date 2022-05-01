@@ -4,6 +4,14 @@ import { AttributeMetadata } from '../constants/symbols';
 import { DateConverter } from '../converters/date/date.converter';
 import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-options.interface';
 
+/**
+ * Attribute decorator defines a custom property decorator that should be added
+ * to each property defined in your client side data models that you intend to
+ * include in HTTP request/response data.
+ * 
+ * @param options Custom options included in decorator. 
+ * @returns A custom property decorator for JSON attributes.
+ */
 export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {
         const converter = (dataType: any, value: any, forSerialisation = false): any => {
