@@ -8,6 +8,7 @@ import { ModelType } from "../interfaces/model-type.interface";
 import { JsonApiQueryData } from "../models/json-api-query-data";
 import { JsonModel } from "../models/json.model";
 import { ErrorResponse } from "../models/error-response.model";
+import { Injectable } from "@angular/core";
 
 /**
  * The JsonDatastore is the main datastore service that should be used to
@@ -31,6 +32,7 @@ import { ErrorResponse } from "../models/error-response.model";
  * meet the needs of your application. You may also override any public or
  * protected method/value in your code as well
  */
+@Injectable()
 export abstract class JsonDatastore {
 
     protected config!: DatastoreConfig;
