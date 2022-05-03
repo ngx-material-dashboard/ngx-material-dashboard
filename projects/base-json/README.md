@@ -110,7 +110,11 @@ following configuration included in your tsconfig.json:
 
 The following sections detail how to extend this library in case the JSON
 structure defined in the json or json-api library do not meet your
-application needs.
+application needs. There are 2 main steps you will need to take in order to
+extend this library.
+
+1. Create a base data model and add/update your client side data models
+2. Create a datastore service to be used for interfacing with your API
 
 ### Data Models
 
@@ -157,9 +161,11 @@ with properties you define in each of your data models.
 > models instead of trying to create them directly (more on that below)
 
 With your base data model defined you can create the remaining data models you
-intend to use with this library. Below is a sample Task data model you might
-define that could correspond with the endpoints listed in the Background
-section above.
+intend to use with this library. Your application's data models will need to
+include the JsonApiModelConfig on the class itself, and Attribute decorators on
+each of the properties you need to include in your JSON. Below is a sample Task
+data model you might define that could correspond with the endpoints listed in
+the Background section above.
 
 ```typescript
 import { Attribute, JsonApiModelConfig } from "@ngx-material-dashboard/base-json";
@@ -178,11 +184,10 @@ export class Task extends JsonModel {
 }
 ```
 
-The above class includes Attribute and JsonApiModelConfig decoraters from this
-library. The JsonApiModelConfig decorator provides configuration options the
+The JsonApiModelConfig decorator provides configuration options the
 library needs to interface with the server side API. The only required option
 is the `type` option. When this is the only option included it is used to
-defines the endpoint used to interface with your server side API. There are
+define the endpoint used to interface with your server side API. There are
 additional configuration options available. You can take a look at the source
 code to see the additional options.
 
@@ -210,7 +215,7 @@ which you must provide implementations for in your service:
 | createRecord      | 1) modelType - Type of model to return<br>2) data - Optional map of data with properties for model                                                                                                                                                                               | Returns a new instance of given model type.                                                                                                                                                                      |
 | deserializeModel  | 1) modelType - Type of model to return<br>2) data - JSON data used to create model                                                                                                                                                                                               | Returns given JSON data as given modelType.                                                                                                                                                                      |
 | serializeModel    | 1) model - Model to serialize to JSON<br>2) attributesMetadata - Metadata for model instance<br>3) transition - Optional transition to include as meta data in request body<br>4) includeRelationships - Optional boolean value to include relationship data (defaults to false) | Returns JSON object that can be included in HTTP request body.                                                                                                                                                   |
-| extractQueryData  | 1) response - HTTP response from server<br>2) modelType - Type of model included in response<br>3) withMeta - Optional value indicating if meta data included                                                                                                                    | Parses and extracts query data from given HTTP response body which should contain a list of results, and returns an object<br>that includes the list of models and any meta data (i.e. total number of results). |
+| extractQueryData  | 1) response - HTTP response from server<br>2) modelType - Type of model included in response<br>3) withMeta - Optional value indicating if meta data included                                                                                                                    | Parses and extracts query data from given HTTP response body which should contain a list of results, and returns an object that includes the list of models and any meta data (i.e. total number of results). |
 | extractRecordData | 1) response - HTTP response from server<br>2) modelType - Type of model included in response<br>3) model - Instance of model                                                                                                                                                     | Parses and extracts query data from given HTTP response body which should contain a single main object (and may include other objects in terms of relational data).                                              |
 
 The deserializeModel method is intended to be used by the extractQueryData and
@@ -218,8 +223,8 @@ extractRecordData methods, while the serializeModel method is used by internal
 CRUD methods to convert object data into JSON that can be inserted into the body
 of HTTP requests. The createModel is kind of a one off method that I thought
 should be implemented by extending libraries since this can vary depending on
-know how your models are structured. I am including the JsonDatastore from the
-json library for your reference below, but I also suggest taking a look at the
+how your models are structured. I am including the JsonDatastore from the json
+library for your reference below, but I also suggest taking a look at the
 JsonApiDatastore defined in the json-api library to see a different
 implementation for a more well defined JSON structure.
 
@@ -301,6 +306,131 @@ export class JsonDatastore extends BaseJsonDatastore {
         return deserializedModel;
     }
 }
+```
+
+From here you have one of 2 options:
+
+1. Use the JsonDatastore you created directly in your app; or
+2. Create a separate JsonDatastore that extends the one you created
+
+Regardless of the choice you make you need to include configuration options
+to your datastore by using the JsonApiDatastoreConfig decorator. This provides
+configuration options needed by the datastore, which include configurations for
+defining the base URL to use when making HTTP requests to your server side API,
+and a map of model types to model classes, among other things. I prefer to go
+with option 2 as I extend either the datastore from the json library or the
+datastore from the json-api library in my applications and end up with an empty
+extending class that just includes configuration needed for the library. Doing
+this just helps keep necessary library logic separate from your main application
+configuration and code, but ultimately I leave it up to you to decide what is
+best for your application. With either choice you will need to have something
+like the following to provide all configuration options needed for the library:
+
+```typescript
+import { Injectable } from '@angular/core';
+import { DatastoreConfig, JsonApiDatastoreConfig } from '@ngx-material-dashboard/base-json';
+import { JsonDatastore } from '@ngx-material-dashboard/json';
+
+import { Task } from '@shared/models/task.model';
+
+const config: DatastoreConfig = {
+    baseUrl: 'http://localhost:8080/api',
+    models: {
+        'tasks': Task
+    }
+}
+
+@Injectable()
+@JsonApiDatastoreConfig(config)
+export class JsonApiService extends JsonDatastore {}
+```
+
+If you've made it this far, then you should be ready to start making calls to
+your API for your entities.
+
+### CRUD Capabilities
+
+The following section provides details on how to use the library once you have
+completed creating your data models and datastore. Notice that the service
+includes the @Injectable() decorator, which means you can inject it into your
+components like any other injectable service. Once you have an instance of the
+datastore service defined in your client you can perform all basic CRUD
+operations. See below for a break down of each operation.
+
+> NOTE: All methods related to interfacing with your server side API return
+> Observables, so don't forget to subscribe in order to make the necessary
+> HTTP requests.
+
+### Create
+
+To create a new model you will need to call the createRecord method like the
+following:
+
+```typescript
+const data: Partial<Task> = { name: 'Create a task', ... };
+const task: Task = this.jsonDatastore.createRecord(Task, data);
+```
+
+> NOTE: as stated above this will only create a new instance of a model and
+> does not make any HTTP requests.
+
+### Save/Update
+
+Once you create a new instance of a model you can save it by calling save on
+the model directly. If you call save() on a new model, the library will create
+the necessary POST method when connecting to your server side API.
+
+```typescript
+task.save().subscribe((val: Task) => {
+    // whatever you need to do after you save the value
+});
+```
+
+You can also use the above code to update existing models through your server
+side API. Calling save() on an existing model will create the necessary PATCH
+request to update the model through your API. Internally the save method uses
+the saveRecord method defined in the base datastore, and it is "smart" enough
+to determine the appropriate HTTP request method to use based on whether the
+model exists in your server data or not. The way it determines whether a model
+exists is if it has an id defined, which is pretty simple, but effective since
+you shouldn't be defining this yourself in your client side code anyway.
+
+### Read
+
+There are 2 ways to fetch data from your server side API.
+
+1. Find a single model by id.
+2. Query for multiple paged data sets.
+
+To find a single model you can use the findRecord function as follows:
+
+```typescript
+this.jsonDatastore.findRecord<Task>(Task, '1').subscribe((val: Task) => {
+    // anything you need to do once you get the record
+});
+```
+
+To query for multiple paged data sets you can use the findAll function as
+follows:
+
+```typescript
+let tasks: Task[];
+let total: number;
+this.jsonDatastore.findAll<JsonApiQueryData<Task>>(Task).subscribe(
+    (val: JsonApiQueryData<Task>) => {
+        tasks = val.getModels();
+        total = val.getMeta().meta.total;
+        // anything else you need to do...
+    }
+)
+```
+
+### Delete
+
+To delete an existing model you can use the deleteRecord function as follows:
+
+```typescript
+this.jsonDatastore.deleteRecord(Task, '1').subscribe(() => {});
 ```
 
 ## Running unit tests
