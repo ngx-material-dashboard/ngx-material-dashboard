@@ -1,27 +1,35 @@
 # NgxMaterialDashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+The NgxMaterialDashboard contains several libraries and an example project that
+demonstrates how to use those libraries (example project to be added...).
 
-## Development server
+## Libraries
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Click on the corresponding links below to see more details about each library.
 
-## Code scaffolding
+1. base-json - base library for interfacing with RESTful JSON API from Angular
+2. json - customized library using base-json to interface with general JSON API
+3. json-api - customized library using base-json to interface with JSON API that
+uses [json:api spec](https://jsonapi.org/)
+4. testing - library with helper classes for testing Angular components
+5. widgets - library built on top of [Angular Material](https://material.angular.io/)
+with various widgets that can be used in a dashboard layout
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Sample Project
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+I intend to add a sample project that shows how to utilize the above libraries.
+Stay tuned...
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To run all unit tests in the workspace you can run
 
-## Running end-to-end tests
+```bash
+npm test
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This will run unit tests for all libraries/projects in the workspace without
+watching for changes in the libraries (i.e. no re-runs of tests if you make any
+code changes). If you are developing for one or more of the libraries and you
+want to run tests with `--watch` enabled, then I suggest using the `ng test`
+command with the corresponding library name (i.e. `ng test base-json`).

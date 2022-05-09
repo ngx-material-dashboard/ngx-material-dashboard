@@ -433,6 +433,15 @@ To delete an existing model you can use the deleteRecord function as follows:
 this.jsonDatastore.deleteRecord(Task, '1').subscribe(() => {});
 ```
 
+## Contributing
+
+Currently I am the only developer contributing to this project, and since this
+is my first open source project I do not have any specific guidelines for how
+to contribute to the library. If you want to add something you feel might be
+useful, then open an issue and we can discuss how to go about doing that. The
+only thing I really request right now is that you write good clean code and
+that you include unit tests to ensure your code works as expected.
+
 ## Running unit tests
 
 Run `ng test base-json` to execute the unit tests via
