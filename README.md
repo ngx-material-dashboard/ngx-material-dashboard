@@ -25,6 +25,17 @@ used in a dashboard layout
 I intend to add a sample project that shows how to utilize the above libraries.
 Stay tuned...
 
+## Contributing
+
+Currently I am the only developer contributing to this project, and since this
+is my first open source project I do not have any specific guidelines for how
+to contribute. If you want to add something you feel might be useful, then open
+an issue and we can discuss how to go about doing that. The only thing I really
+request right now is that you write good clean code and that you include unit
+tests to ensure your code works as expected.
+
+> NOTE: see my [disclaimer](#disclaimer) below about submitting bugs/issues.
+
 ## Running unit tests
 
 To run all unit tests in the workspace you can run
@@ -38,3 +49,15 @@ watching for changes in the libraries (i.e. no re-runs of tests if you make any
 code changes). If you are developing for one or more of the libraries and you
 want to run tests with `--watch` enabled, then I suggest using the `ng test`
 command with the corresponding library name (i.e. `ng test base-json`).
+
+## Authors
+
+* **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)
+
+## Disclaimer
+
+This project is provided as is. I do hope to actively maintain and add to it as
+I have time, but I am the only person working on it and I do have a full time
+job that does not involve developing this project. So with that in mind, please
+be aware that if you submit any bugs/issues for this project or any library
+within, I most likely will not get to them in any sort of timely manner.

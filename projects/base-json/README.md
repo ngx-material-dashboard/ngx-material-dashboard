@@ -14,11 +14,11 @@ The intent for this library is that it should be extended so you can define
 how your data is structured and how to serialize and deserialize it. I have
 created 2 libraries that extend this one and provide implementations for which
 you should be able to use as is with minimal configuration and code changes
-required when adding to your application (that is if the general JSON structure
-defined in either library works with your application). The libraries I created
-are the json and json-api libraries. The json library uses a general JSON
-structure that effectively turns an object directly into JSON, while the
-json-api library follows the json:api specification as defined at
+required when adding to your application (that is if the JSON structure defined
+in either library works with your application). The libraries I created are the
+[json](../json/) and [json-api](../json-api/) libraries. The json library uses
+a general JSON structure that effectively turns an object directly into JSON,
+while the json-api library follows the json:api specification as defined at
 https://jsonapi.org/. See the respective libraries in the links provided above
 for more details on using them.
 
@@ -47,8 +47,9 @@ similar library that I could use with any kind of JSON (although I admit I
 didn't look very hard), I found myself using the angular2-jsonapi as a guide
 to build a generic client side data model and store. After having the 2
 separate libraries, seeing just how much code was duplicated, and spending
-countless nights thinking about DRYing up my code, I finally managed to combine
-the duplicate code into this library.
+countless nights thinking about DRYing up my code across projects (because why
+should I just DRY up my code in one project when I can DRY up my code for all
+projects), I finally managed to combine the duplicate code into this library.
 
 While I have tried to make this library as generic and extensible as possible,
 there are a few assumptions that I had to make when creating it. Your API should
@@ -57,25 +58,28 @@ model in your database, and you should be using common HTTP request methods. As
 an example, if you have a Task model for your application you should have
 something like the following endpoints defined in your API:
 
-    GET     /tasks          For querying and paging through list of tasks
-    GET     /tasks/:id      For returning details for task with given id
-    POST    /tasks/         For creating a new task
-    PATCH   /tasks/:id      For updating task with given id
-    DELETE  /tasks/:id      For deleting task with given id
+| HTTP Method | URL Endpoint | Description                                   |
+| ----------- | ------------ | --------------------------------------------- |
+| GET         | /tasks       | For querying and paging through list of tasks |
+| GET         | /tasks/:id   | For returning details for task with given id  |
+| POST        | /tasks/      | For creating a new task                       |
+| PATCH       | /tasks/:id   | For updating task with given id               |
+| DELETE      | /tasks/:id   | For deleting task with given id               |
 
-Another reason I wrote this library was to provide a base line API to use with
-custom built Angular components that I have provided in the widgets library.
-While the base-json, json, and json-api libraries can be used on their own,
-they can (and need to be included) when using the widgets library. The widgets
-library includes a lot of functionality for managing your application entities
-from your client side application to your server side API without a lot of code.
-A lot of the projects I've worked on allow for managing data through various
-paged tables, and yet again I found myself duplicating a lot of code. The
-widgets library is the result of even more countless hours of me sitting up at
-night trying to figure out how to remove as much duplicate code from my
-Angular components as possible, and to allow for incredibly fast delivery of
-certain repeated features. For more about the widgets library see the link
-above.
+Another reason I wrote this library was to provide a base line client API for
+interfacing with a JSON server side API to use with custom built Angular
+components that I have provided in the [widgets](../widgets/) library. While
+the base-json, json, and json-api libraries can be used on their own, they can
+(and need to be included) when using the widgets library. The widgets library
+includes a lot of functionality for managing your application entities from
+your client side application to your server side API without a lot of code. A
+lot of the projects I've worked on allow for managing data through various
+paged tables, and yet again I found myself duplicating a lot of code across
+projects. The widgets library is the result of even more countless hours of me
+sitting up at night trying to figure out how to remove as much duplicate code
+from my Angular components as possible, and to allow for incredibly fast
+delivery of certain repeated features. For more about the widgets library see
+the link above.
 
 ## Getting Started
 
@@ -442,6 +446,8 @@ useful, then open an issue and we can discuss how to go about doing that. The
 only thing I really request right now is that you write good clean code and
 that you include unit tests to ensure your code works as expected.
 
+> NOTE: see my [disclaimer](#disclaimer) below about submitting bugs/issues.
+
 ## Running unit tests
 
 Run `ng test base-json` to execute the unit tests via
@@ -461,5 +467,5 @@ version 13.1.0.
 This library is provided as is. I do hope to actively maintain and add to it as
 I have time, but I am the only person working on this library and I do have a
 full time job that does not involve developing this library. So with that in
-mind, please be aware that I most likely will not get to fix any bugs or issues
-you may find in any sort of timely manner.
+mind, please be aware that if you submit any bugs/issues for this library I most
+likely will not get to them in any sort of timely manner.
