@@ -8,13 +8,17 @@ project to be added...).
 
 Click on the corresponding links below to see more details about each library.
 
-1. [base-json](projects/base-json/) - base library for interfacing with RESTful JSON API from Angular
-2. json - customized library using base-json to interface with general JSON API
-3. json-api - customized library using base-json to interface with JSON API that
-uses [json:api spec](https://jsonapi.org/)
-4. testing - library with helper classes for testing Angular components
-5. widgets - library built on top of [Angular Material](https://material.angular.io/)
-with various widgets that can be used in a dashboard layout
+1. [base-json](projects/base-json/) - base library for interfacing with RESTful
+JSON API from Angular
+2. [json](projects/json/) - customized library using base-json to interface with
+general JSON API
+3. [json-api](projects/json-api/) - customized library using base-json to
+interface with JSON API that uses [json:api spec](https://jsonapi.org/)
+4. [testing](projects/testing/) - library with helper classes for testing Angular
+components
+5. [widgets](projects/widgets/) - library built on top of 
+[Angular Material](https://material.angular.io/) with various widgets that can be
+used in a dashboard layout
 
 ## Sample Project
 
