@@ -25,6 +25,9 @@ such PageElements can be made up of other PageElements (i.e. a paged table
 consists of a table and paginator elements). Following from this, Pages can be
 made up of multiple PageElements.
 
+I've tried to come up with as many general purpose PageElements as I could. I
+may add more if/when I come up with any additional PageElements.
+
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli)
 version 13.1.0.
 

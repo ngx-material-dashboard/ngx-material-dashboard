@@ -94,9 +94,10 @@ npm install @ngx-material-dashboard/base-json
 ### Configuration
 
 In order for the library to work as expected you need to make sure you have the
-following configuration included in your tsconfig.json:
+`emitDecoratorMetadata` and `experimentalDecorators` options set to true. So
+make sure your `tsconfig.json` has the following:
 
-```
+```json
 {
     "compilerOptions": {
         ...
@@ -312,23 +313,30 @@ export class JsonDatastore extends BaseJsonDatastore {
 }
 ```
 
-From here you have one of 2 options:
+Once you have defined your main datastore you need to add configuration using
+the `@JsonApiDatastoreConfig` decorator. You can do this one of two ways,
 
-1. Use the JsonDatastore you created directly in your app; or
+1. Add decorator to datastore you created above and use that directly in your
+app; or
 2. Create a separate JsonDatastore that extends the one you created
 
-Regardless of the choice you make you need to include configuration options
-to your datastore by using the JsonApiDatastoreConfig decorator. This provides
-configuration options needed by the datastore, which include configurations for
-defining the base URL to use when making HTTP requests to your server side API,
-and a map of model types to model classes, among other things. I prefer to go
-with option 2 as I extend either the datastore from the json library or the
-datastore from the json-api library in my applications and end up with an empty
-extending class that just includes configuration needed for the library. Doing
-this just helps keep necessary library logic separate from your main application
-configuration and code, but ultimately I leave it up to you to decide what is
-best for your application. With either choice you will need to have something
-like the following to provide all configuration options needed for the library:
+Going with option 1. is perfectly fine, and you are more than welcome to do so.
+I just include option 2 since this follows more in line with how the json and
+json-api libraries are structured and used.
+
+The `@JsonApiDatastoreConfig` decorator provides the following configuration
+options needed by the datastore:
+
+| Option      | Description                                                          |
+| ----------- | -------------------------------------------------------------------- |
+| apiVersion  | Global version for API, only use this if you include it in your URLs |
+| baseUrl     | The base URL for your API (i.e. http://localhost:8080)               |
+| contentType | The `Accept` and `Content-Type` headers used in requests             |
+| models      | Map of model types to model classes to be used in datastore          |
+| overrides   | Used for overriding getDirtyAttributes and toQueryString functions   |
+
+See below for an example of adding the `@JsonApiDatastoreConfig` with minimum
+options needed for the library:
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -337,6 +345,7 @@ import { JsonDatastore } from '@ngx-material-dashboard/json';
 
 import { Task } from '@shared/models/task.model';
 
+// define configuration options
 const config: DatastoreConfig = {
     baseUrl: 'http://localhost:8080/api',
     models: {
@@ -345,9 +354,14 @@ const config: DatastoreConfig = {
 }
 
 @Injectable()
-@JsonApiDatastoreConfig(config)
-export class JsonApiService extends JsonDatastore {}
+@JsonApiDatastoreConfig(config) // add configuration options
+export class JsonApiService extends JsonDatastore {...}
 ```
+
+> NOTE: you may define and add configuration options directly to the decorator
+> if you like, I just prefer to keep them separate since the configuration is
+> usually a lot larger with real world applications where you will have a lot
+> more than just 1 model defined.
 
 If you've made it this far, then you should be ready to start making calls to
 your API for your entities.
@@ -367,8 +381,9 @@ operations. See below for a break down of each operation.
 
 ### Create
 
-To create a new model you will need to call the createRecord method like the
-following:
+To create a new model you will need to call the createRecord method. The first
+argument is the type of object you want to create, and the second argument is
+a JSON object with attributes for the model you want to create.
 
 ```typescript
 const data: Partial<Task> = { name: 'Create a task', ... };
@@ -420,7 +435,10 @@ follows:
 ```typescript
 let tasks: Task[];
 let total: number;
-this.jsonDatastore.findAll<JsonApiQueryData<Task>>(Task).subscribe(
+this.jsonDatastore.findAll<JsonApiQueryData<Task>>(
+    Task,
+    page: { size: 10, number: 1 }
+).subscribe(
     (val: JsonApiQueryData<Task>) => {
         tasks = val.getModels();
         total = val.getMeta().meta.total;
@@ -435,6 +453,43 @@ To delete an existing model you can use the deleteRecord function as follows:
 
 ```typescript
 this.jsonDatastore.deleteRecord(Task, '1').subscribe(() => {});
+```
+
+## Custom Headers
+
+You can add custom headers to be appended to each HTTP request:
+
+```typescript
+this.jsonDatastore.headers = new HttpHeaders({ 'Authorization': 'Bearer ' + accessToken });
+```
+
+You can also pass custom headers as one of the optional arguments for any CRUD
+method call (see method signatures for determining which parameter to use):
+
+```typescript
+task.save({}, new HttpHeaders({ 'Authorization': 'Bearer ' + accessToken }));
+```
+
+## Error Handling
+
+Error handling is done in the `subscribe` method of the `Observables` returned
+from CRUD operations. Your API should return a valid JSON error object. The
+[JsonApiError](../base-json/src/lib/interfaces/json-api-error.interface.ts)
+interface, which uses the error format defined in the 
+[json:api spec](https://jsonapi.org/format/#error-objects),
+can be used for handling error responses. You may also define your own interface
+and use that in your error handling.
+
+```typescript
+task.save().subscribe(
+    (res: Task) => { /* do something with the success response here */ },
+    (error: any) => {
+        // you may use your own interface instead of JsonApiError if you like
+        if (error instanceof JsonApiError) {
+            // do something with error.errors
+        }
+    } 
+);
 ```
 
 ## Contributing
