@@ -400,6 +400,9 @@ export abstract class JsonDatastore {
         return Object.assign(this.globalRequestOptions, requestOptions);
     }
 
+    /**
+     * Returns the attributes that are dirty.
+     */
     protected get getDirtyAttributes() {
         if (this.datastoreConfig.overrides
             && this.datastoreConfig.overrides.getDirtyAttributes
@@ -409,6 +412,12 @@ export abstract class JsonDatastore {
         return JsonDatastore.getDirtyAttributes;
     }
 
+    /**
+     * Determines the model attributes that are dirty.
+     *
+     * @param attributesMetadata Metadata for attributes for model. 
+     * @returns The model attributes that are dirty.
+     */
     protected static getDirtyAttributes(attributesMetadata: any): { string: any } {
         const dirtyData: any = {};
 
