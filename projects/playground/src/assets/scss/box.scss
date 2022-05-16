@@ -1,0 +1,16 @@
+/* Styles to fill height of remaining space. Taken from below stackoverflow.
+    https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space */
+
+.box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.box > .content {
+    flex: 1 1 auto;
+}
+
+.footer {
+    flex: 0 1 40px;
+}
