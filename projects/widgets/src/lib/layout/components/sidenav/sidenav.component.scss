@@ -1,8 +1,20 @@
 @use '@angular/material' as mat;
 @import '@angular/material/theming';
-@include mat.core();
 
-$primary: mat.define-palette(mat.$blue-palette);
+// add mixin for setting colors based on given $primary color; this should
+// be used whereever themes are defined in your app
+@mixin sidenav-theme($primary) {
+
+    .mat-list-item:hover,
+    .selected-list-item {
+        background: mat.get-color-from-palette($primary, 50);
+        background-color: mat.get-color-from-palette($primary, 50);
+    }
+
+    .selected-list-item {
+        border-right: 3px solid mat.get-color-from-palette($primary, 700) !important;
+    }
+}
 
 .mat-list-item {
     /* Setting box-sizing to border-box ensures the border-right
@@ -14,17 +26,7 @@ $primary: mat.define-palette(mat.$blue-palette);
     border-right: 3px solid transparent;
 }
 
-.mat-list-item:hover,
-.selected-list-item {
-    background: mat.get-color-from-palette($primary, 50);
-    background-color: mat.get-color-from-palette($primary, 50);
-}
-
 .mat-nav-list {
     /* Remove space between top of list and top of sidenav content. */
     padding-top: 0px;
-}
-
-.selected-list-item {
-    border-right: 3px solid mat.get-color-from-palette($primary, 700);
 }

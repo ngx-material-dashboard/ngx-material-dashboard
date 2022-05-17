@@ -1,5 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "assets": ["./src/lib/layout/components/sidenav/sidenav.component.scss"],
   "dest": "../../dist/widgets",
   "lib": {
     "entryFile": "src/public-api.ts"

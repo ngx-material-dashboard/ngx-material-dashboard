@@ -5,6 +5,9 @@
         "ng": "ng",
         "test": "ng test widgets"
     },
+    "./sidenav-theming": {
+        "sass": "./src/lib/layout/components/sidenav/sidenav.component.scss"
+    },
     "peerDependencies": {
         "@angular/cdk": "^13.3.2",
         "@angular/common": "^13.1.0",
