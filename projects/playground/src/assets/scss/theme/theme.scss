@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../../../../../dist/widgets/src/lib/layout/components/sidenav/sidenav.component.scss';
 
 // import the custom color palettes defined for theme
 @import './color-palettes.scss';
@@ -24,3 +25,6 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($app-theme);
+// call sidenav-theme mixin in widgets library to set sidenav color based on
+// primary theme color defined above (see https://stackoverflow.com/a/70205541)
+@include sidenav-theme($app-primary);
