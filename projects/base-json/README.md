@@ -217,7 +217,7 @@ which you must provide implementations for in your service:
 
 | Method Name       | Parameters                                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                      |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| createRecord      | 1) modelType - Type of model to return<br>2) data - Optional map of data with properties for model                                                                                                                                                                               | Returns a new instance of given model type.                                                                                                                                                                      |
+| createRecord      | 1) modelType - Type of model to create<br>2) data - Optional map of data with properties for model                                                                                                                                                                               | Returns a new instance of given model type locally only (i.e. should not make any HTTP requests to save the object; that should be done with `save()`)                                                                                                                                                                      |
 | deserializeModel  | 1) modelType - Type of model to return<br>2) data - JSON data used to create model                                                                                                                                                                                               | Returns given JSON data as given modelType.                                                                                                                                                                      |
 | serializeModel    | 1) model - Model to serialize to JSON<br>2) attributesMetadata - Metadata for model instance<br>3) transition - Optional transition to include as meta data in request body<br>4) includeRelationships - Optional boolean value to include relationship data (defaults to false) | Returns JSON object that can be included in HTTP request body.                                                                                                                                                   |
 | extractQueryData  | 1) response - HTTP response from server<br>2) modelType - Type of model included in response<br>3) withMeta - Optional value indicating if meta data included                                                                                                                    | Parses and extracts query data from given HTTP response body which should contain a list of results, and returns an object that includes the list of models and any meta data (i.e. total number of results). |
@@ -321,19 +321,19 @@ app; or
 2. Create a separate JsonDatastore that extends the one you created
 
 Going with option 1. is perfectly fine, and you are more than welcome to do so.
-I just include option 2 since this follows more in line with how the json and
-json-api libraries are structured and used.
+I just include option 2 since this is more in line with how the json and json-api
+libraries are structured and used.
 
 The `@JsonApiDatastoreConfig` decorator provides the following configuration
-options needed by the datastore:
+options used by the datastore:
 
-| Option      | Description                                                          |
-| ----------- | -------------------------------------------------------------------- |
-| apiVersion  | Global version for API, only use this if you include it in your URLs |
-| baseUrl     | The base URL for your API (i.e. http://localhost:8080)               |
-| contentType | The `Accept` and `Content-Type` headers used in requests             |
-| models      | Map of model types to model classes to be used in datastore          |
-| overrides   | Used for overriding getDirtyAttributes and toQueryString functions   |
+| Option      | Description                                                                               |
+| ----------- | ----------------------------------------------------------------------------------------- |
+| apiVersion  | Global version for API, only use this if you include it in your URLs                      |
+| baseUrl     | The base URL for your API (i.e. http://localhost:8080)                                    |
+| contentType | The `Accept` and `Content-Type` headers used in requests (defaults to `application/json`) |
+| models      | Map of model types to model classes to be used in datastore                               |
+| overrides   | Used for overriding getDirtyAttributes and toQueryString functions                        |
 
 See below for an example of adding the `@JsonApiDatastoreConfig` with minimum
 options needed for the library:
@@ -506,7 +506,9 @@ that you include unit tests to ensure your code works as expected.
 ## Running unit tests
 
 Run `ng test base-json` to execute the unit tests via
-[Karma](https://karma-runner.github.io).
+[Karma](https://karma-runner.github.io). If you are contributing to the project
+then you should be running these and ensuring that any changes/additions you
+make do not break existing functionality.
 
 ## Built With
 
@@ -522,5 +524,6 @@ version 13.1.0.
 This library is provided as is. I do hope to actively maintain and add to it as
 I have time, but I am the only person working on this library and I do have a
 full time job that does not involve developing this library. So with that in
-mind, please be aware that if you submit any bugs/issues for this library I most
-likely will not get to them in any sort of timely manner.
+mind, please be aware that if you submit any bugs/issues for this library I will
+try to fix them if I can, but I most likely will not get to them in any sort of
+timely manner.
