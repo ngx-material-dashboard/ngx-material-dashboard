@@ -18,6 +18,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DefaultLayoutComponent } from './pages/default-layout/default-layout.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingService } from './services/loading.service';
+import { DrawerRailModule } from 'angular-material-rail-drawer';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { LoadingService } from './services/loading.service';
         MatProgressSpinnerModule,
         MatSidenavModule,
         MatToolbarModule,
+        DrawerRailModule,
         FontAwesomeModule
     ],
     providers: [

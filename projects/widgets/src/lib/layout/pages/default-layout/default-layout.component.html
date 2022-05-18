@@ -2,9 +2,14 @@
 <div class="box" fxLayout="column">
     <app-header class="mat-elevation-z6" [logo]="logo" (toggleSidenav)="toggleSidenav()"></app-header>
     <mat-sidenav-container class="content" fxLayout="row">
-        <mat-sidenav [mode]="mode" #sidenav>
+        <mat-sidenav *ngIf="mode === 'rail'; else defaultSidenav" rail-mode [opened]="opened" #sidenav>
             <app-sidenav [sidenavItems]="sidenavItems"></app-sidenav>
         </mat-sidenav>
+        <ng-template #defaultSidenav>
+            <mat-sidenav [mode]="mode" #sidenav>
+                <app-sidenav [sidenavItems]="sidenavItems"></app-sidenav>
+            </mat-sidenav>
+        </ng-template>
         <mat-sidenav-content fxFlex>
             <router-outlet></router-outlet>
         </mat-sidenav-content>

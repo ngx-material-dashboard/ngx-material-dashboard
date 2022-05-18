@@ -17,13 +17,17 @@ export class DefaultLayoutComponent {
 
     @Input() company = '';
     @Input() logo = 'My App';
+    /** The mode for the drawer (i.e. 'over', 'push', 'side', or 'rail'). */
+    @Input() mode: any = 'side';
     @Input() sidenavItems: SidenavItem[] = [];
     /** Boolean indicating whether the screen size is small (defaults to false). */
     @Input() isSmallScreen = false;
     /** The sidenav defined in the template. */
     @ViewChild('sidenav') sidenav!: MatSidenav;
-    /** The mode for the drawer (i.e. 'over', 'push', or 'side'). */
-    mode: MatDrawerMode = 'side';
+
+    get opened(): boolean {
+        return this.mode === 'rail';
+    }
 
     /**
      * Toggles the sidenav.
