@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:playground": "ng serve playground",
     "build": "ng build base-json && ng build testing && ng build json-api && ng build json && ng build widgets",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch"
