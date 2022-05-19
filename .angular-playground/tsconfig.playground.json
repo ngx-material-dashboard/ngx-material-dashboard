@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "types": []
+  },
+  "files": [
+    "./main.playground.ts",
+    "../projects/playground/src/polyfills.ts"
+  ],
+  "include": [
+    "../src/**/*.d.ts",
+    "../src/**/*.sandbox.ts",
+    "../projects/widgets/src/**/*.sandbox.ts"
+  ]
+}

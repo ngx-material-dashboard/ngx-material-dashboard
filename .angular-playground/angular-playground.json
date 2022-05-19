@@ -1,0 +1,9 @@
+{
+  "sourceRoots": [
+      "./projects/playground/src",
+      "./projects/widgets/src"
+  ],
+  "angularCli": {
+    "appName": "playground"
+  }
+}
