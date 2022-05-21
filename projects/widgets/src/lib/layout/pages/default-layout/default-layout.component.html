@@ -1,18 +1,18 @@
-<app-loading></app-loading>
+<ngx-material-dashboard-loading></ngx-material-dashboard-loading>
 <div class="box" fxLayout="column">
-    <app-header class="mat-elevation-z6" [logo]="logo" (toggleSidenav)="toggleSidenav()"></app-header>
+    <ngx-material-dashboard-header class="mat-elevation-z6" [logo]="logo" (toggleSidenav)="toggleSidenav()"></ngx-material-dashboard-header>
     <mat-sidenav-container class="content" fxLayout="row">
         <mat-sidenav *ngIf="mode === 'rail'; else defaultSidenav" rail-mode [opened]="opened" #sidenav>
-            <app-sidenav [sidenavItems]="sidenavItems"></app-sidenav>
+            <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
         </mat-sidenav>
         <ng-template #defaultSidenav>
             <mat-sidenav [mode]="mode" #sidenav>
-                <app-sidenav [sidenavItems]="sidenavItems"></app-sidenav>
+                <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
             </mat-sidenav>
         </ng-template>
         <mat-sidenav-content fxFlex>
             <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
-    <app-footer [company]="company"></app-footer>
+    <ngx-material-dashboard-footer [company]="company"></ngx-material-dashboard-footer>
 </div>

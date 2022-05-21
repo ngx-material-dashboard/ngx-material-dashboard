@@ -47,20 +47,20 @@ describe('DefaultLayoutComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should render app-header', () => {
-        expect(page.query('app-header')).toBeDefined();
+    it('should render ngx-material-dashboard-header', () => {
+        expect(page.query('ngx-material-dashboard-header')).toBeDefined();
     });
 
     it('should render "My App" logo by default', () => {
         expect(page.header.logo).toEqual('My App');
     });
 
-    it('should render app-footer', () => {
-        expect(page.query('app-footer')).toBeDefined();
+    it('should render ngx-material-dashboard-footer', () => {
+        expect(page.query('ngx-material-dashboard-footer')).toBeDefined();
     });
 
-    it('should render app-sidenav', () => {
-        expect(page.query('app-sidenav')).toBeDefined();
+    it('should render ngx-material-dashboard-sidenav', () => {
+        expect(page.query('ngx-material-dashboard-sidenav')).toBeDefined();
     });
 
     it('should not render any sidenav items by default', () => {

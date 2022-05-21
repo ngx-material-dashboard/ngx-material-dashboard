@@ -1,4 +1,4 @@
-<app-header-user-menu *ngIf="username; else loginButton" [username]="username"></app-header-user-menu>
+<ngx-material-dashboard-header-user-menu *ngIf="username; else loginButton" [username]="username"></ngx-material-dashboard-header-user-menu>
 <ng-template #loginButton>
     <button mat-button
             class="mat-button marker-login-button"

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { faCaretDown, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'app-filter-drop-down',
+    selector: 'ngx-material-dashboard-filter-drop-down',
     templateUrl: './filter-drop-down.component.html',
     styleUrls: ['./filter-drop-down.component.scss']
 })

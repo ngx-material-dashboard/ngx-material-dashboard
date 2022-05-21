@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { LoadingService } from '../../services/loading.service';
 
 @Component({
-    selector: 'app-loading',
+    selector: 'ngx-material-dashboard-loading',
     templateUrl: './loading.component.html',
     styleUrls: ['./loading.component.scss']
 })

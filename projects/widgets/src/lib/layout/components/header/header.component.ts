@@ -5,7 +5,7 @@ import { faBars, faMicrophone, IconDefinition } from '@fortawesome/free-solid-sv
  * The header for the app.
  */
 @Component({
-  selector: 'app-header',
+  selector: 'ngx-material-dashboard-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

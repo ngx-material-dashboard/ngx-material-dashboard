@@ -27,7 +27,7 @@ for (let i = 0; i < 20; i++) {
 
 @Component({
     template: `
-    <app-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -37,7 +37,7 @@ for (let i = 0; i < 20; i++) {
                 No data found
             </mat-footer-cell>
         </ng-container>
-    </app-paged-table>
+    </ngx-material-dashboard-paged-table>
     `
 }) class TestPagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
@@ -49,7 +49,7 @@ for (let i = 0; i < 20; i++) {
 
 @Component({
     template: `
-    <app-paged-table matSort [buttons]="buttons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -59,7 +59,7 @@ for (let i = 0; i < 20; i++) {
                 No data found
             </mat-footer-cell>
         </ng-container>
-    </app-paged-table>
+    </ngx-material-dashboard-paged-table>
     `
 }) class TestRemotePagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;

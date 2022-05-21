@@ -28,22 +28,22 @@ export default sandboxOf(TableToolbarComponent, {
 })
 .add('toolbar with default alignment', {
     template: `
-    <app-table-toolbar [buttons]="buttons">
-        <app-filter-drop-down filter>
+    <ngx-material-dashboard-table-toolbar [buttons]="buttons">
+        <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
-        </app-filter-drop-down>
-    </app-table-toolbar>`,
+        </ngx-material-dashboard-filter-drop-down>
+    </ngx-material-dashboard-table-toolbar>`,
     context: {
         buttons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON]
     }
 })
 .add('toolbar with left alignment', {
     template: `
-    <app-table-toolbar [buttons]="buttons" [buttonAlign]="buttonAlign" >
-        <app-filter-drop-down filter>
+    <ngx-material-dashboard-table-toolbar [buttons]="buttons" [buttonAlign]="buttonAlign" >
+        <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
-        </app-filter-drop-down>
-    </app-table-toolbar>`,
+        </ngx-material-dashboard-filter-drop-down>
+    </ngx-material-dashboard-table-toolbar>`,
     context: {
         buttons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
         buttonAlign: 'left'

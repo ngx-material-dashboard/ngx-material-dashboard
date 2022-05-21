@@ -24,13 +24,13 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * ### Using PagedTableWithToolbarComponent
  * To use the component:
  * ```html
- * <app-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
- *     <app-paged-table ...></app-paged-table>
- * </app-paged-table-with-toolbar>
+ * <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
+ *     <ngx-material-dashboard-paged-table ...></ngx-material-dashboard-paged-table>
+ * </ngx-material-dashboard-paged-table-with-toolbar>
  * ```
  */
 @Component({
-    selector: 'app-paged-table-with-toolbar',
+    selector: 'ngx-material-dashboard-paged-table-with-toolbar',
     templateUrl: './paged-table-with-toolbar.component.html',
     styleUrls: ['./paged-table-with-toolbar.component.scss']
 })
@@ -66,7 +66,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
      * component (since parent shouldn't care about whether table button
      * or toolbar button was clicked; as long as it has all info i.e. row(s)
      * and action to perform). This needs to be done in AfterContentInit
-     * hook since the component should include an app-paged-table selector
+     * hook since the component should include an ngx-material-dashboard-paged-table selector
      * which should be inside the selector for this component.
      */
     ngAfterContentInit(): void {

@@ -49,10 +49,10 @@ export default sandboxOf(DefaultLayoutComponent, {
     ]
 })
 .add('default sidenav (no input values)', {
-    template: `<app-default-layout></app-default-layout>`
+    template: `<ngx-material-dashboard-default-layout></ngx-material-dashboard-default-layout>`
 })
 .add('side sidenav mode', {
-    template: `<app-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></app-default-layout>`,
+    template: `<ngx-material-dashboard-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-material-dashboard-default-layout>`,
     context: {
         logo: 'My Tasks',
         mode: 'side',
@@ -66,7 +66,7 @@ export default sandboxOf(DefaultLayoutComponent, {
     }
 })
 .add('rail sidenav mode', {
-    template: `<app-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></app-default-layout>`,
+    template: `<ngx-material-dashboard-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-material-dashboard-default-layout>`,
     context: {
         logo: 'My Tasks',
         mode: 'rail',

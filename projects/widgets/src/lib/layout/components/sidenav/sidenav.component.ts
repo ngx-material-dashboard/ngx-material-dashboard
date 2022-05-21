@@ -5,7 +5,7 @@ import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
 @Component({
-    selector: 'app-sidenav',
+    selector: 'ngx-material-dashboard-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss']
 })

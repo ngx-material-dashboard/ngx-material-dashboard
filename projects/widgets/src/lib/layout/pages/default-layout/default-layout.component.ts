@@ -9,7 +9,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * space, then the footer will stick to the bottom of the page.
  */
 @Component({
-  selector: 'app-default-layout',
+  selector: 'ngx-material-dashboard-default-layout',
   templateUrl: './default-layout.component.html',
   styleUrls: ['./default-layout.component.scss']
 })

@@ -10,7 +10,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * tag so it displays correctly below a form field.
  */
 @Component({
-    selector: 'app-field-error',
+    selector: 'ngx-material-dashboard-field-error',
     templateUrl: './field-error.component.html',
     styleUrls: ['./field-error.component.scss']
 })

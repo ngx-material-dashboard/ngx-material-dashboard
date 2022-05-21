@@ -17,7 +17,7 @@ export interface DialogData {
 }
 
 @Component({
-    selector: 'app-confirm-delete-dialog',
+    selector: 'ngx-material-dashboard-confirm-delete-dialog',
     templateUrl: './confirm-delete-dialog.component.html',
     styleUrls: ['./confirm-delete-dialog.component.scss']
 })

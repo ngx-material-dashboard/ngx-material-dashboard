@@ -19,5 +19,5 @@ export default sandboxOf(ConfirmDeleteDialogComponent, {
     ]
 })
 .add('default', {
-    template: `<app-confirm-delete-dialog></app-confirm-delete-dialog>`
+    template: `<ngx-material-dashboard-confirm-delete-dialog></ngx-material-dashboard-confirm-delete-dialog>`
 });

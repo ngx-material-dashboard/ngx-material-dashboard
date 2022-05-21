@@ -57,11 +57,11 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
 })
 .add('table with toolbar with multi-select', {
     template: `
-    <app-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
-        <app-filter-drop-down filter>
+    <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
+        <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
-        </app-filter-drop-down>
-        <app-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" table class="marker-paged-table">
+        </ngx-material-dashboard-filter-drop-down>
+        <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" table class="marker-paged-table">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -71,8 +71,8 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </app-paged-table>
-    </app-paged-table-with-toolbar>`,
+        </ngx-material-dashboard-paged-table>
+    </ngx-material-dashboard-paged-table-with-toolbar>`,
     context: {
         tableButtons: [EDIT_BUTTON, DELETE_BUTTON],
         toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
@@ -83,11 +83,11 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
 })
 .add('table with toolbar without multi-select', {
     template: `
-    <app-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
-        <app-filter-drop-down filter>
+    <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
+        <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
-        </app-filter-drop-down>
-        <app-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" table class="marker-paged-table">
+        </ngx-material-dashboard-filter-drop-down>
+        <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" table class="marker-paged-table">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -97,8 +97,8 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </app-paged-table>
-    </app-paged-table-with-toolbar>`,
+        </ngx-material-dashboard-paged-table>
+    </ngx-material-dashboard-paged-table-with-toolbar>`,
     context: {
         tableButtons: [EDIT_BUTTON, DELETE_BUTTON],
         toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],

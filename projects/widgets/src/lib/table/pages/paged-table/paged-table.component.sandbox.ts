@@ -40,7 +40,7 @@ export default sandboxOf(PagedTableComponent, {
 })
 .add('table with multi-select', {
     template: `
-    <app-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -50,7 +50,7 @@ export default sandboxOf(PagedTableComponent, {
                 No data found
             </mat-footer-cell>
         </ng-container>
-    </app-paged-table>`,
+    </ngx-material-dashboard-paged-table>`,
     context: {
         buttons: [EDIT_BUTTON, DELETE_BUTTON],
         data: testData,
@@ -60,7 +60,7 @@ export default sandboxOf(PagedTableComponent, {
 })
 .add('table without multi-select', {
     template: `
-    <app-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -70,7 +70,7 @@ export default sandboxOf(PagedTableComponent, {
                 No data found
             </mat-footer-cell>
         </ng-container>
-    </app-paged-table>`,
+    </ngx-material-dashboard-paged-table>`,
     context: {
         buttons: [EDIT_BUTTON, DELETE_BUTTON],
         data: testData,

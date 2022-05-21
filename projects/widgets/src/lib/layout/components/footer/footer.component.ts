@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
  * A simple footer for the app.
  */
 @Component({
-  selector: 'app-footer',
+  selector: 'ngx-material-dashboard-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })

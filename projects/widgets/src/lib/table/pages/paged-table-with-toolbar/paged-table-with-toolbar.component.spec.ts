@@ -36,11 +36,11 @@ const testData: DummyObject[] = [
 
 @Component({
     template: `
-    <app-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
-        <app-filter-drop-down filter>
+    <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
+        <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
-        </app-filter-drop-down>
-        <app-paged-table matSort [buttons]="tableButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table class="marker-paged-table">
+        </ngx-material-dashboard-filter-drop-down>
+        <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table class="marker-paged-table">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -50,8 +50,8 @@ const testData: DummyObject[] = [
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </app-paged-table>
-    </app-paged-table-with-toolbar>
+        </ngx-material-dashboard-paged-table>
+    </ngx-material-dashboard-paged-table-with-toolbar>
     `
 }) class TestPagedTableWithToolbarComponent 
     extends AbstractPagedTableWithToolbarComponent<DummyObject>

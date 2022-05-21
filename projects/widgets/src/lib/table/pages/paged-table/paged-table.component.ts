@@ -24,7 +24,7 @@ import { SelectionService } from '../../shared/services/selection.service';
  * ### Using PagedTableComponent
  * To use the component:
  * ```html
- * <app-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns">
+ * <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="column">
  *         <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *         <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
@@ -34,11 +34,11 @@ import { SelectionService } from '../../shared/services/selection.service';
  *             No data to display
  *         </mat-footer-cell>
  *     </ng-container>
- * </app-paged-table>
+ * </ngx-material-dashboard-paged-table>
  * ```
  */
 @Component({
-    selector: 'app-paged-table',
+    selector: 'ngx-material-dashboard-paged-table',
     templateUrl: './paged-table.component.html',
     styleUrls: ['./paged-table.component.scss']
 })

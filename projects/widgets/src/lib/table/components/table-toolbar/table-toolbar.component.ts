@@ -9,7 +9,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
  * The TableToolbarComponent is a toolbar that is rendered above a PagedTableComponent.
  */
 @Component({
-    selector: 'app-table-toolbar',
+    selector: 'ngx-material-dashboard-table-toolbar',
     templateUrl: './table-toolbar.component.html',
     styleUrls: ['./table-toolbar.component.scss']
 })
