@@ -9,7 +9,7 @@ import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/bas
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { TableButton } from '../../interfaces/table-button.interface';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
+import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { EDIT_BUTTON, DELETE_BUTTON } from '../../shared/table-buttons';
 import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from '../../shared/table-toolbar-buttons';
 

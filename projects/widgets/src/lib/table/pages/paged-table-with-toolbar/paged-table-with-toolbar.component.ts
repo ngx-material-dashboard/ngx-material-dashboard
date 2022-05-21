@@ -3,13 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 
+import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { SearchFilterMap } from '../../interfaces/search-filter-map.interface';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { SelectionService } from '../../shared/services/selection.service';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 

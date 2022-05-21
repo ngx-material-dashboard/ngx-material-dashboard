@@ -6,9 +6,9 @@ import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/ta
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
+import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { TableButton } from '../../interfaces/table-button.interface';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { SelectionService } from '../../shared/services/selection.service';
 
 /**

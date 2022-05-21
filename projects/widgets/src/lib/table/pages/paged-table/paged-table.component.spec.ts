@@ -15,7 +15,7 @@ import { CheckboxElement, Datastore, DummyObject, PagedTableElement } from '@ngx
 import { MockModule } from 'ng-mocks';
 
 import { TableButton } from '../../interfaces/table-button.interface';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
+import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
 import { PagedTableComponent } from './paged-table.component';
 

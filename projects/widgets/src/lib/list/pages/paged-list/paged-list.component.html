@@ -1,0 +1,11 @@
+<ngx-material-dashboard-list [models]="dataSource$.data" [modelType]="modelType">
+    <ng-template #model let-model="model">
+        <ng-container 
+            *ngTemplateOutlet="template; context: { model: model }">
+        </ng-container>
+    </ng-template>
+</ngx-material-dashboard-list>
+<mat-paginator [length]="dataSource$.data.length"
+                [pageSize]="pageSize" 
+                [pageSizeOptions]="[15, 25, 50, 75, 100]">
+</mat-paginator>

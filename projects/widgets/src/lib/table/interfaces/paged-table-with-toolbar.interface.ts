@@ -2,10 +2,7 @@ import { AbstractControl, FormGroup } from "@angular/forms";
 import { MatSort } from "@angular/material/sort";
 import { JsonDatastore, JsonModel } from "@ngx-material-dashboard/base-json";
 import { filter, Subscription } from "rxjs";
-import { FilterDropDownComponent } from "../components/filter-drop-down/filter-drop-down.component";
-import { PagedTableComponent } from "../pages/paged-table/paged-table.component";
-import { RemoteDataSource } from "../shared/services/remote-data-source.service";
-import { ButtonClick } from "./button-click.interface";
+import { RemoteDataSource } from "../../services/remote-data-source.service";
 import { TableButton } from "./table-button.interface";
 import { TableToolbarButton } from "./table-toolbar-button.interface";
 

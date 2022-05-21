@@ -1,0 +1,10 @@
+<mat-grid-list *ngIf="models.length > 0; else noModels" [cols]="cols" gutterSize="2" rowHeight="300px">
+    <mat-grid-tile *ngFor="let model of models; index as i">
+        <ng-container 
+            *ngTemplateOutlet="template; context: { model: model }">
+        </ng-container>
+    </mat-grid-tile>
+</mat-grid-list>
+<ng-template #noModels>
+    <h2>No {{modelType}} to display</h2>
+</ng-template>

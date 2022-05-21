@@ -1,0 +1,7 @@
+<div fxLayout="column" fxLayoutGap="5px">
+    <div *ngFor="let model of models">
+        <ng-container 
+            *ngTemplateOutlet="template; context: { model: model }">
+        </ng-container>
+    </div>
+</div>
