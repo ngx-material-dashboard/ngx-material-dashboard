@@ -18,10 +18,10 @@ export class TableToolbarComponent implements AfterViewInit, OnDestroy, OnInit {
     /** The management buttons to display in the toolbar. */
     @Input() buttons: TableToolbarButton[] = [];
     /**
-     * String value indicating whether filter should appear on left or right
+     * String value indicating whether buttons should appear on left or right
      * side of screen (defaults to right).
      */
-    @Input() filterAlign: 'left' | 'right' = 'right';
+    @Input() buttonAlign: 'left' | 'right' = 'right';
     /** Event emitted when user clicks button in toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** Event emitted when user changes value in filter. */
