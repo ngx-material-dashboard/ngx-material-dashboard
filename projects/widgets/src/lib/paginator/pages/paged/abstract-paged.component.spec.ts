@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DummyObject } from '@ngx-material-dashboard/testing';
 
-import { AbstractPagedComponent } from './paged.component';
+import { AbstractPagedComponent } from './abstract-paged.component';
 
 describe('AbstractPagedComponent', () => {
     let component: AbstractPagedComponent<DummyObject>;

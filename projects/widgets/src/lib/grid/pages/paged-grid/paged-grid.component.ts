@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { AbstractPagedComponent } from '../../../paginator/pages/paged/paged.component';
+import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
 
 @Component({
     selector: 'ngx-material-dashboard-paged-grid',
