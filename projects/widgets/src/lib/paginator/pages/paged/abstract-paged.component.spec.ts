@@ -7,11 +7,10 @@ describe('AbstractPagedComponent', () => {
     let component: AbstractPagedComponent<DummyObject>;
     let fixture: ComponentFixture<AbstractPagedComponent<DummyObject>>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-        declarations: [ AbstractPagedComponent ]
-        })
-        .compileComponents();
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ AbstractPagedComponent ]
+        });
     });
 
     beforeEach(() => {

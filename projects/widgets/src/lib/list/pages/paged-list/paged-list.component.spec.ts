@@ -1,6 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
+import { ListComponent } from '../../components/list/list.component';
 
 import { PagedListComponent } from './paged-list.component';
 
@@ -10,9 +14,15 @@ describe('PagedListComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ PagedListComponent ],
+            declarations: [
+                AbstractPagedComponent,
+                ListComponent,
+                PagedListComponent
+            ],
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                NoopAnimationsModule,
+                MatPaginatorModule
             ]
         });
     });

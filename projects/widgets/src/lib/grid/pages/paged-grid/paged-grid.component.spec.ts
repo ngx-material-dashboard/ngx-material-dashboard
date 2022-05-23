@@ -1,6 +1,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
+import { GridComponent } from '../../components/grid/grid.component';
 
 import { PagedGridComponent } from './paged-grid.component';
 
@@ -10,9 +15,16 @@ describe('PagedGridComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ PagedGridComponent ],
+            declarations: [
+                AbstractPagedComponent,
+                GridComponent,
+                PagedGridComponent,
+            ],
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                NoopAnimationsModule,
+                MatGridListModule,
+                MatPaginatorModule
             ]
         });
     });
