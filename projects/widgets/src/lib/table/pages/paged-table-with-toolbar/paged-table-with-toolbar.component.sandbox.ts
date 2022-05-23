@@ -13,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
+import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
@@ -23,10 +23,6 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
 
 const pageSize = 5;
-const testData: DummyObject[] = [];
-for (let i = 0; i < 10; i++) {
-    testData.push({ id: (i + 1).toString() } as DummyObject);
-}
 
 export default sandboxOf(PagedTableWithToolbarComponent, {
     declarations: [
@@ -76,7 +72,7 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
     context: {
         tableButtons: [EDIT_BUTTON, DELETE_BUTTON],
         toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
-        data: testData,
+        data: TEST_DATA,
         displayedColumns: ['select', 'id', 'actions'],
         multiple: true
     }
@@ -102,7 +98,7 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
     context: {
         tableButtons: [EDIT_BUTTON, DELETE_BUTTON],
         toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
-        data: testData,
+        data: TEST_DATA,
         displayedColumns: ['select', 'id', 'actions'],
         multiple: false
     }

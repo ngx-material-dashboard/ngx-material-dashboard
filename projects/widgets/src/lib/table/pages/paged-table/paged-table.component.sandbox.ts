@@ -9,16 +9,10 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
+import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
 import { PagedTableComponent } from './paged-table.component';
-
-const pageSize = 5;
-const testData: DummyObject[] = [];
-for (let i = 0; i < 10; i++) {
-    testData.push({ id: (i + 1).toString() } as DummyObject);
-}
 
 export default sandboxOf(PagedTableComponent, {
     declarations: [ PagedTableComponent ],
@@ -53,7 +47,7 @@ export default sandboxOf(PagedTableComponent, {
     </ngx-material-dashboard-paged-table>`,
     context: {
         buttons: [EDIT_BUTTON, DELETE_BUTTON],
-        data: testData,
+        data: TEST_DATA,
         displayedColumns: ['select', 'id', 'actions'],
         multiple: true
     }
@@ -73,7 +67,7 @@ export default sandboxOf(PagedTableComponent, {
     </ngx-material-dashboard-paged-table>`,
     context: {
         buttons: [EDIT_BUTTON, DELETE_BUTTON],
-        data: testData,
+        data: TEST_DATA,
         displayedColumns: ['select', 'id', 'actions'],
         multiple: false
     }

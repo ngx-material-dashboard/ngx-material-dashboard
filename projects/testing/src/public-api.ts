@@ -2,6 +2,8 @@
  * Public API Surface of testing
  */
 
+export * from './lib/fixtures/dummy-object.fixture';
+
 export * from './lib/mocks/datastore.service';
 export * from './lib/mocks/dummy-object.mock';
 

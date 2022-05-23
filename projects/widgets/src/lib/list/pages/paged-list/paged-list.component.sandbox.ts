@@ -6,16 +6,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
+import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from './paged-list.component';
-
-
-const testData: DummyObject[] = [];
-for (let i = 0; i < 10; i++) {
-    testData.push({ id: (i + 1).toString() } as DummyObject);
-}
 
 export default sandboxOf(PagedListComponent, {
     declarations: [ListComponent],
@@ -47,6 +41,6 @@ export default sandboxOf(PagedListComponent, {
         </ng-template>
     </ngx-material-dashboard-paged-list>`,
     context: {
-        data: testData
+        data: TEST_DATA
     }
 });

@@ -11,7 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
-import { CheckboxElement, Datastore, DummyObject, PagedTableElement } from '@ngx-material-dashboard/testing';
+import { CheckboxElement, Datastore, DummyObject, PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
 import { TableButton } from '../../interfaces/table-button.interface';
@@ -20,10 +20,7 @@ import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
 import { PagedTableComponent } from './paged-table.component';
 
 const pageSize = 5;
-const testData: DummyObject[] = [];
-for (let i = 0; i < 20; i++) {
-    testData.push({ id: i.toString() } as DummyObject);
-}
+const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
