@@ -24,6 +24,12 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
     DELETE_TOOLBAR_BUTTON
 ];
 
+/**
+ * The AbstractPagedTableWithToolbarComponent is an "abstract" base component
+ * for all components that utilize the PagedTableWithToolbarComponent. This
+ * component provides some shared methods that are useful for these types of
+ * components.
+ */
 @Component({
     template: ''
 })
