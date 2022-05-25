@@ -1,5 +1,27 @@
 # base-json
 
+## Table of Contents
+
+* [Introduction](#introduction)
+* [Background](#background-how-and-why-this-library-came-to-be)
+* [Getting Started](#getting-started)
+    * [Install the Library](#install-the-library)
+    * [Configuration](#configuration)
+* [Usage](#usage)
+    * [Data Models](#data-models)
+    * [Datastore](#datastore)
+    * [CRUD Capabilities](#crud-capabilities)
+        * [Create](#create)
+        * [Save/Update](#saveupdate)
+        * [Read](#read)
+        * [Delete](#delete)
+* [Custom Headers](#custom-headers)
+* [Error Handling](#error-handling)
+* [Contributing](#contributing)
+* [Running Unit Tests](#running-unit-tests)
+* [Built With](#built-with)
+* [Authors](#authors)
+
 ## Introduction
 
 The base-json library contains the most basic structures needed for developing
@@ -494,14 +516,7 @@ task.save().subscribe(
 
 ## Contributing
 
-Currently I am the only developer contributing to this project, and since this
-is my first open source project I do not have any specific guidelines for how
-to contribute to the library. If you want to add something you feel might be
-useful, then open an issue and we can discuss how to go about doing that. The
-only thing I really request right now is that you write good clean code and
-that you include unit tests to ensure your code works as expected.
-
-> NOTE: see my [disclaimer](#disclaimer) below about submitting bugs/issues.
+See [Contributing](../../CONTRIBUTING.md)
 
 ## Running unit tests
 
@@ -518,12 +533,3 @@ version 13.1.0.
 ## Authors
 
 * **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)
-
-## Disclaimer
-
-This library is provided as is. I do hope to actively maintain and add to it as
-I have time, but I am the only person working on this library and I do have a
-full time job that does not involve developing this library. So with that in
-mind, please be aware that if you submit any bugs/issues for this library I will
-try to fix them if I can, but I most likely will not get to them in any sort of
-timely manner.

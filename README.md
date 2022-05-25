@@ -2,7 +2,9 @@
 
 The NgxMaterialDashboard is an Angular workspace that contains several libraries
 and an example project that demonstrates how to use those libraries (example
-project to be added...).
+project to be added...). I have also included
+[angularplayground.it](https://angularplayground.it/) with sandboxes so you can
+see some examples for how to use components in the widgets library.
 
 ## Libraries
 
@@ -25,8 +27,9 @@ used in a dashboard layout
 I have included [angularplayground.it](https://angularplayground.it/) with
 sandboxes for developing library components in isolation. Since it requires a
 main application I added a `playground` directory with minimum files needed
-for a main application for `angularplayground`. To run the playground just run
-the following:
+for a main application for `angularplayground`, and linked the widgets library
+so sandboxes can be created from components there. To run the playground just
+run the following:
 
 ```bash
 npm run playground
@@ -39,14 +42,7 @@ libraries. Stay tuned...
 
 ## Contributing
 
-Currently I am the only developer contributing to this project, and since this
-is my first open source project I do not have any specific guidelines for how
-to contribute. If you want to add something you feel might be useful, then open
-an issue and we can discuss how to go about doing that. The only thing I really
-request right now is that you write good clean code and that you include unit
-tests to ensure your code works as expected.
-
-> NOTE: see my [disclaimer](#disclaimer) below about submitting bugs/issues.
+See [Contributing](CONTRIBUTING.md)
 
 ## Running unit tests
 
@@ -65,11 +61,3 @@ command with the corresponding library name (i.e. `ng test base-json`).
 ## Authors
 
 * **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)
-
-## Disclaimer
-
-This project is provided as is. I do hope to actively maintain and add to it as
-I have time, but I am the only person working on it and I do have a full time
-job that does not involve developing this project. So with that in mind, please
-be aware that if you submit any bugs/issues for this project or any library
-within, I most likely will not get to them in any sort of timely manner.
