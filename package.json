@@ -9,9 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "playground": "angular-playground",
-    "compodoc:build": "compodoc -p tsconfig.doc.json",
-    "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
-    "compodoc:serve": "compodoc -s"
+    "documentation:start": "cd documentation && npm start"
   },
   "dependencies": {
     "@angular/animations": "~13.3.6",
