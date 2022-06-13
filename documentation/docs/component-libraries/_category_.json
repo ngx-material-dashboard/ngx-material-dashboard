@@ -1,0 +1,8 @@
+{
+  "label": "Component Libraries",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Components built on top of Angular Material"
+  }
+}

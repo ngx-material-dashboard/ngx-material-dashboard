@@ -1,0 +1,8 @@
+{
+    "label": "base-json",
+    "position": 2,
+    "link": {
+        "type": "generated-index",
+        "description": "Base library providing shared resources for creating models and services to interface with JSON APIs"
+    }
+}

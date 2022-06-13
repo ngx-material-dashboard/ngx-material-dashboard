@@ -10,32 +10,35 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Component Libraries',
+    Svg: require('@site/static/img/gears-solid.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Component Libraries designed on top of Angular Material to provide additional
+        functionality, including basic CRUD capabilities, with minimal code while
+        adhering to Material design principles.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Service Libraries',
+    Svg: require('@site/static/img/diagram-project-solid.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Service Libraries designed to make interfacing with JSON APIs easy, and
+        allow you to work with classes and services instead of HttpClient and
+        JSON directly.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Testing Libraries',
+    Svg: require('@site/static/img/terminal-solid.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Testing libraries designed to simplify writing tests for the Component
+        libraries using Page element objects that eliminate the need for a lot
+        of boilerplate set up so you can focus on the tests themselves.
       </>
     ),
   },
