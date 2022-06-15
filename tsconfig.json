@@ -52,6 +52,7 @@
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
         "sourceMap": true,
         "declaration": false,
         "downlevelIteration": true,
@@ -66,6 +67,9 @@
             "dom"
         ]
     },
+    "exclude": [
+        "documentation"
+    ],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
