@@ -10,7 +10,7 @@
     "test": "ng test --no-watch",
     "playground": "angular-playground",
     "documentation:start": "cd documentation && npm start",
-    "documentation:api": "typedoc ./projects/widgets/src/lib"
+    "documentation:api": "typedoc"
   },
   "dependencies": {
     "@angular/animations": "~13.3.6",

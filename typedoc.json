@@ -1,4 +1,8 @@
 {
+    "entryPoints": [
+        "./projects/base-json/src/lib",
+        "./projects/widgets/src/lib"
+    ],
     "exclude": [ 
         "node_modules"
     ],
