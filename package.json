@@ -10,7 +10,7 @@
     "test": "ng test --no-watch",
     "playground": "angular-playground",
     "documentation:start": "cd documentation && npm start",
-    "documentation:api": "typedoc"
+    "documentation:api": "typedoc --plugin typedoc-plugin-markdown"
   },
   "dependencies": {
     "@angular/animations": "~13.3.6",
@@ -54,6 +54,7 @@
     "ng-packagr": "^13.0.0",
     "qs": "^6.10.3",
     "typedoc": "^0.22.17",
+    "typedoc-plugin-markdown": "^3.12.1",
     "typescript": "~4.5.2"
   },
   "publishConfig": {
