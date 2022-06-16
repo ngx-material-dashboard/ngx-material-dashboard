@@ -2,9 +2,9 @@
 
 # compiled output
 /dist
-/docs
 /tmp
 /out-tsc
+docs.json
 # Only exists if Bazel was run
 /bazel-out
 
