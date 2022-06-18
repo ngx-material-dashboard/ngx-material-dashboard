@@ -1,4 +1,5 @@
 {
+    "$schema": "https://typedoc.org/schema.json",
     "entryPoints": [
         "./projects/base-json/src/lib",
         "./projects/widgets/src/lib"

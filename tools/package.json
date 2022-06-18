@@ -1,0 +1,8 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "Tools used in workspace (mainly documentation related, but could be other things too...)",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
