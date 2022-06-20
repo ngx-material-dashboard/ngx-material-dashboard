@@ -7,7 +7,9 @@
       "outDir": "../../out-tsc/app",
       "resolveJsonModule": true,
       "target": "esnext",
-      "types": []
+      "types": [
+        "node"
+      ]
     },
     "files": [
       "src/main.ts",

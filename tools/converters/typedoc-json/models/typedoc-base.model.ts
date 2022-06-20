@@ -13,6 +13,7 @@ export class TypedocBase {
     flags!: {};
     /** The children associated with the JSON object. */
     children: TypedocBase[] = [];
+    comment?: { shortText: string };
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
