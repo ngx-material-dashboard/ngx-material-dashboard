@@ -5,4 +5,8 @@ export class Module extends TypedocBase {
 
     override kindString: string = 'Module';
     classes: Clazz[] = [];
+
+    get displayName(): string {
+        return this.name.replace('/src/lib', '');
+    }
 }
