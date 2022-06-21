@@ -1,3 +1,5 @@
+import PagedTableComponent from './_paged-table-component.md';
+
 One of the biggest things I found myself repeating was creating components that
 work with paged data sets. There are great examples of working with paged
 tables in the Angular Material documentation, but in projects that manage lots
@@ -8,4 +10,4 @@ are other things that can be paged as well. This includes lists and grids, and
 probably other things I can't think of right now (if I do I will add those and
 their corresponding components).
 
-
+<PagedTableComponent />
