@@ -1,0 +1,8 @@
+<mat-sidenav-container class="content" fxLayout="row">
+    <mat-sidenav mode="side" #sidenav opened>
+        <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content class="container" fxFlex>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

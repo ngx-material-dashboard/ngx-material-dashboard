@@ -30,7 +30,10 @@ import { DrawerRailModule } from 'angular-material-rail-drawer';
         SidenavComponent,
         LoadingComponent
     ],
-    exports: [DefaultLayoutComponent],
+    exports: [
+        DefaultLayoutComponent,
+        SidenavComponent
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,

@@ -1,0 +1,25 @@
+<div class="box" fxLayout="column">
+    <header>
+        <mat-toolbar color="primary">
+            <button mat-button
+                    class="mat-button marker-home-button"
+                    [routerLink]="['/']">
+                <span class="marker-header-logo">ngx-material-dashboard Docs</span>
+                <div class="mat-button-focus-overlay"></div>
+                <div class="mat-button-ripple mat-ripple"></div>
+            </button>
+            <button mat-button
+                    class="mat-button marker-home-button"
+                    [routerLink]="['widgets']">
+                <span class="marker-header-logo">widgets</span>
+                <div class="mat-button-focus-overlay"></div>
+                <div class="mat-button-ripple mat-ripple"></div>
+            </button>
+        </mat-toolbar>
+    </header>
+    <router-outlet></router-outlet>
+    <footer class="container" fxLayout="row" fxLayoutGap="10px">
+        <span>&#169; {{ date | date: 'yyyy' }}</span>
+        <span>ngx-material-dashboard</span>
+    </footer>
+</div>

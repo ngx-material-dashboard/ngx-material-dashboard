@@ -1,0 +1,27 @@
+/* Import any global styles and define basic HTML tag styles. */
+@import 'box.scss';
+@import 'color.scss';
+@import 'spacing.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+    padding: 10px 10px 10px 10px
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.mat-card {
+    background-color:#eee;
+}
+
+.mat-card .plyr__controls {
+    background-color: #eee;
+}
