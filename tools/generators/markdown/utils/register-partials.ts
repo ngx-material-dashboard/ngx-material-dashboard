@@ -5,7 +5,6 @@ import * as path from 'path';
 export function registerPartials() {
     const partialsFolder = path.join(__dirname, '..', 'partials');
     const partialFiles = fs.readdirSync(partialsFolder);
-    console.log(partialFiles);
     partialFiles.forEach((partialFile) => {
         const partialName = path.basename(partialFile, '.hbs');
         const partialContent = fs
