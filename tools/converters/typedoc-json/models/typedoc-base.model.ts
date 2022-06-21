@@ -14,6 +14,7 @@ export class TypedocBase {
     /** The children associated with the JSON object. */
     children: TypedocBase[] = [];
     comment?: { shortText: string };
+    decorator?: {};
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
