@@ -1,4 +1,4 @@
-<mat-sidenav-container class="content" fxLayout="row">
+<mat-sidenav-container class="box" fxLayout="row">
     <mat-sidenav fixedInViewport="true"
         fixedTopGap="64"
         fixedBottomGap="64"
@@ -6,7 +6,9 @@
         #sidenav opened>
         <ngx-material-dashboard-sidenav class="sticky" [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
     </mat-sidenav>
-    <mat-sidenav-content class="container" fxFlex>
-        <router-outlet></router-outlet>
+    <mat-sidenav-content class="container">
+        <div class="box-content">
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
