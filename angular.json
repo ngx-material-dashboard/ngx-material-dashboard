@@ -244,15 +244,25 @@
             ],
             "styles": [
               "projects/documentation/src/styles.scss",
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/documentation/src/assets/scss/theme/material-theme.scss",
               "node_modules/prismjs/themes/prism-okaidia.css",
+              "node_modules/prismjs/plugins/command-line/prism-command-line.css",
+              "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css",
               "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css"
             ],
             "scripts": [
               "node_modules/marked/marked.min.js",
+              "node_modules/clipboard/dist/clipboard.min.js",
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-css.min.js",
+              "node_modules/prismjs/components/prism-markup.min.js",
+              "node_modules/prismjs/components/prism-markdown.min.js",
+              "node_modules/prismjs/components/prism-typescript.min.js",
+              "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.js",
               "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "gumshoejs"
             ]
           },
           "configurations": {

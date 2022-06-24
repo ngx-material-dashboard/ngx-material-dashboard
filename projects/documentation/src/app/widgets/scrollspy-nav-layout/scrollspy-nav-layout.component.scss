@@ -1,0 +1,27 @@
+:host {
+    display: block;
+}
+
+.mat-fab,
+.mat-mini-fab {
+    img {
+        margin-bottom: 2px;
+    }
+}
+
+.sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 64px;
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.scrollup-button {
+    margin:14px;
+
+    &--fixed {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+    }
+}

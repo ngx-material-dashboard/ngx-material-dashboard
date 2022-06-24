@@ -1,10 +1,13 @@
 <div class="box" fxLayout="column">
-    <header>
+    <header class="app-toolbar mat-elevation-z6" #header>
         <mat-toolbar color="primary">
             <button mat-button
                     class="mat-button marker-home-button"
                     [routerLink]="['/']">
-                <span class="marker-header-logo">ngx-material-dashboard Docs</span>
+                <span class="mat-button-wrapper marker-header-logo">
+                    <img width="45" height="45" src="assets/images/angular_ngx_logo_white.png"/>
+                    <span>Dashboard</span>
+                </span>
                 <div class="mat-button-focus-overlay"></div>
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>
@@ -17,9 +20,19 @@
             </button>
         </mat-toolbar>
     </header>
-    <router-outlet></router-outlet>
+    <div class="outlet-wrapper">
+        <router-outlet></router-outlet>
+    </div>
     <footer class="container" fxLayout="row" fxLayoutGap="10px">
-        <span>&#169; {{ date | date: 'yyyy' }}</span>
-        <span>ngx-material-dashboard</span>
+        <span fxFlex></span>
+        <span>
+            <markdown class="footer-text" fxLayout="row" fxLayoutAlign.gt-xs="center">
+                Crafted using [ngx-markdown](https://www.npmjs.com/package/ngx-markdown) by **jphillips** 
+                <span style="margin:0 .15em;">•</span> 
+                Follow on [GitHub](https://github.com/jonathan.scott.phillips)
+                <span>&#169; {{ date | date: 'yyyy' }} ngx-material-dashboard</span>
+            </markdown>
+        </span>
+        <span fxFlex></span>
     </footer>
 </div>

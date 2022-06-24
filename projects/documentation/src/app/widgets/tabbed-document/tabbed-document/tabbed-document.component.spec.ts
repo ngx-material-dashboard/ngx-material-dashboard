@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PagedTableComponent } from './paged-table.component';
+import { TabbedDocumentComponent } from './tabbed-document.component';
 
-describe('PagedTableComponent', () => {
-  let component: PagedTableComponent;
-  let fixture: ComponentFixture<PagedTableComponent>;
+describe('TabbedDocumentComponent', () => {
+  let component: TabbedDocumentComponent;
+  let fixture: ComponentFixture<TabbedDocumentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PagedTableComponent ]
+      declarations: [ TabbedDocumentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PagedTableComponent);
+    fixture = TestBed.createComponent(TabbedDocumentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagedTableComponent } from './pages/paged-table/paged-table.component';
+import { TabbedDocumentComponent } from '../../widgets/tabbed-document/tabbed-document/tabbed-document.component';
+import { PagedTableApiComponent } from './pages/paged-table/paged-table-api/paged-table-api.component';
+import { PagedTableOverviewComponent } from './pages/paged-table/paged-table-overview/paged-table-overview.component';
 import { WidgetsComponent } from './pages/widgets/widgets.component';
 
 const routes: Routes = [
@@ -10,7 +12,21 @@ const routes: Routes = [
         children: [
             {
                 path: 'paged-table',
-                component: PagedTableComponent
+                component: TabbedDocumentComponent,
+                children: [
+                    {
+                        path: 'overview',
+                        component: PagedTableOverviewComponent
+                    },
+                    {
+                        path: 'api',
+                        component: PagedTableApiComponent
+                    },
+                    {
+                        path: '',
+                        component: PagedTableOverviewComponent
+                    }
+                ]
             },
             {
                 path: '',

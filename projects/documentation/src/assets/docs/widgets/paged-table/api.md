@@ -1,4 +1,4 @@
-# PagedTableComponent
+## PagedTableComponent
 
 The PagedTableComponent represents a table with paged data. This component
 defines most of the HTML required for a MatTable that includes a select
@@ -8,7 +8,9 @@ detected and included with the table. Columns should follow the same format
 as a MatTable. You should include a column definition for when no table is
 empty.
 
-# Properties
+## Properties
+
+The following table defines the properties for the PagedTableComponent.
 
 | Name | Description |
 | :------: | :------: |

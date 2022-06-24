@@ -1,3 +1,5 @@
+## Overview Content
+
 The `PagedTableComponent` defines all of the HTML and code needed to render and
 use a `MatTable` and corresponding `Paginator` with both local and remote data
 sources. To use this component you only need to define a few basic configuration
