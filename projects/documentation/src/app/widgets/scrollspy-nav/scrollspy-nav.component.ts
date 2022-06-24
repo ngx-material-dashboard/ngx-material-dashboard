@@ -5,8 +5,7 @@ import { first } from 'rxjs/operators';
 @Component({
     selector: 'app-scrollspy-nav',
     templateUrl: './scrollspy-nav.component.html',
-    styleUrls: ['./scrollspy-nav.component.scss'],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./scrollspy-nav.component.scss']
 })
 export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestroy {
 
@@ -20,6 +19,29 @@ export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestro
 
     ngAfterViewInit(): void {
         this.removeHidden(this.elementRef.nativeElement.parentElement?.parentElement);
+        this.zone.onStable
+            // .pipe(first())
+            // by continously listening for this we take a performance hit, but
+            // links may not be defined when zone is initially stable since they
+            // are generated dynamically after loading remote markdown files
+            // TODO figure out a way to avoid this
+            .subscribe(() => {
+                const hostElement = this.elementRef.nativeElement;
+                const linkSelector = `.${hostElement.className} a`;
+                try {
+                    if (this.scrollSpy) {
+                        // destroy the existing scrollSpy before creating a new
+                        // one; otherwise we end up with a ton of scrollSpys and
+                        // browser just stops responding
+                        this.scrollSpy.destroy();
+                    }
+                    this.scrollSpy = new Gumshoe(linkSelector, { offset: 64, reflow: true });
+                } catch(error: any) {
+                    console.log(error);
+                }
+            });
+
+        this.setScrollSpy();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -43,32 +65,15 @@ export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestro
             this.scrollSpy.setup();
             return;
         }
-        this.zone.onStable
-            .pipe(first())
-            .subscribe(() => {
-                const hostElement = this.elementRef.nativeElement;
-                const linkSelector = `${hostElement.tagName}.${hostElement.className} a`;
-                try {
-                    this.scrollSpy = new Gumshoe(linkSelector, { offset: 0, reflow: true });
-                    
-                } catch(error: any) {
-                    console.log(error);
-                }
-            });
     }
 
     removeHidden(el: HTMLElement | null | undefined): void {
-        console.log(el);
         let parent = el?.querySelector('.sticky')?.parentElement;
-        console.log(parent);
 
         while (parent) {
             const hasOverflow = getComputedStyle(parent).overflow;
             if (hasOverflow !== 'visible' && hasOverflow !== '') {
-                console.log(hasOverflow, parent);
                 parent.style.overflow = 'visible';
-                // parent.style.overflowY = 'visible';
-                // parent.style.overflowX = hasOverflow;
             }
             parent = parent.parentElement;
         }

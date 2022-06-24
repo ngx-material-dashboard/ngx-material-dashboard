@@ -9,7 +9,7 @@ import { ActivatedRoute, Router, UrlTree } from '@angular/router';
  * ```
  * RouterModule.forRoot(routes, {
  *  anchorScrolling: 'enabled',           // scrolls to the anchor element when the URL has a fragment
- *  scrollOffset: [0, 0],                // scroll offset when scrolling to an element (optional)
+ *  scrollOffset: [0, 64],                // scroll offset when scrolling to an element (optional)
  *  scrollPositionRestoration: 'enabled', // restores the previous scroll position on backward navigation
  * })
  * ```
