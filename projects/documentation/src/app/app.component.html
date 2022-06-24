@@ -23,16 +23,18 @@
     <div class="outlet-wrapper">
         <router-outlet></router-outlet>
     </div>
-    <footer class="container" fxLayout="row" fxLayoutGap="10px">
-        <span fxFlex></span>
-        <span>
-            <markdown class="footer-text" fxLayout="row" fxLayoutAlign.gt-xs="center">
-                Crafted using [ngx-markdown](https://www.npmjs.com/package/ngx-markdown) by **jphillips** 
-                <span style="margin:0 .15em;">•</span> 
-                Follow on [GitHub](https://github.com/jonathan.scott.phillips)
-                <span>&#169; {{ date | date: 'yyyy' }} ngx-material-dashboard</span>
-            </markdown>
-        </span>
-        <span fxFlex></span>
+    <footer>
+        <mat-toolbar color="primary" fxLayout="row" fxLayoutGap="10px">
+            <span fxFlex></span>
+            <span>
+                <markdown class="footer-text" fxLayout="row" fxLayoutAlign.gt-xs="center">
+                    Crafted using [ngx-markdown](https://www.npmjs.com/package/ngx-markdown) by **jphillips** 
+                    <span style="margin:0 .15em;">•</span> 
+                    Follow on [GitHub](https://github.com/jonathan.scott.phillips)
+                    <span>&#169; {{ date | date: 'yyyy' }} ngx-material-dashboard</span>
+                </markdown>
+            </span>
+            <span fxFlex></span>
+        </mat-toolbar>
     </footer>
 </div>
