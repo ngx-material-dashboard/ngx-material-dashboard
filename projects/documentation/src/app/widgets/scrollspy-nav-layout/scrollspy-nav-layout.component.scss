@@ -13,7 +13,6 @@
     position: sticky;
     position: -webkit-sticky;
     top: 64px;
-    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }
 
 .scrollup-button {

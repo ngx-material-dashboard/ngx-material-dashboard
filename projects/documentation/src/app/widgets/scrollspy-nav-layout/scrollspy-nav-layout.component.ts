@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { faChevronUp, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
 
@@ -6,8 +6,7 @@ import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
   animations: [ZOOM_ANIMATION],
   selector: 'app-scrollspy-nav-layout',
   templateUrl: './scrollspy-nav-layout.component.html',
-  styleUrls: ['./scrollspy-nav-layout.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./scrollspy-nav-layout.component.scss']
 })
 export class ScrollspyNavLayoutComponent {
 
