@@ -8,6 +8,10 @@ const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
+                path: 'json',
+                loadChildren: () => import('./routed-modules/json/json.module').then(m => m.JSONModule)
+            },
+            {
                 path: 'widgets',
                 loadChildren: () => import('./routed-modules/widgets/widgets.module').then(m => m.WidgetsModule)
             },
