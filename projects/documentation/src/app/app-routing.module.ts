@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LayoutComponent } from './widgets/layout/layout/layout.component';
 
 const routes: Routes = [
     {
-        path: 'widgets',
-        loadChildren: () => import('./routed-modules/widgets/widgets.module').then(m => m.WidgetsModule)
-    },
-    {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'widgets'
+        component: LayoutComponent,
+        children: [
+            {
+                path: 'widgets',
+                loadChildren: () => import('./routed-modules/widgets/widgets.module').then(m => m.WidgetsModule)
+            },
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'widgets'
+            }
+        ]
     }
 ];
 

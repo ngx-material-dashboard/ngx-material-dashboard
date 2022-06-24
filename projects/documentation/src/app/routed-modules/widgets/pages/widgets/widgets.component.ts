@@ -1,21 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { SidenavItem } from '@ngx-material-dashboard/widgets';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-widgets',
     templateUrl: './widgets.component.html',
     styleUrls: ['./widgets.component.scss']
 })
-export class WidgetsComponent implements OnInit {
+export class WidgetsComponent {
 
-    sidenavItems: SidenavItem[] = [
-        { route: ['paged-table'], text: 'PagedTable', selector: 'paged-table' },
-        { route: ['paged-table-with-toolbar'], text: 'PagedTableWithToolbar', selector: 'paged-table-with-toolbar' }
-    ];
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
+    markdownSrc: string = 'assets/docs/widgets/overview.md';
 }

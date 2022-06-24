@@ -10,6 +10,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnchorModule } from './shared/anchor/anchor.module';
+import { LayoutModule } from './widgets/layout/layout.module';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { AnchorModule } from './shared/anchor/anchor.module';
             }
         }),
         AnchorModule,
+        LayoutModule,
         AppRoutingModule
     ],
     providers: [],

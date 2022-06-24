@@ -8,30 +8,24 @@ import { WidgetsComponent } from './pages/widgets/widgets.component';
 const routes: Routes = [
     {
         path: '',
-        component: WidgetsComponent,
+        pathMatch: 'full',
+        component: WidgetsComponent
+    },
+    {
+        path: 'paged-table',
+        component: TabbedDocumentComponent,
         children: [
             {
-                path: 'paged-table',
-                component: TabbedDocumentComponent,
-                children: [
-                    {
-                        path: 'overview',
-                        component: PagedTableOverviewComponent
-                    },
-                    {
-                        path: 'api',
-                        component: PagedTableApiComponent
-                    },
-                    {
-                        path: '',
-                        component: PagedTableOverviewComponent
-                    }
-                ]
+                path: 'overview',
+                component: PagedTableOverviewComponent
+            },
+            {
+                path: 'api',
+                component: PagedTableApiComponent
             },
             {
                 path: '',
-                pathMatch: 'full',
-                redirectTo: 'paged-table'
+                redirectTo: 'overview'
             }
         ]
     }

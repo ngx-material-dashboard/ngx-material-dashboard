@@ -1,12 +1,1 @@
-<mat-sidenav-container class="content" fxLayout="row">
-    <mat-sidenav fixedInViewport="true"
-        fixedTopGap="64"
-        fixedBottomGap="64"
-        mode="side"
-        #sidenav opened>
-        <ngx-material-dashboard-sidenav class="sticky" [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
-    </mat-sidenav>
-    <mat-sidenav-content class="container" fxFlex>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<app-tabbed-document-tab [markdownSrc]="markdownSrc"></app-tabbed-document-tab>
