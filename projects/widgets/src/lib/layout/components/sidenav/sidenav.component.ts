@@ -77,11 +77,19 @@ export class SidenavComponent implements OnInit {
      */
     isActive(sidenavItem: SidenavItem): boolean {
         if (sidenavItem.route) {
-            const route = sidenavItem.route.join('/');
+            // join route parts
+            let route = sidenavItem.route.join('/');
+            if (route.indexOf('.') === 0) {
+                // remove the '.' from the beginning of route if it exists
+                // since this is only used by angular to route to root of app
+                // and not actually included in router URLs
+                route = route.substring(1);
+            }
+
             if (route === '') {
                 return this.router.url === '/';
             } else if (!sidenavItem.queryParams) {
-                return this.router.url === route;
+                return this.router.url === route || this.router.url.includes(route);
             } else {
                 return this.router.url.slice(0, this.router.url.indexOf('?')) === route && this.compareMaps(this.queryParams, sidenavItem.queryParams);
             }
