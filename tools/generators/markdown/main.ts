@@ -8,11 +8,11 @@ import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
-    'base-json': 'services-libraries',
-    'json': 'services-libraries',
-    'json-api': 'services-libraries',
-    'widgets': 'component-libraries',
-    'testing': 'testing-libraries'
+    'base-json': 'json/base-json',
+    'json': 'json/json',
+    'json-api': 'json/json-api',
+    'widgets': 'widgets',
+    'testing': 'testing'
 }
 
 export function generateMarkdown(modules: Module[]) {
@@ -36,15 +36,16 @@ export function generateMarkdown(modules: Module[]) {
                 '..',
                 '..',
                 '..',
+                'projects',
                 'documentation',
+                'src',
+                'assets',
                 'docs',
                 baseDir,
-                module.displayName,
-                'api-docs',
-                '_' + clazz.name + '.md'
+                reformatText(clazz.name)
             );
             const output = classTemplate(clazz);
-            writeFile(outputPath, output);
+            writeFile(outputPath, 'api.md', output);
         });
 
         // const output = moduleTemplate(module);
@@ -54,13 +55,37 @@ export function generateMarkdown(modules: Module[]) {
     });
 }
 
-function writeFile(filename: string, data: any): void {
+function writeFile(directory: string, filename: string, data: any): void {
+    // create directory if it doesn't exist
+    if (!fs.existsSync(directory)) {
+        fs.mkdir(directory, { recursive: true }, (err) => {
+            if (err) throw err;
+        });
+    }
     /**
      * flags:
      *  - w = Open file for reading and writing. File is created if not exists
      *  - a+ = Open file for reading and appending. The file is created if not exists
      */
-    fs.writeFile(filename, data, function(err) {
+    fs.writeFile(`${directory}/${filename}`, data, { flag: 'w' }, function(err) {
         if (err) return console.error(err); 
     });
+}
+
+function reformatText(x: string): string {
+    const text = x.replace(' ', '').replace('Component', '');
+    let reformattedText = '';
+    for(let i = 0; i < text.length; i++) {
+        const character = text.charAt(i);
+        if (character === character.toUpperCase()) {
+            if (i > 0) {
+                reformattedText += '-';
+            }
+            reformattedText += character.toLowerCase();
+        } else {
+            reformattedText += character;
+        }
+    }
+
+    return reformattedText;
 }
