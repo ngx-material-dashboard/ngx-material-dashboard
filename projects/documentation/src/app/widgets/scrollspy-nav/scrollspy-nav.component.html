@@ -1,5 +1,10 @@
 <ul class="scrollspy-nav">
-    <li *ngFor="let heading of headings">
+    <li class="scrollspy-nav" *ngFor="let heading of headings">
         <a routerLink="." [fragment]="heading.id">{{ heading.innerHTML }}</a>
+        <ul class="nested-headings" *ngIf="nestedHeadings">
+            <li class="nested-headings" *ngFor="let nestedHeading of nestedHeadings[heading.id]">
+                <a routerLink="." [fragment]="nestedHeading.id">{{ nestedHeading.innerHTML }}</a>
+            </li>
+        </ul>
     </li>
 </ul>

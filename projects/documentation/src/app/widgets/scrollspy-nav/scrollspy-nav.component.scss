@@ -6,7 +6,6 @@ ul.scrollspy-nav {
         font-size: 14px;
         font-weight: 500;
         list-style: none;
-        padding: 4px 0 4px 16px;
 
         > a,
         > a:active,
@@ -20,4 +19,28 @@ ul.scrollspy-nav {
             opacity: 0.6;
         }
     }
+
+    li.scrollspy-nav {
+        padding: 4px 0 4px 16px;
+    }
+
+    // add more left padding to nested-headings so they still appear as nested
+    // under their parent heading since we have left shift below
+    li.nested-headings {
+        padding: 4px 0 4px 28px;
+
+        &:not(.active) {
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+    }
+}
+
+// align nested headings with parent headings so there is only 1 vertical scroll
+// line visible with nested items still highlighted along same line as parents
+ul.nested-headings {
+    padding: 0;
+    position: relative;
+    left: -17.5px;
 }

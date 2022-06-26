@@ -18,5 +18,14 @@
                 }
             }
         }
+
+        // remove box-shadow from nested headings so there is only 1 visible
+        // scroll line; otherwise a secondary line is displayed next to
+        // nested headings which doesn't look good
+        li.nested-headings {
+            &:not(.active) {
+                box-shadow: none;
+            }
+        }
     }
 }

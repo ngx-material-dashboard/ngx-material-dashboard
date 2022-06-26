@@ -1,5 +1,6 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { faChevronUp, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
 import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
 
 @Component({
@@ -10,8 +11,8 @@ import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
 })
 export class ScrollspyNavLayoutComponent {
 
-    @Input()
-    headings: Element[] | undefined;
+    @Input()headings: Element[] | undefined;
+    @Input()nestedHeadings: NestedHeading | undefined;
     faChevronUp: IconDefinition = faChevronUp;
 
     showScrollUpButton = false;

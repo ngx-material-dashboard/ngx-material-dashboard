@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import * as Gumshoe from 'gumshoejs';
 import { first } from 'rxjs/operators';
+import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
 
 @Component({
     selector: 'app-scrollspy-nav',
@@ -10,6 +11,7 @@ import { first } from 'rxjs/operators';
 export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     @Input()headings: Element[] | undefined;
+    @Input()nestedHeadings: NestedHeading | undefined;
     private scrollSpy: Gumshoe | undefined;
 
     constructor(
