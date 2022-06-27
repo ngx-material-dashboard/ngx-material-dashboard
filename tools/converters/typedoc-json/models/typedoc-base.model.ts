@@ -1,3 +1,5 @@
+import { Source } from "./source.model";
+
 /**
  * Base model class that contains most basic details for a typedoc JSON object.
  */
@@ -15,6 +17,7 @@ export class TypedocBase {
     children: TypedocBase[] = [];
     comment?: { shortText: string };
     decorator?: {};
+    sources!: Source[];
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
