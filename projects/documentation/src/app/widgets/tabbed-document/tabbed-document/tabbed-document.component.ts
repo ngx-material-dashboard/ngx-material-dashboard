@@ -22,11 +22,17 @@ export class TabbedDocumentComponent implements OnInit {
     constructor(private router: Router) {}
 
     ngOnInit(): void {
-        this.router.events.subscribe((res) => {
-            const activeLink = this.links.find((link: Link) => { return this.router.url.endsWith(link.link[0])});
-            if (activeLink) {
-                this.activeLink = activeLink;
-            }
-        })
+        this.router.events.subscribe(() => {
+            this.initActiveLink();
+        });
+
+        this.initActiveLink();
+    }
+
+    initActiveLink(): void {
+        const activeLink = this.links.find((link: Link) => { return this.router.url.endsWith(link.link[0])});
+        if (activeLink) {
+            this.activeLink = activeLink;
+        }
     }
 }
