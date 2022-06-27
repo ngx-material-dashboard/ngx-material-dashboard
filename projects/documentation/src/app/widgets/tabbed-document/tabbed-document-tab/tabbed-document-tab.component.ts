@@ -38,7 +38,6 @@ export class TabbedDocumentTabComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        console.log(this.router.url);
         this.markdownSrc = URL_DIRECTORY_MAP[this.router.url];
     }
 

@@ -39,7 +39,7 @@ export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestro
                     }
                     this.scrollSpy = new Gumshoe(linkSelector, { offset: 64, reflow: true });
                 } catch(error: any) {
-                    console.log(error);
+                    // console.log(error);
                 }
             });
 
