@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BaseJsonComponent } from './pages/base-json/base-json.component';
-import { JsonApiComponent } from './pages/json-api/json-api.component';
-import { JsonComponent } from './pages/json/json.component';
+import { TabbedDocumentTabComponent } from '../../widgets/tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
+import { TabbedDocumentComponent } from '../../widgets/tabbed-document/tabbed-document/tabbed-document.component';
 
 const routes: Routes = [
     {
         path: '',
-        pathMatch: '',
-        component: JsonComponent
+        pathMatch: 'full',
+        component: TabbedDocumentTabComponent
     },
     {
         path: 'base-json',
-        component: BaseJsonComponent
+        component: TabbedDocumentComponent
     },
     {
         path: 'json-api',
-        component: JsonApiComponent
+        component: TabbedDocumentComponent
     }
 ];
 
