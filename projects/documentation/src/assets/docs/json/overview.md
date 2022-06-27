@@ -63,7 +63,7 @@ something like the following endpoints defined in your API:
 
 Another reason I wrote this library was to provide a base line client API for
 interfacing with a JSON server side API to use with custom built Angular
-components that I have provided in the [widgets](../widgets/) library. While
+components that I have provided in the [widgets](./widgets) library. While
 the base-json, json, and json-api libraries can be used on their own, they can
 (and need to be included) when using the widgets library. The widgets library
 includes a lot of functionality for managing your application entities from

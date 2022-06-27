@@ -10,7 +10,7 @@ seemingly endless struggle to be the best developer I can be.
 
 This library does provide some basic CRUD capabilities, and as a result I do
 need to have a consitent way to manage data. So this library depends on the
-[base-json](projects/base-json) library for interfacing with JSON API servers.
+[base-json](./json/base-json) library for interfacing with JSON API servers.
 I recommend that you take a look at that library to see if that will work for
 your project before you dig too deep into this library.
 
@@ -27,7 +27,7 @@ npm install @ngx-material-dashboard/base-json @ngx-material-dashboard/widgets
 This will install the base-json library, which is a required dependency and
 this library.
 
-You may also want to install the [testing](../../testing-libraries/testing/intro.md)
+You may also want to install the [testing](./testing)
 library I created in conjunction with this one. It includes classes you can use that
 will help writing karma tests in your application. Follow the included link to read
 more about that and find installation instructions.
