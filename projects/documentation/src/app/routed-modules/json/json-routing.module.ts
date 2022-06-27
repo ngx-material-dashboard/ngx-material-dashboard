@@ -11,11 +11,15 @@ const routes: Routes = [
     },
     {
         path: 'base-json',
-        component: TabbedDocumentComponent
+        component: TabbedDocumentTabComponent
+    },
+    {
+        path: 'json',
+        component: TabbedDocumentTabComponent
     },
     {
         path: 'json-api',
-        component: TabbedDocumentComponent
+        component: TabbedDocumentTabComponent
     }
 ];
 

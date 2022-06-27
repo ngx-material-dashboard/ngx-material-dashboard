@@ -6,6 +6,7 @@ import { SidenavItem } from '@ngx-material-dashboard/widgets';
 const routeSidenavItems: { [route: string]: SidenavItem[] } = {
     'json': [
         { route: ['./json', 'base-json'], text: 'base-json', selector: 'base-json'},
+        { route: ['./json', 'json'], text: 'json', selector: 'json' },
         { route: ['./json', 'json-api'], text: 'json-api', selector: 'json-api'}
     ],
     'widgets': [

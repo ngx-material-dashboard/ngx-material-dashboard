@@ -10,6 +10,9 @@ export interface NestedHeading {
 
 const URL_DIRECTORY_MAP: { [url: string]: string } = {
     '/json': 'assets/docs/json/overview.md',
+    '/json/base-json': 'assets/docs/json/base-json/overview.md',
+    '/json/json': 'assets/docs/json/json/overview.md',
+    '/json/json-api': 'assets/docs/json/json-api/overview.md',
     '/widgets': 'assets/docs/widgets/overview.md',
     '/widgets/abstract-paged-table-with-toolbar/overview': 'assets/docs/widgets/components/abstract-paged-table-with-toolbar/overview.md',
     '/widgets/abstract-paged-table-with-toolbar/api': 'assets/docs/widgets/components/abstract-paged-table-with-toolbar/api.md',
