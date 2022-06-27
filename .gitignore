@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 docs.json
+# generated api markdown files
+**/docs/**/api.md
 # Only exists if Bazel was run
 /bazel-out
 
