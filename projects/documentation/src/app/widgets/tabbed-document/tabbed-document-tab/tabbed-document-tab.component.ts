@@ -1,10 +1,18 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * A map of parent heading ids to their child heading elements.
  */
 export interface NestedHeading {
     [headingId: string]: Element[]
+};
+
+const URL_DIRECTORY_MAP: { [url: string]: string } = {
+    '/json': 'assets/docs/json/overview.md',
+    '/widgets': 'assets/docs/widgets/overview.md',
+    '/widgets/paged-table/overview': 'assets/docs/widgets/components/paged-table/overview.md',
+    '/widgets/paged-table/api': 'assets/docs/widgets/components/paged-table/api.md'
 };
 
 @Component({
@@ -21,10 +29,13 @@ export class TabbedDocumentTabComponent implements OnInit {
     nestedHeadings: NestedHeading = {};
 
     constructor(
-        private el: ElementRef
+        private el: ElementRef,
+        private router: Router 
     ) { }
 
     ngOnInit(): void {
+        console.log(this.router.url);
+        this.markdownSrc = URL_DIRECTORY_MAP[this.router.url];
     }
 
     onLoad(): void {

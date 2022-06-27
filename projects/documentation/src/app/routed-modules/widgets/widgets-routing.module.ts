@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TabbedDocumentTabComponent } from '../../widgets/tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
 import { TabbedDocumentComponent } from '../../widgets/tabbed-document/tabbed-document/tabbed-document.component';
-import { PagedTableApiComponent } from './pages/paged-table/paged-table-api/paged-table-api.component';
-import { PagedTableOverviewComponent } from './pages/paged-table/paged-table-overview/paged-table-overview.component';
-import { WidgetsComponent } from './pages/widgets/widgets.component';
 
 const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        component: WidgetsComponent
+        component: TabbedDocumentTabComponent
     },
     {
         path: 'paged-table',
@@ -17,11 +15,11 @@ const routes: Routes = [
         children: [
             {
                 path: 'overview',
-                component: PagedTableOverviewComponent
+                component: TabbedDocumentTabComponent
             },
             {
                 path: 'api',
-                component: PagedTableApiComponent
+                component: TabbedDocumentTabComponent
             },
             {
                 path: '',
