@@ -5,10 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule as DashboardLayoutModule } from '@ngx-material-dashboard/widgets';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { AnchorModule } from './shared/anchor/anchor.module';
 import { LayoutModule } from './widgets/layout/layout.module';
 
@@ -17,28 +19,15 @@ import { LayoutModule } from './widgets/layout/layout.module';
         AppComponent
     ],
     imports: [
-        HttpClientModule,
-        BrowserModule,
-        BrowserAnimationsModule,
         FlexLayoutModule,
         MatButtonModule,
         MatToolbarModule,
-        MarkdownModule.forRoot({ 
-            loader: HttpClient,
-            markedOptions: {
-                provide: MarkedOptions,
-                useValue: {
-                    gfm: true,
-                    breaks: false,
-                    pedantic: false,
-                    smartLists: true,
-                    smartypants: false
-                }
-            }
-        }),
         AnchorModule,
         LayoutModule,
-        AppRoutingModule
+        DashboardLayoutModule,
+        AppRoutingModule,
+        MarkdownModule.forChild(),
+        CoreModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

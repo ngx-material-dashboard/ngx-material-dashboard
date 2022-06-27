@@ -13,6 +13,7 @@ export * from './grid/grid.module';
 
 export * from './layout/interfaces/sidenav.interface';
 export * from './layout/services/loading.service';
+export * from './layout/components/loading/loading.component';
 export * from './layout/components/sidenav/sidenav.component';
 export * from './layout/pages/default-layout/default-layout.component';
 export * from './layout/layout.module';

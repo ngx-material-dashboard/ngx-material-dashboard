@@ -1,12 +1,57 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { interceptorProviders } from './interceptors/interceptor.provider';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '@angular/cdk/layout';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastrModule } from 'ngx-toastr';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+    declarations: [],
+    imports: [
+        HttpClientModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        HttpClientModule,
+        FontAwesomeModule,
+        MarkdownModule.forRoot({ 
+            loader: HttpClient,
+            markedOptions: {
+                provide: MarkedOptions,
+                useValue: {
+                    gfm: true,
+                    breaks: false,
+                    pedantic: false,
+                    smartLists: true,
+                    smartypants: false
+                }
+            }
+        }),
+        ToastrModule.forRoot()
+    ],
+    exports: [
+        // 3rd party exports
+        CommonModule
+    ]
 })
-export class CoreModule { }
+export class CoreModule {
+
+    constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+        if (parentModule) {
+            throw new Error('CoreModule is already loaded. Import only in AppModule');
+        }
+    }
+
+    static forRoot(): ModuleWithProviders<CoreModule> {
+        return {
+            ngModule: CoreModule,
+            providers: [
+                interceptorProviders
+            ]
+        };
+    }
+}

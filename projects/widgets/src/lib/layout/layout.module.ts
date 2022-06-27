@@ -32,6 +32,7 @@ import { DrawerRailModule } from 'angular-material-rail-drawer';
     ],
     exports: [
         DefaultLayoutComponent,
+        LoadingComponent,
         SidenavComponent
     ],
     imports: [
