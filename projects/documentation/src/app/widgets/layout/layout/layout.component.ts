@@ -9,6 +9,7 @@ const routeSidenavItems: { [route: string]: SidenavItem[] } = {
         { route: ['./json', 'json-api'], text: 'json-api', selector: 'json-api'}
     ],
     'widgets': [
+        { route: ['./widgets', 'abstract-paged-table-with-toolbar'], text: 'AbstractPagedTableWithToolbar', selector: 'abstract-paged-table-with-toolbar'},
         { route: ['./widgets', 'paged-table'], text: 'PagedTable', selector: 'paged-table' },
         { route: ['./widgets', 'paged-table-with-toolbar'], text: 'PagedTableWithToolbar', selector: 'paged-table-with-toolbar' }
     ]

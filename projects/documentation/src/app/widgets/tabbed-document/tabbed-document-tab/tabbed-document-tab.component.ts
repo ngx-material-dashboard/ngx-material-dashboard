@@ -11,8 +11,12 @@ export interface NestedHeading {
 const URL_DIRECTORY_MAP: { [url: string]: string } = {
     '/json': 'assets/docs/json/overview.md',
     '/widgets': 'assets/docs/widgets/overview.md',
+    '/widgets/abstract-paged-table-with-toolbar/overview': 'assets/docs/widgets/components/abstract-paged-table-with-toolbar/overview.md',
+    '/widgets/abstract-paged-table-with-toolbar/api': 'assets/docs/widgets/components/abstract-paged-table-with-toolbar/api.md',
     '/widgets/paged-table/overview': 'assets/docs/widgets/components/paged-table/overview.md',
-    '/widgets/paged-table/api': 'assets/docs/widgets/components/paged-table/api.md'
+    '/widgets/paged-table/api': 'assets/docs/widgets/components/paged-table/api.md',
+    '/widgets/paged-table-with-toolbar/overview': 'assets/docs/widgets/components/paged-table-with-toolbar/overview.md',
+    '/widgets/paged-table-with-toolbar/api': 'assets/docs/widgets/components/paged-table-with-toolbar/api.md',
 };
 
 @Component({

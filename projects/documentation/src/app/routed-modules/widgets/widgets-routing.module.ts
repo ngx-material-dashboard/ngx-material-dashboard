@@ -10,7 +10,43 @@ const routes: Routes = [
         component: TabbedDocumentTabComponent
     },
     {
+        path: 'abstract-paged-table-with-toolbar',
+        component: TabbedDocumentComponent,
+        children: [
+            {
+                path: 'overview',
+                component: TabbedDocumentTabComponent
+            },
+            {
+                path: 'api',
+                component: TabbedDocumentTabComponent
+            },
+            {
+                path: '',
+                redirectTo: 'overview'
+            }
+        ]
+    },
+    {
         path: 'paged-table',
+        component: TabbedDocumentComponent,
+        children: [
+            {
+                path: 'overview',
+                component: TabbedDocumentTabComponent
+            },
+            {
+                path: 'api',
+                component: TabbedDocumentTabComponent
+            },
+            {
+                path: '',
+                redirectTo: 'overview'
+            }
+        ]
+    },
+    {
+        path: 'paged-table-with-toolbar',
         component: TabbedDocumentComponent,
         children: [
             {
