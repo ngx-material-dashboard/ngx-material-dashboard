@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AnchorModule } from './shared/anchor/anchor.module';
 import { LayoutModule } from './widgets/layout/layout.module';
+import { TabbedDocumentModule } from './widgets/tabbed-document/tabbed-document.module';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { LayoutModule } from './widgets/layout/layout.module';
         MatToolbarModule,
         AnchorModule,
         LayoutModule,
+        TabbedDocumentModule,
         DashboardLayoutModule,
         AppRoutingModule,
         MarkdownModule.forChild(),

@@ -1,28 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './widgets/layout/layout/layout.component';
+import { TabbedDocumentTabComponent } from './widgets/tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
+import { TabbedDocumentComponent } from './widgets/tabbed-document/tabbed-document/tabbed-document.component';
 
-const routes: Routes = [
-    {
-        path: '',
-        component: LayoutComponent,
-        children: [
-            {
-                path: 'json',
-                loadChildren: () => import('./routed-modules/json/json.module').then(m => m.JSONModule)
-            },
-            {
-                path: 'widgets',
-                loadChildren: () => import('./routed-modules/widgets/widgets.module').then(m => m.WidgetsModule)
-            },
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'widgets'
-            }
-        ]
-    }
-];
+const routes: Routes = [{ path: '', component: LayoutComponent, children: [{ path: 'base-json', children: [{ path: 'interfaces', children: [{ path: 'attribute-decorator-options', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'datastore-config', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'json-api-error', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'model-config', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'overrides', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'property-converter', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'model-type', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]}]}]},{ path: 'widgets', children: [{ path: 'components', children: [{ path: 'abstract-paged-table-with-toolbar', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'confirm-delete-dialog', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'default-layout', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'field-error', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'filter-drop-down', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'paged-grid', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'paged-list', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'paged-table', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent },{ path: 'overview', component: TabbedDocumentTabComponent }]},{ path: 'paged-table-with-toolbar', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'paged-table-with-toolbar', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]}]},{ path: 'directives', children: [{ path: 'click-stop-propagation-directive', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'tab-stop-propagation-directive', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]}]},{ path: 'interfaces', children: [{ path: 'paged-table-with-toolbar', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'paged-table-with-toolbar', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'sidenav-item', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'validation-message', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'validation-messages', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]}]},{ path: 'modules', children: [{ path: 'dialog', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'form', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'grid', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'layout', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'list', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]},{ path: 'table', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]}]},{ path: 'services', children: [{ path: 'loading', component: TabbedDocumentComponent, children: [{ path: 'api', component: TabbedDocumentTabComponent }]}]}]}]}];
 
 @NgModule({
   imports: [RouterModule.forRoot(

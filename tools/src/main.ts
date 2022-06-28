@@ -2,6 +2,7 @@ import { ParseJsonService } from '../converters/typedoc-json/services/parse-json
 import { updateMarkdownRoutes } from '../generators/documentation/markdown-url-directories/main';
 import { generateSidenavItems } from '../generators/documentation/route-sidenav-items/main';
 import { generateMarkdown } from '../generators/markdown/main';
+import { generateRoutes } from '../generators/documentation/routes/main';
 
 // parse typedoc JSON
 const service = new ParseJsonService();
@@ -13,3 +14,4 @@ generateMarkdown(service.modules);
 const urlFilesMap = updateMarkdownRoutes();
 
 generateSidenavItems(service.modules, Object.keys(urlFilesMap));
+generateRoutes(service.modules, Object.keys(urlFilesMap));

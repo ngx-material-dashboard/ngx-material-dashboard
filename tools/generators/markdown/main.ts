@@ -8,9 +8,9 @@ import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
-    'base-json': 'json/base-json',
-    'json': 'json/json',
-    'json-api': 'json/json-api',
+    'base-json': 'base-json',
+    'json': 'json',
+    'json-api': 'json-api',
     'widgets': 'widgets',
     'testing': 'testing'
 }

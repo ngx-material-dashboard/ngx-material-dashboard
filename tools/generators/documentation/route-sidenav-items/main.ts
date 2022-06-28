@@ -2,6 +2,12 @@ import * as path from 'path';
 import { ReplaceInFile } from '../../../files/replace-in-file';
 import { SidenavItem } from '@ngx-material-dashboard/widgets';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
+import {
+    capitalizeFirstLetter,
+    convertSelectorToText,
+    convertUrlToRoute,
+    filterModuleTypeUrls
+} from '../helpers';
 
 // const routeSidenavItems: { [route: string]: SidenavItem[] } = {
 //     'json': [
@@ -27,13 +33,40 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
+const moduleTypes: string[] = [
+    'components',
+    'directives',
+    'interfaces',
+    'modules',
+    'services'
+]
+
 export function generateSidenavItems(modules: Module[], urls: string[]) {
     const sidenavItems: { [route: string]: SidenavItem[] } = {};
     modules.forEach((module: Module) => {
         sidenavItems[module.displayName] = [];
 
-        const moduleUrls: string[] = urls.filter((it: string) => it.includes(module.displayName));
-        moduleUrls.forEach((url: string) => {
+        const moduleUrls: string[] = urls.filter((it: string) => it.includes(module.displayName));        
+        moduleTypes.forEach((moduleType: string) => {
+            const children: SidenavItem[] = [];
+            const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(moduleType));
+            moduleTypeUrls.forEach((url: string) => {
+                children.push(createSidenavItem(module, url));
+            });
+
+            if (children.length > 0) {
+                const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
+                    capitalizeFirstLetter(moduleType),
+                    moduleType,
+                    children
+                );
+
+                sidenavItems[module.displayName].push(nestedSidenavItem);
+            }
+        });
+        
+        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
+        nonModuleTypeUrls.forEach((url: string) => {
             sidenavItems[module.displayName].push(createSidenavItem(module, url));
         });
     });
@@ -51,6 +84,14 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
         /const routeSidenavItems: any = {.*};/g,
         `const routeSidenavItems: any = ${JSON.stringify(sidenavItems)};`
     );
+}
+
+function createNestedSidenavItem(text: string, selector: string, children: SidenavItem[]): SidenavItem {
+    return {
+        text,
+        selector,
+        children
+    };
 }
 
 function createSidenavItem(module: Module, url: string): SidenavItem {
@@ -72,23 +113,4 @@ function createSidenavItem(module: Module, url: string): SidenavItem {
         selector,
         text
     }
-}
-
-function convertUrlToRoute(url: string) {
-    const route = url.split('/');
-    route[0] = `./${route[0]}`;
-    return route.filter((it: string) => it !== 'api' && it !== 'overview');
-}
-
-function convertSelectorToText(selector: string) {
-    let text = '';
-    const vals = selector.split('-');
-    vals.forEach((val: string) => {
-        text += capitalizeFirstLetter(val);
-    });
-    return text;
-}
-
-function capitalizeFirstLetter(s: string) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
 }
