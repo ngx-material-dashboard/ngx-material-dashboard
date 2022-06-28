@@ -6,7 +6,8 @@ import {
     capitalizeFirstLetter,
     convertSelectorToText,
     convertUrlToRoute,
-    filterModuleTypeUrls
+    filterModuleTypeUrls,
+    moduleTypes
 } from '../helpers';
 
 // const routeSidenavItems: { [route: string]: SidenavItem[] } = {
@@ -32,14 +33,6 @@ const baseDocsSrcDir = path.join(
     'documentation',
     'src'
 );
-
-const moduleTypes: string[] = [
-    'components',
-    'directives',
-    'interfaces',
-    'modules',
-    'services'
-]
 
 export function generateSidenavItems(modules: Module[], urls: string[]) {
     const sidenavItems: { [route: string]: SidenavItem[] } = {};

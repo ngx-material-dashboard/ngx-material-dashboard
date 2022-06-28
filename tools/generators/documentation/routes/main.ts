@@ -6,6 +6,7 @@ import { Route, Routes } from '@angular/router';
 import {
     capitalizeFirstLetter,
     filterModuleTypeUrls,
+    moduleTypes,
     reformatText
 } from '../helpers';
 import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
@@ -21,14 +22,6 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
-const moduleTypes: string[] = [
-    'components',
-    'directives',
-    'interfaces',
-    'modules',
-    'services'
-]
-
 export function generateRoutes(modules: Module[], urls: string[]) {
     let routes = '[';
     let routeIndex = 0;
@@ -41,6 +34,8 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             let moduleTypeRoutes = '';
             let moduleTypeChildren = '[';
             let classIndex: number = 0;
+
+            // handle URLs that include module types
             const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(moduleType));
             module.classes.forEach((clazz: Clazz) => {
                 let classRoutes = '';
@@ -58,49 +53,75 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                 });
                 children += ']';
 
-                if (children !== '[]') {
-                    const classRoute = createRouteWithChildrenAndComponent(className, children);
-                    classRoutes += classRoute;
-
-                    if (classIndex > 0) {
-                        moduleTypeChildren += ',';
-                    }
-                    moduleTypeChildren += classRoutes;
-                    classIndex++;
-                }
+                const res = addChildrenToRoutes(
+                    children,
+                    classRoutes, 
+                    className,
+                    classIndex,
+                    moduleTypeChildren,
+                    createRouteWithChildrenAndComponent
+                );
+                moduleTypeChildren = res.routeChildren;
+                classIndex = res.index;
             });
             moduleTypeChildren += ']';
 
-            if (moduleTypeChildren !== '[]') {
-                const moduleTypeRoute = createRouteWithChildren(moduleType, moduleTypeChildren);
-                moduleTypeRoutes += moduleTypeRoute;
-
-                if (moduleTypeIndex > 0) {
-                    moduleChildren += ',';
-                }
-                moduleChildren += moduleTypeRoutes;
-                moduleTypeIndex++;
-            }
+            const res = addChildrenToRoutes(
+                moduleTypeChildren,
+                moduleTypeRoutes,
+                moduleType,
+                moduleTypeIndex,
+                moduleChildren,
+                createRouteWithChildren
+            );
+            moduleChildren = res.routeChildren;
+            moduleTypeIndex = res.index;
         });
-        moduleChildren += ']';
 
-        if (moduleChildren !== '[]') {
-            const moduleRoute = createRouteWithChildren(module.displayName, moduleChildren);
-            moduleRoutes += moduleRoute;
-
-            if (routeIndex > 0) {
-                routes += ',';
-            } 
-            routes += moduleRoutes;
-            routeIndex++;
-        }
-        
+        // handle URLs that do not include module types
         const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
+        const nonModuleTypeUrlsIndex: number = 0;
+        let nonModuleChildren: string = '[';
+        let nonModuleRoutes = '';
         nonModuleTypeUrls.forEach((url: string) => {
-            url = url.replace(`${module.displayName}/`, '');
-            //console.log(url);
+            
+            url = url.replace(`/${module.displayName}`, '');
+            if (url !== '') {
+                if (nonModuleTypeUrlsIndex > 0) {
+                    nonModuleChildren += ',';
+                }
+
+                console.log(url);
+                // children += createBasicRoute(url);
+            } else {
+                nonModuleChildren += createBasicRoute('overview');
+            }
             //routes.push(createTabbedRoute(url));
         });
+        nonModuleChildren += ']';
+        const nonModuleRes = addChildrenToRoutes(
+            nonModuleChildren,
+            nonModuleRoutes, 
+            module.displayName,
+            moduleTypeIndex,
+            moduleChildren,
+            createRouteWithChildren
+        );
+        moduleChildren = nonModuleRes.routeChildren;
+        moduleTypeIndex = nonModuleRes.index;
+
+        moduleChildren += ']';
+
+        const res = addChildrenToRoutes(
+            moduleChildren,
+            moduleRoutes, 
+            module.displayName,
+            routeIndex,
+            routes,
+            createRouteWithChildren
+        );
+        routes = res.routeChildren;
+        routeIndex = res.index;
     });
     routes += ']';
 
@@ -116,19 +137,34 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     );
 }
 
+function addChildrenToRoutes(
+    children: string,
+    routes: string,
+    routeName: string,
+    index: number,
+    routeChildren: string,
+    callback: (route: string, children: string) => string
+) {
+    if (children !== '[]') {
+        const route = callback(routeName, children);
+        routes += route;
+
+        if (index > 0) {
+            routeChildren += ', ';
+        }
+        routeChildren += routes;
+        index++;
+    }
+
+    return { routeChildren, index };
+}
+
 function createRouteWithChildren(path: string, children: string) {
     return `{ path: '${path}', children: ${children}}`;
 }
 
 function createRouteWithChildrenAndComponent(path: string, children: string) {
     return `{ path: '${path}', component: TabbedDocumentComponent, children: ${children}}`;
-}
-
-function createTabbedRoute(path: string) {
-    const overviewChild = createBasicRoute('overview');
-    const apiChild = createBasicRoute('api');
-    const children = `[${overviewChild}, ${apiChild}]`;
-    return createRouteWithChildrenAndComponent(path, children);
 }
 
 function createBasicRoute(path: string) {

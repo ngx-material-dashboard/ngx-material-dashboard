@@ -1,7 +1,9 @@
-const moduleTypes: string[] = [
+export const moduleTypes: string[] = [
     'components',
+    'decorators',
     'directives',
     'interfaces',
+    'models',
     'modules',
     'services'
 ]

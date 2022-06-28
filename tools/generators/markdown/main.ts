@@ -18,7 +18,9 @@ const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
 const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
     'Component': 'components',
     'Directive': 'directives',
+    'decorator': 'decorators',
     'interface': 'interfaces',
+    '.model.': 'models',
     'Module': 'modules',
     'Service': 'services'
 };
