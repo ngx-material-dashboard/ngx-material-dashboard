@@ -48,7 +48,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                 const className = `${reformatText(clazz.name)}`;
                 const classUrls: string[] = moduleTypeUrls.filter((it: string) => it.includes(`/${className}/`));
                 classUrls.forEach((url: string, i: number) => {
-                    url = url.replace(`${module.displayName}/`, '');
+                    url = url.replace(`/${module.displayName}/`, '');
                     url = url.replace(`${moduleType}/`, '');
                     url = url.replace(`${className}/`, '');
                     if (i > 0) {

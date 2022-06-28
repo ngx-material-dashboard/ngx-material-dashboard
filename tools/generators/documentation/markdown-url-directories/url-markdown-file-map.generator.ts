@@ -18,7 +18,7 @@ export class UrlMarkdownFileMapGenerator {
     generateUrlFilesMap(): void {
         Object.keys(this.directoriesFilesMap).forEach((directory: string) => {
             const url = this.removeBaseDirectoryInfo(directory);
-            if (url === 'json') {
+            if (url === '/json') {
                 // special case for 'json'
                 this.urlFilesMap[url] = `${directory}/json-overview.md`;
             } else {
@@ -47,11 +47,11 @@ export class UrlMarkdownFileMapGenerator {
      * directory path string since those are not needed for the URL when
      * mapping to the location of the markdown file.
      *
-     * @param directory The directory to remove 'assets/docs/' from.
-     * @returns The directory without 'assets/docs/' at the beginning.
+     * @param directory The directory to remove 'assets/docs' from.
+     * @returns The directory without 'assets/docs' at the beginning.
      */
     private removeBaseDirectoryInfo(directory: string) {
-        return directory.replace('assets/docs/', '');
+        return directory.replace('assets/docs', '');
     }
 
     /**
