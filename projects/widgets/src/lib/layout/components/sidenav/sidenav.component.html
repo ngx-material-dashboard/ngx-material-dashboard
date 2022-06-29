@@ -19,10 +19,28 @@
                 <mat-list-item class="marker-list-item-button-{{child.selector}}"
                                [class.selected-list-item]="isActive(child)"
                                (click)="selectChild(i, iChild)">
-                    <span fxFlex="0 0 auto" class="marker-list-item pl-4">
-                        <span class="pl-2 marker-list-item-text">{{child.text}}</span>
+                    <div *ngIf="child.children !== undefined" class="pl-4">
+                        <fa-icon *ngIf="!isChildToggled(i, iChild); else childAngleDown" [icon]="faAngleRight" class="marker-angle-right"></fa-icon>
+                        <ng-template #childAngleDown>
+                            <fa-icon [icon]="faAngleDown" class="marker-angle-down"></fa-icon>
+                        </ng-template>
+                    </div>        
+                    <span fxFlex="0 0 auto" class="pl-2 marker-list-item">
+                        <fa-icon *ngIf="item.icon" [icon]="item.icon" [ngClass]="{ 'pl-2': item.children && item.icon }"></fa-icon>
+                        <span class="marker-list-item-text">{{child.text}}</span>
                     </span>
                 </mat-list-item>
+                <div *ngIf="isChildToggled(i, iChild)">
+                    <div *ngFor="let grandChild of child.children; let iGChild = index">
+                        <mat-list-item class="marker-list-item-button-{{grandChild.selector}}"
+                            [class.selected-list-item]="isActive(grandChild, child)"
+                            (click)="selectGrandChild(i, iChild, iGChild)">
+                            <span fxFlex="0 0 auto" class="marker-list-item pl-5">
+                                <span class="marker-list-item-text">{{grandChild.text}}</span>
+                            </span>
+                        </mat-list-item>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

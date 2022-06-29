@@ -21,14 +21,12 @@ export class SidenavComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
-        this.toggle = new Array<{toggle: boolean}>(this.sidenavItems.length);
-
         let childIndex: number;
         const index = this.sidenavItems.findIndex((item: SidenavItem) => {
             if (item.children !== undefined) {
                 childIndex = item.children.findIndex((childItem: SidenavItem) => {
                     if (childItem.route) {
-                        return this.router.url.includes(childItem.route[0]);
+                        return this.router.url.includes(childItem.route.join('/'));
                     } else {
                         return -1;
                     }
@@ -37,18 +35,18 @@ export class SidenavComponent implements OnInit {
                 if (childIndex >= 0) {
                     return true;
                 } else if (item.route) {
-                    return this.router.url.includes(item.route[0]);
+                    return this.router.url.includes(item.route.join('/'));
                 } else {
                     return false;
                 }
             } else if (item.route) {
-                return this.router.url.includes(item.route[0]);
+                return this.router.url.includes(item.route.join('/'));
             } else {
                 return -1;
             }
         });
-
         
+        this.toggle = new Array<{toggle: boolean}>(this.sidenavItems.length);
         for (let i = 0; i < this.toggle.length; i++) {
             this.toggle[i] = { toggle: index === i };
         }
@@ -75,16 +73,13 @@ export class SidenavComponent implements OnInit {
      * @param sidenavItem The sidenav item to test against the current URL.
      * @returns true if the current URL ends with the route in the given SidenavItem.
      */
-    isActive(sidenavItem: SidenavItem): boolean {
+    isActive(sidenavItem: SidenavItem, parent?: SidenavItem): boolean {
         if (sidenavItem.route) {
-            // join route parts
-            let route = sidenavItem.route.join('/');
-            if (route.indexOf('.') === 0) {
-                // remove the '.' from the beginning of route if it exists
-                // since this is only used by angular to route to root of app
-                // and not actually included in router URLs
-                route = route.substring(1);
-            }
+            // remove './' from beggining of the route to avoid issues comparing
+            // sidenav route with router.url
+            const filteredRoute = sidenavItem.route.filter((it: any) => it !== './');
+            // join filtered route parts
+            let route = filteredRoute.join('/');
 
             if (route === '') {
                 return this.router.url === '/';
@@ -97,6 +92,15 @@ export class SidenavComponent implements OnInit {
             } else {
                 return this.router.url.slice(0, this.router.url.indexOf('?')) === route && this.compareMaps(this.queryParams, sidenavItem.queryParams);
             }
+        } else {
+            return false;
+        }
+    }
+
+    isChildToggled(i: number, iChild: number) {
+        const children = this.toggle[i].children;
+        if (children) {
+            return children[iChild];
         } else {
             return false;
         }
@@ -122,12 +126,35 @@ export class SidenavComponent implements OnInit {
 
     selectChild(index: number, childIndex: number) {
         const children = this.sidenavItems[index].children;
-        if (children && children[childIndex].route) {
-            const child = children[childIndex];
-            if (child.route && child.queryParams) {
-                this.router.navigate(child.route, { queryParams: child.queryParams });
-            } else if (child.route) {
-                this.router.navigate(child.route);
+        if (children) {
+            if (children[childIndex].route) {
+                const child = children[childIndex];
+                if (child.route && child.queryParams) {
+                    this.router.navigate(child.route, { queryParams: child.queryParams });
+                } else if (child.route) {
+                    this.router.navigate(child.route);
+                }
+            } else {
+                const gChildren = children[childIndex].children;
+                const toggleChildren = this.toggle[index].children;
+                if (gChildren && toggleChildren) {
+                    toggleChildren[childIndex] = !toggleChildren[childIndex];
+                }
+            }
+        }
+    }
+
+    selectGrandChild(index: number, childIndex: number, grandChildIndex: number) {
+        const children = this.sidenavItems[index].children;
+        if (children) {
+            const gChildren = children[childIndex].children;
+            if (gChildren) {
+                const gChild = gChildren[grandChildIndex];
+                if (gChild.route && gChild.queryParams) {
+                    this.router.navigate(gChild.route, { queryParams: gChild.queryParams });
+                } else if (gChild.route) {
+                    this.router.navigate(gChild.route);
+                }
             }
         }
     }
