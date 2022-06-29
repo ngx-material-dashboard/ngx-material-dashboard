@@ -52,6 +52,7 @@
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
         "skipLibCheck": true,
         "sourceMap": true,
         "declaration": false,
