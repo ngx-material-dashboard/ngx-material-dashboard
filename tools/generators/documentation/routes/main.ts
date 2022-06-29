@@ -80,36 +80,39 @@ export function generateRoutes(modules: Module[], urls: string[]) {
 
         // handle URLs that do not include module types
         const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
-        const nonModuleTypeUrlsIndex: number = 0;
-        let nonModuleChildren: string = '[';
-        let nonModuleRoutes = '';
+        let nonModuleTypeUrlsIndex: number = 0;
+        let nonModuleChildren: string = '';
         nonModuleTypeUrls.forEach((url: string) => {
-            
             url = url.replace(`/${module.displayName}`, '');
             if (url !== '') {
                 if (nonModuleTypeUrlsIndex > 0) {
                     nonModuleChildren += ',';
                 }
 
-                console.log(url);
-                // children += createBasicRoute(url);
+                // remove first '/'; text up to next '/' should be name of
+                // class
+                url = url.slice(1);
+                const urls = url.split('/');
+                const basicRoute = createBasicRoute(urls[1]);
+                nonModuleChildren += createRouteWithChildrenAndComponent(urls[0], `[${basicRoute}]`);
             } else {
+                if (nonModuleTypeUrlsIndex > 0) {
+                    nonModuleChildren += ',';
+                }
+
+                // if url matches module.display name then url after replace
+                // url will be empty string; so just create a basic route since
+                // this should be an overview page
                 nonModuleChildren += createBasicRoute('overview');
             }
-            //routes.push(createTabbedRoute(url));
+            nonModuleTypeUrlsIndex++;
         });
-        nonModuleChildren += ']';
-        const nonModuleRes = addChildrenToRoutes(
-            nonModuleChildren,
-            nonModuleRoutes, 
-            module.displayName,
-            moduleTypeIndex,
-            moduleChildren,
-            createRouteWithChildren
-        );
-        moduleChildren = nonModuleRes.routeChildren;
-        moduleTypeIndex = nonModuleRes.index;
 
+        // add module and non module children together so they can be combined
+        // as child routes together under module
+        if (moduleChildren !== '[]' && nonModuleChildren !== '') {
+            moduleChildren += ', ' + nonModuleChildren;
+        }
         moduleChildren += ']';
 
         const res = addChildrenToRoutes(
