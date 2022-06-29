@@ -35,37 +35,31 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
+const jsonModuleStrings: string[] = [
+    'base-json',
+    'json',
+    'json-api'
+]
+
 export function generateSidenavItems(modules: Module[], urls: string[]) {
-    const sidenavItems: { [route: string]: SidenavItem[] } = {};
+    let sidenavItems: { [route: string]: SidenavItem[] } = {};
+    const jsonModules = modules.filter((it: Module) => jsonModuleStrings.includes(it.displayName));
+    const jsonSidenavItems: SidenavItem[] = [];
+    jsonModules.forEach((module: Module) => {
+        const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
+            module.displayName,
+            module.displayName,
+            getSidenavItems(module, urls)
+        );
+        jsonSidenavItems.push(nestedSidenavItem);
+    });
+
     modules.forEach((module: Module) => {
-        sidenavItems[module.displayName] = [];
-
-        const moduleUrls: string[] = urls.filter((it: string) => it.includes(module.displayName));        
-        moduleTypes.forEach((moduleType: string) => {
-            const children: SidenavItem[] = [];
-            const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(moduleType));
-            moduleTypeUrls.forEach((url: string) => {
-                children.push(createSidenavItem(module, url));
-            });
-
-            if (children.length > 0) {
-                const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
-                    capitalizeFirstLetter(moduleType),
-                    moduleType,
-                    children
-                );
-
-                sidenavItems[module.displayName].push(nestedSidenavItem);
-            }
-        });
-        
-        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
-        nonModuleTypeUrls.forEach((url: string) => {
-            if (url !== `/${module.displayName}`) {
-                // do not add sidenav items for root urls
-                sidenavItems[module.displayName].push(createSidenavItem(module, url));
-            }
-        });
+        if (!jsonModuleStrings.includes(module.displayName)) {
+            sidenavItems[module.displayName] = getSidenavItems(module, urls);
+        } else {
+            sidenavItems[module.displayName] = jsonSidenavItems;
+        }
     });
 
     const file = path.join(
@@ -81,6 +75,38 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
         /const routeSidenavItems: any = {.*};/g,
         `const routeSidenavItems: any = ${JSON.stringify(sidenavItems)};`
     );
+}
+
+function getSidenavItems(module: Module, urls: string[]) {
+    const sidenavItems: SidenavItem[] = [];
+    const moduleUrls: string[] = urls.filter((it: string) => it.includes(module.displayName));        
+    moduleTypes.forEach((moduleType: string) => {
+        const children: SidenavItem[] = [];
+        const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(moduleType));
+        moduleTypeUrls.forEach((url: string) => {
+            children.push(createSidenavItem(module, url));
+        });
+
+        if (children.length > 0) {
+            const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
+                capitalizeFirstLetter(moduleType),
+                moduleType,
+                children
+            );
+
+            sidenavItems.push(nestedSidenavItem);
+        }
+    });
+    
+    const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
+    nonModuleTypeUrls.forEach((url: string) => {
+        if (url !== `/${module.displayName}`) {
+            // do not add sidenav items for root urls
+            sidenavItems.push(createSidenavItem(module, url));
+        }
+    });
+
+    return sidenavItems;
 }
 
 function createNestedSidenavItem(text: string, selector: string, children: SidenavItem[]): SidenavItem {
