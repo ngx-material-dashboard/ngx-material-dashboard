@@ -7,7 +7,8 @@ import {
     convertSelectorToText,
     convertUrlToRoute,
     filterModuleTypeUrls,
-    moduleTypes
+    moduleTypes,
+    reformatText
 } from '../helpers';
 
 // const routeSidenavItems: { [route: string]: SidenavItem[] } = {
@@ -60,7 +61,10 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
         
         const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
         nonModuleTypeUrls.forEach((url: string) => {
-            sidenavItems[module.displayName].push(createSidenavItem(module, url));
+            if (url !== `/${module.displayName}`) {
+                // do not add sidenav items for root urls
+                sidenavItems[module.displayName].push(createSidenavItem(module, url));
+            }
         });
     });
 
