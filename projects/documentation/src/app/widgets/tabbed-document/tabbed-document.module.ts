@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         RouterModule,
         FlexLayoutModule,
-        MarkdownModule,
+        MarkdownModule.forChild(),
         MatButtonModule,
         MatTabsModule,
         ScrollspyNavLayoutModule,

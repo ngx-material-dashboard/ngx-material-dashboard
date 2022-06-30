@@ -274,6 +274,79 @@ describe('SidenavComponent', () => {
             expect(spy).toHaveBeenCalled();
         });
     });
+
+    describe('Sidenavitems with grand children', () => {
+        const grandChildren1: SidenavItem[] = [{ route: ['1', 'g1'], selector: 'g1', text: 'g1' }, { route: ['1', 'g11'], selector: 'g11', text: 'g11', queryParams: { status: 'Pending' }}];
+        const grandChildren2: SidenavItem[] = [{ route: ['2', 'g2'], selector: 'g2', text: 'g2' }, { route: ['2', 'g22'], selector: 'g22', text: 'g22', queryParams: { status: 'Pending' }}];
+        const children: SidenavItem[] = [{ selector: '1', text: '1', children: grandChildren1 }, { selector: '2', text: '2', children: grandChildren2 }];
+        const sidenavItems: SidenavItem[] = [{ children: children, selector: 'requests', text: 'Requests' }];
+
+        describe('Route ends at grandChild (i.e. no sub routes)', () => {
+
+            beforeEach(() => {
+                mockRouter = {
+                    navigate(): void {},
+                    url: '1/g1'
+                }
+                init(mockRouter);
+    
+                fixture = TestBed.createComponent(SidenavComponent);
+                component = fixture.componentInstance;
+                component.sidenavItems = sidenavItems;
+                fixture.detectChanges();
+    
+                pageElement = new SidenavElement(fixture, ['requests'], ['1', '2'], ['g1', 'g11', 'g2', 'g22']);
+            });
+    
+            it('should expand parent sidenavItem and highlight child', () => {
+                // expect: there should only be one highlighted sidenav item
+                const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
+                expect(selectedSidenavItemElements.length).toEqual(1);
+    
+                // and: the active sidenavItem content should match the current sidenavItem
+                expect(pageElement.isListItemActive('g1')).toEqual(true);
+    
+                // and: the parent should be expanded (i.e. have angle down icon)
+                expect(pageElement.isListItemExpanded('1')).toEqual(true);
+
+                // and: the grand parent should be expaned
+                expect(pageElement.isListItemExpanded('requests')).toEqual(true);
+
+                // and the parent's sibling should not be expanded
+                expect(pageElement.isListItemExpanded('2')).toEqual(false);
+            });
+        });
+
+        describe('Route ends after grandChild (i.e. sub routes from tabs or something)', () => {
+
+            beforeEach(() => {
+                mockRouter = {
+                    navigate(): void {},
+                    url: '1/g1/sub'
+                }
+                init(mockRouter);
+    
+                fixture = TestBed.createComponent(SidenavComponent);
+                component = fixture.componentInstance;
+                component.sidenavItems = sidenavItems;
+                fixture.detectChanges();
+    
+                pageElement = new SidenavElement(fixture, ['requests'], ['1', '2'], ['g1', 'g11', 'g2', 'g22']);
+            });
+    
+            it('should expand parent sidenavItem and highlight child', () => {
+                // expect: there should only be one highlighted sidenav item
+                const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
+                expect(selectedSidenavItemElements.length).toEqual(1);
+    
+                // and: the active sidenavItem content should match the current sidenavItem
+                expect(pageElement.isListItemActive('g1')).toEqual(true);
+    
+                // and: the parent should be expanded (i.e. have angle down icon)
+                expect(pageElement.isListItemExpanded('1')).toEqual(true);
+            });
+        });
+    });
 });
 
 function init(mockRouter: any, queryParams: any = {}): void {
@@ -298,6 +371,7 @@ function init(mockRouter: any, queryParams: any = {}): void {
             MockModule(MatSidenavModule),
             MockModule(FontAwesomeModule)
         ],
-        providers
+        providers,
+        teardown: { destroyAfterEach: false }
     });
 }

@@ -8,9 +8,9 @@ import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
-    'base-json': 'json/base-json',
-    'json': 'json/json',
-    'json-api': 'json/json-api',
+    'base-json': 'base-json',
+    'json': 'json',
+    'json-api': 'json-api',
     'widgets': 'widgets',
     'testing': 'testing'
 }
@@ -18,7 +18,9 @@ const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
 const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
     'Component': 'components',
     'Directive': 'directives',
+    'decorator': 'decorators',
     'interface': 'interfaces',
+    '.model.': 'models',
     'Module': 'modules',
     'Service': 'services'
 };

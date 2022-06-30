@@ -2,10 +2,14 @@
     "$schema": "https://typedoc.org/schema.json",
     "entryPoints": [
         "./projects/base-json/src/lib",
+        "./projects/json/src/lib",
+        "./projects/json-api/src/lib",
+        "./projects/testing/src/lib",
         "./projects/widgets/src/lib"
     ],
     "exclude": [ 
-        "node_modules"
+        "node_modules",
+        "tools"
     ],
     "out": "docs"
 }

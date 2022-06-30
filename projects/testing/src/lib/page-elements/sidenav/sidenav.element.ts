@@ -13,6 +13,8 @@ export class SidenavElement extends PageElement {
     private listItemElementsMap: { [selector: string]: HTMLElement } = {};
     /** Map of CSS selectors to child list items in sidenav. */
     private listItemChildElementsMap: { [selector: string]: HTMLElement } = {};
+    /** Map of CSS selector to grand child list itmes in sidenav. */
+    private listItemGrandChildElementsMap: { [selector: string]: HTMLElement } = {};
 
     /**
      * Creates a new SidenavElement.
@@ -20,11 +22,13 @@ export class SidenavElement extends PageElement {
      * @param fixture {@link ComponentFixture} where sidnav is rendered.
      * @param listItemSelectors Optional text for each main nav list item.
      * @param listItemChildSelectors Optional text for each child nav list item.
+     * @param listItemGrandChildSelectors Optional text for each grand child nav list item.
      */
     constructor(
         fixture: ComponentFixture<any>,
         listItemSelectors: string[] = [],
-        listItemChildSelectors: string[] = []
+        listItemChildSelectors: string[] = [],
+        listItemGrandChildSelectors: string[] = []
     ) {
         super(fixture);
 
@@ -41,6 +45,15 @@ export class SidenavElement extends PageElement {
         listItemChildSelectors.forEach((listItemChildSelector: string) => {
             const listChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemChildSelector}`);
             this.listItemChildElementsMap[listItemChildSelector] = listChildElement;
+        });
+
+        listItemGrandChildSelectors.forEach((listItemGrandChildSelector: string) => {
+            try {
+                const listGrandChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemGrandChildSelector}`);
+                this.listItemGrandChildElementsMap[listItemGrandChildSelector] = listGrandChildElement;
+            } catch (error) {
+
+            }
         });
     }
 
@@ -89,12 +102,18 @@ export class SidenavElement extends PageElement {
      * @returns List item by the given selector.
      */
     private getListItem(selector: string): HTMLElement {
-        const listItem = this.listItemElementsMap[selector];
+        let listItem = this.listItemElementsMap[selector];
         if (listItem) {
             return listItem;
         } else {
             // if listItem is not found, then element should be a child
-            return this.listItemChildElementsMap[selector];
+            listItem = this.listItemChildElementsMap[selector];
+            if (listItem) {
+                return listItem;
+            } else {
+                // if listItem not found, then element should be a grand child
+                return this.listItemGrandChildElementsMap[selector];
+            }
         }
     }
 
@@ -107,7 +126,12 @@ export class SidenavElement extends PageElement {
      * @param selector CSS selector for list item to determine expanded state.
      */
     public isListItemExpanded(selector: string): boolean {
-        const listItem = this.listItemElementsMap[selector];
+        let listItem = this.listItemElementsMap[selector];
+        if (!listItem) {
+            // if listItem not found, then listItem should be in child elements
+            listItem = this.listItemChildElementsMap[selector];
+        }
+        
         const angleIcon = listItem.querySelector('.marker-angle-down');
         return angleIcon !== null;
     }

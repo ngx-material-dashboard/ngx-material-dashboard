@@ -1,0 +1,66 @@
+// most URLs should have following format
+// <library-name>/<module-name>/<type (i.e. components, directives, .etc)>/<class-name>/<overview or api>.md
+
+export class UrlMarkdownFileMapGenerator {
+
+    /**
+     * A map of directories to files in those directories to be filled by the
+     * readDirectoryRecursively function.
+     */
+     directoriesFilesMap: { [directory: string]: string[] };
+     urlFilesMap: { [url: string]: string };
+
+    constructor(directoriesFilesMap: { [directory: string]: string[] }) {
+        this.directoriesFilesMap = directoriesFilesMap;
+        this.urlFilesMap = {};
+    }
+
+    generateUrlFilesMap(): void {
+        Object.keys(this.directoriesFilesMap).forEach((directory: string) => {
+            const url = this.removeBaseDirectoryInfo(directory);
+            if (url === '/json') {
+                // special case for 'json'
+                this.urlFilesMap[url] = `${directory}/json-overview.md`;
+            } else {
+                this.directoriesFilesMap[directory].forEach((file: string) => {
+                    if (this.directoriesFilesMap[directory].length === 1) {
+                        if (this.directoriesFilesMap[directory][0] === 'api.md') {
+                            // markdown file will go on a tabbed component (we're
+                            // just missing the overview.md for this directory for
+                            // some reason); TODO raise error?
+                            this.urlFilesMap[`${url}/api`] = `${directory}/${file}`;
+                        } else {
+                            // markdown file should go on a component on it's own
+                            // i.e. not on a tabbed component
+                            this.urlFilesMap[url] = `${directory}/${file}`;
+                        }
+                    } else {
+                        this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = `${directory}/${file}`;
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Removes the base 'assets/docs' directory information from the given
+     * directory path string since those are not needed for the URL when
+     * mapping to the location of the markdown file.
+     *
+     * @param directory The directory to remove 'assets/docs' from.
+     * @returns The directory without 'assets/docs' at the beginning.
+     */
+    private removeBaseDirectoryInfo(directory: string) {
+        return directory.replace('assets/docs', '');
+    }
+
+    /**
+     * Removes the '.md' file extension from the given file name string.
+     *
+     * @param file The string to remove the '.md' extension from. 
+     * @returns The name of the file without the '.md' extension.
+     */
+    private removeFileExtension(file: string) {
+        return file.replace('.md', '');
+    }
+}
