@@ -22,6 +22,11 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
+// TODO REFACTOR ALL OF THIS CODE; I am not happy at all with how this code
+// turned out, but it was a quick and dirty way of automatically generating
+// a string representation of routes from the object output of typedoc JSON
+// details that can be replaced using replace-in-file
+
 export function generateRoutes(modules: Module[], urls: string[]) {
     let routes = '[';
     let routeIndex = 0;
@@ -29,7 +34,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         let moduleRoutes = '';
         let moduleChildren = '[';
         let moduleTypeIndex: number = 0;
-        const moduleUrls: string[] = urls.filter((it: string) => it.includes(module.displayName));        
+        const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));        
         moduleTypes.forEach((moduleType: string) => {
             let moduleTypeRoutes = '';
             let moduleTypeChildren = '[';
@@ -79,7 +84,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         });
 
         // handle URLs that do not include module types
-        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(module.displayName, moduleUrls, false, true);
+        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(`/${module.displayName}/`, moduleUrls, false, true);
         let nonModuleTypeUrlsIndex: number = 0;
         let nonModuleChildren: string = '';
         nonModuleTypeUrls.forEach((url: string) => {
@@ -96,6 +101,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                 const basicRoute = createBasicRoute(urls[1]);
                 nonModuleChildren += createRouteWithChildrenAndComponent(urls[0], `[${basicRoute}]`);
             } else {
+                // TODO fix this code because this condition never occurs
                 if (nonModuleTypeUrlsIndex > 0) {
                     nonModuleChildren += ',';
                 }
@@ -108,14 +114,25 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             nonModuleTypeUrlsIndex++;
         });
 
-        // add module and non module children together so they can be combined
-        // as child routes together under module as long moduleChildren and
-        // non module children are not empty
-        if (moduleChildren !== '[' && nonModuleChildren !== '') {
-            moduleChildren += ', ' + nonModuleChildren;
+        // add a comma to separate moduleChildren from nonModuleChildren if
+        // there are any
+        if (moduleChildren !== '[') {
+            moduleChildren += ', ';
         }
+
+        // add nonModuleChildren to moduleChildren if there are any
+        if (nonModuleChildren !== '') {
+            moduleChildren += nonModuleChildren;
+        }
+
+        // add default overview route for entire module
+        if (moduleChildren !== '[') {
+            moduleChildren += ', ';
+        }
+        moduleChildren += createBasicRoute('overview');
         moduleChildren += ']';
 
+        // generate top level routes with all moduleChildren
         const res = addChildrenToRoutes(
             moduleChildren,
             moduleRoutes, 
@@ -127,6 +144,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         routes = res.routeChildren;
         routeIndex = res.index;
     });
+
     routes += ']';
 
     const file = path.join(
