@@ -109,8 +109,9 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         });
 
         // add module and non module children together so they can be combined
-        // as child routes together under module
-        if (moduleChildren !== '[]' && nonModuleChildren !== '') {
+        // as child routes together under module as long moduleChildren and
+        // non module children are not empty
+        if (moduleChildren !== '[' && nonModuleChildren !== '') {
             moduleChildren += ', ' + nonModuleChildren;
         }
         moduleChildren += ']';
