@@ -13,16 +13,39 @@
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>
             <button mat-button
+                    class="mat-button marker-menu-trigger"
+                    [matMenuTriggerFor]="jsonMenu">
+                <span>JSON</span>
+                <fa-icon class="pl-2" [icon]="caretDown"></fa-icon>
+            </button>
+            <mat-menu #jsonMenu="matMenu">
+                <button mat-menu-item
+                        class="marker-json-button"
+                        [routerLink]="['json-overview']">
+                    <span>JSON Overview</span>
+                </button>
+                <mat-divider></mat-divider>
+                <span mat-menu-item disabled><b>Libraries</b></span>
+                <button mat-menu-item
+                        class="marker-json-button"
+                        [routerLink]="['base-json']">
+                    <span>base-json</span>
+                </button>
+                <button mat-menu-item
+                        class="marker-json-button"
+                        [routerLink]="['json']">
+                    <span>json</span>
+                </button>
+                <button mat-menu-item
+                        class="marker-json-button"
+                        [routerLink]="['json-api']">
+                    <span>json-api</span>
+                </button>
+            </mat-menu>
+            <button mat-button
                     class="mat-button marker-widgets-button"
                     [routerLink]="['widgets']">
                 <span>widgets</span>
-                <div class="mat-button-focus-overlay"></div>
-                <div class="mat-button-ripple mat-ripple"></div>
-            </button>
-            <button mat-button
-                    class="mat-button marker-json-button"
-                    [routerLink]="['json']">
-                <span>JSON</span>
                 <div class="mat-button-focus-overlay"></div>
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>

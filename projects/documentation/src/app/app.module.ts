@@ -2,9 +2,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutModule as DashboardLayoutModule } from '@ngx-material-dashboard/widgets';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
@@ -22,12 +25,15 @@ import { TabbedDocumentModule } from './widgets/tabbed-document/tabbed-document.
     imports: [
         FlexLayoutModule,
         MatButtonModule,
+        MatDividerModule,
+        MatMenuModule,
         MatToolbarModule,
         AnchorModule,
         LayoutModule,
         TabbedDocumentModule,
         DashboardLayoutModule,
         AppRoutingModule,
+        FontAwesomeModule,
         MarkdownModule.forChild(),
         CoreModule.forRoot()
     ],

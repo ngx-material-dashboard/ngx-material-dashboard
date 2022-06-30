@@ -37,9 +37,16 @@ export class UrlMarkdownFileMapGenerator {
                             // some reason); TODO raise error?
                             this.urlFilesMap[`${url}/api`] = `${directory}/${file}`;
                         } else {
-                            // markdown file should go on a component on it's own
-                            // i.e. not on a tabbed component
-                            this.urlFilesMap[url] = `${directory}/${file}`;
+                            if (url === '' && file === 'json-overview.md') {
+                                // handle special case for json-overview since this is
+                                // a standalone overvew markdown file that is for all
+                                // JSON libraries
+                                this.urlFilesMap['/json-overview'] = `${directory}/${file}`;
+                            } else {
+                                // markdown file should go on a component on it's own
+                                // i.e. not on a tabbed component
+                                this.urlFilesMap[url] = `${directory}/${file}`;
+                            }
                         }
                     } else {
                         this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = `${directory}/${file}`;

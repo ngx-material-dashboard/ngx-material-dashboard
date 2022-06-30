@@ -1,5 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { AnchorService } from './shared/anchor/anchor.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { AnchorService } from './shared/anchor/anchor.service';
 export class AppComponent implements OnInit {
 
     private readonly stickyClassName = 'mat-tab-nav-bar--sticky';
-
+    caretDown: IconDefinition = faCaretDown;
     date: Date = new Date();
     theme = 'light';
 

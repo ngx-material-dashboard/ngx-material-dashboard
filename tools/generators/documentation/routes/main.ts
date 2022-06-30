@@ -94,12 +94,15 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                     nonModuleChildren += ',';
                 }
 
-                // remove first '/'; text up to next '/' should be name of
-                // class
                 url = url.slice(1);
-                const urls = url.split('/');
-                const basicRoute = createBasicRoute(urls[1]);
-                nonModuleChildren += createRouteWithChildrenAndComponent(urls[0], `[${basicRoute}]`);
+                if (url !== 'json-overview') {
+                    // ignore json-overview because this is a special case
+                    // handled below, and remove first '/'; text up to next
+                    // '/' should be name of class
+                    const urls = url.split('/');
+                    const basicRoute = createBasicRoute(urls[1]);
+                    nonModuleChildren += createRouteWithChildrenAndComponent(urls[0], `[${basicRoute}]`);
+                }
             } else {
                 // TODO fix this code because this condition never occurs
                 if (nonModuleTypeUrlsIndex > 0) {
@@ -135,7 +138,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         // generate top level routes with all moduleChildren
         const res = addChildrenToRoutes(
             moduleChildren,
-            moduleRoutes, 
+            moduleRoutes,
             module.displayName,
             routeIndex,
             routes,
@@ -144,6 +147,14 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         routes = res.routeChildren;
         routeIndex = res.index;
     });
+
+    // handle special case for json-overview since this is a
+    // standalone overvew markdown file that is for all JSON
+    // libraries
+    if (routes != '[') {
+        routes += ', ';
+    }
+    routes += createBasicRoute('json-overview');
 
     routes += ']';
 
