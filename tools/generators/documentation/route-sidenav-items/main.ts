@@ -79,10 +79,10 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
 
 function getSidenavItems(module: Module, urls: string[]) {
     const sidenavItems: SidenavItem[] = [];
-    const moduleUrls: string[] = urls.filter((it: string) => it.includes(module.displayName));        
+    const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));        
     moduleTypes.forEach((moduleType: string) => {
         const children: SidenavItem[] = [];
-        const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(moduleType));
+        const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}`));
         moduleTypeUrls.forEach((url: string) => {
             children.push(createSidenavItem(module, url));
         });
@@ -98,9 +98,9 @@ function getSidenavItems(module: Module, urls: string[]) {
         }
     });
     
-    const nonModuleTypeUrls: string[] = filterModuleTypeUrls(moduleUrls, false, true);
+    const nonModuleTypeUrls: string[] = filterModuleTypeUrls(module.displayName, moduleUrls, false, true);
     nonModuleTypeUrls.forEach((url: string) => {
-        if (url !== `/${module.displayName}`) {
+        if (url !== `/${module.displayName}/`) {
             // do not add sidenav items for root urls
             sidenavItems.push(createSidenavItem(module, url));
         }

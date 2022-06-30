@@ -27,10 +27,10 @@ export function capitalizeFirstLetter(s: string) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export function filterModuleTypeUrls(moduleUrls: string[], includes: boolean, notIncludes: boolean) {
+export function filterModuleTypeUrls(moduleName: string, moduleUrls: string[], includes: boolean, notIncludes: boolean) {
     return moduleUrls.filter((it: string) => {
         for(const moduleType of moduleTypes) {
-            if (it.includes(moduleType)) {
+            if (it.includes(`/${moduleName}/${moduleType}/`)) {
                 return includes;
             }
         }
