@@ -11,7 +11,7 @@ const service = new ParseJsonService();
 generateMarkdown(service.modules);
 
 // update markdown routes and get map of URLs to markdown files
-const urlFilesMap = updateMarkdownRoutes();
+const urlFilesMap = updateMarkdownRoutes(service.modules);
 
 generateSidenavItems(service.modules, Object.keys(urlFilesMap));
 generateRoutes(service.modules, Object.keys(urlFilesMap));

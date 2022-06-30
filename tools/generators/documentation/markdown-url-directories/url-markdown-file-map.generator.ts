@@ -1,3 +1,5 @@
+import { Module } from '../../../converters/typedoc-json/models/module.model';
+
 // most URLs should have following format
 // <library-name>/<module-name>/<type (i.e. components, directives, .etc)>/<class-name>/<overview or api>.md
 
@@ -8,19 +10,24 @@ export class UrlMarkdownFileMapGenerator {
      * readDirectoryRecursively function.
      */
      directoriesFilesMap: { [directory: string]: string[] };
+     modules: Module[];
      urlFilesMap: { [url: string]: string };
 
-    constructor(directoriesFilesMap: { [directory: string]: string[] }) {
+    constructor(
+        directoriesFilesMap: { [directory: string]: string[] },
+        modules: Module[]
+    ) {
         this.directoriesFilesMap = directoriesFilesMap;
+        this.modules = modules;
         this.urlFilesMap = {};
     }
 
     generateUrlFilesMap(): void {
         Object.keys(this.directoriesFilesMap).forEach((directory: string) => {
             const url = this.removeBaseDirectoryInfo(directory);
-            if (url === '/json') {
-                // special case for 'json'
-                this.urlFilesMap[url] = `${directory}/json-overview.md`;
+            if (this.modules.find((module: Module) => `/${module.displayName}` === url)) {
+                // special case for overviews
+                this.urlFilesMap[url] = `${directory}/overview.md`;
             } else {
                 this.directoriesFilesMap[directory].forEach((file: string) => {
                     if (this.directoriesFilesMap[directory].length === 1) {

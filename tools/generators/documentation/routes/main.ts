@@ -129,7 +129,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         if (moduleChildren !== '[') {
             moduleChildren += ', ';
         }
-        moduleChildren += createBasicRoute('overview');
+        moduleChildren += createBasicRoute('');
         moduleChildren += ']';
 
         // generate top level routes with all moduleChildren
