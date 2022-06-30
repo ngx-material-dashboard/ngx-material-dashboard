@@ -3,6 +3,8 @@
     "entryPoints": [
         "./projects/base-json/src/lib",
         "./projects/json/src/lib",
+        "./projects/json-api/src/lib",
+        "./projects/testing/src/lib",
         "./projects/widgets/src/lib"
     ],
     "exclude": [ 
