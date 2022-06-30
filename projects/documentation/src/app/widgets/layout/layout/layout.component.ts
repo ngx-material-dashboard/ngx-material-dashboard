@@ -25,10 +25,10 @@ export class LayoutComponent implements OnInit {
     }
 
     setSidenavItems() {
-        if (this.router.url.includes('widgets')) {
-            this.sidenavItems = routeSidenavItems['widgets'];
-        } else if (this.router.url.includes('base-json')) {
-            this.sidenavItems = routeSidenavItems['base-json'];
-        }
+        Object.keys(routeSidenavItems).forEach((key: string) => {
+            if (this.router.url.includes(`/${key}`)) {
+                this.sidenavItems = routeSidenavItems[key];
+            }
+        })
     }
 }
