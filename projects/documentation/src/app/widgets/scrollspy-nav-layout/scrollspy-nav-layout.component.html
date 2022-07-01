@@ -6,7 +6,7 @@
         </button>
     </div>
     <div class="sticky" fxLayout="column" fxFlex="1 0 180px" fxFlexAlign="flex-start" fxHide.lt-md>
-        <app-scrollspy-nav [headings]="headings" [nestedHeadings]="nestedHeadings"></app-scrollspy-nav>
+        <app-scrollspy-nav [headings]="headings" [nestedHeadings]="nestedHeadings" [nestedGrandChildren]="nestedGrandChildren"></app-scrollspy-nav>
         <button class="scrollup-button" mat-mini-fab color="accent" (click)="onScrollUp()" *ngIf="showScrollUpButton" [@zoomAnimation]>
             <fa-icon [icon]="faChevronUp"></fa-icon>
         </button>

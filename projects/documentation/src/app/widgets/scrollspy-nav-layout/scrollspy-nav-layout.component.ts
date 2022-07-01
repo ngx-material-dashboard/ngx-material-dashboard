@@ -13,6 +13,7 @@ export class ScrollspyNavLayoutComponent {
 
     @Input()headings: Element[] | undefined;
     @Input()nestedHeadings: NestedHeading | undefined;
+    @Input()nestedGrandChildren: NestedHeading | undefined;
     faChevronUp: IconDefinition = faChevronUp;
 
     showScrollUpButton = false;

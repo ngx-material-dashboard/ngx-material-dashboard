@@ -4,6 +4,11 @@
         <ul class="nested-headings" *ngIf="nestedHeadings">
             <li class="nested-headings" *ngFor="let nestedHeading of nestedHeadings[heading.id]">
                 <a routerLink="." [fragment]="nestedHeading.id">{{ nestedHeading.innerHTML }}</a>
+                <ul class="nested-grand-child-headings" *ngIf="nestedGrandChildren">
+                    <li class="nested-grand-child-headings" *ngFor="let nestedGrandChild of nestedGrandChildren[nestedHeading.id]">
+                        <a routerLink="." [fragment]="nestedGrandChild.id">{{ nestedGrandChild.innerHTML }}</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </li>

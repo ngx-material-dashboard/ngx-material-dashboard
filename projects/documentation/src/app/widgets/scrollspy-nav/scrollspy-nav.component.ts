@@ -12,6 +12,7 @@ export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestro
 
     @Input()headings: Element[] | undefined;
     @Input()nestedHeadings: NestedHeading | undefined;
+    @Input()nestedGrandChildren: NestedHeading | undefined;
     private scrollSpy: Gumshoe | undefined;
 
     constructor(

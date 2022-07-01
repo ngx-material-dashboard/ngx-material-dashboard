@@ -35,6 +35,18 @@ ul.scrollspy-nav {
             border-radius: 0;
         }
     }
+
+    li.nested-grand-child-headings {
+        max-width: 158px;
+        word-wrap: break-word;
+        padding: 4px 0 4px 48px;
+
+        &:not(.active) {
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+    }
 }
 
 // align nested headings with parent headings so there is only 1 vertical scroll
@@ -43,4 +55,10 @@ ul.nested-headings {
     padding: 0;
     position: relative;
     left: -17.5px;
+}
+
+ul.nested-grand-child-headings {
+    padding: 0;
+    position: relative;
+    left: -32px;
 }

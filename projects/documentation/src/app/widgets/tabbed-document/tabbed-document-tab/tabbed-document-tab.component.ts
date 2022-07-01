@@ -30,6 +30,7 @@ export class TabbedDocumentTabComponent implements OnInit {
     headings: Element[] = [];
     /** Contains a map of parent ids to their nested child heading elements. */
     nestedHeadings: NestedHeading = {};
+    nestedGrandChildren: NestedHeading = {};
 
     constructor(
         private el: ElementRef,
@@ -69,6 +70,26 @@ export class TabbedDocumentTabComponent implements OnInit {
                         const child = sibling as Element;
                         child.id = this.reformatElementTextForId(child);
                         nestedHeadings.push(child);
+
+                        // add any th nested grand child headings which should
+                        // be names of methods (each method rendered in a table
+                        // to control formatting)
+                        const nestedGrandChildrenHeadings: Element[] = [];
+                        let grandChildSibling: ChildNode | null = sibling.nextSibling;
+                        while(grandChildSibling && grandChildSibling.nodeName != 'H3') {
+                            // nested grand child headings stop when there are
+                            // no more siblings or a h3 sibling is found
+                            if (grandChildSibling.nodeName === 'TABLE') {
+                                let grandChild = grandChildSibling as Element;
+                                if (grandChild.classList.contains('method-name')) {
+                                    grandChild = grandChild.querySelector('th') as Element;
+                                    grandChild.id = this.reformatElementTextForId(grandChild);
+                                    nestedGrandChildrenHeadings.push(grandChild);
+                                }
+                            }
+                            grandChildSibling = grandChildSibling.nextSibling;
+                        }
+                        this.nestedGrandChildren[child.id] = nestedGrandChildrenHeadings;
                     }
                     sibling = sibling.nextSibling;
                 }
