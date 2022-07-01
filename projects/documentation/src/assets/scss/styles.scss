@@ -67,6 +67,10 @@ section {
 
 table {
     width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0 0 32px;
+    width: 100%;
 
     th {
         color: rgba(0,0,0,.54);
@@ -81,17 +85,14 @@ table {
     }
 
     td {
-        font-size: 15px;
+        font-size: 14px;
         height: 48px;
         text-align: left;
     }
 
     td,
-    th {
-        padding: 0;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(0,0,0,.12);
+    thead {
+        border: 1px solid rgba(0,0,0,.12);
     }
 }
 

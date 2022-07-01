@@ -5,11 +5,13 @@
     $foreground: map-get($theme, foreground);
 
     .method-name-row,
-    .method-parameters-header-row {
+    .method-parameters-header-row,
+    .method-returns-header-row {
         background: mat-color($mat-grey, A200);
     }
 
-    .method-name-cell {
+    .method-name-cell,
+    .method-returns-type-cell {
         color: mat-color($accent);
     }
 }
