@@ -82,7 +82,7 @@ export class TabbedDocumentTabComponent implements OnInit {
                             if (grandChildSibling.nodeName === 'TABLE') {
                                 let grandChild = grandChildSibling as Element;
                                 if (grandChild.classList.contains('method-name')) {
-                                    grandChild = grandChild.querySelector('th') as Element;
+                                    grandChild = grandChild.querySelector('th.method-name-cell') as Element;
                                     grandChild.id = this.reformatElementTextForId(grandChild);
                                     nestedGrandChildrenHeadings.push(grandChild);
                                 }
