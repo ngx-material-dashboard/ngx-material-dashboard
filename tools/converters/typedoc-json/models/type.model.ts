@@ -1,4 +1,5 @@
 export class TypeModel {
+    displayType: string;
     id?: number;
     name!: string;
     /** Defines whether this type is an array or not. */
@@ -13,5 +14,29 @@ export class TypeModel {
 
     constructor(data: Partial<TypeModel>) {
         Object.assign(this, data);
+        this.displayType = this.getDisplayType();
+    }
+
+    private getDisplayType(): string {
+        let type;
+        if (this.type === 'array') {
+            // if the type is array, then elementType.name should
+            // contain type of array
+            type = `${this.elementType?.name}`;
+            if (this.typeArguments) {
+                type += `<${this.typeArguments.name}>`;
+            }
+
+            type += '[]';
+        } else {
+            // if type is not an array, then name should contain
+            // name of property type whether they are primitive or Objects
+            type = this.name;
+            if (this.typeArguments) {
+                type += `<${this.typeArguments.name}>`;
+            }
+        }
+
+        return type;
     }
 }

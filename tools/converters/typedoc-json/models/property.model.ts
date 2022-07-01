@@ -20,34 +20,7 @@ export class Property extends TypedocBase {
         }
     }
 
-    get description(): string {
-        return this.comment ? this.comment.shortText : '';
-    }
-
     get propertyType(): string {
-        if (this.type) {
-            let type;
-            if (this.type.type === 'array') {
-                // if the type.type is array, then type.elementType.name should
-                // contain type of array
-                type = `${this.type.elementType?.name}`;
-                if (this.type.typeArguments) {
-                    type += `<${this.type.typeArguments.name}>`;
-                }
-
-                type += '[]';
-            } else {
-                // if type.type is not an array, then type.name should contain
-                // name of property type whether they are primitive or Objects
-                type = this.type.name;
-                if (this.type.typeArguments) {
-                    type += `<${this.type.typeArguments.name}>`;
-                }
-            }
-
-            return type;
-        } else {
-            return 'any';
-        }
+        return this.type ? this.type.displayType : 'any';
     }
 }

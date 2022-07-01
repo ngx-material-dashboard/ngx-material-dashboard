@@ -17,9 +17,12 @@ export class TypedocBase {
     children: TypedocBase[] = [];
     comment?: { shortText: string };
     decorator?: {};
+    description: string;
     sources!: Source[];
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
+
+        this.description = this.comment ? this.comment.shortText : '';
     }
 }

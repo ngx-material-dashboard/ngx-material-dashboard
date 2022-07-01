@@ -1,15 +1,20 @@
+import { Parameter } from './parameter.model';
 import { TypeModel } from './type.model';
+import { TypedocBase } from './typedoc-base.model';
 
-export class Signature {
-    id!: number;
-    comment?: string;
-    name!: string;
-    kind!: number;
-    kindString!: string;
-    flags!: {};
+export class Signature extends TypedocBase {
+
     type!: TypeModel;
+    parameters: Parameter[];
 
     constructor(data: Partial<Signature>) {
-        Object.assign(this, data);
+        super(data);
+        this.parameters = [];
+
+        if (data.parameters) {
+            data.parameters.forEach((p: Partial<Parameter>) => {
+                this.parameters.push(new Parameter(p));
+            });
+        }
     }
 }
