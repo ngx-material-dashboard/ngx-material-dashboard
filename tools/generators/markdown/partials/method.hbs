@@ -1,0 +1,27 @@
+{{! 
+    render method details using HTML to provide more fine grain control in
+    formatting details displayed for each method
+}}
+<table>
+    <thead>
+        <th colspan="2">{{name}}</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="2">{{description}}</td>
+        </tr>
+    </tbody>
+</table>
+<table>
+    <thead>
+        <th colspan="2">Parameters</th>
+    </thead>
+    <tbody>
+        {{#each parameters}}
+            <tr>
+                <td>{{this.displayType}}</td>
+                <td>{{this.description}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
