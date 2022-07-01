@@ -9,7 +9,7 @@ export default function() {
             const row: string[] = [];
             const nameCol: string[] = [];
             nameCol.push(property.name + ':');
-            nameCol.push(property.propertyType);
+            nameCol.push(property.displayType);
     
             const descriptionCol: string[] = [];
             descriptionCol.push(property.description ? property.description : '');

@@ -1,3 +1,15 @@
 ### Properties
-{{#propertiesTable this }}
-{{/propertiesTable}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+    </thead>
+    <tbody>
+        {{#each properties}}
+            <tr>
+                <td>{{this.name}}: {{this.displayType}}</td>
+                <td>{{this.description}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

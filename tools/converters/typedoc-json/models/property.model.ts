@@ -5,6 +5,7 @@ export class Property extends TypedocBase {
 
     propertyDecorator?: Decorator;
     type?: TypeModel;
+    displayType: string;
     defaultValue?: string;
     override kindString: string = 'Property';
 
@@ -17,10 +18,9 @@ export class Property extends TypedocBase {
 
         if (data.type) {
             this.type = new TypeModel(data.type);
+            this.displayType = this.type.displayType;
+        } else {
+            this.displayType = 'any';
         }
-    }
-
-    get propertyType(): string {
-        return this.type ? this.type.displayType : 'any';
     }
 }
