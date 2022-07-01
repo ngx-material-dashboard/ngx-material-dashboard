@@ -4,7 +4,7 @@ import { TypedocBase } from './typedoc-base.model';
 
 export class Signature extends TypedocBase {
 
-    type!: TypeModel;
+    type?: TypeModel;
     parameters: Parameter[];
 
     constructor(data: Partial<Signature>) {
@@ -15,6 +15,10 @@ export class Signature extends TypedocBase {
             data.parameters.forEach((p: Partial<Parameter>) => {
                 this.parameters.push(new Parameter(p));
             });
+        }
+
+        if (data.type) {
+            this.type = new TypeModel(data.type);
         }
     }
 }

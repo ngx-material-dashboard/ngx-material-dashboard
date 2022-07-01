@@ -7,6 +7,8 @@ export class MethodModel extends TypedocBase {
     override kindString: string = 'Method';
     signatures: Signature[];
     parameters?: Parameter[];
+    returns?: string;
+    returnType?: string;
 
     constructor(data: Partial<MethodModel>) {
         super(data);
@@ -25,6 +27,8 @@ export class MethodModel extends TypedocBase {
                     }
 
                     this.description = signature.description;
+                    this.returns = signature.comment?.returns;
+                    this.returnType = signature.type?.displayType;
                 }
             });
         }
