@@ -16,7 +16,7 @@ export class TypedocBase {
     /** The children associated with the JSON object. */
     children: TypedocBase[] = [];
     comment?: { shortText: string, returns?: string };
-    decorator?: {};
+    decorators?: {}[];
     description?: string;
     sources!: Source[];
 

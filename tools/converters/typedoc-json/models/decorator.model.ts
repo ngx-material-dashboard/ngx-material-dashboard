@@ -5,4 +5,12 @@ export class Decorator extends TypedocBase {
 
     type!: DecoratorType;
     arguments?: {};
+
+    constructor(data: Partial<Decorator>) {
+        super(data);
+
+        if (data.type) {
+            this.type = new DecoratorType(data.type);
+        }
+    }
 }

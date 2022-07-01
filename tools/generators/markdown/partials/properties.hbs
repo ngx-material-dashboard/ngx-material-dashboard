@@ -7,7 +7,13 @@
     <tbody>
         {{#each properties}}
             <tr>
-                <td>{{this.name}}: {{this.displayType}}</td>
+                <td>
+                {{#if this.propertyDecoratorDisplay}}
+                    {{this.propertyDecoratorDisplay}} {{this.name}}: {{this.displayType}}
+                {{else}}
+                    {{this.name}}: {{this.displayType}}
+                {{/if}}
+                </td>
                 <td>{{this.description}}</td>
             </tr>
         {{/each}}
