@@ -2,25 +2,31 @@
     render method details using HTML to provide more fine grain control in
     formatting details displayed for each method
 }}
-<table>
-    <thead>
-        <th colspan="2">{{name}}</th>
+<table class="method-name">
+    <thead class="method-name-header">
+        <tr class="method-name-row">
+            <th class="method-name-cell" colspan="2">{{name}}</th>
+        </tr>
     </thead>
+    {{#if description}}
     <tbody>
-        <tr>
-            <td colspan="2">{{description}}</td>
+        <tr class="method-description-row">
+            <td class="method-description-cell" colspan="2">{{description}}</td>
         </tr>
     </tbody>
+    {{/if}}
 </table>
-<table>
-    <thead>
-        <th colspan="2">Parameters</th>
+<table class="method-parameters">
+    <thead class="method-parameters-header">
+        <tr class="method-parameters-header-row">
+            <th class="method-parameters-header-cell" colspan="2">Parameters</th>
+        </tr>
     </thead>
     <tbody>
         {{#each parameters}}
-            <tr>
-                <td>{{this.displayType}}</td>
-                <td>{{this.description}}</td>
+            <tr class="method-parameter-row">
+                <td class="method-parameter-name-cell">{{this.displayType}}</td>
+                <td class="method-parameter-description-cell">{{this.description}}</td>
             </tr>
         {{/each}}
     </tbody>

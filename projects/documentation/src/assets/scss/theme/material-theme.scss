@@ -9,6 +9,7 @@
 
 @import "../../../app/app.component.theme";
 @import "../../../app/widgets/scrollspy-nav/scrollspy-nav.component.theme";
+@import "../../../app/widgets/tabbed-document/tabbed-document-tab/tabbed-document-tab.component.theme";
 
 @mixin native-element-theme($theme, $name) {
     $accent: map-get($theme, accent);
@@ -71,6 +72,7 @@
         @include native-element-theme($theme, $name);
         @include app-component-theme($theme);
         @include scrollspy-nav-component-theme($theme);
+        @include tabbed-document-tab-component-theme($theme);
     }
 }
 
