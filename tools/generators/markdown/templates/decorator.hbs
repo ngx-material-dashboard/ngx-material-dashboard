@@ -1,0 +1,24 @@
+{{! render name of decorator as header }}
+## {{ name }} Decorator
+
+{{#if description}}
+{{ description }}
+{{/if}}
+
+<table class="decorator-name">
+    {{#if parameters}}
+    <thead class="decorator-parameters-header">
+        <tr class="decorator-parameters-header-row">
+            <th class="decorator-parameters-header-cell" colspan="2">Parameters</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each parameters}}
+            <tr class="decorator-parameter-row">
+                <td class="decorator-parameter-name-cell">{{this.name}}: {{this.displayType}}</td>
+                <td class="decorator-parameter-description-cell">{{this.description}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+    {{/if}}
+</table>

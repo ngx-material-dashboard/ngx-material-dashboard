@@ -10,6 +10,7 @@ import {
     reformatText
 } from '../helpers';
 import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
+import { FunctionModel } from 'tools/converters/typedoc-json/models/function.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -62,6 +63,34 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                     children,
                     classRoutes, 
                     className,
+                    classIndex,
+                    moduleTypeChildren,
+                    createRouteWithChildrenAndComponent
+                );
+                moduleTypeChildren = res.routeChildren;
+                classIndex = res.index;
+            });
+
+            module.functions.forEach((f: FunctionModel) => {
+                let classRoutes = '';
+                let children: string = '[';
+                const functionName = `${reformatText(f.name)}`;
+                const functionUrls: string[] = moduleTypeUrls.filter((it: string) => it.includes(`/${functionName}/`));
+                functionUrls.forEach((url: string, i: number) => {
+                    url = url.replace(`/${module.displayName}/`, '');
+                    url = url.replace(`${moduleType}/`, '');
+                    url = url.replace(`${functionName}/`, '');
+                    if (i > 0) {
+                        children += ',';
+                    }
+                    children += createBasicRoute(url);
+                });
+                children += ']';
+
+                const res = addChildrenToRoutes(
+                    children,
+                    classRoutes, 
+                    functionName,
                     classIndex,
                     moduleTypeChildren,
                     createRouteWithChildrenAndComponent

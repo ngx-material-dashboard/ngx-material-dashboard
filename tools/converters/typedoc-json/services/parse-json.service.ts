@@ -1,6 +1,7 @@
 import * as data from '../../../../docs.json';
 import { Clazz } from '../models/clazz.model';
 import { Constructor } from '../models/constructor.model';
+import { FunctionModel } from '../models/function.model';
 import { MethodModel } from '../models/method.model';
 import { Module } from '../models/module.model';
 import { Property } from '../models/property.model';
@@ -47,10 +48,15 @@ export class ParseJsonService {
      * @param module The module to parse class details for.
      */
     private extractClassesData(module: Module): void {
-        module.children.forEach((clazz: TypedocBase) => {
-            const c: Clazz = new Clazz(clazz);
-            this.extractClazzData(c);
-            module.classes.push(c);
+        module.children.forEach((t: TypedocBase) => {
+            if (t.kindString === 'Function') {
+                const f: FunctionModel = new FunctionModel(t);
+                module.functions.push(f);
+            } else {
+                const c: Clazz = new Clazz(t);
+                this.extractClazzData(c);
+                module.classes.push(c);
+            }
         });
     }
 

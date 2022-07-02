@@ -2,8 +2,10 @@ import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
 import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
+import { FunctionModel } from 'tools/converters/typedoc-json/models/function.model';
 
 import { Module } from 'tools/converters/typedoc-json/models/module.model';
+import { TypedocBase } from 'tools/converters/typedoc-json/models/typedoc-base.model';
 import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 
@@ -38,46 +40,56 @@ export function generateMarkdown(modules: Module[]) {
         fs.readFileSync(path.join(TEMPLATE_PATH, 'clazz.hbs')).toString()
     );
 
+    const decoratorTemplate = Handlebars.compile(
+        fs.readFileSync(path.join(TEMPLATE_PATH, 'decorator.hbs')).toString()
+    )
+
     modules.forEach((module: Module) => {
         const baseDir = DOCS_DIRECTORY_MAP[module.displayName];
+        // generate base outputPath
+        let baseOutputPath = path.join(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'projects',
+            'documentation',
+            'src',
+            'assets',
+            'docs',
+            baseDir
+        );
+
         module.classes.forEach((clazz: Clazz) => {
-            // generate base outputPath
-            let outputPath = path.join(
-                __dirname,
-                '..',
-                '..',
-                '..',
-                'projects',
-                'documentation',
-                'src',
-                'assets',
-                'docs',
-                baseDir
-            );
-
-            // add module type to directory hierarchy if it exists
-            const moduleType = getModuleType(clazz);
-            if (moduleType) {
-                outputPath = path.join(
-                    outputPath,
-                    moduleType
-                );
-            }
-
-            // add formatted class name  to directory hierarchy
-            outputPath = path.join(
-                outputPath,
-                reformatText(clazz.name)
-            )
+            const outputPath = buildOutputPath(baseOutputPath, clazz);
             const output = classTemplate(clazz);
             writeFile(outputPath, 'api.md', output);
         });
 
-        // const output = moduleTemplate(module);
-
-
-        // TODO now do the stuff to render markdown...
+        module.functions.forEach((f: FunctionModel) => {
+            const outputPath = buildOutputPath(baseOutputPath, f);
+            const output = decoratorTemplate(f);
+            writeFile(outputPath, 'api.md', output);
+        });
     });
+}
+
+function buildOutputPath(outputPath: string, t: TypedocBase) {
+    // add module type to directory hierarchy if it exists
+    const moduleType = getModuleType(t);
+    if (moduleType) {
+        outputPath = append(outputPath, moduleType);
+    }
+
+    // add formatted class name to directory hierarchy
+    return append(outputPath, reformatText(t.name));
+}
+
+function append(outputPath: string, text: string) {
+    return path.join(
+        outputPath,
+        text
+    );
 }
 
 function writeFile(directory: string, filename: string, data: any): void {
@@ -106,12 +118,12 @@ function writeFileUtil(directory: string, filename: string, data: any) {
     });
 }
 
-function getModuleType(clazz: Clazz): string | undefined {
+function getModuleType(t: TypedocBase): string | undefined {
     let moduleType;
     Object.keys(MODULE_TYPE_DIRECTORY_MAP).forEach((key: string) => {
-        if (clazz.name.includes(key)) {
+        if (t.name.includes(key)) {
             moduleType = MODULE_TYPE_DIRECTORY_MAP[key];
-        } else if (clazz.sources[0].fileName.includes(key)) {
+        } else if (t.sources[0].fileName.includes(key)) {
             moduleType = MODULE_TYPE_DIRECTORY_MAP[key];
         }
     });

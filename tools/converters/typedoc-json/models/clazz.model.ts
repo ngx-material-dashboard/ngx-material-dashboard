@@ -1,4 +1,5 @@
 import { Constructor } from './constructor.model';
+import { FunctionModel } from './function.model';
 import { MethodModel } from './method.model';
 import { Property } from './property.model';
 import { TypedocBase } from './typedoc-base.model';
