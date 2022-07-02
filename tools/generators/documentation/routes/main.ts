@@ -57,6 +57,9 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                     }
                     children += createBasicRoute(url);
                 });
+                if (children != '[') {
+                    children += `,${createRedirectRoute('overview')}`;
+                }
                 children += ']';
 
                 const res = addChildrenToRoutes(
@@ -85,6 +88,9 @@ export function generateRoutes(modules: Module[], urls: string[]) {
                     }
                     children += createBasicRoute(url);
                 });
+                if (children != '[') {
+                    children += `,${createRedirectRoute('overview')}`;
+                }
                 children += ']';
 
                 const res = addChildrenToRoutes(
@@ -231,4 +237,8 @@ function createRouteWithChildrenAndComponent(path: string, children: string) {
 
 function createBasicRoute(path: string) {
     return `{ path: '${path}', component: TabbedDocumentTabComponent }`;
+}
+
+function createRedirectRoute(path: string) {
+    return `{ path: '', pathMatch: 'full', redirectTo: '${path}' }`;
 }

@@ -35,6 +35,7 @@ export class UrlMarkdownFileMapGenerator {
                             // markdown file will go on a tabbed component (we're
                             // just missing the overview.md for this directory for
                             // some reason); TODO raise error?
+                            this.urlFilesMap[`${url}/overview`] = ``;
                             this.urlFilesMap[`${url}/api`] = `${directory}/${file}`;
                         } else {
                             if (url === '' && file === 'json-overview.md') {

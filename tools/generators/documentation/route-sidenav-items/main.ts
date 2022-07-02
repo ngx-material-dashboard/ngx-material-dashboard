@@ -79,12 +79,17 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
 
 function getSidenavItems(module: Module, urls: string[]) {
     const sidenavItems: SidenavItem[] = [];
-    const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));        
+    const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));
+    const addedUrls: string[] = [];
     moduleTypes.forEach((moduleType: string) => {
         const children: SidenavItem[] = [];
         const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}`));
         moduleTypeUrls.forEach((url: string) => {
-            children.push(createSidenavItem(module, url));
+            url = url.replace('/api', '').replace('/overview', '');
+            if (!addedUrls.includes(url)) {
+                children.push(createSidenavItem(module, url));
+                addedUrls.push(url);
+            }
         });
 
         if (children.length > 0) {
@@ -102,7 +107,11 @@ function getSidenavItems(module: Module, urls: string[]) {
     nonModuleTypeUrls.forEach((url: string) => {
         if (url !== `/${module.displayName}/`) {
             // do not add sidenav items for root urls
-            sidenavItems.push(createSidenavItem(module, url));
+            url = url.replace('/api', '').replace('/overview', '');
+            if (!addedUrls.includes(url)) {
+                sidenavItems.push(createSidenavItem(module, url));
+                addedUrls.push(url);
+            }
         }
     });
 

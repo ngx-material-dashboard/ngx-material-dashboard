@@ -1,3 +1,8 @@
 <app-scrollspy-nav-layout [headings]="headings" [nestedHeadings]="nestedHeadings" [nestedGrandChildren]="nestedGrandChildren">
-    <markdown [src]="markdownSrc" (load)="onLoad()"></markdown>
+    <markdown *ngIf="markdownSrc !== ''; else todo" [src]="markdownSrc" (load)="onLoad()"></markdown>
+    <ng-template #todo>
+        <markdown>
+            Overview documentation to be added
+        </markdown>
+    </ng-template>
 </app-scrollspy-nav-layout>
