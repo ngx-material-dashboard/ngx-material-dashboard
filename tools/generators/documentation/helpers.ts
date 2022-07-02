@@ -1,10 +1,12 @@
 export const moduleTypes: string[] = [
     'components',
     'decorators',
+    'elements',
     'directives',
     'interfaces',
     'models',
     'modules',
+    'pages',
     'services'
 ]
 

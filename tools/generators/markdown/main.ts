@@ -21,9 +21,11 @@ const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
     'Component': 'components',
     'Directive': 'directives',
     'decorator': 'decorators',
+    '.element.': 'elements',
     'interface': 'interfaces',
     '.model.': 'models',
     'Module': 'modules',
+    '.page.': 'pages',
     'Service': 'services'
 };
 
