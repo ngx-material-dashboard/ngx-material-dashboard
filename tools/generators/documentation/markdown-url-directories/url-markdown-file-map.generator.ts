@@ -55,6 +55,9 @@ export class UrlMarkdownFileMapGenerator {
                 });
             }
         });
+
+        // add special case for root URL
+        this.urlFilesMap['/'] = 'assets/docs/overview.md';
     }
 
     /**

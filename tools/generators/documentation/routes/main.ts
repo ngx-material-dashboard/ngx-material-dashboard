@@ -190,6 +190,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         routes += ', ';
     }
     routes += createBasicRoute('json-overview');
+    routes += `, ${createBasicRoute('')}`;
 
     routes += ']';
 
