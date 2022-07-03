@@ -3,6 +3,35 @@ import { Module } from '../../../converters/typedoc-json/models/module.model';
 // most URLs should have following format
 // <library-name>/<module-name>/<type (i.e. components, directives, .etc)>/<class-name>/<overview or api>.md
 
+/**
+ * Map of library names to "shared" files and other markdown files to be
+ * rendered on the libraries main overview page. Files need to be placed in
+ * order of how they should be displayed on page.
+ */
+const SHARED_FILES: { [lib: string]: string[] } = {
+    'base-json': [
+        'assets/docs/shared/configuration.md',
+        'assets/docs/shared/crud-capabilities.md',
+        'assets/docs/shared/custom-headers.md',
+        'assets/docs/shared/error-handling.md'
+    ],
+    'json': [
+        'assets/docs/json/format.md',
+        'assets/docs/json/install.md',
+        'assets/docs/shared/configuration.md',
+        'assets/docs/json/usage.md',
+        'assets/docs/shared/crud-capabilities.md',
+        'assets/docs/shared/custom-headers.md',
+        'assets/docs/shared/error-handling.md'
+    ],
+    'json-api': [
+        'assets/docs/shared/configuration.md',
+        'assets/docs/shared/crud-capabilities.md',
+        'assets/docs/shared/custom-headers.md',
+        'assets/docs/shared/error-handling.md'
+    ]
+}
+
 export class UrlMarkdownFileMapGenerator {
 
     /**
@@ -30,8 +59,11 @@ export class UrlMarkdownFileMapGenerator {
             if (module) {
                 // special case for overviews
                 this.urlFilesMap[url] = [`${directory}/overview.md`];
-                if (module.displayName.includes('json')) {
-                    this.urlFilesMap[url].push('assets/docs/shared/crud-capabilities.md');
+                const key = Object.keys(SHARED_FILES).find((it: string) => module.displayName === it);
+                if (key) {
+                    SHARED_FILES[key].forEach((dir: string) => {
+                        this.urlFilesMap[url].push(dir);
+                    });
                 }
             } else {
                 this.directoriesFilesMap[directory].forEach((file: string) => {
