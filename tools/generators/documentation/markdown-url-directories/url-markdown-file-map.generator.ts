@@ -11,7 +11,7 @@ export class UrlMarkdownFileMapGenerator {
      */
      directoriesFilesMap: { [directory: string]: string[] };
      modules: Module[];
-     urlFilesMap: { [url: string]: string };
+     urlFilesMap: { [url: string]: string[] };
 
     constructor(
         directoriesFilesMap: { [directory: string]: string[] },
@@ -23,11 +23,16 @@ export class UrlMarkdownFileMapGenerator {
     }
 
     generateUrlFilesMap(): void {
-        Object.keys(this.directoriesFilesMap).forEach((directory: string) => {
+        const nonSharedDirectoriesFilesMap = Object.keys(this.directoriesFilesMap).filter((directory: string) => directory !== 'shared');
+        nonSharedDirectoriesFilesMap.forEach((directory: string) => {
             const url = this.removeBaseDirectoryInfo(directory);
-            if (this.modules.find((module: Module) => `/${module.displayName}` === url)) {
+            const module = this.modules.find((it: Module) => `/${it.displayName}` === url)
+            if (module) {
                 // special case for overviews
-                this.urlFilesMap[url] = `${directory}/overview.md`;
+                this.urlFilesMap[url] = [`${directory}/overview.md`];
+                if (module.displayName.includes('json')) {
+                    this.urlFilesMap[url].push('assets/docs/shared/crud-capabilities.md');
+                }
             } else {
                 this.directoriesFilesMap[directory].forEach((file: string) => {
                     if (this.directoriesFilesMap[directory].length === 1) {
@@ -35,29 +40,29 @@ export class UrlMarkdownFileMapGenerator {
                             // markdown file will go on a tabbed component (we're
                             // just missing the overview.md for this directory for
                             // some reason); TODO raise error?
-                            this.urlFilesMap[`${url}/overview`] = ``;
-                            this.urlFilesMap[`${url}/api`] = `${directory}/${file}`;
+                            this.urlFilesMap[`${url}/overview`] = [``];
+                            this.urlFilesMap[`${url}/api`] = [`${directory}/${file}`];
                         } else {
                             if (url === '' && file === 'json-overview.md') {
                                 // handle special case for json-overview since this is
                                 // a standalone overvew markdown file that is for all
                                 // JSON libraries
-                                this.urlFilesMap['/json-overview'] = `${directory}/${file}`;
+                                this.urlFilesMap['/json-overview'] = [`${directory}/${file}`];
                             } else {
                                 // markdown file should go on a component on it's own
                                 // i.e. not on a tabbed component
-                                this.urlFilesMap[url] = `${directory}/${file}`;
+                                this.urlFilesMap[url] = [`${directory}/${file}`];
                             }
                         }
                     } else {
-                        this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = `${directory}/${file}`;
+                        this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
                     }
                 });
             }
         });
 
         // add special case for root URL
-        this.urlFilesMap['/'] = 'assets/docs/overview.md';
+        this.urlFilesMap['/'] = ['assets/docs/overview.md'];
     }
 
     /**
