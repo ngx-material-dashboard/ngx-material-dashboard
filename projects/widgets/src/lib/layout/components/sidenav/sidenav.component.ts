@@ -21,6 +21,19 @@ export class SidenavComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
+        this.initSidenavItems();
+        this.route.queryParams.subscribe(params => {
+            this.queryParams = params;
+        });
+
+        // listen for changes in route and re-initialize sidenav items in case
+        // toggles should change
+        this.router.events.subscribe(() => {
+            this.initSidenavItems();
+        });
+    }
+
+    private initSidenavItems() {
         let childIndex: number;
         const index = this.sidenavItems.findIndex((item: SidenavItem) => {
             if (item.children !== undefined) {
@@ -59,10 +72,6 @@ export class SidenavComponent implements OnInit {
                 }
             }
         });
-
-        this.route.queryParams.subscribe(params => {
-            this.queryParams = params;
-        })
     }
 
     /**
