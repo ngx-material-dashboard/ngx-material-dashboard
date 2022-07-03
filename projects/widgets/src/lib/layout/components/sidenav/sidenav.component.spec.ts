@@ -231,7 +231,7 @@ describe('SidenavComponent', () => {
         beforeEach(() => {
             mockRouter = {
                 navigate(): void {},
-                url: '1'
+                url: '/1'
             }
             init(mockRouter);
 
@@ -286,7 +286,7 @@ describe('SidenavComponent', () => {
             beforeEach(() => {
                 mockRouter = {
                     navigate(): void {},
-                    url: '1/g1'
+                    url: '/1/g1'
                 }
                 init(mockRouter);
     
@@ -297,7 +297,7 @@ describe('SidenavComponent', () => {
     
                 pageElement = new SidenavElement(fixture, ['requests'], ['1', '2'], ['g1', 'g11', 'g2', 'g22']);
             });
-    
+
             it('should expand parent sidenavItem and highlight child', () => {
                 // expect: there should only be one highlighted sidenav item
                 const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
@@ -322,7 +322,7 @@ describe('SidenavComponent', () => {
             beforeEach(() => {
                 mockRouter = {
                     navigate(): void {},
-                    url: '1/g1/sub'
+                    url: '/1/g1/sub'
                 }
                 init(mockRouter);
     

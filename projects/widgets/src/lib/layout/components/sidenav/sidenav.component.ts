@@ -26,26 +26,26 @@ export class SidenavComponent implements OnInit {
             if (item.children !== undefined) {
                 childIndex = item.children.findIndex((childItem: SidenavItem) => {
                     if (childItem.route) {
-                        return this.router.url.includes(childItem.route.join('/'));
+                        return this.router.url.includes(`/${childItem.route.join('/').replace('./', '')}`);
                     } else {
-                        return -1;
+                        return this.router.url.includes(`/${childItem.selector}`);
                     }
                 });
 
                 if (childIndex >= 0) {
                     return true;
                 } else if (item.route) {
-                    return this.router.url.includes(item.route.join('/'));
+                    return this.router.url.includes(`/${item.route.join('/').replace('./', '')}`);
                 } else {
-                    return false;
+                    return this.router.url.includes(`/${item.selector}`);
                 }
             } else if (item.route) {
-                return this.router.url.includes(item.route.join('/'));
+                return this.router.url.includes(`/${item.route.join('/').replace('./', '')}`);
             } else {
-                return -1;
+                return this.router.url.includes(`/${item.selector}`);
             }
         });
-        
+
         this.toggle = new Array<{toggle: boolean}>(this.sidenavItems.length);
         for (let i = 0; i < this.toggle.length; i++) {
             this.toggle[i] = { toggle: index === i };
@@ -88,7 +88,7 @@ export class SidenavComponent implements OnInit {
                 // be highlighted for child routes from things like tabs and
                 // prevents possible multiple sidenav items from getting
                 // highlighted in case they have similar routes
-                return this.router.url === route || this.router.url.includes(`${route}/`);
+                return this.router.url === route || this.router.url.includes(`/${route}`);
             } else {
                 return this.router.url.slice(0, this.router.url.indexOf('?')) === route && this.compareMaps(this.queryParams, sidenavItem.queryParams);
             }
