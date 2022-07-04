@@ -33,7 +33,8 @@ $primary: (
     )
 );
 
+
 $light-primary: mat-palette($primary);
-$light-accent: mat-palette($primary);
+$light-accent:  mat-palette($mat-pink, A200, A100, A400);
 $light-warn: mat-palette($mat-red);
 $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);

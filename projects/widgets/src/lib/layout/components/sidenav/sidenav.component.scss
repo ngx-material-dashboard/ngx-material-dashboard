@@ -3,16 +3,20 @@
 
 // add mixin for setting colors based on given $primary color; this should
 // be used whereever themes are defined in your app
-@mixin sidenav-theme($primary) {
+@mixin sidenav-theme($theme) {
+
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
 
     .mat-list-item:hover,
     .selected-list-item {
-        background: mat.get-color-from-palette($primary, 50) !important;
-        background-color: mat.get-color-from-palette($primary, 50) !important;
+        background: mat-color($primary) !important;
+        background-color: mat-color($primary) !important;
+        color: mat-contrast($primary, 700) !important;
     }
 
     .selected-list-item {
-        border-right: 3px solid mat.get-color-from-palette($primary, 700) !important;
+        border-right: 3px solid mat-color($accent) !important;
     }
 }
 
