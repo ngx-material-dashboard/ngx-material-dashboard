@@ -1,8 +1,8 @@
 # NgxMaterialDashboard
 
-The NgxMaterialDashboard is an Angular workspace with multiple libraries. The main library with angular components designed to help create dashboards with some basic CRUD capabilities is the [widgets](widgets) library. This library depends on the [base-json](base-json) library which is a library for interfacing with RESTful JSON APIs (which provides the necessary interfaces to handle CRUD operations), and either the [json](json), [json-api](json-api), or your own custom library extending the base-json library that defines how the JSON data is structured and how to serialize and deserialize it.
+The NgxMaterialDashboard is an Angular workspace that contains multiple inter-dependent libraries. The [widgets](widgets) library defines components built on top of Angular Material to provide additional functionality, including basic CRUD capabilities, with minimal code while adhering to Material design principles. The JSON service libraries ([base-json](base-json), [json](json), and [json-api](json-api)) are designed to make interfacing with JSON APIs easy, and allow you to work with classes and services instead of HttpClient and JSON directly. The [testing](testing) library is designed to simplify writing tests for the [widgets](widgets) libraries using Page element objects that eliminate the need for a lot of boilerplate set up so you can focus on the tests themselves. 
 
-I have included [angularplayground.it](https://angularplayground.it) with sandboxes so you can see some examples for how to use components from the widgets library. I also intend to add an example project that demonstrates how to use the libraries defined in this workspace. Stay tuned for that... 
+You can use the JSON service libraries without the [widgets](widgets) or [testing](testing) libraries, however the [widgets](widgets) library requires the [base-json](base-json) and either the [json](json), [json-api](json-api), or your own custom library extending the [base-json](base-json) in order to provide basic CRUD capabilities. The [base-json](base-json) library provides the necessary interfaces to handle CRUD operations and should be capable of being extended to handle most (if not all) kinds of JSON formats by defining how the JSON data is structured and how to serialize and deserialize it. The [json](json) and [json-api](json-api) libraries are examples of libraries that extend the [base-json](library) for different types of JSON, and should provide a basis for your to create your own custom JSON library if neither the [json](json) nor the [json-api](json-api) libraries work for your applications. The [testing](testing) library is not required with the [widgets](widgets) library, but it does help when writing karma tests for any components that utilize the [widgets](widgets) library.
 
 ## Libraries
 
@@ -16,7 +16,7 @@ Click on the corresponding links below to see more details about each library.
 
 ## Playground Project
 
-I have included [angularplayground.it](https://angularplayground.it) with sandboxes for developing library components in isolation. Since it requires a main application I added a `playground` directory with minimum files needed for a main application for `angularplayground`, and linked the widgets library so sandboxes can be created from components there. To run the playground just run the following:
+I have included [angularplayground.it](https://angularplayground.it) with sandboxes for developing library components in isolation. Since it requires a main application I added a `playground` directory with minimum files needed for a main application for `angularplayground`, and linked the widgets library so sandboxes can be created from components there. After you have cloned the workspace and installed the required `node_modules`, you can run the playground with the following command:
 
 ```bash
 npm run playground
