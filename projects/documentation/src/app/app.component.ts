@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faCaretDown, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faFillDrip, faSun } from '@fortawesome/free-solid-svg-icons';
 import { AnchorService } from './shared/anchor/anchor.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     private readonly stickyClassName = 'mat-tab-nav-bar--sticky';
     faCaretDown: IconDefinition = faCaretDown;
     faGitHub: IconDefinition = faGithub;
-    faSun: IconDefinition = faSun;
+    faFillDrip: IconDefinition = faFillDrip;
     date: Date = new Date();
     githubLink: string = 'http://localhost:8080/ngx-material-dashboard/ngx-material-dashboard'
     theme = 'light';

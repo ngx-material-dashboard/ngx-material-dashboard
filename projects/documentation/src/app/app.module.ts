@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -28,6 +29,7 @@ import { TabbedDocumentModule } from './widgets/tabbed-document/tabbed-document.
         MatDividerModule,
         MatMenuModule,
         MatToolbarModule,
+        MatTooltipModule,
         AnchorModule,
         LayoutModule,
         TabbedDocumentModule,

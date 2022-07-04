@@ -14,7 +14,8 @@
             </button>
             <button mat-button
                     class="mat-button marker-menu-trigger"
-                    [matMenuTriggerFor]="jsonMenu">
+                    [matMenuTriggerFor]="jsonMenu"
+                    matTooltip="Select JSON overview or library">
                 <span>JSON</span>
                 <fa-icon class="pl-2" [icon]="faCaretDown"></fa-icon>
             </button>
@@ -57,12 +58,11 @@
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>
             <div fxFlex></div>
-            <button mat-button
-                    class="mat-button marker-github-button"
-                    (click)="setTheme(nextTheme)">
-                <fa-icon [icon]="faSun"></fa-icon>
-                <div class="mat-button-focus-overlay"></div>
-                <div class="mat-button-ripple mat-ripple"></div>
+            <button mat-icon-button
+                    class="mat-icon-button marker-theme-button"
+                    (click)="setTheme(nextTheme)"
+                    matTooltip="Switch between light and dark theme">
+                <fa-icon [icon]="faFillDrip"></fa-icon>
             </button>
             <button mat-button
                     class="mat-button marker-github-button"
