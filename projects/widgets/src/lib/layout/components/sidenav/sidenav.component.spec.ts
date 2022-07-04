@@ -21,6 +21,7 @@ describe('SidenavComponent', () => {
 
         beforeEach(() => {
             mockRouter = {
+                events: of({}),
                 navigate(): void {},
                 url: '/'
             }
@@ -55,6 +56,7 @@ describe('SidenavComponent', () => {
                 beforeEach(() => {
                     // mock for the Router object
                     mockRouter = {
+                        events: of({}),
                         // mock navigate function since we only need to ensure it was called
                         navigate(): void {},
                         // mock the current URL to match the sidenav item under test
@@ -101,6 +103,7 @@ describe('SidenavComponent', () => {
         describe('Route matches sidenavItem', () => {
             beforeEach(() => {
                 mockRouter = {
+                    events: of({}),
                     navigate(): void {},
                     url: 'requests?status=Pending'
                 }
@@ -129,6 +132,7 @@ describe('SidenavComponent', () => {
             describe('Different URL and same queryParams', () => {
                 beforeEach(() => {
                     mockRouter = {
+                        events: of({}),
                         navigate(): void {},
                         url: 'additional-requests?status=Pending'
                     }
@@ -161,6 +165,7 @@ describe('SidenavComponent', () => {
             describe('Same URL but different queryParam', () => {
                 beforeEach(() => {
                     mockRouter = {
+                        events: of({}),
                         navigate(): void {},
                         url: 'requests?status=Approved'
                     }
@@ -193,6 +198,7 @@ describe('SidenavComponent', () => {
             describe('Same URL but additional queryParams', () => {
                 beforeEach(() => {
                     mockRouter = {
+                        events: of({}),
                         navigate(): void {},
                         url: 'requests?status=Pending&isComplete=true'
                     }
@@ -230,6 +236,7 @@ describe('SidenavComponent', () => {
 
         beforeEach(() => {
             mockRouter = {
+                events: of({}),
                 navigate(): void {},
                 url: '/1'
             }
@@ -285,6 +292,7 @@ describe('SidenavComponent', () => {
 
             beforeEach(() => {
                 mockRouter = {
+                    events: of({}),
                     navigate(): void {},
                     url: '/1/g1'
                 }
@@ -321,6 +329,7 @@ describe('SidenavComponent', () => {
 
             beforeEach(() => {
                 mockRouter = {
+                    events: of({}),
                     navigate(): void {},
                     url: '/1/g1/sub'
                 }

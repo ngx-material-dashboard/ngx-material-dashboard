@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
 @Component({
@@ -9,28 +10,37 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnDestroy, OnInit {
 
     /** The array of items to display in the sidenav. */
     @Input() sidenavItems: SidenavItem[] = [];
     faAngleDown: IconDefinition = faAngleDown;
     faAngleRight: IconDefinition = faAngleRight;
     queryParams: any = {};
+    sub: Subscription;
     toggle: { toggle: boolean, children?: boolean[] }[] = [];
 
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private route: ActivatedRoute, private router: Router) {
+        this.sub = new Subscription();
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+    }
 
     ngOnInit(): void {
         this.initSidenavItems();
-        this.route.queryParams.subscribe(params => {
+        const queryParamsSub = this.route.queryParams.subscribe(params => {
             this.queryParams = params;
         });
+        this.sub.add(queryParamsSub);
 
         // listen for changes in route and re-initialize sidenav items in case
         // toggles should change
-        this.router.events.subscribe(() => {
+        const routerSub = this.router.events.subscribe(() => {
             this.initSidenavItems();
         });
+        this.sub.add(routerSub);
     }
 
     private initSidenavItems() {
@@ -101,6 +111,14 @@ export class SidenavComponent implements OnInit {
             } else {
                 return this.router.url.slice(0, this.router.url.indexOf('?')) === route && this.compareMaps(this.queryParams, sidenavItem.queryParams);
             }
+        } else {
+            return false;
+        }
+    }
+
+    isToggled(i: number): boolean {
+        if (this.toggle && this.toggle[i]) {
+            return this.toggle[i].toggle;
         } else {
             return false;
         }

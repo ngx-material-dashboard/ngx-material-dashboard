@@ -4,7 +4,7 @@
                         [class.selected-list-item]="isActive(item)"
                         (click)="select(i)">
             <div *ngIf="item.children !== undefined">
-                <fa-icon *ngIf="!toggle[i].toggle; else angleDown" [icon]="faAngleRight" class="marker-angle-right"></fa-icon>
+                <fa-icon *ngIf="!isToggled(i); else angleDown" [icon]="faAngleRight" class="marker-angle-right"></fa-icon>
                 <ng-template #angleDown>
                     <fa-icon [icon]="faAngleDown" class="marker-angle-down"></fa-icon>
                 </ng-template>
@@ -14,7 +14,7 @@
                 <span class="pl-2 marker-list-item-text">{{item.text}}</span>
             </span>
         </mat-list-item>
-        <div *ngIf="toggle[i].toggle">
+        <div *ngIf="isToggled(i)">
             <div *ngFor="let child of item.children; let iChild = index">
                 <mat-list-item class="marker-list-item-button-{{child.selector}}"
                                [class.selected-list-item]="isActive(child)"
