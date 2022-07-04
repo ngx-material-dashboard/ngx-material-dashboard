@@ -33,6 +33,11 @@ const SHARED_FILES: { [lib: string]: string[] } = {
         'assets/docs/shared/crud-capabilities.md',
         'assets/docs/shared/custom-headers.md',
         'assets/docs/shared/error-handling.md'
+    ],
+    'json-overview': [
+        'assets/docs/shared/crud-capabilities.md',
+        'assets/docs/shared/custom-headers.md',
+        'assets/docs/shared/error-handling.md'
     ]
 }
 
@@ -79,19 +84,29 @@ export class UrlMarkdownFileMapGenerator {
                             this.urlFilesMap[`${url}/overview`] = [``];
                             this.urlFilesMap[`${url}/api`] = [`${directory}/${file}`];
                         } else {
-                            if (url === '' && file === 'json-overview.md') {
-                                // handle special case for json-overview since this is
-                                // a standalone overvew markdown file that is for all
-                                // JSON libraries
-                                this.urlFilesMap['/json-overview'] = [`${directory}/${file}`];
-                            } else {
-                                // markdown file should go on a component on it's own
-                                // i.e. not on a tabbed component
-                                this.urlFilesMap[url] = [`${directory}/${file}`];
-                            }
+                            // console.log(url);
+                            // if (url === 'json-overview' && file === 'json-overview.md') {
+                            //     // handle special case for json-overview since this is
+                            //     // a standalone overvew markdown file that is for all
+                            //     // JSON libraries
+                            //     console.log(SHARED_FILES[url]);
+                            //     this.urlFilesMap[`/${url}`] = [`${directory}/${file}`, ...SHARED_FILES[url]];
+                            // } else {
+                            //     // markdown file should go on a component on it's own
+                            //     // i.e. not on a tabbed component
+                            //     this.urlFilesMap[url] = [`${directory}/${file}`];
+                            // }
                         }
                     } else {
-                        this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
+                        if (url === '' && file === 'json-overview.md') {
+                            // handle special case for json-overview since this is
+                            // a standalone overvew markdown file that is for all
+                            // JSON libraries
+                            this.urlFilesMap['/json-overview'] = [`${directory}/${file}`, ...SHARED_FILES['json-overview']];
+                        } else {
+                            this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
+                        }
+                        //this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
                     }
                 });
             }
