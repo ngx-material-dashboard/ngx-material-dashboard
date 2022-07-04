@@ -1,8 +1,0 @@
-{
-  "label": "Testing Libraries",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "Libraries designed for testing components in the widgets library and JSON API service libraries"
-  }
-}

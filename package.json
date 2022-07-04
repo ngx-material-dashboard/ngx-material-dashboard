@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "playground": "angular-playground",
-    "documentation:start": "cd documentation && npm start",
+    "documentation:start": "ng serve documentation",
     "documentation:api": "typedoc --json docs.json --pretty",
     "documentation:parse-api-json": "npx ts-node ./tools/src/main.ts",
     "documentation:generate-url-directory-map": "npx ts-node ./tools/generators/documentation/markdown-url-directories/main.ts"
