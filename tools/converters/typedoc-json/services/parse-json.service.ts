@@ -7,6 +7,14 @@ import { Module } from '../models/module.model';
 import { Property } from '../models/property.model';
 import { TypedocBase } from '../models/typedoc-base.model';
 
+const MODULE_SORT_ORDER: string[] = [
+    'base-json',
+    'json',
+    'json-api',
+    'widgets',
+    'testing'
+]
+
 /**
  * The ParseJsonService parses the JSON output produced by typedoc.
  * Currently this relies on docs.json being output file and for it to be
@@ -29,6 +37,9 @@ export class ParseJsonService {
         this.fileData = (data as any).default;
         this.typedocBase = new TypedocBase(this.fileData as Partial<TypedocBase>);
         this.extractModulesData();
+        this.modules.sort((a: Module, b: Module) => {
+            return MODULE_SORT_ORDER.indexOf(a.displayName) - MODULE_SORT_ORDER.indexOf(b.displayName);
+        });
     }
 
     /**
