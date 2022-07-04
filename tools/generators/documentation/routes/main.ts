@@ -189,10 +189,11 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     if (routes != '[') {
         routes += ', ';
     }
-    routes += createBasicRoute('json-overview');
-    routes += `, ${createBasicRoute('')}`;
+    routes += `${createBasicRoute('json-overview')}`;
+    routes += `, ${createBasicRoute('overview')}]`;
+    routes = createRouteWithChildrenAndComponent('', routes, 'LayoutComponent');
 
-    routes += ']';
+    let homeRoute = `${createLazyLoadedRoute('', './routed-modules/home/home.module', 'HomeModule')}`;
 
     const file = path.join(
         baseDocsSrcDir,
@@ -202,7 +203,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
     replaceInFile.replace(
         /const routes: Routes = \[.*\];/g,
-        `const routes: Routes = [{ path: '', component: LayoutComponent, children: ${routes}}];`
+        `const routes: Routes = [${homeRoute}, ${routes}];`
     );
 }
 
@@ -232,12 +233,20 @@ function createRouteWithChildren(path: string, children: string) {
     return `{ path: '${path}', children: ${children}}`;
 }
 
-function createRouteWithChildrenAndComponent(path: string, children: string) {
-    return `{ path: '${path}', component: TabbedDocumentComponent, children: ${children}}`;
+function createRouteWithChildrenAndComponent(path: string, children: string, component: string = 'TabbedDocumentComponent') {
+    return `{ path: '${path}', component: ${component}, children: ${children}}`;
 }
 
 function createBasicRoute(path: string) {
     return `{ path: '${path}', component: TabbedDocumentTabComponent }`;
+}
+
+function createLazyLoadedRoute(path: string, importPath: string, moduleName: string) {
+    if (path === '') {
+        return `{ path: '${path}', pathMatch: 'full', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
+    } else {
+        return `{ path: '${path}', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
+    }
 }
 
 function createRedirectRoute(path: string) {

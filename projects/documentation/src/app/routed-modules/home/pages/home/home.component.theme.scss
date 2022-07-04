@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin home-component-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .docs-header {
+        background: mat-color($primary);
+    }
+}

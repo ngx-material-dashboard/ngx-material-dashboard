@@ -8,6 +8,7 @@
 @import "dark-theme";
 
 @import "../../../app/app.component.theme";
+@import "../../../app/routed-modules/home/pages/home/home.component.theme.scss";
 @import "../../../app/widgets/scrollspy-nav/scrollspy-nav.component.theme";
 @import "../../../app/widgets/tabbed-document/tabbed-document-tab/tabbed-document-tab.component.theme";
 
@@ -73,6 +74,7 @@
         @include app-component-theme($theme);
         @include scrollspy-nav-component-theme($theme);
         @include tabbed-document-tab-component-theme($theme);
+        @include home-component-theme($theme);
     }
 }
 
