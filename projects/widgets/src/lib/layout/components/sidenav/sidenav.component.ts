@@ -49,9 +49,9 @@ export class SidenavComponent implements OnDestroy, OnInit {
             if (item.children !== undefined) {
                 childIndex = item.children.findIndex((childItem: SidenavItem) => {
                     if (childItem.route) {
-                        return this.router.url.includes(`/${childItem.route.join('/').replace('./', '')}`);
+                        return this.router.url.includes(`/${item.selector}/${childItem.route.join('/').replace('./', '')}`);
                     } else {
-                        return this.router.url.includes(`/${childItem.selector}`);
+                        return this.router.url.includes(`/${item.selector}/${childItem.selector}`);
                     }
                 });
 
@@ -60,12 +60,12 @@ export class SidenavComponent implements OnDestroy, OnInit {
                 } else if (item.route) {
                     return this.router.url.includes(`/${item.route.join('/').replace('./', '')}`);
                 } else {
-                    return this.router.url.includes(`/${item.selector}`);
+                    return this.router.url.endsWith(`/${item.selector}`) || this.router.url.includes(`/${item.selector}/`);
                 }
             } else if (item.route) {
                 return this.router.url.includes(`/${item.route.join('/').replace('./', '')}`);
             } else {
-                return this.router.url.includes(`/${item.selector}`);
+                return false;
             }
         });
 
@@ -146,7 +146,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
             } else {
                 this.router.navigate(sidenavItem.route);
             }
-        } else {
+        } else if (this.toggle[index]) {
             this.toggle[index].toggle = !this.toggle[index].toggle;
         }
     }

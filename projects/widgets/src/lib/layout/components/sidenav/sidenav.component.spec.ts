@@ -238,7 +238,7 @@ describe('SidenavComponent', () => {
             mockRouter = {
                 events: of({}),
                 navigate(): void {},
-                url: '/1'
+                url: '/requests/1'
             }
             init(mockRouter);
 
@@ -294,7 +294,7 @@ describe('SidenavComponent', () => {
                 mockRouter = {
                     events: of({}),
                     navigate(): void {},
-                    url: '/1/g1'
+                    url: '/requests/1/g1'
                 }
                 init(mockRouter);
     
@@ -331,7 +331,7 @@ describe('SidenavComponent', () => {
                 mockRouter = {
                     events: of({}),
                     navigate(): void {},
-                    url: '/1/g1/sub'
+                    url: '/requests/1/g1/sub'
                 }
                 init(mockRouter);
     
