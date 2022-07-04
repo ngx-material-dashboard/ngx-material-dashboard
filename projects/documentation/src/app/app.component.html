@@ -16,7 +16,7 @@
                     class="mat-button marker-menu-trigger"
                     [matMenuTriggerFor]="jsonMenu">
                 <span>JSON</span>
-                <fa-icon class="pl-2" [icon]="caretDown"></fa-icon>
+                <fa-icon class="pl-2" [icon]="faCaretDown"></fa-icon>
             </button>
             <mat-menu #jsonMenu="matMenu">
                 <button mat-menu-item
@@ -53,6 +53,22 @@
                     class="mat-button marker-json-button"
                     [routerLink]="['testing']">
                 <span>testing</span>
+                <div class="mat-button-focus-overlay"></div>
+                <div class="mat-button-ripple mat-ripple"></div>
+            </button>
+            <div fxFlex></div>
+            <button mat-button
+                    class="mat-button marker-github-button"
+                    (click)="setTheme(nextTheme)">
+                <fa-icon [icon]="faSun"></fa-icon>
+                <div class="mat-button-focus-overlay"></div>
+                <div class="mat-button-ripple mat-ripple"></div>
+            </button>
+            <button mat-button
+                    class="mat-button marker-github-button"
+                    (click)="redirectToGitHub()">
+                <fa-icon [icon]="faGitHub"></fa-icon>
+                <span class="pl-2">GitHub</span>
                 <div class="mat-button-focus-overlay"></div>
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>

@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faCaretDown, faSun } from '@fortawesome/free-solid-svg-icons';
 import { AnchorService } from './shared/anchor/anchor.service';
 
 @Component({
@@ -12,9 +13,13 @@ import { AnchorService } from './shared/anchor/anchor.service';
 export class AppComponent implements OnInit {
 
     private readonly stickyClassName = 'mat-tab-nav-bar--sticky';
-    caretDown: IconDefinition = faCaretDown;
+    faCaretDown: IconDefinition = faCaretDown;
+    faGitHub: IconDefinition = faGithub;
+    faSun: IconDefinition = faSun;
     date: Date = new Date();
+    githubLink: string = 'http://localhost:8080/ngx-material-dashboard/ngx-material-dashboard'
     theme = 'light';
+    nextTheme = 'dark';
 
     @ViewChild('header', { read: ElementRef, static: true })
     header: ElementRef | undefined;
@@ -50,7 +55,12 @@ export class AppComponent implements OnInit {
         this.setTheme(localStorage.getItem('theme') || 'light');
     }
 
+    redirectToGitHub(): void {
+        this.document.location.href = this.githubLink;
+    }
+
     setTheme(theme: string): void {
+        this.nextTheme = theme === 'light' ? 'dark' : 'light';
         this.theme = theme;
         const bodyClassList = this.document.querySelector('body')!.classList;
         const removeClassList = /\w*-theme\b/.exec(bodyClassList.value);
@@ -59,5 +69,8 @@ export class AppComponent implements OnInit {
         }
         bodyClassList.add(`${this.theme}-theme`);
         localStorage.setItem('theme', this.theme);
+
+        console.log(this.nextTheme);
+        console.log(this.theme);
     }
 }
