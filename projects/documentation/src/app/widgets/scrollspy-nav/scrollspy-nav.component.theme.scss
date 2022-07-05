@@ -25,6 +25,11 @@
         li.nested-headings {
             &:not(.active) {
                 box-shadow: none;
+
+                // make nested headings same opacity as parent otherwise they
+                // appear too dark since opacity seems to be combined when
+                // nesting li tags
+                opacity: 1 !important;
             }
         }
     }

@@ -7,16 +7,17 @@
 
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
+    $foreground: map-get($theme, foreground);
 
     .mat-list-item:hover,
     .selected-list-item {
-        background: mat-color($primary) !important;
-        background-color: mat-color($primary) !important;
-        color: mat-contrast($primary, 700) !important;
+        background: mat-color($primary, 0.25) !important;
+        background-color: mat-color($primary, 0.25) !important;
+        color: mat-color($foreground) !important;
     }
 
     .selected-list-item {
-        border-right: 3px solid mat-color($accent) !important;
+        border-right: 3px solid mat-color($primary) !important;
     }
 }
 

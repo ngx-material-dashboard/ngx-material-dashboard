@@ -1,17 +1,18 @@
 @import '~@angular/material/theming';
 
 @mixin tabbed-document-tab-component-theme($theme) {
+    $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
     $foreground: map-get($theme, foreground);
 
     .method-name-row,
     .method-parameters-header-row,
     .method-returns-header-row {
-        background: mat-color($mat-grey, A200);
+        background: mat-color($foreground, secondary-text, 0.07);
     }
 
     .method-name-cell,
     .method-returns-type-cell {
-        color: mat-color($accent);
+        color: mat-color($primary);
     }
 }
