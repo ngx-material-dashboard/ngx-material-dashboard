@@ -58,17 +58,20 @@
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>
             <div fxFlex></div>
-            <button mat-icon-button
-                    class="mat-icon-button marker-theme-button"
+            <div mat-icon-button
+                    class="mat-button mat-marker-theme-button pr-2"
                     (click)="setTheme(nextTheme)"
                     matTooltip="Switch between light and dark theme">
-                <fa-icon [icon]="faFillDrip"></fa-icon>
-            </button>
+                <fa-layers>
+                    <fa-icon [icon]="faFillDrip"></fa-icon>
+                    <fa-icon [icon]="faDash" transform="down-12 grow-12"></fa-icon>
+                </fa-layers>
+            </div>
             <button mat-button
                     class="mat-button marker-github-button"
                     (click)="redirectToGitHub()">
-                <fa-icon [icon]="faGitHub"></fa-icon>
-                <span class="pl-2">GitHub</span>
+                <fa-icon [icon]="faGitHub" transform="grow-20"></fa-icon>
+                <span class="pl-3">GitHub</span>
                 <div class="mat-button-focus-overlay"></div>
                 <div class="mat-button-ripple mat-ripple"></div>
             </button>
