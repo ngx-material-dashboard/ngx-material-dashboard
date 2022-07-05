@@ -57,8 +57,9 @@
         }
 
         td,
-        th {
-            border-bottom-color: mat-color($foreground, divider);
+        th,
+        thead {
+            border: 1px solid mat-color($foreground, secondary-text, 0.12);
         }
     }
 }

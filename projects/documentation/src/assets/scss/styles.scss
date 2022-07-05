@@ -73,7 +73,6 @@ table {
     width: 100%;
 
     th {
-        color: rgba(0,0,0,.54);
         font-size: 15px;
         font-weight: 500;
         padding: 14px 16px;
@@ -86,13 +85,9 @@ table {
 
     td {
         font-size: 14px;
-        padding: 10px 16px;
+        font-weight: 400;
+        padding: 8px 16px;
         text-align: left;
-    }
-
-    td,
-    thead {
-        border: 1px solid rgba(0,0,0,.12);
     }
 }
 
