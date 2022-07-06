@@ -1,5 +1,5 @@
 <mat-nav-list>
-    <div *ngFor="let item of sidenavItems; let i = index">
+    <div *ngFor="let item of sidenavItems$; let i = index">
         <mat-list-item class="marker-list-item-button-{{item.selector}}"
                         [class.selected-list-item]="isActive(item)"
                         (click)="select(i)">

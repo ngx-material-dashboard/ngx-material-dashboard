@@ -13,10 +13,14 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
 export class SidenavComponent implements OnDestroy, OnInit {
 
     /** The array of items to display in the sidenav. */
-    @Input() sidenavItems: SidenavItem[] = [];
+    @Input() set sidenavItems(sidenavItems: SidenavItem[]) {
+        this.sidenavItems$ = sidenavItems;
+        this.initSidenavItems();
+    }
     faAngleDown: IconDefinition = faAngleDown;
     faAngleRight: IconDefinition = faAngleRight;
     queryParams: any = {};
+    sidenavItems$: SidenavItem[] = [];
     sub: Subscription;
     toggle: { toggle: boolean, children?: boolean[] }[] = [];
 
@@ -34,18 +38,11 @@ export class SidenavComponent implements OnDestroy, OnInit {
             this.queryParams = params;
         });
         this.sub.add(queryParamsSub);
-
-        // listen for changes in route and re-initialize sidenav items in case
-        // toggles should change
-        const routerSub = this.router.events.subscribe(() => {
-            this.initSidenavItems();
-        });
-        this.sub.add(routerSub);
     }
 
     private initSidenavItems() {
         let childIndex: number;
-        const index = this.sidenavItems.findIndex((item: SidenavItem) => {
+        const index = this.sidenavItems$.findIndex((item: SidenavItem) => {
             if (item.children !== undefined) {
                 childIndex = item.children.findIndex((childItem: SidenavItem) => {
                     if (childItem.route) {
@@ -69,12 +66,12 @@ export class SidenavComponent implements OnDestroy, OnInit {
             }
         });
 
-        this.toggle = new Array<{toggle: boolean}>(this.sidenavItems.length);
+        this.toggle = new Array<{toggle: boolean}>(this.sidenavItems$.length);
         for (let i = 0; i < this.toggle.length; i++) {
             this.toggle[i] = { toggle: index === i };
         }
 
-        this.sidenavItems.forEach((item: SidenavItem, i: number) => {
+        this.sidenavItems$.forEach((item: SidenavItem, i: number) => {
             if (item.children !== undefined) {
                 this.toggle[i].children = [];
                 for (let j = 0; j < item.children.length; j++) {
@@ -139,7 +136,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
      * @param index The sidenav item selected.
      */
     select(index: number): void {
-        const sidenavItem = this.sidenavItems[index];
+        const sidenavItem = this.sidenavItems$[index];
         if (sidenavItem.route) {
             if (sidenavItem.queryParams) {
                 this.router.navigate(sidenavItem.route, { queryParams: sidenavItem.queryParams });
@@ -152,7 +149,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
     }
 
     selectChild(index: number, childIndex: number) {
-        const children = this.sidenavItems[index].children;
+        const children = this.sidenavItems$[index].children;
         if (children) {
             if (children[childIndex].route) {
                 const child = children[childIndex];
@@ -172,7 +169,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
     }
 
     selectGrandChild(index: number, childIndex: number, grandChildIndex: number) {
-        const children = this.sidenavItems[index].children;
+        const children = this.sidenavItems$[index].children;
         if (children) {
             const gChildren = children[childIndex].children;
             if (gChildren) {
