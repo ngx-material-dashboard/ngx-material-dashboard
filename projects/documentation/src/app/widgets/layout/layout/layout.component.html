@@ -2,7 +2,9 @@
     <mat-sidenav
         mode="side"
         #sidenav opened>
-        <ngx-material-dashboard-sidenav class="sticky" [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+        <div class="sticky">
+            <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content class="container">
         <div class="box-content">

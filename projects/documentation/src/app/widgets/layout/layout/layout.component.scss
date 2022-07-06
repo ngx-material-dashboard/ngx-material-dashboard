@@ -1,0 +1,9 @@
+:host {
+    display: block;
+}
+
+.sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 64px;
+}

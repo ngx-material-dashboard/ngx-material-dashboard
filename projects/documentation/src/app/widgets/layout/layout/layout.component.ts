@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { SidenavItem } from '@ngx-material-dashboard/widgets';
@@ -10,13 +10,19 @@ const routeSidenavItems: any = {"base-json":[{"text":"base-json","selector":"bas
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements AfterViewInit, OnInit {
 
     @ViewChild(MatSidenavContainer) sidenav!: MatSidenavContainer; 
     sidenavItems: SidenavItem[] = [];
 
-    constructor(private router: Router) { }
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private router: Router
+    ) { }
 
+    ngAfterViewInit(): void {
+        this.removeHidden(this.elementRef.nativeElement.parentElement?.parentElement);
+    }
     ngOnInit(): void {
         this.setSidenavItems();
         this.router.events.subscribe((e) => {
@@ -30,5 +36,17 @@ export class LayoutComponent implements OnInit {
                 this.sidenavItems = routeSidenavItems[key];
             }
         })
+    }
+
+    removeHidden(el: HTMLElement | null | undefined): void {
+        let parent = el?.querySelector('.sticky')?.parentElement;
+
+        while (parent) {
+            const hasOverflow = getComputedStyle(parent).overflow;
+            if (hasOverflow !== 'visible' && hasOverflow !== '') {
+                parent.style.overflow = 'visible';
+            }
+            parent = parent.parentElement;
+        }
     }
 }
