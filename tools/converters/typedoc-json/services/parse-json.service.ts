@@ -19,8 +19,11 @@ const MODULE_SORT_ORDER: string[] = [
 const NG_MODULE_VALS: string[] = [
     'declarations',
     'exports',
-    'imports'
-]
+    'imports',
+    'styleUrls',
+    'selector',
+    'templateUrl'
+];
 
 /**
  * The ParseJsonService parses the JSON output produced by typedoc.
@@ -62,6 +65,21 @@ export class ParseJsonService {
         });
     }
 
+    private extractComponentData(c: Component): void {
+        const decorators = c.decorators;
+        if (decorators) {
+            const args: string = this.sanitizeArguments(decorators[0].arguments);
+            NG_MODULE_VALS.forEach((val: string) => {
+                type ObjectKey = keyof Clazz;
+                const key = val as ObjectKey;
+                const valData = this.extractData(args, val);
+                if (valData !== '') {
+                    this.setProperty(c, key, valData);
+                }
+            });
+        }
+    }
+
     /**
      * Parses NgModule classes arguments for things included in NgModule
      * decorator (i.e. declarations, exports, imports, etc).
@@ -71,12 +89,10 @@ export class ParseJsonService {
         ngModuleClasses.forEach((ngModule: Clazz) => {
             const decorators = ngModule.decorators;
             if (decorators) {
-                const args: string = decorators[0].arguments.obj
-                    .replaceAll('\n', '') // remove all new line characters
-                    .replaceAll(' ', ''); // remove any spaces so parsing is easier
+                const args: string = this.sanitizeArguments(decorators[0].arguments);
                 NG_MODULE_VALS.forEach((val: string) => {
                     type ObjectKey = keyof Clazz;
-                        const key = val as ObjectKey;
+                    const key = val as ObjectKey;
                     const arrayData = this.extractArrayData(args, val);
                     arrayData.forEach((arrVal: string) => {
                         const c: Component | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
@@ -95,8 +111,42 @@ export class ParseJsonService {
         });
     }
 
+    private sanitizeArguments(args: any) {
+        return args.obj
+            .replaceAll('\n', '') // remove all new line characters
+            .replaceAll(' ', '')
+            .replaceAll('./', '')
+            .replaceAll('\'', ''); // remove any spaces so parsing is easier
+    }
+
     getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
         return o[propertyName]; // o[propertyName] is of type T[K]
+    }
+
+    setProperty<T, K extends keyof T>(o: T, propertyName: K, val: any): void {
+        o[propertyName] = val;
+    }
+
+    private extractData(val: string, key: string): string | string[] | null {
+        if (val.indexOf(`${key}:[`) >= 0) {
+            return this.extractArrayData(val, key);
+        } else if (val.indexOf(`${key}:`) >= 0){
+            let res = '';
+            key += ':';
+            const startIndex = val.indexOf(key) + key.length;
+            for (let i = startIndex; i < val.length; i++) {
+                const c = val.charAt(i);
+                if (c === ',') {
+                    break;
+                } else {
+                    res += c;
+                }
+            }
+
+            return res;
+        } else { 
+            return null;
+        }
     }
 
     /**
@@ -139,6 +189,7 @@ export class ParseJsonService {
                 let c: Clazz;
                 if (t.name.endsWith('Component')) {
                     c = new Component(t);
+                    this.extractComponentData(c);
                 } else {
                     c = new Clazz(t);
                 }
