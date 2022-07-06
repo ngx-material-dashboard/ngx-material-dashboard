@@ -42,9 +42,13 @@ export function generateMarkdown(modules: Module[]) {
         fs.readFileSync(path.join(TEMPLATE_PATH, 'clazz.hbs')).toString()
     );
 
+    const componentTemplate = Handlebars.compile(
+        fs.readFileSync(path.join(TEMPLATE_PATH, 'component.hbs')).toString()
+    );
+
     const decoratorTemplate = Handlebars.compile(
         fs.readFileSync(path.join(TEMPLATE_PATH, 'decorator.hbs')).toString()
-    )
+    );
 
     modules.forEach((module: Module) => {
         const baseDir = DOCS_DIRECTORY_MAP[module.displayName];
@@ -64,7 +68,12 @@ export function generateMarkdown(modules: Module[]) {
 
         module.classes.forEach((clazz: Clazz) => {
             const outputPath = buildOutputPath(baseOutputPath, clazz);
-            const output = classTemplate(clazz);
+            let output 
+            if (clazz.name.endsWith('Component')) {
+                output = componentTemplate(clazz);
+            } else {
+                output = classTemplate(clazz);
+            }
             writeFile(outputPath, 'api.md', output);
         });
 

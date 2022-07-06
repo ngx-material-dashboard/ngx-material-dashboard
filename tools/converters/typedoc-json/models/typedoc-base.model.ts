@@ -1,3 +1,4 @@
+import { Decorator } from "./decorator.model";
 import { Source } from "./source.model";
 
 /**
@@ -16,7 +17,7 @@ export class TypedocBase {
     /** The children associated with the JSON object. */
     children: TypedocBase[] = [];
     comment?: { shortText: string, returns?: string };
-    decorators?: {}[];
+    decorators?: any[];
     description?: string;
     sources!: Source[];
 

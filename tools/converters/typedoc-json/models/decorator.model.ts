@@ -4,10 +4,14 @@ import { TypedocBase } from './typedoc-base.model';
 export class Decorator extends TypedocBase {
 
     type!: DecoratorType;
-    arguments?: {};
+    arguments?: { obj: string };
 
     constructor(data: Partial<Decorator>) {
         super(data);
+
+        if (data.arguments) {
+            this.arguments = data.arguments;
+        }
 
         if (data.type) {
             this.type = new DecoratorType(data.type);

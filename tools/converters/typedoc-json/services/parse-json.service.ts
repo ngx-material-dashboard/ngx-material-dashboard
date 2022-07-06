@@ -1,5 +1,6 @@
 import * as data from '../../../../docs.json';
 import { Clazz } from '../models/clazz.model';
+import { Component } from '../models/component.model';
 import { Constructor } from '../models/constructor.model';
 import { FunctionModel } from '../models/function.model';
 import { MethodModel } from '../models/method.model';
@@ -15,6 +16,12 @@ const MODULE_SORT_ORDER: string[] = [
     'testing'
 ]
 
+const NG_MODULE_VALS: string[] = [
+    'declarations',
+    'exports',
+    'imports'
+]
+
 /**
  * The ParseJsonService parses the JSON output produced by typedoc.
  * Currently this relies on docs.json being output file and for it to be
@@ -28,6 +35,7 @@ export class ParseJsonService {
     typedocBase: TypedocBase;
     /** The main modules (libraries/projects) included in typedoc output. */
     modules: Module[] = [];
+    classes: Clazz[] = [];
 
     /**
      * Parses and extracts details needed from typedoc JSON output for use in
@@ -37,6 +45,7 @@ export class ParseJsonService {
         this.fileData = (data as any).default;
         this.typedocBase = new TypedocBase(this.fileData as Partial<TypedocBase>);
         this.extractModulesData();
+        this.extractNgModuleData();
         this.modules.sort((a: Module, b: Module) => {
             return MODULE_SORT_ORDER.indexOf(a.displayName) - MODULE_SORT_ORDER.indexOf(b.displayName);
         });
@@ -54,6 +63,69 @@ export class ParseJsonService {
     }
 
     /**
+     * Parses NgModule classes arguments for things included in NgModule
+     * decorator (i.e. declarations, exports, imports, etc).
+     */
+    private extractNgModuleData(): void {
+        const ngModuleClasses = this.classes.filter((it: Clazz) => it.name.endsWith('Module'));
+        ngModuleClasses.forEach((ngModule: Clazz) => {
+            const decorators = ngModule.decorators;
+            if (decorators) {
+                const args: string = decorators[0].arguments.obj
+                    .replaceAll('\n', '') // remove all new line characters
+                    .replaceAll(' ', ''); // remove any spaces so parsing is easier
+                NG_MODULE_VALS.forEach((val: string) => {
+                    type ObjectKey = keyof Clazz;
+                        const key = val as ObjectKey;
+                    const arrayData = this.extractArrayData(args, val);
+                    arrayData.forEach((arrVal: string) => {
+                        const c: Component | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
+                        if (c) {
+                            c.ngModule = ngModule;
+                            const p = this.getProperty(ngModule, key);
+                            // need to make sure object exists and is an array
+                            // even though we know it should be
+                            if (p && Array.isArray(p)) {
+                                p.push(c);
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
+        return o[propertyName]; // o[propertyName] is of type T[K]
+    }
+
+    /**
+     * Parses and extracts basic JSON array data from a JSON string given the
+     * key of the array data.
+     * @param val 
+     */
+    private extractArrayData(val: string, key: string): string[] {
+        key += ':[';
+        const arrayData: string[] = [];
+        const startIndex = val.indexOf(key) + key.length;
+        let arrayVal = '';
+        for(let i = startIndex; i < val.length; i++) {
+            const c = val.charAt(i);
+            if (c === ',' || c === ']') {
+                arrayData.push(arrayVal);
+                arrayVal = '';
+
+                // break out of loop since this should be end of array data
+                // so we don't read any more values
+                if (c === ']') break;
+            } else {
+                arrayVal += c;
+            }
+        }
+        return arrayData;
+    }
+
+    /**
      * Parses and extracts class details from given module.
      *
      * @param module The module to parse class details for.
@@ -64,9 +136,15 @@ export class ParseJsonService {
                 const f: FunctionModel = new FunctionModel(t);
                 module.functions.push(f);
             } else {
-                const c: Clazz = new Clazz(t);
+                let c: Clazz;
+                if (t.name.endsWith('Component')) {
+                    c = new Component(t);
+                } else {
+                    c = new Clazz(t);
+                }
                 this.extractClazzData(c);
                 module.classes.push(c);
+                this.classes.push(c);
             }
         });
     }
