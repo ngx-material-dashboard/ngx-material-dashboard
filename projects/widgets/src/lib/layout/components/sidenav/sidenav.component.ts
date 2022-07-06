@@ -103,8 +103,12 @@ export class SidenavComponent implements OnDestroy, OnInit {
                 // if url includes route with '/' at end this allows sidenav to
                 // be highlighted for child routes from things like tabs and
                 // prevents possible multiple sidenav items from getting
-                // highlighted in case they have similar routes
-                return this.router.url === route || this.router.url.includes(`/${route}`);
+                // highlighted in case they have similar routes; checking for
+                // endsWith ensures items without child routes are highlighted
+                // as well
+                return this.router.url === route ||
+                    this.router.url.includes(`/${route}/`) ||
+                    this.router.url.endsWith(`/${route}`);
             } else {
                 return this.router.url.slice(0, this.router.url.indexOf('?')) === route && this.compareMaps(this.queryParams, sidenavItem.queryParams);
             }
