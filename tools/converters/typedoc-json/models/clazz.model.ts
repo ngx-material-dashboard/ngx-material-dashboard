@@ -1,3 +1,4 @@
+import { reformatText } from '../../../generators/documentation/helpers';
 import { Constructor } from './constructor.model';
 import { Decorator } from './decorator.model';
 import { FunctionModel } from './function.model';
@@ -26,5 +27,7 @@ export class Clazz extends TypedocBase {
                 this.decorators?.push(decorator);
             });
         }
+
+        this.displayName = reformatText(this.name);
     }
 }

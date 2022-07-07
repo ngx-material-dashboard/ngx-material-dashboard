@@ -6,7 +6,6 @@ export class Module extends TypedocBase {
 
     override kindString: string = 'Module';
     classes: Clazz[] = [];
-    displayName: string;
     functions: FunctionModel[] = [];
 
     constructor(data: Partial<Module>) {

@@ -20,6 +20,7 @@ export class TypedocBase {
     comment?: { shortText: string, returns?: string };
     decorators?: any[];
     description?: string;
+    displayName!: string;
     module?: Module;
     sources!: Source[];
 
