@@ -3,7 +3,6 @@ import { Decorator } from './decorator.model';
 
 export class Directive extends Clazz {
 
-    ngModule?: Clazz;
     selector?: string;
 
     constructor(data: Partial<Directive>) {
