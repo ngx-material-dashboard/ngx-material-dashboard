@@ -7,6 +7,7 @@ import { FunctionModel } from '../models/function.model';
 import { MethodModel } from '../models/method.model';
 import { Module } from '../models/module.model';
 import { Property } from '../models/property.model';
+import { Service } from '../models/service.model';
 import { TypedocBase } from '../models/typedoc-base.model';
 
 const MODULE_SORT_ORDER: string[] = [
@@ -21,6 +22,7 @@ const NG_MODULE_VALS: string[] = [
     'declarations',
     'exports',
     'imports',
+    'providers',
     'styleUrls',
     'selector',
     'templateUrl'
@@ -194,6 +196,8 @@ export class ParseJsonService {
                 } else if (t.name.endsWith('Directive')) {
                     c = new Directive(t);
                     this.extractComponentData(c);
+                } else if (t.name.endsWith('Service')) {
+                    c = new Service(t); 
                 } else {
                     c = new Clazz(t);
                 }
