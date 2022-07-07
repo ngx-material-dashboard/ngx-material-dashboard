@@ -15,8 +15,12 @@
     <tbody>
         {{#each parameters}}
             <tr class="decorator-parameter-row">
-                <td class="decorator-parameter-name-cell">{{this.name}}: {{this.displayType}}</td>
-                <td class="decorator-parameter-description-cell">{{this.description}}</td>
+                <td class="decorator-parameter-name-cell">
+                    <p>{{this.name}}: {{this.displayType}}</p>
+                </td>
+                <td class="decorator-parameter-description-cell">
+                    <p>{{this.description}}</p>
+                </td>
             </tr>
         {{/each}}
     </tbody>
