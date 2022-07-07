@@ -77,6 +77,8 @@ export function generateMarkdown(modules: Module[]) {
                 output = componentTemplate(clazz);
             } else if (clazz.name.endsWith('Directive')) {
                 output = directiveTemplate(clazz);
+            } else if (clazz.name.endsWith('Module')) {
+                output = moduleTemplate(clazz);
             } else {
                 output = classTemplate(clazz);
             }
