@@ -2,6 +2,7 @@ import * as data from '../../../../docs.json';
 import { Clazz } from '../models/clazz.model';
 import { Component } from '../models/component.model';
 import { Constructor } from '../models/constructor.model';
+import { Directive } from '../models/directive.model';
 import { FunctionModel } from '../models/function.model';
 import { MethodModel } from '../models/method.model';
 import { Module } from '../models/module.model';
@@ -95,7 +96,7 @@ export class ParseJsonService {
                     const key = val as ObjectKey;
                     const arrayData = this.extractArrayData(args, val);
                     arrayData.forEach((arrVal: string) => {
-                        const c: Component | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
+                        const c: Component | Directive | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
                         if (c) {
                             c.ngModule = ngModule;
                             const p = this.getProperty(ngModule, key);
@@ -189,6 +190,9 @@ export class ParseJsonService {
                 let c: Clazz;
                 if (t.name.endsWith('Component')) {
                     c = new Component(t);
+                    this.extractComponentData(c);
+                } else if (t.name.endsWith('Directive')) {
+                    c = new Directive(t);
                     this.extractComponentData(c);
                 } else {
                     c = new Clazz(t);

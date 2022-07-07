@@ -1,0 +1,23 @@
+{{! render name of component as header }}
+# API Reference for {{ name }}
+
+`import {{curlyBracket true}}{{ngModule.name}}{{curlyBracket false}} from @ngx-material-dashboard/widgets;`
+
+Selector: [{{selector}}]
+
+## {{name}}
+<hr/>
+
+{{! render shortText if component has comment }}
+{{#if comment }}
+{{ comment.shortText }}
+{{/if}}
+
+{{! render table of properties if component has them }}
+{{#if properties }}
+{{> properties this }}
+{{/if}}
+
+{{#if methods }}
+{{> methods this }}
+{{/if}}

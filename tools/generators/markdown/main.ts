@@ -50,6 +50,10 @@ export function generateMarkdown(modules: Module[]) {
         fs.readFileSync(path.join(TEMPLATE_PATH, 'decorator.hbs')).toString()
     );
 
+    const directiveTemplate = Handlebars.compile(
+        fs.readFileSync(path.join(TEMPLATE_PATH, 'directive.hbs')).toString()
+    )
+
     modules.forEach((module: Module) => {
         const baseDir = DOCS_DIRECTORY_MAP[module.displayName];
         // generate base outputPath
@@ -71,6 +75,8 @@ export function generateMarkdown(modules: Module[]) {
             let output 
             if (clazz.name.endsWith('Component')) {
                 output = componentTemplate(clazz);
+            } else if (clazz.name.endsWith('Directive')) {
+                output = directiveTemplate(clazz);
             } else {
                 output = classTemplate(clazz);
             }
