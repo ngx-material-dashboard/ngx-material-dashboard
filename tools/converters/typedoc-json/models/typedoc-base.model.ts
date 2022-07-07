@@ -1,4 +1,5 @@
 import { Decorator } from "./decorator.model";
+import { Module } from "./module.model";
 import { Source } from "./source.model";
 
 /**
@@ -19,6 +20,7 @@ export class TypedocBase {
     comment?: { shortText: string, returns?: string };
     decorators?: any[];
     description?: string;
+    module?: Module;
     sources!: Source[];
 
     constructor(data: Partial<TypedocBase>) {

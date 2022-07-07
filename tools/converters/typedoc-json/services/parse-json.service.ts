@@ -201,6 +201,7 @@ export class ParseJsonService {
                 } else {
                     c = new Clazz(t);
                 }
+                c.module = module;
                 this.extractClazzData(c);
                 module.classes.push(c);
                 this.classes.push(c);

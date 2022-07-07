@@ -6,9 +6,12 @@ export class Module extends TypedocBase {
 
     override kindString: string = 'Module';
     classes: Clazz[] = [];
+    displayName: string;
     functions: FunctionModel[] = [];
 
-    get displayName(): string {
-        return this.name.replace('/src/lib', '');
+    constructor(data: Partial<Module>) {
+        super(data);
+
+        this.displayName = this.name.replace('/src/lib', '');
     }
 }
