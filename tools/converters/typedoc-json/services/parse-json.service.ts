@@ -187,6 +187,7 @@ export class ParseJsonService {
         module.children.forEach((t: TypedocBase) => {
             if (t.kindString === 'Function') {
                 const f: FunctionModel = new FunctionModel(t);
+                f.module = module;
                 module.functions.push(f);
             } else {
                 let c: Clazz;
