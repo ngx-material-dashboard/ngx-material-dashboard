@@ -21,7 +21,6 @@ import { SelectionService } from '../../shared/services/selection.service';
  * empty.
  *
  * @usageNotes
- * ### Basic Usage
  * ```html
  * <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="column">
@@ -34,6 +33,20 @@ import { SelectionService } from '../../shared/services/selection.service';
  *         </mat-footer-cell>
  *     </ng-container>
  * </ngx-material-dashboard-paged-table>
+ * ```
+ * 
+ * @usageNotes
+ * ```typescript
+ * @Component({
+ *  selector: 'test-paged-table',
+ *  templateUrl: './test-paged-table.component.html'
+ * })
+ * class TestPagedTableComponent {
+ *   @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
+ *    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
+ *    data: JsonModel[] = [];
+ *    displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
+ * }
  * ```
  */
 @Component({
