@@ -79,7 +79,9 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
+    /** Boolean value indicating whether multiple rows can be selected. */
     multiple$ = true;
+    /** The source for the table data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /** The default page size (number of rows to show in the table). */
     pageSize = 25;
@@ -87,7 +89,8 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
     selection: SelectionModel<T>;
     /** A reference to the sort defined in parent template. */
     sort$!: MatSort;
-    sub: Subscription;
+    /** All disposable resources for component. */
+    private sub: Subscription;
 
     get length(): number {
         if (this.dataSource$ instanceof RemoteDataSource) {
