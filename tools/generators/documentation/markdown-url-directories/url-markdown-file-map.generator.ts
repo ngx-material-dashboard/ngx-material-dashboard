@@ -104,9 +104,18 @@ export class UrlMarkdownFileMapGenerator {
                             // JSON libraries
                             this.urlFilesMap['/json-overview'] = [`${directory}/${file}`, ...SHARED_FILES['json-overview']];
                         } else {
-                            this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
+                            if (file === 'api.md') {
+                                this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
+                            } else {
+                                if (!this.urlFilesMap[`${url}/overview`]) {
+                                    this.urlFilesMap[`${url}/overview`] = [];
+                                }
+
+                                this.urlFilesMap[`${url}/overview`].push(`${directory}/${file}`);
+                                console.log(this.urlFilesMap[`${url}/overview`]);
+                            }
+                            
                         }
-                        //this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
                     }
                 });
             }

@@ -7,6 +7,7 @@
 docs.json
 # generated api markdown files
 **/docs/**/api.md
+**/docs/**/usage-notes.md
 # Only exists if Bazel was run
 /bazel-out
 

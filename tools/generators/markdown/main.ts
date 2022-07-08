@@ -54,6 +54,10 @@ export function generateMarkdown(modules: Module[]) {
         fs.readFileSync(path.join(TEMPLATE_PATH, 'directive.hbs')).toString()
     )
 
+    const usageNotesTemplaet = Handlebars.compile(
+        fs.readFileSync(path.join(TEMPLATE_PATH, 'usage-notes.hbs')).toString()
+    )
+
     modules.forEach((module: Module) => {
         const baseDir = DOCS_DIRECTORY_MAP[module.displayName];
         // generate base outputPath
@@ -83,6 +87,11 @@ export function generateMarkdown(modules: Module[]) {
                 output = classTemplate(clazz);
             }
             writeFile(outputPath, 'api.md', output);
+
+            if (clazz.usageNotes.length > 0) {
+                const usageNotes = usageNotesTemplaet(clazz);
+                writeFile(outputPath, 'usage-notes.md', usageNotes);
+            }
         });
 
         module.functions.forEach((f: FunctionModel) => {

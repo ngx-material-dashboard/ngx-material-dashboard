@@ -1,6 +1,7 @@
-import { Decorator } from "./decorator.model";
+import { Comment } from './comment.model';
 import { Module } from "./module.model";
 import { Source } from "./source.model";
+import { UsageNote } from './usage-note.model';
 
 /**
  * Base model class that contains most basic details for a typedoc JSON object.
@@ -17,16 +18,21 @@ export class TypedocBase {
     flags!: {};
     /** The children associated with the JSON object. */
     children: TypedocBase[] = [];
-    comment?: { shortText: string, returns?: string };
+    comment?: Comment;
     decorators?: any[];
     description?: string;
     displayName!: string;
     module?: Module;
     sources!: Source[];
+    usageNotes: UsageNote[] = [];
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
 
-        this.description = this.comment?.shortText;
+        if (data.comment) {
+            this.comment = new Comment(data.comment);
+            this.description = this.comment.shortText;
+            this.usageNotes = this.comment.usageNotes;
+        }
     }
 }
