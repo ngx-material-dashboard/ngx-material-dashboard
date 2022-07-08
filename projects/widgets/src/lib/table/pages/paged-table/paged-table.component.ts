@@ -21,8 +21,7 @@ import { SelectionService } from '../../shared/services/selection.service';
  * empty.
  *
  * @usageNotes
- * ### Using PagedTableComponent
- * To use the component:
+ * ### Basic Usage
  * ```html
  * <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="column">
