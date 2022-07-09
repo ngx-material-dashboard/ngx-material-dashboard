@@ -1,11 +1,12 @@
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
-import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
-import { FunctionModel } from 'tools/converters/typedoc-json/models/function.model';
 
-import { Module } from 'tools/converters/typedoc-json/models/module.model';
-import { TypedocBase } from 'tools/converters/typedoc-json/models/typedoc-base.model';
+import { Clazz } from '../../converters/typedoc-json/models/clazz.model';
+import { FunctionModel } from '../../converters/typedoc-json/models/function.model';
+import { Module } from '../../converters/typedoc-json/models/module.model';
+import { TypedocBase } from '../../converters/typedoc-json/models/typedoc-base.model';
+import { UsageNote, USAGE_TYPES } from '../../converters/typedoc-json/models/usage-note.model';
 import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 
@@ -89,8 +90,32 @@ export function generateMarkdown(modules: Module[]) {
             writeFile(outputPath, 'api.md', output);
 
             if (clazz.usageNotes.length > 0) {
-                const usageNotes = usageNotesTemplaet(clazz);
-                writeFile(outputPath, 'usage-notes.md', usageNotes);
+                const oneNote = clazz.usageNotes.length === 1;
+                clazz.usageNotes.forEach((usageNote: UsageNote, index: number) => {
+                    let fileName = 'usage-notes';
+                    if (!oneNote) {
+                        fileName += `-${index + 1}`
+                    }
+
+                    const types = usageNote.types;
+                    if (types) {
+                        if (Object.keys(types).length > 1) {
+                            for(const type of USAGE_TYPES) {
+                                if (types[type]) {
+                                    const usageNotes = usageNotesTemplaet(types[type]);
+                                    writeFile(outputPath, `${fileName}-${type}.md`, usageNotes);
+                                }
+                            }
+                        } else {
+                            const usageNotes = usageNotesTemplaet(usageNote.text);
+                            writeFile(outputPath, `${fileName}.md`, usageNotes);
+                        }
+                    } else {
+                        const usageNotes = usageNotesTemplaet(usageNote.text);
+                        writeFile(outputPath, `${fileName}.md`, usageNotes);
+                    }
+                });
+                
             }
         });
 

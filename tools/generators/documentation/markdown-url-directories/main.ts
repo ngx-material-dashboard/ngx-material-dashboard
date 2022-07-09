@@ -55,5 +55,10 @@ export function updateMarkdownRoutes(modules: Module[]) {
         `const URL_DIRECTORY_MAP: UrlDirectoryMap = ${JSON.stringify(urlMarkdownFileMapGenerator.urlFilesMap)};`
     );
 
+    replaceInFile.replace(
+        /const USAGE_NOTES_MAP: UsageNoteMap = {.*};/g,
+        `const USAGE_NOTES_MAP: UsageNoteMap = ${JSON.stringify(urlMarkdownFileMapGenerator.usageNotesMap)};`
+    );
+
     return urlMarkdownFileMapGenerator.urlFilesMap;
 }

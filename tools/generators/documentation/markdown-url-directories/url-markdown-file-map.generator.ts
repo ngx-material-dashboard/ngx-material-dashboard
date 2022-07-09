@@ -1,4 +1,5 @@
 import { Module } from '../../../converters/typedoc-json/models/module.model';
+import { USAGE_TYPES } from '../../../converters/typedoc-json/models/usage-note.model';
 
 // most URLs should have following format
 // <library-name>/<module-name>/<type (i.e. components, directives, .etc)>/<class-name>/<overview or api>.md
@@ -50,6 +51,7 @@ export class UrlMarkdownFileMapGenerator {
      directoriesFilesMap: { [directory: string]: string[] };
      modules: Module[];
      urlFilesMap: { [url: string]: string[] };
+     usageNotesMap: { [url: string]: { [note: string]: string[] } };
 
     constructor(
         directoriesFilesMap: { [directory: string]: string[] },
@@ -58,6 +60,7 @@ export class UrlMarkdownFileMapGenerator {
         this.directoriesFilesMap = directoriesFilesMap;
         this.modules = modules;
         this.urlFilesMap = {};
+        this.usageNotesMap = {};
     }
 
     generateUrlFilesMap(): void {
@@ -106,15 +109,30 @@ export class UrlMarkdownFileMapGenerator {
                         } else {
                             if (file === 'api.md') {
                                 this.urlFilesMap[`${url}/${this.removeFileExtension(file)}`] = [`${directory}/${file}`];
-                            } else {
+                            } else if (!file.includes('usage-note')){
                                 if (!this.urlFilesMap[`${url}/overview`]) {
                                     this.urlFilesMap[`${url}/overview`] = [];
                                 }
 
                                 this.urlFilesMap[`${url}/overview`].push(`${directory}/${file}`);
-                                console.log(this.urlFilesMap[`${url}/overview`]);
+                            } else {
+                                if (!this.urlFilesMap[`${url}/overview`]) {
+                                    this.urlFilesMap[`${url}/overview`] = [];
+                                }
+
+                                let usageFile = this.removeFileExtension(file)
+                                usageFile = this.removeUsageNoteTypeValue(usageFile);
+
+                                if (!this.usageNotesMap[`${url}/overview`]) {
+                                    this.usageNotesMap[`${url}/overview`] = {};
+                                }
+
+                                if (!this.usageNotesMap[`${url}/overview`][usageFile]) {
+                                    this.usageNotesMap[`${url}/overview`][usageFile] = [];
+                                }
+
+                                this.usageNotesMap[`${url}/overview`][usageFile].push(`${directory}/${file}`);
                             }
-                            
                         }
                     }
                 });
@@ -145,5 +163,13 @@ export class UrlMarkdownFileMapGenerator {
      */
     private removeFileExtension(file: string) {
         return file.replace('.md', '');
+    }
+
+    private removeUsageNoteTypeValue(file: string) {
+        USAGE_TYPES.forEach((type: string) => {
+            file = file.replace(`-${type}`, '');
+        });
+
+        return file;
     }
 }
