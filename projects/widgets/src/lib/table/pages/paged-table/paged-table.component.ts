@@ -34,15 +34,16 @@ import { SelectionService } from '../../shared/services/selection.service';
  *     </ng-container>
  * </ngx-material-dashboard-paged-table>
  * ```
- * 
- * @usageNotes
  * ```typescript
+ * import {Component} from '@angular/core';
+ * import {TableButton, EDIT_BUTTON, DELETE_BUTTON} from '@ngx-material-dashboard/widgets';
+ * import {JsonModel} from '@models'; // assumed path defined in tsconfig 
+ * 
  * @Component({
- *  selector: 'test-paged-table',
- *  templateUrl: './test-paged-table.component.html'
+ *  selector: 'paged-table-basic-example',
+ *  templateUrl: './paged-table-basic-example.html'
  * })
- * class TestPagedTableComponent {
- *   @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
+ * class PagedTableBasicExample {
  *    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
  *    data: JsonModel[] = [];
  *    displayedColumns: string[] = ['select', 'id', 'name', 'actions'];

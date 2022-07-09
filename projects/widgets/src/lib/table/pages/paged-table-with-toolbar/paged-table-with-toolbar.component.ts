@@ -21,8 +21,6 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * component should subscribe to that and handle event from there.
  *
  * @usageNotes
- * ### Using PagedTableWithToolbarComponent
- * To use the component:
  * ```html
  * <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
  *     <ngx-material-dashboard-paged-table ...></ngx-material-dashboard-paged-table>
