@@ -41,6 +41,16 @@ pre {
     }
 }
 
+mat-tab-body pre {
+    margin: 0 0 4px 0 !important;
+    border-radius: 0px 0px 4px 4px !important;
+}
+
+app-tabbed-document-tab .mat-tab-body-content {
+    background: #272822 !important;
+    border-radius: 0px 0px 4px 4px !important;
+}
+
 .container {
     padding: 10px 10px 10px 10px
 }
