@@ -54,7 +54,6 @@ export class TabbedDocumentTabComponent implements OnInit {
         this.usageNotes = USAGE_NOTES_MAP[this.router.url];
         if (this.usageNotes) {
             this.usageNoteKeys = Object.keys(this.usageNotes);
-            console.log(this.usageNotes);
         }
     }
 
