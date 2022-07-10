@@ -30,4 +30,4 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
 
 // call sidenav-theme mixin in widgets library to set sidenav color based on
 // primary theme color defined above (see https://stackoverflow.com/a/70205541)
-@include sidenav-theme($app-primary);
+@include sidenav-theme($app-theme);
