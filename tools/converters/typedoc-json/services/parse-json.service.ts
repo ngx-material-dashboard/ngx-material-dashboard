@@ -225,5 +225,9 @@ export class ParseJsonService {
                 clazz.properties.push(new Property(c));
             }
         });
+
+        // sort all properties in class using custom sorter; ensures that
+        // properties with decorators are ordered first
+        clazz.sortProperties();
     }
 }

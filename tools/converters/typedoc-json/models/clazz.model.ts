@@ -13,6 +13,7 @@ export class Clazz extends TypedocBase {
     methods: MethodModel[] = [];
     ngModule?: Clazz;
     properties: Property[] = [];
+    sortedProperties: Property[] = [];
     declarations: Clazz[] = [];
     exports: Clazz[] = []
     imports: Clazz[] = [];
@@ -29,5 +30,9 @@ export class Clazz extends TypedocBase {
         }
 
         this.displayName = reformatText(this.name);
+    }
+
+    sortProperties(): void {
+        this.sortedProperties = this.properties.sort(Property.sort);
     }
 }
