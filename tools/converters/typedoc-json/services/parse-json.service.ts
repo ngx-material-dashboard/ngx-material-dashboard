@@ -1,4 +1,5 @@
 import * as data from '../../../../docs.json';
+import { Accessor } from '../models/accessor.model';
 import { Clazz } from '../models/clazz.model';
 import { Component } from '../models/component.model';
 import { Constructor } from '../models/constructor.model';
@@ -223,6 +224,8 @@ export class ParseJsonService {
                 clazz.methods.push(new MethodModel(c));
             } else if (c.kindString === 'Property') {
                 clazz.properties.push(new Property(c));
+            } else if (c.kindString === 'Accessor') {
+                clazz.properties.push(new Accessor(c));
             }
         });
 

@@ -25,7 +25,7 @@ export class Declaration extends TypedocBase {
             this.indexSignature = new Signature(data.indexSignature);
             const parameter: Parameter = this.indexSignature.parameters[0];
             const type: TypeModel | undefined = this.indexSignature.type;
-            this.displayName = `{ [${parameter.name}: ${parameter.type.name}]: ${type?.displayType} }`;
+            this.displayName = `{ [${parameter.name}: ${parameter?.type?.name}]: ${type?.displayType} }`;
         } else if (data.children) {
             // children is defined, then should be key: value pairs
             this.children = [];

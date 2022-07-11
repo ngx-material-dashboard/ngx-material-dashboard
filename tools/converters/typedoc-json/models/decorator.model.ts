@@ -3,7 +3,6 @@ import { TypedocBase } from './typedoc-base.model';
 
 export class Decorator extends TypedocBase {
 
-    type!: DecoratorType;
     arguments?: { obj: string };
 
     constructor(data: Partial<Decorator>) {

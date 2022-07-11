@@ -4,16 +4,13 @@ import { TypedocBase } from './typedoc-base.model';
 
 export class Signature extends TypedocBase {
 
-    type?: TypeModel;
-    parameters: Parameter[];
-
     constructor(data: Partial<Signature>) {
         super(data);
         this.parameters = [];
 
         if (data.parameters) {
             data.parameters.forEach((p: Partial<Parameter>) => {
-                this.parameters.push(new Parameter(p));
+                this.parameters?.push(new Parameter(p));
             });
         }
 

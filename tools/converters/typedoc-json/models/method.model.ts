@@ -6,7 +6,6 @@ export class MethodModel extends TypedocBase {
 
     override kindString: string = 'Method';
     signatures: Signature[];
-    parameters?: Parameter[];
     returns?: string;
     returnType?: string;
 

@@ -1,6 +1,8 @@
 import { Comment } from './comment.model';
 import { Module } from "./module.model";
+import { Parameter } from './parameter.model';
 import { Source } from "./source.model";
+import { TypeModel } from './type.model';
 import { UsageNote } from './usage-note.model';
 
 /**
@@ -23,7 +25,9 @@ export class TypedocBase {
     description?: string;
     displayName!: string;
     module?: Module;
+    parameters: Parameter[] = [];
     sources!: Source[];
+    type: any;
     usageNotes: UsageNote[] = [];
 
     constructor(data: Partial<TypedocBase>) {

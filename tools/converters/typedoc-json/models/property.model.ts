@@ -5,7 +5,6 @@ export class Property extends TypedocBase {
 
     propertyDecorator?: Decorator;
     propertyDecoratorDisplay: string = '';
-    type?: TypeModel;
     displayType: string;
     defaultValue?: string;
     override kindString: string = 'Property';

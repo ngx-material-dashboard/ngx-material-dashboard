@@ -5,7 +5,6 @@ import { TypedocBase } from './typedoc-base.model';
 export class FunctionModel extends TypedocBase {
 
     override kindString: string = 'Function';
-    parameters: Parameter[] = [];
     returns: string | undefined;
     signatures: Signature[] = [];
 
