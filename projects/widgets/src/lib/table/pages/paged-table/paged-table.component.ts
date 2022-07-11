@@ -105,6 +105,9 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
     /** All disposable resources for component. */
     private sub: Subscription;
 
+    /**
+     * Returns the total number of items in the dataSource.
+     */
     get length(): number {
         if (this.dataSource$ instanceof RemoteDataSource) {
             return this.dataSource$.total;
