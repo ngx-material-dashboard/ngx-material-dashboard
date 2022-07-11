@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/docs
 docs.json
 # generated api markdown files
 **/docs/**/api.md
