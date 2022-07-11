@@ -30,6 +30,18 @@ export class TypeModel {
             data.types?.forEach((t: Partial<TypeModel>) => {
                 this.types?.push(new TypeModel(t));
             });
+
+            // sort types by displayType value, keeping "undefined" displayType
+            // at the end
+            this.types = this.types.sort((a: TypeModel, b: TypeModel) => {
+                if (a.displayType === 'undefined') {
+                    return 1;
+                } else if (b.displayType === 'undefined') {
+                    return -1;
+                } else {
+                    return a.displayType.localeCompare(b.displayType);
+                }
+            });
         }
 
         this.displayType = this.getDisplayType();
