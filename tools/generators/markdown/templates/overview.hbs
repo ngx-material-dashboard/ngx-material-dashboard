@@ -1,0 +1,7 @@
+{{! render name of class as header }}
+## {{ name }}
+
+{{! render shortText if class has comment }}
+{{#if comment }}
+{{ comment.shortText }}
+{{/if}}

@@ -1,5 +1,6 @@
 import { Comment } from './comment.model';
 import { Module } from "./module.model";
+import { OverviewDetail } from './overview-detail.model';
 import { Parameter } from './parameter.model';
 import { Source } from "./source.model";
 import { TypeModel } from './type.model';
@@ -29,6 +30,7 @@ export class TypedocBase {
     sources!: Source[];
     type: any;
     usageNotes: UsageNote[] = [];
+    overviewDetails: OverviewDetail[] = [];
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
@@ -37,6 +39,7 @@ export class TypedocBase {
             this.comment = new Comment(data.comment);
             this.description = this.comment.shortText;
             this.usageNotes = this.comment.usageNotes;
+            this.overviewDetails = this.comment.overviewDetails;
         }
     }
 }

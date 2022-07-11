@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
+import { OverviewDetail } from 'tools/converters/typedoc-json/models/overview-detail.model';
 
 import { Clazz } from '../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../converters/typedoc-json/models/function.model';
@@ -55,9 +56,13 @@ export function generateMarkdown(modules: Module[]) {
         fs.readFileSync(path.join(TEMPLATE_PATH, 'directive.hbs')).toString()
     )
 
+    const overviewTemplate = Handlebars.compile(
+        fs.readFileSync(path.join(TEMPLATE_PATH, 'overview.hbs')).toString()
+    );
+
     const usageNotesTemplaet = Handlebars.compile(
         fs.readFileSync(path.join(TEMPLATE_PATH, 'usage-notes.hbs')).toString()
-    )
+    );
 
     modules.forEach((module: Module) => {
         const baseDir = DOCS_DIRECTORY_MAP[module.displayName];
@@ -88,6 +93,11 @@ export function generateMarkdown(modules: Module[]) {
                 output = classTemplate(clazz);
             }
             writeFile(outputPath, 'api.md', output);
+            writeFile(outputPath, 'overview-0.md', overviewTemplate(clazz));
+            clazz.overviewDetails.forEach((overviewDetail: OverviewDetail, index: number) => {
+                const details = usageNotesTemplaet(overviewDetail.text);
+                writeFile(outputPath, `overview-${index+1}.md`, details);
+            });
 
             if (clazz.usageNotes.length > 0) {
                 const oneNote = clazz.usageNotes.length === 1;
@@ -114,8 +124,7 @@ export function generateMarkdown(modules: Module[]) {
                         const usageNotes = usageNotesTemplaet(usageNote.text);
                         writeFile(outputPath, `${fileName}.md`, usageNotes);
                     }
-                });
-                
+                });  
             }
         });
 

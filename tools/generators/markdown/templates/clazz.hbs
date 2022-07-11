@@ -5,11 +5,6 @@
 `import {{curlyBracket true}}{{name}}{{curlyBracket false}} from '@ngx-material-dashboard/{{module.displayName}}';`
 {{/if}}
 
-{{! render shortText if class has comment }}
-{{#if comment }}
-{{ comment.shortText }}
-{{/if}}
-
 {{! render table of properties if class has them }}
 {{#if properties }}
 {{> properties this }}

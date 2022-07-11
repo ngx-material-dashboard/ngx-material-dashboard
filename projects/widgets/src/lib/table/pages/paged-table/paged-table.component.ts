@@ -49,6 +49,25 @@ import { SelectionService } from '../../shared/services/selection.service';
  *    displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
  * }
  * ```
+ * 
+ * @overviewDetails
+ * ## No Table Data
+ * 
+ * If you want to display any text in the table when there is no data available
+ * you should include a "noData" column definition with a colspan set to the
+ * number of displayed columns in the table so the text can be centered in the
+ * table. The column definition should look like the following:
+ * 
+ * ```html
+ * <ng-container matColumnDef="noData">
+ *     <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+ *         No data to display
+ *     </mat-footer-cell>
+ * </ng-container>
+ * ```
+ * 
+ * TODO: Update to use matNoDataRow
+ * 
  */
 @Component({
     selector: 'ngx-material-dashboard-paged-table',

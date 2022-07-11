@@ -1,3 +1,4 @@
+import { OverviewDetail } from './overview-detail.model';
 import { UsageNote } from './usage-note.model';
 
 interface Tag {
@@ -7,6 +8,7 @@ interface Tag {
 
 export class Comment {
 
+    overviewDetails: OverviewDetail[] = [];
     returns?: string;
     shortText?: string;
     tags?: Tag[];
@@ -22,6 +24,8 @@ export class Comment {
                 // to create array of each line of text in note so it can be
                 // rendered in template line by line 
                 this.usageNotes.push(new UsageNote(t.text.trim().split('\n')));
+            } else if (t.tag === 'overviewdetails') {
+                this.overviewDetails.push(new OverviewDetail(t.text.trim().split('\n')));
             }
         });
     }

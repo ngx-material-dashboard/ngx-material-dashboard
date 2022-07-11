@@ -2,7 +2,7 @@
     <div *ngIf="markdownSrcs.length > 0; else todo">
         <div *ngFor="let markdownSrc of markdownSrcs">
             <markdown *ngIf="markdownSrc !== ''; else todo" [src]="markdownSrc" (load)="onLoad()"></markdown>
-            <div *ngIf="markdownSrc.includes('overview.md')">
+            <div *ngIf="markdownSrc.includes('overview-0.md')">
                 <div *ngFor="let usageNoteSrc of usageNoteKeys">
                     <div *ngIf="usageNotes[usageNoteSrc].length === 1; else tabs">
                         <markdown (load)="onLoad()">## Basic Usage</markdown>

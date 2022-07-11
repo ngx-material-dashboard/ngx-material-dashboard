@@ -8,11 +8,6 @@ Selector: &lt;{{selector}}&gt;
 ## {{name}}
 <hr/>
 
-{{! render shortText if component has comment }}
-{{#if comment }}
-{{ comment.shortText }}
-{{/if}}
-
 {{! render table of properties if component has them }}
 {{#if properties }}
 {{> properties this }}
