@@ -30,6 +30,7 @@ export class TypedocBase {
     sources!: Source[];
     type: any;
     usageNotes: UsageNote[] = [];
+    fileUsageNoteMap: { [file: string]: UsageNote } = {};
     overviewDetails: OverviewDetail[] = [];
 
     constructor(data: Partial<TypedocBase>) {

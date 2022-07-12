@@ -1,15 +1,15 @@
 <app-scrollspy-nav-layout [headings]="headings" [nestedHeadings]="nestedHeadings" [nestedGrandChildren]="nestedGrandChildren">
-    <div *ngIf="markdownSrcs.length > 0; else todo">
+    <!-- <div *ngIf="markdownSrcs.length > 0; else todo"> -->
         <div *ngFor="let markdownSrc of markdownSrcs">
-            <markdown *ngIf="markdownSrc !== ''; else todo" [src]="markdownSrc" (load)="onLoad()"></markdown>
+            <markdown [src]="markdownSrc" (load)="onLoad()"></markdown>
             <div *ngIf="markdownSrc.includes('overview-0.md')">
                 <div *ngFor="let usageNoteSrc of usageNoteKeys">
                     <div *ngIf="usageNotes[usageNoteSrc].length === 1; else tabs">
-                        <markdown (load)="onLoad()">## Basic Usage</markdown>
+                        <markdown *ngIf="usageNoteSrc !== 'usage-notes'" (load)="onLoad()">{{usageNoteSrc}}</markdown>
                         <markdown [src]="usageNotes[usageNoteSrc][0]" (load)="onLoad()"></markdown>
                     </div>
                     <ng-template #tabs>
-                        <markdown (load)="onLoad()">## Basic Usage</markdown>
+                        <markdown *ngIf="usageNoteSrc !== 'usage-notes'" (load)="onLoad()">{{usageNoteSrc}}</markdown>
                         <div class="border">
                             <mat-tab-group style='min-height:300px'>
                                 <mat-tab *ngFor="let usageNoteSrcVal of usageNotes[usageNoteSrc]" [label]="getUsageTabLabel(usageNoteSrcVal)">
@@ -21,8 +21,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <ng-template #todo>
+    <!-- </div> -->
+    <!-- <ng-template #todo>
         <markdown>
             Overview documentation to be added
         </markdown>
@@ -42,5 +42,5 @@
                 </div>
             </ng-template>
         </div>
-    </ng-template>
+    </ng-template> -->
 </app-scrollspy-nav-layout>

@@ -67,7 +67,7 @@ export function generateMarkdown(modules: Module[]) {
     modules.forEach((module: Module) => {
         const baseDir = DOCS_DIRECTORY_MAP[module.displayName];
         // generate base outputPath
-        let baseOutputPath = path.join(
+        const baseOutputPath = path.join(
             __dirname,
             '..',
             '..',
@@ -107,6 +107,9 @@ export function generateMarkdown(modules: Module[]) {
                         fileName += `-${index + 1}`
                     }
 
+                    const i = outputPath.indexOf('docs/');
+                    const usageNoteFileBase = outputPath.slice(i + 4);
+
                     const types = usageNote.types;
                     if (types) {
                         if (Object.keys(types).length > 1) {
@@ -114,15 +117,18 @@ export function generateMarkdown(modules: Module[]) {
                                 if (types[type]) {
                                     const usageNotes = usageNotesTemplaet(types[type]);
                                     writeFile(outputPath, `${fileName}-${type}.md`, usageNotes);
+                                    clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}-${type}.md`] = usageNote;
                                 }
                             }
                         } else {
                             const usageNotes = usageNotesTemplaet(usageNote.text);
                             writeFile(outputPath, `${fileName}.md`, usageNotes);
+                            clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
                         }
                     } else {
                         const usageNotes = usageNotesTemplaet(usageNote.text);
                         writeFile(outputPath, `${fileName}.md`, usageNotes);
+                        clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
                     }
                 });  
             }

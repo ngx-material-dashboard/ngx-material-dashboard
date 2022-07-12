@@ -4,11 +4,16 @@ export const USAGE_TYPES: string[] = [
 ];
 
 export class UsageNote {
+    header?: string;
     text: string[];
     types?: { [type: string]: string[] };
 
     constructor(text: string[]) {
         this.text = text;
+        if (this.text[0].includes('## ')) {
+            this.header = this.text[0];
+            this.text = this.text.slice(1);
+        }
         USAGE_TYPES.forEach((type: string) => {
             const typeStrings = this.getType(type);
             if (typeStrings.length > 0) {

@@ -1,3 +1,4 @@
+import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
 import { USAGE_TYPES } from '../../../converters/typedoc-json/models/usage-note.model';
 
@@ -44,6 +45,7 @@ const SHARED_FILES: { [lib: string]: string[] } = {
 
 export class UrlMarkdownFileMapGenerator {
 
+    classes: Clazz[];
     /**
      * A map of directories to files in those directories to be filled by the
      * readDirectoryRecursively function.
@@ -61,6 +63,11 @@ export class UrlMarkdownFileMapGenerator {
         this.modules = modules;
         this.urlFilesMap = {};
         this.usageNotesMap = {};
+
+        this.classes = [];
+        this.modules.forEach((it: Module) => {
+            this.classes.push(...it.classes);
+        });
     }
 
     generateUrlFilesMap(): void {
@@ -120,8 +127,19 @@ export class UrlMarkdownFileMapGenerator {
                                     this.urlFilesMap[`${url}/overview`] = [];
                                 }
 
-                                let usageFile = this.removeFileExtension(file)
-                                usageFile = this.removeUsageNoteTypeValue(usageFile);
+                                let usageFile;
+                                const clazz = this.classes.find((it: Clazz) => { 
+                                    return Object.keys(it.fileUsageNoteMap).find((it: string) => it === `${url}/${file}`);
+                                });
+                                if (clazz) {
+                                    const usageNote = clazz.fileUsageNoteMap[`${url}/${file}`];
+                                    usageFile = usageNote.header
+                                }
+                                
+                                if (!usageFile) {
+                                    usageFile = this.removeFileExtension(file)
+                                    usageFile = this.removeUsageNoteTypeValue(usageFile);
+                                }  
 
                                 if (!this.usageNotesMap[`${url}/overview`]) {
                                     this.usageNotesMap[`${url}/overview`] = {};
