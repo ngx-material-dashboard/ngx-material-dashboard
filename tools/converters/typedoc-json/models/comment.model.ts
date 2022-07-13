@@ -10,7 +10,10 @@ export class Comment {
 
     overviewDetails: OverviewDetail[] = [];
     returns?: string;
+    /** The first paragraph in the documentation. */
     shortText?: string;
+    /** Any additional paragraphs after the shortText. */
+    text?: string;
     tags?: Tag[];
     usageNotes: UsageNote[] = [];
 
