@@ -23,17 +23,8 @@ import { SelectionService } from '../../shared/services/selection.service';
  * Angular Material `DataSource` for remote data, that relies on a model type
  * that extends the `JsonModel` object and an implementation of the
  * `JsonDatastore`, both defined in the `base-json` library. For more details
- * on the `JsonModel` and JsonDatastore` check out the (base-json)[/base-json]
+ * on the `JsonModel` and `JsonDatastore` check out the [base-json](/base-json)
  * documentation. 
- * 
- * 
- * The PagedTableComponent represents a table with paged data. This component
- * defines most of the HTML required for a MatTable that includes a select
- * checkbox in the first column and a column for action buttons. Any additional
- * columns defined in the HTML where this selector is used are automatically
- * detected and included with the table. Columns should follow the same format
- * as a MatTable. You should include a column definition for when no table is
- * empty.
  *
  * @usageNotes
  * ## Basic Local Data Usage
@@ -140,11 +131,16 @@ import { SelectionService } from '../../shared/services/selection.service';
  * @overviewDetails
  * ## Features
  * 
- * The `PagedTable` is designed to provide built in features for working with
- * table data, specifically row selection, paging, and sorting. While you can
- * add those features to the `MatTable`, the `PagedTable` helps reduce the
- * amount of code required to use those features. See the sections below for
- * specifics on how to use those features.   
+ * The `PagedTable` provides some features out of the box that must be manaully
+ * added for `MatTable`s. While you can add all of the features provided by
+ * `PagedTable` to a `MatTable` directly, and there are examples of addeding
+ * each of those features provided in the Angular Material documentation, the
+ * `PagedTable` helps to reduce the amount of code needed and simplify adding
+ * those features to the tables in your application. 
+ * 
+ * The main feature provided by `PagedTable` is unsurprisingly pagination. 
+ * Additionally there is sorting and table selection. See the sections below
+ * for specifics on each of the features.   
  * 
  * ### Pagination
  * 
@@ -188,7 +184,19 @@ import { SelectionService } from '../../shared/services/selection.service';
  * }
  * ...
  * ```
- * @overviewDetails
+ * 
+ * ### Selection
+ * 
+ * The `PagedTable` provides all code necessary for handling selecting one or
+ * more rows in your tables. The only thing you need to do is add the `select`
+ * column to your array of `displayedColumns` that you pass as an `@Input`
+ * value to the component. You can use the `selectionChange` `Observable`
+ * provided in the `SelectionService` which is included with the `TableModule`
+ * for handling change events. This returns an `Observable` of ` a
+ * `SelectionModel` from `@angular/cdk/collections`, which should be easy
+ * enough to work with if you are familiar with the example solution provided
+ * for `MatTable` in the Angular Material (documentation)
+ * 
  * ## No Table Data
  * 
  * If you want to display any text in the table when there is no data available
