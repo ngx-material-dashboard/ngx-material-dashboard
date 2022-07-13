@@ -12,6 +12,21 @@ import { TableButton } from '../../interfaces/table-button.interface';
 import { SelectionService } from '../../shared/services/selection.service';
 
 /**
+ * A wrapper component for MatTable that provides built in paging, row selection,
+ * and the ability to add custom buttons to each row through a built in `actions`
+ * column. This component works very much like the MatTable component in both
+ * configuration and usage. You must define the data, which can be either an
+ * array of local data or a remote data source, and the table column templates
+ * as well as list of columns to display (based on defined templates).
+ * 
+ * The `RemoteDataSource` is included and provides an implementation of the
+ * Angular Material `DataSource` for remote data, that relies on a model type
+ * that extends the `JsonModel` object and an implementation of the
+ * `JsonDatastore`, both defined in the `base-json` library. For more details
+ * on the `JsonModel` and JsonDatastore` check out the (base-json)[/base-json]
+ * documentation. 
+ * 
+ * 
  * The PagedTableComponent represents a table with paged data. This component
  * defines most of the HTML required for a MatTable that includes a select
  * checkbox in the first column and a column for action buttons. Any additional
@@ -21,12 +36,16 @@ import { SelectionService } from '../../shared/services/selection.service';
  * empty.
  *
  * @usageNotes
- * ## Basic Usage
+ * ## Basic Local Data Usage
  * ```html
- * <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [data]="data" [displayedColumns]="displayedColumns">
- *     <ng-container matColumnDef="column">
+ * <ngx-material-dashboard-paged-table matSort [data]="data" [displayedColumns]="displayedColumns">
+ *     <ng-container matColumnDef="id">
  *         <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *         <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+ *     </ng-container>
+ *     <ng-container matColumnDef="name">
+ *         <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+ *         <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
  *     </ng-container>
  *     <ng-container matColumnDef="noData">
  *         <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
@@ -36,21 +55,139 @@ import { SelectionService } from '../../shared/services/selection.service';
  * </ngx-material-dashboard-paged-table>
  * ```
  * ```typescript
- * import {Component} from '@angular/core';
- * import {TableButton, EDIT_BUTTON, DELETE_BUTTON} from '@ngx-material-dashboard/widgets';
- * import {JsonModel} from '@models'; // assumed path defined in tsconfig 
+ * // this is the most basic configuration you can use with the component, which
+ * // will basically just load and page through data without any create, update,
+ * // or delete functionality
+ * import {AfterViewInit, Component, ViewChild} from '@angular/core';
+ * import {MatSort} from '@angular/material/sort';
+ * import {PagedTableComponent} from '@ngx-material-dashboard/widgets';
+ * import {Model} from '@models'; // assumed path defined in tsconfig 
  * 
  * @Component({
- *  selector: 'paged-table-basic-example',
- *  templateUrl: './paged-table-basic-example.html'
+ *  selector: 'paged-table-basic-local-data-usage-example',
+ *  templateUrl: './paged-table-basic-local-data-usage-example.html'
  * })
- * class PagedTableBasicExample {
- *    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
- *    data: JsonModel[] = [];
+ * class PagedTableBasicLocalDataUsageExample implements AfterViewInit {
+ *    @ViewChild(PagedTableComponent) pagedTable!: PagedTableComponent<Model>;
+ *    @ViewChild(MatSort) sort!: MatSort;
+ *    data: Model[] = [];
  *    displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
+ * 
+ *    ngAfterViewInit(): void {
+ *        // this is needed to properly initialize sorting capability for table
+ *        this.pagedTable.sort = this.sort;
+ *    }
  * }
  * ```
  * 
+ * @usageNotes
+ * ## Remote Data Usage Example
+ * ```html
+ * <ngx-material-dashboard-paged-table 
+ *     matSort 
+ *     [buttons]="tableButtons"
+ *     [dataSource]="dataSource"
+ *     [displayedColumns]="displayedColumns">
+ *     <ng-container matColumnDef="id">
+ *         <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+ *         <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+ *     </ng-container>
+ *     <ng-container matColumnDef="name">
+ *         <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+ *         <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+ *     </ng-container>
+ *     <ng-container matColumnDef="noData">
+ *         <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+ *             No data to display
+ *         </mat-footer-cell>
+ *     </ng-container>
+ * </ngx-material-dashboard-paged-table>
+ * ```
+ * ```typescript
+ * import {AfterViewInit, Component, ViewChild} from '@angular/core';
+ * import {MatSort} from '@angular/material/sort';
+ * import {
+ *     PagedTableComponent,
+ *     RemoteDataSource,
+ *     TableButton,
+ *     EDIT_BUTTON,
+ *     DELETE_BUTTON
+ * } from '@ngx-material-dashboard/widgets';
+ * import {Model} from '@models'; // assumed path defined in tsconfig 
+ * 
+ * @Component({
+ *  selector: 'paged-table-remote-data-usage-example',
+ *  templateUrl: './paged-table-basic-remote-data-usage-example.html'
+ * })
+ * class PagedTableRemoteDataUsageExample implements AfterViewInit {
+ *    @ViewChild(PagedTableComponent) pagedTable!: PagedTableComponent<Model>;
+ *    @ViewChild(MatSort) sort!: MatSort;
+ *    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
+ *    dataSource: RemoteDataSource<Model>;
+ *    displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
+ * 
+ *    constructor(private jsonApiService: JsonApiService) {
+ *        this.dataSource = new RemoteDataSource<T>(Model, this.jsonApiService);
+ *    }
+ * 
+ *    ngAfterViewInit(): void {
+ *        // this is needed to properly initialize sorting capability for table
+ *        this.pagedTable.sort = this.sort;
+ *    }
+ * }
+ * ```
+ * 
+ * @overviewDetails
+ * ## Features
+ * 
+ * The `PagedTable` is designed to provide built in features for working with
+ * table data, specifically row selection, paging, and sorting. While you can
+ * add those features to the `MatTable`, the `PagedTable` helps reduce the
+ * amount of code required to use those features. See the sections below for
+ * specifics on how to use those features.   
+ * 
+ * ### Pagination
+ * 
+ * The `PagedTable` includes the `<mat-paginator>` in the components template,
+ * and handles initializing the pagination for both local and remote data. There
+ * is no additional configuration necessary to use this feature.
+ * 
+ * ### Sort
+ * 
+ * The `PagedTable` includes the ability to add sorting just like `MatTable`. To
+ * add sorting add the `matSort` directive to the `PagedTable` tag and add 
+ * `mat-sort-header`to each column header cell that should trigger sorting. You
+ * must also set the sort on the `PagedTable` in your typescript code, which
+ * will configure sorting for both local and remote data sources. Note that you
+ * have to import `MatSortModule` in order to initialize the `matSort` directive.
+ * 
+ * Your template should contain the following (similar to what you would add for
+ * a `MatTable`).
+ * 
+ * ```html
+ * <ngx-material-dashboard-paged-table matSort [data]="data">
+ *     <ng-container matColumnDef="name">
+ *         <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+ *         <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+ *     </ng-container>
+ * </ngx-material-dashboard-paged-table>
+ * ```
+ * 
+ * And your component should implement `AfterViewInit` and contain the following
+ * code.
+ * 
+ * ```typescript
+ * ...
+ * @ViewChild(PagedTableComponent) pagedTable!: PagedTableComponent<Model>;
+ * @ViewChild(MatSort) sort!: MatSort;
+ * ...
+ * 
+ * ngAfterViewInit(): void {
+ *     // this is needed to properly initialize sorting capability for table
+ *     this.pagedTable.sort = this.sort;
+ * }
+ * ...
+ * ```
  * @overviewDetails
  * ## No Table Data
  * 
