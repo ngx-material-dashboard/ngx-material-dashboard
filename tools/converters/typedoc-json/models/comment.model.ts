@@ -1,9 +1,16 @@
 import { OverviewDetail } from './overview-detail.model';
 import { UsageNote } from './usage-note.model';
 
-interface Tag {
-    tag: string;
-    text: string;
+export class Tag {
+    header?: string
+    tag!: string;
+    text!: string;
+    type!: string;
+    content?: OverviewDetail | UsageNote;
+
+    constructor(data: Partial<Tag>) {
+        Object.assign(this, data);
+    }
 }
 
 export class Comment {
@@ -14,22 +21,31 @@ export class Comment {
     shortText?: string;
     /** Any additional paragraphs after the shortText. */
     text?: string;
-    tags?: Tag[];
+    tags: Tag[] = [];
     usageNotes: UsageNote[] = [];
 
     constructor(data: Partial<Comment>) {
         Object.assign(this, data);
 
-        this.tags?.forEach((t: Tag) => {
-            if (t.tag === 'usagenotes') {
+        data.tags?.forEach((t: Partial<Tag>) => {
+            const tag: Tag = new Tag(t);
+            const text = t.text?.trim()?.split('\n');
+            if (text && t.tag === 'usagenotes') {
                 // remove any leading and trailing whitespace and line terminator
                 // characters from text, then split on remaining "\n" characters
                 // to create array of each line of text in note so it can be
-                // rendered in template line by line 
-                this.usageNotes.push(new UsageNote(t.text.trim().split('\n')));
-            } else if (t.tag === 'overviewdetails') {
-                this.overviewDetails.push(new OverviewDetail(t.text.trim().split('\n')));
+                // rendered in template line by line
+                const note = new UsageNote(text);
+                this.usageNotes.push(note);
+                tag.content = note;
+                tag.header = note.header;
+            } else if (text && t.tag === 'overviewdetails') {
+                const detail = new OverviewDetail(text);
+                this.overviewDetails.push(detail);
+                tag.content = detail;
             }
+
+            this.tags.push(tag);
         });
     }
 }

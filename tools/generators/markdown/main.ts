@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
-import { OverviewDetail } from 'tools/converters/typedoc-json/models/overview-detail.model';
+import { Tag } from '../../converters/typedoc-json/models/comment.model';
+import { OverviewDetail } from '../../converters/typedoc-json/models/overview-detail.model';
 
 import { Clazz } from '../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../converters/typedoc-json/models/function.model';
@@ -92,52 +93,79 @@ export function generateMarkdown(modules: Module[]) {
             } else {
                 output = classTemplate(clazz);
             }
+            let overviewIndex = 0;
             writeFile(outputPath, 'api.md', output);
-            writeFile(outputPath, 'overview-0.md', overviewTemplate(clazz));
-            clazz.overviewDetails.forEach((overviewDetail: OverviewDetail, index: number) => {
-                const details = usageNotesTemplaet(overviewDetail.text);
-                writeFile(outputPath, `overview-${index+1}.md`, details);
-            });
+            clazz.apiFile = { directory: makeRelative(outputPath), fileName: 'api.md' };
+            writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(clazz));
+            clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
 
-            if (clazz.usageNotes.length > 0) {
-                const oneNote = clazz.usageNotes.length === 1;
-                clazz.usageNotes.forEach((usageNote: UsageNote, index: number) => {
+            let index = 0;
+            const oneNote = clazz.usageNotes.length === 1;
+            clazz.comment?.tags.forEach((tag: Tag) => {
+                if (tag.content instanceof UsageNote) {
+                    const usageNote: UsageNote = tag.content;
                     let fileName = 'usage-notes';
                     if (!oneNote) {
-                        fileName += `-${index + 1}`
+                        fileName += `-${index++}`;
                     }
 
                     const i = outputPath.indexOf('docs/');
                     const usageNoteFileBase = outputPath.slice(i + 4);
 
+                    if (tag.header) {
+                        // this is a hack to add in a header before the usage note
+                        // if the note has a header; this creates an additional
+                        // markdown file that just contains the header text which
+                        // works since component rendering markdown just renders
+                        // files as they are in order (TODO figure out a better 
+                        // way to handle this since it forces additional http
+                        // request for markdown file with a single line)
+                        writeFile(outputPath, `${fileName}-header.md`, tag.header);
+                        clazz.overviewFiles[overviewIndex++] = [{directory: makeRelative(outputPath), fileName: `${fileName}-header.md`}];
+                    }
+
                     const types = usageNote.types;
                     if (types) {
                         if (Object.keys(types).length > 1) {
+                            clazz.overviewFiles[overviewIndex] = [];
                             for(const type of USAGE_TYPES) {
                                 if (types[type]) {
                                     const usageNotes = usageNotesTemplaet(types[type]);
                                     writeFile(outputPath, `${fileName}-${type}.md`, usageNotes);
                                     clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}-${type}.md`] = usageNote;
+                                    clazz.overviewFiles[overviewIndex].push({ directory: makeRelative(outputPath), fileName:`${fileName}-${type}.md` });
                                 }
                             }
                         } else {
                             const usageNotes = usageNotesTemplaet(usageNote.text);
                             writeFile(outputPath, `${fileName}.md`, usageNotes);
                             clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
+                            clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
                         }
                     } else {
                         const usageNotes = usageNotesTemplaet(usageNote.text);
                         writeFile(outputPath, `${fileName}.md`, usageNotes);
                         clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
+                        clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
                     }
-                });  
-            }
+                } else {
+                    const details = usageNotesTemplaet(tag.content?.text);
+                    writeFile(outputPath, `overview-${overviewIndex}.md`, details);
+                    clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex}.md` }];
+                }
+                overviewIndex++;
+            });
         });
 
         module.functions.forEach((f: FunctionModel) => {
             const outputPath = buildOutputPath(baseOutputPath, f);
             const output = decoratorTemplate(f);
             writeFile(outputPath, 'api.md', output);
+            f.apiFile = { directory: makeRelative(outputPath), fileName: 'api.md' };
+
+            let overviewIndex = 0
+            writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(f));
+            f.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
         });
     });
 }
@@ -158,6 +186,10 @@ function append(outputPath: string, text: string) {
         outputPath,
         text
     );
+}
+
+function makeRelative(directory: string) {
+    return directory.substring(directory.indexOf('assets'))
 }
 
 function writeFile(directory: string, filename: string, data: any): void {

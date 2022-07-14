@@ -33,10 +33,7 @@ export function updateMarkdownRoutes(modules: Module[]) {
     // initialize UrlMarkdownFileMapGenerator and generate map of URLs to their
     // corresponding markdown files (with path from documentation assets directory)
     const urlMarkdownFileMapGenerator: UrlMarkdownFileMapGenerator =
-        new UrlMarkdownFileMapGenerator(
-            markdownDirectoryParser.directoriesFilesMap,
-            modules
-        );
+        new UrlMarkdownFileMapGenerator(modules);
     urlMarkdownFileMapGenerator.generateUrlFilesMap();
 
     // initialize UrlDirectoryMapWriter and update component where URL files map
@@ -53,11 +50,6 @@ export function updateMarkdownRoutes(modules: Module[]) {
     replaceInFile.replace(
         /const URL_DIRECTORY_MAP: UrlDirectoryMap = {.*};/g,
         `const URL_DIRECTORY_MAP: UrlDirectoryMap = ${JSON.stringify(urlMarkdownFileMapGenerator.urlFilesMap)};`
-    );
-
-    replaceInFile.replace(
-        /const USAGE_NOTES_MAP: UsageNoteMap = {.*};/g,
-        `const USAGE_NOTES_MAP: UsageNoteMap = ${JSON.stringify(urlMarkdownFileMapGenerator.usageNotesMap)};`
     );
 
     return urlMarkdownFileMapGenerator.urlFilesMap;

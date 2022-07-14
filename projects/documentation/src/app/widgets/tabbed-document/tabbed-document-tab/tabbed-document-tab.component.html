@@ -1,25 +1,18 @@
 <app-scrollspy-nav-layout [headings]="headings" [nestedHeadings]="nestedHeadings" [nestedGrandChildren]="nestedGrandChildren">
     <!-- <div *ngIf="markdownSrcs.length > 0; else todo"> -->
-        <div *ngFor="let markdownSrc of markdownSrcs">
-            <markdown [src]="markdownSrc" (load)="onLoad()"></markdown>
-            <div *ngIf="markdownSrc.includes('overview-0.md')">
-                <div *ngFor="let usageNoteSrc of usageNoteKeys">
-                    <div *ngIf="usageNotes[usageNoteSrc].length === 1; else tabs">
-                        <markdown *ngIf="usageNoteSrc !== 'usage-notes'" (load)="onLoad()">{{usageNoteSrc}}</markdown>
-                        <markdown [src]="usageNotes[usageNoteSrc][0]" (load)="onLoad()"></markdown>
-                    </div>
-                    <ng-template #tabs>
-                        <markdown *ngIf="usageNoteSrc !== 'usage-notes'" (load)="onLoad()">{{usageNoteSrc}}</markdown>
-                        <div class="border">
-                            <mat-tab-group style='min-height:300px'>
-                                <mat-tab *ngFor="let usageNoteSrcVal of usageNotes[usageNoteSrc]" [label]="getUsageTabLabel(usageNoteSrcVal)">
-                                    <markdown [src]="usageNoteSrcVal" (load)="onLoad()"></markdown>
-                                </mat-tab>
-                            </mat-tab-group>
-                        </div>
-                    </ng-template>
-                </div>
+        <div *ngFor="let markdownSrcs of markdownSrcsList">
+            <div *ngIf="markdownSrcs.length === 1; else tabs">
+                <markdown [src]="markdownSrcs[0]" (load)="onLoad()"></markdown>
             </div>
+            <ng-template #tabs>
+                <div class="border">
+                    <mat-tab-group style='min-height:300px'>
+                        <mat-tab *ngFor="let markdownSrc of markdownSrcs" [label]="getUsageTabLabel(markdownSrc)">
+                            <markdown [src]="markdownSrc" (load)="onLoad()"></markdown>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </ng-template>
         </div>
     <!-- </div> -->
     <!-- <ng-template #todo>

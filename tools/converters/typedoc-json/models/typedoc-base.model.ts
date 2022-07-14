@@ -32,6 +32,8 @@ export class TypedocBase {
     usageNotes: UsageNote[] = [];
     fileUsageNoteMap: { [file: string]: UsageNote } = {};
     overviewDetails: OverviewDetail[] = [];
+    apiFile!: { directory: string, fileName: string };
+    overviewFiles: { directory: string, fileName: string }[][] = [];
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);
