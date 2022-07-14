@@ -14,18 +14,97 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 /**
- * The PagedTableWithToolbarComponent represents a paged table with toolbar
- * above it. The table and toolbar should include buttons to manage data in
- * table (i.e. create, edit, delete). This component emits an event when the
- * user clicks a button in either the table or toolbar. The parent to this
- * component should subscribe to that and handle event from there.
+ * A wrapper component for the `PagedTable` that adds a toolbar above it with
+ * customizable buttons and filter drop down capability. You can define any
+ * buttons you want to manage your table data, as well as define whatever form
+ * you want to render inside the filter drop down for filtering data.
+ * 
+ * The component includes a `@Output() buttonClick` `EventEmitter` that emits
+ * events when the user clicks a button in either the toolbar or on a row in
+ * the table so there is no need to subscribe to the `@Output() tableButtonClick`
+ * from the `PagedTable`. You can use a single subscription to handle basic CRUD 
+ * operations regardless of where the user clicks in the component.
  *
  * @usageNotes
+ * ## Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
- *     <ngx-material-dashboard-paged-table ...></ngx-material-dashboard-paged-table>
+ * <ngx-material-dashboard-paged-table-with-toolbar 
+ *      [toolbarButtons]="toolbarButtons"
+ *      (buttonClick)="onButtonClick($event)">
+ *     <ngx-material-dashboard-paged-table matSort 
+ *          [data]="data"
+ *          [displayedColumns]="displayedColumns"
+ *          [tableButtons]="tableButtons">
+ *         <ng-container matColumnDef="id">
+ *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+ *             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+ *         </ng-container>
+ *         <ng-container matColumnDef="name">
+ *             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+ *             <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+ *         </ng-container>
+ *         <ng-container matColumnDef="noData">
+ *             <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+ *                 No data to display
+ *             </mat-footer-cell>
+ *         </ng-container>
+ *     </ngx-material-dashboard-paged-table>
  * </ngx-material-dashboard-paged-table-with-toolbar>
  * ```
+ * ```typescript
+ * import {Component, Input, OnInit} from '@angular/core';
+ * import {FormBuilder} from '@angular/forms';
+ * import {MatDialog} from '@angular/material/dialog';
+ * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
+ * import {
+ *     ButtonClick,
+ *     PagedTableWithToolbar,
+ *     TableButton,
+ *     TableToolbarButton,
+ *     EDIT_BUTTON,
+ *     DELETE_BUTTON,
+ *     CREATE_TOOLBAR_BUTTON,
+ *     EDIT_TOOLBAR_BUTTON,
+ *     DELETE_TOOLBAR_BUTTON
+ * } from '@ngx-material-dashboard/widgets';
+ * import {JsonModel} from '@shared/models/json.model'; // assuming this exists
+ * 
+ * @Component({
+ *     selector: 'paged-table-with-toolbar-basic-usage-example',
+ *     templateUrl: './paged-table-with-toolbar-basic-usage-example.html'
+ * })
+ * export class PagedTableWithToolbarBasicUsageExample {
+ *     data: Model[] = [...];
+ *     displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
+ *     tableButtons: TableButton = [EDIT_BUTTON, DELETE_BUTTON];
+ *     toolbarButtons: TableToolbarButton = [
+ *         CREATE_TOOLBAR_BUTTON,
+ *         EDIT_TOOLBAR_BUTTON,
+ *         DELETE_TOOLBAR_BUTTON
+ *     ];
+ * 
+ *     onButtonClick(buttonClick: ButtonClick): void {
+ *         if (buttonClick.click === 'create') { 
+ *             // handle create; either open a dialog or navigate to a create page
+ *         } else if (buttonClick.click === 'edit') {
+ *             // use buttonClick.row to get row value to edit
+ *         } else if (buttonClick.click === 'delete') {
+ *             // use buttonClick.row to get row value to delete
+ *         }
+ *     }
+ * }
+ * ```
+ * 
+ * @overviewDetails
+ * The above example is pretty basic, however I have not included any code
+ * needed to manage creating, updating, or deleting anything. While there may
+ * be differences in how you create, update, or delete objects you are trying
+ * to manage, there are some very basic things that need to occur when you
+ * perform any of those actions. For example, the usual workflow to delete
+ * something involves some sort of confirmation followed by a HTTP request
+ * to perform the delete if the user affirms the action. Those basic things can
+ * get quite repatitive, which is why I created an "abstract" component that
+ * provides the code for those basic repetitive actions.
  */
 @Component({
     selector: 'ngx-material-dashboard-paged-table-with-toolbar',
