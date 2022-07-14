@@ -1,7 +1,6 @@
 import * as path from 'path';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
 import { ReplaceInFile } from '../../../files/replace-in-file';
-import { MarkdownDirectoryParser } from './markdown-directory.parser';
 import { UrlMarkdownFileMapGenerator } from './url-markdown-file-map.generator';
 
 // define base directory from where to start scanning for documentation
@@ -18,18 +17,7 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
-const assetsDocsDir = path.join(
-    baseDocsSrcDir,
-    'assets',
-    'docs'
-)
-
 export function updateMarkdownRoutes(modules: Module[]) {
-    // initialize MarkdownDirectoryParser, read directories starting from baseDir
-    // defined above, and get map of directories to their respective files
-    const markdownDirectoryParser: MarkdownDirectoryParser = new MarkdownDirectoryParser();
-    markdownDirectoryParser.readDirectoryRecursively(assetsDocsDir);
-
     // initialize UrlMarkdownFileMapGenerator and generate map of URLs to their
     // corresponding markdown files (with path from documentation assets directory)
     const urlMarkdownFileMapGenerator: UrlMarkdownFileMapGenerator =
