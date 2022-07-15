@@ -28,13 +28,21 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * @usageNotes
  * ## Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table-with-toolbar 
+ * <ngx-material-dashboard-paged-table-with-toolbar
+ *      [form]="filterForm"
  *      [toolbarButtons]="toolbarButtons"
  *      (buttonClick)="onButtonClick($event)">
+ *     <ngx-material-dashboard-filter-drop-down filter>
+ *         <form [formGroup]="form" fxLayout="column">
+ *             <mat-form-field fxFlex="noshrink">
+ *                 <input matInput type="text" formControlName="name">
+ *             </mat-form-field>
+ *         </form>
+ *     </ngx-material-dashboard-filter-drop-down>
  *     <ngx-material-dashboard-paged-table matSort 
  *          [data]="data"
  *          [displayedColumns]="displayedColumns"
- *          [tableButtons]="tableButtons">
+ *          [tableButtons]="tableButtons" table>
  *         <ng-container matColumnDef="id">
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
@@ -53,35 +61,39 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * ```
  * ```typescript
  * import {Component, Input, OnInit} from '@angular/core';
- * import {FormBuilder} from '@angular/forms';
+ * import {FormGroup, FormBuilder, Validators} from '@angular/forms';
  * import {MatDialog} from '@angular/material/dialog';
  * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
- * import {
- *     ButtonClick,
- *     PagedTableWithToolbar,
- *     TableButton,
- *     TableToolbarButton,
- *     EDIT_BUTTON,
- *     DELETE_BUTTON,
- *     CREATE_TOOLBAR_BUTTON,
- *     EDIT_TOOLBAR_BUTTON,
- *     DELETE_TOOLBAR_BUTTON
- * } from '@ngx-material-dashboard/widgets';
+ * import {ButtonClick, PagedTableWithToolbar, TableButton, TableToolbarButton, EDIT_BUTTON, DELETE_BUTTON, CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON} from '@ngx-material-dashboard/widgets';
  * import {JsonModel} from '@shared/models/json.model'; // assuming this exists
  * 
  * @Component({
  *     selector: 'paged-table-with-toolbar-basic-usage-example',
  *     templateUrl: './paged-table-with-toolbar-basic-usage-example.html'
  * })
- * export class PagedTableWithToolbarBasicUsageExample {
+ * export class PagedTableWithToolbarBasicUsageExample implements OnInit {
  *     data: Model[] = [...];
  *     displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
+ *     form!: FormGroup;
+ *     filterForm!: FormGroup;
  *     tableButtons: TableButton = [EDIT_BUTTON, DELETE_BUTTON];
  *     toolbarButtons: TableToolbarButton = [
  *         CREATE_TOOLBAR_BUTTON,
  *         EDIT_TOOLBAR_BUTTON,
  *         DELETE_TOOLBAR_BUTTON
  *     ];
+ * 
+ *     ngOnInit(): void {
+ *         this.form = this.formBuilder.group({
+ *             name: [null, [Validators.required]]
+ *         });
+ * 
+ *         // to use built in search filter capability you must add form
+ *         // filter included in ngx-material-dashboard-filter-drop-down
+ *         // as control of 'searchFilter'
+ *         this.filterForm = this.formBuilder.group({});
+ *         this.filterForm.addControl('searchFilter', form);
+ *     }
  * 
  *     onButtonClick(buttonClick: ButtonClick): void {
  *         if (buttonClick.click === 'create') { 
@@ -105,6 +117,45 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * to perform the delete if the user affirms the action. Those basic things can
  * get quite repatitive, which is why I created an "abstract" component that
  * provides the code for those basic repetitive actions.
+ * 
+ * I didn't want to include that functionality directly here because I didn't
+ * want to be too presumptuous with handling CRUD operations and figured it
+ * was best to keep that separate in case the way I have the functionality
+ * doesn't work for your use case. Although I suppose I could provide the
+ * implementation here and just have you override it...
+ * 
+ * You may want to check out the
+ * [AbstractPagedTableWithToolbar](/widgets/components/abstract-paged-table-with-toolbar)
+ * for more details on how to use that.
+ * 
+ * > NOTE: I say "abstract" above because this isn't actually an abstract class since
+ * > it does not include the abstract keyword on the class itself (only a
+ * > reference to it in the name of the component). I think I tried to create
+ * > an actual abstract component, but ran into issues when I did that so I
+ * > ended up just naming it abstract.
+ * 
+ * ## Features
+ * 
+ * ### Search Filter
+ * 
+ * The search filter you add to the table toolbar is capable of filtering data
+ * with one or more filtering criteria (typically columns defined in table).
+ * Any field added to the filter form is automatically added to a map of field
+ * names to search filter values entered by user on the form. So taking the
+ * form from the [basic usage example](#basic-usage-example) from above, the
+ * map would be something like the following:
+ * 
+ * ```json
+ * {
+ *     name: <value entered by user on form>
+ * }
+ * ```
+ * 
+ * This assumes that your server side code is capable of filtering data using
+ * a map of key/value pairs. It also means that the form control names should
+ * match up with values you can use to filter your data (typically column
+ * names you have defined for your table data).
+ * 
  */
 @Component({
     selector: 'ngx-material-dashboard-paged-table-with-toolbar',
