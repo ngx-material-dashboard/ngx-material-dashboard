@@ -17,13 +17,19 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * A wrapper component for the `PagedTable` that adds a toolbar above it with
  * customizable buttons and filter drop down capability. You can define any
  * buttons you want to manage your table data, as well as define whatever form
- * you want to render inside the filter drop down for filtering data.
+ * you want to render inside the filter drop down for filtering data with as
+ * many filter fields as you want.
  * 
  * The component includes a `@Output() buttonClick` `EventEmitter` that emits
  * events when the user clicks a button in either the toolbar or on a row in
  * the table so there is no need to subscribe to the `@Output() tableButtonClick`
  * from the `PagedTable`. You can use a single subscription to handle basic CRUD 
- * operations regardless of where the user clicks in the component.
+ * operations regardless of whether the user clicks a button in the toolbar or
+ * in one of the rows of the table.
+ * 
+ * > NOTE: In order to use toolbar buttons that require one or more rows to
+ * > perform an action (i.e. edit, delete, etc.), you must include the `select`
+ * > column in the list of `displayedColumns` passed into the `PagedTable`
  *
  * @usageNotes
  * ## Basic Usage Example
@@ -124,8 +130,7 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * doesn't work for your use case. Although I suppose I could provide the
  * implementation here and just have you override it...
  * 
- * You may want to check out the
- * [AbstractPagedTableWithToolbar](/widgets/components/abstract-paged-table-with-toolbar)
+ * See [AbstractPagedTableWithToolbar](/widgets/components/abstract-paged-table-with-toolbar)
  * for more details on how to use that.
  * 
  * > NOTE: I say "abstract" above because this isn't actually an abstract class since
@@ -136,6 +141,44 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * 
  * ## Features
  * 
+ * The `PagedTableWithToolbar` provides some additional features built around
+ * the `PagedTable`, mainly a toolbar to add management buttons and a search
+ * filter. While the `PagedTable` includes an action column with buttons to
+ * manage your existing data, it does not include a place to put buttons for
+ * doing things like creating new values or even an export button (in case your
+ * users need to be able to export your data tables to excel). It also does not
+ * provide a way to filter your data. That is where the `PagedTableWithToolbar`
+ * comes in. See the sections below for specifics on each feature.
+ * 
+ * ### Toolbar Buttons
+ * 
+ * You can add one or more `TableToolbarButton`s to the toolbar. These buttons
+ * can provide additional functions beyond the `TableButton`s you define for
+ * the `PagedTable`. Two examples of `TableToolbarButton`s that come to mind
+ * are a create button and an export button. It doesn't make sense to include
+ * these buttons in every row of your table, which is one of the reasons I
+ * created the `TableToolbar` to sit above the `PagedTable`. I'm sure there are
+ * other buttons besides create and export that will be useful in the toolbar,
+ * but I just can't think of any right now.
+ * 
+ * #### Pre-Built Buttons
+ * 
+ * I have created some pre-built `TableToolbarButton`s to use. They are the
+ * `CREATE_TOOLBAR_BUTTON`, `EDIT_TOOLBAR_BUTTON`, and `DELETE_TOOLBAR_BUTTON`.
+ * The type of action to be performed by those buttons is pretty self
+ * explanatory. The biggest thing to note is that the edit and delete buttons
+ * are defined to be disabled by default and are only enabled when the user
+ * selects a row in the table. This functionality is built in to the component
+ * so there is nothing you need to do in your code to enable/disable these
+ * buttons.
+ * 
+ * #### Custom Buttons
+ * 
+ * You can create any custom toolbar button you want to add to the toolbar above
+ * the `PagedTable`. In order to do that it must be a `TableToolbarButton` type.
+ * See the [TableToolbarButton](/widgets/interfaces/table-toolbar-button) for
+ * more details.
+ *
  * ### Search Filter
  * 
  * The search filter you add to the table toolbar is capable of filtering data

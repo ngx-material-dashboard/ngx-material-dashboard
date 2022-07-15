@@ -24,8 +24,12 @@ export * from './list/list.module';
 export * from './services/remote-data-source.service';
 
 export * from './table/components/filter-drop-down/filter-drop-down.component';
+export * from './table/interfaces/button-click.interface';
 export * from './table/interfaces/paged-table-with-toolbar.interface';
+export * from './table/interfaces/table-button.interface';
+export * from './table/interfaces/table-toolbar-button.interface';
 export * from './table/pages/abstract-paged-table-with-toolbar/abstract-paged-table-with-toolbar.component';
 export * from './table/pages/paged-table/paged-table.component';
 export * from './table/pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
+export * from './table/shared/services/selection.service';
 export * from './table/table.module';
