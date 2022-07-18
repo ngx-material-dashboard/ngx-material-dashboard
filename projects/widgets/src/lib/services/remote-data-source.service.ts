@@ -3,6 +3,49 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { JsonDatastore, JsonApiQueryData, ModelType, JsonModel } from '@ngx-material-dashboard/base-json';
+
+/**
+ * A wrapper for the `DataSource` class that provides a basic way to sort,
+ * filter, paginate, and retrieve data from your main data source. Ultimately
+ * this relies on an implementation of the `JsonDatastore` which is where the
+ * functionality to filter, paginate, and retreive data comes from.
+ * 
+ * There are two main functions to use to sort, filter, paginate, and retrieve
+ * data. The `load` function includes parameters to sort, filter, paginate, and
+ * retrieve data. All parameters are optional, so if you call `load()` without
+ * any parameters, then you will get the broadest data set without any filter,
+ * with the default sort of id values in ascending order, and with default
+ * number of 25 results. The other function is `refresh()` which just calls
+ * `load` using the last parameter values used.
+ * 
+ * ## Basic Usage Example
+ * ```typescript
+ * class RemoteDataSourceUsageExample<T extends JsonModel> {
+ *     
+ *     dataSource: RemoteDataSource<T>;
+ *
+ *     constructor(
+ *         @Inject(JsonModel) private modelType: ModelType<T>,
+ *         private jsonApiService: JsonDatastore
+ *     ) {
+ *         this.dataSource = new RemoteDataSource(this.modelType, this.jsonApiService);
+ *     }
+ * 
+ *     loadData(): void {
+ *         this.dataSource.load();
+ *     }
+ * 
+ *     refresh(): void {
+ *         this.dataSource.refresh();
+ *     }
+ * }
+ *  
+ * ```
+ * 
+ * > NOTE: The `RemoteDataSource` can be used with any component that paginates
+ * > data, whether it is a grid, list, table, or any other kind of paged
+ * > component that I can't think of right now.
+ */
 export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
 
     /** The data to display in the table. */
