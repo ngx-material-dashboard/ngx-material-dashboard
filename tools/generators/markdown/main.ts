@@ -1,16 +1,16 @@
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
-import { Tag } from '../../converters/typedoc-json/models/comment.model';
-import { OverviewDetail } from '../../converters/typedoc-json/models/overview-detail.model';
 
+import { registerHelpers } from './utils/register-helpers';
+import { registerPartials } from './utils/register-partials';
+import { Tag } from '../../converters/typedoc-json/models/comment.model';
 import { Clazz } from '../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../converters/typedoc-json/models/function.model';
 import { Module } from '../../converters/typedoc-json/models/module.model';
 import { TypedocBase } from '../../converters/typedoc-json/models/typedoc-base.model';
 import { UsageNote, USAGE_TYPES } from '../../converters/typedoc-json/models/usage-note.model';
-import { registerHelpers } from './utils/register-helpers';
-import { registerPartials } from './utils/register-partials';
+import { MODULE_TYPE_DIRECTORY_MAP } from '../../generators/documentation/helpers';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
     'base-json': 'base-json',
@@ -19,18 +19,6 @@ const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
     'widgets': 'widgets',
     'testing': 'testing'
 }
-
-const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
-    'Component': 'components',
-    'Directive': 'directives',
-    'decorator': 'decorators',
-    '.element.': 'elements',
-    'interface': 'interfaces',
-    '.model.': 'models',
-    'Module': 'modules',
-    '.page.': 'pages',
-    'Service': 'services'
-};
 
 export function generateMarkdown(modules: Module[]) {
     registerHelpers();

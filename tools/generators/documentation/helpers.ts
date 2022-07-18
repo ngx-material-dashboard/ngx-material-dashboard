@@ -8,7 +8,19 @@ export const moduleTypes: string[] = [
     'modules',
     'pages',
     'services'
-]
+];
+
+export const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
+    'Component': 'components',
+    'Directive': 'directives',
+    '.decorator.': 'decorators',
+    '.element.': 'elements',
+    'interface': 'interfaces',
+    '.model.': 'models',
+    'Module': 'modules',
+    '.page.': 'pages',
+    '.service.': 'services'
+};
 
 export function convertUrlToRoute(url: string) {
     const route = url.split('/');

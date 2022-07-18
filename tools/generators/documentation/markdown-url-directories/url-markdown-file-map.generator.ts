@@ -1,4 +1,6 @@
 import * as path from 'path';
+
+import { MODULE_TYPE_DIRECTORY_MAP } from '../helpers';
 import { TypedocBase } from '../../../converters/typedoc-json/models/typedoc-base.model';
 import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
@@ -6,18 +8,6 @@ import { FunctionModel } from '../../../converters/typedoc-json/models/function.
 
 // most URLs should have following format
 // <library-name>/<module-name>/<type (i.e. components, directives, .etc)>/<class-name>/<overview or api>.md
-
-const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
-    'Component': 'components',
-    'Directive': 'directives',
-    '.decorator.': 'decorators',
-    '.element.': 'elements',
-    'interface': 'interfaces',
-    '.model.': 'models',
-    'Module': 'modules',
-    '.page.': 'pages',
-    'Service': 'services'
-};
 
 /**
  * Map of library names to "shared" files and other markdown files to be
