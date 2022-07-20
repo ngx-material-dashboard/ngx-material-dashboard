@@ -41,6 +41,9 @@ export class Declaration extends TypedocBase {
                 this.displayName += `${p.name}: ${p.type?.displayType}`;
             });
             this.displayName += '}';
+        } else {
+            // default to the empty type
+            this.displayName = '{}';
         }
     }
 }
