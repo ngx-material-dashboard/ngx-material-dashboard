@@ -25,4 +25,17 @@
         {{/each}}
     </tbody>
     {{/if}}
+    {{#if returns}}
+    <thead class="method-returns-header">
+        <tr class="method-returns-header-row">
+            <th class="method-returns-header-cell" colspan="2">Returns</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="method-returns-row">
+            <td class="method-returns-type-cell">{{returnType}}</td>
+            <td class="method-returns-description-cell">{{returns}}</td>
+        </tr>
+    </tbody>
+    {{/if}}
 </table>
