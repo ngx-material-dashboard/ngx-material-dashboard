@@ -1,5 +1,6 @@
 import { reformatText } from '../../../generators/documentation/helpers';
 import { Constructor } from './constructor.model';
+import { Declaration } from './declaration.model';
 import { Decorator } from './decorator.model';
 import { FunctionModel } from './function.model';
 import { MethodModel } from './method.model';
@@ -17,6 +18,7 @@ export class Clazz extends TypedocBase {
     declarations: Clazz[] = [];
     exports: Clazz[] = []
     imports: Clazz[] = [];
+    indexSignature?: Property;
 
     constructor(data: Partial<Clazz>) {
         super(data);
@@ -27,6 +29,14 @@ export class Clazz extends TypedocBase {
                 const decorator = new Decorator(d);
                 this.decorators?.push(decorator);
             });
+        }
+
+        if (data.indexSignature) {
+            // it seems if a clazz has a map defined it is added as indexSignature
+            // property; TODO figure out what happens if multiple maps defined, or
+            // if it's even possible to define multiple maps
+            this.indexSignature = new Property(data.indexSignature);
+            this.properties.push(this.indexSignature);
         }
 
         this.displayName = reformatText(this.name);
