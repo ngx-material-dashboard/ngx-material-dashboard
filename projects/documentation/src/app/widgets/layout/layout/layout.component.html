@@ -3,7 +3,9 @@
         mode="side"
         #sidenav opened>
         <div class="sticky">
-            <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+            <div class="sticky-content">
+                <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+            </div>
         </div>
     </mat-sidenav>
     <mat-sidenav-content class="container">
