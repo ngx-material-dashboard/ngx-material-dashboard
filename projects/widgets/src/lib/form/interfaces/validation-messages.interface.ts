@@ -23,5 +23,9 @@ import { ValidationMessage } from './validation-message.interface';
  * ```
  */
 export interface ValidationMessages {
+    /** 
+     * A map of a field name to list of `ValidationMessage`s associated with
+     * that field.
+     */
     [field: string]: ValidationMessage[];
 }
