@@ -109,6 +109,8 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
      * @param order The order to sort the data ("asc" or "desc").
      * @param pageIndex The page of data to get.
      * @param pageSize The number of results to get.
+     * @param include Comma separated list of relationships to include in results.
+     * @param headers Custom header values.
      */
     load(
         filter: {} = {},

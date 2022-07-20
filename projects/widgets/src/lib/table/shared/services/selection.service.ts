@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+/**
+ * Tracks and emits changes to `SelectionModel`. Also provides convenience
+ * method for enabling/disabling `TableToolbarButton`s.
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -24,6 +28,9 @@ export class SelectionService<T> {
         this.selectionChange = this.selectionChangeSubject.asObservable();
     }
 
+    /**
+     * Returns the current `SelectionModel` value.
+     */
     get selectionValue(): SelectionModel<T> {
         return this.selectionSubject.value;
     }

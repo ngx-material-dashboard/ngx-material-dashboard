@@ -7,10 +7,46 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
 /**
  * Attribute decorator defines a custom property decorator that should be added
  * to each property defined in your client side data models that you intend to
- * include in HTTP request/response data.
+ * include in HTTP request/response data handled by the JSON library.
  * 
  * @param options Custom options included in decorator. 
  * @returns A custom property decorator for JSON attributes.
+ * 
+ * @overviewDetails
+ * ## Basic Usage Example
+ * ```typescript
+ * import {Attribute, JsonModel} from "@ngx-material-dashboard/base-json";
+ * 
+ * class Task extends JsonModel {
+ *     // this property does not get included in HTTP request/response data
+ *     internalProperty?: string;
+ *     // below properties are included in HTTP request/response data
+ *     @Attribute() name?: string;
+ *     @Attribute() dueDate?: string;
+ * }
+ * ```
+ * 
+ * ## Features
+ * 
+ * You can include custom [AttributeDecoratorOptions](/base-json/interfaces/attribute-decorator-options)
+ * to configure how to convert each property as well as the name to use for each
+ * property when serializing/deserializing JSON.
+ * 
+ * ### Converter
+ * 
+ * The `converter` property defines how to convert your property between a JSON
+ * literal and whatever object type you want to convert to/from. The property
+ * takes a class that implements `PropertyConverter` interface, which must
+ * implement 2 methods, `mask` and `unmask`. See the
+ * [PropertyConverter](/base-json/interfaces/property-converter) docs for more
+ * details.
+ * 
+ * ### Serialized Name
+ * 
+ * The `serializedName` property defines a custom name to use for the property
+ * key in JSON. This is really meant for converting property keys that do not
+ * match the name of the property where this decorator is defined. For example,
+ * 
  */
 export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {

@@ -11,7 +11,15 @@ import { PropertyConverter } from '../../interfaces/property-converter.interface
  * milliseconds like 1997-07-16T19:20:30.45+01:00.
  */
 export class DateConverter implements PropertyConverter {
-    mask(value: any) {
+
+    /**
+     * Converts the given value (which should be a string) to a Date. If the
+     * given value is not a string, then it is returned as is.
+     * 
+     * @param value The value to convert from string to Date.
+     * @returns The given string value as a Date.
+     */
+    mask(value: any): Date {
         if (typeof value === 'string') {
             return parseISO(value);
         } else {
@@ -19,7 +27,14 @@ export class DateConverter implements PropertyConverter {
         }
     }
 
-    unmask(value: any) {
+    /**
+     * Converts the given value to a string (if it exists). If the value is
+     * null, then null is returned.
+     *
+     * @param value The Date to convert to a string. 
+     * @returns The string value of the given Date.
+     */
+    unmask(value: Date | null): string | null {
         if (value === null) {
             return null;
         }

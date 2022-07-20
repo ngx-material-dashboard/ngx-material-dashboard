@@ -6,6 +6,11 @@ import { RemoteDataSource } from "../../services/remote-data-source.service";
 import { TableButton } from "./table-button.interface";
 import { TableToolbarButton } from "./table-toolbar-button.interface";
 
+/**
+ * Components that utilize `PagedTableWithToolbar` should implement this
+ * interface to ensure they implement all necessary properties and
+ * methods that should be defined for `PagedTableWithToolbar`.
+ */
 export interface PagedTableWithToolbar<T extends JsonModel> {
 
     /** The form for the search filter in toolbar. */
