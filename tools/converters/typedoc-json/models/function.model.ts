@@ -17,10 +17,16 @@ export class FunctionModel extends TypedocBase {
             const signature = new Signature(data.signatures[0]);
             this.signatures.push(signature);
 
-            this.description = signature.comment?.shortText;
             this.parameters = signature.parameters;
             this.returns = signature.comment?.returns;
             this.returnType = signature.type?.name;
+
+            if (signature.comment) {
+                this.comment = signature.comment;
+                this.description = this.comment.shortText;
+                this.usageNotes = this.comment.usageNotes;
+                this.overviewDetails = this.comment.overviewDetails;
+            }
         }
     }
 }

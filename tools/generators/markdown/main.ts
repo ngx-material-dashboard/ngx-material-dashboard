@@ -87,62 +87,7 @@ export function generateMarkdown(modules: Module[]) {
             writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(clazz));
             clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
 
-            let index = 0;
-            const oneNote = clazz.usageNotes.length === 1;
-            clazz.comment?.tags.forEach((tag: Tag) => {
-                if (tag.content instanceof UsageNote) {
-                    const usageNote: UsageNote = tag.content;
-                    let fileName = 'usage-notes';
-                    if (!oneNote) {
-                        fileName += `-${index++}`;
-                    }
-
-                    const i = outputPath.indexOf('docs/');
-                    const usageNoteFileBase = outputPath.slice(i + 4);
-
-                    if (tag.header) {
-                        // this is a hack to add in a header before the usage note
-                        // if the note has a header; this creates an additional
-                        // markdown file that just contains the header text which
-                        // works since component rendering markdown just renders
-                        // files as they are in order (TODO figure out a better 
-                        // way to handle this since it forces additional http
-                        // request for markdown file with a single line)
-                        writeFile(outputPath, `${fileName}-header.md`, tag.header);
-                        clazz.overviewFiles[overviewIndex++] = [{directory: makeRelative(outputPath), fileName: `${fileName}-header.md`}];
-                    }
-
-                    const types = usageNote.types;
-                    if (types) {
-                        if (Object.keys(types).length > 1) {
-                            clazz.overviewFiles[overviewIndex] = [];
-                            for(const type of USAGE_TYPES) {
-                                if (types[type]) {
-                                    const usageNotes = usageNotesTemplaet(types[type]);
-                                    writeFile(outputPath, `${fileName}-${type}.md`, usageNotes);
-                                    clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}-${type}.md`] = usageNote;
-                                    clazz.overviewFiles[overviewIndex].push({ directory: makeRelative(outputPath), fileName:`${fileName}-${type}.md` });
-                                }
-                            }
-                        } else {
-                            const usageNotes = usageNotesTemplaet(usageNote.text);
-                            writeFile(outputPath, `${fileName}.md`, usageNotes);
-                            clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
-                            clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
-                        }
-                    } else {
-                        const usageNotes = usageNotesTemplaet(usageNote.text);
-                        writeFile(outputPath, `${fileName}.md`, usageNotes);
-                        clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
-                        clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
-                    }
-                } else {
-                    const details = usageNotesTemplaet(tag.content?.text);
-                    writeFile(outputPath, `overview-${overviewIndex}.md`, details);
-                    clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex}.md` }];
-                }
-                overviewIndex++;
-            });
+            overviewIndex = addTags(clazz, outputPath, overviewIndex, usageNotesTemplaet);
         });
 
         module.functions.forEach((f: FunctionModel) => {
@@ -154,6 +99,8 @@ export function generateMarkdown(modules: Module[]) {
             let overviewIndex = 0
             writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(f));
             f.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
+
+            overviewIndex = addTags(f, outputPath, overviewIndex, usageNotesTemplaet);
         });
     });
 }
@@ -167,6 +114,72 @@ function buildOutputPath(outputPath: string, t: TypedocBase) {
 
     // add formatted class name to directory hierarchy
     return append(outputPath, reformatText(t.name));
+}
+
+function addTags(
+    clazz: TypedocBase,
+    outputPath: string,
+    overviewIndex: number,
+    template: HandlebarsTemplateDelegate<any>
+) {
+    let index = 0;
+    const oneNote = clazz.usageNotes.length === 1;
+    clazz.comment?.tags.forEach((tag: Tag) => {
+        if (tag.content instanceof UsageNote) {
+            const usageNote: UsageNote = tag.content;
+            let fileName = 'usage-notes';
+            if (!oneNote) {
+                fileName += `-${index++}`;
+            }
+
+            const i = outputPath.indexOf('docs/');
+            const usageNoteFileBase = outputPath.slice(i + 4);
+
+            if (tag.header) {
+                // this is a hack to add in a header before the usage note
+                // if the note has a header; this creates an additional
+                // markdown file that just contains the header text which
+                // works since component rendering markdown just renders
+                // files as they are in order (TODO figure out a better 
+                // way to handle this since it forces additional http
+                // request for markdown file with a single line)
+                writeFile(outputPath, `${fileName}-header.md`, tag.header);
+                clazz.overviewFiles[overviewIndex++] = [{directory: makeRelative(outputPath), fileName: `${fileName}-header.md`}];
+            }
+
+            const types = usageNote.types;
+            if (types) {
+                if (Object.keys(types).length > 1) {
+                    clazz.overviewFiles[overviewIndex] = [];
+                    for(const type of USAGE_TYPES) {
+                        if (types[type]) {
+                            const usageNotes = template(types[type]);
+                            writeFile(outputPath, `${fileName}-${type}.md`, usageNotes);
+                            clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}-${type}.md`] = usageNote;
+                            clazz.overviewFiles[overviewIndex].push({ directory: makeRelative(outputPath), fileName:`${fileName}-${type}.md` });
+                        }
+                    }
+                } else {
+                    const usageNotes = template(usageNote.text);
+                    writeFile(outputPath, `${fileName}.md`, usageNotes);
+                    clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
+                    clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
+                }
+            } else {
+                const usageNotes = template(usageNote.text);
+                writeFile(outputPath, `${fileName}.md`, usageNotes);
+                clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
+                clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
+            }
+        } else {
+            const details = template(tag.content?.text);
+            writeFile(outputPath, `overview-${overviewIndex}.md`, details);
+            clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex}.md` }];
+        }
+        overviewIndex++;
+    });
+
+    return overviewIndex;
 }
 
 function append(outputPath: string, text: string) {
