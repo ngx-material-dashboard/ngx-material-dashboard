@@ -11,4 +11,10 @@
 {{! render text if it exists }}
 {{{ comment.text }}}
     {{/if}}
+{{! 
+    if no comment then render description if it exists this works for decorator
+    comments
+}}
+{{else if description }}
+{{{ description }}}
 {{/if}}
