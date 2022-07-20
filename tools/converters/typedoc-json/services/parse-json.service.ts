@@ -187,6 +187,9 @@ export class ParseJsonService {
     private extractClassesData(module: Module): void {
         module.children.forEach((t: TypedocBase) => {
             if (t.kindString === 'Function') {
+                // extract function data (mainly handles Decorators currently,
+                // since I'm pretty sure those are the only exported functions
+                // right now)
                 const f: FunctionModel = new FunctionModel(t);
                 f.module = module;
                 module.functions.push(f);
