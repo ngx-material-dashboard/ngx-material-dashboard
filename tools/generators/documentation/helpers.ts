@@ -10,6 +10,23 @@ export const moduleTypes: string[] = [
     'services'
 ];
 
+/**
+ * These are specific types of classes that should be grouped together under
+ * a common URL. TODO update wording of moduleTypes to use this `clazz specific`
+ * type wording because this is confusing.
+ */
+export const CLAZZ_SPECIFIC_TYPES: string[] = [
+    'component',
+    'directive',
+    'decorator',
+    'element',
+    'interface',
+    'model',
+    'module',
+    'page',
+    'service'
+];
+
 export const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
     'Component': 'components',
     'Directive': 'directives',

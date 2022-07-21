@@ -9,8 +9,8 @@ import {
     moduleTypes,
     reformatText
 } from '../helpers';
-import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
-import { FunctionModel } from 'tools/converters/typedoc-json/models/function.model';
+import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
+import { FunctionModel } from '../../../converters/typedoc-json/models/function.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -118,50 +118,38 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             moduleTypeIndex = res.index;
         });
 
-        // handle URLs that do not include module types
-        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(`/${module.displayName}/`, moduleUrls, false, true);
-        let nonModuleTypeUrlsIndex: number = 0;
-        let nonModuleChildren: string = '';
-        nonModuleTypeUrls.forEach((url: string) => {
-            url = url.replace(`/${module.displayName}`, '');
-            if (url !== '') {
-                if (nonModuleTypeUrlsIndex > 0) {
-                    nonModuleChildren += ',';
+        // handle URLs that are non specific classes (i.e. not component,
+        // directive, interface, etc.)
+        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(`${module.displayName}`, moduleUrls, false, true);
+        module.nonSpecificClasses.forEach((clazz: Clazz) => {
+            let classRoutes = '';
+            let children: string = '[';
+            const className = `${reformatText(clazz.name)}`;
+            const classUrls: string[] = nonModuleTypeUrls.filter((it: string) => it.includes(`/${className}/`));
+            classUrls.forEach((url: string, i: number) => {
+                url = url.replace(`/${module.displayName}/`, '');
+                url = url.replace(`${className}/`, '');
+                if (i > 0) {
+                    children += ',';
                 }
-
-                url = url.slice(1);
-                if (url !== 'json-overview') {
-                    // ignore json-overview because this is a special case
-                    // handled below, and remove first '/'; text up to next
-                    // '/' should be name of class
-                    const urls = url.split('/');
-                    const basicRoute = createBasicRoute(urls[1]);
-                    nonModuleChildren += createRouteWithChildrenAndComponent(urls[0], `[${basicRoute}]`);
-                }
-            } else {
-                // TODO fix this code because this condition never occurs
-                if (nonModuleTypeUrlsIndex > 0) {
-                    nonModuleChildren += ',';
-                }
-
-                // if url matches module.display name then url after replace
-                // url will be empty string; so just create a basic route since
-                // this should be an overview page
-                nonModuleChildren += createBasicRoute('overview');
+                children += createBasicRoute(url);
+            });
+            if (children != '[') {
+                children += `,${createRedirectRoute('overview')}`;
             }
-            nonModuleTypeUrlsIndex++;
+            children += ']';
+
+            const res = addChildrenToRoutes(
+                children,
+                classRoutes, 
+                className,
+                moduleTypeIndex,
+                moduleChildren,
+                createRouteWithChildrenAndComponent
+            );
+            moduleChildren = res.routeChildren;
+            moduleTypeIndex = res.index;
         });
-
-        // add a comma to separate moduleChildren from nonModuleChildren if
-        // there are any
-        if (moduleChildren !== '[') {
-            moduleChildren += ', ';
-        }
-
-        // add nonModuleChildren to moduleChildren if there are any
-        if (nonModuleChildren !== '') {
-            moduleChildren += nonModuleChildren;
-        }
 
         // add default overview route for entire module
         if (moduleChildren !== '[') {

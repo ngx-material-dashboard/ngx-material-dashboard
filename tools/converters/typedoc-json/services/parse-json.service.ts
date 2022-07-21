@@ -1,3 +1,4 @@
+import { CLAZZ_SPECIFIC_TYPES, moduleTypes } from '../../../generators/documentation/helpers';
 import * as data from '../../../../docs.json';
 import { Accessor } from '../models/accessor.model';
 import { Clazz } from '../models/clazz.model';
@@ -205,6 +206,10 @@ export class ParseJsonService {
                     c = new Service(t); 
                 } else {
                     c = new Clazz(t);
+
+                    if (!CLAZZ_SPECIFIC_TYPES.find((it: string) => c.sources[0].fileName.includes(`.${it}.`))) {
+                        module.nonSpecificClasses.push(c);
+                    }
                 }
                 c.module = module;
                 this.extractClazzData(c);
