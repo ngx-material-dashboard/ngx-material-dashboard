@@ -6,11 +6,24 @@ import { PropertyConverter } from './property-converter.interface';
  * defined in your data models (i.e. if JSON uses snake_case, but you want to
  * use camelCase for your properties), and you can also provide a custom
  * converter function in case the attribute cannot be converted as a primitive,
- * date, or defined data model in your client side code. If no options are
- * included, then the attribute will be parsed as is, so the key should match
- * the property name in your data model, and the value to be converted should
- * either be a primitive, date, or other data model defined in your client side
- * code.
+ * date, or defined data model in your client side code.
+ * 
+ * ## Converter
+ * 
+ * The `converter` property defines how to convert your property between a JSON
+ * literal and whatever object type you want to convert to/from. The property
+ * takes a class that implements `PropertyConverter` interface, which must
+ * implement 2 methods, `mask` and `unmask`. See the
+ * [PropertyConverter](/base-json/interfaces/property-converter) docs for more
+ * details.
+ * 
+ * ## Serialized Name
+ * 
+ * The `serializedName` property defines a custom name to use for the property
+ * key in JSON. This is really meant for converting property keys that do not
+ * match the name of the property where this decorator is defined. For example,
+ * if you have a key in JSON that is in snake_case, but you want to use camel
+ * case for your property names.
  */
 export interface AttributeDecoratorOptions {
     /** Custom name for attribute as defined in JSON (i.e. if JSON uses snake_case). */

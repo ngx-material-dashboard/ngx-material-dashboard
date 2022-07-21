@@ -26,27 +26,31 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * }
  * ```
  * 
- * ## Features
+ * The `Attribute` decorator includes an optional `AttributeDecoratorOptions`
+ * parameter which provides configuration options to define how to convert
+ * a property, and a custom key to use when serializing/deserializing JSON.
+ * If no options are included, then the attribute will be parsed as is, so
+ * the key should match the property name in your data model, and the value to
+ * be converted should either be a primitive, date, or other data model 
+ * defined in your client side code.
  * 
- * You can include custom [AttributeDecoratorOptions](/base-json/interfaces/attribute-decorator-options)
- * to configure how to convert each property as well as the name to use for each
- * property when serializing/deserializing JSON.
+ * ## AttributeDecoratorOptions Usage Example
+ * ```typescript
+ * import {Attribute, JsonModel} from "@ngx-material-dashboard/base-json";
+ * import {CustomDateConverter} from './custom-date-converter';
  * 
- * ### Converter
+ * class Task extends JsonModel {
+ *     @Attribute() name?: string;
+ *     @Attribute({ 
+ *         converter: CustomDateConverter,
+ *         serializedName: 'due_date'
+ *     }) dueDate?: string;
+ * }
+ * ```
  * 
- * The `converter` property defines how to convert your property between a JSON
- * literal and whatever object type you want to convert to/from. The property
- * takes a class that implements `PropertyConverter` interface, which must
- * implement 2 methods, `mask` and `unmask`. See the
- * [PropertyConverter](/base-json/interfaces/property-converter) docs for more
- * details.
- * 
- * ### Serialized Name
- * 
- * The `serializedName` property defines a custom name to use for the property
- * key in JSON. This is really meant for converting property keys that do not
- * match the name of the property where this decorator is defined. For example,
- * 
+ * See the docs for
+ * [AttributeDecoratorOptions](/base-json/interfaces/attribute-decorator-options)
+ * for more details.
  */
 export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {
