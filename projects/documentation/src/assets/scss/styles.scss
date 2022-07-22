@@ -46,6 +46,26 @@ mat-tab-body pre {
     border-radius: 0px 0px 4px 4px !important;
 }
 
+/*
+This forces a scroll bar to appear next to sidenav if content expands beyond
+main sidenav content.
+*/
+mat-drawer, mat-sidenav {
+    overflow-x: visible !important;
+    overflow-y: auto !important;
+}
+
+/*
+This gets "display: flex" by default which forces a horizontal scroll bar to
+appear when the vertical scroll bar appears which hides the right side border
+of the highlighted sidenav item. Setting below "display: block" seems to fix
+this issue so no horizontal scroll bar appears and you can see right side
+border with vertical scoll bar.
+ */
+ngx-material-dashboard-sidenav {
+    display: block !important;
+}
+
 app-tabbed-document-tab .mat-tab-body-content {
     background: #272822 !important;
     border-radius: 0px 0px 4px 4px !important;

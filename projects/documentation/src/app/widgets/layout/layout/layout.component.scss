@@ -5,10 +5,5 @@
 .sticky {
     position: sticky;
     position: -webkit-sticky;
-    top: 64px;
-}
-
-.sticky-content {
-    height: auto;
-    overflow-y: auto;
+    top: 0px;
 }
