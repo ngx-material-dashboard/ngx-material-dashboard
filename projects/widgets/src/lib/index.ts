@@ -1,4 +1,5 @@
 export * from './dialog/components/confirm-delete-dialog/confirm-delete-dialog.component';
+export * from './dialog/interfaces/dialog-data.interface';
 export * from './dialog/dialog.module';
 
 export * from './form/directives/click-stop-propagation.directive';
