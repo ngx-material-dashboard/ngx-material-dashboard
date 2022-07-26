@@ -6,7 +6,7 @@
             </div>
             <ng-template #tabs>
                 <div class="border">
-                    <mat-tab-group style='min-height:300px'>
+                    <mat-tab-group>
                         <mat-tab *ngFor="let markdownSrc of markdownSrcs" [label]="getUsageTabLabel(markdownSrc)">
                             <markdown [src]="markdownSrc" (load)="onLoad()"></markdown>
                         </mat-tab>
