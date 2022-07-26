@@ -1,6 +1,5 @@
 /**
- * Overrides defines functions that can be overriden in the datastore config
- * options.
+ * Functions that can be overriden in the `DatastoreConfig`.
  */
 export interface Overrides {
     /**

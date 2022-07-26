@@ -1,6 +1,19 @@
 /**
  * The JsonApiQueryData defines how the library maps JSON results to client
  * side data models when querying the server side API for lists of models.
+ * 
+ * @overviewDetails
+ * ## Basic Usage Example
+ * ```typescript
+ * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
+ * import {JsonModel} from './json.model';
+ *
+ * function readData(data: JsonApiQueryData<JsonModel>) {
+ *     const data: JsonModel[] = data.getModels();
+ *     const meta: any = data.getMeta();
+ *     // do something with data and meta
+ * }
+ * ```
  */
 export class JsonApiQueryData<T> {
 

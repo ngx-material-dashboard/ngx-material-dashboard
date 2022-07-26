@@ -20,6 +20,26 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * The JsonModel class represents the base model object for all client side
  * data models. All client side data models that will interface with server
  * side APIs through this library should extend this class.
+ * 
+ * @overviewDetails
+ * ## Basic Usage Example
+ * ```typescript
+ * import {JsonModel as BasJsonModel} from "@ngx-material-dashboard/base-json";
+ *
+ * export class JsonModel extends BaseJsonModel {
+ * 
+ *     constructor(internalDatastore: JsonDatastore, data?: any) {
+ *         super(internalDatastore);
+ *
+ *         if (data) {
+ *             this.modelInitialization = true;
+ *             this.id = data.id;
+ *             Object.assign(this, data);
+ *             this.modelInitialization = false;
+ *         }
+ *     }
+ * }
+ * ```
  */
 export abstract class JsonModel {
 

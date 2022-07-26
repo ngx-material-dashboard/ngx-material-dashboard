@@ -8,6 +8,9 @@ import { PropertyConverter } from './property-converter.interface';
  * converter function in case the attribute cannot be converted as a primitive,
  * date, or defined data model in your client side code.
  * 
+ * See [Attribute](/base-json/decorators/attribute) for more details on using
+ * this interface.
+ * 
  * ## Converter
  * 
  * The `converter` property defines how to convert your property between a JSON

@@ -498,6 +498,17 @@ export abstract class JsonDatastore {
         return Reflect.getMetadata('AttributeMapping', model) || [];
     }
 
+    /**
+     * Handles parsing an HttpErrorResponse and creating an ErrorResponse type
+     * object (if it follows the JSON:API spec format), and then throwing the
+     * error object so the application can handle the error object accordingly.
+     * If the error received does not follow the JSON:API spec format, the
+     * error should be thrown as is so the application can still handle the
+     * error (it will just need to manually parse the response).
+     *
+     * @param error An error object caught by the HttpClient.
+     * @returns An Observable of an ErrorResponse or the given error as is.
+     */
     protected handleError(error: any): Observable<any> {
         if (
             error instanceof HttpErrorResponse &&

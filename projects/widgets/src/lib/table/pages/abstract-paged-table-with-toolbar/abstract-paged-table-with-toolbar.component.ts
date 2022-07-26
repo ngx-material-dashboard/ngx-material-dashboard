@@ -28,12 +28,7 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
  * The AbstractPagedTableWithToolbarComponent is an "abstract" base component
  * for all components that utilize the PagedTableWithToolbarComponent. This
  * component provides some shared methods that are useful for these types of
- * components.
- * 
- * > NOTE: The abstract component implementation assumes you are using a dialog
- * > to create and delete your data. You must provide your own dialog to create
- * > your data, but the `ConfirmDeleteDialog` is included in this library so you
- * > don't have to define your own delete confirm dialog. 
+ * components. 
  * 
  * @usageNotes
  * ## Basic Usage Example
@@ -84,7 +79,7 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
  *     selector: 'abstract-paged-table-with-toolbar-usage-example',
  *     templateUrl: './abstract-paged-table-with-toolbar-usage-example.html'
  * })
- * export class AbstractPagedTableWithToolbarUsageExample extends AbstractPagedTableWithToolbarComponent<Model> implements PagedTableWithToolbar<Model> {
+ * export class AbstractPagedTableWithToolbarUsageExample extends AbstractPagedTableWithToolbarComponent<Model> {
  *
  *     override displayedColumns: string[] = ['select', 'name', 'actions'];
  *     override jsonApiService: JsonApiService;
@@ -129,6 +124,11 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
  *     }
  * }
  * ```
+ * 
+ * > NOTE: The abstract component implementation assumes you are using a dialog
+ * > to create and delete your data. You must provide your own dialog to create
+ * > your data, but the `ConfirmDeleteDialog` is included in this library so you
+ * > don't have to define your own delete confirm dialog.
  */
 @Component({
     template: ''
