@@ -11,6 +11,7 @@ import {
 } from '../helpers';
 import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../../converters/typedoc-json/models/function.model';
+import { TypeAlias } from '../../../converters/typedoc-json/models/type-alias.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -75,6 +76,37 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             });
 
             module.functions.forEach((f: FunctionModel) => {
+                let classRoutes = '';
+                let children: string = '[';
+                const functionName = `${reformatText(f.name)}`;
+                const functionUrls: string[] = moduleTypeUrls.filter((it: string) => it.includes(`/${functionName}/`));
+                functionUrls.forEach((url: string, i: number) => {
+                    url = url.replace(`/${module.displayName}/`, '');
+                    url = url.replace(`${moduleType}/`, '');
+                    url = url.replace(`${functionName}/`, '');
+                    if (i > 0) {
+                        children += ',';
+                    }
+                    children += createBasicRoute(url);
+                });
+                if (children != '[') {
+                    children += `,${createRedirectRoute('overview')}`;
+                }
+                children += ']';
+
+                const res = addChildrenToRoutes(
+                    children,
+                    classRoutes, 
+                    functionName,
+                    classIndex,
+                    moduleTypeChildren,
+                    createRouteWithChildrenAndComponent
+                );
+                moduleTypeChildren = res.routeChildren;
+                classIndex = res.index;
+            });
+
+            module.typeAliases.forEach((f: TypeAlias) => {
                 let classRoutes = '';
                 let children: string = '[';
                 const functionName = `${reformatText(f.name)}`;

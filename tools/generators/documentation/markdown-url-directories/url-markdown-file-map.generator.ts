@@ -5,6 +5,7 @@ import { TypedocBase } from '../../../converters/typedoc-json/models/typedoc-bas
 import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
 import { FunctionModel } from '../../../converters/typedoc-json/models/function.model';
+import { TypeAlias } from '../../../converters/typedoc-json/models/type-alias.model';
 
 // most URLs should have following format
 // <library-name>/<module-name>/<type (i.e. components, directives, .etc)>/<class-name>/<overview or api>.md
@@ -80,6 +81,10 @@ export class UrlMarkdownFileMapGenerator {
             // add overviews for each of the main classes in the library
             m.classes.forEach((c: Clazz) => {
                 this.addToUrlFilesMap(m, c);
+            });
+
+            m.typeAliases.forEach((ta: TypeAlias) => {
+                this.addToUrlFilesMap(m, ta);
             });
         });
 

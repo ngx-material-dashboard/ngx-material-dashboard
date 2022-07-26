@@ -11,6 +11,7 @@ import { Module } from '../../converters/typedoc-json/models/module.model';
 import { TypedocBase } from '../../converters/typedoc-json/models/typedoc-base.model';
 import { UsageNote, USAGE_TYPES } from '../../converters/typedoc-json/models/usage-note.model';
 import { MODULE_TYPE_DIRECTORY_MAP } from '../../generators/documentation/helpers';
+import { TypeAlias } from '../../converters/typedoc-json/models/type-alias.model';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
     'base-json': 'base-json',
@@ -91,6 +92,19 @@ export function generateMarkdown(modules: Module[]) {
         });
 
         module.functions.forEach((f: FunctionModel) => {
+            const outputPath = buildOutputPath(baseOutputPath, f);
+            const output = decoratorTemplate(f);
+            writeFile(outputPath, 'api.md', output);
+            f.apiFile = { directory: makeRelative(outputPath), fileName: 'api.md' };
+
+            let overviewIndex = 0
+            writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(f));
+            f.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
+
+            overviewIndex = addTags(f, outputPath, overviewIndex, usageNotesTemplaet);
+        });
+
+        module.typeAliases.forEach((f: TypeAlias) => {
             const outputPath = buildOutputPath(baseOutputPath, f);
             const output = decoratorTemplate(f);
             writeFile(outputPath, 'api.md', output);

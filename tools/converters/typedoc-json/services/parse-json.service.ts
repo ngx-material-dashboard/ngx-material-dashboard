@@ -10,6 +10,7 @@ import { MethodModel } from '../models/method.model';
 import { Module } from '../models/module.model';
 import { Property } from '../models/property.model';
 import { Service } from '../models/service.model';
+import { TypeAlias } from '../models/type-alias.model';
 import { TypedocBase } from '../models/typedoc-base.model';
 
 const MODULE_SORT_ORDER: string[] = [
@@ -194,6 +195,10 @@ export class ParseJsonService {
                 const f: FunctionModel = new FunctionModel(t);
                 f.module = module;
                 module.functions.push(f);
+            } else if (t.kindString === 'Type alias') {
+                const ta: TypeAlias = new TypeAlias(t);
+                ta.module = module;
+                module.typeAliases.push(ta);
             } else {
                 let c: Clazz;
                 if (t.name.endsWith('Component')) {
