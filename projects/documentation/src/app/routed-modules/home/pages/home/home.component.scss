@@ -4,6 +4,20 @@
     height: 420px;
 }
 
+.docs-header::before {
+    content: "";
+    position: absolute;
+    background-image: url(/assets/images/angular_ngx_logo_contrast.svg);
+    background-size: 600px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-position: 80% 20px;
+    opacity: .2;
+}
+
 .docs-header h1 {
     font-size: 56px;
     font-weight: 700;
