@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 import { JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '@ngx-material-dashboard/base-json';
 import { JsonModel } from '../models/json.model';
 
+/**
+ * Implements methods necessary to perform all CRUD operations as defined in
+ * [base-json](/base-json). See the `json` [usage](/json#usage) documentation
+ * for more details on configuring and using this datastore.
+ */
 @Injectable()
 export class JsonDatastore extends BaseJsonDatastore {
 

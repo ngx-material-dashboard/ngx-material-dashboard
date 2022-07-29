@@ -143,6 +143,8 @@ export interface PagedTableWithToolbar<T extends JsonModel> {
 
     /**
      * Open dialog to confirm if user wants to delete object.
+     * 
+     * @param val The object to delete.
      */
     openConfirmDeleteDialog: (val: T) => void;
 }

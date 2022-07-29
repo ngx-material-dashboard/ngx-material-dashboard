@@ -78,18 +78,26 @@ export abstract class JsonModel {
         return hasDirtyAttributes;
     }
 
+    /**
+     * Returns the configuration options provided in the `JsonApiModelConfig`
+     * decorator.
+     */
     get modelConfig(): ModelConfig {
         return Reflect.getMetadata('JsonApiModelConfig', this.constructor);
     }
 
     /**
-     * 
-     * @returns 
+     * Returns `true` if model is being initialized.
+     *
+     * @returns `true` if model is being initialized. 
      */
     public isModelInitialization(): boolean {
         return this.modelInitialization;
     }
 
+    /**
+     * Reverts the model's attributes back to their previous values.
+     */
     public rollbackAttributes(): void {
         const attributesMetadata: any = this[AttributeMetadataIndex];
         for (const propertyName in attributesMetadata) {
@@ -101,12 +109,24 @@ export abstract class JsonModel {
         }
     }
 
+    /**
+     * Saves the object using the internal datastore as long as there are
+     * changes to be saved.
+     *
+     * @param params Any parameters to include in the request. 
+     * @param headers Any custom headers to include in the request.
+     * @param customUrl A custom URL to save the object.
+     * @returns An Observable of the model being saved.
+     */
     public save(params?: any, headers?: HttpHeaders, customUrl?: string): Observable<this> {
         this.checkChanges();
         const attributesMetadata: any = this[AttributeMetadataIndex];
         return this.internalDatastore.saveRecord(attributesMetadata, this, params, headers, customUrl);
     }
 
+    /**
+     * Checks for changes and updates meta data for model accordingly.
+     */
     private checkChanges() {
         const attributesMetadata: any = this[AttributeMetadata];
         for (const propertyName in attributesMetadata) {

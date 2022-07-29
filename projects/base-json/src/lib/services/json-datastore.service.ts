@@ -11,7 +11,7 @@ import { ErrorResponse } from "../models/error-response.model";
 import { Injectable } from "@angular/core";
 
 /**
- * The JsonDatastore is the main datastore service that should be used to
+ * The `JsonDatastore` is the main datastore service that should be used to
  * interface with your JSON API. While it is defined as an abstract class there
  * is quite a bit of functionality included. This service includes CRUD methods
  * that handle creating the various HTTP requests needed, and handles parsing
@@ -19,23 +19,154 @@ import { Injectable } from "@angular/core";
  * created the methods so that they are as generic as possible, meaning they do
  * not care about how the JSON and your client side data models are structured.
  * 
- * To do this I had to define several abstract method calls that need to be
- * implemented to handle parsing and generating JSON data to/from your client
- * side data models. The methods that need to be implmented are createRecord,
- * deserializeModel, serializeModel, extractQueryData, and extractRecordData.
- * More details about each of these methods can be found in commments provided
- * for each method below.
+ * ## Extending this Service
  * 
- * The json and json-api libraries each contain a datastore service that provide
- * full implementations of the abstract methods, and can be used as a point of
- * reference for you to create your own library in case either library fails to
- * meet the needs of your application. You may also override any public or
- * protected method/value in your code as well
+ * This service must be extended to complete the functionality required for the
+ * CRUD methods. The [json](/json) and [json-api](/json-api) libraries contain
+ * a datastore service that extend this class. I suggest taking a look at these
+ * libraries to see if they will work for your application. If they do not they
+ * should at the very least provide examples of how to extend this class. I do
+ * include some details on what you need to do to extend this class below.
+ * 
+ * > NOTE: All examples provided below are taken from the
+ * > [JsonDatastore](/json/services/json-datastore) in the `json` library.
+ * 
+ * To make the service as generic as possible I had to define several abstract
+ * method calls that need to be implemented to handle parsing and generating
+ * JSON data to/from your client. The methods that must be implemented are
+ * `createRecord`, `deserializeModel`, `serializeModel`, `extractQueryData`,
+ * and `extractRecordData`. See below for details on the methods that
+ * need to be implemented when extending this class.
+ * 
+ * ### createRecord
+ * 
+ * Creates and returns a new instance of the given data as the given model
+ * type. This should only create the instance and should not make any HTTP
+ * requests to save the model. It is a convenience method for initializing
+ * new data objects in the client, so you are not tied to format of JSON
+ * included in HTTP requests/responses. It should be relatively simple and
+ * should not rely on transforming attribute values like deserializeModel,
+ * meaning the data should be a map of key/value pairs where the keys match
+ * up with the attributes defined for your models. Below is the most basic
+ * implementation:
+ * 
+ * ```typescript
+ * public createRecord<T extends JsonModel>(modelType: ModelType<T>, data: Partial<T>): T {
+ *     return new modelType(this, data);
+ * }
+ * ```
+ * 
+ * ### deserializeModel
+ * 
+ * Returns the given JSON data as the given model type. The JSON data should
+ * be data extracted directly from the body of a JSON API response, and is
+ * mainly called from the extractQueryData and extractRecordData methods.
+ * The implementation should call transformSerializedNamesToPropertyNames on
+ * the data prior to calling the models contructor. This will transform any
+ * JSON object literal keys to their respective property names as defined in
+ * the `serializedName` value for the `Attribute` decorators defined in your
+ * data models, so that the constructor can use `Object.assign(this, data)`
+ * (or some variation of that can be used to assign all properties their
+ * corresponding values).
+ * 
+ * ```typescript
+ * public deserializeModel<T extends JsonModel>(modelType: ModelType<T>, data: any): T {
+ *     data = this.transformSerializedNamesToPropertyNames(modelType, data);
+ *     return new modelType(this, data);
+ * }
+ * ```
+ * 
+ * ### serializeModel
+ * 
+ * Returns a JSON literal that can be included in an HTTP request body from
+ * the given model.
+ * 
+ * ```typescript
+ * public serializeModel(model: any, attributesMetadata: any, transition?: string): any {
+ *     const data: any = this.getDirtyAttributes(attributesMetadata, model);
+ *
+ *     let body;
+ *     if (transition) {
+ *         body = {
+ *             meta: {
+ *                 transition
+ *             },
+ *             data
+ *         };
+ *     } else {
+ *         body = data;
+ *     }
+ *
+ *     return body;
+ * }
+ * ```
+ * 
+ * ### extractQueryData
+ * 
+ * Parses and extracts query data from the given HTTP response body for
+ * lists of models (used by findAll), and returns it as a 
+ * {@link JsonApiQueryData} that includes a list of models of the given
+ * modelType and meta data (i.e. total number of results for determining
+ * how many pages there are).
+ * 
+ * ```typescript
+ * protected extractQueryData<T extends JsonModel>(
+ *     response: HttpResponse<object>,
+ *     modelType: ModelType<T>,
+ *     withMeta = false
+ * ): Array<T> | JsonApiQueryData<T> {
+ *     const body: any = response.body;
+ *     const models: T[] = [];
+ *
+ *     body.data.forEach((data: any) => {
+ *         const model: T = this.deserializeModel(modelType, data);
+ *         this.addToStore(model);
+ *         models.push(model);
+ *     });
+ *
+ *     if (withMeta && withMeta === true) {
+ *         return new JsonApiQueryData(models, this.parseMeta(body, modelType));
+ *     }
+ *
+ *     return models;
+ * }
+ * ```
+ * 
+ * ### extractRecordData
+ * 
+ * Parses and extracts record data from the given HTTP response body for a
+ * single object and returns it as the given modelType.
+ * 
+ * ```typescript
+ * protected extractRecordData<T extends JsonModel>(
+ *     res: HttpResponse<object>,
+ *     modelType: ModelType<T>,
+ *     model?: T
+ * ): T {
+ *     const body: any = res.body;
+ *     if (!body) {
+ *         throw new Error('no body in response');
+ *     }
+ *
+ *     if (model) {
+ *         model.modelInitialization = true;
+ *         model.id = body.id;
+ *         Object.assign(model, body);
+ *         model.modelInitialization = false;
+ *     }
+ *
+ *     const deserializedModel = model || this.deserializeModel(modelType, body.data);
+ *     this.addToStore(deserializedModel);
+ *     return deserializedModel;
+ * }
+ * ```
  */
 @Injectable()
 export abstract class JsonDatastore {
 
+    /** Options included in DatastoreConfig decorator. */
     protected config!: DatastoreConfig;
+    /** An internal data store map of model types to model objects mapped by id. */
     protected internalStore: { [type: string]: { [id: string]: any } } = {};
     private globalHeaders!: HttpHeaders;
     private globalRequestOptions: object = {};

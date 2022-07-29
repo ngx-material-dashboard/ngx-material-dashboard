@@ -93,26 +93,15 @@ JsonDatastore service defined in this library. The datastore service is used
 for interfacing with your server side API and includes basic implementations
 for CRUD operations. The only thing it does not include are implementations for
 serializing and deserializing your data, as well as extracting model data from
-HTTP responses. This functionality is broken down into the following 5 methods
-which you must provide implementations for in your service:
+HTTP responses. See the [JsonDatastore](/base-json/services/json-datastore) for
+more details on the methods that need to be implemented.
 
-| Method Name       | Parameters                                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                      |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| createRecord      | 1) modelType - Type of model to create<br>2) data - Optional map of data with properties for model                                                                                                                                                                               | Returns a new instance of given model type locally only (i.e. should not make any HTTP requests to save the object; that should be done with `save()`)                                                                                                                                                                      |
-| deserializeModel  | 1) modelType - Type of model to return<br>2) data - JSON data used to create model                                                                                                                                                                                               | Returns given JSON data as given modelType.                                                                                                                                                                      |
-| serializeModel    | 1) model - Model to serialize to JSON<br>2) attributesMetadata - Metadata for model instance<br>3) transition - Optional transition to include as meta data in request body<br>4) includeRelationships - Optional boolean value to include relationship data (defaults to false) | Returns JSON object that can be included in HTTP request body.                                                                                                                                                   |
-| extractQueryData  | 1) response - HTTP response from server<br>2) modelType - Type of model included in response<br>3) withMeta - Optional value indicating if meta data included                                                                                                                    | Parses and extracts query data from given HTTP response body which should contain a list of results, and returns an object that includes the list of models and any meta data (i.e. total number of results). |
-| extractRecordData | 1) response - HTTP response from server<br>2) modelType - Type of model included in response<br>3) model - Instance of model                                                                                                                                                     | Parses and extracts query data from given HTTP response body which should contain a single main object (and may include other objects in terms of relational data).                                              |
-
-The deserializeModel method is intended to be used by the extractQueryData and
-extractRecordData methods, while the serializeModel method is used by internal
-CRUD methods to convert object data into JSON that can be inserted into the body
-of HTTP requests. The createModel is kind of a one off method that I thought
-should be implemented by extending libraries since this can vary depending on
-how your models are structured. I am including the JsonDatastore from the json
-library for your reference below, but I also suggest taking a look at the
-JsonApiDatastore defined in the json-api library to see a different
-implementation for a more well defined JSON structure.
+I am including the source for the JsonDatastore from the json library so you
+can see an example of how to implement the necessary methods. I also suggest
+taking a look at the [JsonApiDatastore](/json-api/services/json-api-datastore)
+defined in the `json-api` library to see a different implementation for a more
+well defined JSON structure (especially if you plan to write your own extension
+of this library).
 
 ```typescript
 import { HttpClient, HttpResponse } from '@angular/common/http';

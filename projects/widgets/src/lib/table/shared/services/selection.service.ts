@@ -8,7 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
  * method for enabling/disabling `TableToolbarButton`s. Currently used by the
  * `PagedTable` to handle when the user selects one or more rows in the table
  * or clicks on the select all checkbox. It can be used anywhere select boxes
- * are used, but you will need to initialize the service and handle 
+ * are used, but you will need to initialize the service and handle selection
+ * changes manually if you want to use this anywhere else.
  * 
  * @overviewDetails
  * 
