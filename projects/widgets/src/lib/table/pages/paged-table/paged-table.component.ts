@@ -5,6 +5,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
+import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
 
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { ButtonClick } from '../../interfaces/button-click.interface';
@@ -220,27 +221,12 @@ import { SelectionService } from '../../shared/services/selection.service';
     templateUrl: './paged-table.component.html',
     styleUrls: ['./paged-table.component.scss']
 })
-export class PagedTableComponent<T extends JsonModel> implements AfterContentInit, AfterViewInit, OnDestroy, OnInit {
+export class PagedTableComponent<T extends JsonModel> extends AbstractPagedComponent<T> implements AfterContentInit, AfterViewInit, OnDestroy {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
     /** The buttons to render in each row of the table. */
     @Input() buttons: TableButton[] = [];
-    /**
-     * Setter for table data. This re-initializes the dataSource everytime data changes.
-     * TODO: only re-initialize when necessary; just update data otherwise
-     */
-    @Input() set data(data: T[] | undefined) {
-        if (data) {
-            this.initDataSource(data);
-        }
-    }
-    /** The dataSource for the table. */
-    @Input() set dataSource(data: T[] | RemoteDataSource<T> | undefined) {
-        if (data) {
-            this.initDataSource(data);
-        }
-    }
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** Any values that should be selected when table initially renders. */
@@ -253,22 +239,14 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
     }
     /** The event emitted when a button in one of the rows is clicked. */
     @Output() tableButtonClick: EventEmitter<ButtonClick>;
-    /** A reference to the paginator in the template. */
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
     /** Boolean value indicating whether multiple rows can be selected. */
     multiple$ = true;
-    /** The source for the table data. */
-    dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
-    /** The default page size (number of rows to show in the table). */
-    pageSize = 25;
     /** The model to track items selected in the table. */
     selection: SelectionModel<T>;
     /** A reference to the sort defined in parent template. */
     sort$!: MatSort;
-    /** All disposable resources for component. */
-    private sub: Subscription;
 
     /**
      * Returns the total number of items in the dataSource.
@@ -283,10 +261,12 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
 
     set sort(sort: MatSort) {
         this.sort$ = sort;
-        this.initPageSortSubs();
+        this.initPageSub();
+        this.initSortSubs();
     }
 
     constructor(private selectionService: SelectionService<T>) {
+        super();
         if (!this.dataSource$) {
             this.dataSource$ = new MatTableDataSource();
             this.initDataSource([]);
@@ -297,13 +277,11 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
         this.tableButtonClick = new EventEmitter<ButtonClick>();
     }
 
-    initDataSource(data: T[] | RemoteDataSource<T>): void {
+    override initDataSource(data: T[] | RemoteDataSource<T>): void {
+        super.initDataSource(data);
         if (data instanceof RemoteDataSource) {
-            this.dataSource$ = data;
-            this.initPageSortSubs();
+            this.initSortSubs();
         } else {
-            this.dataSource$ = new MatTableDataSource(data);
-            this.dataSource$.paginator = this.paginator;
             this.dataSource$.sort = this.sort$;
         }
     }
@@ -320,11 +298,12 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
 
     ngAfterViewInit(): void {
         if (this.dataSource$ instanceof RemoteDataSource) {
-            this.initPageSortSubs();
+            this.initPageSub();
+            this.initSortSubs();
         }
     }
 
-    initPageSortSubs(): void {
+    initSortSubs(): void {
         if (this.sort$) {
             const sortSub = this.sort$.sortChange.subscribe((sort: Sort) => {
                 if (this.dataSource$ instanceof RemoteDataSource) {
@@ -336,25 +315,10 @@ export class PagedTableComponent<T extends JsonModel> implements AfterContentIni
             });
             this.sub.add(sortSub);
         }
-
-        if (this.paginator) {
-            const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    // calculate offset using pageSize and pageIndex from PageEvent
-                    this.dataSource$.pageIndex = page.pageIndex;
-                    this.dataSource$.pageSize = page.pageSize;
-                    this.dataSource$.refresh();
-                }
-            });
-            this.sub.add(pageSub);
-        }
     }
 
     ngOnDestroy(): void {
         this.sub.unsubscribe();
-    }
-
-    ngOnInit(): void {
     }
 
     onActionButtonClick(buttonClick: string, row: JsonModel): void {

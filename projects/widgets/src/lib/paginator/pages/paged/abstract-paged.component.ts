@@ -32,7 +32,9 @@ export class AbstractPagedComponent<T extends JsonModel> implements OnInit {
     @Input() pageSize = 25;
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+    /** The source for the table data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
+    /** All disposable resources for component. */
     sub: Subscription;
 
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
