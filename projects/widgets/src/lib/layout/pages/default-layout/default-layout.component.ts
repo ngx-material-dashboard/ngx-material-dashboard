@@ -7,6 +7,30 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * and main content based on the current route. The layout should have a sticky
  * footer, meaning if the main content is not tall enough to fill the existing
  * space, then the footer will stick to the bottom of the page.
+ * 
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```html
+ * <ngx-material-dashboard-default-layout [logo]="logo" [sidenavItems]="sidenavItems">
+ *  </ngx-material-dashboard-default-layout>
+ * ```
+ * ```typescript
+ * import {Component} from '@angular/core';
+ * import {SidenavItem} from '@ngx-material-dashboard/widgets';
+ *
+ * @Component({
+ *     selector: 'basic-usage-example',
+ *     templateUrl: './basic-usage-example.html'
+ * })
+ * export class BasicUsageExample {
+ *     logo = 'My Tasks';
+ *     sidenavItems: SidenavItem[] = [
+ *         { queryParams: { isComplete: false }, route: ['tasks'], text: 'Pending', selector: 'pending' },
+ *         { queryParams: { isComplete: false, filter: 'overdue' }, route: ['tasks'], text: 'Over Due', selector: 'over-due' },
+ *         { queryParams: { isComplete: true }, route: ['tasks'], text: 'Complete', selector: 'complete' }
+ *     ];
+ * }
+ * ```
  */
 @Component({
   selector: 'ngx-material-dashboard-default-layout',

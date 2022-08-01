@@ -9,10 +9,45 @@ import { BehaviorSubject, Observable } from 'rxjs';
  * `PagedTable` to handle when the user selects one or more rows in the table
  * or clicks on the select all checkbox. It can be used anywhere select boxes
  * are used, but you will need to initialize the service and handle selection
- * changes manually if you want to use this anywhere else.
+ * changes manually if you want to use this anywhere else right now.
  * 
- * @overviewDetails
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```html
+ * <div *ngFor="let thing of things">
+ *     <mat-checkbox (click)="$event.stopPropagation()"
+ *         (change)="onSelected(thing);"
+ *         [checked]="selection.isSelected(thing)">
+ *     </mat-checkbox>
+ *     <span>{{{thing.name}}}</span>
+ * </div>
+ * ```
+ * ```typescript
+ * import {SelectionModel} from '@angular/cdk/collections';
+ * import {Component} from '@angular/core';
+ * import {SelectionService} from '@ngx-material-dashboard/widgets';
  * 
+ * @Component({
+ *     selector: 'selection-example',
+ *     templateUrl: './selection-example.html'
+ * })
+ * export class SelectionExample<T> {
+ * 
+ *     selection: SelectionModel<T>;
+ *     things: T[] = []; // assuming this is initialized and filled with data
+ * 
+ *     constructor(private selectionService: SelectionService<T>) {
+ *         this.selection = new SelectionModel<T>(true, []);
+ *         this.selectionService.selectionSubject.next(this.selection);
+ *     }
+ * 
+ *     onSelected(val: T): void {
+ *         this.selection.toggle(val);
+ *         // update the selection in the selectionService
+ *         this.selectionService.selectionSubject.next(this.selection);
+ *     }
+ * }
+ * ```
  */
 @Injectable({
     providedIn: 'root'

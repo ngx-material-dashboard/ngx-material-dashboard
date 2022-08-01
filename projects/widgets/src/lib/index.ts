@@ -7,6 +7,7 @@ export * from './form/directives/tab-stop-propagation.directive';
 export * from './form/interfaces/validation-message.interface';
 export * from './form/interfaces/validation-messages.interface';
 export * from './form/pages/field-error/field-error.component';
+export * from './form/services/form.service';
 export * from './form/form.module';
 
 export * from './grid/pages/paged-grid/paged-grid.component';
