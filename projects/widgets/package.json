@@ -16,7 +16,7 @@
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@ngx-material-dashboard/base-json": "^0.0.1",
-        "angular-material-rail-drawer": "^1.0.0",
+        "angular-material-rail-drawer": "~1.0.0",
         "ngx-toastr": "^14.2.2"
     },
     "dependencies": {
