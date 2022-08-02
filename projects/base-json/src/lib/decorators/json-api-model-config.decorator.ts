@@ -55,7 +55,7 @@ import { JsonApiMetaModel } from '../models/json-api-meta.model';
  * > in the [angular2-jsonapi](https://github.com/ghidoz/angular2-jsonapi), and
  * > I kept the options the same.
  */
-export function JsonApiModelConfig(config: ModelConfig): PropertyDecorator {
+export function JsonApiModelConfig(config: ModelConfig): ClassDecorator {
     return (target: any) => {
         if (typeof config.meta === 'undefined' || config.meta == null) {
             config.meta = JsonApiMetaModel;

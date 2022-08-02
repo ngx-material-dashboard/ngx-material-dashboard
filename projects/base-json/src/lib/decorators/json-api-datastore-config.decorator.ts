@@ -31,7 +31,7 @@ import 'reflect-metadata';
  * included. See the [API](/base-json/interfaces/datastore-config/api) docs
  * for a list of all options available.
  */
-export function JsonApiDatastoreConfig(config: any = {}): PropertyDecorator {
+export function JsonApiDatastoreConfig(config: any = {}): ClassDecorator {
     return (target: any) => {
         Reflect.defineMetadata('JsonApiDatastoreConfig', config, target);
     };
