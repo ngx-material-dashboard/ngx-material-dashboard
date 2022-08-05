@@ -1,10 +1,8 @@
 import * as _ from 'lodash';
 
-import {
-    AttributeDecoratorOptions,
-    AttributeMetadata
-} from '@ngx-material-dashboard/base-json';
-
+import {AttributeDecoratorOptions} from '../interfaces/attribute-decorator-options.interface';
+import {AttributeMetadata} from '../constants/symbols';
+ 
 /**
  * Nested Attributes can be used for complex attributes. Complex attributes
  * include array of simply typed values `[1,2,3]`, array of complex values

@@ -1,5 +1,5 @@
-import { ModelConfig } from '@ngx-material-dashboard/base-json';
-import { JsonApiModel } from './json-api.model';
+import { ModelConfig } from '../interfaces/model-config.interface';
+import { JsonModel } from './json.model';
 
 /**
  * The `JsonApiNestedModel` is meant to be used for complex attributes. Any
@@ -21,7 +21,7 @@ import { JsonApiModel } from './json-api.model';
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
- * import {JsonApiNestedModel} from '@ngx-material-dashboard/json-api';
+ * import {JsonApiNestedModel} from '@ngx-material-dashboard/base-json';
  * 
  * export class Address extends JsonApiNestedModel {
  *     street: string;
@@ -54,7 +54,7 @@ export class JsonApiNestedModel {
         return this.transformSerializedNamesToPropertyNames();
     }
 
-    protected transformSerializedNamesToPropertyNames<T extends JsonApiModel>() {
+    protected transformSerializedNamesToPropertyNames<T extends JsonModel>() {
         const serializedNameToPropertyName = this.getModelPropertyNames();
         const properties: any = {};
         Object.keys(serializedNameToPropertyName).forEach((serializedName) => {

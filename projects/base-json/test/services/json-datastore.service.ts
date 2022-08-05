@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '@ngx-material-dashboard/base-json';
 
+import { JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '../../src/lib';
 import { JsonModel } from '../models/json.model';
 
 @Injectable()

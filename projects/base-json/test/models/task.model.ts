@@ -1,5 +1,5 @@
-import { Attribute, JsonApiModelConfig } from "@ngx-material-dashboard/base-json";
-import { JsonModel } from "./json.model";
+import { Attribute, JsonApiModelConfig } from '../../src/lib';
+import { JsonModel } from './json.model';
 
 @JsonApiModelConfig({
     type: 'tasks'

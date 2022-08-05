@@ -1,5 +1,5 @@
-import { JsonModel as BaseJsonModel } from "@ngx-material-dashboard/base-json";
-import { JsonDatastore } from "../services/json-datastore.service";
+import { JsonModel as BaseJsonModel } from '../../src/lib';
+import { JsonDatastore } from '../services/json-datastore.service';
 
 export class JsonModel extends BaseJsonModel {
 

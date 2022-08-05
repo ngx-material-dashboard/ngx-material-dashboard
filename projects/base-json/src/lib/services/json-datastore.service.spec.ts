@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { API_VERSION, BASE_URL, Datastore } from '@ngx-material-dashboard/base-json/test/services/datastore.service';
-import { API_VERSION_FROM_CONFIG, BASE_URL_FROM_CONFIG, DatastoreWithConfig } from '@ngx-material-dashboard/base-json/test/services/datastore-with-config.service';
-import { ErrorResponse, JsonApiQueryData, JsonDatastore, ModelConfig } from '@ngx-material-dashboard/base-json';
-import { Task } from '@ngx-material-dashboard/base-json/test/models/task.model';
-import { getTaskData, TASK_DESCRIPTION, TASK_DUE_DATE, TASK_ID, TASK_NAME } from '@ngx-material-dashboard/base-json/test/fixtures/task.fixture';
 import { parseISO } from 'date-fns';
-import { CustomTask, TASK_API_VERSION, TASK_MODEL_ENDPOINT_URL } from '@ngx-material-dashboard/base-json/test/models/custom-task.model';
+
+import { API_VERSION, BASE_URL, Datastore } from '../../../test/services/datastore.service';
+import { API_VERSION_FROM_CONFIG, BASE_URL_FROM_CONFIG, DatastoreWithConfig } from '../../../test/services/datastore-with-config.service';
+import { Task } from '../../../test/models/task.model';
+import { getTaskData, TASK_DESCRIPTION, TASK_DUE_DATE, TASK_ID, TASK_NAME } from '../../../test/fixtures/task.fixture';
+import { CustomTask, TASK_API_VERSION, TASK_MODEL_ENDPOINT_URL } from '../../../test/models/custom-task.model';
+import { ModelConfig } from '../interfaces/model-config.interface';
+import { ErrorResponse, JsonApiQueryData } from '../models';
 
 describe('JsonDatastoreService', () => {
 

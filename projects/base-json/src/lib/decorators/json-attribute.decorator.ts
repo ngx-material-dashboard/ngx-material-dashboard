@@ -1,7 +1,8 @@
-import { AttributeDecoratorOptions, DateConverter } from '@ngx-material-dashboard/base-json';
+import { DateConverter } from '../converters/date/date.converter';
+import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-options.interface';
 
 /**
- * This may be a precursor to the 
+ * 
  * @param options 
  * @returns 
  */

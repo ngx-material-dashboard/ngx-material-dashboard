@@ -1,5 +1,5 @@
 /* tslint:disable:variable-name */
-import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
+import { Attribute, JsonApiModelConfig } from '../../src/lib';
 import { JsonModel } from './json.model';
 import { PageMetaData } from './page-meta-data';
 

@@ -1,5 +1,5 @@
-import { JsonApiNestedModel } from '@ngx-material-dashboard/json-api/src/lib/models/json-nested.model';
-import { JsonAttribute } from '@ngx-material-dashboard/json-api/src/lib/decorators/json-attribute.decorator';
+import { JsonApiNestedModel } from '@ngx-material-dashboard/base-json/src/lib/models/json-nested.model';
+import { JsonAttribute } from '@ngx-material-dashboard/base-json/src/lib/decorators/json-attribute.decorator';
 
 export class School extends JsonApiNestedModel {
 
