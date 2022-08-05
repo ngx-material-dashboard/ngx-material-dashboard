@@ -1,8 +1,42 @@
 import * as _ from 'lodash';
 
-import { AttributeDecoratorOptions, AttributeMetadata } from '@ngx-material-dashboard/base-json';
+import {
+    AttributeDecoratorOptions,
+    AttributeMetadata
+} from '@ngx-material-dashboard/base-json';
 
-export function NestedAttribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
+/**
+ * Nested Attributes can be used for complex attributes. Complex attributes
+ * include array of simply typed values `[1,2,3]`, array of complex values
+ * `[{name: 'Create Docs', ...}, ...]`, or a complex object
+ * `{name: 'Create Docs', ...}`.
+ * 
+ * > NOTE: when using the `NestedAttribute` decorator you must include
+ * > `JsonModelConverter` as the `converter` option in
+ * > `AttributeDecoratorOptions`.
+ * 
+ * @param options Custom options included in decorator. 
+ * @returns A custom property decorator for JSON attributes.
+ * 
+ * @overviewDetails
+ * ## Basic Usage Examples
+ * ```typescript
+ * //Array of simple typed values (string, number....)
+ * @NestedAttribute({converter: new JsonModelConverter(Array,{hasMany:true})}
+ * emails: Array<string>;
+ *
+ * //Array of complex values
+ * @NestedAttribute({converter: new JsonModelConverter(Item,{hasMany:true})}
+ * items: Array<Item>;
+ *
+ * //Complex value
+ * @NestedAttribute({converter: new JsonModelConverter(Item)}
+ * item: Item;
+ * ```
+ */
+export function NestedAttribute(
+    options: AttributeDecoratorOptions = {}
+): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {
         const converter = (dataType: any, value: any, forSerialisation = false): any => {
             let attrConverter;

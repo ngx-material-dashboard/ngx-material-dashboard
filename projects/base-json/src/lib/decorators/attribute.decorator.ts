@@ -15,7 +15,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
- * import {Attribute, JsonModel} from "@ngx-material-dashboard/base-json";
+ * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
  * 
  * class Task extends JsonModel {
  *     // this property does not get included in HTTP request/response data
@@ -36,7 +36,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * 
  * ## AttributeDecoratorOptions Usage Example
  * ```typescript
- * import {Attribute, JsonModel} from "@ngx-material-dashboard/base-json";
+ * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
  * import {CustomDateConverter} from './custom-date-converter';
  * 
  * class Task extends JsonModel {

@@ -1,5 +1,10 @@
-
 import { AttributeDecoratorOptions, DateConverter } from '@ngx-material-dashboard/base-json';
+
+/**
+ * This may be a precursor to the 
+ * @param options 
+ * @returns 
+ */
 export function JsonAttribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
   return (target: any, propertyName: string | symbol) => {
         const converter = (dataType: any, value: any, forSerialisation = false): any => {

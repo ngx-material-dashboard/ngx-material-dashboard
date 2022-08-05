@@ -1,6 +1,36 @@
 import { ModelConfig } from '@ngx-material-dashboard/base-json';
 import { JsonApiModel } from './json-api.model';
 
+/**
+ * The `JsonApiNestedModel` is meant to be used for complex attributes. Any
+ * field defined for a `JsonApiNestedModel` attribute that is changed will mark
+ * the entire attribute as dirty.
+ * 
+ * An address is one example of a complex attribute which for whatever reason
+ * you don't include as a relationship in your code.
+ * 
+ * ```json
+ * {
+ *     street: '21 Jump Street',
+ *     city: 'Metropolitan City',
+ *     state: 'Any State',
+ *     zip: '55555'
+ * }
+ * ```
+ * 
+ * @overviewDetails
+ * ## Basic Usage Example
+ * ```typescript
+ * import {JsonApiNestedModel} from '@ngx-material-dashboard/json-api';
+ * 
+ * export class Address extends JsonApiNestedModel {
+ *     street: string;
+ *     city: string;
+ *     state: string;
+ *     zip: string;
+ * }
+ * ```
+ */
 export class JsonApiNestedModel {
     [key: string]: any;
 
