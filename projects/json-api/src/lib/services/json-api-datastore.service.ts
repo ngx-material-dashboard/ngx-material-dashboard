@@ -13,6 +13,13 @@ import 'reflect-metadata';
 
 import { JsonApiModel } from '../models/json-api.model';
 
+/**
+ * Implements methods necessary to perform all CRUD operations as defined in
+ * base-json [JsonDatastore](/base-json/services/json-datastore). See the 
+ * `json-api` [usage](/json-api#usage) documentation for more details on
+ * configuring and the [Datastore](/json-api#datastore) for more details on
+ * using this datastore.
+ */
 @Injectable()
 export class JsonApiDatastore extends JsonDatastore {
 

@@ -4,6 +4,28 @@ import * as _ from 'lodash';
 
 import { JsonApiDatastore } from '../services/json-api-datastore.service';
 
+/**
+ * The `JsonApiModel` defines how to initialize all your client side data models
+ * and includes the ability to define and track to-one and to-many relationships
+ * as defined in the json:api specification. All of your client side data models
+ * should extend this class.
+ *
+ * ## Basic Usage Example
+ * ```typescript
+ * import {Attribute, JsonApiModelConfig} from '@ngx-material-dashboard/base-json';
+ * import {BelongsTo, JsonApiModel} from '@ngx-material-dashboard/json-api';
+ * import {User} from './user';
+ *
+ * @JsonApiModelConfig({
+ *     type: 'tasks'
+ * })
+ * export class Task extends JsonApiModel {
+ *     @Attribute() name?: string;
+ *     @Attribute() dueDate?: string;
+ *     @BelongsTo() user?: User;
+ * }
+ * ```
+ */
 export class JsonApiModel extends JsonModel {
 
     lastSyncModels: Array<any> = [];

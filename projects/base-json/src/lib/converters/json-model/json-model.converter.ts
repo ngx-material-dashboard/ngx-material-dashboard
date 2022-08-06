@@ -2,11 +2,22 @@ import { PropertyConverter } from '../../interfaces/property-converter.interface
 import { JsonModelConverterConfig } from '../../interfaces/json-model-converter-config.interface';
 import { JsonApiNestedModel } from '../../models/json-nested.model';
 
+/**
+ * Default option values to set for `JsonModelConverter`.
+ */
 export const DEFAULT_OPTIONS: JsonModelConverterConfig = {
     nullValue: false,
     hasMany: false
 };
 
+/**
+ * A JSON object converter that handles converting complex attributes. Complex
+ * attributes include array of simply typed values [1,2,3], array of complex
+ * values [{name: 'Create Docs', ...}, ...], or a complex object 
+ * {name: 'Create Docs', ...}. This converter must be included as the converter
+ * value for `AttributeDecoratorOptions` when you are using the
+ * `NestedAttribute` decorator.
+ */
 export class JsonModelConverter<T> implements PropertyConverter {
     private modelType: any; // ModelType<T>
     private options: JsonModelConverterConfig;
