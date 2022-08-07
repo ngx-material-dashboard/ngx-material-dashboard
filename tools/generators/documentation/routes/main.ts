@@ -12,6 +12,7 @@ import {
 import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../../converters/typedoc-json/models/function.model';
 import { TypeAlias } from '../../../converters/typedoc-json/models/type-alias.model';
+import { TypedocBase } from 'tools/converters/typedoc-json/models/typedoc-base.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -24,11 +25,19 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
-// TODO REFACTOR ALL OF THIS CODE; I am not happy at all with how this code
-// turned out, but it was a quick and dirty way of automatically generating
-// a string representation of routes from the object output of typedoc JSON
-// details that can be replaced using replace-in-file
-
+/**
+ * Generate a string representation of routes from the object output of typedoc
+ * JSON details that can be replaced in files using replace-in-file library.
+ *
+ * TODO REFACTOR ALL OF THIS CODE; This code has been refactored quite a bit
+ * since I initially wrote it, and it has turned out quite a bit better
+ * surprisingly (especially from where it started); there is still plenty more
+ * that I can do to cut down on the repeated code and hopefully make this code
+ * a bit easier to follow, maintain, and use
+ * 
+ * @param modules 
+ * @param urls 
+ */
 export function generateRoutes(modules: Module[], urls: string[]) {
     let routes = '[';
     let routeIndex = 0;
@@ -45,66 +54,39 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             // handle URLs that include module types
             const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}/`));
             module.classes.forEach((clazz: Clazz) => {
-                let classRoutes = '';
-                const className = `${reformatText(clazz.name)}`;
-                const children: string = generateChildren(
-                    className,
+                const res = generateChildrenRoutes(
+                    clazz,
                     moduleTypeUrls,
                     module,
-                    moduleType
-                );
-
-                const res = addChildrenToRoutes(
-                    children,
-                    classRoutes, 
-                    className,
                     classIndex,
                     moduleTypeChildren,
-                    createRouteWithChildrenAndComponent
+                    moduleType
                 );
                 moduleTypeChildren = res.routeChildren;
                 classIndex = res.index;
             });
 
             module.functions.forEach((f: FunctionModel) => {
-                let classRoutes = '';
-                const functionName = `${reformatText(f.name)}`;
-                const children: string = generateChildren(
-                    functionName,
+                const res = generateChildrenRoutes(
+                    f,
                     moduleTypeUrls,
                     module,
-                    moduleType
-                );
-
-                const res = addChildrenToRoutes(
-                    children,
-                    classRoutes, 
-                    functionName,
                     classIndex,
                     moduleTypeChildren,
-                    createRouteWithChildrenAndComponent
+                    moduleType
                 );
                 moduleTypeChildren = res.routeChildren;
                 classIndex = res.index;
             });
 
             module.typeAliases.forEach((f: TypeAlias) => {
-                let classRoutes = '';
-                const functionName = `${reformatText(f.name)}`;
-                let children: string = generateChildren(
-                    functionName,
+                const res = generateChildrenRoutes(
+                    f,
                     moduleTypeUrls,
                     module,
-                    moduleType
-                );
-
-                const res = addChildrenToRoutes(
-                    children,
-                    classRoutes, 
-                    functionName,
                     classIndex,
                     moduleTypeChildren,
-                    createRouteWithChildrenAndComponent
+                    moduleType
                 );
                 moduleTypeChildren = res.routeChildren;
                 classIndex = res.index;
@@ -127,21 +109,12 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         // directive, interface, etc.)
         const nonModuleTypeUrls: string[] = filterModuleTypeUrls(`${module.displayName}`, moduleUrls, false, true);
         module.nonSpecificClasses.forEach((clazz: Clazz) => {
-            let classRoutes = '';
-            const className = `${reformatText(clazz.name)}`;
-            const children: string = generateChildren(
-                className,
+            const res = generateChildrenRoutes(
+                clazz,
                 nonModuleTypeUrls,
-                module
-            );
-
-            const res = addChildrenToRoutes(
-                children,
-                classRoutes, 
-                className,
+                module,
                 moduleTypeIndex,
-                moduleChildren,
-                createRouteWithChildrenAndComponent
+                moduleChildren
             );
             moduleChildren = res.routeChildren;
             moduleTypeIndex = res.index;
@@ -251,6 +224,33 @@ function createLazyLoadedRoute(path: string, importPath: string, moduleName: str
  */
 function createRedirectRoute(path: string) {
     return `{ path: '', pathMatch: 'full', redirectTo: '${path}' }`;
+}
+
+function generateChildrenRoutes(
+    base: TypedocBase,
+    urls: string[],
+    module: Module,
+    classIndex: number,
+    moduleTypeChildren: string,
+    moduleType?: string
+) {
+    let classRoutes = '';
+    const className = `${reformatText(base.name)}`;
+    const children: string = generateChildren(
+        className,
+        urls,
+        module,
+        moduleType
+    );
+
+    return addChildrenToRoutes(
+        children,
+        classRoutes, 
+        className,
+        classIndex,
+        moduleTypeChildren,
+        createRouteWithChildrenAndComponent
+    );
 }
 
 /**
