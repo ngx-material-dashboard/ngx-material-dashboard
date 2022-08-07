@@ -11,19 +11,6 @@ import {
     reformatText
 } from '../helpers';
 
-// const routeSidenavItems: { [route: string]: SidenavItem[] } = {
-//     'json': [
-//         { route: ['./json', 'base-json'], text: 'base-json', selector: 'base-json'},
-//         { route: ['./json', 'json'], text: 'json', selector: 'json' },
-//         { route: ['./json', 'json-api'], text: 'json-api', selector: 'json-api'}
-//     ],
-//     'widgets': [
-//         { route: ['./widgets', 'abstract-paged-table-with-toolbar'], text: 'AbstractPagedTableWithToolbar', selector: 'abstract-paged-table-with-toolbar'},
-//         { route: ['./widgets', 'paged-table'], text: 'PagedTable', selector: 'paged-table' },
-//         { route: ['./widgets', 'paged-table-with-toolbar'], text: 'PagedTableWithToolbar', selector: 'paged-table-with-toolbar' }
-//     ]
-// };
-
 const baseDocsSrcDir = path.join(
     __dirname,
     '..',
@@ -43,6 +30,10 @@ const jsonModuleStrings: string[] = [
 
 export function generateSidenavItems(modules: Module[], urls: string[]) {
     let sidenavItems: { [route: string]: SidenavItem[] } = {};
+    
+    // create JSON sidenav items separately since these work a little different
+    // from the rest of the modules; the sidenav for JSON modules includes info
+    // from multiple libraries as opposed to the widgets or testing
     const jsonModules = modules.filter((it: Module) => jsonModuleStrings.includes(it.displayName));
     const jsonSidenavItems: SidenavItem[] = [];
     jsonModules.forEach((module: Module) => {
@@ -54,6 +45,7 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
         jsonSidenavItems.push(nestedSidenavItem);
     });
 
+    // now initialize sidenav items for all modules
     modules.forEach((module: Module) => {
         if (!jsonModuleStrings.includes(module.displayName)) {
             sidenavItems[module.displayName] = getSidenavItems(module, urls);
@@ -81,6 +73,10 @@ function getSidenavItems(module: Module, urls: string[]) {
     const sidenavItems: SidenavItem[] = [];
     const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));
     const addedUrls: string[] = [];
+
+    // handle different module/class types (i.e. components vs directives vs
+    // services etc.) as the URLs for these classes will be nested under their
+    // respective type
     moduleTypes.forEach((moduleType: string) => {
         const children: SidenavItem[] = [];
         const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}`));
@@ -103,6 +99,8 @@ function getSidenavItems(module: Module, urls: string[]) {
         }
     });
     
+    // handle classes that reside directly at the root of the library, i.e.
+    // those classes that do not have a specific type (component, service, etc)
     const nonModuleTypeUrls: string[] = filterModuleTypeUrls(module.displayName, moduleUrls, false, true);
     nonModuleTypeUrls.forEach((url: string) => {
         if (url !== `/${module.displayName}/`) {
@@ -118,6 +116,14 @@ function getSidenavItems(module: Module, urls: string[]) {
     return sidenavItems;
 }
 
+/**
+ * Creates a sidenav item with child sidenav items.
+ *
+ * @param text The text for the sidenav item.
+ * @param selector The CSS selector for the sidenav item.
+ * @param children The children to include for the sidenav item.
+ * @returns The sidenav item with children sidenav items.
+ */
 function createNestedSidenavItem(text: string, selector: string, children: SidenavItem[]): SidenavItem {
     return {
         text,
@@ -126,15 +132,27 @@ function createNestedSidenavItem(text: string, selector: string, children: Siden
     };
 }
 
+/**
+ * Creates a basic sidenav item that should contain a single route.
+ *
+ * @param module 
+ * @param url 
+ * @returns 
+ */
 function createSidenavItem(module: Module, url: string): SidenavItem {
     let route;
     let selector;
     let text;
     if (module.displayName !== url) {
+        // convert the URL to an array of string values to be used for the route
         route = convertUrlToRoute(url);
+        // get the last value in the route which should match a selector format
         selector = route[route.length - 1];
+        // convert the selector format to camel case text for pretty display
         text = convertSelectorToText(selector)
     } else {
+        // special case for when displayName and URL match, just include
+        // the url for the route
         route = [`./${url}`];
         selector = url;
         text = url;
