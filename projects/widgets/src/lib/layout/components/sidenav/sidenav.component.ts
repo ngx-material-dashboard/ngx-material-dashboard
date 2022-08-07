@@ -5,6 +5,83 @@ import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
+/**
+ * A wrapper component for the `MatNavList` to be used to render in a
+ * `MatSidenav`. This provides all necessary logic and styles to highlight and
+ * expand `SidenavItems` according to the current route. It also includes an
+ * SCSS mixin for you to configure the colors to use for active sidenav items,
+ * so you can ensure the sidenav theme matches the rest of your application.
+ * 
+ * The component is automatically included in the `DefaultLayout`. If you use
+ * the `DefaultLayout`, the only thing you need to do is define the array of
+ * `SidenavItems` and include it as an input in the tag. You may use this
+ * component without the `DefaultLayout` if you want to use it to create your
+ * own layout.
+ * 
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```html
+ * <div fxLayout="column">
+ *     <mat-sidenav-container class="content" fxLayout="row">
+ *         <mat-sidenav [mode]="mode">
+ *             <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+ *         </mat-sidenav>
+ *         <mat-sidenav-content fxFlex>
+ *             <router-outlet></router-outlet>
+ *         </mat-sidenav-content>
+ *     </mat-sidenav-container>
+ * </div>
+ * ```
+ * ```typescript
+ * import {Component} from '@angular/core';
+ * import {SidenavItem} from '@ngx-material-dashboard/widgets';
+ *
+ * @Component({
+ *     selector: 'basic-usage-example',
+ *     templateUrl: './basic-usage-example.html'
+ * })
+ * export class BasicUsageExample {
+ *     mode = 'side';
+ *     sidenavItems: SidenavItem[] = [
+ *         { queryParams: { isComplete: false }, route: ['tasks'], text: 'Pending', selector: 'pending' },
+ *         { queryParams: { isComplete: false, filter: 'overdue' }, route: ['tasks'], text: 'Over Due', selector: 'over-due' },
+ *         { queryParams: { isComplete: true }, route: ['tasks'], text: 'Complete', selector: 'complete' }
+ *     ];
+ * }
+ * ```
+ * 
+ * @overviewDetails
+ * ## Features
+ * 
+ * The `Sidenav` has several features including the ability to render nested
+ * `SidenavItems`, icons with each `SidenavItem`, and custom `tooltips` to
+ * render when the user hovers over a `SidenavItem`.
+ * 
+ * ### Nested SidenavItems
+ *  
+ * The `Sidenav` allows you to define basic or nested `SidenavItems`. A basic
+ * `Sidenav` item should have a route defined, while a nested `SidenavItem`
+ * should have children defined. Nested `SidenavItems` will expand to display
+ * any children. Currently the `Sidenav` will only render 2 levels of
+ * `children`, meaning you can only define a parent, child, and grandchildren
+ * `SidenavItems`. The grandchildren `SidenavItems` should all define a `route`.
+ * 
+ * ### Icons
+ * 
+ * You may define a fontawesome icon for each of the items rendered in the
+ * `Sidenav`. The icons will be rendered to the left of the text you include
+ * for the `SidenavItem`.
+ * 
+ * ### Tooltip
+ * 
+ * You may define text to render as a `tooltip` for when the user hovers over
+ * a `SidenavItem`. The text displayed with the `SidenavItem` itself should be
+ * mostly self explanatory, but this allows you to include some additional
+ * details to the user when they hover over a `SidenavItem`.
+ * 
+ * See the [Sidenav](/widgets/interfaces/sidenav) interface documentation for
+ * more details on the values to include when defining your `SidenavItems`.
+ */
 @Component({
     selector: 'ngx-material-dashboard-sidenav',
     templateUrl: './sidenav.component.html',
