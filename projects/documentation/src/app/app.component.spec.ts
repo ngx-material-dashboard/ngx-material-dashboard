@@ -1,34 +1,50 @@
 import { TestBed } from '@angular/core/testing';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LayoutModule as DashboardLayoutModule } from '@ngx-material-dashboard/widgets';
+import { MarkdownModule } from 'ngx-markdown';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { AnchorModule } from './shared/anchor/anchor.module';
+import { LayoutModule } from './widgets/layout/layout.module';
+import { TabbedDocumentModule } from './widgets/tabbed-document/tabbed-document.module';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                RouterTestingModule,
+                FlexLayoutModule,
+                MatButtonModule,
+                MatDividerModule,
+                MatMenuModule,
+                MatToolbarModule,
+                MatTooltipModule,
+                AnchorModule,
+                LayoutModule,
+                TabbedDocumentModule,
+                DashboardLayoutModule,
+                AppRoutingModule,
+                FontAwesomeModule,
+                MarkdownModule.forChild(),
+                CoreModule.forRoot()
+            ],
+            declarations: [
+                AppComponent
+            ]
+        });
+    });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'documentation'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('documentation app is running!');
-  });
+    it('should create the app', () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.componentInstance;
+        expect(app).toBeTruthy();
+    });
 });
