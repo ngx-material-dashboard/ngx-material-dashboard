@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     faGitHub: IconDefinition = faGithub;
     faFillDrip: IconDefinition = faFillDrip;
     date: Date = new Date();
-    githubLink: string = 'http://localhost:8080/ngx-material-dashboard/ngx-material-dashboard'
+    githubLink: string = 'https://github.com/ngx-material-dashboard'
     theme = 'light';
     nextTheme = 'dark';
 
