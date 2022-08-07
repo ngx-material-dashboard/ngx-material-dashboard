@@ -46,22 +46,13 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}/`));
             module.classes.forEach((clazz: Clazz) => {
                 let classRoutes = '';
-                let children: string = '[';
                 const className = `${reformatText(clazz.name)}`;
-                const classUrls: string[] = moduleTypeUrls.filter((it: string) => it.includes(`/${className}/`));
-                classUrls.forEach((url: string, i: number) => {
-                    url = url.replace(`/${module.displayName}/`, '');
-                    url = url.replace(`${moduleType}/`, '');
-                    url = url.replace(`${className}/`, '');
-                    if (i > 0) {
-                        children += ',';
-                    }
-                    children += createBasicRoute(url);
-                });
-                if (children != '[') {
-                    children += `,${createRedirectRoute('overview')}`;
-                }
-                children += ']';
+                const children: string = generateChildren(
+                    className,
+                    moduleTypeUrls,
+                    module,
+                    moduleType
+                );
 
                 const res = addChildrenToRoutes(
                     children,
@@ -77,22 +68,13 @@ export function generateRoutes(modules: Module[], urls: string[]) {
 
             module.functions.forEach((f: FunctionModel) => {
                 let classRoutes = '';
-                let children: string = '[';
                 const functionName = `${reformatText(f.name)}`;
-                const functionUrls: string[] = moduleTypeUrls.filter((it: string) => it.includes(`/${functionName}/`));
-                functionUrls.forEach((url: string, i: number) => {
-                    url = url.replace(`/${module.displayName}/`, '');
-                    url = url.replace(`${moduleType}/`, '');
-                    url = url.replace(`${functionName}/`, '');
-                    if (i > 0) {
-                        children += ',';
-                    }
-                    children += createBasicRoute(url);
-                });
-                if (children != '[') {
-                    children += `,${createRedirectRoute('overview')}`;
-                }
-                children += ']';
+                const children: string = generateChildren(
+                    functionName,
+                    moduleTypeUrls,
+                    module,
+                    moduleType
+                );
 
                 const res = addChildrenToRoutes(
                     children,
@@ -108,22 +90,13 @@ export function generateRoutes(modules: Module[], urls: string[]) {
 
             module.typeAliases.forEach((f: TypeAlias) => {
                 let classRoutes = '';
-                let children: string = '[';
                 const functionName = `${reformatText(f.name)}`;
-                const functionUrls: string[] = moduleTypeUrls.filter((it: string) => it.includes(`/${functionName}/`));
-                functionUrls.forEach((url: string, i: number) => {
-                    url = url.replace(`/${module.displayName}/`, '');
-                    url = url.replace(`${moduleType}/`, '');
-                    url = url.replace(`${functionName}/`, '');
-                    if (i > 0) {
-                        children += ',';
-                    }
-                    children += createBasicRoute(url);
-                });
-                if (children != '[') {
-                    children += `,${createRedirectRoute('overview')}`;
-                }
-                children += ']';
+                let children: string = generateChildren(
+                    functionName,
+                    moduleTypeUrls,
+                    module,
+                    moduleType
+                );
 
                 const res = addChildrenToRoutes(
                     children,
@@ -155,21 +128,12 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         const nonModuleTypeUrls: string[] = filterModuleTypeUrls(`${module.displayName}`, moduleUrls, false, true);
         module.nonSpecificClasses.forEach((clazz: Clazz) => {
             let classRoutes = '';
-            let children: string = '[';
             const className = `${reformatText(clazz.name)}`;
-            const classUrls: string[] = nonModuleTypeUrls.filter((it: string) => it.includes(`/${className}/`));
-            classUrls.forEach((url: string, i: number) => {
-                url = url.replace(`/${module.displayName}/`, '');
-                url = url.replace(`${className}/`, '');
-                if (i > 0) {
-                    children += ',';
-                }
-                children += createBasicRoute(url);
-            });
-            if (children != '[') {
-                children += `,${createRedirectRoute('overview')}`;
-            }
-            children += ']';
+            const children: string = generateChildren(
+                className,
+                nonModuleTypeUrls,
+                module
+            );
 
             const res = addChildrenToRoutes(
                 children,
@@ -227,6 +191,80 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     );
 }
 
+/**
+ * A route with children (that does not include a component with router outlet).
+ *
+ * @param path The path for the route.
+ * @param children The children routes.
+ * @returns A route with children.
+ */
+function createRouteWithChildren(path: string, children: string) {
+    return `{ path: '${path}', children: ${children}}`;
+}
+
+/**
+ * A route with children and a component (that should include a router outlet).
+ *
+ * @param path The path for the route.
+ * @param children The children routes.
+ * @param component The component to render at the base of the route.
+ * @returns A route with children and a component.
+ */
+function createRouteWithChildrenAndComponent(path: string, children: string, component: string = 'TabbedDocumentComponent') {
+    return `{ path: '${path}', component: ${component}, children: ${children}}`;
+}
+
+/**
+ * A basic route to the TabbedDocumentTabComponent for the given path. This
+ * is the most basic route that is being used in the documentation app.
+ *
+ * @param path The path for the route.
+ * @returns A route to the TabbedDocumentTabComponent for the given path.
+ */
+function createBasicRoute(path: string) {
+    return `{ path: '${path}', component: TabbedDocumentTabComponent }`;
+}
+
+/**
+ * Creates and returns a lazy loaded route. This will work for paths with values
+ * or empty paths (i.e. path === '').
+ *
+ * @param path The path for the route.
+ * @param importPath The path to the module to use in the import statement.
+ * @param moduleName The name of the module to lazy load.
+ * @returns A lazy loaded route.
+ */
+function createLazyLoadedRoute(path: string, importPath: string, moduleName: string) {
+    if (path === '') {
+        return `{ path: '${path}', pathMatch: 'full', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
+    } else {
+        return `{ path: '${path}', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
+    }
+}
+
+/**
+ * Creates and returns a route to redirect to the given path when no path is
+ * provided (i.e. path === '').
+ *
+ * @param path The path to redirecto to. 
+ * @returns A route to redirect to given path when no path is provided.
+ */
+function createRedirectRoute(path: string) {
+    return `{ path: '', pathMatch: 'full', redirectTo: '${path}' }`;
+}
+
+/**
+ * Adds an array of child routes to an existing set of routes, if there are
+ * children routes defined (i.e. if children !== '[]').
+ *
+ * @param children 
+ * @param routes 
+ * @param routeName 
+ * @param index 
+ * @param routeChildren 
+ * @param callback 
+ * @returns 
+ */
 function addChildrenToRoutes(
     children: string,
     routes: string,
@@ -249,26 +287,43 @@ function addChildrenToRoutes(
     return { routeChildren, index };
 }
 
-function createRouteWithChildren(path: string, children: string) {
-    return `{ path: '${path}', children: ${children}}`;
-}
-
-function createRouteWithChildrenAndComponent(path: string, children: string, component: string = 'TabbedDocumentComponent') {
-    return `{ path: '${path}', component: ${component}, children: ${children}}`;
-}
-
-function createBasicRoute(path: string) {
-    return `{ path: '${path}', component: TabbedDocumentTabComponent }`;
-}
-
-function createLazyLoadedRoute(path: string, importPath: string, moduleName: string) {
-    if (path === '') {
-        return `{ path: '${path}', pathMatch: 'full', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
-    } else {
-        return `{ path: '${path}', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
+/**
+ * Generates string value that can be inserted as a children array in Angular
+ * route using string replace. The resulting value will be inserted into a route
+ * module file using string replace, so this must be formatted properly as a
+ * string value because converting an actual array of objects into a string
+ * doesn't seem to work properly (although it would make it a hell of a lot
+ * easier if I could just build the array instead of having to write it out as
+ * as string).
+ *
+ * @param name The name of the class/function at route.
+ * @param urls An array of URLs that should include URLs associated with name.
+ * @param module The module/library where the class is defined.
+ * @param moduleType An optional type (i.e. component, service, etc).
+ * @returns A string value of children routes.
+ */
+function generateChildren(
+    name: string,
+    urls: string[],
+    module: Module,
+    moduleType?: string
+): string {
+    let children: string = '[';
+    const classUrls: string[] = urls.filter((it: string) => it.includes(`/${name}/`));
+    classUrls.forEach((url: string, i: number) => {
+        url = url.replace(`/${module.displayName}/`, '');
+        if (moduleType) {
+            url = url.replace(`${moduleType}/`, '');
+        }
+        url = url.replace(`${name}/`, '');
+        if (i > 0) {
+            children += ',';
+        }
+        children += createBasicRoute(url);
+    });
+    if (children != '[') {
+        children += `,${createRedirectRoute('overview')}`;
     }
-}
-
-function createRedirectRoute(path: string) {
-    return `{ path: '', pathMatch: 'full', redirectTo: '${path}' }`;
+    children += ']';
+    return children;
 }
