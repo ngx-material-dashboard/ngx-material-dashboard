@@ -1,5 +1,6 @@
 export const moduleTypes: string[] = [
     'components',
+    'converters',
     'decorators',
     'elements',
     'directives',
@@ -17,6 +18,7 @@ export const moduleTypes: string[] = [
  */
 export const CLAZZ_SPECIFIC_TYPES: string[] = [
     'component',
+    'converter',
     'directive',
     'decorator',
     'element',
@@ -29,6 +31,7 @@ export const CLAZZ_SPECIFIC_TYPES: string[] = [
 
 export const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
     'Component': 'components',
+    'Converter': 'converters',
     'Directive': 'directives',
     '.decorator.': 'decorators',
     '.element.': 'elements',
