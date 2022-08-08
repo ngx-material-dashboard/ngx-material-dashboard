@@ -62,6 +62,8 @@ The `documentation` project is based off of the example provided with the [ngx-m
 
 Additionally I built in capabilities to render multiple markdown files in a given order for any given route. This also includes the ability to render tabbed views of markdown files at any point in that order. The tabbed views are mainly for rendering code examples (specifically components) that have both `HTML` and `Typescript` included in the example, similar to how Angular Material renders their code examples on tabs.
 
+One thing that is missing from the tabbed views are live examples like the ones included in the Angular Material documentation. It would be awesome to include that feature, but I just don't have the time to add that capability right now. Hopefully the static example code I have included in the `overview` pages is enough to get people started with using these libraries.
+
 ## Authors
 
 * **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)
