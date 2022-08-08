@@ -2,9 +2,21 @@ import { DateConverter } from '../converters/date/date.converter';
 import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-options.interface';
 
 /**
+ * The `JsonAttribute` decorator is similar to the `Attribute` decorator in
+ * how attributes are converted. It seems the main difference is the `Attribute`
+ * decorator includes meta data that tracks new and old data for each attribute
+ * which allows for checking if objects have dirty attributes, and rolling back
+ * attribute values to previous state.
  * 
- * @param options 
- * @returns 
+ * To be honest I'm not sure why you would want to use this over the `Attribute`
+ * decorator, but the [angular2-jsonapi](https://github.com/ghidoz/angular2-jsonapi)
+ * library included this decorator, so I'm including it here as well. The only
+ * thing I can think of is if you do not need to worry about determining if
+ * your data has dirty attributes, or you don't need to provide the ability to
+ * rolling back attribute data.
+ *
+ * @param options Custom options included in decorator. 
+ * @returns A custom property decorator for JSON attributes.
  */
 export function JsonAttribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
   return (target: any, propertyName: string | symbol) => {

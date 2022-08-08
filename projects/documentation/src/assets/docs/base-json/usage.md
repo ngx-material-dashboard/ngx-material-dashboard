@@ -54,7 +54,7 @@ with properties you define in each of your data models.
 
 With your base data model defined you can create the remaining data models you
 intend to use with this library. Your application's data models will need to
-include the JsonApiModelConfig on the class itself, and Attribute decorators on
+include the JsonApiModelConfig on the class itself, and attribute decorators on
 each of the properties you need to include in your JSON. Below is a sample Task
 data model you might define that could correspond with the endpoints listed in
 the Background section above.
@@ -76,15 +76,18 @@ export class Task extends JsonModel {
 }
 ```
 
+#### Attribute Decorators
+
+There are multiple attribute decorators included for you to use on the properties in your models that you want to include in the JSON serialization/deserialization. The `Attribute` decorator is the most basic decorator, and should be used for primitives (`string`, `number`, or `boolean`) or date values. The `NestedAttribute` decorator can be used for more complex types including arrays of simply typed values `[1,2,3]`, arrays of complex values `[{name: 'Create Docs', ...}, ...]`, or complex objects `{name: 'Create Docs', ...}`.
+
+Only properties that have decorators will be included in the JSON serialization/deserialization. Methods (if you include any) will be ignored when converting these objects to/from JSON. See the [Attribute](/base-json/decorators/attribute) and [NestedAttribute](/base-json/decorators/nested-attribute) documentation for more details.
+
+#### JsonApiModelConfig Decorator
+
 The JsonApiModelConfig decorator provides configuration options the
 library needs to interface with the server side API. The only required option
 is the `type` option. When this is the only option included it is used to
-define the endpoint used to interface with your server side API. There are
-additional configuration options available. You can take a look at the source
-code to see the additional options.
-
-Every property that has an Attribute decorator will be included when
-serializing/deserializing JSON.
+define the endpoint used to interface with your server side API. See the [JsonApiModelConfig](/base-json/decorators/json-api-model-config) decorator documentation for more details on the options available.
 
 ### Datastore
 
