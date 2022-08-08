@@ -2,7 +2,7 @@ import { ComponentFixture } from "@angular/core/testing";
 import { PageElement } from "../page/page.element";
 
 /**
- * The CheckboxElement class defines properties and functions useful for
+ * The `CheckboxElement` class defines properties and functions useful for
  * testing components with one or more checkboxes.
  */
 export class CheckboxElement extends PageElement {

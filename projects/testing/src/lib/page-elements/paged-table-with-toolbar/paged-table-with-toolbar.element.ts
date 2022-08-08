@@ -4,8 +4,16 @@ import { PagedTableElement } from "../paged-table/paged-table.element";
 import { ToolbarElement } from "../toolbar/toolbar.element";
 
 /**
- * The PagedTableWithToolbarElement defines properties and functions useful for
- * testing components with one or more paged table with toolbar components.
+ * The `PagedTableWithToolbarElement` defines properties and functions useful
+ * for testing components with one or more paged table with toolbar components.
+ * It effectively provides a wrapper for the `PagedTableElement` and 
+ * `ToolbarElement`, so you can treat it as a single object and just reference
+ * the table or toolbar as needed in your tests.
+ * 
+ * If you define a `PagedTableWithToolbarElement`, the element will
+ * automatically configure the `PagedTableElement` and `ToolbarElement` needed.
+ * See the [PagedTableElement](/testing/page-elements/paged-table) and
+ * [ToolbarElement](/testing/page-elements/toolbar) for more details.
  */
 export class PagedTableWithToolbarElement extends PageElement {
 
