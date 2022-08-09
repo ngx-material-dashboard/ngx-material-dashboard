@@ -54,16 +54,18 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             // handle URLs that include module types
             const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}/`));
             module.classes.forEach((clazz: Clazz) => {
-                const res = generateChildrenRoutes(
-                    clazz,
-                    moduleTypeUrls,
-                    module,
-                    classIndex,
-                    moduleTypeChildren,
-                    moduleType
-                );
-                moduleTypeChildren = res.routeChildren;
-                classIndex = res.index;
+                if (!clazz.name.includes('Module')) {
+                    const res = generateChildrenRoutes(
+                        clazz,
+                        moduleTypeUrls,
+                        module,
+                        classIndex,
+                        moduleTypeChildren,
+                        moduleType
+                    );
+                    moduleTypeChildren = res.routeChildren;
+                    classIndex = res.index;
+                }
             });
 
             module.functions.forEach((f: FunctionModel) => {

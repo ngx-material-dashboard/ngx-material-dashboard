@@ -6,7 +6,7 @@ export const moduleTypes: string[] = [
     'directives',
     'interfaces',
     'models',
-    'modules',
+    //'modules',
     'pages',
     'services'
 ];
