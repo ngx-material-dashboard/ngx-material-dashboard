@@ -23,6 +23,8 @@ export * from './layout/layout.module';
 export * from './list/pages/paged-list/paged-list.component';
 export * from './list/list.module';
 
+export * from './paginator/pages/paged/abstract-paged.component';
+
 export * from './services/remote-data-source.service';
 
 export * from './table/components/filter-drop-down/filter-drop-down.component';
