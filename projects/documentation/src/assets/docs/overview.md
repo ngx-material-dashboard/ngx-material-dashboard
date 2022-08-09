@@ -22,24 +22,6 @@ I have included [angularplayground.it](https://angularplayground.it) with sandbo
 npm run playground
 ```
 
-## Sample Project
-
-I intend to add a sample project that shows how to utilize the json and widgets libraries. Stay tuned...
-
-## Contributing
-
-See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/CONTRIBUTING.md)
-
-## Running unit tests
-
-To run all unit tests in the workspace you can run
-
-```bash
-npm test
-```
-
-This will run unit tests for all libraries/projects in the workspace without watching for changes in the libraries (i.e. no re-runs of tests if you make any code changes). If you are developing for one or more of the libraries and you want to run tests with `--watch` enabled, then I suggest using the `ng test` command with the corresponding library name (i.e. `ng test base-json`).
-
 ## Documentation
 
 The documentation is all generated from comments in the code itself, and automatically combined into the `documentation` project which is used to render the documentation as you see it here. The only parts of the documentation that do not come from the comments are the landing page, this workspace overview page, and the main overview pages displayed for each library. I decided to go with an automated approach because I wanted to make documentation as easy as possible, and because I didn't want to have to maintain documentation and comments in multiple places (in both the source code and some outside documentation project).
@@ -63,6 +45,24 @@ There is a `tools` directory at the root of the source code for the `ngx-materia
 I was also able to use the objects I created from the `typedoc` JSON output along with the markdown output to have control over how markdown is rendered at any route. This allows me to have shared bits of markdown to render in various places without having to repeat the content of that markdown. One drawback is there can be multiple requests to load markdown files from a single route, potentially slowing down page load time, however the markdown is fairly small (especially shared files), so it should be a relatively small slow down.
 
 > NOTE: Don't expect to be able to use these tools as they are because they are geared to the structure of the libraries included in this workspace and the format of the documentation I included in the code. You might be able to customize them for your own project, but that is outside the scope of this project and documentation. I would really like to come up with a generalized approach for generating documentation for any Angular project, but I haven't gotten there yet. Perhaps the combination of the `tools` and `documentation` project could form the basis for that, although I admit there would be a long way to go to completely generalize them to work with any project.
+
+## Sample Project
+
+I intend to add a sample project that shows how to utilize the json and widgets libraries. Stay tuned...
+
+## Contributing
+
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/CONTRIBUTING.md)
+
+## Running unit tests
+
+To run all unit tests in the workspace you can run
+
+```bash
+npm test
+```
+
+This will run unit tests for all libraries/projects in the workspace without watching for changes in the libraries (i.e. no re-runs of tests if you make any code changes). If you are developing for one or more of the libraries and you want to run tests with `--watch` enabled, then I suggest using the `ng test` command with the corresponding library name (i.e. `ng test base-json`).
 
 ## Authors
 

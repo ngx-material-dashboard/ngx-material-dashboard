@@ -22,7 +22,8 @@ const SHARED_FILES: { [lib: string]: string[] } = {
         'assets/docs/base-json/usage.md',
         'assets/docs/shared/crud-capabilities.md',
         'assets/docs/shared/custom-headers.md',
-        'assets/docs/shared/error-handling.md'
+        'assets/docs/shared/error-handling.md',
+        'assets/docs/shared/end-overview.md'
     ],
     'json': [
         'assets/docs/json/format.md',
@@ -31,7 +32,8 @@ const SHARED_FILES: { [lib: string]: string[] } = {
         'assets/docs/json/usage.md',
         'assets/docs/shared/crud-capabilities.md',
         'assets/docs/shared/custom-headers.md',
-        'assets/docs/shared/error-handling.md'
+        'assets/docs/shared/error-handling.md',
+        'assets/docs/shared/end-overview.md'
     ],
     'json-api': [
         'assets/docs/json-api/install.md',
@@ -39,12 +41,14 @@ const SHARED_FILES: { [lib: string]: string[] } = {
         'assets/docs/json-api/usage.md',
         'assets/docs/shared/crud-capabilities.md',
         'assets/docs/shared/custom-headers.md',
-        'assets/docs/shared/error-handling.md'
+        'assets/docs/shared/error-handling.md',
+        'assets/docs/shared/end-overview.md'
     ],
     'json-overview': [
         'assets/docs/shared/crud-capabilities.md',
         'assets/docs/shared/custom-headers.md',
-        'assets/docs/shared/error-handling.md'
+        'assets/docs/shared/error-handling.md',
+        'assets/docs/shared/end-overview.md'
     ]
 }
 

@@ -95,3 +95,22 @@ angular-fontawesome icons. But that would be a low priority for me unless there
 was a lot of interest in this feature. At this time there is no issue created
 for this, but if one is created then people can chime in and I could potentially
 be convinced to add this capability in if there is enough support for it.
+
+## Contributing
+
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/CONTRIBUTING.md)
+
+
+## Running unit tests
+
+Run `ng test widgets` to execute the unit tests via
+[Karma](https://karma-runner.github.io).
+
+## Built With
+
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli)
+version 13.1.0.
+
+## Authors
+
+* **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)

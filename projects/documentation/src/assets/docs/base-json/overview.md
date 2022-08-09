@@ -14,7 +14,7 @@ created 2 libraries that extend this one and provide implementations for which
 you should be able to use as is with minimal configuration and code changes
 required when adding to your application (that is if the JSON structure defined
 in either library works with your application). The libraries I created are the
-[json](./json/json) and [json-api](./json/json-api) libraries. The json library uses
+[json](./json) and [json-api](./json-api) libraries. The json library uses
 a general JSON structure that effectively turns an object directly into JSON,
 while the json-api library follows the json:api specification as defined at
 https://jsonapi.org/. See the respective libraries in the links provided above
