@@ -106,7 +106,7 @@ any additional parameters are required when creating specific PageElements.
 
 ## Contributing
 
-See [Contributing](../../CONTRIBUTING.md)
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/CONTRIBUTING.md)
 
 ## Running unit tests
 

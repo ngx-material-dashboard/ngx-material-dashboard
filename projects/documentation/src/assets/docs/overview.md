@@ -28,7 +28,7 @@ I intend to add a sample project that shows how to utilize the json and widgets 
 
 ## Contributing
 
-See [Contributing](CONTRIBUTING.md)
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/CONTRIBUTING.md)
 
 ## Running unit tests
 
