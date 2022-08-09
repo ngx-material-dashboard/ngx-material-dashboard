@@ -48,14 +48,6 @@ I know there are tools that automate the documentation process already like [typ
 
 Continue on if you want to know how I created this documentation. It's been quite a journey, so I thought I might write it down in case it helps anyone else improve their own documentation.
 
-### Tools
-
-There is a `tools` directory at the root of the source code for the `ngx-material-dashboard` workspace which includes all the code I am using to automate the documentation process. I'm not going to go through the code itself, but I will give a general overview of what the code is doing. I am using `typedoc` to generate JSON from comments included in the code, and I am parsing that JSON into a set of objects I can use to generate markdown files with [handlebars](https://handlebarsjs.com/). The objects I created make it easier for me to organize the comments from the code (as opposed to working with the JSON directly). They also make it easier to auto generate routes and sidenav items for the `documentation` project based on what was included in `typedoc` comments. I did not want to manually manage routes and sidenav items because there are a lot of those to get right.
-
-I was also able to use the objects I created from the `typedoc` JSON output along with the markdown output to have control over how markdown is rendered at any route. This allows me to have shared bits of markdown to render in various places without having to repeat the content of that markdown. One drawback is there can be multiple requests to load markdown files from a single route, potentially slowing down page load time, however the markdown is fairly small (especially shared files), so it should be a relatively small slow down.
-
-> NOTE: Don't expect to be able to use these tools as they are because they are geared to the structure of the libraries included in this workspace and the format of the documentation I included in the code. You might be able to customize them for your own project, but that is outside the scope of this project and documentation. I would really like to come up with a generalized approach for generating documentation for any Angular project, but I haven't gotten there yet. Perhaps the combination of the `tools` and `documentation` project could form the basis for that, although I admit there would be a long way to go to completely generalize them to work with any project.
-
 ### Documentation Project
 
 The `documentation` project is based off of the example provided with the [ngx-markdown](https://www.npmjs.com/package/ngx-markdown) library. The example project provides a good base for creating an application that renders documentation very similar to the Angular Material documentation. It is not exact though, so I did have to come up with a custom layout in order to include the sidenav (which actually uses the sidenav defined in the `widgets` library). I also had to update how the page content navigator on the right hand side of the page is initialized (from the `ngx-markdown` example) based on how I structured my markdown files.
@@ -63,6 +55,14 @@ The `documentation` project is based off of the example provided with the [ngx-m
 Additionally I built in capabilities to render multiple markdown files in a given order for any given route. This also includes the ability to render tabbed views of markdown files at any point in that order. The tabbed views are mainly for rendering code examples (specifically components) that have both `HTML` and `Typescript` included in the example, similar to how Angular Material renders their code examples on tabs.
 
 One thing that is missing from the tabbed views are live examples like the ones included in the Angular Material documentation. It would be awesome to include that feature, but I just don't have the time to add that capability right now. Hopefully the static example code I have included in the `overview` pages is enough to get people started with using these libraries.
+
+### Tools
+
+There is a `tools` directory at the root of the source code for the `ngx-material-dashboard` workspace which includes all the code I am using to automate the documentation process. I'm not going to go through the code itself, but I will give a general overview of what the code is doing. I am using JSON output from `typedoc` comments included in the code, and I am parsing that JSON into a set of objects I can use to generate markdown files with [handlebars](https://handlebarsjs.com/). Once all markdown files are generated I use the objects that include the tyepdoc comment data to generate routes and sidenav items for all classes included in each of the libraries.
+
+I was also able to use the objects I created from the `typedoc` JSON output along with the markdown output to have control over how markdown is rendered at any route. This allows me to have shared bits of markdown to render in various places without having to repeat the content of that markdown. One drawback is there can be multiple requests to load markdown files from a single route, potentially slowing down page load time, however the markdown is fairly small (especially shared files), so it should be a relatively small slow down.
+
+> NOTE: Don't expect to be able to use these tools as they are because they are geared to the structure of the libraries included in this workspace and the format of the documentation I included in the code. You might be able to customize them for your own project, but that is outside the scope of this project and documentation. I would really like to come up with a generalized approach for generating documentation for any Angular project, but I haven't gotten there yet. Perhaps the combination of the `tools` and `documentation` project could form the basis for that, although I admit there would be a long way to go to completely generalize them to work with any project.
 
 ## Authors
 
