@@ -54,7 +54,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
             // handle URLs that include module types
             const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}/`));
             module.classes.forEach((clazz: Clazz) => {
-                if (!clazz.name.includes('Module')) {
+                if (!clazz.name.includes('Module') && !clazz.isConstant) {
                     const res = generateChildrenRoutes(
                         clazz,
                         moduleTypeUrls,

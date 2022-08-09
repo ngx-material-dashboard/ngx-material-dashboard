@@ -80,7 +80,7 @@ export class UrlMarkdownFileMapGenerator {
 
             // add overviews for each of the main classes in the library
             m.classes.forEach((c: Clazz) => {
-                if (!c.name.includes('Module')) {
+                if (!c.name.includes('Module') && !c.isConstant) {
                     // ignore classes with Module in name (for now...)
                     this.addToUrlFilesMap(m, c);
                 }

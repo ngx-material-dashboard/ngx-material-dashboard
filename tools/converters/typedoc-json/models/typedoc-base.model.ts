@@ -12,13 +12,14 @@ import { UsageNote } from './usage-note.model';
 export class TypedocBase {
     /** Primary id value for JSON object. */
     id!: number;
+    isConstant: boolean = false;
     /** The name of project, lib, class, method, or property. */
     name!: string;
     /** The kind of JSON object (unique id since number?). */
     kind!: number;
     /** The kind of JSON object. */
     kindString!: string;
-    flags!: {};
+    flags!: any;
     /** The children associated with the JSON object. */
     children: TypedocBase[] = [];
     comment?: Comment;
@@ -43,6 +44,10 @@ export class TypedocBase {
             this.description = this.comment.shortText;
             this.usageNotes = this.comment.usageNotes;
             this.overviewDetails = this.comment.overviewDetails;
+        }
+
+        if (data.flags) {
+            this.isConstant = data.flags.isConst;
         }
     }
 }
