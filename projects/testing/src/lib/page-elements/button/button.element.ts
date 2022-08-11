@@ -32,7 +32,12 @@ import { PageElement } from '../page/page.element';
  *
  *     describe('Enabled Button', () => {
  *         beforeEach(() => {
- *             buttonElement = init(ButtonComponent, 'div');
+ *             TestBed.configureTestingModule({
+ *                 declarations: [ButtonComponent]
+ *             });
+ * 
+ *             const fixture = TestBed.createComponent(ButtonComponent);
+ *             buttonElement = new ButtonElement(fixture, '.marker-button');
  *             buttonClickSpy = spyOn(buttonElement.fixture.componentInstance, 'onClick');
  *         });
  *
@@ -53,8 +58,7 @@ import { PageElement } from '../page/page.element';
  * 
  * ## Features
  * 
- * The most basic features I could think to include for a button is the ability
- * to click it, and test if the button is disabled.
+ * `ButtonElements` can be clicked and ou can check if the button is disabled.
  * 
  * ### Click
  * 
@@ -77,14 +81,13 @@ import { PageElement } from '../page/page.element';
  * 
  * ### Is Disabled
  * 
- * The only other thing I could think of for buttons was to provide a convenient
- * way to test if the button is disabled, although the `HTMLButtonElement`
- * already provides this ability. The `isDisabled` function is just a wrapper
- * around the `disabled` property defined for `HTMLButtonElement` since the
- * button element is private and there is no way for you to access this in your
- * tests. I suppose I could make the `HTMLButtonElement` public, but I think
- * that defeats the purpose of what I am trying to go for here where you work
- * with `PageElements` and `PageObjects`.
+ * The `isDisabled` function is just a wrapper around the `disabled` property
+ * defined for `HTMLButtonElement` since the button element is private and
+ * there is no way for you to access this in your tests. I suppose I could
+ * make the `HTMLButtonElement` public, but I think that defeats the purpose
+ * of what I am trying to go for here where you work with `PageElements` and
+ * `PageObjects`. TODO make this disabled getter so it's similar to
+ * HTMLButtonElement
  */
 export class ButtonElement extends PageElement {
 

@@ -86,6 +86,62 @@ import { PaginatorElement } from "../paginator/paginator.element";
  *     });
  * });
  * ``` 
+ * 
+ * ## Features
+ * 
+ * `PagedTableElements` have multiple features built in, including the ability
+ * to get all displayed column header values, get the row displayed when there
+ * is not table data (if it is being displayed), click buttons in any row of
+ * the table, get the contents of any cell given row and column, check if all
+ * rows are selected, check if a single row is selected, select all rows, and
+ * select individual rows.
+ * 
+ * ### Displayed Columns
+ * 
+ * The `displayedColumns` getter will return an array of `HTMLElements` header
+ * cells from the table. The contents of the `HTMLElements` should be the
+ * column header text.
+ * 
+ * ### No Data Row
+ * 
+ * The `noDataRow` getter returns the `HTMLElement` containing the no data row.
+ * If there is data in the table the element's parent should have the `hide`
+ * class.
+ * 
+ * ### Click Table Button
+ * 
+ * The `clickTableButton` method clicks the button with the given text in the
+ * given row and column. If your actions column is defined last you can omit
+ * the column as this defaults to the last column in the table.
+ * 
+ * ### Get Cell Contents
+ * 
+ * The `getCellByColumnIndex` returns an HTMLElement with the cell contents at
+ * the given row and column. Now that I'm writing the documentation the name of
+ * this method is a bit of a misnomer. Should be by row and column index.
+ * 
+ * ### All Rows Selected
+ * 
+ * The `isAllSelected` method returns true if all rows in the table are
+ * selected. Otherwise returns false.
+ * 
+ * ### Is Row Selected
+ * 
+ * The `isRowSelected` method returns true if the row at the given index is
+ * selected.
+ * 
+ * ### Select All Rows
+ * 
+ * The `selectAll` function clicks the checkbox in the header which should
+ * select all rows in the table (or deselect all rows if all selected). This
+ * method is asynchronous, so you should use async/await when calling this
+ * in your code.
+ * 
+ * ### Select Row
+ * 
+ * The `selectRow` function clicks the checkbox at the given row. This method
+ * is asynchronouse, sou you should use async/await when calling this in your
+ * code.
  */
 export class PagedTableElement extends PageElement {
 

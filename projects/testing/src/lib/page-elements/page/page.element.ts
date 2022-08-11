@@ -5,13 +5,15 @@ import { ComponentFixture } from '@angular/core/testing';
  * other page elements and objects should extend this class to make use of
  * basic utility functions needed for tests. Currently the only utility
  * functions needed are query and queryAll, to find one or more HTML
- * elements in component under test. These methods will throw an error if
- * the queries fail to find an element that matches the given selector. This
- * seems to be the appropriate response for testing utilities, since the page
- * elements themselves will expect the HTML elements to exist in order for
- * them to work in the tests. It should also provide some form of debugging
- * as I hope the error message is descriptive enough for others to determine
- * what they did wrong in structuring their component or their tests.
+ * elements in component under test. 
+ * 
+ * If either query or queryAll fail to find an element that matches the given
+ * selector, then an error is thrown. This seems to be the appropriate response
+ * for testing utilities, since the page elements themselves will expect the
+ * HTML elements to exist in order for them to work in the tests. It should
+ * also provide some form of debugging as I hope the error message is
+ * descriptive enough for others to determine what they did wrong in
+ * structuring their component for their tests.
  */
 export class PageElement {
 
