@@ -22,7 +22,6 @@ for more details on using them.
 
 If the above libraries do not suit your applications needs, then you should be
 able to extend this library and provide your own implementation. You can jump
-to [Getting Started](#getting-started) to see how to do that. I still suggest
-taking a look at the source code for both libraries since they provide fully
-functional examples of how to extend this library.
-
+to [Usage](#usage) to see how to do that. I still suggest taking a look at the
+source code for both libraries since they provide fully functional examples of
+how to extend this library.

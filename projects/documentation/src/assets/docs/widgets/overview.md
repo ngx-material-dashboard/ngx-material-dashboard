@@ -10,7 +10,7 @@ seemingly endless struggle to be the best developer I can be.
 
 This library does provide some basic CRUD capabilities, and as a result I do
 need to have a consitent way to manage data. So this library depends on the
-[base-json](./json/base-json) library for interfacing with JSON API servers.
+[base-json](./base-json) library for interfacing with JSON API servers.
 I recommend that you take a look at that library to see if that will work for
 your project before you dig too deep into this library.
 

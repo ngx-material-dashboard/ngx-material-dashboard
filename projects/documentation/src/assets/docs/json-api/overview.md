@@ -1,6 +1,6 @@
 ## Introduction
 
-The json-api library is built on top of the [base-json](./json/base-json)
+The json-api library is built on top of the [base-json](./base-json)
 library and provides all the basic structures needed to interface with a
 RESTful JSON API from your client side Angular applications that utilizes the
 json:api specification as defined at https://jsonapi.org/. It allows you to 
