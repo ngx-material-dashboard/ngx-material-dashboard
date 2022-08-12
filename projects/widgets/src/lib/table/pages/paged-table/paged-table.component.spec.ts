@@ -74,7 +74,7 @@ describe('PagedTableComponent', () => {
 
     let datastore: JsonDatastore;
 
-    describe('Local data source', () => {
+    fdescribe('Local data source', () => {
         let page: PagedTableElement;
 
         beforeEach(async () => {
@@ -92,8 +92,7 @@ describe('PagedTableComponent', () => {
                     MockModule(FontAwesomeModule)
                 ],
                 providers: [
-                    { provide: Datastore, deps: [HttpClient] },
-                    { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
+                    { provide: JsonDatastore, useClass: Datastore }
                 ]
             }).compileComponents();
 
