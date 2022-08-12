@@ -5,6 +5,34 @@ import { DummyObject } from './dummy-object.mock';
 
 const BASE_URL = 'http://localhost:8080/api'
 
+/**
+ * A mock datastore that can be used for tests. This datastore will not make
+ * any HTML requests, removing the need for that dependency in your tests. You
+ * can use this mock service in any place that injects the `JsonDatastore`.
+ * 
+ * > NOTE: The functionality in this class is mostly incomplete, and needs to
+ * > be filled out to potentially be more useful for tests.
+ * 
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```typescript
+ * import {HttpClientTestingModule} from '@angular/common/http/testing';
+ * import {TestBed} from '@angular/core/testing';
+ * import {JsonDatastore} from '@ngx-material-dashboard/base-json';
+ * import {Datastore} from '@ngx-material-dashboard/testing';
+ *
+ * TestBed.configureTestingModule({
+ *     // any declarations...
+ *     imports: [
+ *         HttpClientTestingModule
+ *         // any other imports...
+ *     ],
+ *     providers: [
+ *         { provide: JsonDatastore, useClass: Datastore }
+ *     ]
+ * })
+ * ```
+ */
 @JsonApiDatastoreConfig({
     baseUrl: BASE_URL,
     models: {

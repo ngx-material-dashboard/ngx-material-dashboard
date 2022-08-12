@@ -4,8 +4,11 @@ import { SidenavElement } from '../page-elements/sidenav/sidenav.element';
 import { ToolbarHeaderElement } from '../page-elements/toolbar-header/toolbar-header.element';
 
 /**
- * The DefaultLayoutPage class defines properties and functions for testing
- * components that utilize the default layout.
+ * The `DefaultLayoutPage` class defines properties and functions for testing
+ * components that utilize the default layout. It is mostly a wrapper around
+ * the `ToolbarHeaderElement` and `SidenavElement`. See the
+ * [ToolbarHeaderElement](/testing/element/toolbar-header) and
+ * [SidenavElement](/testing/element/sidenav) documentation for more details.
  */
 export class DefaultLayoutPage extends PageElement {
 
