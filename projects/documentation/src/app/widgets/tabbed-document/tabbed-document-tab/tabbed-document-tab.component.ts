@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AnchorService } from '../../../shared/anchor/anchor.service';
 
 /**
  * A map of parent heading ids to their child heading elements.
@@ -33,6 +34,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {"/base-json":[["assets/docs/base-jso
 })
 export class TabbedDocumentTabComponent implements OnInit {
 
+    anchor?: string;
     markdownSrcsList!: string[][];
     /** The main parent heading elements. */
     headings: Element[] = [];
@@ -42,17 +44,44 @@ export class TabbedDocumentTabComponent implements OnInit {
 
     constructor(
         private el: ElementRef,
-        private router: Router 
+        private router: Router,
+        private anchorService: AnchorService
     ) { }
 
-    ngOnInit(): void {
-        this.markdownSrcsList = URL_DIRECTORY_MAP[this.router.url];
+    ngOnInit(): void { 
+        const anchorIndex = this.router.url.indexOf('#');
+        if (anchorIndex > 0) {
+            // set anchor so we can scoll to it when markdown loads and load
+            // markdownSrcsList using URL without anchor value (since map
+            // doesn't include anchors, and nothing loads if anchor included)
+            this.anchor = this.router.url.substring(anchorIndex);
+            this.markdownSrcsList = URL_DIRECTORY_MAP[
+                this.router.url.substring(0, anchorIndex)
+            ];
+        } else {
+            this.markdownSrcsList = URL_DIRECTORY_MAP[this.router.url];
+        }
     }
 
+    /**
+     * Handler for when markdown file is loaded.
+     */
     onLoad(): void {
         this.setHeadings(this.el);
+        if (this.anchor) {
+            // if anchor is set that means user either copy/pasted URL or
+            // clicked on URL from another markdown page, so scroll to
+            // anchor in route
+            this.anchorService.scrollToAnchor();
+        }
     }
 
+    /**
+     * Returns the tab label based on the given src value.
+     *
+     * @param src Either 'html' or 'typescript'. 
+     * @returns The tab label based on the given src value.
+     */
     getUsageTabLabel(src: string) {
         if (src.includes('html')) {
             return 'HTML';
