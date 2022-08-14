@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import {AttributeDecoratorOptions} from '../interfaces/attribute-decorator-options.interface';
 import {AttributeMetadata} from '../constants/symbols';

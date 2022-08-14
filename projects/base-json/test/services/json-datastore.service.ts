@@ -25,10 +25,12 @@ export class JsonDatastore extends BaseJsonDatastore {
                 meta: {
                     transition
                 },
-                data
+                data,
+                id: model.id
             };
         } else {
             body = data;
+            body.id = model.id
         }
 
         return body;
@@ -75,7 +77,7 @@ export class JsonDatastore extends BaseJsonDatastore {
             model.modelInitialization = false;
         }
 
-        const deserializedModel = model || this.deserializeModel(modelType, body.data);
+        const deserializedModel = model || this.deserializeModel(modelType, body);
         this.addToStore(deserializedModel);
 
         return deserializedModel;

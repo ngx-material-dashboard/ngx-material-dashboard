@@ -1,6 +1,6 @@
 import { HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { AttributeMetadata } from "../constants/symbols";
 import { Attribute } from "../decorators/attribute.decorator";
@@ -41,7 +41,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * }
  * ```
  */
-export abstract class JsonModel {
+export class JsonModel {
 
     /** The primary key identifier for the model. */
     @Attribute() id?: string;

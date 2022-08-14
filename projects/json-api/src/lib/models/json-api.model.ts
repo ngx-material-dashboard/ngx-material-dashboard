@@ -1,6 +1,6 @@
 import { JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
 import { find, includes } from 'lodash-es';
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { JsonApiDatastore } from '../services/json-api-datastore.service';
 

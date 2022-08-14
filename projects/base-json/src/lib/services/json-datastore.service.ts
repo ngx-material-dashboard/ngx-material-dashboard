@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { catchError, map, Observable, of, throwError } from "rxjs";
-import * as qs from 'qs';
 
 import { DatastoreConfig } from "../interfaces/datastore-config.interface";
 import { ModelConfig } from "../interfaces/model-config.interface";
@@ -8,6 +7,7 @@ import { ModelType } from "../interfaces/model-type.interface";
 import { JsonApiQueryData } from "../models/json-api-query-data";
 import { JsonModel } from "../models/json.model";
 import { ErrorResponse } from "../models/error-response.model";
+import stringify from '../utilities/stringify';
 import { Injectable } from "@angular/core";
 
 /**
@@ -684,6 +684,6 @@ export abstract class JsonDatastore {
     }
 
     private _toQueryString(params: any): string {
-        return qs.stringify(params, {arrayFormat: 'brackets'});
+        return stringify(params, {arrayFormat: 'brackets'});
     }
 }

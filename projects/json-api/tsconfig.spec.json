@@ -5,7 +5,8 @@
         "outDir": "../../out-tsc/spec",
         "target": "es5",
         "types": [
-            "jasmine"
+            "jasmine",
+            "node"
         ]
     },
     "files": [

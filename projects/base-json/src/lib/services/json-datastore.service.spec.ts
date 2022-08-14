@@ -54,6 +54,7 @@ describe('JsonDatastoreService', () => {
             const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
             queryRequest.flush({data: []});
             expect(queryRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         // tslint:disable-next-line:max-line-length
@@ -66,6 +67,7 @@ describe('JsonDatastoreService', () => {
             const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
             queryRequest.flush({data: []});
             expect(queryRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should build basic url from the data from datastore decorator', () => {
@@ -77,6 +79,7 @@ describe('JsonDatastoreService', () => {
             const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
             queryRequest.flush({data: []});
             expect(queryRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should set JSON API headers', () => {
@@ -89,6 +92,7 @@ describe('JsonDatastoreService', () => {
             expect(queryRequest.request.headers.get('Accept')).toEqual('application/json');
             queryRequest.flush({data: []});
             expect(queryRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should build url with nested params', () => {
@@ -117,6 +121,7 @@ describe('JsonDatastoreService', () => {
             const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
             queryRequest.flush({data: []});
             expect(queryRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should have custom headers', () => {
@@ -156,6 +161,7 @@ describe('JsonDatastoreService', () => {
 
             const queryRequest = httpMock.expectOne(expectedUrl);
             queryRequest.flush({data: [getTaskData()]});
+            httpMock.verify();
         });
 
         it('should get tasks with custom metadata', () => {
@@ -179,6 +185,7 @@ describe('JsonDatastoreService', () => {
                     }
                 }
             });
+            httpMock.verify();
         });
 
         // it('should get data with default metadata', () => {
@@ -223,6 +230,7 @@ describe('JsonDatastoreService', () => {
 
             const queryRequest = httpMock.expectOne(expectedUrl);
             queryRequest.flush(dummyResponse, {status: 500, statusText: 'Internal Server Error'});
+            httpMock.verify();
         });
 
         it('should generate correct query string for array params with findAll', () => {
@@ -234,6 +242,7 @@ describe('JsonDatastoreService', () => {
             const findAllRequest = httpMock.expectOne(expectedUrl);
             findAllRequest.flush({data: []});
             expect(findAllRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should generate correct query string for array params with query', () => {
@@ -245,6 +254,7 @@ describe('JsonDatastoreService', () => {
             const queryRequest = httpMock.expectOne(expectedUrl);
             queryRequest.flush({data: []});
             expect(queryRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should generate correct query string for nested params with findAll', () => {
@@ -256,6 +266,7 @@ describe('JsonDatastoreService', () => {
             const findAllRequest = httpMock.expectOne(expectedUrl);
             findAllRequest.flush({data: []});
             expect(findAllRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should generate correct query string for nested array params with findAll', () => {
@@ -267,15 +278,16 @@ describe('JsonDatastoreService', () => {
             const findAllRequest = httpMock.expectOne(expectedUrl);
             findAllRequest.flush({data: []});
             expect(findAllRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
     });
 
     describe('findRecord', () => {
 
-        beforeEach(() => {
-            datastore = new Datastore(TestBed.inject(HttpClient));
-            httpMock = TestBed.inject(HttpTestingController);
-        });
+        // beforeEach(() => {
+        //     datastore = new Datastore(TestBed.inject(HttpClient));
+        //     httpMock = TestBed.inject(HttpTestingController);
+        // });
 
         it('should get task', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/tasks/${TASK_ID}`;
@@ -287,8 +299,9 @@ describe('JsonDatastoreService', () => {
             });
 
             const findRecordRequest = httpMock.expectOne(expectedUrl);
-            findRecordRequest.flush({data: getTaskData()});
+            findRecordRequest.flush(getTaskData());
             expect(findRecordRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
 
         it('should generate correct query string for array params with findRecord', () => {
@@ -298,8 +311,9 @@ describe('JsonDatastoreService', () => {
             datastore.findRecord(Task, '1', {arrayParam: [4, 5, 6]}).subscribe();
 
             const findRecordRequest = httpMock.expectOne(expectedUrl);
-            findRecordRequest.flush({data: getTaskData()});
+            findRecordRequest.flush(getTaskData());
             expect(findRecordRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
         });
     });
 
@@ -329,6 +343,7 @@ describe('JsonDatastoreService', () => {
                 id: TASK_ID,
                 name: TASK_NAME,
             }, {status: 201, statusText: 'Created'});
+            httpMock.verify();
         });
 
         it('should throw error on new task with 201 response but no body', () => {
@@ -344,6 +359,7 @@ describe('JsonDatastoreService', () => {
 
             const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
             saveRequest.flush(null, {status: 201, statusText: 'Created'});
+            httpMock.verify();
         });
 
         it('should create new task with 204 response', () => {
@@ -358,6 +374,7 @@ describe('JsonDatastoreService', () => {
 
             const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
             saveRequest.flush(null, {status: 204, statusText: 'No Content'});
+            httpMock.verify();
         });
     });
 
@@ -386,6 +403,7 @@ describe('JsonDatastoreService', () => {
             // expect(obj.relationships).toBeUndefined();
 
             saveRequest.flush({});
+            httpMock.verify();
         });
 
         it('should update task with 204 response', () => {
@@ -411,6 +429,7 @@ describe('JsonDatastoreService', () => {
             // expect(obj.relationships).toBeUndefined();
 
             saveRequest.flush(null, {status: 204, statusText: 'No Content'});
+            httpMock.verify();
         });
 
         it('should integrate server updates on 200 response', () => {
@@ -439,6 +458,7 @@ describe('JsonDatastoreService', () => {
                 id: obj.id,
                 name: 'Potter'
             });
+            httpMock.verify();
         });
     });
     //     it('should remove empty ToMany-relationships', () => {
@@ -453,7 +473,7 @@ describe('JsonDatastoreService', () => {
     
     //         httpMock.expectNone(`${BASE_URL}/${API_VERSION}/tasks`);
     //         const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
-    //         const obj = saveRequest.request.body.data;
+    //         const obj = saveRequest.request.body;
     //         expect(obj.relationships).toBeDefined();
     //         expect(obj.relationships.books).toBeDefined();
     //         expect(obj.relationships.books.data).toBeDefined();

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { AttributeMetadata } from '../constants/symbols';
 import { DateConverter } from '../converters/date/date.converter';

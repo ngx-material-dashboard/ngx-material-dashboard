@@ -5,7 +5,7 @@ export const TASK_DUE_DATE = '2022-05-04';
 export const TASK_DATE_COMPLETED = null;
 export const TASK_IS_COMPLETE = false;
 
-export function getTaskData(total: number = 0): any {
+export function getTaskData(total: number = 1): any {
     const response: any = {
         id: TASK_ID,
         name: TASK_NAME,
