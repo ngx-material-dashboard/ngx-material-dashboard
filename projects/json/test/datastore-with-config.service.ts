@@ -8,6 +8,7 @@ import { Chapter } from './models/chapter.model';
 import { Section } from './models/section.model';
 import { Paragraph } from './models/paragraph.model';
 import { Sentence } from './models/sentence.model';
+import { Injectable } from '@angular/core';
 
 const BASE_URL = 'http://localhost:8080';
 const API_VERSION = 'v1';
@@ -15,6 +16,7 @@ const API_VERSION = 'v1';
 export const BASE_URL_FROM_CONFIG = 'http://localhost:8888';
 export const API_VERSION_FROM_CONFIG = 'v2';
 
+@Injectable()
 @JsonApiDatastoreConfig({
     baseUrl: BASE_URL,
     apiVersion: API_VERSION,

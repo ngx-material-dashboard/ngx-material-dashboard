@@ -11,10 +11,12 @@ import { Sentence } from './models/sentence.model';
 import { Category } from './models/category.model';
 import { Thing } from './models/thing';
 import { ThingCategory } from './models/thingCategory';
+import { Injectable } from '@angular/core';
 
 export const BASE_URL = 'http://localhost:8080';
 export const API_VERSION = 'v1';
 
+@Injectable()
 @JsonApiDatastoreConfig({
     baseUrl: BASE_URL,
     apiVersion: API_VERSION,
