@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LayoutModule as DashboardLayoutModule } from '@ngx-material-dashboard/widgets';
 
 import { LayoutComponent } from './layout.component';
 
@@ -10,7 +13,12 @@ describe('LayoutComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ LayoutComponent ],
-            imports: [RouterTestingModule]
+            imports: [
+                NoopAnimationsModule,
+                RouterTestingModule,
+                MatSidenavModule,
+                DashboardLayoutModule
+            ]
         });
     });
 
