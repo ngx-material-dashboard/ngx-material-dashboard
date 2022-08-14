@@ -34,7 +34,7 @@ describe('JsonModel', () => {
                 name: 'Daniele',
                 surname: 'Ghidoli',
                 date_of_birth: new Date(1987, 4, 25),
-                // school: {name: 'Massachusetts Institute of Technology', students: 11319, foundation: new Date(1861, 9, 4)}
+                school: {name: 'Massachusetts Institute of Technology', students: 11319, foundation: new Date(1861, 9, 4)}
             };
             const author: Author = new Author(datastore, DATA);
             expect(author).toBeDefined();
@@ -43,11 +43,11 @@ describe('JsonModel', () => {
             if (author.date_of_birth ) {
                 expect(author.date_of_birth.getTime()).toBe(parseISO('1987-05-25').getTime());
             }
-            // if (author.school && author.school.foundation) {
-            //     expect(author.school.name).toBe('Massachusetts Institute of Technology');
-            //     expect(author.school.students).toBe(11319);
-            //     expect(author.school.foundation.getTime()).toBe(parseISO('1861-10-04').getTime());
-            // }
+            if (author.school && author.school.foundation) {
+                expect(author.school.name).toBe('Massachusetts Institute of Technology');
+                expect(author.school.students).toBe(11319);
+                expect(author.school.foundation.getTime()).toBe(parseISO('1861-10-04').getTime());
+            }
         });
 
         it('should be instantiated without attributes', () => {

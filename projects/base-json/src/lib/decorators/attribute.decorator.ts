@@ -123,20 +123,13 @@ export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDeco
             const convertedValue = converter(targetType, newVal);
             let oldValue = null;
 
-            // TODO: figure out issue with setting oldValue; this currently
-            // breaks the hasDirtyAttributes and rollback capabilities in the
-            // library but allows all other tests to pass; it seems that oldValue
-            // contains data from previous tests somehow (maybe something to do with
-            // the fact that we need to define this as parameter to remove below
-            // compilation error)
-            // Compilation Error: 'this' implicitly has type 'any' because it does not have a type annotation.
-            // if (this.isModelInitialization() && this.id) {
-            //     oldValue = converter(targetType, newVal);
-            // } else {
-            //     if (this[AttributeMetadata] && this[AttributeMetadata][propertyName]) {
-            //         oldValue = this[AttributeMetadata][propertyName].oldValue;
-            //     }
-            // }
+            if (this.isModelInitialization() && this.id) {
+                oldValue = converter(targetType, newVal);
+            } else {
+                if (this[AttributeMetadata] && this[AttributeMetadata][propertyName]) {
+                    oldValue = this[AttributeMetadata][propertyName].oldValue;
+                }
+            }
 
             this[`_${String(propertyName)}`] = convertedValue;
             setMetadata(target, oldValue, convertedValue);
