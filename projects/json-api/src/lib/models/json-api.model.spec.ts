@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { parseISO } from 'date-fns';
@@ -15,13 +14,10 @@ describe('JsonApiModel', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpClientTestingModule,
+                HttpClientTestingModule
             ],
             providers: [
-                {
-                    provide: Datastore,
-                    deps: [HttpClient]
-                }
+                Datastore
             ]
         });
 
@@ -63,7 +59,7 @@ describe('JsonApiModel', () => {
 
     });
 
-    xdescribe('hasDirtyAttributes', () => {
+    describe('hasDirtyAttributes', () => {
 
         it('should be instantiated with attributes', () => {
             const DATA = {
@@ -324,24 +320,24 @@ describe('JsonApiModel', () => {
         });
     });
 
-    xdescribe('hasDirtyAttributes & rollbackAttributes', () => {
+    describe('hasDirtyAttributes & rollbackAttributes', () => {
 
-        const author = new Author(
-            datastore,
-            {
-                id: '1',
-                attributes: {
-                    name: 'Daniele'
-                }
+        const DATA = {
+            id: '1',
+            attributes: {
+                name: 'Daniele'
             }
-        );
+        };
 
-        it('should return that has dirty attributes', () => {
+        it('should return has dirty attributes true when attribute updated', () => {
+            const author = new Author(datastore, DATA);
             author.name = 'New Name';
             expect(author.hasDirtyAttributes).toBeTruthy();
         });
 
-        it('should to rollback to the initial author name', () => {
+        it('should rollback to the initial author name', () => {
+            const author = new Author(datastore, DATA);
+            author.name = 'New Name';
             author.rollbackAttributes();
             expect(author.name).toEqual('Daniele');
             expect(author.hasDirtyAttributes).toBeFalsy();

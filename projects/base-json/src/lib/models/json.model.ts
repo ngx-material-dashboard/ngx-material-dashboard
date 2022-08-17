@@ -44,7 +44,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
 export class JsonModel {
 
     /** The primary key identifier for the model. */
-    @Attribute() id?: string;
+    id?: string;
     /** The datastore service that performs CRUD operations. */
     internalDatastore: JsonDatastore
     /** Boolean value indicating whether model is being initialized. */

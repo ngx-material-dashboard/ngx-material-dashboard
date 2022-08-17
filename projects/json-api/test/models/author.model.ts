@@ -28,6 +28,9 @@ export class Author extends JsonApiModel {
     @Attribute()
     firstNames?: string[];
 
+    @Attribute()
+    surname?: string;
+
     @HasMany()
     books?: Book[];
 

@@ -124,15 +124,21 @@ export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDeco
             let oldValue = null;
 
             if (this.isModelInitialization() && this.id) {
+                // if the model is being initialized and there is an id, then
+                // this should be an existing model so oldValue should be same
+                // as convertedValue
                 oldValue = converter(targetType, newVal);
             } else {
+                // otherwise model doesn't exist on server side
                 if (this[AttributeMetadata] && this[AttributeMetadata][propertyName]) {
+                    // if attribute metadata exists for this property then set
+                    // old value to existing metadata value
                     oldValue = this[AttributeMetadata][propertyName].oldValue;
                 }
             }
 
             this[`_${String(propertyName)}`] = convertedValue;
-            setMetadata(target, oldValue, convertedValue);
+            setMetadata(this, oldValue, convertedValue);
         };
 
         if (delete target[propertyName]) {

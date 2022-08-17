@@ -16,7 +16,7 @@ import { AUTHOR_BIRTH, AUTHOR_ID, AUTHOR_NAME, BOOK_TITLE, getAuthorData } from 
 import { getSampleBook } from '@ngx-material-dashboard/json-api/test/fixtures/book.fixture';
 import { getSampleThing } from '@ngx-material-dashboard/json-api/test/fixtures/thing.fixture';
 
-fdescribe('JsonApiDatastore', () => {
+describe('JsonApiDatastore', () => {
 
     let datastore: Datastore;
     let datastoreWithConfig: DatastoreWithConfig;
@@ -133,7 +133,6 @@ fdescribe('JsonApiDatastore', () => {
             const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
             expect(queryRequest.request.headers.get('Authorization')).toEqual('Bearer');
             queryRequest.flush({data: []});
-            httpMock.verify();
         });
 
         it('should override base headers', () => {
@@ -145,7 +144,6 @@ fdescribe('JsonApiDatastore', () => {
             const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
             expect(queryRequest.request.headers.get('Authorization')).toEqual('Basic');
             queryRequest.flush({data: []});
-            httpMock.verify();
         });
 
         it('should get authors', () => {
@@ -292,11 +290,6 @@ fdescribe('JsonApiDatastore', () => {
 
     describe('findRecord', () => {
 
-        beforeEach(() => {
-            datastore = new Datastore(TestBed.inject(HttpClient));
-            httpMock = TestBed.inject(HttpTestingController);
-        });
-
         it('should get author', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors/${AUTHOR_ID}`;
 
@@ -408,10 +401,8 @@ fdescribe('JsonApiDatastore', () => {
                 name: AUTHOR_NAME
             });
             author.books = [new Book(datastore, {
-                id: '10',
-                title: BOOK_TITLE
+                id: '10'
             })];
-
             author.save().subscribe();
 
             const saveRequest = httpMock.expectOne(expectedUrl);
@@ -574,8 +565,8 @@ fdescribe('JsonApiDatastore', () => {
             const author = new Author(datastore, {
                 id: AUTHOR_ID,
                 attributes: {
-                date_of_birth: parseISO(AUTHOR_BIRTH),
-                name: AUTHOR_NAME
+                    date_of_birth: parseISO(AUTHOR_BIRTH),
+                    name: AUTHOR_NAME
                 }
             });
             const crimeBook = datastore.createRecord(CrimeBook, {

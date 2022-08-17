@@ -336,12 +336,15 @@ describe('JsonDatastoreService', () => {
             const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
             const obj = saveRequest.request.body;
             expect(obj.name).toEqual(TASK_NAME);
+            expect(obj.description).toEqual(TASK_DESCRIPTION);
             expect(obj.dueDate).toEqual(parseISO(TASK_DUE_DATE).toISOString());
             expect(obj.id).toBeUndefined();
 
             saveRequest.flush({
                 id: TASK_ID,
                 name: TASK_NAME,
+                description: TASK_DESCRIPTION,
+                dueDate: TASK_DUE_DATE
             }, {status: 201, statusText: 'Created'});
             httpMock.verify();
         });
@@ -461,25 +464,4 @@ describe('JsonDatastoreService', () => {
             httpMock.verify();
         });
     });
-    //     it('should remove empty ToMany-relationships', () => {
-    //         const expectedUrl = `${BASE_URL}/${API_VERSION}/tasks/${TASK_ID}`;
-    //         const BOOK_NUMBER = 2;
-    //         const DATA = getTaskData('books', BOOK_NUMBER);
-    //         const task = new Task(datastore, DATA);
-    
-    //         task.books = [];
-    
-    //         task.save().subscribe();
-    
-    //         httpMock.expectNone(`${BASE_URL}/${API_VERSION}/tasks`);
-    //         const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
-    //         const obj = saveRequest.request.body;
-    //         expect(obj.relationships).toBeDefined();
-    //         expect(obj.relationships.books).toBeDefined();
-    //         expect(obj.relationships.books.data).toBeDefined();
-    //         expect(obj.relationships.books.data.length).toBe(0);
-    
-    //         saveRequest.flush({});
-    //     });
-    // });
 });

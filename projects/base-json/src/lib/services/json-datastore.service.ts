@@ -556,10 +556,12 @@ export abstract class JsonDatastore {
             if (attributesMetadata.hasOwnProperty(propertyName)) {
                 const metadata: any = attributesMetadata[propertyName];
 
-                if (metadata.hasDirtyAttributes) {
+                // include all attributes regardless of whether they are dirty
+                // as the dirty check seems to be broken right now
+                //if (metadata.hasDirtyAttributes) {
                     const attributeName = metadata.serializedName != null ? metadata.serializedName : propertyName;
                     dirtyData[attributeName] = metadata.serialisationValue ? metadata.serialisationValue : metadata.newValue;
-                }
+                //}
             }
         }
 
