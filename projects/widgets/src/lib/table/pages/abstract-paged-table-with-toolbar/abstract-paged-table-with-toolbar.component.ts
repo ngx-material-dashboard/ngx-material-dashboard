@@ -109,7 +109,7 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
  *     }
  *
  *     override openCreateDialog(): void {
- *         super.openCreateDialogUtil(CreateMealDialogComponent, dialogConfig);
+ *         super.openCreateDialogUtil(CreateMealDialogComponent);
  *     }
  *
  *     override openConfirmDeleteDialog(val: Model): void {
@@ -129,6 +129,14 @@ const DEFAULT_TABLE_TOOLBAR_BUTTONS = [
  * > to create and delete your data. You must provide your own dialog to create
  * > your data, but the `ConfirmDeleteDialog` is included in this library so you
  * > don't have to define your own delete confirm dialog.
+ * 
+ * ## Features
+ * 
+ * The `AbstractPagedTableWithToolbar` provides basic handling for creating and
+ * deleting objects rendered in the table. All you have to do is include
+ * implementations for the `openCreateDialog` and `openConfirmDeleteDialog`
+ * methods. These methods should call their respective `Util` functions defined
+ * in this class.
  */
 @Component({
     template: ''
@@ -186,6 +194,16 @@ export class AbstractPagedTableWithToolbarComponent<T extends JsonModel>
 
     openCreateDialog(): void {}
 
+    /**
+     * Opens the given dialog component using the given optional configuration,
+     * and sets up the subscription on the `afterClosed` event for the dialog
+     * to handle creating a new object. The dialog component should return a
+     * data map that can be used to initialize an object when the user clicks
+     * the save button, otherwise nothing should be returned.
+     *
+     * @param dialogComponent The dialog where an object is initialized.
+     * @param dialogConfig Optional configuration for the dialog.
+     */
     openCreateDialogUtil(dialogComponent: ComponentType<unknown>, dialogConfig?: MatDialogConfig): void {
         // open the dialog
         const dialogRef = this.dialog.open(dialogComponent, dialogConfig);
@@ -210,6 +228,15 @@ export class AbstractPagedTableWithToolbarComponent<T extends JsonModel>
 
     openConfirmDeleteDialog(val: T): void {}
 
+    /**
+     * Opens the given dialog component with the given optional configuration,
+     * and sets up the subscription on the `afterClosed` event for the dialog
+     * to handle deleting the given object.
+     *
+     * @param val The object to delete.
+     * @param dialogComponent A confirmation dialog to make sure user wants to delete.
+     * @param dialogConfig Optional configuration for the dialog.
+     */
     openConfirmDeleteDialogUtil(val: T, dialogComponent: ComponentType<unknown>, dialogConfig: MatDialogConfig): void {
         // open dialog
         const dialogRef = this.dialog.open(dialogComponent, dialogConfig);

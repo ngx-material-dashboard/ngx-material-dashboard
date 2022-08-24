@@ -544,7 +544,10 @@ export abstract class JsonDatastore {
     }
 
     /**
-     * Determines the model attributes that are dirty.
+     * Returns a map of attributes that are dirty. NOTE: this is broken right
+     * now; all attributes are returned as a result (otherwise some attributes
+     * are excluded when they shouldn't be). TODO: figure out root cause of
+     * issue in attributesMetadata.
      *
      * @param attributesMetadata Metadata for attributes for model. 
      * @returns The model attributes that are dirty.

@@ -16,13 +16,4 @@ work with the latest version of Angular (currently 13; since I believe the
 latest version that library was compatible with was 9). I've also broken out
 some of the core features into the base-json library to make it more generic
 and provide the capability to handle any type of JSON format (not just the
-json:api spec).
-
-I did have to make some changes to get the library to work with the latest version
-of Angular. Most changes were minor, but the biggest change I had to make was 
-removing hasDirtyAttributes and rollback capabilities due to some issues I ran
-into testing the library. So far this has not been a real issue for me since
-objects are still updated (they just include all attributes when doing so), and I
-haven't really worked on an app that required the ability to rollback attribute
-changes. I do hope to fix these issues at some point, but that is currently a
-low priority item for me.
+json:api spec). See the [base-json](base-json) library for more details.
