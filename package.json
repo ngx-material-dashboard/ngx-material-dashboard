@@ -11,8 +11,7 @@
     "playground": "angular-playground",
     "documentation:start": "ng serve documentation",
     "documentation:api": "typedoc --json docs.json",
-    "documentation:parse-api-json": "npx ts-node ./tools/src/main.ts",
-    "documentation:generate-url-directory-map": "npx ts-node ./tools/generators/documentation/markdown-url-directories/main.ts"
+    "documentation:parse-api-json": "npx ts-node ./tools/src/main.ts"
   },
   "dependencies": {
     "@angular/animations": "~13.3.6",

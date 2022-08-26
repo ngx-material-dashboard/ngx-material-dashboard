@@ -3,14 +3,14 @@
 The following sections detail how to use this library. There are 2 main steps
 you will need to take in order to do this.
 
-1. Define/update your data models to extend the JsonModel defined in this library.
-2. Define a simple datastore that extends the JsonDatastore service defined in
+1. Define/update your data models to extend the `JsonModel` defined in this library.
+2. Define a simple datastore that extends the `JsonDatastore` service defined in
 this library.
 
 ### Data Models
 
 All data models you intend to use with this library should extend the base
-JsonApiModel class defined in this library, and should include model
+`JsonApiModel` class defined in this library, and should include model
 configuration, attribute, and relationship decorators. The following is an
 example of data models that you might define in your angular app.
 

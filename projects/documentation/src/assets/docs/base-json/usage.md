@@ -1,7 +1,7 @@
 ## Usage
 
 The following sections detail how to extend this library in case the JSON
-structure defined in the json or json-api library do not meet your
+structure defined in the `json` or `json-api` library do not meet your
 application needs. There are 2 main steps you will need to take in order to
 extend this library.
 
@@ -11,16 +11,19 @@ extend this library.
 ### Data Models
 
 The first thing you will need to do is create a base data model that extends
-the base-json JsonModel. All the data classes you intend to interface with this
+the base-json `JsonModel`. All the data classes you intend to interface with this
 library should in turn extend the base data model that you create. Your base
 data model should at a minimum define how to initialize your client side data.
-Below is a sample JsonModel, which is taken directly from the json library.
+Below is a sample `JsonModel`, which is taken directly from the `json` library.
 
 ```typescript
 import { JsonModel as BaseJsonModel } from '@ngx-material-dashboard/base-json';
 import { JsonDatastore } from '../services/json-datastore.service';
 
 export class JsonModel extends BaseJsonModel {
+
+    // override id and add Attribute decorator so id included in JSON
+    @Attribute() override id?: string;
 
     constructor(internalDatastore: JsonDatastore, data?: any) {
         super(internalDatastore);
@@ -35,9 +38,9 @@ export class JsonModel extends BaseJsonModel {
 }
 ```
 
-The above JsonModel class simply defines a constructor which takes in a
+The above `JsonModel` class simply defines a constructor which takes in a
 datastore service and optional JSON data object. The datastore provided is just
-passed to the super() call as this is needed in the base-json model class for
+passed to the super() call as this is needed in the `base-json` model class for
 some of the reusable functionality in the library. More details about this
 datastore service (which you will need to create) are included below. The
 optional data parameter should be a map that corresponds with properties
@@ -47,14 +50,14 @@ the JSON are assigned to the properties defined for the model class using
 with properties you define in each of your data models.
 
 > NOTE: the library provides some basic transformation configuration options
-> for properties in your data models using the @Attribute decorator, which
+> for properties in your data models using the `@Attribute` decorator, which
 > means that you can configure how each of your JSON properties are converted
 > and that you should always use the datastore when initializing your data
 > models instead of trying to create them directly (more on that below)
 
 With your base data model defined you can create the remaining data models you
 intend to use with this library. Your application's data models will need to
-include the JsonApiModelConfig on the class itself, and attribute decorators on
+include the `JsonApiModelConfig` on the class itself, and attribute decorators on
 each of the properties you need to include in your JSON. Below is a sample Task
 data model you might define that could correspond with the endpoints listed in
 the Background section above.
@@ -84,7 +87,7 @@ Only properties that have decorators will be included in the JSON serialization/
 
 #### JsonApiModelConfig Decorator
 
-The JsonApiModelConfig decorator provides configuration options the
+The `JsonApiModelConfig` decorator provides configuration options the
 library needs to interface with the server side API. The only required option
 is the `type` option. When this is the only option included it is used to
 define the endpoint used to interface with your server side API. See the [JsonApiModelConfig](/base-json/decorators/json-api-model-config) decorator documentation for more details on the options available.
@@ -92,7 +95,7 @@ define the endpoint used to interface with your server side API. See the [JsonAp
 ### Datastore
 
 The next thing you need to do is create a datastore service that extends the
-JsonDatastore service defined in this library. The datastore service is used
+`JsonDatastore` service defined in this library. The datastore service is used
 for interfacing with your server side API and includes basic implementations
 for CRUD operations. The only thing it does not include are implementations for
 serializing and deserializing your data, as well as extracting model data from
@@ -191,10 +194,10 @@ the `@JsonApiDatastoreConfig` decorator. You can do this one of two ways,
 
 1. Add decorator to datastore you created above and use that directly in your
 app; or
-2. Create a separate JsonDatastore that extends the one you created
+2. Create a separate `JsonDatastore` that extends the one you created
 
 Going with option 1. is perfectly fine, and you are more than welcome to do so.
-I just include option 2 since this is more in line with how the json and json-api
+I just include option 2 since this is more in line with how the `json` and `json-api`
 libraries are structured and used.
 
 See below for an example of adding the `@JsonApiDatastoreConfig` with minimum

@@ -66,4 +66,4 @@ This will run unit tests for all libraries/projects in the workspace without wat
 
 ## Authors
 
-* **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)
+* **[jphillips]** - (https://github.com/jphillips03)

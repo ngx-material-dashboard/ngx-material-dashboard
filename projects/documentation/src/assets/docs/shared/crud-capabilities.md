@@ -1,9 +1,7 @@
 ## CRUD Capabilities
 
 The following section provides details on how to use the library once you have
-completed creating your data models and datastore. Notice that the service
-includes the @Injectable() decorator, which means you can inject it into your
-components like any other injectable service. Once you have an instance of the
+completed creating your data models and datastore. Once you have an instance of the
 datastore service defined in your client you can perform all basic CRUD
 operations. See below for a break down of each operation.
 
@@ -22,8 +20,7 @@ const data: Partial<Task> = { name: 'Create a task', ... };
 const task: Task = this.jsonDatastore.createRecord(Task, data);
 ```
 
-> NOTE: as stated above this will only create a new instance of a model and
-> does not make any HTTP requests.
+> NOTE: this should only create a new instance of a model and should not make any HTTP requests.
 
 ### Save/Update
 

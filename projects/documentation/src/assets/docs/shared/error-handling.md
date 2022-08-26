@@ -2,7 +2,7 @@
 
 Error handling is done in the `subscribe` method of the `Observables` returned
 from CRUD operations. Your API should return a valid JSON error object. The
-[JsonApiError](../base-json/src/lib/interfaces/json-api-error.interface.ts)
+[JsonApiError](/base-json/interfaces/json-api-error)
 interface, which uses the error format defined in the 
 [json:api spec](https://jsonapi.org/format/#error-objects),
 can be used for handling error responses. You may also define your own interface

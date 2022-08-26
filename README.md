@@ -60,4 +60,4 @@ command with the corresponding library name (i.e. `ng test base-json`).
 
 ## Authors
 
-* **[Jonathan Phillips]** - (https://github.com/Jonathan-S-Phillips)
+* **[jphillips]** - (https://github.com/jphillips03)
