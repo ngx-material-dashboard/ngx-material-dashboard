@@ -29,7 +29,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "angular-material-rail-drawer": "^1.0.0",
+    "angular-material-rail-drawer": "~1.0.0",
     "clipboard": "^2.0.11",
     "gumshoejs": "^5.1.2",
     "ngx-markdown": "^13.1.0",
