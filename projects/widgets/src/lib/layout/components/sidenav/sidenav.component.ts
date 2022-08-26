@@ -94,8 +94,11 @@ export class SidenavComponent implements OnDestroy, OnInit {
         this.sidenavItems$ = sidenavItems;
         this.initSidenavItems();
     }
+    /** Angle down icon displayed for expanded sidenav items. */
     faAngleDown: IconDefinition = faAngleDown;
+    /** Angle right icon displayed for collapsed sidenav items. */
     faAngleRight: IconDefinition = faAngleRight;
+    /** Any query params  */
     queryParams: any = {};
     sidenavItems$: SidenavItem[] = [];
     sub: Subscription;
@@ -113,6 +116,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
         this.initSidenavItems();
         const queryParamsSub = this.route.queryParams.subscribe(params => {
             this.queryParams = params;
+            this.initSidenavItems();
         });
         this.sub.add(queryParamsSub);
     }
@@ -187,7 +191,8 @@ export class SidenavComponent implements OnDestroy, OnInit {
                     this.router.url.includes(`/${route}/`) ||
                     this.router.url.endsWith(`/${route}`);
             } else {
-                return this.router.url.slice(0, this.router.url.indexOf('?')) === route && this.compareMaps(this.queryParams, sidenavItem.queryParams);
+                const currentRoute = this.router.url.slice(0, this.router.url.indexOf('?'));
+                return (currentRoute === route || currentRoute === `/${route}`) && this.compareMaps(this.queryParams, sidenavItem.queryParams);
             }
         } else {
             return false;
@@ -268,10 +273,14 @@ export class SidenavComponent implements OnDestroy, OnInit {
         const keys1 = Object.keys(obj1), keys2 = Object.keys(obj2);
         let match = true;
         if(keys1.length !== keys2.length) return false;
-        for(const key of keys1) { 
-            if(obj1[key] !== obj2[key]) {
-                match = false; 
-                  break; 
+        for(const key of keys1) {
+            // handle case obj1[key] is boolean (which are treated as strings
+            // in queryParams); TODO probably handle case for when obj1[key] is
+            // number... any other cases? parameters with spaces?
+            const boolVal = obj1[key].toLowerCase() === 'true';
+            if(obj1[key] !== obj2[key] && boolVal !== obj2[key]) {
+                match = false;
+                break;
             }
         }
         return match;
