@@ -160,7 +160,7 @@ describe('PagedTableWithToolbarComponent', () => {
 
         it('should call onButtonClick event for buttons that don\'t require selection', () => {
             // given: a spy on the buttonClick for the PagedTableWithToolbarComponent
-            const spy = spyOn(component, 'onButtonClick');
+            const spy = spyOn(component, 'onButtonClick').and.callThrough();
 
             // when: the button is clicked
             page.toolbar.clickButton('.marker-action-create');
