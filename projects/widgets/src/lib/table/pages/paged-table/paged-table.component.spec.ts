@@ -74,7 +74,7 @@ describe('PagedTableComponent', () => {
 
     let datastore: JsonDatastore;
 
-    fdescribe('Local data source', () => {
+    describe('Local data source', () => {
         let page: PagedTableElement;
 
         beforeEach(async () => {
