@@ -14,9 +14,9 @@ import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
 import { CheckboxElement, Datastore, DummyObject, PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
-import { TableButton } from '../../interfaces/table-button.interface';
+import { Button } from '../../../shared/interfaces/button.interface';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
 import { PagedTableComponent } from './paged-table.component';
 
 const pageSize = 5;
@@ -24,7 +24,7 @@ const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [collectionButtons]="collectionButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -38,7 +38,7 @@ const testData: DummyObject[] = TEST_DATA;
     `
 }) class TestPagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
+    collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
     data: JsonModel[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
@@ -46,7 +46,7 @@ const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [collectionButtons]="collectionButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -60,7 +60,7 @@ const testData: DummyObject[] = TEST_DATA;
     `
 }) class TestRemotePagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
+    collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
     dataSource: RemoteDataSource<DummyObject>;
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;

@@ -147,6 +147,7 @@ export class PagedTableElement extends PageElement {
 
     /** The HTML element containing the table. */
     private tableElement: HTMLElement;
+    columnHeaders: HTMLElement[];
     /** The component instance containing the table. */
     component: any;
     /** The paginator element included with the table. */
@@ -174,6 +175,7 @@ export class PagedTableElement extends PageElement {
 
         this.component = fixture.componentInstance;
         this.tableElement = this.query<HTMLElement>(selector);
+        this.columnHeaders = Array.from(this.queryAll<HTMLElement>('mat-header-cell', this.tableElement));
         this.paginator = new PaginatorElement(fixture, this.tableElement);
         this.initRowsAndCheckboxes();
     }
@@ -243,6 +245,25 @@ export class PagedTableElement extends PageElement {
             checkboxes.forEach((checkbox: HTMLElement) => {
                 this.rowCheckboxes.push(new CheckboxElement(this.fixture, checkbox));
             })
+        }
+    }
+
+    /**
+     * Clicks the header for the column with the given name. This is meant to
+     * help with simulating a click to sort the column with the given name.
+     * The given name should match the value defined in matColumnDef.
+     *
+     * @param columnName The name of the column defined in matColumnDef.
+     */
+    clickColumnHeader(columnName: string): void {
+        const headerCell = this.columnHeaders.find((it: HTMLElement) =>
+            it.classList.contains(`mat-column-${columnName}`)
+        );
+        if (headerCell == null) {
+            // throw an error if the header column is not found
+            throw new Error(`Expected mat-header-cell with name "${columnName}"`);
+        } else {
+            headerCell.click();
         }
     }
 

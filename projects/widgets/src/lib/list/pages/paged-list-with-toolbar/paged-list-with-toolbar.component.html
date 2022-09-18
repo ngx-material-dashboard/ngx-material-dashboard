@@ -1,0 +1,5 @@
+<ngx-material-dashboard-button-toolbar [buttons]="toolbarButtons" (buttonClick)="onToolbarButtonClick($event)">
+    <ng-content select="[filter]"></ng-content>
+</ngx-material-dashboard-button-toolbar>
+<!-- paged-list -->
+<ng-content select="[list]"></ng-content>

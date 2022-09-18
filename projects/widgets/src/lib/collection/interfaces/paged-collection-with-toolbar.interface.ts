@@ -1,11 +1,9 @@
-import { AbstractControl, FormGroup } from "@angular/forms";
-import { MatSort } from "@angular/material/sort";
-import { JsonDatastore, JsonModel } from "@ngx-material-dashboard/base-json";
-import { filter, Subscription } from "rxjs";
-import { PagedCollectionWithToolbar } from "../../collection/interfaces/paged-collection-with-toolbar.interface";
-import { RemoteDataSource } from "../../services/remote-data-source.service";
-import { TableButton } from "./table-button.interface";
-import { TableToolbarButton } from "./table-toolbar-button.interface";
+import { FormGroup } from '@angular/forms';
+import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
+import { Subscription } from 'rxjs';
+import { RemoteDataSource } from '../../services/remote-data-source.service';
+import { Button } from '../../shared/interfaces/button.interface';
+import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface';
 
 /**
  * Defines all properties and methods necessary to utilize built in capabilities
@@ -110,8 +108,40 @@ import { TableToolbarButton } from "./table-toolbar-button.interface";
  * }
  * ```
  */
-export interface PagedTableWithToolbar<T extends JsonModel> extends PagedCollectionWithToolbar<T> {
+export interface PagedCollectionWithToolbar<T extends JsonModel> {
 
-    /** The list of columns to display in table. */
-    displayedColumns: string[];
+    /** The form for the search filter in toolbar. */
+    form: FormGroup;
+    /** The source for collection data. */
+    dataSource: RemoteDataSource<T>;
+    /** Service for interacting with server API. */
+    jsonApiService: JsonDatastore;
+    /** Shared subscription that is meant to hold all subscriptions in component. */
+    sub: Subscription;
+    /** The list of buttons to display with each item in collection. */
+    collectionButtons: Button[];
+    /** The list of buttons to display in the toolbar above table. */
+    toolbarButtons: ToolbarButton[];
+
+    /**
+     * Lifecycle hook for when component is destroyed.
+     */
+    ngOnDestroy: () => void;
+
+    /**
+     * Lifecycle hook for when component is initialized.
+     */
+    ngOnInit: () => void;
+
+    /**
+     * Open dialog for creating a new object.
+     */
+    openCreateDialog: () => void;
+
+    /**
+     * Open dialog to confirm if user wants to delete object.
+     * 
+     * @param val The object to delete.
+     */
+    openConfirmDeleteDialog: (val: T) => void;
 }

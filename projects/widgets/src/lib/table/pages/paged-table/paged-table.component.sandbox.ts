@@ -11,11 +11,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
+
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
 import { PagedTableComponent } from './paged-table.component';
 
 export default sandboxOf(PagedTableComponent, {
-    declarations: [ PagedTableComponent ],
     imports: [
         HttpClientTestingModule,
         MatButtonModule,

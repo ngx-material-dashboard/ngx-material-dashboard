@@ -19,10 +19,10 @@ import { FilterDropDownComponent } from './components/filter-drop-down/filter-dr
 import { TableToolbarComponent } from './components/table-toolbar/table-toolbar.component';
 import { PagedTableComponent } from './pages/paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
-import { AbstractPagedTableWithToolbarComponent } from './pages/abstract-paged-table-with-toolbar/abstract-paged-table-with-toolbar.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
-    declarations: [PagedTableComponent, TableToolbarComponent, PagedTableWithToolbarComponent, FilterDropDownComponent, AbstractPagedTableWithToolbarComponent],
+    declarations: [PagedTableComponent, TableToolbarComponent, PagedTableWithToolbarComponent, FilterDropDownComponent],
     exports: [FilterDropDownComponent, PagedTableComponent, PagedTableWithToolbarComponent],
     imports: [
         CommonModule,
@@ -38,6 +38,7 @@ import { AbstractPagedTableWithToolbarComponent } from './pages/abstract-paged-t
         MatListModule,
         MatPaginatorModule,
         MatMenuModule,
+        MatSortModule,
         MatTableModule,
         MatToolbarModule,
         FormModule

@@ -1,3 +1,9 @@
+export * from './collection/interfaces/paged-collection-with-toolbar.interface';
+export * from './collection/interfaces/sort-order.interface';
+export * from './collection/pages/abstract-paged-collection/abstract-paged-collection.component';
+export * from './collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
+export * from './collection/pages/sorter/sorter.component';
+
 export * from './dialog/components/confirm-delete-dialog/confirm-delete-dialog.component';
 export * from './dialog/interfaces/dialog-data.interface';
 export * from './dialog/dialog.module';
@@ -23,17 +29,20 @@ export * from './layout/layout.module';
 export * from './list/pages/paged-list/paged-list.component';
 export * from './list/list.module';
 
-export * from './paginator/pages/paged/abstract-paged.component';
+export * from './shared/interfaces/button.interface';
 
 export * from './services/remote-data-source.service';
 
 export * from './table/components/filter-drop-down/filter-drop-down.component';
-export * from './table/interfaces/button-click.interface';
 export * from './table/interfaces/paged-table-with-toolbar.interface';
 export * from './table/interfaces/table-button.interface';
 export * from './table/interfaces/table-toolbar-button.interface';
-export * from './table/pages/abstract-paged-table-with-toolbar/abstract-paged-table-with-toolbar.component';
 export * from './table/pages/paged-table/paged-table.component';
 export * from './table/pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
 export * from './table/shared/services/selection.service';
 export * from './table/table.module';
+
+export * from './toolbar/interfaces/button-click.interface';
+export * from './toolbar/interfaces/toolbar-button.interface';
+export * from './toolbar/pages/button-toolbar/button-toolbar.component';
+export * from './toolbar/shared/toolbar-buttons';

@@ -1,0 +1,40 @@
+<div fxLayout="row">
+    <div *ngFor="let button of buttons">
+        <button *ngIf="button.click; else hyperlink"
+            class="mat-button marker-action-{{button.click}}"
+            (click)="emitButtonClick(button.click)"
+            [disabled]="button.disabled"
+            mat-button>
+            <div *ngIf="button.icon && !button.stackedIcon; else stackedIcon">
+                <fa-icon [icon]="button.icon"></fa-icon>
+                <span class="pl-2">{{button.text}}</span>
+            </div>
+            <ng-template #stackedIcon>
+                <fa-layers *ngIf="button.icon && button.stackedIcon" [fixedWidth]="true">
+                    <fa-icon [icon]="button.icon"></fa-icon>
+                    <fa-icon [icon]="button.stackedIcon" [styles]="button.stackedIconStyles"></fa-icon>
+                </fa-layers>
+                <span class="pl-2">{{button.text}}</span>
+            </ng-template>
+        </button>
+        <ng-template #hyperlink>
+            <a class="mat-button marker-action-{{button.click}}"
+                [attr.disabled]="button.disabled"
+                [href]="button.href"
+                target="_blank"
+                mat-button>
+                <div *ngIf="button.icon && !button.stackedIcon; else stackedIcon">
+                    <fa-icon [icon]="button.icon"></fa-icon>
+                    <span class="pl-2">{{button.text}}</span>
+                </div>
+                <ng-template #stackedIcon>
+                    <fa-layers *ngIf="button.icon && button.stackedIcon" [fixedWidth]="true">
+                        <fa-icon [icon]="button.icon"></fa-icon>
+                        <fa-icon [icon]="button.stackedIcon" [styles]="button.stackedIconStyles"></fa-icon>
+                    </fa-layers>
+                    <span class="pl-2">{{button.text}}</span>
+                </ng-template>
+            </a>
+        </ng-template>
+    </div>
+</div>

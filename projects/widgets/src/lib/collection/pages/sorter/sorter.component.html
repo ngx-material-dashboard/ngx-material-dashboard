@@ -1,0 +1,12 @@
+<mat-form-field>
+    <mat-label>Sort By</mat-label>
+    <mat-select appearance="standard" (selectionChange)="onSelectionChange($event)">
+        <mat-select-trigger fxLayout="row" fxLayoutGap="5px">
+            <span>{{selectedOption}}</span>
+            <fa-icon [icon]="faSort"></fa-icon>
+        </mat-select-trigger>
+        <mat-option *ngFor="let option of selectOptions" [value]="option">
+            <span>{{option.field}} - {{option.order}}</span>
+        </mat-option>
+    </mat-select>
+</mat-form-field>

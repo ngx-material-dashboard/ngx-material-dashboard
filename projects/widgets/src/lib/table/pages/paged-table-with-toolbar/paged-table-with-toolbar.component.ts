@@ -4,14 +4,15 @@ import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
-import { ButtonClick } from '../../interfaces/button-click.interface';
 import { SearchFilterMap } from '../../interfaces/search-filter-map.interface';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { SelectionService } from '../../shared/services/selection.service';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 
 /**
  * A wrapper component for the `PagedTable` that adds a toolbar above it with
@@ -213,7 +214,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
     @ContentChild(PagedTableComponent) table!: PagedTableComponent<T>;
     /** The buttons to render in the toolbar. */
     @Input() form!: FormGroup;
-    @Input() toolbarButtons: TableToolbarButton[] = [];
+    @Input() toolbarButtons: ToolbarButton[] = [];
     /** The event to emit when button is clicked in toolbar or table. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the TableToolbarComponent in the template. */

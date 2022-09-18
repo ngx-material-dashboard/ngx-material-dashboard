@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
+import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
 /**
  * The `PagedGridComponent` renders items in a grid with built in paging
@@ -42,4 +42,4 @@ import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-
     styleUrls: ['./paged-grid.component.css']
 })
 export class PagedGridComponent<T extends JsonModel> 
-extends AbstractPagedComponent<T>{}
+extends AbstractPagedCollectionComponent<T>{}

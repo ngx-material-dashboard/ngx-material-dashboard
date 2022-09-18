@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { faSearch, faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { ButtonClick } from '../../interfaces/button-click.interface';
+import { Subscription } from 'rxjs';
+
+import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 /**
  * The TableToolbarComponent is a toolbar that is rendered above a PagedTableComponent.

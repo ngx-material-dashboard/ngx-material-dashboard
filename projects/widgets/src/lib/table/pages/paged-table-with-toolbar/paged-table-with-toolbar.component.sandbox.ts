@@ -17,7 +17,7 @@ import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testi
 import { sandboxOf } from 'angular-playground';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/table-buttons';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../shared/table-toolbar-buttons';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
@@ -28,8 +28,7 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
     declarations: [
         FilterDropDownComponent,
         TableToolbarComponent,
-        PagedTableComponent,
-        PagedTableWithToolbarComponent
+        PagedTableComponent
     ],
     imports: [
         HttpClientTestingModule,

@@ -1,14 +1,15 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
-import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
+import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { ButtonClick } from '../../interfaces/button-click.interface';
+import { Button } from '../../../shared/interfaces/button.interface';
+import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { TableButton } from '../../interfaces/table-button.interface';
 import { SelectionService } from '../../shared/services/selection.service';
 
@@ -221,43 +222,21 @@ import { SelectionService } from '../../shared/services/selection.service';
     templateUrl: './paged-table.component.html',
     styleUrls: ['./paged-table.component.scss']
 })
-export class PagedTableComponent<T extends JsonModel> extends AbstractPagedComponent<T> implements AfterContentInit, AfterViewInit, OnDestroy {
+export class PagedTableComponent<T extends JsonModel>
+    extends AbstractPagedCollectionComponent<T>
+    implements AfterContentInit, AfterViewInit, OnDestroy {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
     /** The buttons to render in each row of the table. */
-    @Input() buttons: TableButton[] = [];
+    @Input() collectionButtons: Button[] = [];
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
-    /** Any values that should be selected when table initially renders. */
-    @Input() initiallySelectedValues: T[] = [];
-    /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */
-    @Input() set multiple(multiple: boolean) {
-        this.multiple$ = multiple;
-        this.selection = new SelectionModel<T>(multiple, this.initiallySelectedValues);
-        this.selectionService.selectionSubject.next(this.selection);
-    }
     /** The event emitted when a button in one of the rows is clicked. */
     @Output() tableButtonClick: EventEmitter<ButtonClick>;
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
-    /** Boolean value indicating whether multiple rows can be selected. */
-    multiple$ = true;
-    /** The model to track items selected in the table. */
-    selection: SelectionModel<T>;
-    /** A reference to the sort defined in parent template. */
-    sort$!: MatSort;
-
-    /**
-     * Returns the total number of items in the dataSource.
-     */
-    get length(): number {
-        if (this.dataSource$ instanceof RemoteDataSource) {
-            return this.dataSource$.total;
-        } else {
-            return this.dataSource$.data.length;
-        }
-    }
+    override sort$: MatSort;
 
     set sort(sort: MatSort) {
         this.sort$ = sort;
@@ -265,15 +244,19 @@ export class PagedTableComponent<T extends JsonModel> extends AbstractPagedCompo
         this.initSortSubs();
     }
 
-    constructor(private selectionService: SelectionService<T>) {
-        super();
-        if (!this.dataSource$) {
-            this.dataSource$ = new MatTableDataSource();
-            this.initDataSource([]);
-        }
-        this.selection = new SelectionModel<T>(this.multiple$, []);
-        this.selectionService.selectionSubject.next(this.selection);
-        this.sub = new Subscription();
+    /**
+     * Creates a new PagedTableComponent. Note that the matSort directive is
+     * included in the constructor per the answer provided at the stackoverflow
+     * question here: https://stackoverflow.com/a/58548837. Apparently there is
+     * an issue accessing directives included directly in components and the
+     * only way to access them is with DI.
+     * 
+     * @param matSort DI directive needed for sorting columns.
+     * @param selectionService Service used to handle when user selects rows.
+     */
+    constructor(matSort: MatSort, selectionService: SelectionService<T>) {
+        super(selectionService);
+        this.sort$ = matSort;
         this.tableButtonClick = new EventEmitter<ButtonClick>();
     }
 
@@ -286,24 +269,7 @@ export class PagedTableComponent<T extends JsonModel> extends AbstractPagedCompo
         }
     }
 
-    /**
-     * After the <ng-content> has been initialized, the column definitions defined
-     * in the HTML where this component is referenced are available. Once they are
-     * available we need to add the definitions to the table manually so the MatTable
-     * is aware of all additional columns included.
-     */
-    ngAfterContentInit(): void {
-        this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
-    }
-
-    ngAfterViewInit(): void {
-        if (this.dataSource$ instanceof RemoteDataSource) {
-            this.initPageSub();
-            this.initSortSubs();
-        }
-    }
-
-    initSortSubs(): void {
+    override initSortSubs(): void {
         if (this.sort$) {
             const sortSub = this.sort$.sortChange.subscribe((sort: Sort) => {
                 if (this.dataSource$ instanceof RemoteDataSource) {
@@ -317,67 +283,25 @@ export class PagedTableComponent<T extends JsonModel> extends AbstractPagedCompo
         }
     }
 
-    ngOnDestroy(): void {
-        this.sub.unsubscribe();
+    /**
+     * After the <ng-content> has been initialized, the column definitions defined
+     * in the HTML where this component is referenced are available. Once they are
+     * available we need to add the definitions to the table manually so the MatTable
+     * is aware of all additional columns included.
+     */
+    ngAfterContentInit(): void {
+        this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
+        this.dataSource$.sort = this.sort$;
+    }
+
+    ngAfterViewInit(): void {
+        if (this.dataSource$ instanceof RemoteDataSource) {
+            this.initPageSub();
+            this.initSortSubs();
+        }
     }
 
     onActionButtonClick(buttonClick: string, row: JsonModel): void {
         this.tableButtonClick.emit({ click: buttonClick, row });
-    }
-
-    /**
-     * Returns true if all visible rows in the table are selected; otherwise returns false.
-     *
-     * @returns true if all visible rows in the table are selected.
-     */
-    isAllSelected(): boolean {
-        if (this.dataSource$.data.length === 0) {
-            return false;
-        } else {
-            return this.selection.selected.length === this.dataSource$.data.length;
-        }
-    }
-
-    /**
-     * Handler for checkbox in table header. Clears all selections if all visible rows in the table
-     * are selected; otherwise selects all visible rows in the table.
-     */
-    masterToggle(): void {
-        if (this.isAllSelected() || !this.multiple$) {
-            // clear all selections and disable ToolbarButtons
-            this.selection.clear();
-            this.selectionService.selectionChangeSubject.next(true);
-        } else {
-            // select all rows in the table and enable ToolbarButtons
-            this.dataSource$.data.forEach((row: T) => this.selection.select(row));
-            if (this.dataSource$.data.length > 0) {
-                // only enable ToolbarButtons if there is data in table
-                this.selectionService.selectionChangeSubject.next(false);
-            }
-        }
-
-        // update the selection in the selectionService
-        this.selectionService.selectionSubject.next(this.selection);
-    }
-
-    /**
-     * Handler for checkbox in table row. Toggles the selection for the given row and updates the
-     * ToolbarButtons accordingly.
-     *
-     * @param row The row that was (de)selected in the table.
-     */
-    onRowSelected(row: T): void {
-        if (!this.multiple$ && this.selection.selected.length > 0) {
-            // if table does not allow multiple selections and there are any
-            // existing rows selected, then clear selection before making new
-            // one
-            this.selection.clear();
-        }
-
-        this.selection.toggle(row);
-        // disable the buttons if no rows are selected; otherwise enable them
-        this.selectionService.selectionChangeSubject.next(this.selection.selected.length === 0);
-        // update the selection in the selectionService
-        this.selectionService.selectionSubject.next(this.selection);
     }
 }

@@ -4,7 +4,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
-import { AbstractPagedComponent } from '../../../paginator/pages/paged/abstract-paged.component';
+import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 import { GridComponent } from '../../components/grid/grid.component';
 
 import { PagedGridComponent } from './paged-grid.component';
@@ -16,7 +16,7 @@ describe('PagedGridComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AbstractPagedComponent,
+                AbstractPagedCollectionComponent,
                 GridComponent,
                 PagedGridComponent,
             ],

@@ -25,9 +25,9 @@ import { RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-sour
 import { PagedTableWithToolbar } from '../../interfaces/paged-table-with-toolbar.interface';
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
-import { AbstractPagedTableWithToolbarComponent } from '../abstract-paged-table-with-toolbar/abstract-paged-table-with-toolbar.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
+import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -40,7 +40,7 @@ const testData: DummyObject[] = [
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-table matSort [buttons]="tableButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table class="marker-paged-table">
+        <ngx-material-dashboard-paged-table matSort [collectionButtons]="collectionButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table class="marker-paged-table">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -53,8 +53,8 @@ const testData: DummyObject[] = [
         </ngx-material-dashboard-paged-table>
     </ngx-material-dashboard-paged-table-with-toolbar>
     `
-}) class TestPagedTableWithToolbarComponent 
-    extends AbstractPagedTableWithToolbarComponent<DummyObject>
+}) class TestPagedTableWithToolbarComponent
+    extends AbstractPagedCollectionWithToolbarComponent<DummyObject>
     implements PagedTableWithToolbar<DummyObject> {
 
     override displayedColumns: string[] = ['select', 'id', 'actions'];
@@ -94,7 +94,7 @@ describe('PagedTableWithToolbarComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 FilterDropDownComponent,
-                AbstractPagedTableWithToolbarComponent,
+                AbstractPagedCollectionWithToolbarComponent,
                 PagedTableComponent,
                 PagedTableWithToolbarComponent,
                 TableToolbarComponent,
@@ -189,6 +189,18 @@ describe('PagedTableWithToolbarComponent', () => {
         //     // TODO figure out why the below doesn't work with defaultNumRows set above
         //     // expect(page.rows.length).toBeLessThan(defaultNumRows);
         // });
+    });
+
+    describe('Sorting Tests', () => {
+
+        it('should call load method in remote data source when column sorted', () => {
+            // given: a spy on the remote data source
+            const spy = spyOn(component.dataSource, 'load');
+
+            page.table.clickColumnHeader('id');
+
+            expect(spy).toHaveBeenCalledWith({}, 'id', 'asc', 0, 20, '', new HttpHeaders());
+        });
     });
 
     describe('TableButton Tests', () => {

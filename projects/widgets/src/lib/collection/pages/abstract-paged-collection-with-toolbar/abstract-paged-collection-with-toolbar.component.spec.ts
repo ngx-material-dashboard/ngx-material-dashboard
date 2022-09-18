@@ -8,15 +8,15 @@ import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-m
 import { MockModule } from 'ng-mocks';
 import { ToastrModule } from 'ngx-toastr';
 
-import { AbstractPagedTableWithToolbarComponent } from './abstract-paged-table-with-toolbar.component';
+import { AbstractPagedCollectionWithToolbarComponent } from './abstract-paged-collection-with-toolbar.component';
 
-describe('AbstractPagedTableWithToolbarComponent', () => {
-    let component: AbstractPagedTableWithToolbarComponent<JsonModel>;
-    let fixture: ComponentFixture<AbstractPagedTableWithToolbarComponent<JsonModel>>;
+describe('AbstractPagedCollectionWithToolbarComponent', () => {
+    let component: AbstractPagedCollectionWithToolbarComponent<JsonModel>;
+    let fixture: ComponentFixture<AbstractPagedCollectionWithToolbarComponent<JsonModel>>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ AbstractPagedTableWithToolbarComponent ],
+            declarations: [ AbstractPagedCollectionWithToolbarComponent ],
             imports: [
                 HttpClientTestingModule,
                 ReactiveFormsModule,
@@ -31,7 +31,7 @@ describe('AbstractPagedTableWithToolbarComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AbstractPagedTableWithToolbarComponent);
+        fixture = TestBed.createComponent(AbstractPagedCollectionWithToolbarComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
