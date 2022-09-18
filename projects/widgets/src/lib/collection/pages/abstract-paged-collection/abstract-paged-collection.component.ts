@@ -94,6 +94,11 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     implements OnDestroy {
 
     /**
+     * A reference to the model template for each element in the collection.
+     * This is mainly used for any collection other than a table.
+     */
+    @ContentChild('model', { static: false }) template!: TemplateRef<any>;
+    /**
      * Setter for paged data. This re-initializes the dataSource everytime data changes.
      * TODO: only re-initialize when necessary; just update data otherwise
      */
@@ -112,7 +117,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     @Input() initiallySelectedValues: T[] = [];
     @Input() modelType: string = 'data';
     /** The max number of pages to display in the paginator. Defaults to 10 (does not include 'First', 'Prev', 'Next', 'Last'). */
-    @Input() maxPages = 10;
+    @Input() maxPages: number = 10;
     /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */
     @Input() set multiple(multiple: boolean) {
         this.multiple$ = multiple;
@@ -120,21 +125,20 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         this.selectionService.selectionSubject.next(this.selection);
     }
     /** Number of items to display on a page. Defaults to 25. */
-    @Input() pageSize = 25;
+    @Input() pageSize: number = 25;
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+    /** A reference to the sorter in the template. */
     @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;    
-    @ViewChild(SorterComponent) sorter?: SorterComponent;
+    //@ViewChild(SorterComponent) sorter?: SorterComponent;
     /** The source for the table data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /** Boolean value indicating whether multiple rows can be selected. */
-    multiple$ = true;
+    multiple$: boolean = true;
     /** The model to track items selected in the table. */
     selection: SelectionModel<T>;
     /** All disposable resources for component. */
     sub: Subscription;
-
-    @ContentChild('model', { static: false }) template!: TemplateRef<any>;
 
     /**
      * Returns the total number of items in the dataSource.
@@ -157,10 +161,21 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         this.sub = new Subscription();
     }
 
+    /**
+     * Lifecycle method automatically called by angular when the component is
+     * destroyed. Used to unsubscribe from all subscriptions created in
+     * component.
+     */
     ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 
+    /**
+     * Initializes the data source bsaed on the type of data/source given, and
+     * any additional properties required (i.e. paging/sorting).
+     * 
+     * @param data Either an array (local data) or a RemoteDataSource.
+     */
     initDataSource(data: T[] | RemoteDataSource<T>): void {
         if (data instanceof RemoteDataSource) {
             this.dataSource$ = data;
@@ -171,6 +186,10 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         }
     }
 
+    /**
+     * Initializes subscription for when user changes page or page size, meant
+     * for handling remote data.
+     */
     initPageSub(): void {
         if (this.paginator) {
             const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
@@ -185,6 +204,10 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         }
     }
 
+    /**
+     * Initializes subscription for when user changes the sort order for data
+     * in the collection.
+     */
     initSortSubs(): void {
         if (this.sort$ && this.sort$ instanceof SorterComponent) {
             const sub = this.sort$.sort.subscribe((sortOrder: SortOrder) => {

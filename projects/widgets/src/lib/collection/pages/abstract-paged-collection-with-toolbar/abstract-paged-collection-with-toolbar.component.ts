@@ -11,17 +11,138 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { DEFAULT_TOOLBAR_BUTTONS } from '../../../toolbar/shared/toolbar-buttons';
 
+/**
+ * The `AbstractPagedCollectionWithToolbar` is an "abstract" base component
+ * cfor all components that utilize the `PagedCollectionWithToolbar`. This
+ * component provides some shared methods that are useful for these types of
+ * components.
+ * 
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```html
+ * <ngx-material-dashboard-paged-list-with-toolbar
+ *      [form]="filterForm"
+ *      [toolbarButtons]="toolbarButtons"
+ *      (buttonClick)="onButtonClick($event)">
+ *     <ngx-material-dashboard-filter-drop-down filter>
+ *         <form [formGroup]="filterForm" fxLayout="column">
+ *             <mat-form-field fxFlex="noshrink">
+ *                 <input matInput type="text" formControlName="name">
+ *             </mat-form-field>
+ *         </form>
+ *     </ngx-material-dashboard-filter-drop-down>
+ *     <ngx-material-dashboard-paged-list matSort 
+ *          [data]="data"
+ *          [displayedColumns]="displayedColumns"
+ *          [collectionButtons]="collectionButtons" list>
+ *         <ng-container matColumnDef="id">
+ *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+ *             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+ *         </ng-container>
+ *         <ng-container matColumnDef="name">
+ *             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+ *             <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+ *         </ng-container>
+ *         <ng-container matColumnDef="noData">
+ *             <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+ *                 No data to display
+ *             </mat-footer-cell>
+ *         </ng-container>
+ *     </ngx-material-dashboard-paged-list>
+ * </ngx-material-dashboard-paged-list-with-toolbar>
+ * ```
+ * ```typescript
+ * import {Component} from '@angular/core';
+ * import {FormBuilder} from '@angular/forms';
+ * import {MatDialog} from '@angular/material/dialog';
+ * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
+ * import {ConfirmDeleteDialogComponent, PagedTableWithToolbar, AbstractPagedTableWithToolbarComponent} from '@ngx-material-dashboard/widgets';
+ * import {ToastrService} from 'ngx-toastr';
+ * import {Model} from '@shared/models/model';
+ * import {JsonApiService} from '@shared/services/json-api.service';
+ * import {CreateModelDialogComponent} from './create-model-dialog/create-model-dialog.component';
+
+ * @Component({
+ *     selector: 'abstract-paged-list-with-toolbar-usage-example',
+ *     templateUrl: './abstract-paged-list-with-toolbar-usage-example.html'
+ * })
+ * export class AbstractPagedListWithToolbarUsageExample
+ *     extends AbstractPagedCollectionWithToolbarComponent<Model> {
+ *
+ *     override jsonApiService: JsonApiService;
+ *     filterForm!: FormGroup;
+ *
+ *     constructor(
+ *         dialog: MatDialog,
+ *         formBuilder: FormBuilder,
+ *         jsonApiService: JsonApiService,
+ *         toastrService: ToastrService
+ *     ) {
+ *         super(Model, dialog, formBuilder, jsonApiService, toastrService);
+ *         this.jsonApiService = jsonApiService;
+ *     }
+ *
+ *     override ngOnInit(): void {
+ *         // load initial data
+ *         this.dataSource.load({}, 'name', 'asc', 0, 25);
+ *         super.ngOnInit();
+ * 
+ *         // create form for filter drop down and add as control to form group
+ *         // defined in super class of 'searchFilter'
+ *         this.filterForm = this.formBuilder.group({
+ *             name: [null, [Validators.required]]
+ *         });
+ *         this.form.addControl('searchFilter', filterForm);
+ *     }
+ *
+ *     override openCreateDialog(): void {
+ *         super.openCreateDialogUtil(CreateMealDialogComponent);
+ *     }
+ *
+ *     override openConfirmDeleteDialog(val: Model): void {
+ *         const dialogConfig = {
+ *             data: {
+ *                 title: 'Delete Model?',
+ *                 content: `Are you sure you want to delete the selected model ${val.name}`
+ *             }
+ *         };
+ *
+ *         super.openConfirmDeleteDialogUtil(val, ConfirmDeleteDialogComponent, dialogConfig);
+ *     }
+ * }
+ * ```
+ * 
+ * > NOTE: The abstract component implementation assumes you are using a dialog
+ * > to create and delete your data. You must provide your own dialog to create
+ * > your data, but the `ConfirmDeleteDialog` is included in this library so you
+ * > don't have to define your own delete confirm dialog.
+ * 
+ * ## Features
+ * 
+ * The `AbstractPagedTableWithToolbar` provides basic handling for creating and
+ * deleting objects rendered in the table. All you have to do is include
+ * implementations for the `openCreateDialog` and `openConfirmDeleteDialog`
+ * methods. These methods should call their respective `Util` functions defined
+ * in this class.
+ */
 @Component({
   template: ''
 })
-export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel> implements OnInit {
+export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
+    implements OnInit {
 
+    /** The parent form for the filter rendered in the toolbar drop down. */
     form!: FormGroup;
+    /** The data source for the data to render in the collection. */
     dataSource: RemoteDataSource<T>;
-    displayedColumns!: string[];
+    //displayedColumns!: string[];
+    /** The service used for CRUD operations for data in collection. */
     jsonApiService: JsonDatastore;
+    /** The main subscription for managing all subscriptions in component. */
     sub: Subscription;
+    /** The buttons to render with each item in the collection. */
     collectionButtons: Button[] = [];
+    /** The buttons to render in the toolbar above the collection. */
     toolbarButtons: ToolbarButton[] = [];
 
     constructor(
@@ -36,11 +157,20 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel> im
         this.sub = new Subscription();
     }
 
+    /**
+     * Lifecycle method automatically called by angular when the component is
+     * destroyed. Used to unsubscribe from all subscriptions created in
+     * component.
+     */
     ngOnDestroy(): void {
         // unsubscribe from all subscriptions in component
         this.sub.unsubscribe();
     }
 
+    /**
+     * Lifecycle method automatically called by angular when the component is
+     * initialized.
+     */
     ngOnInit(): void {
         // load initial data; you have to do something in extending component
         // everything can't be automatic... plus I don't want to make any
@@ -61,6 +191,11 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel> im
         }
     }
 
+    /**
+     * Handler for when user clicks a button in collection or in the toolbar.
+     *
+     * @param buttonClick The event containing details of the button clicked.
+     */
     onButtonClick(buttonClick: ButtonClick): void {
         if (buttonClick.click === 'create') {
             this.openCreateDialog();
@@ -69,6 +204,12 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel> im
         }
     }
 
+    /**
+     * Handler for when the user clicks the button to add a new item to the
+     * collection. This must implemented by any component extending this one,
+     * and should just call the openCreateDialogUtil method passing in the
+     * component used to create an element in the collection.
+     */
     openCreateDialog(): void {}
 
     /**
@@ -103,6 +244,16 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel> im
         this.sub.add(afterCloseSub);
     }
 
+    /**
+     * Handler for when the user clicks the delete button related to an element
+     * in the collection or the toolbar above the collection. This must be
+     * implemented by any component extending this one and should just call the
+     * openConfirmDeleteDialogUtil with the confirmation dialog for deleting
+     * elements in the collection along with any configuration needed for the
+     * dialog.
+     *
+     * @param val The element in the collection to be deleted.
+     */
     openConfirmDeleteDialog(val: T): void {}
 
     /**

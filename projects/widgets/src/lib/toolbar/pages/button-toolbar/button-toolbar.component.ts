@@ -3,6 +3,14 @@ import { Subscription } from 'rxjs';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
 
+/**
+ * A wrapper for `MatToolbar` to control how buttons are rendered in the
+ * toolbar. Basically just left or right alignment in the toolbar. It also
+ * includes the ability to render custom content in the middle of the toolbar,
+ * for things like the search filter drop down meant to be rendered above
+ * paged collections in any component that utilizes the 
+ * `PagedCollectionWithToolbar`.
+ */
 @Component({
   selector: 'ngx-material-dashboard-button-toolbar',
   templateUrl: './button-toolbar.component.html',
@@ -27,6 +35,10 @@ export class ButtonToolbarComponent implements OnInit {
         this.sub = new Subscription();
     }
 
+    /**
+     * Lifecycle method automatically called by angular when the component is
+     * initialized.
+     */
     ngOnInit(): void {
     }
 
