@@ -34,9 +34,9 @@ export class TypeModel {
             // sort types by displayType value, keeping "undefined" displayType
             // at the end
             this.types = this.types.sort((a: TypeModel, b: TypeModel) => {
-                if (a.displayType === 'undefined') {
+                if (a.displayType === 'undefined' || a.displayType === undefined) {
                     return 1;
-                } else if (b.displayType === 'undefined') {
+                } else if (b.displayType === 'undefined' || b.displayType === undefined) {
                     return -1;
                 } else {
                     return a.displayType.localeCompare(b.displayType);
