@@ -57,7 +57,7 @@ const testData: DummyObject[] = [
     extends AbstractPagedCollectionWithToolbarComponent<DummyObject>
     implements PagedTableWithToolbar<DummyObject> {
 
-    override displayedColumns: string[] = ['select', 'id', 'actions'];
+    displayedColumns: string[] = ['select', 'id', 'actions'];
     override jsonApiService: JsonDatastore;
 
     constructor(
