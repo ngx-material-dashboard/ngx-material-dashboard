@@ -1,14 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/table';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { SortOrder } from '../../../collection/interfaces/sort-order.interface';
 import { SorterComponent } from '../../../collection/pages/sorter/sorter.component';
-import { TableButton } from '../../../table/interfaces/table-button.interface';
 import { SelectionService } from '../../../table/shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 
@@ -61,8 +58,6 @@ export class PagedListComponent<T extends JsonModel>
     //@Input() displayedColumns: string[] = ['select', 'actions'];
     /** The event emitted when a button in one of the rows is clicked. */
     @Output() tableButtonClick: EventEmitter<ButtonClick>;
-    /** A reference to the table in the template. */
-    @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
     
     set sort(sort: SorterComponent) {
         this.sort$ = sort;

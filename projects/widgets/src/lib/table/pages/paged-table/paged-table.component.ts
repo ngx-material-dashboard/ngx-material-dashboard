@@ -10,7 +10,6 @@ import { AbstractPagedCollectionComponent } from '../../../collection/pages/abst
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
-import { TableButton } from '../../interfaces/table-button.interface';
 import { SelectionService } from '../../shared/services/selection.service';
 
 /**
@@ -78,7 +77,7 @@ import { SelectionService } from '../../shared/services/selection.service';
  * ```html
  * <ngx-material-dashboard-paged-table 
  *     matSort 
- *     [buttons]="tableButtons"
+ *     [buttons]="collectionButtons"
  *     [dataSource]="dataSource"
  *     [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="id">

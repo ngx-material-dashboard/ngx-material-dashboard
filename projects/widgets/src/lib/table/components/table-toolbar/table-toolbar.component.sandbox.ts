@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { sandboxOf } from 'angular-playground';
-import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../shared/table-toolbar-buttons';
+import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { FilterDropDownComponent } from '../filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from './table-toolbar.component';
 

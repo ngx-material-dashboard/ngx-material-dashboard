@@ -8,7 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MockModule } from 'ng-mocks';
 
 import { Page } from '../../../../../test/helpers/page.helper';
-import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../shared/table-toolbar-buttons';
+import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { TableToolbarComponent } from './table-toolbar.component';
 
 describe('TableToolbarComponent', () => {

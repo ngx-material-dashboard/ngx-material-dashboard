@@ -1,11 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 
 /**
  * Tracks and emits changes to `SelectionModel`. Also provides convenience
- * method for enabling/disabling `TableToolbarButton`s. Currently used by the
+ * method for enabling/disabling `ToolbarButton`s. Currently used by the
  * `PagedTable` to handle when the user selects one or more rows in the table
  * or clicks on the select all checkbox. It can be used anywhere select boxes
  * are used, but you will need to initialize the service and handle selection
@@ -87,13 +87,13 @@ export class SelectionService<T> {
      *
      * @param disabled Set to true if the ToolbarButtons should be disabled.
      */
-    toggleButtons(disabled: boolean, buttons: TableToolbarButton[]): void {
-        buttons.forEach((button: TableToolbarButton) => {
+    toggleButtons(disabled: boolean, buttons: ToolbarButton[]): void {
+        buttons.forEach((button: ToolbarButton) => {
             this.toggleButton(button, disabled);
         });
     }
 
-    private toggleButton(button: TableToolbarButton, disabled: boolean): void {
+    private toggleButton(button: ToolbarButton, disabled: boolean): void {
         if (!disabled && this.selectionValue.selected.length > 1 && button.multiSelectDisabled) {
             // disable the ToolbarButton if more than one element is selected and the button does
             // not allow multiple selections (i.e. "Edit" buttons)

@@ -8,8 +8,6 @@ import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../../table/components/table-toolbar/table-toolbar.component';
 import { SearchFilterMap } from '../../../table/interfaces/search-filter-map.interface';
-import { TableToolbarButton } from '../../../table/interfaces/table-toolbar-button.interface';
-import { PagedTableComponent } from '../../../table/pages/paged-table/paged-table.component';
 import { SelectionService } from '../../../table/shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
@@ -37,7 +35,7 @@ export class PagedListWithToolbarComponent<T extends JsonModel> implements After
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.
      */
-    disableableToolbarButtons: TableToolbarButton[] = [];
+    disableableToolbarButtons: ToolbarButton[] = [];
     sub: Subscription;
 
     constructor(private selectionService: SelectionService<T>) {
@@ -107,7 +105,7 @@ export class PagedListWithToolbarComponent<T extends JsonModel> implements After
 
     ngOnInit(): void {
         // get buttons that can be disabled from given list of buttons
-        this.disableableToolbarButtons = this.toolbarButtons.filter((button: TableToolbarButton) => button.canDisable);
+        this.disableableToolbarButtons = this.toolbarButtons.filter((button: ToolbarButton) => button.canDisable);
         this.sub = new Subscription();
         const sub = this.selectionService.selectionChange.subscribe((disabled: boolean) => {
             this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);

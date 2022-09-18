@@ -7,14 +7,14 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
 
 /**
  * Defines all properties and methods necessary to utilize built in capabilities
- * for components that extend the `AbstractPagedTableWithToolbar`. Any component
- * that extends `AbstractPagedTableWithToolbar` should implement this interface
+ * for components that extend the `AbstractPagedCollectionWithToolbar`. Any component
+ * that extends `AbstractPagedCollectionWithToolbar` should implement this interface
  * to ensure all necessary properties and method are defined.
  * 
  * @usageNotes
  * ## Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table-with-toolbar
+ * <ngx-material-dashboard-paged-list-with-toolbar
  *      [form]="filterForm"
  *      [toolbarButtons]="toolbarButtons"
  *      (buttonClick)="onButtonClick($event)">
@@ -25,10 +25,10 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
  *             </mat-form-field>
  *         </form>
  *     </ngx-material-dashboard-filter-drop-down>
- *     <ngx-material-dashboard-paged-table matSort 
+ *     <ngx-material-dashboard-paged-list matSort 
  *          [data]="data"
  *          [displayedColumns]="displayedColumns"
- *          [tableButtons]="tableButtons" table>
+ *          [collectionButtons]="collectionButtons" table>
  *         <ng-container matColumnDef="id">
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
@@ -37,34 +37,28 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
  *             <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
  *         </ng-container>
- *         <ng-container matColumnDef="noData">
- *             <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
- *                 No data to display
- *             </mat-footer-cell>
- *         </ng-container>
- *     </ngx-material-dashboard-paged-table>
- * </ngx-material-dashboard-paged-table-with-toolbar>
+ *     </ngx-material-dashboard-paged-list>
+ * </ngx-material-dashboard-paged-list-with-toolbar>
  * ```
  * ```typescript
  * import {Component} from '@angular/core';
  * import {FormBuilder} from '@angular/forms';
  * import {MatDialog} from '@angular/material/dialog';
  * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
- * import {ConfirmDeleteDialogComponent, PagedTableWithToolbar, AbstractPagedTableWithToolbarComponent} from '@ngx-material-dashboard/widgets';
+ * import {ConfirmDeleteDialogComponent, PagedListWithToolbar, AbstractPagedCollectionWithToolbarComponent} from '@ngx-material-dashboard/widgets';
  * import {ToastrService} from 'ngx-toastr';
  * import {Model} from '@shared/models/model';
  * import {JsonApiService} from '@shared/services/json-api.service';
  * import {CreateModelDialogComponent} from './create-model-dialog/create-model-dialog.component';
 
  * @Component({
- *     selector: 'abstract-paged-table-with-toolbar-usage-example',
- *     templateUrl: './abstract-paged-table-with-toolbar-usage-example.html'
+ *     selector: 'abstract-paged-collection-with-toolbar-usage-example',
+ *     templateUrl: './abstract-paged-collection-with-toolbar-usage-example.html'
  * })
- * export class AbstractPagedTableWithToolbarUsageExample
- *  extends AbstractPagedTableWithToolbarComponent<Model> 
- *  implements PagedTableWithToolbar<Model> {
+ * export class AbstractPagedCollectionWithToolbarUsageExample
+ *  extends AbstractPagedCollectionWithToolbarComponent<Model> 
+ *  implements PagedCollectionWithToolbar<Model> {
  *
- *     override displayedColumns: string[] = ['select', 'name', 'actions'];
  *     override jsonApiService: JsonApiService;
  *     filterForm!: FormGroup;
  *

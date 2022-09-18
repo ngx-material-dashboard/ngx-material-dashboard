@@ -8,7 +8,6 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
 import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
 import { SearchFilterMap } from '../../interfaces/search-filter-map.interface';
-import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
 import { SelectionService } from '../../shared/services/selection.service';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -49,7 +48,7 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  *     <ngx-material-dashboard-paged-table matSort 
  *          [data]="data"
  *          [displayedColumns]="displayedColumns"
- *          [tableButtons]="tableButtons" table>
+ *          [collectionButtons]="collectionButtons" table>
  *         <ng-container matColumnDef="id">
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
@@ -71,7 +70,7 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  * import {FormGroup, FormBuilder, Validators} from '@angular/forms';
  * import {MatDialog} from '@angular/material/dialog';
  * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
- * import {ButtonClick, PagedTableWithToolbar, TableButton, TableToolbarButton, EDIT_BUTTON, DELETE_BUTTON, CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON} from '@ngx-material-dashboard/widgets';
+ * import {ButtonClick, PagedTableWithToolbar, Button, ToolbarButton, EDIT_BUTTON, DELETE_BUTTON, CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON} from '@ngx-material-dashboard/widgets';
  * import {JsonModel} from '@shared/models/json.model'; // assuming this exists
  * 
  * @Component({
@@ -83,8 +82,8 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  *     displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
  *     form!: FormGroup;
  *     filterForm!: FormGroup;
- *     tableButtons: TableButton = [EDIT_BUTTON, DELETE_BUTTON];
- *     toolbarButtons: TableToolbarButton = [
+ *     collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
+ *     toolbarButtons: ToolbarButton = [
  *         CREATE_TOOLBAR_BUTTON,
  *         EDIT_TOOLBAR_BUTTON,
  *         DELETE_TOOLBAR_BUTTON
@@ -131,7 +130,7 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  * doesn't work for your use case. Although I suppose I could provide the
  * implementation here and just have you override it...
  * 
- * See [AbstractPagedTableWithToolbar](/widgets/components/abstract-paged-table-with-toolbar)
+ * See [AbstractPagedCollectionWithToolbar](/widgets/components/abstract-paged-table-with-toolbar)
  * for more details on how to use that.
  * 
  * > NOTE: I say "abstract" above because this isn't actually an abstract class since
@@ -153,9 +152,9 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  * 
  * ### Toolbar Buttons
  * 
- * You can add one or more `TableToolbarButton`s to the toolbar. These buttons
+ * You can add one or more `ToolbarButton`s to the toolbar. These buttons
  * can provide additional functions beyond the `TableButton`s you define for
- * the `PagedTable`. Two examples of `TableToolbarButton`s that come to mind
+ * the `PagedTable`. Two examples of `ToolbarButton`s that come to mind
  * are a create button and an export button. It doesn't make sense to include
  * these buttons in every row of your table, which is one of the reasons I
  * created the `TableToolbar` to sit above the `PagedTable`. I'm sure there are
@@ -164,7 +163,7 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  * 
  * #### Pre-Built Buttons
  * 
- * I have created some pre-built `TableToolbarButton`s to use. They are the
+ * I have created some pre-built `ToolbarButton`s to use. They are the
  * `CREATE_TOOLBAR_BUTTON`, `EDIT_TOOLBAR_BUTTON`, and `DELETE_TOOLBAR_BUTTON`.
  * The type of action to be performed by those buttons is pretty self
  * explanatory. The biggest thing to note is that the edit and delete buttons
@@ -176,8 +175,8 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
  * #### Custom Buttons
  * 
  * You can create any custom toolbar button you want to add to the toolbar above
- * the `PagedTable`. In order to do that it must be a `TableToolbarButton` type.
- * See the [TableToolbarButton](/widgets/interfaces/table-toolbar-button) for
+ * the `PagedTable`. In order to do that it must be a `ToolbarButton` type.
+ * See the [ToolbarButton](/widgets/interfaces/table-toolbar-button) for
  * more details.
  *
  * ### Search Filter
@@ -223,7 +222,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.
      */
-    disableableToolbarButtons: TableToolbarButton[] = [];
+    disableableToolbarButtons: ToolbarButton[] = [];
     /** The subscriptions for the component. */
     sub: Subscription;
 
@@ -294,7 +293,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
 
     ngOnInit(): void {
         // get buttons that can be disabled from given list of buttons
-        this.disableableToolbarButtons = this.toolbarButtons.filter((button: TableToolbarButton) => button.canDisable);
+        this.disableableToolbarButtons = this.toolbarButtons.filter((button: ToolbarButton) => button.canDisable);
         this.sub = new Subscription();
         const sub = this.selectionService.selectionChange.subscribe((disabled: boolean) => {
             this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);

@@ -161,7 +161,7 @@ how to use the `PagedTableComponent`.
     `
 }) class TestPagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    buttons: TableButton[] = [EDIT_BUTTON, DELETE_BUTTON];
+    buttons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
     data: JsonModel[] = [];
     displayedColumns: string[] = ['select', 'id', 'name', 'actions'];
 }
@@ -172,7 +172,7 @@ row in the table, the `data` to use in the table (for local table data), and the
 `displayedColumns` to show when the table is rendered. The `EDIT_BUTTON` and
 `DELETE_BUTTON` are pre-built buttons I have included to help edit and delete
 objects in the table. You may create your own buttons and include them here, as
-long as they implement the `TableButton` interface defined in the module.
+long as they implement the `Button` interface defined in the module.
 
 ## Contributing
 

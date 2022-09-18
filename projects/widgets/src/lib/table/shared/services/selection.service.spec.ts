@@ -6,8 +6,8 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 
 import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
-import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
-import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../table-toolbar-buttons';
+import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
+import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { SelectionService } from './selection.service';
 
 describe('SelectionService', () => {
@@ -32,37 +32,37 @@ describe('SelectionService', () => {
 
         it('should disable given buttons when toggleButtons called', () => {
             // given: an array of toolbar buttons
-            const buttons: TableToolbarButton[] = [EDIT_TOOLBAR_BUTTON];
+            const buttons: ToolbarButton[] = [EDIT_TOOLBAR_BUTTON];
 
             // when: the toggleButtons method is called
             service.toggleButtons(true, buttons);
 
             // then: the buttons should be disabled
-            buttons.forEach((button: TableToolbarButton) => {
+            buttons.forEach((button: ToolbarButton) => {
                 expect(button.disabled).toBeTrue();
             });
         });
 
         it('should enable given buttons when toggleButtons called', () => {
             // given: an array of disabled toolbar buttons
-            const editButton: TableToolbarButton = EDIT_TOOLBAR_BUTTON;
+            const editButton: ToolbarButton = EDIT_TOOLBAR_BUTTON;
             editButton.disabled = true;
-            const buttons: TableToolbarButton[] = [editButton];
+            const buttons: ToolbarButton[] = [editButton];
 
             // when: the toggleButtons method is called
             service.toggleButtons(false, buttons);
 
             // then: the buttons should be enabled
-            buttons.forEach((button: TableToolbarButton) => {
+            buttons.forEach((button: ToolbarButton) => {
                 expect(button.disabled).toBeFalse();
             });
         });
 
         it('should disable buttons that do not allow multiple selections if enabling buttons', () => {
             // given: an array of enabled toolbar buttons that do not allow multiple selections
-            const editButton: TableToolbarButton = EDIT_TOOLBAR_BUTTON;
+            const editButton: ToolbarButton = EDIT_TOOLBAR_BUTTON;
             editButton.multiSelectDisabled = true;
-            const buttons: TableToolbarButton[] = [editButton];
+            const buttons: ToolbarButton[] = [editButton];
 
             // and: some dummy data
             const data: DummyObject[] = [new DummyObject(jsonApiDatastore, { id: '1' }), new DummyObject(jsonApiDatastore, { id: '2' })];
@@ -74,14 +74,14 @@ describe('SelectionService', () => {
             service.toggleButtons(false, buttons);
 
             // then: the buttons that do not allow multiple selections should be disabled
-            buttons.forEach((button: TableToolbarButton) => {
+            buttons.forEach((button: ToolbarButton) => {
                 expect(button.disabled).toBeTrue();
             });
         });
 
         // it('should not enable delete button if any selected values cannot be deleted', () => {
         //     // given: an array of toolbar buttons
-        //     const buttons: TableToolbarButton[] = [DELETE_TOOLBAR_BUTTON];
+        //     const buttons: ToolbarButton[] = [DELETE_TOOLBAR_BUTTON];
 
         //     // and: some dummy data that contains values that cannot be deleted
         //     const o1 = new DummyObject('1');
@@ -93,14 +93,14 @@ describe('SelectionService', () => {
         //     service.toggleButtons(false, buttons);
 
         //     // then: the delete button should be disabled
-        //     buttons.forEach((button: TableToolbarButton) => {
+        //     buttons.forEach((button: ToolbarButton) => {
         //         expect(button.disabled).toBeTrue();
         //     });
         // });
 
         // it('should only enable delete button if all selected values can be deleted', () => {
         //     // given: an array of toolbar buttons
-        //     const buttons: TableToolbarButton[] = [DELETE_TOOLBAR_BUTTON];
+        //     const buttons: ToolbarButton[] = [DELETE_TOOLBAR_BUTTON];
 
         //     // and: some dummy data
         //     const data: DummyObject[] = [new DummyObject('1'), new DummyObject('2')];
@@ -110,7 +110,7 @@ describe('SelectionService', () => {
         //     service.toggleButtons(false, buttons);
 
         //     // then: the delete button should be disabled
-        //     buttons.forEach((button: TableToolbarButton) => {
+        //     buttons.forEach((button: ToolbarButton) => {
         //         expect(button.disabled).toBeFalse();
         //     });
         // });

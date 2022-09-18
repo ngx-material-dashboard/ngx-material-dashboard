@@ -1,16 +1,10 @@
-import { AbstractControl, FormGroup } from "@angular/forms";
-import { MatSort } from "@angular/material/sort";
-import { JsonDatastore, JsonModel } from "@ngx-material-dashboard/base-json";
-import { filter, Subscription } from "rxjs";
-import { PagedCollectionWithToolbar } from "../../collection/interfaces/paged-collection-with-toolbar.interface";
-import { RemoteDataSource } from "../../services/remote-data-source.service";
-import { TableButton } from "./table-button.interface";
-import { TableToolbarButton } from "./table-toolbar-button.interface";
+import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { PagedCollectionWithToolbar } from '../../collection/interfaces/paged-collection-with-toolbar.interface';
 
 /**
- * Defines all properties and methods necessary to utilize built in capabilities
- * for components that extend the `AbstractPagedTableWithToolbar`. Any component
- * that extends `AbstractPagedTableWithToolbar` should implement this interface
+ * Extends the `AbstractPagedCollectionWithToolbar` by adding properties needed
+ * for a table component. Any table component that extends 
+ * `AbstractPagedCollectionWithToolbar` should implement this interface
  * to ensure all necessary properties and method are defined.
  * 
  * @usageNotes
@@ -30,7 +24,7 @@ import { TableToolbarButton } from "./table-toolbar-button.interface";
  *     <ngx-material-dashboard-paged-table matSort 
  *          [data]="data"
  *          [displayedColumns]="displayedColumns"
- *          [tableButtons]="tableButtons" table>
+ *          [collectionButtons]="collectionButtons" table>
  *         <ng-container matColumnDef="id">
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
@@ -52,7 +46,7 @@ import { TableToolbarButton } from "./table-toolbar-button.interface";
  * import {FormBuilder} from '@angular/forms';
  * import {MatDialog} from '@angular/material/dialog';
  * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
- * import {ConfirmDeleteDialogComponent, PagedTableWithToolbar, AbstractPagedTableWithToolbarComponent} from '@ngx-material-dashboard/widgets';
+ * import {ConfirmDeleteDialogComponent, PagedTableWithToolbar, AbstractPagedCollectionWithToolbarComponent} from '@ngx-material-dashboard/widgets';
  * import {ToastrService} from 'ngx-toastr';
  * import {Model} from '@shared/models/model';
  * import {JsonApiService} from '@shared/services/json-api.service';
@@ -62,8 +56,8 @@ import { TableToolbarButton } from "./table-toolbar-button.interface";
  *     selector: 'abstract-paged-table-with-toolbar-usage-example',
  *     templateUrl: './abstract-paged-table-with-toolbar-usage-example.html'
  * })
- * export class AbstractPagedTableWithToolbarUsageExample
- *  extends AbstractPagedTableWithToolbarComponent<Model> 
+ * export class AbstractPagedCollectionWithToolbarUsageExample
+ *  extends AbstractPagedCollectionWithToolbarComponent<Model> 
  *  implements PagedTableWithToolbar<Model> {
  *
  *     override displayedColumns: string[] = ['select', 'name', 'actions'];
@@ -110,7 +104,8 @@ import { TableToolbarButton } from "./table-toolbar-button.interface";
  * }
  * ```
  */
-export interface PagedTableWithToolbar<T extends JsonModel> extends PagedCollectionWithToolbar<T> {
+export interface PagedTableWithToolbar<T extends JsonModel> 
+    extends PagedCollectionWithToolbar<T> {
 
     /** The list of columns to display in table. */
     displayedColumns: string[];

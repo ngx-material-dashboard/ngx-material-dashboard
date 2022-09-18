@@ -3,7 +3,7 @@ import { faSearch, faTimes, IconDefinition } from '@fortawesome/free-solid-svg-i
 import { Subscription } from 'rxjs';
 
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
-import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interface';
+import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 
 /**
  * The TableToolbarComponent is a toolbar that is rendered above a PagedTableComponent.
@@ -16,7 +16,7 @@ import { TableToolbarButton } from '../../interfaces/table-toolbar-button.interf
 export class TableToolbarComponent implements AfterViewInit, OnDestroy, OnInit {
 
     /** The management buttons to display in the toolbar. */
-    @Input() buttons: TableToolbarButton[] = [];
+    @Input() buttons: ToolbarButton[] = [];
     /**
      * String value indicating whether buttons should appear on left or right
      * side of screen (defaults to right).
