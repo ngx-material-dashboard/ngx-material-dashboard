@@ -3,6 +3,7 @@ export * from './collection/interfaces/sort-order.interface';
 export * from './collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 export * from './collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
 export * from './collection/pages/sorter/sorter.component';
+export * from './collection/collection.module';
 
 export * from './dialog/components/confirm-delete-dialog/confirm-delete-dialog.component';
 export * from './dialog/interfaces/dialog-data.interface';
@@ -44,3 +45,4 @@ export * from './toolbar/interfaces/button-click.interface';
 export * from './toolbar/interfaces/toolbar-button.interface';
 export * from './toolbar/pages/button-toolbar/button-toolbar.component';
 export * from './toolbar/shared/toolbar-buttons';
+export * from './toolbar/toolbar.module';
