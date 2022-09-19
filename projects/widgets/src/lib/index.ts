@@ -28,6 +28,7 @@ export * from './layout/pages/default-layout/default-layout.component';
 export * from './layout/layout.module';
 
 export * from './list/pages/paged-list/paged-list.component';
+export * from './list/pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 export * from './list/list.module';
 
 export * from './shared/interfaces/button.interface';
