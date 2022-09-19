@@ -15,6 +15,7 @@ export class TypeModel {
      * what I've determined so far).
      */
     elementType?: { type: string, name?: string, declaration?: Declaration };
+    value?: string | null; 
 
     constructor(data: Partial<TypeModel>) {
         Object.assign(this, data);
@@ -34,9 +35,9 @@ export class TypeModel {
             // sort types by displayType value, keeping "undefined" displayType
             // at the end
             this.types = this.types.sort((a: TypeModel, b: TypeModel) => {
-                if (a.displayType === 'undefined' || a.displayType === undefined) {
+                if (a.displayType === 'undefined') {
                     return 1;
-                } else if (b.displayType === 'undefined' || b.displayType === undefined) {
+                } else if (b.displayType === 'undefined') {
                     return -1;
                 } else {
                     return a.displayType.localeCompare(b.displayType);
@@ -74,6 +75,11 @@ export class TypeModel {
         } else if (this.type === 'reflection') {
             // this is a JSON object literal so render that
             type = this.declaration ? this.declaration.displayName : '';
+        } else if (this.type === 'literal') {
+            // this is a literal type (something like a specific string or null)
+            // if value is not defined then it should be null, so set type to
+            // string value 'null' so it can be printed in docs
+            type = this.value ? this.value : 'null';
         } else {
             // if type is not an array, then name should contain
             // name of property type whether they are primitive or Objects
