@@ -7,10 +7,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
+import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from './paged-list.component';
 
@@ -24,6 +26,7 @@ export default sandboxOf(PagedListComponent, {
         MatGridListModule,
         MatPaginatorModule,
         BrowserAnimationsModule,
+        FontAwesomeModule,
         FlexLayoutModule,
         CollectionModule
     ],
@@ -34,7 +37,7 @@ export default sandboxOf(PagedListComponent, {
 })
 .add('default', {
     template: `
-    <ngx-material-dashboard-paged-list [data]="data" [fields]="fields" class="marker-paged-list">
+    <ngx-material-dashboard-paged-list [collectionButtons]="collectionButtons" [data]="data" [fields]="fields" class="marker-paged-list">
         <ng-template #model let-model="model">
             <mat-card>
                 <mat-card-title>
@@ -47,6 +50,7 @@ export default sandboxOf(PagedListComponent, {
         </ng-template>
     </ngx-material-dashboard-paged-list>`,
     context: {
+        collectionButtons: DEFAULT_COLLECTION_BUTTONS,
         data: TEST_DATA,
         fields: ['id']
     }

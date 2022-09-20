@@ -34,7 +34,7 @@ export default sandboxOf(PagedTableComponent, {
 })
 .add('table with multi-select', {
     template: `
-    <ngx-material-dashboard-paged-table matSort [buttons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table matSort [collectionButtons]="buttons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>

@@ -8,6 +8,7 @@ import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { SorterComponent } from '../../../collection/pages/sorter/sorter.component';
 import { SelectionService } from '../../../table/shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
+import { Button } from '../../../shared/interfaces/button.interface';
 
 /**
  * The `PagedListComponent` renders items in a grid with built in paging
@@ -51,13 +52,13 @@ export class PagedListComponent<T extends JsonModel>
     implements AfterViewInit, OnDestroy {
 
     /** The buttons to render in each row of the table. */
-    //@Input() buttons: TableButton[] = [];
+    @Input() collectionButtons: Button[] = [];
     /** Columns to display in the table. */
     /** List of fields included in each element of list that can be sorted on. */
     @Input() fields: string[] = [];
     //@Input() displayedColumns: string[] = ['select', 'actions'];
     /** The event emitted when a button in one of the rows is clicked. */
-    @Output() tableButtonClick: EventEmitter<ButtonClick>;
+    @Output() collectionButtonClick: EventEmitter<ButtonClick>;
     
     set sort(sort: SorterComponent) {
         this.sort$ = sort;
@@ -73,7 +74,7 @@ export class PagedListComponent<T extends JsonModel>
         }
         this.selection = new SelectionModel<T>(this.multiple$, []);
         this.sub = new Subscription();
-        this.tableButtonClick = new EventEmitter<ButtonClick>();
+        this.collectionButtonClick = new EventEmitter<ButtonClick>();
     }
 
     override initDataSource(data: T[] | RemoteDataSource<T>): void {
@@ -94,7 +95,7 @@ export class PagedListComponent<T extends JsonModel>
     }
 
     onActionButtonClick(buttonClick: string, row: JsonModel): void {
-        this.tableButtonClick.emit({ click: buttonClick, row });
+        this.collectionButtonClick.emit({ click: buttonClick, row });
     }
 }
 

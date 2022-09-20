@@ -20,6 +20,16 @@
                     *ngTemplateOutlet="template; context: { model: model }">
                 </ng-container>
             </div>
+            <div fxLayout="row" fxLayoutGap="5px">
+                <button *ngFor="let button of collectionButtons"
+                    class="button-marker-{{button.click}}"
+                    (click)="onActionButtonClick(button.click, model)"
+                    mat-icon-button>
+                    <fa-icon [icon]="button.icon"></fa-icon>
+                    <div class="mat-button-focus-overlay"></div>
+                    <div class="mat-button-ripple mat-ripple"></div>
+                </button>
+            </div>
         </div>
     </ng-template>
 </ngx-material-dashboard-list>

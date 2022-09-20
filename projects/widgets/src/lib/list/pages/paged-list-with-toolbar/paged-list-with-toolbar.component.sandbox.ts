@@ -16,6 +16,7 @@ import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
+import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
@@ -60,7 +61,7 @@ export default sandboxOf(PagedListWithToolbarComponent, {
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-list [data]="data" [fields]="fields" class="marker-paged-list" list>
+        <ngx-material-dashboard-paged-list [collectionButtons]="collectionButtons" [data]="data" [fields]="fields" class="marker-paged-list" list>
             <ng-template #model let-model="model">
                 <mat-card>
                     <mat-card-title>
@@ -74,6 +75,7 @@ export default sandboxOf(PagedListWithToolbarComponent, {
         </ngx-material-dashboard-paged-list>
     </ngx-material-dashboard-paged-list-with-toolbar>`,
     context: {
+        collectionButtons: DEFAULT_COLLECTION_BUTTONS,
         toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
         data: TEST_DATA,
         fields: ['id']
