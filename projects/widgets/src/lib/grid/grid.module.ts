@@ -27,8 +27,8 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
         MatGridListModule,
         MatPaginatorModule,
         FontAwesomeModule,
-        ToolbarModule,
-        CollectionModule
+        CollectionModule,
+        ToolbarModule
     ]
 })
 export class GridModule { }
