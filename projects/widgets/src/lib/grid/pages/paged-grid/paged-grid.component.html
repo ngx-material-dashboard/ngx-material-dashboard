@@ -1,8 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-checkbox class="marker-checkbox-select-all"
+        (change)="$event ? masterToggle() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()">
+    </mat-checkbox>
+    <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
+    <div fxFlex></div>
+</div>
 <ngx-material-dashboard-grid [models]="dataSource$.data" [modelType]="modelType">
     <ng-template #model let-model="model">
-        <ng-container 
-            *ngTemplateOutlet="template; context: { model: model }">
-        </ng-container>
+        <div fxLayout="column" fxLayoutGap="10px">
+            <ng-container 
+                *ngTemplateOutlet="template; context: { model: model }">
+            </ng-container>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-checkbox class="marker-checkbox-row-select"
+                    (click)="$event.stopPropagation()"
+                    (change)="onRowSelected(model);"
+                    [checked]="selection.isSelected(model)">
+                </mat-checkbox>
+                <div fxLayout="row">
+                    <button *ngFor="let button of collectionButtons"
+                        class="button-marker-{{button.click}}"
+                        (click)="onActionButtonClick(button.click, model)"
+                        mat-icon-button>
+                        <fa-icon [icon]="button.icon"></fa-icon>
+                        <div class="mat-button-focus-overlay"></div>
+                        <div class="mat-button-ripple mat-ripple"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
     </ng-template>
 </ngx-material-dashboard-grid>
 <mat-paginator [length]="dataSource$.data.length"

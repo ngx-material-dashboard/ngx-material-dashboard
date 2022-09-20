@@ -1,13 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
+import { CollectionModule } from '../../../collection/collection.module';
+import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from './paged-grid.component';
 
@@ -15,11 +20,15 @@ export default sandboxOf(PagedGridComponent, {
     declarations: [GridComponent],
     imports: [
         HttpClientTestingModule,
+        MatButtonModule,
         MatCardModule,
+        MatCheckboxModule,
         MatGridListModule,
         MatPaginatorModule,
         BrowserAnimationsModule,
-        FlexLayoutModule
+        FontAwesomeModule,
+        FlexLayoutModule,
+        CollectionModule
     ],
     providers: [
         { provide: Datastore, deps: [HttpClient] },
@@ -28,7 +37,7 @@ export default sandboxOf(PagedGridComponent, {
 })
 .add('default', {
     template: `
-    <ngx-material-dashboard-paged-grid [data]="data" class="marker-paged-grid">
+    <ngx-material-dashboard-paged-grid [collectionButtons]="collectionButtons" [data]="data" [fields]="fields" class="marker-paged-grid">
         <ng-template #model let-model="model">
             <mat-card>
                 <mat-card-title>
@@ -41,6 +50,8 @@ export default sandboxOf(PagedGridComponent, {
         </ng-template>
     </ngx-material-dashboard-paged-grid>`,
     context: {
-        data: TEST_DATA
+        collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+        data: TEST_DATA,
+        fields: ['id']
     }
 });
