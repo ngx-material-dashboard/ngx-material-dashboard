@@ -5,6 +5,7 @@ import { ButtonToolbarComponent } from './pages/button-toolbar/button-toolbar.co
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ],
     imports: [
         CommonModule,
+        MatButtonModule,
         MatToolbarModule,
         FlexLayoutModule,
         FontAwesomeModule
