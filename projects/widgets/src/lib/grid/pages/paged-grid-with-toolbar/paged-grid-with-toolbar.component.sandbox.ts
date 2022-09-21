@@ -19,8 +19,6 @@ import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
-import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
-import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from '../paged-grid/paged-grid.component';
