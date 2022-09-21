@@ -18,7 +18,6 @@ import { DEFAULT_TOOLBAR_BUTTONS } from '@ngx-material-dashboard/widgets';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
-import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from '../paged-grid/paged-grid.component';
@@ -27,7 +26,6 @@ import { PagedGridWithToolbarComponent } from './paged-grid-with-toolbar.compone
 export default sandboxOf(PagedGridWithToolbarComponent, {
     declarations: [
         GridComponent,
-        FilterDropDownComponent,
         PagedGridComponent
     ],
     imports: [

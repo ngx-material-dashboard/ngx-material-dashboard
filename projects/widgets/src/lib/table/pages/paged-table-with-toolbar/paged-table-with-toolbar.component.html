@@ -1,5 +1,5 @@
-<ngx-material-dashboard-table-toolbar [buttons]="toolbarButtons" (buttonClick)="onTableToolbarButtonClick($event)">
+<ngx-material-dashboard-button-toolbar [buttons]="toolbarButtons" (buttonClick)="onTableToolbarButtonClick($event)">
     <ng-content select="[filter]"></ng-content>
-</ngx-material-dashboard-table-toolbar>
+</ngx-material-dashboard-button-toolbar>
 <!-- paged-table -->
 <ng-content select="[table]"></ng-content>

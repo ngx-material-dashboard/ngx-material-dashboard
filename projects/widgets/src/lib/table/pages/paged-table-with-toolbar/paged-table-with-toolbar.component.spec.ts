@@ -23,11 +23,12 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { RemoteDataSourceMock } from '../../../../../test/mocks/remote-data-source.service';
 import { PagedTableWithToolbar } from '../../interfaces/paged-table-with-toolbar.interface';
-import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
-import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
+import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
+import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
 import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
+import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -97,7 +98,8 @@ describe('PagedTableWithToolbarComponent', () => {
                 AbstractPagedCollectionWithToolbarComponent,
                 PagedTableComponent,
                 PagedTableWithToolbarComponent,
-                TableToolbarComponent,
+                ButtonsComponent,
+                ButtonToolbarComponent,
                 TestPagedTableWithToolbarComponent
             ],
             imports: [

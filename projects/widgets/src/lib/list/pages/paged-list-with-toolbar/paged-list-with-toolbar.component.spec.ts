@@ -22,7 +22,7 @@ import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks
 import { MockModule } from 'ng-mocks';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
-import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
+import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 

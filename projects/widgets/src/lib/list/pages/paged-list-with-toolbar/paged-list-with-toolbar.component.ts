@@ -5,8 +5,7 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
-import { TableToolbarComponent } from '../../../table/components/table-toolbar/table-toolbar.component';
+import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
 import { SearchFilterMap } from '../../../table/interfaces/search-filter-map.interface';
 import { SelectionService } from '../../../table/shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
@@ -30,7 +29,7 @@ export class PagedListWithToolbarComponent<T extends JsonModel> implements After
     /** The event to emit when button is clicked in toolbar or table. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the TableToolbarComponent in the template. */
-    @ViewChild(TableToolbarComponent) tableToolbar!: TableToolbarComponent;
+    //@ViewChild(TableToolbarComponent) tableToolbar!: TableToolbarComponent;
     /**
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.

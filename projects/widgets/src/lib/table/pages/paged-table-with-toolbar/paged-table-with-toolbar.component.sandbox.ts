@@ -15,10 +15,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
-import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
-import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
 
@@ -26,8 +25,6 @@ const pageSize = 5;
 
 export default sandboxOf(PagedTableWithToolbarComponent, {
     declarations: [
-        FilterDropDownComponent,
-        TableToolbarComponent,
         PagedTableComponent
     ],
     imports: [
@@ -43,7 +40,8 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
         MatToolbarModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        ToolbarModule
     ],
     providers: [
         { provide: Datastore, deps: [HttpClient] },

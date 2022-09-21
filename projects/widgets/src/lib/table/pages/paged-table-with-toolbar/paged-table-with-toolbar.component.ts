@@ -5,8 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
-import { FilterDropDownComponent } from '../../components/filter-drop-down/filter-drop-down.component';
-import { TableToolbarComponent } from '../../components/table-toolbar/table-toolbar.component';
+import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
 import { SearchFilterMap } from '../../interfaces/search-filter-map.interface';
 import { SelectionService } from '../../shared/services/selection.service';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
@@ -217,7 +216,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
     /** The event to emit when button is clicked in toolbar or table. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the TableToolbarComponent in the template. */
-    @ViewChild(TableToolbarComponent) tableToolbar!: TableToolbarComponent;
+    //@ViewChild(TableToolbarComponent) tableToolbar!: TableToolbarComponent;
     /**
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.
