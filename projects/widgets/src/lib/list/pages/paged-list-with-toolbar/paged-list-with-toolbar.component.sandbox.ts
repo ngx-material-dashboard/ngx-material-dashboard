@@ -18,9 +18,8 @@ import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { FilterDropDownComponent } from '../../../table/components/filter-drop-down/filter-drop-down.component';
-import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
-import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from '../paged-list/paged-list.component';
 import { PagedListWithToolbarComponent } from './paged-list-with-toolbar.component';
@@ -29,10 +28,7 @@ export default sandboxOf(PagedListWithToolbarComponent, {
     declarations: [
         FilterDropDownComponent,
         ListComponent,
-        PagedListComponent,
-        ButtonsComponent,
-        ButtonToolbarComponent,
-        FilterDropDownComponent
+        PagedListComponent
     ],
     imports: [
         HttpClientTestingModule,
@@ -48,7 +44,8 @@ export default sandboxOf(PagedListWithToolbarComponent, {
         BrowserAnimationsModule,
         FlexLayoutModule,
         FontAwesomeModule,
-        CollectionModule
+        CollectionModule,
+        ToolbarModule
     ],
     providers: [
         { provide: Datastore, deps: [HttpClient] },
