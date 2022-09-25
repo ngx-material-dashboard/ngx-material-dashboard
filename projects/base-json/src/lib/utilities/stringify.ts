@@ -18,8 +18,8 @@ const arrayPrefixGenerators = {
 
 const isArray = Array.isArray;
 const push = Array.prototype.push;
-const pushToArray = (arr: any, valueOrArray: any) => {
   push.apply(arr, isArray(valueOrArray) ? valueOrArray : [valueOrArray]);
+const pushToArray = (arr: any, valueOrArray: any | any[]) => {
 };
 
 const toISO = Date.prototype.toISOString;
