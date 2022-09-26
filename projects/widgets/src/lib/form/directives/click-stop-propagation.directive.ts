@@ -14,14 +14,14 @@ import { Directive, HostListener } from '@angular/core';
  *     <span>Drop Down</span>
  * </div>
  * <mat-menu #filterMenu="matMenu">
- *     <form appClickStopPropagation>
+ *     <form ngxMaterialDashboardClickStopPropagation>
  *         <!-- form fields go here -->
  *     </form>
  * </div>
  * ```
  */
 @Directive({
-  selector: '[appClickStopPropagation]'
+  selector: '[ngxMaterialDashboardClickStopPropagation]'
 })
 export class ClickStopPropagationDirective {
 

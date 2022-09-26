@@ -12,7 +12,7 @@
 <mat-menu class="container search-menu" xPosition="before" yPosition="below" #filterMenu="matMenu">
     <div [style.width.px]="menuWidth" fxLayout="column" fxLayoutGap="10px" matMenuContent #filterMenuContent>
         <span>Filter results</span>
-        <form appClickStopPropagation appTabStopPropagation> <!-- (keydown.tab)="$event.stopPropagation()" -->
+        <form ngxMaterialDashboardClickStopPropagation ngxMaterialDashboardTabStopPropagation> <!-- (keydown.tab)="$event.stopPropagation()" -->
             <!-- include search filters defined in tag where this component is used -->
             <ng-content></ng-content>
         </form>
