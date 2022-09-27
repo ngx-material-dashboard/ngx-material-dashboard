@@ -18,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormModule } from '../form/form.module';
 import { PagedTableComponent } from './pages/paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
+import { CollectionModule } from '../collection/collection.module';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
         MatSortModule,
         MatTableModule,
         MatToolbarModule,
+        CollectionModule,
         FormModule,
         ToolbarModule
     ]

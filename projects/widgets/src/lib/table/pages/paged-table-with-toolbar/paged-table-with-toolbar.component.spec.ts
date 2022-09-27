@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, ViewChild } from '@angular/core';
+import { Component, forwardRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,10 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
 import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
+import { SelectionService } from '../../shared/services/selection.service';
+import { CollectionModule } from '../../../collection/collection.module';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
+import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -37,11 +41,19 @@ const testData: DummyObject[] = [
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
+    <ngx-material-dashboard-paged-table-with-toolbar
+        [toolbarButtons]="toolbarButtons"
+        (buttonClick)="onButtonClick($event)">
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-table matSort [collectionButtons]="collectionButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" table class="marker-paged-table">
+        <ngx-material-dashboard-paged-table collection
+            matSort
+            [collectionButtons]="collectionButtons"
+            [dataSource]="dataSource"
+            [displayedColumns]="displayedColumns"
+            class="marker-paged-table"
+            #pagedCollection>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -65,9 +77,10 @@ const testData: DummyObject[] = [
         dialog: MatDialog,
         formBuilder: FormBuilder,
         jsonApiService: JsonDatastore,
+        selectionService: SelectionService<DummyObject>,
         toastrService: ToastrService
     ) {
-        super(DummyObject, dialog, formBuilder, jsonApiService, toastrService);
+        super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
         this.jsonApiService = jsonApiService;
         const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
         remoteDataSource.setTestData(testData);
@@ -94,12 +107,8 @@ describe('PagedTableWithToolbarComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                FilterDropDownComponent,
-                AbstractPagedCollectionWithToolbarComponent,
                 PagedTableComponent,
                 PagedTableWithToolbarComponent,
-                ButtonsComponent,
-                ButtonToolbarComponent,
                 TestPagedTableWithToolbarComponent
             ],
             imports: [
@@ -118,7 +127,9 @@ describe('PagedTableWithToolbarComponent', () => {
                 MatSortModule,
                 MatPaginatorModule,
                 FontAwesomeModule,
-                MockModule(ToastrModule.forRoot())
+                MockModule(ToastrModule.forRoot()),
+                CollectionModule,
+                ToolbarModule
             ],
             providers: [
                 { provide: Datastore, deps: [HttpClient] },
@@ -208,14 +219,15 @@ describe('PagedTableWithToolbarComponent', () => {
     describe('TableButton Tests', () => {
 
         it('should call onButtonClick event when action button clicked in row', () => {
-            // given: a spy on the buttonClick for the PagedTableWithToolbarComponent
-            const spy = spyOn(component, 'onButtonClick');
+            // given: a spy on the buttonClick for the paged collection (based
+            // on answer to stackoverflow here: https://stackoverflow.com/a/41924755)
+            const spy = spyOn(AbstractPagedCollectionComponent.prototype, 'onActionButtonClick');
 
             // when: a button is clicked in one of the rows
             page.table.clickTableButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
-            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.dataSource.data[0] });
+            expect(spy).toHaveBeenCalledWith('edit', component.dataSource.data[0]);
         });
     });
 });

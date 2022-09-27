@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { SelectionService } from '../../shared/services/selection.service';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
+import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
 /**
  * A wrapper component for the `PagedTable` that adds a toolbar above it with
@@ -209,7 +210,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
     @ContentChild(MatSort) sort!: MatSort;
     /** A reference to the PageTable that should be included inside the selector for this component. */
-    @ContentChild(PagedTableComponent) table!: PagedTableComponent<T>;
+    @ContentChild(PagedTableComponent) collectionCmp!: PagedTableComponent<T>;
     /** The buttons to render in the toolbar. */
     @Input() form!: FormGroup;
     @Input() toolbarButtons: ToolbarButton[] = [];
@@ -217,15 +218,11 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the TableToolbarComponent in the template. */
     //@ViewChild(TableToolbarComponent) tableToolbar!: TableToolbarComponent;
-    /**
-     * These are the buttons in the toolbar that can be disabled. Just a filtered
-     * subset of toolbarButtons that have canDisable=true.
-     */
-    disableableToolbarButtons: ToolbarButton[] = [];
+    
     /** The subscriptions for the component. */
     sub: Subscription;
 
-    constructor(private selectionService: SelectionService<T>) {
+    constructor() {
         this.sub = new Subscription();
         this.buttonClick = new EventEmitter<ButtonClick>();
     }
@@ -240,26 +237,26 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
      * which should be inside the selector for this component.
      */
     ngAfterContentInit(): void {
-        const sub = this.table.tableButtonClick.subscribe((buttonClick: ButtonClick) => {
-            this.buttonClick.emit(buttonClick);
-        });
-        this.sub.add(sub);
+        // const sub = this.table.tableButtonClick.subscribe((buttonClick: ButtonClick) => {
+        //     this.buttonClick.emit(buttonClick);
+        // });
+        // this.sub.add(sub);
 
         // set up subscription for when user clicks search button on filter
-        this.filter.searchClick.subscribe(() => {
-            // set dataSource filter based on values entered on searchFilter
-            const searchFilterData = this.form.get('searchFilter') as FormGroup;
-            this.table.dataSource$.filter = this.buildSearchFilter(searchFilterData);
+        // this.filter.searchClick.subscribe(() => {
+        //     // set dataSource filter based on values entered on searchFilter
+        //     const searchFilterData = this.form.get('searchFilter') as FormGroup;
+        //     this.table.dataSource$.filter = this.buildSearchFilter(searchFilterData);
 
-            if (this.table.dataSource$ instanceof RemoteDataSource) {
-                // refresh the data with updated filter
-                this.table.dataSource$.refresh();
-            }
-        });
+        //     if (this.table.dataSource$ instanceof RemoteDataSource) {
+        //         // refresh the data with updated filter
+        //         this.table.dataSource$.refresh();
+        //     }
+        // });
 
         // set the sort property on the PagedTable similar to how it is set on
         // the dataSource for a regular MatTable
-        this.table.sort = this.sort;
+        this.collectionCmp.sort = this.sort;
     }
 
     /**
@@ -275,13 +272,13 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
      * @param searchFilterData FormGroup defined for filter drop down.
      * @returns A map of search filters to send to server API.
      */
-    private buildSearchFilter(searchFilterData: FormGroup): SearchFilterMap {
-        const searchFilter: SearchFilterMap = {};
-        Object.keys(searchFilterData.controls).forEach((key: string) => {
-            searchFilter[key] = searchFilterData.get(key)?.value
-        });
-        return searchFilter;
-    }
+    // private buildSearchFilter(searchFilterData: FormGroup): SearchFilterMap {
+    //     const searchFilter: SearchFilterMap = {};
+    //     Object.keys(searchFilterData.controls).forEach((key: string) => {
+    //         searchFilter[key] = searchFilterData.get(key)?.value
+    //     });
+    //     return searchFilter;
+    // }
 
     /**
      * Destroy all subscriptions in the component.
@@ -291,13 +288,7 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
     }
 
     ngOnInit(): void {
-        // get buttons that can be disabled from given list of buttons
-        this.disableableToolbarButtons = this.toolbarButtons.filter((button: ToolbarButton) => button.canDisable);
-        this.sub = new Subscription();
-        const sub = this.selectionService.selectionChange.subscribe((disabled: boolean) => {
-            this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
-        });
-        this.sub.add(sub);
+        
     }
 
     /**
@@ -307,9 +298,9 @@ export class PagedTableWithToolbarComponent<T extends JsonModel> implements Afte
      * @param buttonClick A buttonClick event from the tableToolbar.
      */
     onTableToolbarButtonClick(buttonClick: ButtonClick): void {
-        if (!this.table.selection.isEmpty()) {
+        if (!this.collectionCmp.selection.isEmpty()) {
             // make sure selection is not empty before adding selected row(s)
-            buttonClick.row = this.table.selection.selected[0];
+            buttonClick.row = this.collectionCmp.selection.selected[0];
         }
         this.buttonClick.emit(buttonClick);
     }

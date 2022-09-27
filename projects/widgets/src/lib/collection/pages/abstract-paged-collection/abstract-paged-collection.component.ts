@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ContentChild, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { SelectionService } from '../../../table/shared/services/selection.service';
+import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { SortOrder } from '../../interfaces/sort-order.interface';
 import { SorterComponent } from '../sorter/sorter.component';
 
@@ -126,6 +127,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     }
     /** Number of items to display on a page. Defaults to 25. */
     @Input() pageSize: number = 25;
+    @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     /** A reference to the sorter in the template. */
@@ -156,6 +158,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         //     this.dataSource$ = new MatTableDataSource();
         //     this.initDataSource([]);
         // }
+        this.buttonClick = new EventEmitter<ButtonClick>();
         this.selection = new SelectionModel<T>(this.multiple$, []);
         this.selectionService.selectionSubject.next(this.selection);
         this.sub = new Subscription();
@@ -248,7 +251,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * Handler for checkbox in table header. Clears all selections if all visible rows in the table
      * are selected; otherwise selects all visible rows in the table.
      */
-     masterToggle(): void {
+    masterToggle(): void {
         if (this.isAllSelected() || !this.multiple$) {
             // clear all selections and disable ToolbarButtons
             this.selection.clear();
@@ -266,13 +269,17 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         this.selectionService.selectionSubject.next(this.selection);
     }
 
+    onActionButtonClick(click: string, row: T): void {
+        this.buttonClick.emit({ click: click, row: row });
+    }
+
     /**
      * Handler for checkbox in table row. Toggles the selection for the given row and updates the
      * ToolbarButtons accordingly.
      *
      * @param row The row that was (de)selected in the table.
      */
-     onRowSelected(row: T): void {
+    onRowSelected(row: T): void {
         if (!this.multiple$ && this.selection.selected.length > 0) {
             // if table does not allow multiple selections and there are any
             // existing rows selected, then clear selection before making new

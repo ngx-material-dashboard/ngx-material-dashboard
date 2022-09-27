@@ -232,7 +232,7 @@ export class PagedTableComponent<T extends JsonModel>
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** The event emitted when a button in one of the rows is clicked. */
-    @Output() tableButtonClick: EventEmitter<ButtonClick>;
+    //@Output() tableButtonClick: EventEmitter<ButtonClick>;
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
     override sort$: MatSort;
@@ -256,7 +256,7 @@ export class PagedTableComponent<T extends JsonModel>
     constructor(matSort: MatSort, selectionService: SelectionService<T>) {
         super(selectionService);
         this.sort$ = matSort;
-        this.tableButtonClick = new EventEmitter<ButtonClick>();
+        //this.tableButtonClick = new EventEmitter<ButtonClick>();
     }
 
     override initDataSource(data: T[] | RemoteDataSource<T>): void {
@@ -290,7 +290,7 @@ export class PagedTableComponent<T extends JsonModel>
      */
     ngAfterContentInit(): void {
         this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
-        this.dataSource$.sort = this.sort$;
+        //this.dataSource$.sort = this.sort$;
     }
 
     ngAfterViewInit(): void {
@@ -300,7 +300,7 @@ export class PagedTableComponent<T extends JsonModel>
         }
     }
 
-    onActionButtonClick(buttonClick: string, row: JsonModel): void {
-        this.tableButtonClick.emit({ click: buttonClick, row });
-    }
+    // onActionButtonClick(buttonClick: string, row: JsonModel): void {
+    //     this.tableButtonClick.emit({ click: buttonClick, row });
+    // }
 }

@@ -21,7 +21,7 @@ import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
 import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { AbstractPagedCollectionWithToolbarComponent, PagedGridComponent } from '../../..';
+import { AbstractPagedCollectionWithToolbarComponent, PagedGridComponent, SelectionService } from '../../..';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 
 import { PagedGridWithToolbarComponent } from './paged-grid-with-toolbar.component';
@@ -60,9 +60,10 @@ const testData: DummyObject[] = [
         dialog: MatDialog,
         formBuilder: FormBuilder,
         jsonApiService: JsonDatastore,
+        selectionService: SelectionService<DummyObject>,
         toastrService: ToastrService
     ) {
-        super(DummyObject, dialog, formBuilder, jsonApiService, toastrService);
+        super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
         this.jsonApiService = jsonApiService;
         const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
         remoteDataSource.setTestData(testData);

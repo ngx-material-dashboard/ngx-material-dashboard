@@ -1,3 +1,4 @@
+export * from './collection/directives/collection-button-click.directive';
 export * from './collection/interfaces/paged-collection-with-toolbar.interface';
 export * from './collection/interfaces/sort-order.interface';
 export * from './collection/pages/abstract-paged-collection/abstract-paged-collection.component';
@@ -42,6 +43,7 @@ export * from './table/shared/services/selection.service';
 export * from './table/table.module';
 
 export * from './toolbar/components/filter-drop-down/filter-drop-down.component';
+export * from './toolbar/directives/search-filter.directive';
 export * from './toolbar/interfaces/button-click.interface';
 export * from './toolbar/interfaces/toolbar-button.interface';
 export * from './toolbar/pages/button-toolbar/button-toolbar.component';

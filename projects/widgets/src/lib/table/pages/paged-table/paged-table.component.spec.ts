@@ -140,7 +140,7 @@ describe('PagedTableComponent', () => {
     
                 it('should emit buttonClick event when action button clicked in row', () => {
                     // given: a spy on the tableButtonClick
-                    const spy = spyOn(page.component.table.tableButtonClick, 'emit');
+                    const spy = spyOn(page.component.table.buttonClick, 'emit');
     
                     // when: a button is clicked in one of the rows
                     page.clickTableButton('edit', 0);

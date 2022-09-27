@@ -59,7 +59,7 @@ export class PagedGridComponent<T extends JsonModel>
     @Input() fields: string[] = [];
     //@Input() displayedColumns: string[] = ['select', 'actions'];
     /** The event emitted when a button in one of the rows is clicked. */
-    @Output() collectionButtonClick: EventEmitter<ButtonClick>;
+    // @Output() collectionButtonClick: EventEmitter<ButtonClick>;
 
     set sort(sort: SorterComponent) {
         this.sort$ = sort;
@@ -75,7 +75,7 @@ export class PagedGridComponent<T extends JsonModel>
         }
         this.selection = new SelectionModel<T>(this.multiple$, []);
         this.sub = new Subscription();
-        this.collectionButtonClick = new EventEmitter<ButtonClick>();
+        // this.collectionButtonClick = new EventEmitter<ButtonClick>();
     }
 
     override initDataSource(data: T[] | RemoteDataSource<T>): void {
@@ -95,7 +95,7 @@ export class PagedGridComponent<T extends JsonModel>
         this.initSortSubs();
     }
 
-    onActionButtonClick(buttonClick: string, row: JsonModel): void {
-        this.collectionButtonClick.emit({ click: buttonClick, row });
-    }
+    // onActionButtonClick(buttonClick: string, row: JsonModel): void {
+    //     this.collectionButtonClick.emit({ click: buttonClick, row });
+    // }
 }

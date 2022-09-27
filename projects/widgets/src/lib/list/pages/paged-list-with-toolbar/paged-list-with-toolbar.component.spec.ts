@@ -27,6 +27,7 @@ import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.co
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 
 import { PagedListWithToolbarComponent } from './paged-list-with-toolbar.component';
+import { SelectionService } from '../../../table/shared/services/selection.service';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -62,9 +63,10 @@ const testData: DummyObject[] = [
         dialog: MatDialog,
         formBuilder: FormBuilder,
         jsonApiService: JsonDatastore,
+        selectionService: SelectionService<DummyObject>,
         toastrService: ToastrService
     ) {
-        super(DummyObject, dialog, formBuilder, jsonApiService, toastrService);
+        super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
         this.jsonApiService = jsonApiService;
         const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
         remoteDataSource.setTestData(testData);

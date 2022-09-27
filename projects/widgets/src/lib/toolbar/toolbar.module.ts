@@ -9,18 +9,20 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormModule } from '../form/form.module';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { FilterDropDownComponent } from './components/filter-drop-down/filter-drop-down.component';
+import { SearchFilterDirective } from './directives/search-filter.directive';
 import { ButtonToolbarComponent } from './pages/button-toolbar/button-toolbar.component';
-
 
 @NgModule({
     declarations: [
         ButtonsComponent,
         ButtonToolbarComponent,
-        FilterDropDownComponent
+        FilterDropDownComponent,
+        SearchFilterDirective,
     ],
     exports: [
         ButtonToolbarComponent,
-        FilterDropDownComponent
+        FilterDropDownComponent,
+        SearchFilterDirective,
     ],
     imports: [
         CommonModule,

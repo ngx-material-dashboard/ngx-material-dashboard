@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ContentChild, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
@@ -10,6 +10,8 @@ import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { DEFAULT_TOOLBAR_BUTTONS } from '../../../toolbar/shared/toolbar-buttons';
+import { SelectionService } from '../../../table/shared/services/selection.service';
+import { AbstractPagedCollectionComponent } from '../abstract-paged-collection/abstract-paged-collection.component';
 
 /**
  * The `AbstractPagedCollectionWithToolbar` is an "abstract" base component
@@ -131,10 +133,16 @@ import { DEFAULT_TOOLBAR_BUTTONS } from '../../../toolbar/shared/toolbar-buttons
 export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
     implements OnInit {
 
+    @ViewChild('pagedCollection') collection!: AbstractPagedCollectionComponent<T>;
     /** The parent form for the filter rendered in the toolbar drop down. */
     form!: FormGroup;
     /** The data source for the data to render in the collection. */
     dataSource: RemoteDataSource<T>;
+    /**
+     * These are the buttons in the toolbar that can be disabled. Just a filtered
+     * subset of toolbarButtons that have canDisable=true.
+     */
+    disableableToolbarButtons: ToolbarButton[] = [];
     //displayedColumns!: string[];
     /** The service used for CRUD operations for data in collection. */
     jsonApiService: JsonDatastore;
@@ -150,6 +158,7 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         private dialog: MatDialog,
         private formBuilder: FormBuilder,
         jsonApiService: JsonDatastore,
+        private selectionService: SelectionService<T>,
         private toastrService: ToastrService
     ) {
         this.jsonApiService = jsonApiService;
@@ -189,6 +198,14 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         if (this.toolbarButtons.length === 0) {
             this.toolbarButtons = DEFAULT_TOOLBAR_BUTTONS;
         }
+
+        // get buttons that can be disabled from given list of buttons
+        this.disableableToolbarButtons = this.toolbarButtons.filter((button: ToolbarButton) => button.canDisable);
+        this.sub = new Subscription();
+        const sub = this.selectionService.selectionChange.subscribe((disabled: boolean) => {
+            this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
+        });
+        this.sub.add(sub);
     }
 
     /**
@@ -236,8 +253,12 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         )
         .subscribe((data: Partial<T>) => {
             const val: T = this.jsonApiService.createRecord(this.modelType, data);
-            val.save().subscribe(() => {
-                this.dataSource.refresh();
+            val.save().subscribe((res: T) => {
+                if (this.collection.dataSource$ instanceof RemoteDataSource) {
+                    this.collection.dataSource$.refresh();
+                } else {
+                    this.collection.dataSource$.data.push(res);
+                }
                 this.toastrService.success(`${this.modelType.name} created successfully`);
             });
         });
@@ -273,7 +294,13 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         const afterCloseSub = dialogRef.afterClosed().subscribe((confirm: boolean) => {
             if (confirm && val.id) {
                 this.jsonApiService.deleteRecord(this.modelType, val.id).subscribe(() => {
-                    this.dataSource.refresh();
+                    if (this.collection.dataSource$ instanceof RemoteDataSource) {
+                        this.collection.dataSource$.refresh();
+                    } else {
+                        this.collection.dataSource$.data = this.collection.dataSource$.data.filter(it => {
+                            return it !== val;
+                        });
+                    }
                     this.toastrService.success(`${this.modelType.name} deleted successfully`);
                 });
             }
