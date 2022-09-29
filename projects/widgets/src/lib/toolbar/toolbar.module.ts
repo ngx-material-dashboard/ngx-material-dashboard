@@ -17,7 +17,7 @@ import { ButtonToolbarComponent } from './pages/button-toolbar/button-toolbar.co
         ButtonsComponent,
         ButtonToolbarComponent,
         FilterDropDownComponent,
-        SearchFilterDirective,
+        SearchFilterDirective
     ],
     exports: [
         ButtonToolbarComponent,
