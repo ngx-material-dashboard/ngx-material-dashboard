@@ -33,6 +33,7 @@ export * from './list/pages/paged-list-with-toolbar/paged-list-with-toolbar.comp
 export * from './list/list.module';
 
 export * from './shared/interfaces/button.interface';
+export * from './shared/buttons';
 
 export * from './services/remote-data-source.service';
 
