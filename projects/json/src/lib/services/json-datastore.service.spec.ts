@@ -302,7 +302,7 @@ describe('JsonDatastoreService', () => {
             });
 
             const findRecordRequest = httpMock.expectOne(expectedUrl);
-            findRecordRequest.flush({data: getAuthorData()});
+            findRecordRequest.flush(getAuthorData());
             expect(findRecordRequest.request.url).toBe(expectedUrl);
         })
 

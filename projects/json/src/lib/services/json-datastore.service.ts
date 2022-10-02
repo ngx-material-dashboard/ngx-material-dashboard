@@ -87,7 +87,7 @@ export class JsonDatastore extends BaseJsonDatastore {
             model.modelInitialization = false;
         }
 
-        const deserializedModel = model || this.deserializeModel(modelType, body.data);
+        const deserializedModel = model || this.deserializeModel(modelType, body);
         this.addToStore(deserializedModel);
         // if (body.included) {
         //     deserializedModel.syncRelationships(body.data, body.included);
