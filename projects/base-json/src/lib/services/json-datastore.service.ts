@@ -9,6 +9,9 @@ import { JsonModel } from "../models/json.model";
 import { ErrorResponse } from "../models/error-response.model";
 import stringify from '../utilities/stringify';
 import { Injectable } from "@angular/core";
+import { AttributeMetadata } from "../constants/symbols";
+
+const AttributeMetadataIndex: string = AttributeMetadata as any;
 
 /**
  * The `JsonDatastore` is the main datastore service that should be used to
@@ -439,7 +442,8 @@ export abstract class JsonDatastore {
         const url: string = this.buildUrl(modelType, '', model.id);
 
         // the model data to include in the request body
-        const attributesMetadata: any = Reflect.getMetadata('Attribute', model);
+        // get attribute metadata for model
+        const attributesMetadata: any = model[AttributeMetadataIndex];
         const body: any = this.serializeModel(model, attributesMetadata, transition, includeRelationships);
 
         // send the PATCH request
