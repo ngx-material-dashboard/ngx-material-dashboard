@@ -33,6 +33,7 @@ import { SelectionService } from '../../shared/services/selection.service';
 import { CollectionModule } from '../../../collection/collection.module';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
+import { BasePagedCollectionWithToolbarComponent } from '../../../collection/components/base-paged-collection-with-toolbar/base-paged-collection-with-toolbar.component';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -221,13 +222,13 @@ describe('PagedTableWithToolbarComponent', () => {
         it('should call onButtonClick event when action button clicked in row', () => {
             // given: a spy on the buttonClick for the paged collection (based
             // on answer to stackoverflow here: https://stackoverflow.com/a/41924755)
-            const spy = spyOn(AbstractPagedCollectionComponent.prototype, 'onActionButtonClick');
+            const spy = spyOn(component, 'onButtonClick');
 
             // when: a button is clicked in one of the rows
             page.table.clickTableButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
-            expect(spy).toHaveBeenCalledWith('edit', component.dataSource.data[0]);
+            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.dataSource.data[0] });
         });
     });
 });

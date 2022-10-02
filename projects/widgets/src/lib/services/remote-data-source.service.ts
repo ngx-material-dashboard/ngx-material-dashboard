@@ -148,8 +148,8 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
             }
 
             // update data for source with models returned from query
-            this.data = res.getModels();
-            this.dataSubject.next(this.data as T[]);
+            this.data = res.getModels() as T[];
+            this.dataSubject.next(this.data);
         });
     }
 

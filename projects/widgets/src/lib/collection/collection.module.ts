@@ -10,11 +10,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSortModule } from '@angular/material/sort';
 import { CollectionButtonClickDirective } from './directives/collection-button-click.directive';
+import { BasePagedCollectionWithToolbarComponent } from './components/base-paged-collection-with-toolbar/base-paged-collection-with-toolbar.component';
 
 @NgModule({
     declarations: [
         AbstractPagedCollectionComponent,
         AbstractPagedCollectionWithToolbarComponent,
+        BasePagedCollectionWithToolbarComponent,
         CollectionButtonClickDirective,
         SorterComponent
     ],

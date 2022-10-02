@@ -1,3 +1,5 @@
+import { JsonModel } from "@ngx-material-dashboard/base-json";
+
 /**
  * The value emitted when a `TableButton` or `ToolbarButton` is clicked,
  * which includes a string representation of the button that was clicked (i.e.
@@ -38,5 +40,5 @@
  */
 export interface ButtonClick {
     click: string;
-    row?: any;
+    row?: JsonModel;
 }

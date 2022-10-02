@@ -221,6 +221,10 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
 
+    onToolbarButtonClick(buttonClick: ButtonClick): void {
+        this.onButtonClick(buttonClick);
+    }
+
     /**
      * Handler for when the user clicks the button to add a new item to the
      * collection. This must implemented by any component extending this one,

@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -16,26 +15,26 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
-import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
-import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
-import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
-import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
+import { ToastrModule } from 'ngx-toastr';
+import { PagedListWithToolbarComponent } from '../../../list/pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 
-import { PagedListWithToolbarComponent } from './paged-list-with-toolbar.component';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
-import { CollectionModule } from '../../../collection/collection.module';
-import { PagedListComponent } from '../../..';
+import { CollectionModule } from '../../collection.module';
 
-const testData: DummyObject[] = [
-    { id: '1' } as DummyObject,
-    { id: '2' } as DummyObject
-];
+import { BasePagedCollectionWithToolbarComponent } from './base-paged-collection-with-toolbar.component';
+
+@Component({
+    template: `
+    <ngx-material-dashboard-button-toolbar [buttons]="toolbarButtons" (buttonClick)="onToolbarButtonClick($event)">
+        <ng-content select="[filter]"></ng-content>
+    </ngx-material-dashboard-button-toolbar>
+    <!-- paged-list -->
+    <ng-content select="[collection]"></ng-content>`
+}) class TestBasePagedCollectionWithToolbarComponent
+    extends BasePagedCollectionWithToolbarComponent<DummyObject> {}
 
 @Component({
     template: `
@@ -58,49 +57,21 @@ const testData: DummyObject[] = [
                 </mat-card>
             </ng-template>
         </ngx-material-dashboard-paged-list>
-    </ngx-material-dashboard-paged-list-with-toolbar>
-    `
-}) class TestPagedListWithToolbarComponent 
-    extends AbstractPagedCollectionWithToolbarComponent<DummyObject> {
+    </ngx-material-dashboard-paged-list-with-toolbar>`
+}) class TestPagedCollectionWithToolbarComponent {}
 
-    override jsonApiService: JsonDatastore;
-
-    constructor(
-        dialog: MatDialog,
-        formBuilder: FormBuilder,
-        jsonApiService: JsonDatastore,
-        selectionService: SelectionService<DummyObject>,
-        toastrService: ToastrService
-    ) {
-        super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
-        this.jsonApiService = jsonApiService;
-        const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
-        remoteDataSource.setTestData(testData);
-        this.dataSource = remoteDataSource;
-    }
-
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.dataSource.load();
-    }
-
-    override openCreateDialog(): void {
-    }
-
-    override openConfirmDeleteDialog(val: DummyObject): void {
-    }
-}
-
-describe('PagedListWithToolbarComponent', () => {
-    let component: TestPagedListWithToolbarComponent;
-    let fixture: ComponentFixture<TestPagedListWithToolbarComponent>;
+describe('BasePagedCollectionWithToolbarComponent', () => {
+    let component: TestPagedCollectionWithToolbarComponent;
+    let fixture: ComponentFixture<TestPagedCollectionWithToolbarComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
+                BasePagedCollectionWithToolbarComponent,
                 PagedListComponent,
                 PagedListWithToolbarComponent,
-                TestPagedListWithToolbarComponent
+                TestBasePagedCollectionWithToolbarComponent,
+                TestPagedCollectionWithToolbarComponent
             ],
             imports: [
                 HttpClientTestingModule,
@@ -121,16 +92,12 @@ describe('PagedListWithToolbarComponent', () => {
                 MockModule(ToastrModule.forRoot()),
                 CollectionModule,
                 ToolbarModule
-            ],
-            providers: [
-                { provide: Datastore, deps: [HttpClient] },
-                { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
             ]
         });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestPagedListWithToolbarComponent);
+        fixture = TestBed.createComponent(TestPagedCollectionWithToolbarComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
