@@ -30,7 +30,9 @@ export class FilterDropDownComponent implements AfterViewInit, OnInit {
     faSearch: IconDefinition = faSearch;
     menuWidth: any;
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(
+        private formBuilder: FormBuilder
+    ) { }
 
     ngAfterViewInit(): void {
         // wait a tick to avoid expressionchangedafterithasbeencheckederror

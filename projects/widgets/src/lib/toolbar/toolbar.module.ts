@@ -11,24 +11,42 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
 import { FilterDropDownComponent } from './components/filter-drop-down/filter-drop-down.component';
 import { SearchFilterDirective } from './directives/search-filter.directive';
 import { ButtonToolbarComponent } from './pages/button-toolbar/button-toolbar.component';
+import { CompactPagedToolbarComponent } from './pages/compact-paged-toolbar/compact-paged-toolbar.component';
+import { IconButtonsComponent } from './components/icon-buttons/icon-buttons.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SorterComponent } from './pages/sorter/sorter.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [
         ButtonsComponent,
         ButtonToolbarComponent,
         FilterDropDownComponent,
-        SearchFilterDirective
+        SearchFilterDirective,
+        SorterComponent,
+        CompactPagedToolbarComponent,
+        IconButtonsComponent
     ],
     exports: [
         ButtonToolbarComponent,
+        CompactPagedToolbarComponent,
         FilterDropDownComponent,
         SearchFilterDirective,
+        SorterComponent
     ],
     imports: [
         CommonModule,
         MatButtonModule,
+        MatCheckboxModule,
         MatMenuModule,
+        MatPaginatorModule,
+        MatSelectModule,
+        MatSortModule,
         MatToolbarModule,
+        MatTooltipModule,
         FlexLayoutModule,
         FontAwesomeModule,
         FormModule

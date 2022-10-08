@@ -1,0 +1,5 @@
+mat-checkbox {
+    /* fudge the padding around the checkbox to align with other checkboxes */
+    padding-left: 24px;
+    padding-right: 10px;
+}

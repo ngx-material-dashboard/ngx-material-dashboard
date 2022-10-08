@@ -8,6 +8,9 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { AbstractPagedCollectionComponent } from '../../pages/abstract-paged-collection/abstract-paged-collection.component';
 
+/**
+ * 
+ */
 @Component({
     template: ''
 })

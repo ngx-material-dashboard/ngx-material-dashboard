@@ -5,7 +5,7 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { SorterComponent } from '../../../collection/pages/sorter/sorter.component';
+import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { SelectionService } from '../../../table/shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { Button } from '../../../shared/interfaces/button.interface';

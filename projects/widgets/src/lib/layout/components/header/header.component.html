@@ -1,20 +1,27 @@
 <header>
     <mat-toolbar color="primary">
-        <button mat-icon-button (click)="onToggleSidenav()" class="marker-bars-button">
-            <fa-icon [icon]="faBars"></fa-icon>
-            <div class="mat-button-focus-overlay"></div>
-            <div class="mat-button-ripple mat-ripple"></div>
-        </button>
-        <button mat-button
-                class="mat-button marker-home-button"
-                [routerLink]="['/']">
-            <span class="marker-header-logo">{{logo}}</span>
-            <div class="mat-button-focus-overlay"></div>
-            <div class="mat-button-ripple mat-ripple"></div>
-        </button>
+        <div fxFlex="0 0 25">
+            <button mat-icon-button (click)="onToggleSidenav()" class="marker-bars-button">
+                <fa-icon [icon]="faBars"></fa-icon>
+                <div class="mat-button-focus-overlay"></div>
+                <div class="mat-button-ripple mat-ripple"></div>
+            </button>
+            <button mat-button
+                    class="mat-button marker-home-button"
+                    [routerLink]="['/']">
+                <span class="marker-header-logo">{{logo}}</span>
+                <div class="mat-button-focus-overlay"></div>
+                <div class="mat-button-ripple mat-ripple"></div>
+            </button>
+        </div>
+        <div fxFlex="0 0 50">
+            <ng-content></ng-content>
+        </div>
+        <div fxFlex="0 0 25">
 <!--
         <span fxFlex></span>
         <ngx-material-dashboard-header-user-login></ngx-material-dashboard-header-user-login>
 -->
+        </div>
     </mat-toolbar>
 </header>

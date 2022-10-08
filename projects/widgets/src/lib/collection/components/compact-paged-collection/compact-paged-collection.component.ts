@@ -1,115 +1,47 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
-
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { Button } from '../../../shared/interfaces/button.interface';
 import { SelectionService } from '../../../table/shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
+import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { SortOrder } from '../../../toolbar/interfaces/sort-order.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
+import { CompactPagedToolbarComponent } from '../../../toolbar/pages/compact-paged-toolbar/compact-paged-toolbar.component';
 
-/**
- * The `AbstractPagedCollectionComponent` defines properties and methods for managing
- * paged sets of data. This can be included with any component that works with
- * paged data sets, and it is currently being used by the `PagedGrid`,
- * `PagedList`, and `PagedTable` components.
- * 
- * @usageNotes
- * ## Basic Usage Example
- * ```html
- * <div fxLayout="column" fxLayoutGap="5px">
- *     <div *ngFor="let model of dataSource$.data">
- *         <ng-container 
- *             *ngTemplateOutlet="template; context: { model: model }">
- *         </ng-container>
- *     </div>
- * </div>
- * <mat-paginator [length]="dataSource$.data.length"
- *    [pageSize]="pageSize" 
- *    [pageSizeOptions]="[15, 25, 50, 75, 100]">
- * </mat-paginator>
- * ```
- * ```typescript
- * import {Component} from '@angular/core';
- * import {JsonModel} from '@ngx-material-dashboard/base-json';
- * import {AbstractPageComponent} from '@ngx-material-dashboard/widgets';
- *
- * @Component({
- *     selector: 'basic-usage-example',
- *     templateUrl: './basic-usage-example.html'
- * })
- * export class BasicUsageExample<T extends JsonModel>
- *     extends AbstractPagedCollectionComponent<T>{}
- * ```
- * 
- * @overviewDetails
- * The above is an example of how to create your own paged component. This will
- * simply render a list of items from the `dataSource$`. The example uses
- * component composition to render each item in the data set as defined in the
- * body of the template of whatever component that utilizes your paged
- * component.
- * 
- * Component composition is outside of the scope of this documentation as there
- * are plenty of resources available for you to learn more about this. Suffice
- * to say it is pretty awesome, and allows you to do something like the
- * following to utilize your paged component.
- *
- * @usageNotes
- * ```html
- * <basic-usage-example [data]="tasks">
- *     <mat-card>
- *         <mat-card-title>
- *             {{model.id}} Title
- *         </mat-card-title>
- *         <mat-card-content>
- *             Content for dummy object {{model.id}}
- *         </mat-card-content>
- *     </mat-card>
- * </basic-usage-example>
- * ```
- * ```typescript
- * import {Component} from '@angular/core';
- * import {Task} from './tasks'; // this should extend JsonModel
- * 
- * @Component({
- *     selector: 'using-basic-usage-example',
- *     templateUrl: './using-basic-usage-example.html'
- * }) UsingBasicUsageExample {
- *     tasks: Task[] = []; // assuming this is initialized with data at some point
- * }
- * ```
- * 
- * @overviewDetails
- * > NOTE: The above example initializes the component for local data. To
- * > initialize your component with remote data simply pass in a 
- * > `RemoteDataSource` to the `dataSource input of the `BasicUsageExample`.
- */
 @Component({
-  template: ''
+    template: ''
 })
-export class AbstractPagedCollectionComponent <T extends JsonModel>
-    implements OnDestroy {
+export class CompactPagedCollectionComponent<T extends JsonModel>
+    implements AfterViewInit, OnDestroy {
 
     /**
      * A reference to the model template for each element in the collection.
      * This is mainly used for any collection other than a table.
      */
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
+    /** The buttons to render in each row of the table. */
+    @Input() collectionButtons: Button[] = [];
+    /** List of fields included in each element of list that can be sorted on. */
+    @Input() fields: string[] = [];
+    /** The buttons to render in the toolbar. */
+    @Input() toolbarButtons: ToolbarButton[] = [];
     /**
      * Setter for paged data. This re-initializes the dataSource everytime data changes.
      * TODO: only re-initialize when necessary; just update data otherwise
      */
-     @Input() set data(data: T[] | undefined) {
+    @Input() set data(data: T[] | undefined) {
         if (data) {
             this.initDataSource(data);
         }
     }
     /** The dataSource for the paged data. */
-    @Input() set dataSource(data: T[] | RemoteDataSource<T> | undefined) {
+    @Input() set dataSource(data: MatTableDataSource<T> | RemoteDataSource<T> | undefined) {
         if (data) {
             this.initDataSource(data);
         }
@@ -127,19 +59,23 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     }
     /** Number of items to display on a page. Defaults to 25. */
     @Input() pageSize: number = 25;
+    /** The event to emit when button is clicked in toolbar or collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
-    /** A reference to the paginator in the template. */
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    /** A reference to the sorter in the template. */
-    @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;    
+    /** A reference to the toolbar in the template. */
+    @ViewChild(CompactPagedToolbarComponent) toolbar!: CompactPagedToolbarComponent<T>;
     //@ViewChild(SorterComponent) sorter?: SorterComponent;
     /** The source for the table data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
+    /**
+     * These are the buttons in the toolbar that can be disabled. Just a filtered
+     * subset of toolbarButtons that have canDisable=true.
+     */
+    disableableToolbarButtons: ToolbarButton[] = [];
     /** Boolean value indicating whether multiple rows can be selected. */
     multiple$: boolean = true;
     /** The model to track items selected in the table. */
     selection: SelectionModel<T>;
-    /** All disposable resources for component. */
+    /** The subscriptions for the component. */
     sub: Subscription;
 
     /**
@@ -148,12 +84,16 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     get length(): number {
         if (this.dataSource$ instanceof RemoteDataSource) {
             return this.dataSource$.total;
-        } else {
+        } else if (this.dataSource$?.data) {
             return this.dataSource$.data.length;
+        } else {
+            return 0;
         }
     }
 
-    constructor(private selectionService: SelectionService<T>) {
+    constructor(
+        private selectionService: SelectionService<T>
+    ) {
         // if (!this.dataSource$) {
         //     this.dataSource$ = new MatTableDataSource();
         //     this.initDataSource([]);
@@ -164,13 +104,38 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
         this.sub = new Subscription();
     }
 
+    ngAfterViewInit(): void {
+        // get buttons that can be disabled from given list of buttons
+        this.disableableToolbarButtons = this.toolbarButtons.filter((button: ToolbarButton) => button.canDisable);
+        this.sub = new Subscription();
+        const sub = this.selectionService.selectionChange.subscribe((disabled: boolean) => {
+            this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
+        });
+        this.sub.add(sub);
+
+        this.initPageSub();
+        this.initSortSubs();
+    }
+
     /**
-     * Lifecycle method automatically called by angular when the component is
-     * destroyed. Used to unsubscribe from all subscriptions created in
-     * component.
+     * Destroy all subscriptions in the component.
      */
-    ngOnDestroy(): void {
+     ngOnDestroy(): void {
         this.sub.unsubscribe();
+    }
+
+    /**
+     * Adds current table selection to given buttonClick and emits event to
+     * parent. TODO handle multiple selections
+     *
+     * @param buttonClick A buttonClick event from the tableToolbar.
+     */
+    onToolbarButtonClick(buttonClick: ButtonClick): void {
+        if (!this.selection.isEmpty()) {
+            // make sure selection is not empty before adding selected row(s)
+            buttonClick.row = this.selection.selected[0];
+        }
+        this.buttonClick.emit(buttonClick);
     }
 
     /**
@@ -179,14 +144,18 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * 
      * @param data Either an array (local data) or a RemoteDataSource.
      */
-    initDataSource(data: T[] | RemoteDataSource<T>): void {
-        if (data instanceof RemoteDataSource) {
-            this.dataSource$ = data;
-            this.initPageSub();
+     initDataSource(dataSource: T[] | MatTableDataSource<T> | RemoteDataSource<T>): void {
+        if (dataSource instanceof RemoteDataSource) {
+            this.dataSource$ = dataSource;
         } else {
-            this.dataSource$ = new MatTableDataSource(data);
-            this.dataSource$.paginator = this.paginator;
+            if (dataSource instanceof MatTableDataSource) {
+                this.dataSource$ = dataSource;
+            } else {
+                this.dataSource$ = new MatTableDataSource(dataSource);
+            }
         }
+        this.initPageSub();
+        this.initSortSubs();
     }
 
     /**
@@ -194,13 +163,15 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * for handling remote data.
      */
     initPageSub(): void {
-        if (this.paginator) {
-            const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
+        if (this.toolbar) {
+            const pageSub = this.toolbar.paginator.page.subscribe((page: PageEvent) => {
                 if (this.dataSource$ instanceof RemoteDataSource) {
                     // calculate offset using pageSize and pageIndex from PageEvent
                     this.dataSource$.pageIndex = page.pageIndex;
                     this.dataSource$.pageSize = page.pageSize;
                     this.dataSource$.refresh();
+                } else {
+                    this.dataSource$.paginator = this.toolbar.paginator;
                 }
             });
             this.sub.add(pageSub);
@@ -212,8 +183,8 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * in the collection.
      */
     initSortSubs(): void {
-        if (this.sort$ && this.sort$ instanceof SorterComponent) {
-            const sub = this.sort$.sort.subscribe((sortOrder: SortOrder) => {
+        if (this.toolbar?.sort && this.toolbar?.sort instanceof SorterComponent) {
+            const sub = this.toolbar.sort.sort.subscribe((sortOrder: SortOrder) => {
                 if (this.dataSource$ instanceof RemoteDataSource) {
                     this.dataSource$.sort = sortOrder.sort;
                     this.dataSource$.sort = sortOrder.order;
@@ -251,7 +222,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * Handler for checkbox in table header. Clears all selections if all visible rows in the table
      * are selected; otherwise selects all visible rows in the table.
      */
-    masterToggle(): void {
+    masterToggle(event: boolean): void {
         if (this.isAllSelected() || !this.multiple$) {
             // clear all selections and disable ToolbarButtons
             this.selection.clear();

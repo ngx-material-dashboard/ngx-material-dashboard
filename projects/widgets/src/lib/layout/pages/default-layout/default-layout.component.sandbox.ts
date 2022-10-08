@@ -1,3 +1,5 @@
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -10,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClipboardCheck, faClipboardList, faHourglassEnd, faHourglassHalf, faHourglassStart } from '@fortawesome/free-solid-svg-icons';
 import { DrawerRailModule } from 'angular-material-rail-drawer';
 import { sandboxOf } from 'angular-playground';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderUserLoginComponent } from '../../components/header-user-login/header-user-login.component';
 import { HeaderUserMenuComponent } from '../../components/header-user-menu/header-user-menu.component';
@@ -33,6 +36,9 @@ export default sandboxOf(DefaultLayoutComponent, {
     imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
         MatButtonModule,
         MatListModule,
         MatMenuModule,
@@ -42,7 +48,8 @@ export default sandboxOf(DefaultLayoutComponent, {
         MatSidenavModule,
         MatToolbarModule,
         FontAwesomeModule,
-        DrawerRailModule
+        DrawerRailModule,
+        ToolbarModule
     ],
     providers: [
         LoadingService
@@ -78,4 +85,10 @@ export default sandboxOf(DefaultLayoutComponent, {
             { icon: faClipboardCheck, queryParams: { isComplete: true }, route: ['tasks'], text: 'Complete', selector: 'complete' }
         ]
     }
+})
+.add('header with filter', {
+    template: `
+    <ngx-material-dashboard-default-layout>
+        <ngx-material-dashboard-filter-drop-down filter></ngx-material-dashboard-filter-drop-down>
+    </ngx-material-dashboard-default-layout>`
 });

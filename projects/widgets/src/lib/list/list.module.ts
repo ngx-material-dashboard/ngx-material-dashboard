@@ -11,12 +11,14 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
+import { CompactPagedListComponent } from './pages/compact-paged-list/compact-paged-list.component';
 
 @NgModule({
     declarations: [
         PagedListComponent,
         ListComponent,
-        PagedListWithToolbarComponent
+        PagedListWithToolbarComponent,
+        CompactPagedListComponent
     ],
     imports: [
         CommonModule,

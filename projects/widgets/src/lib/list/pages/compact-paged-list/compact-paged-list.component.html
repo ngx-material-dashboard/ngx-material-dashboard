@@ -1,0 +1,34 @@
+<ngx-material-dashboard-compact-paged-toolbar
+    [buttons]="toolbarButtons"
+    [fields]="fields"
+    [length]="length"
+    [multiple]="multiple$"
+    [selection]="selection"
+    (masterToggle)="masterToggle($event)">
+</ngx-material-dashboard-compact-paged-toolbar>
+<ngx-material-dashboard-list [models]="dataSource$.data" [modelType]="modelType">
+    <ng-template #model let-model="model">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-checkbox class="marker-checkbox-row-select"
+                (click)="$event.stopPropagation()"
+                (change)="onRowSelected(model)"
+                [checked]="selection.isSelected(model)">
+            </mat-checkbox>
+            <div fxFlex>
+                <ng-container 
+                    *ngTemplateOutlet="template; context: { model: model }">
+                </ng-container>
+            </div>
+            <div fxLayout="row" fxLayoutGap="5px">
+                <button *ngFor="let button of collectionButtons"
+                    class="button-marker-{{button.click}}"
+                    (click)="onActionButtonClick(button.click, model)"
+                    mat-icon-button>
+                    <fa-icon [icon]="button.icon"></fa-icon>
+                    <div class="mat-button-focus-overlay"></div>
+                    <div class="mat-button-ripple mat-ripple"></div>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</ngx-material-dashboard-list>

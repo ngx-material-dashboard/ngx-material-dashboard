@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
@@ -46,11 +46,16 @@ export class DefaultLayoutComponent {
     @Input() sidenavItems: SidenavItem[] = [];
     /** Boolean indicating whether the screen size is small (defaults to false). */
     @Input() isSmallScreen = false;
+    @Output() clickSearchFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
     /** The sidenav defined in the template. */
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
     get opened(): boolean {
         return this.mode === 'rail';
+    }
+
+    searchFilter(res: boolean) {
+        this.clickSearchFilter.emit(res);
     }
 
     /**

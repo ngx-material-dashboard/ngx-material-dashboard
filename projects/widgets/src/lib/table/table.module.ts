@@ -20,10 +20,15 @@ import { PagedTableComponent } from './pages/paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
 import { CollectionModule } from '../collection/collection.module';
 import { ToolbarModule } from '../toolbar/toolbar.module';
+import { CompactPagedTableComponent } from './pages/compact-paged-table/compact-paged-table.component';
 
 @NgModule({
-    declarations: [PagedTableComponent, PagedTableWithToolbarComponent],
-    exports: [PagedTableComponent, PagedTableWithToolbarComponent],
+    declarations: [PagedTableComponent, PagedTableWithToolbarComponent, CompactPagedTableComponent],
+    exports: [
+        CompactPagedTableComponent,
+        PagedTableComponent,
+        PagedTableWithToolbarComponent
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,

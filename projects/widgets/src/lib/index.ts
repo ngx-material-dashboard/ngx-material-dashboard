@@ -1,9 +1,10 @@
+export * from './collection/components/base-paged-collection-with-toolbar/base-paged-collection-with-toolbar.component';
+export * from './collection/components/compact-paged-collection/compact-paged-collection.component';
 export * from './collection/directives/collection-button-click.directive';
 export * from './collection/interfaces/paged-collection-with-toolbar.interface';
-export * from './collection/interfaces/sort-order.interface';
+export * from './collection/pages/abstract-compact-paged-collection/abstract-compact-paged-collection.component';
 export * from './collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 export * from './collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
-export * from './collection/pages/sorter/sorter.component';
 export * from './collection/collection.module';
 
 export * from './dialog/components/confirm-delete-dialog/confirm-delete-dialog.component';
@@ -28,16 +29,19 @@ export * from './layout/components/sidenav/sidenav.component';
 export * from './layout/pages/default-layout/default-layout.component';
 export * from './layout/layout.module';
 
+export * from './list/pages/compact-paged-list/compact-paged-list.component';
 export * from './list/pages/paged-list/paged-list.component';
 export * from './list/pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 export * from './list/list.module';
 
+export * from './shared/enums/button-click-actions.enum';
 export * from './shared/interfaces/button.interface';
 export * from './shared/buttons';
 
 export * from './services/remote-data-source.service';
 
 export * from './table/interfaces/paged-table-with-toolbar.interface';
+export * from './table/pages/compact-paged-table/compact-paged-table.component';
 export * from './table/pages/paged-table/paged-table.component';
 export * from './table/pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
 export * from './table/shared/services/selection.service';
@@ -46,7 +50,11 @@ export * from './table/table.module';
 export * from './toolbar/components/filter-drop-down/filter-drop-down.component';
 export * from './toolbar/directives/search-filter.directive';
 export * from './toolbar/interfaces/button-click.interface';
+export * from './toolbar/interfaces/sort-order.interface';
 export * from './toolbar/interfaces/toolbar-button.interface';
 export * from './toolbar/pages/button-toolbar/button-toolbar.component';
+export * from './toolbar/pages/compact-paged-toolbar/compact-paged-toolbar.component';
+export * from './toolbar/pages/sorter/sorter.component';
+export * from './toolbar/shared/services/filter.service';
 export * from './toolbar/shared/toolbar-buttons';
 export * from './toolbar/toolbar.module';

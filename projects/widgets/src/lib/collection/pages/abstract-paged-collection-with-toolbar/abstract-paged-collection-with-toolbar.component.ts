@@ -15,7 +15,7 @@ import { AbstractPagedCollectionComponent } from '../abstract-paged-collection/a
 
 /**
  * The `AbstractPagedCollectionWithToolbar` is an "abstract" base component
- * cfor all components that utilize the `PagedCollectionWithToolbar`. This
+ * for all components that utilize the `PagedCollectionWithToolbar`. This
  * component provides some shared methods that are useful for these types of
  * components.
  * 
