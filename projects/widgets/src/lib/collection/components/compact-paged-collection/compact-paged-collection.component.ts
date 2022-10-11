@@ -120,7 +120,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     /**
      * Destroy all subscriptions in the component.
      */
-     ngOnDestroy(): void {
+    ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 
