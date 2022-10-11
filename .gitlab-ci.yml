@@ -1,0 +1,40 @@
+image: npm:8.3.1
+
+# cache settings for all jobs (directories to keep between jobs)
+cache:
+  paths:
+    - dist/
+    - docs/
+    - node_modules/
+
+# order of stages
+stages:
+  - setup
+  - build
+  - pages
+
+# install dependencies (and any other setup...)
+setup:
+  stage: setup
+  script:
+    - npm ci
+
+# build libraries and documentation (libraries must be built first because docs
+# use components from widgets library)
+build:
+  stage: build
+  script:
+    - npm run build
+    - ng build documentation
+
+# deploy documentation app as pages
+pages:
+  stage: pages
+  script:
+    - mkdir .public
+    - cp -r docs/. .public
+    - rm -rf public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
