@@ -16,11 +16,15 @@ Click on the corresponding links below to see more details about each library.
 
 ## Playground Project
 
-I have included [angularplayground.it](https://angularplayground.it) with sandboxes for developing library components in isolation. Since it requires a main application I added a `playground` directory with minimum files needed for a main application for `angularplayground`, and linked the widgets library so sandboxes can be created from components there. After you have cloned the workspace and installed the required `node_modules`, you can run the playground with the following command:
+I have included [angularplayground.it](https://angularplayground.it) with sandboxes for developing library components in isolation. While I have tried to provide examples in the documentation, along with the API documentation, the playground is another great source for examples of how to use the components defined in the widgets library, and it allows you to see the components in action.
+
+Since it requires a main application I added a `playground` directory with minimum files needed for a main application for `angularplayground`, and linked the widgets library so sandboxes can be created from components there. After you have cloned the workspace and installed the required `node_modules`, you can run the playground with the following command:
 
 ```bash
 npm run playground
 ```
+
+Once started you can access the playground at `http://localhost:4201/`.
 
 ## Documentation
 
