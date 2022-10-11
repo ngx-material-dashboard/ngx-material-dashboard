@@ -37,22 +37,12 @@ export class CompactPagedTableComponent<T extends JsonModel>
      * an issue accessing directives included directly in components and the
      * only way to access them is with DI.
      * 
-     * @param matSort DI directive needed for sorting columns.
      * @param selectionService Service used to handle when user selects rows.
      */
     constructor(selectionService: SelectionService<T>) {
         super(selectionService);
         // this.sort = matSort;
         //this.tableButtonClick = new EventEmitter<ButtonClick>();
-    }
-
-    override initDataSource(data: T[] | RemoteDataSource<T>): void {
-        super.initDataSource(data);
-        if (data instanceof RemoteDataSource) {
-            this.initSortSubs();
-        } else {
-            this.dataSource$.sort = this.sort;
-        }
     }
 
     override initSortSubs(): void {
@@ -63,6 +53,8 @@ export class CompactPagedTableComponent<T extends JsonModel>
                     this.dataSource$.order = sort.direction;
                     this.dataSource$.pageIndex = 0;
                     this.dataSource$.refresh();
+                } else {
+                    super.initSortSubs();
                 }
             });
             this.sub.add(sortSub);
