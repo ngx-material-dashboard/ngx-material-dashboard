@@ -56,7 +56,13 @@ export default sandboxOf(PagedListWithToolbarComponent, {
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-list [collectionButtons]="collectionButtons" [data]="data" [fields]="fields" class="marker-paged-list" list>
+        <ngx-material-dashboard-paged-list
+            [collectionButtons]="collectionButtons"
+            [data]="data"
+            [fields]="fields"
+            class="marker-paged-list"
+            collection
+            #pagedCollection>
             <ng-template #model let-model="model">
                 <mat-card>
                     <mat-card-title>

@@ -54,7 +54,15 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-table matSort [buttons]="collectionButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" table class="marker-paged-table">
+        <ngx-material-dashboard-paged-table
+            matSort 
+            [buttons]="collectionButtons"
+            [data]="data"
+            [displayedColumns]="displayedColumns"
+            [multiple]="multiple"
+            class="marker-paged-table"
+            collection
+            #pagedCollection>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -80,7 +88,15 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-table matSort [buttons]="collectionButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" table class="marker-paged-table">
+        <ngx-material-dashboard-paged-table
+            matSort
+            [buttons]="collectionButtons"
+            [data]="data"
+            [displayedColumns]="displayedColumns"
+            [multiple]="multiple"
+            class="marker-paged-table"
+            collection
+            #pagedCollection>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>

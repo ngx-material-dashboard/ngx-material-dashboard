@@ -56,7 +56,13 @@ export default sandboxOf(PagedGridWithToolbarComponent, {
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-grid [collectionButtons]="collectionButtons" [data]="data" [fields]="fields" class="marker-paged-grid" grid>
+        <ngx-material-dashboard-paged-grid
+            [collectionButtons]="collectionButtons"
+            [data]="data"
+            [fields]="fields"
+            class="marker-paged-grid"
+            collection
+            #pagedCollection>
             <ng-template #model let-model="model">
                 <mat-card>
                     <mat-card-title>
