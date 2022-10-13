@@ -1,10 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
+
 import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
 import { SelectionService } from '../../../table/shared/services/selection.service';
@@ -14,6 +14,16 @@ import { SortOrder } from '../../../toolbar/interfaces/sort-order.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { CompactPagedToolbarComponent } from '../../../toolbar/pages/compact-paged-toolbar/compact-paged-toolbar.component';
 
+/**
+ * The `CompactPagedCollection` combines a paginator and management buttons in
+ * a single `toolbar` above a collection. This component is more compact than
+ * the original paged collection with toolbar components since those components
+ * separate out the CRUD capabilities and the paging capabilities (both function
+ * wise and display wise). Additionally, filter forms are intended to be used
+ * outside of this component, and the buttons that are included in the
+ * compact toolbar are icon buttons (i.e. they don't include text, and as a
+ * result you should be able to include more buttons). 
+ */
 @Component({
     template: ''
 })
@@ -25,7 +35,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
      * This is mainly used for any collection other than a table.
      */
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
-    /** The buttons to render in each row of the table. */
+    /** The buttons to render with each element in the collection. */
     @Input() collectionButtons: Button[] = [];
     /** List of fields included in each element of list that can be sorted on. */
     @Input() fields: string[] = [];
@@ -46,10 +56,12 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
             this.initDataSource(data);
         }
     }
-    /** Any values that should be selected when table initially renders. */
+    /** Any values that should be selected when collection initially renders. */
     @Input() initiallySelectedValues: T[] = [];
-    @Input() modelType: string = 'data';
-    /** The max number of pages to display in the paginator. Defaults to 10 (does not include 'First', 'Prev', 'Next', 'Last'). */
+    /** 
+     * The max number of pages to display in the paginator. Defaults to 10
+     * (does not include 'First', 'Prev', 'Next', 'Last').
+     */
     @Input() maxPages: number = 10;
     /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */
     @Input() set multiple(multiple: boolean) {
@@ -63,8 +75,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the toolbar in the template. */
     @ViewChild(CompactPagedToolbarComponent) toolbar!: CompactPagedToolbarComponent<T>;
-    //@ViewChild(SorterComponent) sorter?: SorterComponent;
-    /** The source for the table data. */
+    /** The source for the collection data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /**
      * These are the buttons in the toolbar that can be disabled. Just a filtered
@@ -73,7 +84,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     disableableToolbarButtons: ToolbarButton[] = [];
     /** Boolean value indicating whether multiple rows can be selected. */
     multiple$: boolean = true;
-    /** The model to track items selected in the table. */
+    /** The model to track items selected in the collection. */
     selection: SelectionModel<T>;
     /** The subscriptions for the component. */
     sub: Subscription;
@@ -94,10 +105,6 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     constructor(
         private selectionService: SelectionService<T>
     ) {
-        // if (!this.dataSource$) {
-        //     this.dataSource$ = new MatTableDataSource();
-        //     this.initDataSource([]);
-        // }
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.selection = new SelectionModel<T>(this.multiple$, []);
         this.selectionService.selectionSubject.next(this.selection);
@@ -125,8 +132,8 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     }
 
     /**
-     * Adds current table selection to given buttonClick and emits event to
-     * parent. TODO handle multiple selections
+     * Adds current collection selection to given buttonClick and emits event
+     * to parent. TODO handle multiple selections
      *
      * @param buttonClick A buttonClick event from the tableToolbar.
      */
@@ -159,18 +166,19 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     }
 
     /**
-     * Initializes subscription for when user changes page or page size, meant
-     * for handling remote data.
+     * Initializes subscription for when user changes page or page size. Works
+     * for both local and remote data.
      */
     initPageSub(): void {
         if (this.toolbar) {
             const pageSub = this.toolbar.paginator.page.subscribe((page: PageEvent) => {
                 if (this.dataSource$ instanceof RemoteDataSource) {
-                    // calculate offset using pageSize and pageIndex from PageEvent
+                    // handle remote data
                     this.dataSource$.pageIndex = page.pageIndex;
                     this.dataSource$.pageSize = page.pageSize;
                     this.dataSource$.refresh();
                 } else {
+                    // handle local data
                     this.dataSource$.paginator = this.toolbar.paginator;
                 }
             });
@@ -206,9 +214,10 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     }
 
     /**
-     * Returns true if all visible rows in the table are selected; otherwise returns false.
+     * Returns true if all visible elements in the collection are selected;
+     * otherwise returns false.
      *
-     * @returns true if all visible rows in the table are selected.
+     * @returns true if all visible elements in the collection are selected.
      */
     isAllSelected(): boolean {
         if (this.dataSource$.data.length === 0) {
@@ -219,8 +228,9 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
     }
 
     /**
-     * Handler for checkbox in table header. Clears all selections if all visible rows in the table
-     * are selected; otherwise selects all visible rows in the table.
+     * Handler for checkbox in collection header. Clears all selections if all
+     * visible elements in the collection are selected; otherwise selects all
+     * visible elements in the collection.
      */
     masterToggle(event: boolean): void {
         if (this.isAllSelected() || !this.multiple$) {
@@ -240,15 +250,22 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
         this.selectionService.selectionSubject.next(this.selection);
     }
 
+    /**
+     * Handler for when the user clicks a button next to an element in the
+     * collection.
+     *
+     * @param click The action that was clicked (i.e. 'edit', 'delete', etc).
+     * @param row The row/element where the button was clicked.
+     */
     onActionButtonClick(click: string, row: T): void {
         this.buttonClick.emit({ click: click, row: row });
     }
 
     /**
-     * Handler for checkbox in table row. Toggles the selection for the given row and updates the
-     * ToolbarButtons accordingly.
+     * Handler for checkbox in collection. Toggles the selection for the given
+     * element and updates the ToolbarButtons accordingly.
      *
-     * @param row The row that was (de)selected in the table.
+     * @param row The element that was (de)selected in the collection.
      */
     onRowSelected(row: T): void {
         if (!this.multiple$ && this.selection.selected.length > 0) {

@@ -9,7 +9,15 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
 import { AbstractPagedCollectionComponent } from '../../pages/abstract-paged-collection/abstract-paged-collection.component';
 
 /**
- * 
+ * The `BasePagedCollectionWithToolbar` provides shared fields and functions
+ * for all paged collections that utilize a `MatToolbar` above them. The
+ * `PagedGridWithToolbar`, `PagedListWithToolbar`, and `PagedTableWithToolbar`
+ * all extend this component to use the shared features defined here. Most
+ * components used in applications will not use this component directly, and
+ * will instead extend the `AbstractPagedCollectionWithToolbar`. You should not
+ * need to use this component unless you intend to create your own paged
+ * collection (i.e. something other than the provided grid, list, or table
+ * components).
  */
 @Component({
     template: ''

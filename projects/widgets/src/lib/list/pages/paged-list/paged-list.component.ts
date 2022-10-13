@@ -11,7 +11,7 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { Button } from '../../../shared/interfaces/button.interface';
 
 /**
- * The `PagedListComponent` renders items in a grid with built in paging
+ * The `PagedListComponent` renders items in a list with built in paging
  * capabilities. You provide the template for each item to render in the list.
  * 
  * @usageNotes

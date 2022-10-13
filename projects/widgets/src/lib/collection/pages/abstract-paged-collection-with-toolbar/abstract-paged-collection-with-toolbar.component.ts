@@ -122,10 +122,22 @@ import { AbstractPagedCollectionComponent } from '../abstract-paged-collection/a
  * ## Features
  * 
  * The `AbstractPagedTableWithToolbar` provides basic handling for creating and
- * deleting objects rendered in the table. All you have to do is include
- * implementations for the `openCreateDialog` and `openConfirmDeleteDialog`
- * methods. These methods should call their respective `Util` functions defined
- * in this class.
+ * deleting objects rendered in the table. You may utilize these built in
+ * handlers, or you can provide your own custom solution.
+ * 
+ * ### Built In CRUD Capabilities
+ * 
+ * The build in CRUD capabilities rely on using dialogs to create and delete
+ * objects in your collections. All you have to do is include implementations
+ * for the `openCreateDialog` and `openConfirmDeleteDialog` methods. These
+ * methods should call their respective `Util` functions defined in this class.
+ * 
+ * ### Custom CRUD Capabilities
+ * 
+ * If you want to manage your own CRUD capabilities (i.e. you use routed
+ * components to create/edit objects), then you will need to override the
+ * `onButtonClick` method and include the logic you need to handle your
+ * own CRUD capabilities there.
  */
 @Component({
   template: ''
