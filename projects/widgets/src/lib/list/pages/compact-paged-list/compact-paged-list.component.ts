@@ -53,36 +53,4 @@ import { SelectionService } from '../../../table/shared/services/selection.servi
     styleUrls: ['./compact-paged-list.component.css']
 })
 export class CompactPagedListComponent <T extends JsonModel>
-    extends CompactPagedCollectionComponent<T> {
-
-    constructor(
-        selectionService: SelectionService<T>,
-    ) {
-        super(selectionService);
-        if (!this.dataSource$) {
-            this.dataSource$ = new MatTableDataSource();
-            this.initDataSource([]);
-        }
-        this.selection = new SelectionModel<T>(this.multiple$, []);
-        this.sub = new Subscription();
-        // this.collectionButtonClick = new EventEmitter<ButtonClick>();
-    }
-
-    override initDataSource(data: T[] | RemoteDataSource<T>): void {
-        super.initDataSource(data);
-        if (data instanceof RemoteDataSource) {
-            this.initSortSubs();
-        } else {
-            // this.dataSource$.sort = this.sort$;
-        }
-    }
-
-    override ngAfterViewInit(): void {
-        super.ngAfterViewInit();
-        if (this.dataSource$ instanceof RemoteDataSource) {
-            this.initPageSub();
-        }
-
-        this.initSortSubs();
-    }
-}
+    extends CompactPagedCollectionComponent<T> {}
