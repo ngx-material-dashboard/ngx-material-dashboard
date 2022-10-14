@@ -8,7 +8,7 @@
     (buttonClick)="onToolbarButtonClick($event)"
     (masterToggle)="masterToggle($event)">
 </ngx-material-dashboard-compact-paged-toolbar>
-<mat-table matSort [dataSource]="dataSource$">
+<mat-table [dataSource]="dataSource$">
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
         <mat-header-cell *matHeaderCellDef>

@@ -22,7 +22,7 @@ export class CompactPagedTableComponent<T extends JsonModel>
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
-    @ViewChild(MatSort) sort!: MatSort;
+    sort: MatSort;
 
     // set sort(sort: MatSort) {
     //     this.sort$ = sort;
@@ -39,25 +39,27 @@ export class CompactPagedTableComponent<T extends JsonModel>
      * 
      * @param selectionService Service used to handle when user selects rows.
      */
-    constructor(selectionService: SelectionService<T>) {
+    constructor(matSort: MatSort, selectionService: SelectionService<T>) {
         super(selectionService);
-        // this.sort = matSort;
+        this.sort = matSort;
         //this.tableButtonClick = new EventEmitter<ButtonClick>();
     }
 
     override initSortSubs(): void {
         if (this.sort) {
-            const sortSub = this.sort.sortChange.subscribe((sort: Sort) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    this.dataSource$.sort = sort.active;
-                    this.dataSource$.order = sort.direction;
-                    this.dataSource$.pageIndex = 0;
-                    this.dataSource$.refresh();
-                } else {
-                    super.initSortSubs();
-                }
-            });
-            this.sub.add(sortSub);
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                const sortSub = this.sort.sortChange.subscribe((sort: Sort) => {
+                    if (this.dataSource$ instanceof RemoteDataSource) {
+                        this.dataSource$.sort = sort.active;
+                        this.dataSource$.order = sort.direction;
+                        this.dataSource$.pageIndex = 0;
+                        this.dataSource$.refresh();
+                    }
+                });
+                this.sub.add(sortSub);
+            } else {
+                this.dataSource$.sort = this.sort;
+            }
         }
     }
 

@@ -49,13 +49,14 @@ export default sandboxOf(CompactPagedTableComponent, {
 })
 .add('table with toolbar with multi-select', {
     template: `
-    <ngx-material-dashboard-compact-paged-table matSort
+    <ngx-material-dashboard-compact-paged-table
         [collectionButtons]="collectionButtons"
         [data]="data"
         [displayedColumns]="displayedColumns"
         [multiple]="multiple"
         [toolbarButtons]="toolbarButtons"
-        class="marker-paged-table">
+        class="marker-paged-table"
+        matSort>
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
