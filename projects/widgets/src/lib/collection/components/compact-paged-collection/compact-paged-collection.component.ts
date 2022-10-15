@@ -161,8 +161,6 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
                 this.dataSource$ = new MatTableDataSource(dataSource);
             }
         }
-        this.initPageSub();
-        this.initSortSubs();
     }
 
     /**
@@ -171,18 +169,20 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
      */
     initPageSub(): void {
         if (this.toolbar) {
-            const pageSub = this.toolbar.paginator.page.subscribe((page: PageEvent) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    // handle remote data
-                    this.dataSource$.pageIndex = page.pageIndex;
-                    this.dataSource$.pageSize = page.pageSize;
-                    this.dataSource$.refresh();
-                } else {
-                    // handle local data
-                    this.dataSource$.paginator = this.toolbar.paginator;
-                }
-            });
-            this.sub.add(pageSub);
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                const pageSub = this.toolbar.paginator.page.subscribe((page: PageEvent) => {
+                    if (this.dataSource$ instanceof RemoteDataSource) {
+                        // handle remote data
+                        this.dataSource$.pageIndex = page.pageIndex;
+                        this.dataSource$.pageSize = page.pageSize;
+                        this.dataSource$.refresh();
+                    }
+                });
+                this.sub.add(pageSub);
+            } else {
+                // handle local data
+                this.dataSource$.paginator = this.toolbar.paginator;
+            }
         }
     }
 
@@ -191,25 +191,18 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
      * in the collection.
      */
     initSortSubs(): void {
-        if (this.toolbar?.sort && this.toolbar?.sort instanceof SorterComponent) {
-            const sub = this.toolbar.sort.sort.subscribe((sortOrder: SortOrder) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    this.dataSource$.sort = sortOrder.sort;
-                    this.dataSource$.sort = sortOrder.order;
-                    this.dataSource$.refresh();
-                } else {
-                    // manually sort local data source
-                    this.dataSource$.data.sort((a: T, b: T) => {
-                        if (a[sortOrder.sort] < b[sortOrder.sort]) {
-                            return sortOrder.order === 'asc' ? -1 : 1;
-                        } else if (a[sortOrder.sort] > b[sortOrder.sort]) {
-                            return sortOrder.order === 'asc' ? 1 : -1;
-                        } else {
-                            return 0;
-                        }
-                    });
-                }
-            });
+        if (this.toolbar?.sort) {
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                const sub = this.toolbar.sort.sortChange.subscribe((sortOrder: SortOrder) => {
+                    if (this.dataSource$ instanceof RemoteDataSource) {
+                        this.dataSource$.sort = sortOrder.sort;
+                        this.dataSource$.sort = sortOrder.order;
+                        this.dataSource$.refresh();
+                    }
+                });
+            } else {
+                this.dataSource$.sort = this.toolbar.sort;
+            }
         }
     }
 

@@ -56,7 +56,7 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
         </ngx-material-dashboard-filter-drop-down>
         <ngx-material-dashboard-paged-table
             matSort 
-            [buttons]="collectionButtons"
+            [collectionButtons]="collectionButtons"
             [data]="data"
             [displayedColumns]="displayedColumns"
             [multiple]="multiple"
@@ -90,7 +90,7 @@ export default sandboxOf(PagedTableWithToolbarComponent, {
         </ngx-material-dashboard-filter-drop-down>
         <ngx-material-dashboard-paged-table
             matSort
-            [buttons]="collectionButtons"
+            [collectionButtons]="collectionButtons"
             [data]="data"
             [displayedColumns]="displayedColumns"
             [multiple]="multiple"

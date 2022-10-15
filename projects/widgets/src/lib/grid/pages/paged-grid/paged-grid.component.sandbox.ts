@@ -13,6 +13,7 @@ import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testi
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from './paged-grid.component';
 
@@ -28,7 +29,8 @@ export default sandboxOf(PagedGridComponent, {
         BrowserAnimationsModule,
         FontAwesomeModule,
         FlexLayoutModule,
-        CollectionModule
+        CollectionModule,
+        ToolbarModule
     ],
     providers: [
         { provide: Datastore, deps: [HttpClient] },

@@ -31,6 +31,7 @@ import { SelectionService } from '../../../table/shared/services/selection.servi
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { CollectionModule } from '../../../collection/collection.module';
 import { PagedListComponent } from '../../..';
+import { ListComponent } from '../../components/list/list.component';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -44,7 +45,7 @@ const testData: DummyObject[] = [
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
         <ngx-material-dashboard-paged-list collection
-            [data]="data"
+            [dataSource]="dataSource"
             class="marker-paged-list"
             #pagedCollection>
             <ng-template #model let-model="model">
@@ -98,6 +99,7 @@ describe('PagedListWithToolbarComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
+                ListComponent,
                 PagedListComponent,
                 PagedListWithToolbarComponent,
                 TestPagedListWithToolbarComponent

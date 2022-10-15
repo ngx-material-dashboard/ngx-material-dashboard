@@ -213,6 +213,6 @@ export class PagedTableWithToolbarComponent<T extends JsonModel>
      */
     override ngAfterContentInit(): void {
         super.ngAfterContentInit();
-        this.collectionCmp.sort = this.sort;
+        this.collectionCmp.sort$ = this.sort;
     }
 }

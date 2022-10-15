@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -15,16 +16,25 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject } from '@ngx-material-dashboard/testing';
+import { JsonDatastore } from '@ngx-material-dashboard/base-json';
+import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
+import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule } from 'ngx-toastr';
+import { ListComponent } from '../../../list/components/list/list.component';
 import { PagedListWithToolbarComponent } from '../../../list/pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 
 import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
+import { RemoteDataSource } from '../../../services/remote-data-source.service';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { CollectionModule } from '../../collection.module';
 
 import { BasePagedCollectionWithToolbarComponent } from './base-paged-collection-with-toolbar.component';
+
+const testData: DummyObject[] = [
+    { id: '1' } as DummyObject,
+    { id: '2' } as DummyObject
+];
 
 @Component({
     template: `
@@ -43,7 +53,7 @@ import { BasePagedCollectionWithToolbarComponent } from './base-paged-collection
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
         <ngx-material-dashboard-paged-list collection
-            [data]="data"
+            [dataSource]="dataSource"
             class="marker-paged-list"
             #pagedCollection>
             <ng-template #model let-model="model">
@@ -58,7 +68,18 @@ import { BasePagedCollectionWithToolbarComponent } from './base-paged-collection
             </ng-template>
         </ngx-material-dashboard-paged-list>
     </ngx-material-dashboard-paged-list-with-toolbar>`
-}) class TestPagedCollectionWithToolbarComponent {}
+}) class TestPagedCollectionWithToolbarComponent {
+
+    dataSource: RemoteDataSource<DummyObject>;
+
+    constructor(
+        private jsonApiService: JsonDatastore
+    ) {
+        const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
+        remoteDataSource.setTestData(testData);
+        this.dataSource = remoteDataSource;
+    }
+}
 
 describe('BasePagedCollectionWithToolbarComponent', () => {
     let component: TestPagedCollectionWithToolbarComponent;
@@ -68,6 +89,7 @@ describe('BasePagedCollectionWithToolbarComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 BasePagedCollectionWithToolbarComponent,
+                ListComponent,
                 PagedListComponent,
                 PagedListWithToolbarComponent,
                 TestBasePagedCollectionWithToolbarComponent,
@@ -92,6 +114,10 @@ describe('BasePagedCollectionWithToolbarComponent', () => {
                 MockModule(ToastrModule.forRoot()),
                 CollectionModule,
                 ToolbarModule
+            ],
+            providers: [
+                { provide: Datastore, deps: [HttpClient] },
+                { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
             ]
         });
     });

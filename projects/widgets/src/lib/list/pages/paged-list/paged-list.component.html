@@ -7,7 +7,7 @@
     <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
     <div fxFlex></div>
 </div>
-<ngx-material-dashboard-list [models]="dataSource$.data" [modelType]="modelType">
+<ngx-material-dashboard-list [dataSource]="dataSource$">
     <ng-template #model let-model="model">
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
             <mat-checkbox class="marker-checkbox-row-select"

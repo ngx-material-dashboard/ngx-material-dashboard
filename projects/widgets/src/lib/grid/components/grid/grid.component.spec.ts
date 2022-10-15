@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 
 import { GridComponent } from './grid.component';
 
 describe('GridComponent', () => {
-  let component: GridComponent;
-  let fixture: ComponentFixture<GridComponent>;
+  let component: GridComponent<DummyObject>;
+  let fixture: ComponentFixture<GridComponent<DummyObject>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

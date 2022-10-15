@@ -7,7 +7,7 @@
     <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
     <div fxFlex></div>
 </div>
-<ngx-material-dashboard-grid [models]="dataSource$.data" [modelType]="modelType">
+<ngx-material-dashboard-grid [dataSource]="dataSource$">
     <ng-template #model let-model="model">
         <div fxLayout="column" fxLayoutGap="10px">
             <ng-container 

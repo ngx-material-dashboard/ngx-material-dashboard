@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -92,7 +92,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
   template: ''
 })
 export class AbstractPagedCollectionComponent <T extends JsonModel>
-    implements OnDestroy {
+    implements AfterViewInit, OnDestroy {
 
     /**
      * A reference to the model template for each element in the collection.
@@ -103,7 +103,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * Setter for paged data. This re-initializes the dataSource everytime data changes.
      * TODO: only re-initialize when necessary; just update data otherwise
      */
-     @Input() set data(data: T[] | undefined) {
+    @Input() set data(data: T[] | undefined) {
         if (data) {
             this.initDataSource(data);
         }
@@ -116,7 +116,6 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     }
     /** Any values that should be selected when table initially renders. */
     @Input() initiallySelectedValues: T[] = [];
-    @Input() modelType: string = 'data';
     /** The max number of pages to display in the paginator. Defaults to 10 (does not include 'First', 'Prev', 'Next', 'Last'). */
     @Input() maxPages: number = 10;
     /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */
@@ -132,7 +131,6 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     /** A reference to the sorter in the template. */
     @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;    
-    //@ViewChild(SorterComponent) sorter?: SorterComponent;
     /** The source for the table data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /** Boolean value indicating whether multiple rows can be selected. */
@@ -154,14 +152,15 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     }
 
     constructor(private selectionService: SelectionService<T>) {
-        // if (!this.dataSource$) {
-        //     this.dataSource$ = new MatTableDataSource();
-        //     this.initDataSource([]);
-        // }
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.selection = new SelectionModel<T>(this.multiple$, []);
         this.selectionService.selectionSubject.next(this.selection);
         this.sub = new Subscription();
+    }
+
+    ngAfterViewInit(): void {
+        this.initPageSub();
+        this.initSortSubs();
     }
 
     /**
@@ -182,10 +181,8 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     initDataSource(data: T[] | RemoteDataSource<T>): void {
         if (data instanceof RemoteDataSource) {
             this.dataSource$ = data;
-            this.initPageSub();
         } else {
             this.dataSource$ = new MatTableDataSource(data);
-            this.dataSource$.paginator = this.paginator;
         }
     }
 
@@ -195,15 +192,19 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      */
     initPageSub(): void {
         if (this.paginator) {
-            const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    // calculate offset using pageSize and pageIndex from PageEvent
-                    this.dataSource$.pageIndex = page.pageIndex;
-                    this.dataSource$.pageSize = page.pageSize;
-                    this.dataSource$.refresh();
-                }
-            });
-            this.sub.add(pageSub);
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
+                    if (this.dataSource$ instanceof RemoteDataSource) {
+                        // calculate offset using pageSize and pageIndex from PageEvent
+                        this.dataSource$.pageIndex = page.pageIndex;
+                        this.dataSource$.pageSize = page.pageSize;
+                        this.dataSource$.refresh();
+                    }
+                });
+                this.sub.add(pageSub);
+            } else {
+                this.dataSource$.paginator = this.paginator;
+            }
         }
     }
 
@@ -212,25 +213,18 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * in the collection.
      */
     initSortSubs(): void {
-        if (this.sort$ && this.sort$ instanceof SorterComponent) {
-            const sub = this.sort$.sort.subscribe((sortOrder: SortOrder) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    this.dataSource$.sort = sortOrder.sort;
-                    this.dataSource$.sort = sortOrder.order;
-                    this.dataSource$.refresh();
-                } else {
-                    // manually sort local data source
-                    this.dataSource$.data.sort((a: T, b: T) => {
-                        if (a[sortOrder.sort] < b[sortOrder.sort]) {
-                            return sortOrder.order === 'asc' ? -1 : 1;
-                        } else if (a[sortOrder.sort] > b[sortOrder.sort]) {
-                            return sortOrder.order === 'asc' ? 1 : -1;
-                        } else {
-                            return 0;
-                        }
-                    });
-                }
-            });
+        if (this.sort$) {
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                const sub = this.sort$.sortChange.subscribe((sortOrder: SortOrder) => {
+                    if (this.dataSource$ instanceof RemoteDataSource) {
+                        this.dataSource$.sort = sortOrder.sort;
+                        this.dataSource$.sort = sortOrder.order;
+                        this.dataSource$.refresh();
+                    }
+                });
+            } else {
+                this.dataSource$.sort = this.sort$;
+            }
         }
     }
 

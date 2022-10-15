@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
@@ -13,6 +14,7 @@ import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testi
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from './paged-list.component';
 
@@ -25,10 +27,12 @@ export default sandboxOf(PagedListComponent, {
         MatCheckboxModule,
         MatGridListModule,
         MatPaginatorModule,
+        MatSortModule,
         BrowserAnimationsModule,
         FontAwesomeModule,
         FlexLayoutModule,
-        CollectionModule
+        CollectionModule,
+        ToolbarModule
     ],
     providers: [
         { provide: Datastore, deps: [HttpClient] },

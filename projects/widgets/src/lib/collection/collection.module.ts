@@ -12,6 +12,7 @@ import { CollectionButtonClickDirective } from './directives/collection-button-c
 import { BasePagedCollectionWithToolbarComponent } from './components/base-paged-collection-with-toolbar/base-paged-collection-with-toolbar.component';
 import { CompactPagedCollectionComponent } from './components/compact-paged-collection/compact-paged-collection.component';
 import { AbstractCompactPagedCollectionComponent } from './pages/abstract-compact-paged-collection/abstract-compact-paged-collection.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { AbstractCompactPagedCollectionComponent } from './pages/abstract-compac
     imports: [
         CommonModule,
         FlexLayoutModule,
+        MatPaginatorModule,
         MatSelectModule,
         MatSortModule,
         FontAwesomeModule,

@@ -223,7 +223,7 @@ import { SelectionService } from '../../shared/services/selection.service';
 })
 export class PagedTableComponent<T extends JsonModel>
     extends AbstractPagedCollectionComponent<T>
-    implements AfterContentInit, AfterViewInit, OnDestroy {
+    implements AfterContentInit {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
@@ -235,13 +235,13 @@ export class PagedTableComponent<T extends JsonModel>
     //@Output() tableButtonClick: EventEmitter<ButtonClick>;
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
-    override sort$: MatSort;
+    sort: MatSort;
 
-    set sort(sort: MatSort) {
-        this.sort$ = sort;
-        this.initPageSub();
-        this.initSortSubs();
-    }
+    // set sort(sort: MatSort) {
+    //     this.sort$ = sort;
+    //     this.initPageSub();
+    //     this.initSortSubs();
+    // }
 
     /**
      * Creates a new PagedTableComponent. Note that the matSort directive is
@@ -255,30 +255,24 @@ export class PagedTableComponent<T extends JsonModel>
      */
     constructor(matSort: MatSort, selectionService: SelectionService<T>) {
         super(selectionService);
-        this.sort$ = matSort;
-        //this.tableButtonClick = new EventEmitter<ButtonClick>();
-    }
-
-    override initDataSource(data: T[] | RemoteDataSource<T>): void {
-        super.initDataSource(data);
-        if (data instanceof RemoteDataSource) {
-            this.initSortSubs();
-        } else {
-            this.dataSource$.sort = this.sort$;
-        }
+        this.sort = matSort;
     }
 
     override initSortSubs(): void {
-        if (this.sort$) {
-            const sortSub = this.sort$.sortChange.subscribe((sort: Sort) => {
-                if (this.dataSource$ instanceof RemoteDataSource) {
-                    this.dataSource$.sort = sort.active;
-                    this.dataSource$.order = sort.direction;
-                    this.dataSource$.pageIndex = 0;
-                    this.dataSource$.refresh();
-                }
-            });
-            this.sub.add(sortSub);
+        if (this.sort) {
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                const sortSub = this.sort.sortChange.subscribe((sort: Sort) => {
+                    if (this.dataSource$ instanceof RemoteDataSource) {
+                        this.dataSource$.sort = sort.active;
+                        this.dataSource$.order = sort.direction;
+                        this.dataSource$.pageIndex = 0;
+                        this.dataSource$.refresh();
+                    }
+                });
+                this.sub.add(sortSub);
+            } else {
+                this.dataSource$.sort = this.sort;
+            }
         }
     }
 
@@ -290,17 +284,5 @@ export class PagedTableComponent<T extends JsonModel>
      */
     ngAfterContentInit(): void {
         this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
-        //this.dataSource$.sort = this.sort$;
     }
-
-    ngAfterViewInit(): void {
-        if (this.dataSource$ instanceof RemoteDataSource) {
-            this.initPageSub();
-            this.initSortSubs();
-        }
-    }
-
-    // onActionButtonClick(buttonClick: string, row: JsonModel): void {
-    //     this.tableButtonClick.emit({ click: buttonClick, row });
-    // }
 }
