@@ -16,7 +16,7 @@ import { MockModule } from 'ng-mocks';
 
 import { Button } from '../../../shared/interfaces/button.interface';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { PagedTableComponent } from './paged-table.component';
 
 const pageSize = 5;

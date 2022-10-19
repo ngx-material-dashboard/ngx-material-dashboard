@@ -4,8 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 import { CompactPagedCollectionComponent } from '../../../collection/components/compact-paged-collection/compact-paged-collection.component';
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 
 /**
  * The `CompactPagedList` is a varient of the `PagedList` that provides a 

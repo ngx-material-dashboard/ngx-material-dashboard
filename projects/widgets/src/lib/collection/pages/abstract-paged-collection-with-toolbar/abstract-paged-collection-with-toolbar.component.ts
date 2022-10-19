@@ -4,13 +4,13 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
 import { ToastrService, ComponentType } from 'ngx-toastr';
 import { Subscription, filter } from 'rxjs';
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { DEFAULT_TOOLBAR_BUTTONS } from '../../../toolbar/shared/toolbar-buttons';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 import { AbstractPagedCollectionComponent } from '../abstract-paged-collection/abstract-paged-collection.component';
 
 /**

@@ -6,8 +6,8 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 
 import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
-import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
-import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface';
+import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../toolbar/shared/toolbar-buttons';
 import { SelectionService } from './selection.service';
 
 describe('SelectionService', () => {

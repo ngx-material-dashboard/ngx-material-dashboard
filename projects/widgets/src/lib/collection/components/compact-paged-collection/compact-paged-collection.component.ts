@@ -1,17 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
-import { SortOrder } from '../../../toolbar/interfaces/sort-order.interface';
-import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { CompactPagedToolbarComponent } from '../../../toolbar/pages/compact-paged-toolbar/compact-paged-toolbar.component';
 
 /**
@@ -168,22 +165,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
      * for both local and remote data.
      */
     initPageSub(): void {
-        if (this.toolbar) {
-            if (this.dataSource$ instanceof RemoteDataSource) {
-                const pageSub = this.toolbar.paginator.page.subscribe((page: PageEvent) => {
-                    if (this.dataSource$ instanceof RemoteDataSource) {
-                        // handle remote data
-                        this.dataSource$.pageIndex = page.pageIndex;
-                        this.dataSource$.pageSize = page.pageSize;
-                        this.dataSource$.refresh();
-                    }
-                });
-                this.sub.add(pageSub);
-            } else {
-                // handle local data
-                this.dataSource$.paginator = this.toolbar.paginator;
-            }
-        }
+        this.dataSource$.paginator = this.toolbar.paginator;
     }
 
     /**
@@ -191,19 +173,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
      * in the collection.
      */
     initSortSubs(): void {
-        if (this.toolbar?.sort) {
-            if (this.dataSource$ instanceof RemoteDataSource) {
-                const sub = this.toolbar.sort.sortChange.subscribe((sortOrder: SortOrder) => {
-                    if (this.dataSource$ instanceof RemoteDataSource) {
-                        this.dataSource$.sort = sortOrder.sort;
-                        this.dataSource$.sort = sortOrder.order;
-                        this.dataSource$.refresh();
-                    }
-                });
-            } else {
-                this.dataSource$.sort = this.toolbar.sort;
-            }
-        }
+        this.dataSource$.sort = this.toolbar.sort;
     }
 
     /**

@@ -6,8 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { SortOrder } from '../../../toolbar/interfaces/sort-order.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
@@ -130,7 +130,7 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     /** A reference to the sorter in the template. */
-    @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;    
+    @ViewChild(SorterComponent) sort?: SorterComponent;
     /** The source for the table data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /** Boolean value indicating whether multiple rows can be selected. */
@@ -191,21 +191,22 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * for handling remote data.
      */
     initPageSub(): void {
-        if (this.paginator) {
-            if (this.dataSource$ instanceof RemoteDataSource) {
-                const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
-                    if (this.dataSource$ instanceof RemoteDataSource) {
-                        // calculate offset using pageSize and pageIndex from PageEvent
-                        this.dataSource$.pageIndex = page.pageIndex;
-                        this.dataSource$.pageSize = page.pageSize;
-                        this.dataSource$.refresh();
-                    }
-                });
-                this.sub.add(pageSub);
-            } else {
-                this.dataSource$.paginator = this.paginator;
-            }
-        }
+        // if (this.paginator) {
+        //     if (this.dataSource$ instanceof RemoteDataSource) {
+        //         const pageSub = this.paginator.page.subscribe((page: PageEvent) => {
+        //             if (this.dataSource$ instanceof RemoteDataSource) {
+        //                 // calculate offset using pageSize and pageIndex from PageEvent
+        //                 this.dataSource$.pageIndex = page.pageIndex;
+        //                 this.dataSource$.pageSize = page.pageSize;
+        //                 this.dataSource$.refresh();
+        //             }
+        //         });
+        //         this.sub.add(pageSub);
+        //     } else {
+        //         this.dataSource$.paginator = this.paginator;
+        //     }
+        // }
+        this.dataSource$.paginator = this.paginator;
     }
 
     /**
@@ -213,19 +214,20 @@ export class AbstractPagedCollectionComponent <T extends JsonModel>
      * in the collection.
      */
     initSortSubs(): void {
-        if (this.sort$) {
-            if (this.dataSource$ instanceof RemoteDataSource) {
-                const sub = this.sort$.sortChange.subscribe((sortOrder: SortOrder) => {
-                    if (this.dataSource$ instanceof RemoteDataSource) {
-                        this.dataSource$.sort = sortOrder.sort;
-                        this.dataSource$.sort = sortOrder.order;
-                        this.dataSource$.refresh();
-                    }
-                });
-            } else {
-                this.dataSource$.sort = this.sort$;
-            }
-        }
+        // if (this.sort$) {
+        //     if (this.dataSource$ instanceof RemoteDataSource) {
+        //         const sub = this.sort$.sortChange.subscribe((sortOrder: SortOrder) => {
+        //             if (this.dataSource$ instanceof RemoteDataSource) {
+        //                 this.dataSource$.sort = sortOrder.sort;
+        //                 this.dataSource$.sort = sortOrder.order;
+        //                 this.dataSource$.refresh();
+        //             }
+        //         });
+        //     } else {
+        //         this.dataSource$.sort = this.sort$;
+        //     }
+        // }
+        this.dataSource$.sort = this.sort;
     }
 
     /**

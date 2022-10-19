@@ -1,6 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
+import { SortDirection } from "@angular/material/sort";
 import { JsonModel } from "@ngx-material-dashboard/base-json";
-import { RemoteDataSource } from "../../src/lib/services/remote-data-source.service";
+import { RemoteDataSource } from "../../src/lib/shared/services/remote-data-source.service";
 
 /**
  * The RemoteDataSourceMock class is meant to mock the basic behavior of the
@@ -20,16 +21,16 @@ export class RemoteDataSourceMock<T extends JsonModel> extends RemoteDataSource<
 
     override load(
         filter: {} = {},
-        sort: string = 'id',
-        order: string = 'asc',
+        active: string = 'id',
+        direction: SortDirection = 'asc',
         pageIndex: number = 0,
         pageSize: number = 20,
         include = '',
         headers: HttpHeaders = new HttpHeaders()
     ): void {
         this.filter = filter;
-        this.sort = sort;
-        this.order = order;
+        this.active = active;
+        this.direction = direction;
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
         this.include = include;

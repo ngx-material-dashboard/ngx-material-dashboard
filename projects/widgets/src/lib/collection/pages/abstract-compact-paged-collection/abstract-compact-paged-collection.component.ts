@@ -7,10 +7,10 @@ import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/bas
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
 import { Button } from '../../../shared/interfaces/button.interface';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { DEFAULT_TOOLBAR_BUTTONS } from '../../../toolbar/shared/toolbar-buttons';

@@ -1,7 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
-import { RemoteDataSource } from '../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { Button } from '../../shared/interfaces/button.interface';
 import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface';
 

@@ -2,8 +2,8 @@ import { AfterViewChecked, ChangeDetectorRef, Component, ContentChild, ElementRe
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
-import { ScreenSizeService } from '../../../services/screen-size.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
+import { ScreenSizeService } from '../../../shared/services/screen-size.service';
 
 @Component({
   selector: 'ngx-material-dashboard-grid',

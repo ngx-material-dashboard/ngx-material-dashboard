@@ -3,9 +3,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { CompactPagedCollectionComponent } from '../../../collection/components/compact-paged-collection/compact-paged-collection.component';
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
-import { SelectionService } from '../../shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 
 @Component({
     selector: 'ngx-material-dashboard-compact-paged-table',
@@ -24,12 +24,6 @@ export class CompactPagedTableComponent<T extends JsonModel>
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
     sort: MatSort;
 
-    // set sort(sort: MatSort) {
-    //     this.sort$ = sort;
-    //     this.initPageSub();
-    //     this.initSortSubs();
-    // }
-
     /**
      * Creates a new PagedTableComponent. Note that the matSort directive is
      * included in the constructor per the answer provided at the stackoverflow
@@ -46,21 +40,7 @@ export class CompactPagedTableComponent<T extends JsonModel>
     }
 
     override initSortSubs(): void {
-        if (this.sort) {
-            if (this.dataSource$ instanceof RemoteDataSource) {
-                const sortSub = this.sort.sortChange.subscribe((sort: Sort) => {
-                    if (this.dataSource$ instanceof RemoteDataSource) {
-                        this.dataSource$.sort = sort.active;
-                        this.dataSource$.order = sort.direction;
-                        this.dataSource$.pageIndex = 0;
-                        this.dataSource$.refresh();
-                    }
-                });
-                this.sub.add(sortSub);
-            } else {
-                this.dataSource$.sort = this.sort;
-            }
-        }
+        this.dataSource$.sort = this.sort;
     }
 
     /**
@@ -71,11 +51,5 @@ export class CompactPagedTableComponent<T extends JsonModel>
      */
     ngAfterContentInit(): void {
         this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
-        //this.dataSource$.sort = this.sort$;
     }
-
-    // override ngAfterViewInit(): void {
-    //     super.ngAfterViewInit();
-        
-    // }
 }

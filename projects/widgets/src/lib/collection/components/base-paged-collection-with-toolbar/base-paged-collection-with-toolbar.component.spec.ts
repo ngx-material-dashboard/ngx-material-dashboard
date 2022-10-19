@@ -25,7 +25,7 @@ import { ListComponent } from '../../../list/components/list/list.component';
 import { PagedListWithToolbarComponent } from '../../../list/pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 
 import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { CollectionModule } from '../../collection.module';
 

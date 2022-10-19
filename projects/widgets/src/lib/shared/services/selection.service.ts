@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
+import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface';
 
 /**
  * Tracks and emits changes to `SelectionModel`. Also provides convenience

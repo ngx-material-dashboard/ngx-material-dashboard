@@ -7,10 +7,10 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
-import { RemoteDataSource } from '../../../services/remote-data-source.service';
+import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
-import { SelectionService } from '../../shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 
 /**
  * A wrapper component for MatTable that provides built in paging, row selection,
@@ -231,17 +231,9 @@ export class PagedTableComponent<T extends JsonModel>
     @Input() collectionButtons: Button[] = [];
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
-    /** The event emitted when a button in one of the rows is clicked. */
-    //@Output() tableButtonClick: EventEmitter<ButtonClick>;
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
-    sort: MatSort;
-
-    // set sort(sort: MatSort) {
-    //     this.sort$ = sort;
-    //     this.initPageSub();
-    //     this.initSortSubs();
-    // }
+    sort$!: MatSort;
 
     /**
      * Creates a new PagedTableComponent. Note that the matSort directive is
@@ -255,25 +247,11 @@ export class PagedTableComponent<T extends JsonModel>
      */
     constructor(matSort: MatSort, selectionService: SelectionService<T>) {
         super(selectionService);
-        this.sort = matSort;
+        this.sort$ = matSort;
     }
 
     override initSortSubs(): void {
-        if (this.sort) {
-            if (this.dataSource$ instanceof RemoteDataSource) {
-                const sortSub = this.sort.sortChange.subscribe((sort: Sort) => {
-                    if (this.dataSource$ instanceof RemoteDataSource) {
-                        this.dataSource$.sort = sort.active;
-                        this.dataSource$.order = sort.direction;
-                        this.dataSource$.pageIndex = 0;
-                        this.dataSource$.refresh();
-                    }
-                });
-                this.sub.add(sortSub);
-            } else {
-                this.dataSource$.sort = this.sort;
-            }
-        }
+        this.dataSource$.sort = this.sort$;
     }
 
     /**

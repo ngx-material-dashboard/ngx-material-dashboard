@@ -34,17 +34,16 @@ export * from './list/pages/paged-list/paged-list.component';
 export * from './list/pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 export * from './list/list.module';
 
+export * from './shared/buttons';
 export * from './shared/enums/button-click-actions.enum';
 export * from './shared/interfaces/button.interface';
-export * from './shared/buttons';
-
-export * from './services/remote-data-source.service';
+export * from './shared/services/remote-data-source.service';
 
 export * from './table/interfaces/paged-table-with-toolbar.interface';
 export * from './table/pages/compact-paged-table/compact-paged-table.component';
 export * from './table/pages/paged-table/paged-table.component';
 export * from './table/pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
-export * from './table/shared/services/selection.service';
+export * from './shared/services/selection.service';
 export * from './table/table.module';
 
 export * from './toolbar/components/filter-drop-down/filter-drop-down.component';

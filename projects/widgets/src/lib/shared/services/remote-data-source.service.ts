@@ -3,6 +3,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { JsonDatastore, JsonApiQueryData, ModelType, JsonModel } from '@ngx-material-dashboard/base-json';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort, SortDirection } from '@angular/material/sort';
 
 /**
  * A wrapper for the `DataSource` class that provides a basic way to sort,
@@ -48,8 +50,10 @@ import { JsonDatastore, JsonApiQueryData, ModelType, JsonModel } from '@ngx-mate
  */
 export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
 
+    active?: string;
     /** The data to display in the table. */
     data: T[];
+    direction?: SortDirection;
     /** The filter to apply when loading data. */
     filter?: {};
     /** The custom headers to include with the request. */
@@ -58,14 +62,12 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     include?: string;
     /** Indicates when connection to load data is active. */
     loading: Observable<boolean>;
-    /** The order to sort the data */
-    order?: string;
+    private paginator$?: MatPaginator;
     /** The page of data to get. */
     pageIndex?: number;
     /** The number of results to get. */
     pageSize?: number;
-    /** The column to sort the data. */
-    sort?: string;
+    private sort$?: MatSort;
     /** The total number of items in the table. */
     total: number;
     /** The total number of pages. */
@@ -76,6 +78,48 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     protected dataSubject: BehaviorSubject<T[]>;
     /** Subject for when connection to load data is active. */
     protected loadingSubject: BehaviorSubject<boolean>;
+
+    /**
+     * Returns the paginator for the data source.
+     */
+    get paginator(): MatPaginator | undefined {
+        return this.paginator$;
+    }
+
+    /**
+     * Sets the paginator for the data source and the subscription for page
+     * events so the data source is updated when user changes page or page
+     * size.
+     */
+    set paginator(p: MatPaginator | undefined) {
+        this.paginator$ = p;
+        this.paginator$?.page.subscribe((next: PageEvent) => {
+            this.pageIndex = next.pageIndex;
+            this.pageSize = next.pageSize;
+            this.refresh();
+        });
+    }
+
+    /**
+     * Returns the sort for the data source.
+     */
+    get sort(): MatSort | undefined {
+        return this.sort$;
+    }
+
+    /**
+     * Sets the sort for the data source and the subscription for sort events
+     * so the data source is updated when the user changes the active sort
+     * field or the direction.
+     */
+    set sort(s: MatSort | undefined) {
+        this.sort$ = s;
+        this.sort$?.sortChange.subscribe((next: Sort) => {
+            this.active = next.active;
+            this.direction = next.direction;
+            this.refresh();
+        });
+    }
 
     constructor(
         private modelType: ModelType<T>,
@@ -90,7 +134,7 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
         this.total = 0;
     }
 
-    connect(collectionViewer: CollectionViewer): Observable<T[]> {
+    connect(collectionViewer?: CollectionViewer): Observable<T[]> {
         // this.logger.info("RemoteDataSource: Connecting data source");
         return this.dataSubject.asObservable();
     }
@@ -114,16 +158,16 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
      */
     load(
         filter: {} = {},
-        sort: string = 'id',
-        order: string = 'asc',
+        active: string = 'id',
+        direction: SortDirection = 'asc',
         pageIndex: number = 0,
         pageSize: number = 20,
         include = '',
         headers: HttpHeaders = new HttpHeaders()
     ): void {
         this.filter = filter;
-        this.sort = sort;
-        this.order = order;
+        this.active = active;
+        this.direction = direction;
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
         this.include = include;
@@ -136,8 +180,8 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
                 page_size: pageSize.toString(),
                 page: pageIndex.toString(),
                 filter,
-                sort,
-                order,
+                sort: active,
+                order: direction,
                 include
             }
         ).subscribe((res: JsonApiQueryData<T>) => {
@@ -160,14 +204,14 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
      * TODO allow sort and order by multiple columns; should just be concatenating
      * additional parameters so something like '^ORDERBYname^ORDERBYcreated_on'.
      */
-    private get orderBy(): string {
-        return `^ORDERBY${ this.order === 'desc' ? 'DESC' : '' }${ this.sort }`;
-    }
+    // private get orderBy(): string {
+    //     return `^ORDERBY${ this.order === 'desc' ? 'DESC' : '' }${ this.sort$ }`;
+    // }
 
     /**
      * Reload the data using current paging and query parameters.
      */
     refresh(): void {
-        this.load(this.filter, this.sort, this.order, this.pageIndex, this.pageSize, this.include, this.headers);
+        this.load(this.filter, this.active, this.direction, this.pageIndex, this.pageSize, this.include, this.headers);
     }
 }

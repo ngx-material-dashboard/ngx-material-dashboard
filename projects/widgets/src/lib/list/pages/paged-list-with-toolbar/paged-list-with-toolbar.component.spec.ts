@@ -27,7 +27,7 @@ import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.co
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 
 import { PagedListWithToolbarComponent } from './paged-list-with-toolbar.component';
-import { SelectionService } from '../../../table/shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { CollectionModule } from '../../../collection/collection.module';
 import { PagedListComponent } from '../../..';

@@ -8,6 +8,7 @@ import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
 import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-model.mock';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule } from 'ngx-toastr';
+import { CompactPagedToolbarComponent } from '../../../toolbar/pages/compact-paged-toolbar/compact-paged-toolbar.component';
 
 import { CompactPagedTableComponent } from './compact-paged-table.component';
 
@@ -17,7 +18,10 @@ describe('CompactPagedTableComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ CompactPagedTableComponent ],
+            declarations: [
+                CompactPagedTableComponent,
+                CompactPagedToolbarComponent
+            ],
             imports: [
                 HttpClientTestingModule,
                 ReactiveFormsModule,

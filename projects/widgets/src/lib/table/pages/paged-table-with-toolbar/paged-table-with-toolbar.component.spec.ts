@@ -29,7 +29,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithToolbarComponent } from './paged-table-with-toolbar.component';
 import { AbstractPagedCollectionWithToolbarComponent } from '../../../collection/pages/abstract-paged-collection-with-toolbar/abstract-paged-collection-with-toolbar.component';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
-import { SelectionService } from '../../shared/services/selection.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 import { CollectionModule } from '../../../collection/collection.module';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
@@ -93,11 +93,11 @@ const testData: DummyObject[] = [
         this.dataSource.load();
     }
 
-    override openCreateDialog(): void {
-    }
+    // override openCreateDialog(): void {
+    // }
 
-    override openConfirmDeleteDialog(val: DummyObject): void {
-    }
+    // override openConfirmDeleteDialog(val: DummyObject): void {
+    // }
 }
 
 describe('PagedTableWithToolbarComponent', () => {
@@ -121,6 +121,8 @@ describe('PagedTableWithToolbarComponent', () => {
                 MatFormFieldModule,
                 MatInputModule,
                 MatMenuModule,
+                MatPaginatorModule,
+                MatSortModule,
                 MatTableModule,
                 MatToolbarModule,
                 NoopAnimationsModule,

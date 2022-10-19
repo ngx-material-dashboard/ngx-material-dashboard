@@ -1,9 +1,7 @@
-import { AfterContentInit, Component, ContentChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { BasePagedCollectionWithToolbarComponent } from '../../../collection/components/base-paged-collection-with-toolbar/base-paged-collection-with-toolbar.component';
-import { PagedTableComponent } from '../paged-table/paged-table.component';
 
 /**
  * A wrapper component for the `PagedTable` that adds a toolbar above it with
@@ -197,22 +195,4 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
     styleUrls: ['./paged-table-with-toolbar.component.scss']
 })
 export class PagedTableWithToolbarComponent<T extends JsonModel>
-    extends BasePagedCollectionWithToolbarComponent<T>
-    implements AfterContentInit {
-
-    /** Reference to the sort directive defined in the component. */
-    @ContentChild(MatSort) sort!: MatSort;
-    /** Override the collection component so MatSort can be set. */
-    override collectionCmp!: PagedTableComponent<T>;
-
-    /**
-     * Set the sort property on the PagedTable similar to how it is set on the
-     * dataSource for a MatTable. This needs to be done in AfterContentInit
-     * hook since component should include ngx-material-dashboard-paged-table
-     * selector which should be inside the selector for this component.
-     */
-    override ngAfterContentInit(): void {
-        super.ngAfterContentInit();
-        this.collectionCmp.sort$ = this.sort;
-    }
-}
+    extends BasePagedCollectionWithToolbarComponent<T> {}
