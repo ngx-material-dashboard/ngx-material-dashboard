@@ -229,34 +229,34 @@ export class AbstractCompactPagedCollectionComponent<T extends JsonModel>
      */
     openConfirmDeleteDialog(val: T): void {}
 
-     /**
-      * Opens the given dialog component with the given optional configuration,
-      * and sets up the subscription on the `afterClosed` event for the dialog
-      * to handle deleting the given object.
-      *
-      * @param val The object to delete.
-      * @param dialogComponent A confirmation dialog to make sure user wants to delete.
-      * @param dialogConfig Optional configuration for the dialog.
-      */
+    /**
+     * Opens the given dialog component with the given optional configuration,
+     * and sets up the subscription on the `afterClosed` event for the dialog
+     * to handle deleting the given object.
+     *
+     * @param val The object to delete.
+     * @param dialogComponent A confirmation dialog to make sure user wants to delete.
+     * @param dialogConfig Optional configuration for the dialog.
+     */
     openConfirmDeleteDialogUtil(val: T, dialogComponent: ComponentType<unknown>, dialogConfig: MatDialogConfig): void {
-         // open dialog
-         const dialogRef = this.dialog.open(dialogComponent, dialogConfig);
-         
-         // delete object when dialog closes (if user confirmed delete)
-         const afterCloseSub = dialogRef.afterClosed().subscribe((confirm: boolean) => {
-             if (confirm && val.id) {
-                 this.jsonApiService.deleteRecord(this.modelType, val.id).subscribe(() => {
-                     if (this.dataSource instanceof RemoteDataSource) {
-                         this.dataSource.refresh();
-                     } else {
-                         this.dataSource.data = this.dataSource.data.filter(it => {
-                             return it !== val;
-                         });
-                     }
-                     this.toastrService.success(`${this.modelType.name} deleted successfully`);
-                 });
-             }
-         });
-         this.sub.add(afterCloseSub);
+        // open dialog
+        const dialogRef = this.dialog.open(dialogComponent, dialogConfig);
+
+        // delete object when dialog closes (if user confirmed delete)
+        const afterCloseSub = dialogRef.afterClosed().subscribe((confirm: boolean) => {
+            if (confirm && val.id) {
+                this.jsonApiService.deleteRecord(this.modelType, val.id).subscribe(() => {
+                    if (this.dataSource instanceof RemoteDataSource) {
+                        this.dataSource.refresh();
+                    } else {
+                        this.dataSource.data = this.dataSource.data.filter(it => {
+                            return it !== val;
+                        });
+                    }
+                    this.toastrService.success(`${this.modelType.name} deleted successfully`);
+                });
+            }
+        });
+        this.sub.add(afterCloseSub);
     }
 }

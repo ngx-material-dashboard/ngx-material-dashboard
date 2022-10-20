@@ -1,4 +1,4 @@
-import { Component, ContentChild, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
@@ -155,7 +155,6 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
      * subset of toolbarButtons that have canDisable=true.
      */
     disableableToolbarButtons: ToolbarButton[] = [];
-    //displayedColumns!: string[];
     /** The service used for CRUD operations for data in collection. */
     jsonApiService: JsonDatastore;
     /** The main subscription for managing all subscriptions in component. */
@@ -193,12 +192,6 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
      * initialized.
      */
     ngOnInit(): void {
-        // load initial data; you have to do something in extending component
-        // everything can't be automatic... plus I don't want to make any
-        // assumptions as to what column to default to for sorting or any 
-        // includes that may be required in table
-        // this.dataSource.load({}, 'name', 'asc', 0, 25, 'mealType');
-        
         // initialize form used for search filter
         this.form = this.formBuilder.group({});
 
@@ -323,5 +316,4 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         });
         this.sub.add(afterCloseSub);
     }
-
 }

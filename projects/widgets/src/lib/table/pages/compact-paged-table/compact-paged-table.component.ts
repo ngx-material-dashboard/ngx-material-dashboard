@@ -22,6 +22,7 @@ export class CompactPagedTableComponent<T extends JsonModel>
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
+    /** A reference to the sort defined for the component. */
     sort: MatSort;
 
     /**
@@ -36,7 +37,6 @@ export class CompactPagedTableComponent<T extends JsonModel>
     constructor(matSort: MatSort, selectionService: SelectionService<T>) {
         super(selectionService);
         this.sort = matSort;
-        //this.tableButtonClick = new EventEmitter<ButtonClick>();
     }
 
     override initSortSubs(): void {

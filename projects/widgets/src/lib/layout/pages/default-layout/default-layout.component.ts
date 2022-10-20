@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav } from '@angular/material/sidenav';
+
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
 /**
@@ -39,22 +40,34 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
 })
 export class DefaultLayoutComponent {
 
+    /** Text to display next to copyright date. */
     @Input() company = '';
+    /** The main "logo" text for the app to display in the header. */
     @Input() logo = 'My App';
     /** The mode for the drawer (i.e. 'over', 'push', 'side', or 'rail'). */
     @Input() mode: any = 'side';
+    /** List of items to render in the sidenav. */
     @Input() sidenavItems: SidenavItem[] = [];
     /** Boolean indicating whether the screen size is small (defaults to false). */
     @Input() isSmallScreen = false;
+    /** Event emitted when user clicks search button in filter. */
     @Output() clickSearchFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
     /** The sidenav defined in the template. */
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
+    /**
+     * Returns true if mode is "rail."
+     */
     get opened(): boolean {
         return this.mode === 'rail';
     }
 
-    searchFilter(res: boolean) {
+    /**
+     * Handler for when the user clicks the search button in the filter.
+     *
+     * @param res Boolean value to indicate if search button was clicked. 
+     */
+    onSearchFilter(res: boolean) {
         this.clickSearchFilter.emit(res);
     }
 

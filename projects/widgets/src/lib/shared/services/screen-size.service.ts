@@ -1,27 +1,18 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-
-/**
- * A set of screen sizes.
- */
- export enum ScreenSize {
-    XSmall,
-    Small,
-    Medium,
-    Large,
-    XLarge
-}
+import { ScreenSize } from '../enums/screen-side.enum';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ScreenSizeService {
+export class ScreenSizeService implements OnDestroy {
 
     /** Observable for the screen size. */
     readonly screenSize: Observable<ScreenSize>;
     /** The source for the screen size. */
     private screenSizeSource: BehaviorSubject<ScreenSize>;
+    /** The subscriptions for the service. */
     private sub: Subscription;
 
     constructor(private breakpointObserver: BreakpointObserver) {
@@ -49,5 +40,9 @@ export class ScreenSizeService {
             }
         });
         this.sub.add(sub);
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 }

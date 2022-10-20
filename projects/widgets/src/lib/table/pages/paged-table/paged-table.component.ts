@@ -233,6 +233,7 @@ export class PagedTableComponent<T extends JsonModel>
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
+    /** A reference to the sort defined for the component. */
     sort$!: MatSort;
 
     /**

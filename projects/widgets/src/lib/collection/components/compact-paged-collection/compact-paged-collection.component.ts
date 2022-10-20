@@ -148,7 +148,7 @@ export class CompactPagedCollectionComponent<T extends JsonModel>
      * 
      * @param data Either an array (local data) or a RemoteDataSource.
      */
-     initDataSource(dataSource: T[] | MatTableDataSource<T> | RemoteDataSource<T>): void {
+    initDataSource(dataSource: T[] | MatTableDataSource<T> | RemoteDataSource<T>): void {
         if (dataSource instanceof RemoteDataSource) {
             this.dataSource$ = dataSource;
         } else {

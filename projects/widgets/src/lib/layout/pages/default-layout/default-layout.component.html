@@ -1,7 +1,7 @@
 <ngx-material-dashboard-loading></ngx-material-dashboard-loading>
 <div class="box" fxLayout="column">
     <ngx-material-dashboard-header [logo]="logo"
-        (clickSearchFilter)="searchFilter($event)"
+        (clickSearchFilter)="onSearchFilter($event)"
         (toggleSidenav)="toggleSidenav()"
         class="mat-elevation-z6">
         <ng-content select="[filter]"></ng-content>

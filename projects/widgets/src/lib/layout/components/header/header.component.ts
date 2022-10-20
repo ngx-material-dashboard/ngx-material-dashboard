@@ -6,15 +6,19 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
  * The header for the app.
  */
 @Component({
-  selector: 'ngx-material-dashboard-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'ngx-material-dashboard-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterContentInit {
 
+    /** A reference to the optional filter drop down to include. */
     @ContentChild(FilterDropDownComponent) filter?: FilterDropDownComponent;
+    /** The main "logo" text for the app. */
     @Input() logo = 'My App';
+    /** Event emitted when user clicks search button in drop down filter. */
     @Output() clickSearchFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /** Event emitted when user clicks button to toggle sidenav. */
     @Output() toggleSidenav: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * The bars icon to display in the header.

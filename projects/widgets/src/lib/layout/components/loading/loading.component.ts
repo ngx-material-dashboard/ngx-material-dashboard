@@ -36,7 +36,9 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class LoadingComponent implements OnInit {
 
+    /** Boolean indicating whether or not to display loading spinner. */
     loading: boolean;
+    /** The subscriptions for the component. */
     sub: Subscription;
 
     constructor(private loadingService: LoadingService) {

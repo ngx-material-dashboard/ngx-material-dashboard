@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 
 /**
@@ -96,7 +97,7 @@ export class FieldErrorComponent {
      * @param field The name of the field on the form.
      * @param validationType The type of validation (i.e. 'required', 'pattern', etc.).
      */
-     checkFieldError(validationType: string): boolean {
+    checkFieldError(validationType: string): boolean {
         if (this.form.get(this.field)?.hasError(validationType)) {
             return true;
         } else {

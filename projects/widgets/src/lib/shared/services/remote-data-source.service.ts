@@ -50,9 +50,11 @@ import { MatSort, Sort, SortDirection } from '@angular/material/sort';
  */
 export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
 
+    /** The active field to sort on. */
     active?: string;
     /** The data to display in the table. */
     data: T[];
+    /** The direction of the sort (asc or desc). */
     direction?: SortDirection;
     /** The filter to apply when loading data. */
     filter?: {};
@@ -62,18 +64,18 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     include?: string;
     /** Indicates when connection to load data is active. */
     loading: Observable<boolean>;
+    /** The paginatore associated with component where this data source is used. */
     private paginator$?: MatPaginator;
     /** The page of data to get. */
     pageIndex?: number;
     /** The number of results to get. */
     pageSize?: number;
+    /** The sorter associated with component where this data source is used. */
     private sort$?: MatSort;
     /** The total number of items in the table. */
     total: number;
     /** The total number of pages. */
     totalPages?: number;
-    /** The model type for the datastore. */
-    // type: ModelType<JsonModel>;
     /** Subject for dataSource connection. */
     protected dataSubject: BehaviorSubject<T[]>;
     /** Subject for when connection to load data is active. */

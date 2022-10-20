@@ -1,14 +1,8 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { Subscription } from 'rxjs';
+
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
-import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
-import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { Button } from '../../../shared/interfaces/button.interface';
-import { SelectionService } from '../../../shared/services/selection.service';
-import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 
 /**
  * The `PagedGridComponent` renders items in a grid with built in paging

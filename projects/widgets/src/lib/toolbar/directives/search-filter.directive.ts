@@ -15,13 +15,16 @@ import { FilterDropDownComponent } from '../../toolbar/components/filter-drop-do
 export class SearchFilterDirective<T extends JsonModel>
     implements AfterViewInit, OnDestroy {
 
+    /** The filter drop down. */
     @Input() filter!: FilterDropDownComponent;
+    /** The form to render in the filter drop down. */
     @Input() form!: FormGroup;
     /** 
      * A reference to the PageCollection that should be included inside the
      * selector for this component.
      */
     @Input() collection!: AbstractPagedCollectionComponent<T>;
+    /** The subscriptions in the component. */
     sub: Subscription;
 
     constructor() {

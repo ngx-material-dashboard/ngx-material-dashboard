@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
 /**
@@ -100,8 +101,11 @@ export class SidenavComponent implements OnDestroy, OnInit {
     faAngleRight: IconDefinition = faAngleRight;
     /** Any query params  */
     queryParams: any = {};
+    /** The array of items to display in the sidenav. */
     sidenavItems$: SidenavItem[] = [];
+    /** The subscriptions for the component. */
     sub: Subscription;
+    /** Tracks the toggle status for items in sidenav. */
     toggle: { toggle: boolean, children?: boolean[] }[] = [];
 
     constructor(private route: ActivatedRoute, private router: Router) {
@@ -121,6 +125,9 @@ export class SidenavComponent implements OnDestroy, OnInit {
         this.sub.add(queryParamsSub);
     }
 
+    /**
+     * Initializes sidenav items and toggle state based on current URL.
+     */
     private initSidenavItems() {
         let childIndex: number;
         const index = this.sidenavItems$.findIndex((item: SidenavItem) => {
@@ -199,6 +206,13 @@ export class SidenavComponent implements OnDestroy, OnInit {
         }
     }
 
+    /**
+     * Returns true if the sidenav item associated with the given index in the
+     * toggle property is toggled.
+     *
+     * @param i The index of the sidenav item in the toggle property. 
+     * @returns True if the sidenav item is toggled.
+     */
     isToggled(i: number): boolean {
         if (this.toggle && this.toggle[i]) {
             return this.toggle[i].toggle;
@@ -207,6 +221,14 @@ export class SidenavComponent implements OnDestroy, OnInit {
         }
     }
 
+    /**
+     * Returns true if the child sidenav item associated with the given parent
+     * index and child index in the toggle property is toggled.
+     *
+     * @param i The index of the parent sidenav item.
+     * @param iChild The index of the child sidenav item.
+     * @returns True if the child sidenav item is toggled.
+     */
     isChildToggled(i: number, iChild: number) {
         const children = this.toggle[i].children;
         if (children) {
@@ -234,6 +256,12 @@ export class SidenavComponent implements OnDestroy, OnInit {
         }
     }
 
+    /**
+     * Navigates to the route of the given child sidenav item.
+     *
+     * @param index The index of the parent. 
+     * @param childIndex The index of the child.
+     */
     selectChild(index: number, childIndex: number) {
         const children = this.sidenavItems$[index].children;
         if (children) {
@@ -254,6 +282,13 @@ export class SidenavComponent implements OnDestroy, OnInit {
         }
     }
 
+    /**
+     * Navigates to the route of the given grandchild.
+     *
+     * @param index The index of the parent. 
+     * @param childIndex The index of the child.
+     * @param grandChildIndex The index of the grandchild.
+     */
     selectGrandChild(index: number, childIndex: number, grandChildIndex: number) {
         const children = this.sidenavItems$[index].children;
         if (children) {
@@ -269,6 +304,14 @@ export class SidenavComponent implements OnDestroy, OnInit {
         }
     }
 
+    /**
+     * Compares the given maps and returns true if they are equal. The given
+     * maps are equal if they have the same keys and associated values.
+     *
+     * @param obj1 A map to compare.
+     * @param obj2 Another map to compare.
+     * @returns True if the given maps are equal.
+     */
     compareMaps(obj1: any, obj2: any) {
         const keys1 = Object.keys(obj1), keys2 = Object.keys(obj2);
         let match = true;
@@ -284,5 +327,5 @@ export class SidenavComponent implements OnDestroy, OnInit {
             }
         }
         return match;
-      }
+    }
 }

@@ -39,6 +39,8 @@ import { JsonModel } from "@ngx-material-dashboard/base-json";
  * ```
  */
 export interface ButtonClick {
+    /** The text of the button that was clicked. */
     click: string;
+    /** The item associated with the button that was clicked. */
     row?: JsonModel;
 }

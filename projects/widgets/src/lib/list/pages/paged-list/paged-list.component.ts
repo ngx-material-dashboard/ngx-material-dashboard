@@ -1,13 +1,7 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { Subscription } from 'rxjs';
+
 import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
-import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
-import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
-import { SelectionService } from '../../../shared/services/selection.service';
-import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { Button } from '../../../shared/interfaces/button.interface';
 
 /**
