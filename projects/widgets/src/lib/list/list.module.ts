@@ -20,6 +20,11 @@ import { CompactPagedListComponent } from './pages/compact-paged-list/compact-pa
         PagedListWithToolbarComponent,
         CompactPagedListComponent
     ],
+    exports: [
+        PagedListComponent,
+        PagedListWithToolbarComponent,
+        CompactPagedListComponent
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,
