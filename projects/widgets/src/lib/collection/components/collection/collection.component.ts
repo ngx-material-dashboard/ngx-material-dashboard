@@ -19,16 +19,12 @@ export class CollectionComponent<T extends JsonModel> {
      * dataSource.
      */
     @Input() set dataSource(dataSource: RemoteDataSource<T> | MatTableDataSource<T>) {
-        if (dataSource instanceof RemoteDataSource) {
-            this.models = dataSource.data;
-        } else {
-            // subscribe to connect observable to get filtered, paged, sorted
-            // data; see below github issue comment
-            // https://github.com/angular/components/issues/9419#issuecomment-359594686
-            dataSource.connect().subscribe((res: T[]) => {
-                this.models = res;
-            });
-        }
+        // subscribe to connect observable to get filtered, paged, sorted
+        // data; see below github issue comment
+        // https://github.com/angular/components/issues/9419#issuecomment-359594686
+        dataSource.connect().subscribe((res: T[]) => {
+            this.models = res;
+        });
     }
     /** The models to display in collection. */
     models: T[] = [];
