@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { JsonDatastore, JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
@@ -12,6 +12,8 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
 import { DEFAULT_TOOLBAR_BUTTONS } from '../../../toolbar/shared/toolbar-buttons';
 import { SelectionService } from '../../../shared/services/selection.service';
 import { AbstractPagedCollectionComponent } from '../abstract-paged-collection/abstract-paged-collection.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToolbarType } from '../../types/toolbar.type';
 
 /**
  * The `AbstractPagedCollectionWithToolbar` is an "abstract" base component
@@ -145,11 +147,12 @@ import { AbstractPagedCollectionComponent } from '../abstract-paged-collection/a
 export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
     implements OnInit {
 
-    @ViewChild('pagedCollection') collection!: AbstractPagedCollectionComponent<T>;
+    /** The type of toolbar to render. */
+    @Input() toolbarType: ToolbarType = 'raisedButtons';
     /** The parent form for the filter rendered in the toolbar drop down. */
     form!: FormGroup;
     /** The data source for the data to render in the collection. */
-    dataSource: RemoteDataSource<T>;
+    dataSource: MatTableDataSource<T> | RemoteDataSource<T>;
     /**
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.
@@ -226,6 +229,13 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
 
+    /**
+     * Handler for when user clicks a button in toolbar (does not include
+     * paging actions). Details about the click like what button was clicked
+     * (create, delete, etc.) and any selections in toolbar.
+     *
+     * @param buttonClick The details included with button that was clicked.
+     */
     onToolbarButtonClick(buttonClick: ButtonClick): void {
         this.onButtonClick(buttonClick);
     }
@@ -263,10 +273,10 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         .subscribe((data: Partial<T>) => {
             const val: T = this.jsonApiService.createRecord(this.modelType, data);
             val.save().subscribe((res: T) => {
-                if (this.collection.dataSource$ instanceof RemoteDataSource) {
-                    this.collection.dataSource$.refresh();
+                if (this.dataSource instanceof RemoteDataSource) {
+                    this.dataSource.refresh();
                 } else {
-                    this.collection.dataSource$.data.push(res);
+                    this.dataSource.data.push(res);
                 }
                 this.toastrService.success(`${this.modelType.name} created successfully`);
             });
@@ -303,10 +313,10 @@ export class AbstractPagedCollectionWithToolbarComponent<T extends JsonModel>
         const afterCloseSub = dialogRef.afterClosed().subscribe((confirm: boolean) => {
             if (confirm && val.id) {
                 this.jsonApiService.deleteRecord(this.modelType, val.id).subscribe(() => {
-                    if (this.collection.dataSource$ instanceof RemoteDataSource) {
-                        this.collection.dataSource$.refresh();
+                    if (this.dataSource instanceof RemoteDataSource) {
+                        this.dataSource.refresh();
                     } else {
-                        this.collection.dataSource$.data = this.collection.dataSource$.data.filter(it => {
+                        this.dataSource.data = this.dataSource.data.filter(it => {
                             return it !== val;
                         });
                     }

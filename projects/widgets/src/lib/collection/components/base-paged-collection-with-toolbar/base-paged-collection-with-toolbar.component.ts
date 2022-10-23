@@ -25,8 +25,6 @@ import { AbstractPagedCollectionComponent } from '../../pages/abstract-paged-col
 export class BasePagedCollectionWithToolbarComponent<T extends JsonModel> 
     implements AfterContentInit, OnDestroy {
 
-    /** A reference to the filter drop down included in the toolbar above the collection. */
-    @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
     /** A reference to the collection that should be included inside the selector for this component. */
     @ContentChild('pagedCollection') collectionCmp!: AbstractPagedCollectionComponent<T>;
     /** The buttons to render in the toolbar. */

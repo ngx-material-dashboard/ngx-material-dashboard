@@ -19,6 +19,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SorterComponent } from './pages/sorter/sorter.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
+import { RaisedButtonToolbarComponent } from './pages/raised-button-toolbar/raised-button-toolbar.component';
+import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 
 @NgModule({
     declarations: [
@@ -28,12 +30,16 @@ import { MatSortModule } from '@angular/material/sort';
         SearchFilterDirective,
         SorterComponent,
         CompactPagedToolbarComponent,
-        IconButtonsComponent
+        IconButtonsComponent,
+        RaisedButtonToolbarComponent,
+        IconButtonsWithPaginatorComponent
     ],
     exports: [
         ButtonToolbarComponent,
         CompactPagedToolbarComponent,
         FilterDropDownComponent,
+        IconButtonsWithPaginatorComponent,
+        RaisedButtonToolbarComponent,
         SearchFilterDirective,
         SorterComponent
     ],

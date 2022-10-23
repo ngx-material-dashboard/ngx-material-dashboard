@@ -11,6 +11,7 @@ import { RemoteDataSource } from '../../../shared/services/remote-data-source.se
 import { Button } from '../../../shared/interfaces/button.interface';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { SelectionService } from '../../../shared/services/selection.service';
+import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
 /**
  * A wrapper component for MatTable that provides built in paging, row selection,
@@ -222,19 +223,20 @@ import { SelectionService } from '../../../shared/services/selection.service';
     styleUrls: ['./paged-table.component.scss']
 })
 export class PagedTableComponent<T extends JsonModel>
-    extends AbstractPagedCollectionComponent<T>
+    extends PagedCollectionComponent<T>
     implements AfterContentInit {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
-    /** The buttons to render in each row of the table. */
-    @Input() collectionButtons: Button[] = [];
+    // /** The buttons to render in each row of the table. */
+    // @Input() collectionButtons: Button[] = [];
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
     @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
-    /** A reference to the sort defined for the component. */
-    sort$!: MatSort;
+    @ViewChild(MatPaginator) override paginator$!: MatPaginator;
+    // /** A reference to the sort defined for the component. */
+    // sort$!: MatSort;
 
     /**
      * Creates a new PagedTableComponent. Note that the matSort directive is
@@ -249,6 +251,10 @@ export class PagedTableComponent<T extends JsonModel>
     constructor(matSort: MatSort, selectionService: SelectionService<T>) {
         super(selectionService);
         this.sort$ = matSort;
+    }
+
+    override initPageSub(): void {
+        this.dataSource$.paginator = this.paginator$;
     }
 
     override initSortSubs(): void {

@@ -17,7 +17,7 @@
         </mat-cell>
     </ng-container>
     <!-- Additional columns defined in tag where this component is used -->
-    <ng-content></ng-content>
+    <ng-container></ng-container>
 
     <!-- Actions Column (where buttons go) -->
     <ng-container matColumnDef="actions">
@@ -41,7 +41,3 @@
     <mat-row *matRowDef="let row; columns: displayedColumns" class="pointer"></mat-row>
     <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': length > 0}"></mat-footer-row>
 </mat-table>
-<mat-paginator [length]="length" 
-                [pageSize]="pageSize" 
-                [pageSizeOptions]="[15, 25, 50, 75, 100]">
-</mat-paginator>

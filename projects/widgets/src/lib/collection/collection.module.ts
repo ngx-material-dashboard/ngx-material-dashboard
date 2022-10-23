@@ -14,6 +14,10 @@ import { CompactPagedCollectionComponent } from './components/compact-paged-coll
 import { AbstractCompactPagedCollectionComponent } from './pages/abstract-compact-paged-collection/abstract-compact-paged-collection.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CollectionComponent } from './components/collection/collection.component';
+import { PagedCollectionWithToolbarComponent } from './components/paged-collection-with-toolbar/paged-collection-with-toolbar.component';
+import { PagedCollectionComponent } from './components/paged-collection/paged-collection.component';
+import { PagedCollectionWithIconToolbarComponent } from './components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';
+import { PagedCollectionWithRaisedButtonToolbarComponent } from './components/paged-collection-with-raised-button-toolbar/paged-collection-with-raised-button-toolbar.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +27,11 @@ import { CollectionComponent } from './components/collection/collection.componen
         CollectionButtonClickDirective,
         CompactPagedCollectionComponent,
         AbstractCompactPagedCollectionComponent,
-        CollectionComponent
+        CollectionComponent,
+        PagedCollectionWithToolbarComponent,
+        PagedCollectionComponent,
+        PagedCollectionWithIconToolbarComponent,
+        PagedCollectionWithRaisedButtonToolbarComponent
     ],
     exports: [
         CollectionButtonClickDirective

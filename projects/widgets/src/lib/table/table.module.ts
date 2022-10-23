@@ -21,9 +21,12 @@ import { PagedTableWithToolbarComponent } from './pages/paged-table-with-toolbar
 import { CollectionModule } from '../collection/collection.module';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { CompactPagedTableComponent } from './pages/compact-paged-table/compact-paged-table.component';
+import { PagedTableWithRaisedButtonsBarComponent } from './pages/paged-table-with-raised-buttons-bar/paged-table-with-raised-buttons-bar.component';
+import { TableWithIconButtonsPaginatorBarComponent } from './pages/table-with-icon-buttons-paginator-bar/table-with-icon-buttons-paginator-bar.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
-    declarations: [PagedTableComponent, PagedTableWithToolbarComponent, CompactPagedTableComponent],
+    declarations: [PagedTableComponent, PagedTableWithToolbarComponent, CompactPagedTableComponent, PagedTableWithRaisedButtonsBarComponent, TableWithIconButtonsPaginatorBarComponent, TableComponent],
     exports: [
         CompactPagedTableComponent,
         PagedTableComponent,

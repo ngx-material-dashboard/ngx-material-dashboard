@@ -19,13 +19,15 @@ export class CollectionComponent<T extends JsonModel> {
      * dataSource.
      */
     @Input() set dataSource(dataSource: RemoteDataSource<T> | MatTableDataSource<T>) {
+        this.dataSource$ = dataSource;
         // subscribe to connect observable to get filtered, paged, sorted
         // data; see below github issue comment
         // https://github.com/angular/components/issues/9419#issuecomment-359594686
-        dataSource.connect().subscribe((res: T[]) => {
+        this.dataSource$.connect().subscribe((res: T[]) => {
             this.models = res;
         });
     }
+    dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /** The models to display in collection. */
     models: T[] = [];
 }
