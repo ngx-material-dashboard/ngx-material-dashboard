@@ -16,8 +16,6 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     extends PagedCollectionComponent<T>
     implements AfterViewInit, OnDestroy {
 
-    /** List of fields included in each element of list that can be sorted on. */
-    @Input() fields: string[] = [];
     /** The buttons to render in the toolbar. */
     @Input() toolbarButtons: ToolbarButton[] = [];
     /** A reference to the toolbar in the template. */
