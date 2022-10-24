@@ -1,12 +1,11 @@
-import { AfterViewInit, ContentChild, Directive, Input, OnDestroy, OnInit } from '@angular/core';
-import { Form, FormGroup } from '@angular/forms';
+import { AfterViewInit, Directive, Input, OnDestroy } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
-import { AbstractPagedCollectionComponent } from '../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
+import { PagedCollectionComponent } from '../../collection/components/paged-collection/paged-collection.component';
 import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
 import { SearchFilterMap } from '../../table/interfaces/search-filter-map.interface';
-import { PagedTableComponent } from '../../table/pages/paged-table/paged-table.component';
 import { FilterDropDownComponent } from '../../toolbar/components/filter-drop-down/filter-drop-down.component';
 
 @Directive({
@@ -23,7 +22,7 @@ export class SearchFilterDirective<T extends JsonModel>
      * A reference to the PageCollection that should be included inside the
      * selector for this component.
      */
-    @Input() collection!: AbstractPagedCollectionComponent<T>;
+    @Input() collection!: PagedCollectionComponent<T>;
     /** The subscriptions in the component. */
     sub: Subscription;
 

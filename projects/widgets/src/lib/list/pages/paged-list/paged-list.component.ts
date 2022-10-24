@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
-import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
-import { Button } from '../../../shared/interfaces/button.interface';
+import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
 /**
  * The `PagedListComponent` renders items in a list with built in paging
@@ -42,11 +41,5 @@ import { Button } from '../../../shared/interfaces/button.interface';
     styleUrls: ['./paged-list.component.css']
 })
 export class PagedListComponent<T extends JsonModel>
-    extends AbstractPagedCollectionComponent<T> {
-
-    /** The buttons to render in each row of the table. */
-    @Input() collectionButtons: Button[] = [];
-    /** List of fields included in each element of list that can be sorted on. */
-    @Input() fields: string[] = [];
-}
+    extends PagedCollectionComponent<T> {}
 

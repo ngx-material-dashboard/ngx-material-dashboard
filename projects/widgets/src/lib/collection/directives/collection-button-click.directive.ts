@@ -3,7 +3,7 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
 import { ButtonClick } from '../../toolbar/interfaces/button-click.interface';
-import { AbstractPagedCollectionComponent } from '../pages/abstract-paged-collection/abstract-paged-collection.component';
+import { PagedCollectionComponent } from '../components/paged-collection/paged-collection.component';
 
 @Directive({
   selector: '[ngxMaterialDashboardCollectionButtonClick]'
@@ -11,7 +11,7 @@ import { AbstractPagedCollectionComponent } from '../pages/abstract-paged-collec
 export class CollectionButtonClickDirective<T extends JsonModel>
     implements AfterViewInit, OnDestroy {
 
-    @Input() collection!: AbstractPagedCollectionComponent<T>;
+    @Input() collection!: PagedCollectionComponent<T>;
     @Output() buttonClick: EventEmitter<ButtonClick>;
     sub: Subscription;
 

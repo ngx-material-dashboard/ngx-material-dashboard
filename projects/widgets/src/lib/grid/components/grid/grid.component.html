@@ -1,9 +1,39 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-checkbox class="marker-checkbox-select-all"
+        (change)="masterToggle($event.checked)"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()">
+    </mat-checkbox>
+    <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
+    <div fxFlex></div>
+</div>
 <mat-grid-list *ngIf="models.length > 0; else noModels" [cols]="cols" gutterSize="2">
-    <mat-grid-tile *ngFor="let model of models; index as i">
-        <ng-container 
-            *ngTemplateOutlet="template; context: { model: model }">
-        </ng-container>
-    </mat-grid-tile>
+    <div *ngFor="let model of models; index as i">
+        <mat-grid-tile>
+            <div fxLayout="column" fxLayoutGap="10px">
+                <ng-container
+                    *ngTemplateOutlet="template; context: { model: model }">
+                </ng-container>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-checkbox class="marker-checkbox-row-select"
+                        (click)="$event.stopPropagation()"
+                        (change)="onRowSelected(model);"
+                        [checked]="selection.isSelected(model)">
+                    </mat-checkbox>
+                    <div fxLayout="row">
+                        <button *ngFor="let button of collectionButtons"
+                            class="button-marker-{{button.click}}"
+                            (click)="onActionButtonClick(button.click, model)"
+                            mat-icon-button>
+                            <fa-icon [icon]="button.icon"></fa-icon>
+                            <div class="mat-button-focus-overlay"></div>
+                            <div class="mat-button-ripple mat-ripple"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-grid-tile> 
+    </div>
 </mat-grid-list>
 <ng-template #noModels>
     <h2>No data to display</h2>

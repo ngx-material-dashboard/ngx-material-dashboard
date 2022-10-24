@@ -51,7 +51,7 @@ export * from './toolbar/directives/search-filter.directive';
 export * from './toolbar/interfaces/button-click.interface';
 export * from './toolbar/interfaces/sort-order.interface';
 export * from './toolbar/interfaces/toolbar-button.interface';
-export * from './toolbar/pages/icon-button-toolbar/icon-button-toolbar.component';
+export * from './toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 export * from './toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 export * from './toolbar/pages/compact-paged-toolbar/compact-paged-toolbar.component';
 export * from './toolbar/pages/sorter/sorter.component';

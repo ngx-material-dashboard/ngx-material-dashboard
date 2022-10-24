@@ -15,7 +15,6 @@ export class ListWithIconButtonsPaginatorBarComponent<T extends JsonModel>
     @ContentChild(ListComponent) collection!: ListComponent<T>;
 
     ngAfterContentInit(): void {
-        console.log(this.collection);
         this.dataSource = this.collection.dataSource$;
     }
 }

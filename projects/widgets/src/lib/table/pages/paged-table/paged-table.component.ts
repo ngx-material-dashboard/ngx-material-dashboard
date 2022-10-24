@@ -1,15 +1,9 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/table';
+import { AfterContentInit, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { Subscription } from 'rxjs';
-import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 
-import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
-import { Button } from '../../../shared/interfaces/button.interface';
-import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { SelectionService } from '../../../shared/services/selection.service';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
