@@ -1,0 +1,12 @@
+<ngx-material-dashboard-icon-buttons-with-paginator
+    [buttons]="toolbarButtons"
+    [displaySelectAll]="false"
+    [displaySort]="false"
+    [length]="length"
+    [multiple]="multiple$"
+    [selection]="selection"
+    (buttonClick)="onToolbarButtonClick($event)"
+    (masterToggle)="masterToggle($event)">
+</ngx-material-dashboard-icon-buttons-with-paginator>
+<!-- list -->
+<ng-content></ng-content>

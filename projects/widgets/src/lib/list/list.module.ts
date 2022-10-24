@@ -12,13 +12,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
 import { CompactPagedListComponent } from './pages/compact-paged-list/compact-paged-list.component';
+import { ListWithIconButtonsPaginatorBarComponent } from './pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
 
 @NgModule({
     declarations: [
         PagedListComponent,
         ListComponent,
         PagedListWithToolbarComponent,
-        CompactPagedListComponent
+        CompactPagedListComponent,
+        ListWithIconButtonsPaginatorBarComponent
     ],
     exports: [
         PagedListComponent,

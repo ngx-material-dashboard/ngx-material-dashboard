@@ -141,7 +141,7 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
         return this.dataSubject.asObservable();
     }
 
-    disconnect(collectionViewer: CollectionViewer): void {
+    disconnect(collectionViewer?: CollectionViewer): void {
         // this.logger.info("RemoteDataSource: Disconnecting data source");
         this.dataSubject.complete();
         this.loadingSubject.complete();

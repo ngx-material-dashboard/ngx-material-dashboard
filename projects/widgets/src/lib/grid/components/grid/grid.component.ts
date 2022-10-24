@@ -4,6 +4,7 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
 import { ScreenSizeService } from '../../../shared/services/screen-size.service';
+import { SelectionService } from '../../../shared/services/selection.service';
 
 @Component({
     selector: 'ngx-material-dashboard-grid',
@@ -23,9 +24,10 @@ export class GridComponent<T extends JsonModel>
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
-        private screenSizeService: ScreenSizeService
+        private screenSizeService: ScreenSizeService,
+        selectionService: SelectionService<T>
     ) {
-        super();
+        super(selectionService);
     }
 
     ngAfterViewChecked(): void {
