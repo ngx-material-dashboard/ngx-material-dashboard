@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 
 import { TableComponent } from './table.component';
 
 describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+  let component: TableComponent<DummyObject>;
+  let fixture: ComponentFixture<TableComponent<DummyObject>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

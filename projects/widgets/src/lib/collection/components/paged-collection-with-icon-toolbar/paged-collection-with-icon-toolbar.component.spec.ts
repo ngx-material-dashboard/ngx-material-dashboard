@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 
 import { PagedCollectionWithIconToolbarComponent } from './paged-collection-with-icon-toolbar.component';
 
 describe('PagedCollectionWithIconToolbarComponent', () => {
-  let component: PagedCollectionWithIconToolbarComponent;
-  let fixture: ComponentFixture<PagedCollectionWithIconToolbarComponent>;
+  let component: PagedCollectionWithIconToolbarComponent<DummyObject>;
+  let fixture: ComponentFixture<PagedCollectionWithIconToolbarComponent<DummyObject>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

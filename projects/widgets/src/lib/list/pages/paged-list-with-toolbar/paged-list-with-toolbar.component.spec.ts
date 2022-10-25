@@ -30,8 +30,9 @@ import { PagedListWithToolbarComponent } from './paged-list-with-toolbar.compone
 import { SelectionService } from '../../../shared/services/selection.service';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { CollectionModule } from '../../../collection/collection.module';
-import { PagedListComponent } from '../../..';
+import { PagedListComponent, RemoteDataSource } from '../../..';
 import { ListComponent } from '../../components/list/list.component';
+import { PagedCollectionWithToolbarComponent } from '../../../collection/components/paged-collection-with-toolbar/paged-collection-with-toolbar.component';
 
 const testData: DummyObject[] = [
     { id: '1' } as DummyObject,
@@ -62,9 +63,9 @@ const testData: DummyObject[] = [
     </ngx-material-dashboard-paged-list-with-toolbar>
     `
 }) class TestPagedListWithToolbarComponent 
-    extends AbstractPagedCollectionWithToolbarComponent<DummyObject> {
+    extends PagedCollectionWithToolbarComponent<DummyObject> {
 
-    override jsonApiService: JsonDatastore;
+    jsonApiService: JsonDatastore;
 
     constructor(
         dialog: MatDialog,
@@ -73,23 +74,25 @@ const testData: DummyObject[] = [
         selectionService: SelectionService<DummyObject>,
         toastrService: ToastrService
     ) {
-        super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
+        super(selectionService);
+        //super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
         this.jsonApiService = jsonApiService;
         const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
         remoteDataSource.setTestData(testData);
         this.dataSource = remoteDataSource;
     }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.dataSource.load();
+    ngOnInit(): void {
+        if (this.dataSource && this.dataSource instanceof RemoteDataSource) {
+            this.dataSource.load();
+        }
     }
 
-    override openCreateDialog(): void {
-    }
+    // override openCreateDialog(): void {
+    // }
 
-    override openConfirmDeleteDialog(val: DummyObject): void {
-    }
+    // override openConfirmDeleteDialog(val: DummyObject): void {
+    // }
 }
 
 describe('PagedListWithToolbarComponent', () => {

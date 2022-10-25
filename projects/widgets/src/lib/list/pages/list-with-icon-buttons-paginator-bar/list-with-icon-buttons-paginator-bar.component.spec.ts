@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 
 import { ListWithIconButtonsPaginatorBarComponent } from './list-with-icon-buttons-paginator-bar.component';
 
 describe('ListWithIconButtonsPaginatorBarComponent', () => {
-  let component: ListWithIconButtonsPaginatorBarComponent;
-  let fixture: ComponentFixture<ListWithIconButtonsPaginatorBarComponent>;
+  let component: ListWithIconButtonsPaginatorBarComponent<DummyObject>;
+  let fixture: ComponentFixture<ListWithIconButtonsPaginatorBarComponent<DummyObject>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

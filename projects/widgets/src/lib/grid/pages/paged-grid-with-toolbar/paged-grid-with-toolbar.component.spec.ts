@@ -21,7 +21,8 @@ import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
 import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
 import { MockModule } from 'ng-mocks';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { AbstractPagedCollectionWithToolbarComponent, PagedGridComponent, SelectionService } from '../../..';
+import { AbstractPagedCollectionWithToolbarComponent, PagedGridComponent, RemoteDataSource, SelectionService } from '../../..';
+import { PagedCollectionWithToolbarComponent } from '../../../collection/components/paged-collection-with-toolbar/paged-collection-with-toolbar.component';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 
 import { PagedGridWithToolbarComponent } from './paged-grid-with-toolbar.component';
@@ -52,9 +53,9 @@ const testData: DummyObject[] = [
     </ngx-material-dashboard-paged-grid-with-toolbar>
     `
 }) class TestPagedGridWithToolbarComponent 
-    extends AbstractPagedCollectionWithToolbarComponent<DummyObject> {
+    extends PagedCollectionWithToolbarComponent<DummyObject> {
 
-    override jsonApiService: JsonDatastore;
+    jsonApiService: JsonDatastore;
 
     constructor(
         dialog: MatDialog,
@@ -63,23 +64,25 @@ const testData: DummyObject[] = [
         selectionService: SelectionService<DummyObject>,
         toastrService: ToastrService
     ) {
-        super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
+        super(selectionService);
+        //super(DummyObject, dialog, formBuilder, jsonApiService, selectionService, toastrService);
         this.jsonApiService = jsonApiService;
         const remoteDataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, jsonApiService);
         remoteDataSource.setTestData(testData);
         this.dataSource = remoteDataSource;
     }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.dataSource.load();
+    ngOnInit(): void {
+        if (this.dataSource && this.dataSource instanceof RemoteDataSource) {
+            this.dataSource.load();
+        }
     }
 
-    override openCreateDialog(): void {
-    }
+    // override openCreateDialog(): void {
+    // }
 
-    override openConfirmDeleteDialog(val: DummyObject): void {
-    }
+    // override openConfirmDeleteDialog(val: DummyObject): void {
+    // }
 }
 
 describe('PagedGridWithToolbarComponent', () => {

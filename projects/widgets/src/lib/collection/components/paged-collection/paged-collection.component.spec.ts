@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DummyObject } from '@ngx-material-dashboard/testing';
 
 import { PagedCollectionComponent } from './paged-collection.component';
 
 describe('PagedCollectionComponent', () => {
-  let component: PagedCollectionComponent;
-  let fixture: ComponentFixture<PagedCollectionComponent>;
+  let component: PagedCollectionComponent<DummyObject>;
+  let fixture: ComponentFixture<PagedCollectionComponent<DummyObject>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
