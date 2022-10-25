@@ -1,10 +1,23 @@
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
-import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { CollectionComponent } from '../collection/collection.component';
 
+/**
+ * The `PagedCollection` expands upon the capabilities of the `Collection` by
+ * extending that component and providing paging capabilities. Any paginator
+ * used should be of type `MatPaginator`.
+ * 
+ * @overviewDetails
+ * 
+ * Like the `Collection`, this component does not provide a template, and
+ * the intention is for you to use things like the `PagedGrid`, `PagedList`,
+ * or `PagedTable` instead of using this component directly (are you seeing a
+ * pattern with components defined in the `collection` module yet?). The only
+ * time you would use this component directly is if you use it to create your
+ * own paged collection type component.
+ */
 @Component({
     template: ''
 })
@@ -27,6 +40,13 @@ export class PagedCollectionComponent <T extends JsonModel>
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator$?: MatPaginator;
 
+    /**
+     * Returns the paginator for the component if it exists. Some paginated
+     * components include the paginator directly in the template associated
+     * with the component that extends this one, while there are others that
+     * may include the paginator in a toolbar that is in the parent of the
+     * paged collection component.
+     */
     get paginator(): MatPaginator | null {
         if (this.paginator$) {
             return this.paginator$;
@@ -46,19 +66,5 @@ export class PagedCollectionComponent <T extends JsonModel>
      */
     initPageSub(): void {
         this.dataSource$.paginator = this.paginator;
-    }
-
-    /**
-     * Adds current collection selection to given buttonClick and emits event
-     * to parent. TODO handle multiple selections
-     *
-     * @param buttonClick A buttonClick event from the tableToolbar.
-     */
-    onToolbarButtonClick(buttonClick: ButtonClick): void {
-        if (!this.selection.isEmpty()) {
-            // make sure selection is not empty before adding selected row(s)
-            buttonClick.row = this.selection.selected[0];
-        }
-        this.buttonClick.emit(buttonClick);
     }
 }

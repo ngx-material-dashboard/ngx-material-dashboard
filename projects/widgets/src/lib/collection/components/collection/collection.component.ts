@@ -31,6 +31,54 @@ graph TD
  * changes). Additionally it tracks the current selection and provides an
  * output observable for parent components to be able to manage button click
  * events coming from buttons associated with each item in the collection.
+ * NOTE: any sorting included should be of type `MatSort` or the `Sorter`
+ * defined in the `toolbar` module for this library, which actually just
+ * extends `MatSort`.
+ * 
+ * @overviewDetails
+ * 
+ * This component can be used for any type of collection, i.e. a grid, list,
+ * or table (or any other type of collection I may not be thinking of right
+ * now), however it does not provide any template. Generally speaking you 
+ * would use something like the `Grid`, `List`, or `Table` components defined
+ * in their respective modules, which extend this component and provide
+ * templates for rendering the appropriate collection type. The only time you
+ * might utilize this component directly is if you use it to create your own
+ * collection type component (if the existing `Grid`, `List`, or `Table` do not
+ * provide the capabilities you need). 
+ * 
+ * ## Features
+ * 
+ * The `Collection` handles dataSource management, including connecting to the
+ * data source, disconnecting when the component is destoryed, as well as
+ * tracking and managing models rendered in the collection. It also tracks the
+ * selection of models (in addition to controlling whether more than 1 model
+ * can be selected), and provides an easy output event for parent components to
+ * handle when users click buttons assoicated with each model in the collection.
+ * 
+ * ### DataSource Management
+ * 
+ * While you may initialize your own dataSource and pass it in to the 
+ * `Collection`, you can also pass in an array which will be initialized as a
+ * local data source. Either way the component manages the necessary code to
+ * connect to the database and update the rendered models based on the latest
+ * data to be rendered in the collection. It also includes code to disconnect
+ * from the dataSource when the component is destroyed. As such, if you intend
+ * to use your own dataSource, then it must extend the cdk collections 
+ * `Datasource` and implement connect and disconnect functions.
+ * 
+ * ### Selection Model
+ * 
+ * The component allows you to control whether you can select 1 or more models
+ * in the collection using the `multiple` input property. This defaults to true
+ * meaning the default behaviour is to allow more than 1 model to be selected
+ * in the collection.
+ * 
+ * ### Collection Button Events
+ * 
+ * The component includes a `buttonClick` output that you can use in your parent
+ * components to listed for and handle click events for buttons in the
+ * collection. 
  */
 @Component({
     template: ''

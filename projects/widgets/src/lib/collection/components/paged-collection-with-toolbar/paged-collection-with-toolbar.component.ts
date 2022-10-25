@@ -4,11 +4,31 @@ import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
+import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { PagedCollectionComponent } from '../paged-collection/paged-collection.component';
 
+/**
+ * The `PagedCollectionWithToolbar` expands upon the capabilities of the
+ * `Collection` and `PagedCollection` by providing features that a collection
+ * should have when associated with a toolbar used to manage data in the
+ * collection. A toolbar associated with a paged collection may have buttons
+ * that are enabled/disabled based on selections in the collection. As such
+ * the component provides built in capabilities to enable/disable those
+ * buttons based on configuration parameters provided for the toolbar buttons.
+ * See documentation for the `ToolbarButton` interface for more details:
+ * [ToolbarButton](/widgets/interfaces/toolbar-button).
+ * 
+ * Additionally, the component utilizes the `buttonClick` output event emitter
+ * for emitting button click events from buttons in the toolbar. This way
+ * parent components only need to use the `buttonClick` output to handle button
+ * click events in either the toolbar or the collection itself. This seemed to
+ * be the best solution (for now at least; as opposed to having a separate
+ * emitter for toolbar events), as you may have the same or similar handlers
+ * for toolbar and collection button events.
+ */
 @Component({
     template: ''
 })
@@ -32,7 +52,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
             // child paginator as defined in PagedCollection)
             return this.paginator$;
         } else if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
-            //  is in toolbar if toolbar is IconButtonsWithPaginator
+            //  paginator is in toolbar if toolbar is IconButtonsWithPaginator
             return this.toolbar.paginator;
         } else {
             return null;
@@ -41,9 +61,10 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
 
     override get sort(): MatSort | null {
         if (this.sort$) {
-            // if paginator 
+            // if sort$ already defined, then return that
             return this.sort$;
         } else if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
+            // sort is in toolbar if toolbar is IconButtonsWithPaginator
             return this.toolbar.sort;
         } else {
             return null;
@@ -59,5 +80,19 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
             this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
         });
         this.sub.add(sub);
+    }
+
+    /**
+     * Adds current collection selection to given buttonClick and emits event
+     * to parent. TODO handle multiple selections
+     *
+     * @param buttonClick A buttonClick event from the tableToolbar.
+     */
+    onToolbarButtonClick(buttonClick: ButtonClick): void {
+        if (!this.selection.isEmpty()) {
+            // make sure selection is not empty before adding selected row(s)
+            buttonClick.row = this.selection.selected[0];
+        }
+        this.buttonClick.emit(buttonClick);
     }
 }
