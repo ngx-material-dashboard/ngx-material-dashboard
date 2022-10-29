@@ -7,7 +7,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
 @Component({
     selector: 'ngx-material-dashboard-paged-table-with-raised-buttons-bar',
     templateUrl: './paged-table-with-raised-buttons-bar.component.html',
-    styleUrls: ['./paged-table-with-raised-buttons-bar.component.css']
+    styleUrls: ['./paged-table-with-raised-buttons-bar.component.scss']
 })
 export class PagedTableWithRaisedButtonsBarComponent<T extends JsonModel> 
     extends PagedCollectionWithRaisedButtonToolbarComponent<T> implements AfterViewInit {
