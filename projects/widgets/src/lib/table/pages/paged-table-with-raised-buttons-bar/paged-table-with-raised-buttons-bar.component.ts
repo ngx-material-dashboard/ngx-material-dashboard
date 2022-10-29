@@ -15,12 +15,12 @@ export class PagedTableWithRaisedButtonsBarComponent<T extends JsonModel>
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
-    @ContentChild('pagedCollection') table!: PagedTableComponent<T>;
+    @ContentChild('pagedCollection') override collectionCmp!: PagedTableComponent<T>;
 
     override ngAfterViewInit(): void {
-        this.paginator$ = this.table.paginator$;
-        this.sort$ = this.table.sort$;
-        this.dataSource = this.table.dataSource$;
+        this.paginator$ = this.collectionCmp.paginator$;
+        this.sort$ = this.collectionCmp.sort$;
+        this.dataSource = this.collectionCmp.dataSource$;
         super.ngAfterViewInit();
     }
 }

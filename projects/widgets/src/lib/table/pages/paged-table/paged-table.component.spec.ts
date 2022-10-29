@@ -38,7 +38,7 @@ const testData: DummyObject[] = TEST_DATA;
     `
 }) class TestPagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
+    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
     data: JsonModel[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
@@ -60,7 +60,7 @@ const testData: DummyObject[] = TEST_DATA;
     `
 }) class TestRemotePagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
+    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
     dataSource: RemoteDataSource<DummyObject>;
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;

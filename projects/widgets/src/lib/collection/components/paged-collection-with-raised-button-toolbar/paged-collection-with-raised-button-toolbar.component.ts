@@ -21,8 +21,6 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
 export class PagedCollectionWithRaisedButtonToolbarComponent<T extends JsonModel>
     extends PagedCollectionWithToolbarComponent<T> {
 
-    /** A reference to the collection that should be included inside the selector for this component. */
-    @ContentChild('pagedCollection') collectionCmp!: PagedCollectionComponent<T>;
     /** A reference to the filter drop down included in the toolbar above the collection. */
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
     /** The buttons to render in the toolbar. */

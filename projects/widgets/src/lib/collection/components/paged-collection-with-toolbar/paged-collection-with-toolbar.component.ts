@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -36,6 +36,8 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     extends PagedCollectionComponent<T>
     implements AfterViewInit, OnDestroy {
 
+    /** A reference to the collection that should be included inside the selector for this component. */
+    @ContentChild('pagedCollection') collectionCmp!: PagedCollectionComponent<T>;
     /** The buttons to render in the toolbar. */
     @Input() toolbarButtons: ToolbarButton[] = [];
     /** A reference to the toolbar in the template. */
@@ -89,9 +91,9 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
      * @param buttonClick A buttonClick event from the tableToolbar.
      */
     onToolbarButtonClick(buttonClick: ButtonClick): void {
-        if (!this.selection.isEmpty()) {
+        if (!this.collectionCmp.selection.isEmpty()) {
             // make sure selection is not empty before adding selected row(s)
-            buttonClick.row = this.selection.selected[0];
+            buttonClick.row = this.collectionCmp.selection.selected[0];
         }
         this.buttonClick.emit(buttonClick);
     }
