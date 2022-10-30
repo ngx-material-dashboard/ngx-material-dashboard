@@ -11,7 +11,6 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
 import { FilterDropDownComponent } from './components/filter-drop-down/filter-drop-down.component';
 import { SearchFilterDirective } from './directives/search-filter.directive';
 import { ButtonToolbarComponent } from './pages/button-toolbar/button-toolbar.component';
-import { CompactPagedToolbarComponent } from './pages/compact-paged-toolbar/compact-paged-toolbar.component';
 import { IconButtonsComponent } from './components/icon-buttons/icon-buttons.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -29,14 +28,12 @@ import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-pag
         FilterDropDownComponent,
         SearchFilterDirective,
         SorterComponent,
-        CompactPagedToolbarComponent,
         IconButtonsComponent,
         RaisedButtonToolbarComponent,
         IconButtonsWithPaginatorComponent
     ],
     exports: [
         ButtonToolbarComponent,
-        CompactPagedToolbarComponent,
         FilterDropDownComponent,
         IconButtonsWithPaginatorComponent,
         RaisedButtonToolbarComponent,

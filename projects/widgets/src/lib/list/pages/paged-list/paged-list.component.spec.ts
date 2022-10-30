@@ -7,7 +7,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
-import { AbstractPagedCollectionComponent } from '../../../collection/pages/abstract-paged-collection/abstract-paged-collection.component';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { ListComponent } from '../../components/list/list.component';
 
@@ -34,7 +33,6 @@ describe('PagedListComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AbstractPagedCollectionComponent,
                 ListComponent,
                 PagedListComponent,
                 SorterComponent

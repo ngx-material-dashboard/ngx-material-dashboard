@@ -10,7 +10,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PagedGridWithToolbarComponent } from './pages/paged-grid-with-toolbar/paged-grid-with-toolbar.component';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { PagedGridWithRaisedButtonsBarComponent } from './pages/paged-grid-with-raised-buttons-bar/paged-grid-with-raised-buttons-bar.component';
 import { GridWithIconButtonsPaginatorBarComponent } from './pages/grid-with-icon-buttons-paginator-bar/grid-with-icon-buttons-paginator-bar.component';
@@ -19,7 +18,6 @@ import { GridWithIconButtonsPaginatorBarComponent } from './pages/grid-with-icon
     declarations: [
         GridComponent,
         PagedGridComponent,
-        PagedGridWithToolbarComponent,
         PagedGridWithRaisedButtonsBarComponent,
         GridWithIconButtonsPaginatorBarComponent
     ],

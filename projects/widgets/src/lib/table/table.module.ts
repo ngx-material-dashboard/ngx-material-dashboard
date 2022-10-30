@@ -17,20 +17,24 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FormModule } from '../form/form.module';
 import { PagedTableComponent } from './pages/paged-table/paged-table.component';
-import { PagedTableWithToolbarComponent } from './pages/paged-table-with-toolbar/paged-table-with-toolbar.component';
 import { CollectionModule } from '../collection/collection.module';
 import { ToolbarModule } from '../toolbar/toolbar.module';
-import { CompactPagedTableComponent } from './pages/compact-paged-table/compact-paged-table.component';
 import { PagedTableWithRaisedButtonsBarComponent } from './pages/paged-table-with-raised-buttons-bar/paged-table-with-raised-buttons-bar.component';
 import { TableWithIconButtonsPaginatorBarComponent } from './pages/table-with-icon-buttons-paginator-bar/table-with-icon-buttons-paginator-bar.component';
 import { TableComponent } from './components/table/table.component';
 
 @NgModule({
-    declarations: [PagedTableComponent, PagedTableWithToolbarComponent, CompactPagedTableComponent, PagedTableWithRaisedButtonsBarComponent, TableWithIconButtonsPaginatorBarComponent, TableComponent],
-    exports: [
-        CompactPagedTableComponent,
+    declarations: [
         PagedTableComponent,
-        PagedTableWithToolbarComponent
+        PagedTableWithRaisedButtonsBarComponent,
+        TableComponent,
+        TableWithIconButtonsPaginatorBarComponent
+    ],
+    exports: [
+        PagedTableComponent,
+        PagedTableWithRaisedButtonsBarComponent,
+        TableComponent,
+        TableWithIconButtonsPaginatorBarComponent
     ],
     imports: [
         CommonModule,

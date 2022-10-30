@@ -45,16 +45,20 @@ graph TD
  * templates for rendering the appropriate collection type. The only time you
  * might utilize this component directly is if you use it to create your own
  * collection type component (if the existing `Grid`, `List`, or `Table` do not
- * provide the capabilities you need). 
+ * provide the capabilities you need). If you do define your own collection, you
+ * must define a template for it. You can find more details in the documentation
+ * for the [Grid](/widgets/components/grid), [List](/widgets/components/list),
+ * and [Table](/widgets/components/table) at the included links.
  * 
  * ## Features
  * 
  * The `Collection` handles dataSource management, including connecting to the
  * data source, disconnecting when the component is destoryed, as well as
- * tracking and managing models rendered in the collection. It also tracks the
- * selection of models (in addition to controlling whether more than 1 model
- * can be selected), and provides an easy output event for parent components to
- * handle when users click buttons assoicated with each model in the collection.
+ * tracking and managing models rendered in the collection, and sorting. It
+ * also tracks the selection of models (in addition to controlling whether more
+ * than 1 model can be selected), and provides an easy output event for parent
+ * components to handle when users click buttons assoicated with each model in
+ * the collection.
  * 
  * ### DataSource Management
  * 
@@ -66,6 +70,15 @@ graph TD
  * from the dataSource when the component is destroyed. As such, if you intend
  * to use your own dataSource, then it must extend the cdk collections 
  * `Datasource` and implement connect and disconnect functions.
+ * 
+ * ### Sort
+ * 
+ * The `sort$` property is defined as a `MatSort` or a custom `SorterComponent`
+ * defined in the `Toolbar` module, which just extends `MatSort`. If you intend
+ * to use your own sorter component, then it must extend `MatSort`. The `sort$`
+ * property is treated as an internal value specifically for this component.
+ * The `sort` getter is defined to be a more `public` facing property, and use
+ * when initializing the sort for the dataSource.
  * 
  * ### Selection Model
  * 

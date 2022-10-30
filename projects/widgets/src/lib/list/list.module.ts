@@ -6,12 +6,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CollectionModule } from '../collection/collection.module';
 import { ListComponent } from './components/list/list.component';
 import { PagedListComponent } from './pages/paged-list/paged-list.component';
-import { PagedListWithToolbarComponent } from './pages/paged-list-with-toolbar/paged-list-with-toolbar.component';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
-import { CompactPagedListComponent } from './pages/compact-paged-list/compact-paged-list.component';
 import { ListWithIconButtonsPaginatorBarComponent } from './pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
 import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
 
@@ -19,15 +17,11 @@ import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-
     declarations: [
         PagedListComponent,
         ListComponent,
-        PagedListWithToolbarComponent,
-        CompactPagedListComponent,
         ListWithIconButtonsPaginatorBarComponent,
         PagedListWithRaisedButtonsBarComponent
     ],
     exports: [
-        PagedListComponent,
-        PagedListWithToolbarComponent,
-        CompactPagedListComponent
+        PagedListComponent
     ],
     imports: [
         CommonModule,

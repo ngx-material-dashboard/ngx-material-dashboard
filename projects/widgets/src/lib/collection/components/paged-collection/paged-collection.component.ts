@@ -13,10 +13,34 @@ import { CollectionComponent } from '../collection/collection.component';
  * 
  * Like the `Collection`, this component does not provide a template, and
  * the intention is for you to use things like the `PagedGrid`, `PagedList`,
- * or `PagedTable` instead of using this component directly (are you seeing a
- * pattern with components defined in the `collection` module yet?). The only
- * time you would use this component directly is if you use it to create your
- * own paged collection type component.
+ * or `PagedTable` instead of using this component directly. The only time you
+ * might utilize this component directly is if you use it to create your own
+ * paged collection type component (if the existing `PagedGrid`, `PagedList`,
+ * or `PagedTable` do not provide the capabilities you need). If you do define
+ * your own paged collection, you must define a template for it. You can find
+ * more details in the documentation for the 
+ * [PagedGrid](/widgets/components/paged-grid),
+ * [PagedList](/widgets/components/paged-list),
+ * and [PagedTable](/widgets/components/paged-table) at the included links.
+ * 
+ * ## Features
+ * 
+ * All of the features from the [Collection](/widgets/components/collection)
+ * are available for use in this component. The `PagedCollection` adds paging
+ * capabilities as well.
+ * 
+ * ### Paginator
+ * 
+ * The `paginator$` is a ViewChild property defined for the `PagedCollection`,
+ * and is treated as an internal value specifically for this component. The
+ * `paginator` getter is defined to be a more `public` facing property, and used
+ * when initializing the paginator for the dataSource. If you create your own
+ * paged collection by extending this component, all you need to do for the
+ * paginator to work is add a `MatPaginator` to the template. If you use
+ * something other than a `MatPaginator` or a ViewChild (i.e. ContentChild),
+ * then you can override the `paginator` getter to return the type of paginator
+ * you use in your component. *NOTE: whatever paginator you do use must extend
+ * `MatPaginator` in order to work with the dataSource.
  */
 @Component({
     template: ''

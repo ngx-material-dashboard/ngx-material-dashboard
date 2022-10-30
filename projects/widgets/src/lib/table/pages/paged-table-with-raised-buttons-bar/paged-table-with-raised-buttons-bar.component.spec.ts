@@ -92,8 +92,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
                 MatToolbarModule,
                 FlexLayoutModule,
                 FontAwesomeModule
-            ],
-            teardown: { destroyAfterEach: false }
+            ]
         });
     });
 
