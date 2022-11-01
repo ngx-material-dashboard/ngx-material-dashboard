@@ -70,10 +70,12 @@ export class UrlMarkdownFileMapGenerator {
 
             // add overviews for each main library
             this.urlFilesMap[url] = [[`assets/docs/${m.displayName}/overview.md`]];
+            m.urlFilesMap[url] = [[`assets/docs/${m.displayName}/overview.md`]];
             const key = Object.keys(SHARED_FILES).find((it: string) => m.displayName === it);
             if (key) {
                 SHARED_FILES[key].forEach((dir: string) => {
                     this.urlFilesMap[url].push([dir]);
+                    m.urlFilesMap[url].push([dir]);
                 });
             }
 
@@ -110,12 +112,14 @@ export class UrlMarkdownFileMapGenerator {
 
         // add the api route for API markdown file
         this.urlFilesMap[`${url}/api`] = [[`${t.apiFile.directory}/${t.apiFile.fileName}`]];
-        
+        t.urlFilesMap[`${url}/api`] = [[`${t.apiFile.directory}/${t.apiFile.fileName}`]];
+
         // get base directory (should be same for all overview files)
         const directory = t.overviewFiles[0][0].directory;
 
         // initialize array of arrays for overview files
         this.urlFilesMap[`${url}/overview`] = [];
+        t.urlFilesMap[`${url}/overview`] = [];
         t.overviewFiles.forEach((f: { directory: string, fileName: string}[]) => {
             // get list of files from array of directory and file name objects
             // and append list to array of arrays of overview files
@@ -125,6 +129,7 @@ export class UrlMarkdownFileMapGenerator {
                 }
             );
             this.urlFilesMap[`${url}/overview`].push(files);
+            t.urlFilesMap[`${url}/overview`].push(files);
         });
     }
 

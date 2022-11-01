@@ -28,9 +28,11 @@ export class TypedocBase {
     displayName!: string;
     module?: Module;
     parameters: Parameter[] = [];
+    services: TypedocBase[] = [];
     sources!: Source[];
     type: any;
     usageNotes: UsageNote[] = [];
+    urlFilesMap: { [url: string]: string[][] } = {};
     fileUsageNoteMap: { [file: string]: UsageNote } = {};
     overviewDetails: OverviewDetail[] = [];
     apiFile!: { directory: string, fileName: string };
@@ -49,5 +51,13 @@ export class TypedocBase {
         if (data.flags) {
             this.isConstant = data.flags.isConst;
         }
+    }
+
+    /**
+     * Returns the URL in the documentation where this class will route to. The
+     * URL is the key to the urlFilesMap for the class.
+     */
+    get url(): string {
+        return Object.keys(this.urlFilesMap)[0];
     }
 }

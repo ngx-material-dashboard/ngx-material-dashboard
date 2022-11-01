@@ -42,8 +42,9 @@ export class ParseJsonService {
     fileData: any;
     /** The root JSON object containing all output data from typedoc. */
     typedocBase: TypedocBase;
-    /** The main modules (libraries/projects) included in typedoc output. */
+    /** The main libraries/projects included in typedoc output. TODO rename to library. */
     modules: Module[] = [];
+    ngModuleClasses: Clazz[] = [];
     classes: Clazz[] = [];
 
     /**
@@ -57,6 +58,9 @@ export class ParseJsonService {
         this.extractNgModuleData();
         this.modules.sort((a: Module, b: Module) => {
             return MODULE_SORT_ORDER.indexOf(a.displayName) - MODULE_SORT_ORDER.indexOf(b.displayName);
+        });
+        this.ngModuleClasses.sort((a: Clazz, b: Clazz) => {
+            return a.displayName.localeCompare(b.displayName);
         });
     }
 
@@ -91,8 +95,8 @@ export class ParseJsonService {
      * decorator (i.e. declarations, exports, imports, etc).
      */
     private extractNgModuleData(): void {
-        const ngModuleClasses = this.classes.filter((it: Clazz) => it.name.endsWith('Module'));
-        ngModuleClasses.forEach((ngModule: Clazz) => {
+        this.ngModuleClasses = this.classes.filter((it: Clazz) => it.name.endsWith('Module'));
+        this.ngModuleClasses.forEach((ngModule: Clazz) => {
             const decorators = ngModule.decorators;
             if (decorators) {
                 const args: string = this.sanitizeArguments(decorators[0].arguments);
@@ -101,9 +105,18 @@ export class ParseJsonService {
                     const key = val as ObjectKey;
                     const arrayData = this.extractArrayData(args, val);
                     arrayData.forEach((arrVal: string) => {
-                        const c: Component | Directive | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
+                        const c: Component | Directive | Clazz | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
                         if (c) {
                             c.ngModule = ngModule;
+                            if (c instanceof Component) {
+                                ngModule.components.push(c);
+                            } else if (c instanceof Directive) {
+                                ngModule.directives.push(c);
+                            } else {
+                                if (c.displayName.includes('Service')) {
+                                    ngModule.services.push(c);
+                                }
+                            }
                             const p = this.getProperty(ngModule, key);
                             // need to make sure object exists and is an array
                             // even though we know it should be
@@ -208,7 +221,9 @@ export class ParseJsonService {
                     c = new Directive(t);
                     this.extractComponentData(c);
                 } else if (t.name.endsWith('Service')) {
-                    c = new Service(t); 
+                    c = new Service(t);
+                    module.services.push(c);
+                    console.log(c.displayName);
                 } else {
                     c = new Clazz(t);
 

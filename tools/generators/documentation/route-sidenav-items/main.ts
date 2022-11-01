@@ -10,6 +10,8 @@ import {
     moduleTypes,
     reformatText
 } from '../helpers';
+import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
+import { FunctionModel } from 'tools/converters/typedoc-json/models/function.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -28,7 +30,7 @@ const jsonModuleStrings: string[] = [
     'json-api'
 ]
 
-export function generateSidenavItems(modules: Module[], urls: string[]) {
+export function generateSidenavItems(modules: Module[], urls: string[], moduleClasses: Clazz[]) {
     let sidenavItems: { [route: string]: SidenavItem[] } = {};
     
     // create JSON sidenav items separately since these work a little different
@@ -48,7 +50,26 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
     // now initialize sidenav items for all modules
     modules.forEach((module: Module) => {
         if (!jsonModuleStrings.includes(module.displayName)) {
-            sidenavItems[module.displayName] = getSidenavItems(module, urls);
+            if (module.displayName === 'widgets') {
+                const sItems: SidenavItem[] = [];
+                const addedUrls: string[] = [];
+                // add each module with child component, directive, etc nested items
+                moduleClasses.forEach((c: Clazz) => {
+                    const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
+                        c.displayName,
+                        c.displayName,
+                        getSidenavItemsNew(c, module, addedUrls)
+                    );
+                    sItems.push(nestedSidenavItem);
+                });
+
+                // add classes not associated with modules using old getSidenavItems
+                // as long as urls haven't been added above yet; TODO FIX THIS
+                const otherItems = getSidenavItems(module, urls, addedUrls);
+                sidenavItems[module.displayName] = [...sItems, ...otherItems];
+            } else {
+                sidenavItems[module.displayName] = getSidenavItems(module, urls);
+            }
         } else {
             sidenavItems[module.displayName] = jsonSidenavItems;
         }
@@ -69,10 +90,50 @@ export function generateSidenavItems(modules: Module[], urls: string[]) {
     );
 }
 
-function getSidenavItems(module: Module, urls: string[]) {
+function getSidenavItemsNew(clazz: Clazz, module: Module, addedUrls: string[]): SidenavItem[] {
+    const sidenavItems: SidenavItem[] = [];
+    getClassSidenavItems(clazz.components, module, 'Components', sidenavItems, addedUrls);
+    getClassSidenavItems(clazz.directives, module, 'Directives', sidenavItems, addedUrls);
+    getClassSidenavItems(clazz.services as Clazz[], module, 'Services', sidenavItems, addedUrls);
+    return sidenavItems;
+}
+
+function getClassSidenavItems(
+    classes: Clazz[],
+    module: Module,
+    classType: string,
+    sidenavItems: SidenavItem[],
+    addedUrls: string[]
+) {
+    const children: SidenavItem[] = [];
+
+    // sort the classes first; then create list of child sidenav items for module
+    classes = classes.sort((a: Clazz, b: Clazz) => a.name.localeCompare(b.name));
+    classes.forEach((c: Clazz) => {
+        let url: string = c.url;
+        url = url?.replace('/api', '').replace('/overview', '');
+        if (url && !addedUrls.includes(url)) {
+            children.push(createSidenavItem(module, url));
+            addedUrls.push(url);
+        }
+    });
+
+    // add nested sidenav item of given classType (component, directive, etc)
+    // if there are children defined
+    if (children.length > 0) {
+        const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
+            classType,
+            classType,
+            children
+        );
+
+        sidenavItems.push(nestedSidenavItem);
+    }
+}
+
+function getSidenavItems(module: Module, urls: string[], addedUrls: string[] = []) {
     const sidenavItems: SidenavItem[] = [];
     const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));
-    const addedUrls: string[] = [];
 
     // handle different module/class types (i.e. components vs directives vs
     // services etc.) as the URLs for these classes will be nested under their

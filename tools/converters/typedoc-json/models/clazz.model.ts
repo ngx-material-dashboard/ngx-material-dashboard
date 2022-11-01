@@ -11,6 +11,9 @@ export class Clazz extends TypedocBase {
 
     override kindString: string = 'Class';
     constructor$!: Constructor;
+    components: Clazz[] = [];
+    directives: Clazz[] = [];
+    interfaces: Clazz[] = [];
     methods: MethodModel[] = [];
     ngModule?: Clazz;
     properties: Property[] = [];
