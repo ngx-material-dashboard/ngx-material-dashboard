@@ -1,11 +1,81 @@
-import { Component, ContentChildren, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
 import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { CollectionComponent } from '../../../collection/components/collection/collection.component';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
-import { SelectionService } from '../../../shared/services/selection.service';
 
+/**
+ * The `Table` is a wrapper for `MatTable`, and provides features defined in
+ * `Collection`. Think of it as a `MatTable` plus, or `MatTable+` for short
+ * if you will. Sorting columns in the table is automatically built in to
+ * the component. Additionally it provides built in select one or more (or all)
+ * capabilities, as well as rendering one or more buttons in each row and 
+ * emitting click events for you to handle response to clicks.
+ * 
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```html
+ * <ngx-material-dashboard-table 
+ *     matSort
+ *     [collectionButtons]="collectionButtons"
+ *     [data]="data"
+ *     [displayedColumns]="displayedColumns">
+ *     <ng-container matColumnDef="id">
+ *         <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+ *         <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
+ *     </ng-container>
+ *     <ng-container matColumnDef="noData">
+ *         <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+ *             No data found
+ *         </mat-footer-cell>
+ *     </ng-container>
+ * </ngx-material-dashboard-table>
+ * ```
+ * ```typescript
+ * @Component({
+ *     selector: 'basic-table-usage-example',
+ *     templateUrl: './basic-table-usage-example.html'
+ * }) export class BasicTableUsageExample {
+ *     // either create your own, or use copies of buttons provided
+ *     collectionButtons: CollectionButton[] = [
+ *         {...EDIT_BUTTON}, {...DELETE_BUTTON}
+ *     ];
+ *     data: Task[] = [...];
+ *     displayedColumns: string[] = ['select', 'id', 'actions'];
+ * }
+ * ```
+ * 
+ * ## Features
+ * 
+ * The `Table` automatically wires up sorting, renders and handles select
+ * one or more rows, as well as adding one or more buttons to each row and
+ * handling click events for those buttons.
+ * 
+ * ### Sorting
+ * 
+ * To make sorting work all you need to do is add the `matSort` directive to
+ * the `Table` selector and the `mat-sort-header` directive to the header cells
+ * for the columns you want to be able to sort on. Other than making sure to
+ * include the `MatSortModule` in the module where you define the component
+ * that uses `Table`, there is nothing else you need to do.
+ * 
+ * ### Select
+ * 
+ * The `Table` defines a column for selecting one, more, or all rows in the
+ * table (select all being in the header). To utilize the select column simply
+ * include `'select'` as one of the `displayedColumns` for the `Table`, and
+ * it will be rendered along with all other columns included in the property.
+ * 
+ * ### Row Buttons
+ * 
+ * A column for rendering one or more buttons in each row of the table is
+ * also included in the main template. Additionally, `Table` includes
+ * the `buttonClick` event emitter that emits a `ButtonClick` event which
+ * should include the type of button that was clicked and the row data for
+ * the row where the button was clicked. To utilize buttons in each row
+ * of the table you must add an array of `collectionButtons` as an input
+ * to the `Table` selector, and define a handler for `buttonClick` event
+ * emitter.
+ */
 @Component({
     selector: 'ngx-material-dashboard-table',
     templateUrl: './table.component.html',

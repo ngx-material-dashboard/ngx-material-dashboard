@@ -14,11 +14,24 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
  * The `PagedCollectionWithToolbar` expands upon the capabilities of the
  * `Collection` and `PagedCollection` by providing features that a collection
  * should have when associated with a toolbar used to manage data in the
- * collection. A toolbar associated with a paged collection may have buttons
- * that are enabled/disabled based on selections in the collection. As such
- * the component provides built in capabilities to enable/disable those
- * buttons based on configuration parameters provided for the toolbar buttons.
- * See documentation for the `ToolbarButton` interface for more details:
+ * collection. It is effectively a wrapper for a `PagedCollection` and one of
+ * the toolbars defined in the `toolbar` module. This component acts as a base
+ * component for paged collections with toolbars, defining properties and
+ * functions needed for those components without defining the type of toolbar
+ * used in the component. As such this component is not meant to be used
+ * directly. Instead you should use the `PagedCollectionWithIconBar` or
+ * `PagedCollectionWithRaisedButtonBar` component, which define the type of
+ * toolbar expected to be used in the template (either the
+ * `IconButtonWithPaginator` or the `RaisedButtonToolbar` respectively).
+ * 
+ * @overviewDetails
+ * ## Features
+ * 
+ * A toolbar associated with a paged collection may have buttons that are
+ * enabled/disabled based on selections in the collection. As such this
+ * component provides built in capabilities to enable/disable those buttons
+ * based on configuration parameters provided for the toolbar buttons. See
+ * documentation for the `ToolbarButton` interface for more details:
  * [ToolbarButton](/widgets/interfaces/toolbar-button).
  * 
  * Additionally, the component utilizes the `buttonClick` output event emitter

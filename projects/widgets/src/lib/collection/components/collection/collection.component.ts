@@ -23,9 +23,10 @@ graph TD
 
 /**
  * The `Collection` defines the most basic properties needed to render a
- * collection. This works with both local and remote data. It is the base
- * component that all other collection components (`PagedCollection`,
- * `PagedCollection`, etc.) extend off of. This manages things like initialize
+ * collection. It is similar to the `MatTable` component, but designed to
+ * work with any type of collection (i.e. grid, list, table). This works
+ * with both local and remote data. It is the base component that all other
+ * collection components extend off of. This manages things like initialize
  * and connect/disconnect to/from the dataSource, along with tracking models
  * rendered in the collection based on changes to the state (i.e. sort
  * changes). Additionally it tracks the current selection and provides an

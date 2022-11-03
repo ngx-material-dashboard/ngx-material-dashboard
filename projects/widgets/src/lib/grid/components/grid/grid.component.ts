@@ -6,6 +6,42 @@ import { CollectionComponent } from '../../../collection/components/collection/c
 import { ScreenSizeService } from '../../../shared/services/screen-size.service';
 import { SelectionService } from '../../../shared/services/selection.service';
 
+/**
+ * The `Grid` extends `Collection`, and is meant for rendering items in a grid
+ * layout. The component dynamically calculates the width of each item in the
+ * grid and determines how many items to display in each row based on the space
+ * available. You must define the template for each item in the grid in the
+ * template where you intend to include this component. A `Sorter` is rendered
+ * above the data grid, which is meant to allow users to well sort the data in
+ * the grid based on the provided `field` options users should be able to sort
+ * the data on.
+ *
+ * @usageNotes
+ * ## Basic Usage Example
+ * ```html
+ * <ngx-material-dashboard-grid [data]="data" [fields]="fields">
+ *     <ng-template #model let-model="model">
+ *        <mat-card>
+ *            <mat-card-title>
+ *                {{model.id}} Title
+ *            </mat-card-title>
+ *            <mat-card-content>
+ *                Content for dummy object {{model.id}}
+ *            </mat-card-content>
+ *       </mat-card>
+ *     </ng-template>
+ * </ngx-material-dashboard-grid>
+ * ```
+ * ```typescript
+ * @Component({
+ *     selector: 'basic-grid-usage-example',
+ *     templateUrl: './basic-grid-usage-example.html'
+ * }) export class BasicGridUsageExample {
+ *     data: DummyObject[] = [...];
+ *     fields: string[] = ['id'];
+ * }
+ * ```
+ */
 @Component({
     selector: 'ngx-material-dashboard-grid',
     templateUrl: './grid.component.html',

@@ -4,10 +4,9 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
 /**
- * The `PagedGridComponent` renders items in a grid with built in paging
- * capabilities. You provide the template for each item to render in the grid,
- * and the grid will attempt to calculate and render the appropriate number
- * of items that can fit on the available screen space.
+ * The `PagedGrid` is a wrapper for the `Grid` component which adds paging
+ * capabilities. Like the `Grid`, you must define the template for each item in
+ * the grid in the template where you intend to include this component.
  * 
  * @usageNotes
  * ## Basic Usage Example
@@ -33,7 +32,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  *     selector: 'basic-usage-example',
  *     templateUrl: './basic-usage-example.html'
  * }) UsingBasicUsageExample {
- *     tasks: Task[] = []; // assuming this is initialized with data at some point
+ *     tasks: Task[] = [...];
  * }
  * ```
  */

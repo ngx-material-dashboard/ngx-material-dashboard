@@ -4,8 +4,10 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
 /**
- * The `PagedListComponent` renders items in a list with built in paging
- * capabilities. You provide the template for each item to render in the list.
+ * The `PagedList` is a wrapper for the `List`, and renders items in a list
+ * with built in paging capabilities. You must provide the template for each
+ * item to render in the list. A `MatPaginator` is rendered below the `Sorter`
+ * and data list to provide paging capabilities for the data. 
  * 
  * @usageNotes
  * ## Basic Usage Example
