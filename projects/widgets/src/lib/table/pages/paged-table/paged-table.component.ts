@@ -6,6 +6,8 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { SelectionService } from '../../../shared/services/selection.service';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
+import { TableComponent } from '../../components/table/table.component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 /**
  * A wrapper component for MatTable that provides built in paging, row selection,
@@ -42,9 +44,6 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * </ngx-material-dashboard-paged-table>
  * ```
  * ```typescript
- * // this is the most basic configuration you can use with the component, which
- * // will basically just load and page through data without any create, update,
- * // or delete functionality
  * import {AfterViewInit, Component, ViewChild} from '@angular/core';
  * import {MatSort} from '@angular/material/sort';
  * import {PagedTableComponent} from '@ngx-material-dashboard/widgets';
@@ -227,7 +226,7 @@ export class PagedTableComponent<T extends JsonModel>
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
-    @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
+    @ViewChild(TableComponent, { static: true }) table!: TableComponent<T>;
     @ViewChild(MatPaginator) override paginator$!: MatPaginator;
     // /** A reference to the sort defined for the component. */
     // sort$!: MatSort;
@@ -262,6 +261,7 @@ export class PagedTableComponent<T extends JsonModel>
      * is aware of all additional columns included.
      */
     ngAfterContentInit(): void {
-        this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
+        this.columnDefs.forEach(columnDef => this.table.table.addColumnDef(columnDef));
+        this.selection = this.table.selection;
     }
 }

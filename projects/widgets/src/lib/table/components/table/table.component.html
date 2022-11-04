@@ -2,17 +2,19 @@
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
         <mat-header-cell *matHeaderCellDef>
-            <mat-checkbox class="marker-checkbox-select-all"
-                        (change)="masterToggle($event.checked)"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+            <mat-checkbox
+                class="marker-checkbox-select-all"
+                (change)="masterToggle($event.checked)"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
             </mat-checkbox>
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <mat-checkbox class="marker-checkbox-row-select"
-                        (click)="$event.stopPropagation()"
-                        (change)="onRowSelected(row);"
-                        [checked]="selection.isSelected(row)">
+            <mat-checkbox 
+                class="marker-checkbox-row-select"
+                (click)="$event.stopPropagation()"
+                (change)="onRowSelected(row);"
+                [checked]="selection.isSelected(row)">
             </mat-checkbox>
         </mat-cell>
     </ng-container>

@@ -22,6 +22,7 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 
 import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-raised-buttons-bar.component';
@@ -79,6 +80,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
                 PagedTableWithRaisedButtonsBarComponent,
                 RaisedButtonToolbarComponent,
                 SearchFilterDirective,
+                TableComponent,
                 TestPagedTableWithRaisedButtonsBarComponent
             ],
             imports: [
@@ -179,13 +181,13 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
         it('should call onButtonClick event when action button clicked in row', () => {
             // given: a spy on the buttonClick for the paged collection (based
             // on answer to stackoverflow here: https://stackoverflow.com/a/41924755)
-            const spy = spyOn(component.pagedTableWithToolbar.collectionCmp, 'onActionButtonClick');
+            const spy = spyOn(component.pagedTableWithToolbar.collectionCmp, 'onButtonClick');
 
             // when: a button is clicked in one of the rows
             page.table.clickTableButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
-            expect(spy).toHaveBeenCalledWith('edit', component.pagedTableWithToolbar.dataSource$.data[0]);
+            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.dataSource$.data[0] });
         });
     });
 });

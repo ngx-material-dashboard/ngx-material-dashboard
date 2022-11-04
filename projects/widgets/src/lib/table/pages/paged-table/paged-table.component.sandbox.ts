@@ -13,9 +13,11 @@ import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testi
 import { sandboxOf } from 'angular-playground';
 
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
+import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from './paged-table.component';
 
 export default sandboxOf(PagedTableComponent, {
+    declarations: [TableComponent],
     imports: [
         HttpClientTestingModule,
         MatButtonModule,

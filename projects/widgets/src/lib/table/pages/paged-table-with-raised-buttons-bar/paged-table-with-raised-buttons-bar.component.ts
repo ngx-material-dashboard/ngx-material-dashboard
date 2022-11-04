@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ContentChild, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { ButtonClick } from '@ngx-material-dashboard/widgets';
 
 import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collection/components/paged-collection-with-raised-button-toolbar/paged-collection-with-raised-button-toolbar.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
@@ -95,5 +96,7 @@ export class PagedTableWithRaisedButtonsBarComponent<T extends JsonModel>
         this.sort$ = this.collectionCmp.sort$;
         this.dataSource = this.collectionCmp.dataSource$;
         super.ngAfterViewInit();
+        // set selection for component to selection from base collection
+        this.selection = this.collectionCmp.table.selection;
     }
 }

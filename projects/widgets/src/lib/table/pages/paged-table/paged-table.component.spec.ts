@@ -18,13 +18,20 @@ import { Button } from '../../../shared/interfaces/button.interface';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
 import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
 import { PagedTableComponent } from './paged-table.component';
+import { TableComponent } from '../../components/table/table.component';
 
 const pageSize = 5;
 const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table matSort [collectionButtons]="collectionButtons" [data]="data" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table
+        matSort
+        [collectionButtons]="collectionButtons"
+        [data]="data"
+        [displayedColumns]="displayedColumns"
+        [multiple]="multiple"
+        class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -46,7 +53,13 @@ const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table matSort [collectionButtons]="collectionButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" [multiple]="multiple" class="marker-paged-table">
+    <ngx-material-dashboard-paged-table 
+        matSort
+        [collectionButtons]="collectionButtons"
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [multiple]="multiple"
+        class="marker-paged-table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -77,9 +90,9 @@ describe('PagedTableComponent', () => {
     describe('Local data source', () => {
         let page: PagedTableElement;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                declarations: [ PagedTableComponent, TestPagedTableComponent ],
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [ TableComponent, PagedTableComponent, TestPagedTableComponent ],
                 imports: [
                     HttpClientTestingModule,
                     MatButtonModule,
@@ -94,7 +107,7 @@ describe('PagedTableComponent', () => {
                 providers: [
                     { provide: JsonDatastore, useClass: Datastore }
                 ]
-            }).compileComponents();
+            });
 
             datastore = TestBed.inject(JsonDatastore);
         });
@@ -189,7 +202,7 @@ describe('PagedTableComponent', () => {
                         page.selectAll();
     
                         // then: the component should return true for isAllSelected()
-                        expect(page.component.table.isAllSelected()).toEqual(true);
+                        expect(page.component.table.table.isAllSelected()).toEqual(true);
     
                         // and: all rows should have their checkboxes checked
                         const checkBoxes: CheckboxElement[] = page.rowCheckboxes;
@@ -252,9 +265,9 @@ describe('PagedTableComponent', () => {
     describe('Remote data source', () => {
         let page: PagedTableElement;
 
-        beforeEach(async() => {
-            await TestBed.configureTestingModule({
-                declarations: [ PagedTableComponent, TestRemotePagedTableComponent ],
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [ TableComponent, PagedTableComponent, TestRemotePagedTableComponent ],
                 imports: [
                     HttpClientTestingModule,
                     MatButtonModule,
@@ -271,7 +284,7 @@ describe('PagedTableComponent', () => {
                     { provide: Datastore, deps: [HttpClient] },
                     { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
                 ]
-            }).compileComponents();
+            });
         });
 
         describe('No Table data', () => {

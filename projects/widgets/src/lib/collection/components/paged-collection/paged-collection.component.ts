@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ContentChild, Input, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 
 import { CollectionComponent } from '../collection/collection.component';
 
@@ -90,5 +91,9 @@ export class PagedCollectionComponent <T extends JsonModel>
      */
     initPageSub(): void {
         this.dataSource$.paginator = this.paginator;
+    }
+
+    onButtonClick(buttonClick: ButtonClick): void {
+        this.buttonClick.emit(buttonClick);
     }
 }

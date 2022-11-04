@@ -104,9 +104,9 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
      * @param buttonClick A buttonClick event from the tableToolbar.
      */
     onToolbarButtonClick(buttonClick: ButtonClick): void {
-        if (!this.collectionCmp.selection.isEmpty()) {
+        if (!this.selection.isEmpty()) {
             // make sure selection is not empty before adding selected row(s)
-            buttonClick.row = this.collectionCmp.selection.selected[0];
+            buttonClick.row = this.selection.selected[0];
         }
         this.buttonClick.emit(buttonClick);
     }

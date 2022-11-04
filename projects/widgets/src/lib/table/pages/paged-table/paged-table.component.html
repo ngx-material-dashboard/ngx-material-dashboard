@@ -1,46 +1,12 @@
-<mat-table [dataSource]="dataSource$">
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>
-            <mat-checkbox class="marker-checkbox-select-all"
-                        (change)="masterToggle($event.checked)"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            <mat-checkbox class="marker-checkbox-row-select"
-                        (click)="$event.stopPropagation()"
-                        (change)="onRowSelected(row);"
-                        [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-        </mat-cell>
-    </ng-container>
+<ngx-material-dashboard-table
+    [collectionButtons]="collectionButtons"
+    [dataSource]="dataSource$"
+    [displayedColumns]="displayedColumns"
+    [multiple]="multiple$"
+    (buttonClick)="onButtonClick($event)">
     <!-- Additional columns defined in tag where this component is used -->
-    <ng-content></ng-content>
-
-    <!-- Actions Column (where buttons go) -->
-    <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell class="actions-cell" *matCellDef="let row">
-            <div class="row-hover">
-                <button *ngFor="let button of collectionButtons"
-                    class="button-marker-{{button.click}}"
-                    (click)="onActionButtonClick(button.click, row)"
-                    mat-icon-button>
-                    <fa-icon [icon]="button.icon"></fa-icon>
-                    <div class="mat-button-focus-overlay"></div>
-                    <div class="mat-button-ripple mat-ripple"></div>
-                </button>
-            </div>
-        </mat-cell>
-    </ng-container>
-
-    <!-- row definitions -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns" class="pointer"></mat-row>
-    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': length > 0}"></mat-footer-row>
-</mat-table>
+    <ng-container></ng-container>
+</ngx-material-dashboard-table>
 <mat-paginator [length]="length" 
                 [pageSize]="pageSize" 
                 [pageSizeOptions]="[15, 25, 50, 75, 100]">
