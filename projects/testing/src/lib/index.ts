@@ -10,6 +10,7 @@ export * from './page-elements/page/page.element';
 export * from './page-elements/paged-collection/paged-collection.element';
 export * from './page-elements/paged-table/paged-table.element';
 export * from './page-elements/paged-table-with-toolbar/paged-table-with-toolbar.element';
+export * from './page-elements/paginator/paginator.element';
 export * from './page-elements/sidenav/sidenav.element';
 export * from './page-elements/table/table.element';
 export * from './page-elements/toolbar-header/toolbar-header.element';
