@@ -10,7 +10,7 @@ import { FunctionModel } from '../../converters/typedoc-json/models/function.mod
 import { Module } from '../../converters/typedoc-json/models/module.model';
 import { TypedocBase } from '../../converters/typedoc-json/models/typedoc-base.model';
 import { UsageNote, USAGE_TYPES } from '../../converters/typedoc-json/models/usage-note.model';
-import { MODULE_TYPE_DIRECTORY_MAP } from '../../generators/documentation/helpers';
+import { MODULE_TYPE_DIRECTORY_MAP, reformatText } from '../../generators/documentation/helpers';
 import { TypeAlias } from '../../converters/typedoc-json/models/type-alias.model';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
@@ -244,22 +244,4 @@ function getModuleType(t: TypedocBase): string | undefined {
     });
 
     return moduleType;
-}
-
-function reformatText(x: string): string {
-    const text = x.replace(' ', '').replace('Component', '').replace('Module', '').replace('Service', '');
-    let reformattedText = '';
-    for(let i = 0; i < text.length; i++) {
-        const character = text.charAt(i);
-        if (character === character.toUpperCase()) {
-            if (i > 0) {
-                reformattedText += '-';
-            }
-            reformattedText += character.toLowerCase();
-        } else {
-            reformattedText += character;
-        }
-    }
-
-    return reformattedText;
 }
