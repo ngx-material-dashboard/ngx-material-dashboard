@@ -74,7 +74,12 @@ export function filterModuleTypeUrls(moduleName: string, moduleUrls: string[], i
 
 export function reformatText(text: string): string {
     let reformattedText = '';
-    text = text.replace(' ', '').replace('Component', '').replace('Module', '').replace('Service', '');
+    text = text
+        .replace(' ', '')
+        .replace('Component', '')
+        .replace('Module', '')
+        .replace('Service', '')
+        .replace('Element', '');
     for(let i = 0; i < text.length; i++) {
         const character = text.charAt(i);
         if (character === character.toUpperCase()) {
