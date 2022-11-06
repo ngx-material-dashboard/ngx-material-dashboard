@@ -77,9 +77,16 @@ export function reformatText(text: string): string {
     text = text
         .replace(' ', '')
         .replace('Component', '')
+        .replace('Directive', '')
+        .replace('Element', '')
         .replace('Module', '')
-        .replace('Service', '')
-        .replace('Element', '');
+        .replace('Service', '');
+    if (text !== 'Dialog') {
+        // only remove Dialog if it is part of text (not all of it); we have
+        // DialogModule which should render as "Dialog", but also components
+        // with Dialog at end which can be removed
+        text = text.replace('Dialog', '');
+    }
     for(let i = 0; i < text.length; i++) {
         const character = text.charAt(i);
         if (character === character.toUpperCase()) {
