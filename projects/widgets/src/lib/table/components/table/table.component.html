@@ -24,10 +24,10 @@
     <!-- Actions Column (where buttons go) -->
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell class="actions-cell" *matCellDef="let row">
+        <mat-cell class="actions-cell mat-row-buttons" *matCellDef="let row">
             <div class="row-hover">
                 <button *ngFor="let button of collectionButtons"
-                    class="button-marker-{{button.click}}"
+                    class="marker-button-{{button.click}}"
                     (click)="onActionButtonClick(button.click, row)"
                     mat-icon-button>
                     <fa-icon [icon]="button.icon"></fa-icon>

@@ -37,11 +37,11 @@ import { PagedTableElement } from './paged-table.element';
                 <!-- Actions Column (where buttons go) -->
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                    <mat-cell class="actions-cell" *matCellDef="let row">
-                        <button class="button-marker-edit" (click)="onActionButtonClick('edit', row)">
+                    <mat-cell class="actions-cell mat-row-buttons" *matCellDef="let row">
+                        <button class="marker-button-edit" (click)="onActionButtonClick('edit', row)">
                             Edit
                         </button>
-                        <button class="button-marker-delete" (click)="onActionButtonClick('delete', row)">
+                        <button class="marker-button-delete" (click)="onActionButtonClick('delete', row)">
                             Delete
                         </button>
                     </mat-cell>
@@ -97,10 +97,10 @@ describe('PagedTableElement', () => {
 
         it('should check the checkbox in the first row', async() => {
             // when: the checkbox in the first row is checked
-            await pagedTableElement.selectRow(0);
+            await pagedTableElement.selectItem(0);
 
             // then: the checkbox in the first row should be marked as checked
-            expect(pagedTableElement.isRowSelected(0)).toBeTrue();
+            expect(pagedTableElement.isItemSelected(0)).toBeTrue();
         });
 
         it('should be able to select all checkboxes using header', async() => {
@@ -121,7 +121,7 @@ describe('PagedTableElement', () => {
 
         it('should click the edit action button in first row', () => {
             // when: the action button is clicked in first row
-            pagedTableElement.clickTableButton('edit', 0);
+            pagedTableElement.clickItemButton('edit', 0);
 
             // expect: the onActionButtonClick should have been called
             expect(actionButtonSpy).toHaveBeenCalledWith('edit', DUMMY_OBJECT_DATA[0]);
@@ -129,14 +129,14 @@ describe('PagedTableElement', () => {
 
         it('should click the delete action button in first row', () => {
             // when: the action button is clicked in first row
-            pagedTableElement.clickTableButton('delete', 0);
+            pagedTableElement.clickItemButton('delete', 0);
 
             // expect: the onActionButtonClick should have been called
             expect(actionButtonSpy).toHaveBeenCalledWith('delete', DUMMY_OBJECT_DATA[0]);
         });
 
         it('should throw an error when trying click button that does not exist in first row', () => {
-            expect(() => { pagedTableElement.clickTableButton('undefined', 0) }).toThrowError('Expected HTMLButtonElement with CSS selector ".button-marker-undefined" in table actions column')
+            expect(() => { pagedTableElement.clickItemButton('undefined', 0) }).toThrowError('Expected HTMLButtonElement with CSS selector ".marker-button-undefined" in collection item buttons')
         });
     });
 

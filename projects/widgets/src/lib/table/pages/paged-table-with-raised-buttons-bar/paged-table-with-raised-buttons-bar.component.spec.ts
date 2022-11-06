@@ -94,7 +94,8 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
                 MatToolbarModule,
                 FlexLayoutModule,
                 FontAwesomeModule
-            ]
+            ],
+            teardown: { destroyAfterEach: false }
         });
     });
 
@@ -122,7 +123,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             const spy = spyOn(component, 'onButtonClick');
 
             // and: a selected row
-            page.table.selectRow(0);
+            page.table.selectItem(0);
 
             // when: the button is clicked
             page.toolbar.clickButton('.marker-action-edit');
@@ -184,7 +185,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             const spy = spyOn(component.pagedTableWithToolbar.collectionCmp, 'onButtonClick');
 
             // when: a button is clicked in one of the rows
-            page.table.clickTableButton('edit', 0);
+            page.table.clickItemButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.dataSource$.data[0] });

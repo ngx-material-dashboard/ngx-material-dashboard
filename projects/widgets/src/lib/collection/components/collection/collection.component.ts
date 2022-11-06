@@ -104,9 +104,9 @@ export class CollectionComponent<T extends JsonModel>
     @Input() collectionButtons: Button[] = [];
     /**
      * Setter for paged data. This re-initializes the dataSource everytime data changes.
-     * TODO: only re-initialize when necessary; just update data otherwise
+     * @deprecated use dataSource instead
      */
-     @Input() set data(data: T[] | undefined) {
+    @Input() set data(data: T[] | undefined) {
         if (data) {
             this.initDataSource(data);
         }
@@ -114,9 +114,9 @@ export class CollectionComponent<T extends JsonModel>
     /**
      * Setter for the dataSource on the component. Initializes the models to
      * render in the collection based on the latest data defined from the
-     * dataSource.
+     * dataSource. TODO: only re-initialize when necessary; just update data otherwise
      */
-    @Input() set dataSource(dataSource: RemoteDataSource<T> | MatTableDataSource<T> | undefined) {
+    @Input() set dataSource(dataSource: T[] | RemoteDataSource<T> | MatTableDataSource<T> | undefined) {
         if (dataSource) {
             this.initDataSource(dataSource);
         }
@@ -163,10 +163,8 @@ export class CollectionComponent<T extends JsonModel>
     get length(): number {
         if (this.dataSource$ instanceof RemoteDataSource) {
             return this.dataSource$.total;
-        } else if (this.dataSource$?.data) {
-            return this.dataSource$.data.length;
         } else {
-            return 0;
+            return this.dataSource$.data.length;
         }
     }
 
@@ -181,12 +179,8 @@ export class CollectionComponent<T extends JsonModel>
     /**
      * Returns the sorter for the component if it exists.
      */
-    get sort(): MatSort | null {
-        if (this.sort$) {
-            return this.sort$;
-        } else {
-            return null;
-        }
+    get sort(): MatSort | undefined {
+        return this.sort$;
     }
 
     constructor(
@@ -207,7 +201,7 @@ export class CollectionComponent<T extends JsonModel>
      */
     ngOnDestroy(): void {
         this.sub.unsubscribe();
-        this.dataSource?.disconnect();
+        this.dataSource$.disconnect();
     }
 
     /**

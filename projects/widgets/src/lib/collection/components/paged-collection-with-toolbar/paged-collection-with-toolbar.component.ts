@@ -74,7 +74,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
 
-    override get sort(): MatSort | null {
+    override get sort(): MatSort | undefined {
         if (this.sort$) {
             // if sort$ already defined, then return that
             return this.sort$;
@@ -82,7 +82,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
             // sort is in toolbar if toolbar is IconButtonsWithPaginator
             return this.toolbar.sort;
         } else {
-            return null;
+            return undefined;
         }
     }
 

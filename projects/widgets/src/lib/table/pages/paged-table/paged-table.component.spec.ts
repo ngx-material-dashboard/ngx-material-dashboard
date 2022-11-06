@@ -156,7 +156,7 @@ describe('PagedTableComponent', () => {
                     const spy = spyOn(page.component.table.buttonClick, 'emit');
     
                     // when: a button is clicked in one of the rows
-                    page.clickTableButton('edit', 0);
+                    page.clickItemButton('edit', 0);
     
                     // then: the tableButtonClick emit method should have been called
                     expect(spy).toHaveBeenCalledWith({ click: 'edit', row: data[0] });
@@ -205,7 +205,7 @@ describe('PagedTableComponent', () => {
                         expect(page.component.table.table.isAllSelected()).toEqual(true);
     
                         // and: all rows should have their checkboxes checked
-                        const checkBoxes: CheckboxElement[] = page.rowCheckboxes;
+                        const checkBoxes: CheckboxElement[] = page.itemCheckboxes;
                         checkBoxes.forEach((checkbox: CheckboxElement) => {
                             expect(checkbox.checked).toBeTrue();
                         });
@@ -219,7 +219,7 @@ describe('PagedTableComponent', () => {
                         page.selectAll();
     
                         // then: no rows should have their checkboxes checked
-                        const checkBoxes: CheckboxElement[] = page.rowCheckboxes;
+                        const checkBoxes: CheckboxElement[] = page.itemCheckboxes;
                         checkBoxes.forEach((checkbox: CheckboxElement) => {
                             expect(checkbox.checked).toBeFalse();
                         });
@@ -235,28 +235,28 @@ describe('PagedTableComponent', () => {
     
                 it('should allow row to be selected and deselected', () => {
                     // when: the checkbox is checked in first row
-                    page.selectRow(0);
+                    page.selectItem(0);
     
                     // then: the checkbox should be checked
-                    expect(page.isRowSelected(0)).toBeTrue();
+                    expect(page.isItemSelected(0)).toBeTrue();
     
                     // when: the checkbox is unchecked
-                    page.selectRow(0);
+                    page.selectItem(0);
     
                     // then: checkbox should be unchecked
-                    expect(page.isRowSelected(0)).toBeFalse();
+                    expect(page.isItemSelected(0)).toBeFalse();
                 });
     
                 it('should only select one row at a time', () => {
                     // when: the first checkbox is checked
-                    page.selectRow(0); //.clickCheckbox(checkbox1InputElement);
+                    page.selectItem(0); //.clickCheckbox(checkbox1InputElement);
     
                     // and: the second checkbox is checked
-                    page.selectRow(1); //age.clickCheckbox(checkbox2InputElement);
+                    page.selectItem(1); //age.clickCheckbox(checkbox2InputElement);
     
                     // then: the second checkbox should be the only checkbox checked
-                    expect(page.isRowSelected(0)).toBeFalse();
-                    expect(page.isRowSelected(1)).toBeTrue();
+                    expect(page.isItemSelected(0)).toBeFalse();
+                    expect(page.isItemSelected(1)).toBeTrue();
                 });
             });
         });
