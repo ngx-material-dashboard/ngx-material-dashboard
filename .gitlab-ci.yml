@@ -13,11 +13,12 @@ stages:
   - build
   - pages
 
-# install dependencies (and any other setup...)
+# install dependencies and ensure cli installed globally (and any other setup...)
 setup:
   stage: setup
   script:
     - npm ci
+    - npm install -g @angular/cli@13.3.6
 
 # build libraries and documentation (libraries must be built first because docs
 # use components from widgets library)
