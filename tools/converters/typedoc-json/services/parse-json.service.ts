@@ -6,6 +6,7 @@ import { Component } from '../models/component.model';
 import { Constructor } from '../models/constructor.model';
 import { Directive } from '../models/directive.model';
 import { FunctionModel } from '../models/function.model';
+import { InterfaceType } from '../models/interface-type.model';
 import { MethodModel } from '../models/method.model';
 import { Module } from '../models/module.model';
 import { Property } from '../models/property.model';
@@ -105,18 +106,17 @@ export class ParseJsonService {
                     const key = val as ObjectKey;
                     const arrayData = this.extractArrayData(args, val);
                     arrayData.forEach((arrVal: string) => {
-                        const c: Component | Directive | Clazz | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
+                        const c: Component | Directive | Service | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
                         if (c) {
                             c.ngModule = ngModule;
                             if (c instanceof Component) {
                                 ngModule.components.push(c);
                             } else if (c instanceof Directive) {
                                 ngModule.directives.push(c);
-                            } else {
-                                if (c.displayName.includes('Service')) {
-                                    ngModule.services.push(c);
-                                }
+                            } else if (c instanceof Service) {
+                                ngModule.services.push(c);
                             }
+
                             const p = this.getProperty(ngModule, key);
                             // need to make sure object exists and is an array
                             // even though we know it should be
@@ -127,6 +127,19 @@ export class ParseJsonService {
                     });
                 });
             }
+
+            // find all classes that have the same path as the module (to find
+            // classes defined in same path as module, but that may not be
+            // included in decorators; i.e. interfaces, models, etc.) and add
+            // them to appropriate array if they haven't already been added
+            const classesInModule = this.classes.filter((c: Clazz) => c.sources[0].fileName.includes(ngModule.sources[0].path));
+            classesInModule.forEach((c: Clazz) => {
+                if (c instanceof Service && !ngModule.services.includes(c)) {
+                    ngModule.services.push(c);
+                } else if (c instanceof InterfaceType) {
+                    ngModule.interfaces.push(c);
+                }
+            });
         });
     }
 
@@ -220,10 +233,12 @@ export class ParseJsonService {
                 } else if (t.name.endsWith('Directive')) {
                     c = new Directive(t);
                     this.extractComponentData(c);
-                } else if (t.name.endsWith('Service')) {
+                } else if (t.name.endsWith('Service') || t.sources[0].fileName.includes('.service.')) {
                     c = new Service(t);
                     module.services.push(c);
-                    console.log(c.displayName);
+                } else if (t.sources[0].fileName.includes('.interface.')) {
+                    c = new InterfaceType(t);
+                    module.interfaces.push(c);
                 } else {
                     c = new Clazz(t);
 

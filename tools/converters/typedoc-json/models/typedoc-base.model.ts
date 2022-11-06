@@ -51,6 +51,13 @@ export class TypedocBase {
         if (data.flags) {
             this.isConstant = data.flags.isConst;
         }
+
+        if (data.sources) {
+            this.sources = [];
+            data.sources.forEach((source: Partial<Source>) => {
+                this.sources.push(new Source(source));
+            });
+        }
     }
 
     /**

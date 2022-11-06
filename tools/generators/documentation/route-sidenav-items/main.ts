@@ -94,6 +94,7 @@ function getSidenavItemsNew(clazz: Clazz, module: Module, addedUrls: string[]): 
     const sidenavItems: SidenavItem[] = [];
     getClassSidenavItems(clazz.components, module, 'Components', sidenavItems, addedUrls);
     getClassSidenavItems(clazz.directives, module, 'Directives', sidenavItems, addedUrls);
+    getClassSidenavItems(clazz.interfaces, module, 'Interfaces', sidenavItems, addedUrls);
     getClassSidenavItems(clazz.services as Clazz[], module, 'Services', sidenavItems, addedUrls);
     return sidenavItems;
 }
