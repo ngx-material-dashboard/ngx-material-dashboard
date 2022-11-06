@@ -1,10 +1,7 @@
 import * as path from 'path';
 import { ReplaceInFile } from '../../../files/replace-in-file';
-import { SidenavItem } from '@ngx-material-dashboard/widgets';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
-import { Route, Routes } from '@angular/router';
 import {
-    capitalizeFirstLetter,
     filterModuleTypeUrls,
     moduleTypes,
     reformatText
