@@ -6,7 +6,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
-import { SorterComponent } from '@ngx-material-dashboard/widgets';
+import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { MockModule } from 'ng-mocks';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from '../paged-grid/paged-grid.component';

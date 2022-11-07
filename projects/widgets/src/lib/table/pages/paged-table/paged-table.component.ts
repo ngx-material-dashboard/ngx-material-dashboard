@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
-import { SelectionService } from '../../../shared/services/selection.service';
+import { SelectionService } from '../../../collection/services/selection.service';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 import { TableComponent } from '../../components/table/table.component';
 import { SelectionModel } from '@angular/cdk/collections';

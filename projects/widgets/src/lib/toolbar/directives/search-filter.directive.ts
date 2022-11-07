@@ -4,8 +4,8 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
 import { PagedCollectionComponent } from '../../collection/components/paged-collection/paged-collection.component';
-import { RemoteDataSource } from '../../shared/services/remote-data-source.service';
-import { SearchFilterMap } from '../../table/interfaces/search-filter-map.interface';
+import { RemoteDataSource } from '../../collection/services/remote-data-source.service';
+import { SearchFilterMap } from '../interfaces/search-filter-map.interface';
 import { FilterDropDownComponent } from '../../toolbar/components/filter-drop-down/filter-drop-down.component';
 
 @Directive({

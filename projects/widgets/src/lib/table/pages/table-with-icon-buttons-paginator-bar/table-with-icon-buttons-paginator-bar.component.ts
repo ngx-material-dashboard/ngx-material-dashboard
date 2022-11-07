@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { SelectionService } from '../../../shared/services/selection.service';
+import { SelectionService } from '../../../collection/services/selection.service';
 import { PagedCollectionWithIconToolbarComponent } from '../../../collection/components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';
 import { TableComponent } from '../../components/table/table.component';
 

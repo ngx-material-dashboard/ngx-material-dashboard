@@ -4,10 +4,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
-import { Button } from '../../../shared/interfaces/button.interface';
+import { Button } from '../../interfaces/button.interface';
 
-import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
-import { SelectionService } from '../../../shared/services/selection.service';
+import { RemoteDataSource } from '../../services/remote-data-source.service';
+import { SelectionService } from '../../services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 

@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { ScreenSize } from '../enums/screen-side.enum';
+import { ScreenSize } from '../../layout/enums/screen-size.enum';
 
 @Injectable({
     providedIn: 'root'

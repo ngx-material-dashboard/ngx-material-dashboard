@@ -12,7 +12,7 @@ import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from './paged-table.component';
 

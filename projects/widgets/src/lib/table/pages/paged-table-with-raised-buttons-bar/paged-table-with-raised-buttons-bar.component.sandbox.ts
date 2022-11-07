@@ -15,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { PagedTableComponent } from '../paged-table/paged-table.component';

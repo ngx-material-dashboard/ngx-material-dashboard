@@ -15,9 +15,8 @@ import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
 import { CheckboxElement, CollectionElement, Datastore, DummyObject, DUMMY_OBJECT_DATA, TEST_DATA } from '@ngx-material-dashboard/testing';
 
 import { ListComponent } from '../../../list/components/list/list.component';
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
-import { Button } from '../../../shared/interfaces/button.interface';
-import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
+import { Button } from '../../interfaces/button.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { CollectionComponent } from './collection.component';
 

@@ -3,8 +3,8 @@ import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
-import { ScreenSizeService } from '../../../shared/services/screen-size.service';
-import { SelectionService } from '../../../shared/services/selection.service';
+import { SelectionService } from '../../../collection/services/selection.service';
+import { ScreenSizeService } from '../../../layout/services/screen-size.service';
 
 /**
  * The `Grid` extends `Collection`, and is meant for rendering items in a grid

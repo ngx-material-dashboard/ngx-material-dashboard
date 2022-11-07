@@ -16,7 +16,7 @@ import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
-import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
+import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { ListComponent } from '../../components/list/list.component';

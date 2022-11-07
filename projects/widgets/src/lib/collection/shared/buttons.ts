@@ -1,5 +1,5 @@
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Button } from './interfaces/button.interface';
+import { Button } from '../interfaces/button.interface';
 
 /**
  * A basic edit button.

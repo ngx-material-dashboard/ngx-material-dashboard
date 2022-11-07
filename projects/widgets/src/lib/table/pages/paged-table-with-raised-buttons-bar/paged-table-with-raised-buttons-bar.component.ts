@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ContentChild, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { ButtonClick } from '@ngx-material-dashboard/widgets';
 
 import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collection/components/paged-collection-with-raised-button-toolbar/paged-collection-with-raised-button-toolbar.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';

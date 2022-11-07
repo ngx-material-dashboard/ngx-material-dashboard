@@ -13,7 +13,7 @@ import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testi
 import { DEFAULT_TOOLBAR_BUTTONS } from '@ngx-material-dashboard/widgets';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
-import { DEFAULT_COLLECTION_BUTTONS } from '../../../shared/buttons';
+import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from '../paged-grid/paged-grid.component';

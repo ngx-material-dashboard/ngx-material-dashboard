@@ -19,7 +19,7 @@ import { Datastore } from "@ngx-material-dashboard/base-json/test/services/datas
 import { TEST_DATA } from "@ngx-material-dashboard/testing";
 import { CollectionModule } from "@ngx-material-dashboard/widgets";
 import { sandboxOf } from "angular-playground";
-import { EDIT_BUTTON, DELETE_BUTTON } from "../../../shared/buttons";
+import { EDIT_BUTTON, DELETE_BUTTON } from "../../../collection/shared/buttons";
 import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from "../../../toolbar/shared/toolbar-buttons";
 import { ToolbarModule } from "../../../toolbar/toolbar.module";
 import { GridComponent } from "../../components/grid/grid.component";

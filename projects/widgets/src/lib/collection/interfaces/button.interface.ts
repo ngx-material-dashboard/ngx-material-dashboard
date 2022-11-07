@@ -1,9 +1,9 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 /**
- * A button to render in a table row. Since this is rendered in a row with
- * table data, it is rendered as a `mat-icon-button`. So there is only an
- * icon associated with it, it does not contain any text.
+ * A button to render with a collection item. It is merely a wrapper for the
+ * `mat-icon-button`, so there is only an icon associated with it, it does not
+ * contain any text.
  * 
  * @overviewDetails
  * ## Basic Usage Example

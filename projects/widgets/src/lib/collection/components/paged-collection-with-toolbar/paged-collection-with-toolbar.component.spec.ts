@@ -6,7 +6,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
-import { SorterComponent } from '@ngx-material-dashboard/widgets';
+import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { MockModule } from 'ng-mocks';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';

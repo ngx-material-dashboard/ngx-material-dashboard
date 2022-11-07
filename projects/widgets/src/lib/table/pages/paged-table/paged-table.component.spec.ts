@@ -14,9 +14,9 @@ import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
 import { CheckboxElement, Datastore, DummyObject, PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
-import { Button } from '../../../shared/interfaces/button.interface';
-import { DELETE_BUTTON, EDIT_BUTTON } from '../../../shared/buttons';
-import { RemoteDataSource } from '../../../shared/services/remote-data-source.service';
+import { Button } from '../../../collection/interfaces/button.interface';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
+import { RemoteDataSource } from '../../../collection/services/remote-data-source.service';
 import { PagedTableComponent } from './paged-table.component';
 import { TableComponent } from '../../components/table/table.component';
 

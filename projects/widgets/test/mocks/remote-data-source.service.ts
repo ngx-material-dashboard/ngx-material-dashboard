@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 import { SortDirection } from "@angular/material/sort";
 import { JsonModel } from "@ngx-material-dashboard/base-json";
-import { RemoteDataSource } from "../../src/lib/shared/services/remote-data-source.service";
+import { RemoteDataSource } from "../../src/lib/collection/services/remote-data-source.service";
 
 /**
  * The RemoteDataSourceMock class is meant to mock the basic behavior of the
