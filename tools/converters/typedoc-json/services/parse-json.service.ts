@@ -138,6 +138,8 @@ export class ParseJsonService {
                     ngModule.services.push(c);
                 } else if (c instanceof InterfaceType) {
                     ngModule.interfaces.push(c);
+                } else if (c.sources[0].fileName.includes('.enum.')) {
+                    ngModule.enums.push(c);
                 }
             });
         });
@@ -242,8 +244,12 @@ export class ParseJsonService {
                 } else {
                     c = new Clazz(t);
 
-                    if (!CLAZZ_SPECIFIC_TYPES.find((it: string) => c.sources[0].fileName.includes(`.${it}.`))) {
-                        module.nonSpecificClasses.push(c);
+                    if (c.sources[0].fileName.includes('.enum.')) {
+                        module.enums.push(c);
+                    } else {
+                        if (!CLAZZ_SPECIFIC_TYPES.find((it: string) => c.sources[0].fileName.includes(`.${it}.`))) {
+                            module.nonSpecificClasses.push(c);
+                        }
                     }
                 }
                 c.module = module;

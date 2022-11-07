@@ -1,17 +1,15 @@
 import * as path from 'path';
+import { SidenavItem } from '../../../../projects/widgets/src/lib/layout/interfaces/sidenav.interface';
 import { ReplaceInFile } from '../../../files/replace-in-file';
-import { SidenavItem } from '@ngx-material-dashboard/widgets';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
 import {
     capitalizeFirstLetter,
     convertSelectorToText,
     convertUrlToRoute,
     filterModuleTypeUrls,
-    moduleTypes,
-    reformatText
+    moduleTypes
 } from '../helpers';
 import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
-import { FunctionModel } from 'tools/converters/typedoc-json/models/function.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -94,6 +92,7 @@ function getSidenavItemsNew(clazz: Clazz, module: Module, addedUrls: string[]): 
     const sidenavItems: SidenavItem[] = [];
     getClassSidenavItems(clazz.components, module, 'Components', sidenavItems, addedUrls);
     getClassSidenavItems(clazz.directives, module, 'Directives', sidenavItems, addedUrls);
+    getClassSidenavItems(clazz.enums, module, 'Enums', sidenavItems, addedUrls);
     getClassSidenavItems(clazz.interfaces, module, 'Interfaces', sidenavItems, addedUrls);
     getClassSidenavItems(clazz.services as Clazz[], module, 'Services', sidenavItems, addedUrls);
     return sidenavItems;

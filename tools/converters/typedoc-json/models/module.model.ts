@@ -8,6 +8,7 @@ export class Module extends TypedocBase {
 
     override kindString: string = 'Module';
     classes: Clazz[] = [];
+    enums: Clazz[] = [];
     functions: FunctionModel[] = [];
     interfaces: InterfaceType[] = [];
     typeAliases: TypeAlias[] = [];

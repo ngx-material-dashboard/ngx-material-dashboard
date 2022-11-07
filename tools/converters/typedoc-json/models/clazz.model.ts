@@ -13,6 +13,7 @@ export class Clazz extends TypedocBase {
     constructor$!: Constructor;
     components: Clazz[] = [];
     directives: Clazz[] = [];
+    enums: Clazz[] = [];
     interfaces: Clazz[] = [];
     methods: MethodModel[] = [];
     ngModule?: Clazz;
