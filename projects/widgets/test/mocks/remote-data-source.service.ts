@@ -42,7 +42,6 @@ export class RemoteDataSourceMock<T extends JsonModel> extends RemoteDataSource<
             this.data = this.testData.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
         }
 
-        console.log(this.data);
         // just set the data and call the next function on the dataSubject so
         // data is emitted and loaded into component during test
         //this.data = this.testData as T[];
