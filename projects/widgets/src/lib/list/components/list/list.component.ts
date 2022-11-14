@@ -41,7 +41,4 @@ import { CollectionComponent } from '../../../collection/components/collection/c
     styleUrls: ['./list.component.css']
 })
 export class ListComponent<T extends JsonModel>
-    extends CollectionComponent<T> {
-
-    @ContentChild('model', { static: false }) template!: TemplateRef<any>;
-}
+    extends CollectionComponent<T> {}

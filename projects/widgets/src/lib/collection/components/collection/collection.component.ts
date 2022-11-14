@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -100,6 +100,7 @@ graph TD
 export class CollectionComponent<T extends JsonModel>
     implements AfterViewInit, OnDestroy {
 
+    @ContentChild('model', { static: false }) template!: TemplateRef<any>;
     /** The buttons to render with each element in the collection. */
     @Input() collectionButtons: Button[] = [];
     /**
@@ -147,7 +148,7 @@ export class CollectionComponent<T extends JsonModel>
      * included so it can be used with tables. Any tables that utilize sorting
      * in headers need to override this (see the TableComponent for an example).
      */
-     @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;
+    @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;
     /** The source for the collection data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
     /** The total number of elements in the collection. */

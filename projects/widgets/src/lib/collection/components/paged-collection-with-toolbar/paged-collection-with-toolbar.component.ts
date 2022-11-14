@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -10,7 +10,6 @@ import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interf
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
-import { RemoteDataSource } from '../../services/remote-data-source.service';
 import { SelectionService } from '../../services/selection.service';
 import { CollectionComponent } from '../collection/collection.component';
 import { PagedCollectionComponent } from '../paged-collection/paged-collection.component';
@@ -90,7 +89,6 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
             return this.paginator$;
         } else if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
             //  paginator is in toolbar if toolbar is IconButtonsWithPaginator
-            console.log(this.toolbar.paginator);
             return this.toolbar.paginator;
         } else {
             return null;
@@ -112,7 +110,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    constructor() {
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.sub = new Subscription();
     }

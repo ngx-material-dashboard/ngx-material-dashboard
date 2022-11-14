@@ -1,6 +1,5 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ContentChild, ElementRef, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
@@ -52,7 +51,6 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
 export class GridComponent<T extends JsonModel> 
     extends CollectionComponent<T> implements AfterViewChecked {
 
-    @ContentChild('model', { static: false }) template!: TemplateRef<any>;
     /** A reference to the grid list in the component. */
     @ViewChild(MatGridList, { read: ElementRef }) grid!: ElementRef;
     @ViewChild(SorterComponent) override sort$?: SorterComponent;

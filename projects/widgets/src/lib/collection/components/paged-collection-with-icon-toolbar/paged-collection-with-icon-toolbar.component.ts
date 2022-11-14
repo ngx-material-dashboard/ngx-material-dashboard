@@ -1,4 +1,4 @@
-import { Component, ContentChild, OnInit, ViewChild } from '@angular/core';
+import { Component, ContentChild, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
@@ -27,7 +27,7 @@ export class PagedCollectionWithIconToolbarComponent<T extends JsonModel>
      */
     @ContentChild('collection') override collectionCmp!: CollectionComponent<T>;
     @ViewChild(IconButtonsWithPaginatorComponent) override toolbar!: IconButtonsWithPaginatorComponent<T>;
-    
+
     /**
      * Returns the paginator for the component. Paginator is rendered inside
      * toolbar; so return paginator from there.

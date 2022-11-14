@@ -74,8 +74,4 @@ export class ListWithIconButtonsPaginatorBarComponent<T extends JsonModel>
 
     /** A reference to the table in the template. */
     @ContentChild(ListComponent) collection!: ListComponent<T>;
-
-    // ngAfterContentInit(): void {
-    //     this.dataSource = this.collection.dataSource$;
-    // }
 }

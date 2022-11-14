@@ -81,15 +81,8 @@ export class TableWithIconButtonsPaginatorBarComponent<T extends JsonModel>
     /** A reference to the sort defined for the component. */
     override sort$: MatSort;
 
-    constructor(matSort: MatSort, changeDetectorRef: ChangeDetectorRef) {
-        super(changeDetectorRef);
+    constructor(matSort: MatSort) {
+        super();
         this.sort$ = matSort;
     }
-
-    // override ngAfterViewInit(): void {
-    //     this.collectionCmp.sort$ = this.sort$;
-    // }
-    // ngAfterContentInit(): void {
-    //     this.dataSource = this.table.dataSource$;
-    // }
 }
