@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
+import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { GridComponent } from '../../components/grid/grid.component';
@@ -16,7 +17,7 @@ import { PagedGridComponent } from './paged-grid.component';
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-grid [data]="data" [fields]="fields">
+    <ngx-material-dashboard-paged-grid [dataSource$]="data" [fields]="fields">
         <ng-template #model let-model="model">
             <h2>Dummy Model</h2>
             <span>{{model.id}}</span>
@@ -36,6 +37,7 @@ describe('PagedGridComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 GridComponent,
+                PagedCollectionComponent,
                 PagedGridComponent,
                 SorterComponent,
                 TestPagedGridComponent

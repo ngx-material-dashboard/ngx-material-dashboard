@@ -23,6 +23,9 @@ import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } fro
 import { ToolbarModule } from "../../../toolbar/toolbar.module";
 import { ListComponent } from "../../components/list/list.component";
 import { ListWithIconButtonsPaginatorBarComponent } from "./list-with-icon-buttons-paginator-bar.component";
+import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
+import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
+import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
 
 const pageSize = 5;
 
@@ -56,11 +59,15 @@ export default sandboxOf(ListWithIconButtonsPaginatorBarComponent, {
 .add('list with icon buttons paginator bar with multi-select', {
     template: `
     <ngx-material-dashboard-list-with-icon-buttons-paginator-bar
-        [fields]="fields"
-        [multiple]="multiple"
         [toolbarButtons]="toolbarButtons"
         class="marker-paged-list">
-        <ngx-material-dashboard-list [collectionButtons]="collectionButtons" [data]="data" #collection>
+        <ngx-material-dashboard-list
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [fields]="fields"
+            [multiple]="multiple"
+            collection
+            #collection>
             <ng-template #model let-model="model">
                 <mat-card>
                     <mat-card-title>

@@ -25,7 +25,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  *          [data]="data"
  *          [displayedColumns]="displayedColumns"
  *          collection
- *          #pagedCollection>
+ *          #collection>
  *         <ng-container matColumnDef="name">
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
  *             <mat-cell class="name-cell" *matCellDef="let obj">{{obj.name}}</mat-cell>
@@ -88,14 +88,14 @@ export class PagedTableWithRaisedButtonsBarComponent<T extends JsonModel>
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
-    @ContentChild('pagedCollection') override collectionCmp!: PagedTableComponent<T>;
+    @ContentChild('collection') override collectionCmp!: PagedTableComponent<T>;
 
-    override ngAfterViewInit(): void {
-        this.paginator$ = this.collectionCmp.paginator$;
-        this.sort$ = this.collectionCmp.sort$;
-        this.dataSource = this.collectionCmp.dataSource$;
-        super.ngAfterViewInit();
-        // set selection for component to selection from base collection
-        this.selection = this.collectionCmp.table.selection;
-    }
+    // override ngAfterViewInit(): void {
+    //     this.paginator$ = this.collectionCmp.paginator$;
+    //     this.sort$ = this.collectionCmp.sort$;
+    //     this.dataSource = this.collectionCmp.dataSource$;
+    //     super.ngAfterViewInit();
+    //     // set selection for component to selection from base collection
+    //     this.selection = this.collectionCmp.table.selection;
+    // }
 }

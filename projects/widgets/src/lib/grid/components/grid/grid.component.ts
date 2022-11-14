@@ -1,10 +1,12 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ContentChild, ElementRef, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
 import { SelectionService } from '../../../collection/services/selection.service';
 import { ScreenSizeService } from '../../../layout/services/screen-size.service';
+import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 
 /**
  * The `Grid` extends `Collection`, and is meant for rendering items in a grid
@@ -53,6 +55,7 @@ export class GridComponent<T extends JsonModel>
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
     /** A reference to the grid list in the component. */
     @ViewChild(MatGridList, { read: ElementRef }) grid!: ElementRef;
+    @ViewChild(SorterComponent) override sort$?: SorterComponent;
     /** A reference to the grid tiles in the component. */
     @ViewChildren(MatGridTile, { read: ElementRef }) tiles!: QueryList<ElementRef>;
     /** The number of columns to render in the grid. */

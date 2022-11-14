@@ -1,64 +1,66 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { DummyObject, PagedCollectionElement, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
+import { ListComponent } from '../../../list/components/list/list.component';
+import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
 
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { PagedCollectionComponent } from './paged-collection.component';
 
-@Component({
-    selector: 'paged-list',
-    template: `
-    <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
-    <div *ngFor="let model of models">
-        <ng-container 
-            *ngTemplateOutlet="template; context: { model: model }">
-        </ng-container>
-    </div>
-    <mat-paginator [length]="dataSource$.data.length"
-                [pageSize]="pageSize" 
-                [pageSizeOptions]="[15, 25, 50, 75, 100]">
-    </mat-paginator>
-    `
-}) class PagedListComponent extends PagedCollectionComponent<DummyObject> {}
+const pageSize = 5;
 
 /** Component to test with. */
 @Component({
     template: `
-    <paged-list [data]="data" [fields]="fields">
+    <ngx-material-dashboard-paged-list
+        [dataSource$]="data"
+        [fields]="fields"
+        [pageSize]="pageSize"
+        class="marker-paged-list">
         <ng-template #model let-model="model">
-            <h2>Dummy Model</h2>
-            <span>{{model.id}}</span>
+            <div fxLayout="row">
+                <span>Dummy Model</span>
+                <span>{{model.id}}</span>
+            </div>
         </ng-template>
-    </paged-list>
+    </ngx-material-dashboard-paged-list>
     `
 }) class TestPagedCollectionComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: DummyObject[] = [];
     fields: string[] = ['id'];
+    pageSize: number = pageSize;
 }
 
 describe('PagedCollectionComponent', () => {
     let component: TestPagedCollectionComponent;
     let fixture: ComponentFixture<TestPagedCollectionComponent>;
+    let page: PagedCollectionElement;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
             declarations: [
+                ListComponent,
                 PagedListComponent,
                 PagedCollectionComponent,
                 SorterComponent,
                 TestPagedCollectionComponent
             ],
             imports: [
+                FlexLayoutModule,
                 NoopAnimationsModule,
+                MatCheckboxModule,
                 MatPaginatorModule,
                 MatSelectModule,
                 MockModule(FontAwesomeModule)
-            ]
+            ],
+            teardown: { destroyAfterEach: false }
         });
     });
 
@@ -66,9 +68,41 @@ describe('PagedCollectionComponent', () => {
         fixture = TestBed.createComponent(TestPagedCollectionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+
+        page = new PagedCollectionElement(
+            fixture,
+            '.marker-paged-list',
+            '.marker-list-item',
+            '.marker-checkbox-item-select'
+        );
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    describe('No Collection Data', () => {
+
+        it('should display "0 of 0" in paginator range label', () => {
+            expect(page.paginator.pagingatorRange.innerText).toEqual('0 of 0');
+        });
+    });
+
+    describe('With Collection Data', () => {
+
+        const testData = TEST_DATA;
+        
+        beforeEach(() => {
+            component.data = testData;
+            fixture.detectChanges();
+        });
+
+        it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
+            expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+        });
+
+        it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
+            // when: next page button is clicked
+            page.paginator.clickNextButton();
+
+            // then: the paginator range label should update to next page
+            expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+        });
     });
 });

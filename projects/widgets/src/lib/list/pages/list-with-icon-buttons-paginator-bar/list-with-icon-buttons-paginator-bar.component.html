@@ -3,10 +3,9 @@
     [displaySelectAll]="false"
     [displaySort]="false"
     [length]="length"
-    [multiple]="multiple$"
-    [selection]="selection"
+    [multiple]="multiple"
     (buttonClick)="onToolbarButtonClick($event)"
-    (masterToggle)="masterToggle($event)">
+    #toolbar>
 </ngx-material-dashboard-icon-buttons-with-paginator>
 <!-- list -->
 <ng-content></ng-content>

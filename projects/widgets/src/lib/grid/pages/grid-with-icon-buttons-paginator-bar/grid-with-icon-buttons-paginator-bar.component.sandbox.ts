@@ -58,11 +58,15 @@ export default sandboxOf(GridWithIconButtonsPaginatorBarComponent, {
 .add('list with icon buttons paginator bar with multi-select', {
     template: `
     <ngx-material-dashboard-grid-with-icon-buttons-paginator-bar
-        [fields]="fields"
-        [multiple]="multiple"
         [toolbarButtons]="toolbarButtons"
         class="marker-paged-list">
-        <ngx-material-dashboard-grid [collectionButtons]="collectionButtons" [data]="data" #collection>
+        <ngx-material-dashboard-grid 
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [fields]="fields"
+            [multiple]="multiple"
+            collection
+            #collection>
             <ng-template #model let-model="model">
                 <mat-card>
                     <mat-card-title>

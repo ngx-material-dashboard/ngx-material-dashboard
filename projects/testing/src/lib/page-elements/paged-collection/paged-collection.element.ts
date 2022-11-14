@@ -11,15 +11,15 @@ import { PaginatorElement } from '../paginator/paginator.element';
  */
 export class PagedCollectionElement extends CollectionElement {
     
-    /** The paginator element included with the table. */
+    /** The paginator element included with the collection. */
     paginator: PaginatorElement;
 
     /**
      * Creates a new PagedTableElement.
      *
      * @param fixture Fixture for component under test. 
-     * @param selector CSS selector for table (this should be unique for each table in case of multiple).
-     * @param selectable Boolean value indicating whether table has rows that are selectable (defaults to true).
+     * @param selector CSS selector for table (this should be unique for each collection in case of multiple).
+     * @param selectable Boolean value indicating whether collection has items that are selectable (defaults to true).
      * @param noDataColumnSelector Optional CSS selector for no data column definition (defaults to 'noData').
      */
      constructor(

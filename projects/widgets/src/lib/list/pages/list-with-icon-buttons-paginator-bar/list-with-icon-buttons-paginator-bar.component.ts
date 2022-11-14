@@ -70,12 +70,12 @@ import { ListComponent } from '../../components/list/list.component';
     styleUrls: ['./list-with-icon-buttons-paginator-bar.component.css']
 })
 export class ListWithIconButtonsPaginatorBarComponent<T extends JsonModel>
-    extends PagedCollectionWithIconToolbarComponent<T> implements AfterContentInit {
+    extends PagedCollectionWithIconToolbarComponent<T> {
 
     /** A reference to the table in the template. */
     @ContentChild(ListComponent) collection!: ListComponent<T>;
 
-    ngAfterContentInit(): void {
-        this.dataSource = this.collection.dataSource$;
-    }
+    // ngAfterContentInit(): void {
+    //     this.dataSource = this.collection.dataSource$;
+    // }
 }

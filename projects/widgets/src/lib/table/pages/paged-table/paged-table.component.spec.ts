@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -19,6 +19,9 @@ import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { RemoteDataSource } from '../../../collection/services/remote-data-source.service';
 import { PagedTableComponent } from './paged-table.component';
 import { TableComponent } from '../../components/table/table.component';
+import { CollectionComponent } from '../../../collection/components/collection/collection.component';
+import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
+import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
 
 const pageSize = 5;
 const testData: DummyObject[] = TEST_DATA;
@@ -28,7 +31,7 @@ const testData: DummyObject[] = TEST_DATA;
     <ngx-material-dashboard-paged-table
         matSort
         [collectionButtons]="collectionButtons"
-        [data]="data"
+        [dataSource$]="data"
         [displayedColumns]="displayedColumns"
         [multiple]="multiple"
         class="marker-paged-table">
@@ -56,7 +59,7 @@ const testData: DummyObject[] = TEST_DATA;
     <ngx-material-dashboard-paged-table 
         matSort
         [collectionButtons]="collectionButtons"
-        [dataSource]="dataSource"
+        [dataSource$]="dataSource"
         [displayedColumns]="displayedColumns"
         [multiple]="multiple"
         class="marker-paged-table">
@@ -74,25 +77,29 @@ const testData: DummyObject[] = TEST_DATA;
 }) class TestRemotePagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
     collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
-    dataSource: RemoteDataSource<DummyObject>;
+    dataSource: RemoteDataSourceMock<DummyObject>;
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 
     constructor(private jsonApiDatastore: JsonDatastore) {
-        this.dataSource = new RemoteDataSource<DummyObject>(DummyObject, this.jsonApiDatastore);
+        this.dataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, this.jsonApiDatastore);
     }
 }
 
 describe('PagedTableComponent', () => {
-
-    let datastore: JsonDatastore;
 
     describe('Local data source', () => {
         let page: PagedTableElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [ TableComponent, PagedTableComponent, TestPagedTableComponent ],
+                declarations: [
+                    CollectionComponent,
+                    TableComponent,
+                    PagedCollectionComponent,
+                    PagedTableComponent,
+                    TestPagedTableComponent
+                ],
                 imports: [
                     HttpClientTestingModule,
                     MatButtonModule,
@@ -106,10 +113,9 @@ describe('PagedTableComponent', () => {
                 ],
                 providers: [
                     { provide: JsonDatastore, useClass: Datastore }
-                ]
+                ],
+                teardown: { destroyAfterEach: false }
             });
-
-            datastore = TestBed.inject(JsonDatastore);
         });
     
         describe('No Table Data', () => {
@@ -120,8 +126,8 @@ describe('PagedTableComponent', () => {
             });
     
             it('should not have any rows selected by default', () => {
-                expect(page.component.table.selection.selected.length).toEqual(0);
-                expect(page.component.table.isAllSelected()).toEqual(false);
+                expect(page.component.table.collection$.selection.selected.length).toEqual(0);
+                expect(page.component.table.collection$.isAllSelected()).toEqual(false);
             });
     
             it('should display no data row', () => {
@@ -193,8 +199,8 @@ describe('PagedTableComponent', () => {
     
                 describe('No rows selected initially', () => {
                     it('should not have any rows selected by default', () => {
-                        expect(page.component.table.selection.selected.length).toEqual(0);
-                        expect(page.component.table.isAllSelected()).toEqual(false);
+                        expect(page.component.table.collection$.selection.selected.length).toEqual(0);
+                        expect(page.component.table.collection$.isAllSelected()).toEqual(false);
                     });
     
                     it('should select all rows when checkbox in header checked', () => {
@@ -202,7 +208,7 @@ describe('PagedTableComponent', () => {
                         page.selectAll();
     
                         // then: the component should return true for isAllSelected()
-                        expect(page.component.table.table.isAllSelected()).toEqual(true);
+                        expect(page.component.table.collection$.isAllSelected()).toEqual(true);
     
                         // and: all rows should have their checkboxes checked
                         const checkBoxes: CheckboxElement[] = page.itemCheckboxes;
@@ -263,11 +269,18 @@ describe('PagedTableComponent', () => {
     });
 
     describe('Remote data source', () => {
+
         let page: PagedTableElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [ TableComponent, PagedTableComponent, TestRemotePagedTableComponent ],
+                declarations: [
+                    CollectionComponent,
+                    TableComponent,
+                    PagedCollectionComponent,
+                    PagedTableComponent,
+                    TestRemotePagedTableComponent
+                ],
                 imports: [
                     HttpClientTestingModule,
                     MatButtonModule,
@@ -280,10 +293,11 @@ describe('PagedTableComponent', () => {
                     MockModule(FontAwesomeModule)
                 ],
                 providers: [
-                    { provide: RemoteDataSource, deps: [Datastore] },
+                    { provide: RemoteDataSource, userClass: RemoteDataSourceMock, deps: [Datastore] },
                     { provide: Datastore, deps: [HttpClient] },
                     { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
-                ]
+                ],
+                teardown: { destroyAfterEach: false }
             });
         });
 
@@ -378,35 +392,40 @@ function initRemote(
     const fixture: ComponentFixture<TestRemotePagedTableComponent> = TestBed.createComponent(TestRemotePagedTableComponent);
     const component = fixture.componentInstance;
     component.multiple = multiple;
+    component.dataSource.setTestData(data);
     fixture.detectChanges();
 
     // set pageSize after change detection cycle to ensure component initialized
     // and child PagedTableComponent exists
     component.table.pageSize = pageSize;
-    if (component.table.dataSource$ instanceof RemoteDataSource) {
-        const remoteDataSource: RemoteDataSource<DummyObject> = component.table.dataSource$;
-        spyOn(component.table.dataSource$, 'load').and.callFake(
-            (
-                filter?: {},
-                sort?: string,
-                order?: string,
-                pageIndex: number = 0,
-                pageSize: number = 5,
-                include?: string,
-                headers?: HttpHeaders
-            ) => {
-                remoteDataSource.total = data.length;
-                remoteDataSource.totalPages = remoteDataSource.total / pageSize;
-                if (data.length > 0) {
-                    remoteDataSource.data = data.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
-                }
-            }
-        )
-        // also set pageSize on table datasource and refresh; need instanceof
-        // RemoteDataSource since table.dataSource$ has multiple types even
-        // though it should be RemoteDataSource type for these tests 
-        component.table.dataSource$.pageSize = pageSize;
-        component.table.dataSource$.refresh();
+    if (component.table.collection$.dataSource$ instanceof RemoteDataSource) {
+        // const remoteDataSource: RemoteDataSource<DummyObject> = component.table.collection$.dataSource$;
+        // spyOn(remoteDataSource, 'load').and.callFake(
+        //     (
+        //         filter?: {},
+        //         sort?: string,
+        //         order?: string,
+        //         pageIndex: number = 0,
+        //         pageSize: number = 5,
+        //         include?: string,
+        //         headers?: HttpHeaders
+        //     ) => {
+        //         remoteDataSource.total = data.length;
+        //         remoteDataSource.totalPages = remoteDataSource.total / pageSize;
+        //         if (data.length > 0) {
+        //             remoteDataSource.data = data.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
+        //         }
+        //         console.log(remoteDataSource.data);
+        //     }
+        // )
+
+        //if (component.table.collection$.dataSource$ instanceof RemoteDataSource) {
+            // also set pageSize on table datasource and refresh; need instanceof
+            // RemoteDataSource since table.dataSource$ has multiple types even
+            // though it should be RemoteDataSource type for these tests
+            component.table.collection$.dataSource$.pageSize = pageSize;
+            component.table.collection$.dataSource$.refresh();
+        //}
     }
     fixture.detectChanges();
 

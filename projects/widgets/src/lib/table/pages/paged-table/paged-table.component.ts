@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatColumnDef, MatTable } from '@angular/material/table';
@@ -217,19 +217,15 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class PagedTableComponent<T extends JsonModel>
     extends PagedCollectionComponent<T>
-    implements AfterContentInit {
+    implements AfterContentInit, AfterViewInit {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
-    // /** The buttons to render in each row of the table. */
-    // @Input() collectionButtons: Button[] = [];
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */
-    @ViewChild(TableComponent, { static: true }) table!: TableComponent<T>;
+    @ViewChild(TableComponent, { static: true }) override collection$!: TableComponent<T>;
     @ViewChild(MatPaginator) override paginator$!: MatPaginator;
-    // /** A reference to the sort defined for the component. */
-    // sort$!: MatSort;
 
     /**
      * Creates a new PagedTableComponent. Note that the matSort directive is
@@ -238,20 +234,10 @@ export class PagedTableComponent<T extends JsonModel>
      * an issue accessing directives included directly in components and the
      * only way to access them is with DI.
      * 
-     * @param matSort DI directive needed for sorting columns.
-     * @param selectionService Service used to handle when user selects rows.
+     * @param sort$ DI directive needed for sorting columns.
      */
-    constructor(matSort: MatSort, selectionService: SelectionService<T>) {
-        super(selectionService);
-        this.sort$ = matSort;
-    }
-
-    override initPageSub(): void {
-        this.dataSource$.paginator = this.paginator$;
-    }
-
-    override initSortSubs(): void {
-        this.dataSource$.sort = this.sort$;
+    constructor(private sort$: MatSort, changeDetectorRef: ChangeDetectorRef) {
+        super(changeDetectorRef);
     }
 
     /**
@@ -261,7 +247,12 @@ export class PagedTableComponent<T extends JsonModel>
      * is aware of all additional columns included.
      */
     ngAfterContentInit(): void {
-        this.columnDefs.forEach(columnDef => this.table.table.addColumnDef(columnDef));
-        this.selection = this.table.selection;
+        this.columnDefs.forEach(columnDef => this.collection$.table.addColumnDef(columnDef));
+    }
+
+    override ngAfterViewInit(): void {
+        super.ngAfterViewInit();
+        this.collection$.dataSource$.paginator = this.paginator$;
+        this.collection$.dataSource$.sort = this.sort$;
     }
 }

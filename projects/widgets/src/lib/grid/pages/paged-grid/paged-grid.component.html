@@ -1,13 +1,15 @@
 <ngx-material-dashboard-grid 
     [collectionButtons]="collectionButtons"
-    [dataSource]="dataSource$">
+    [dataSource]="dataSource$"
+    [fields]="fields"
+    #collection>
     <ng-template #model let-model="model">
         <ng-container 
             *ngTemplateOutlet="template; context: { model: model }">
         </ng-container>
     </ng-template>
 </ngx-material-dashboard-grid>
-<mat-paginator [length]="dataSource$.data.length"
+<mat-paginator [length]="length"
                 [pageSize]="pageSize" 
                 [pageSizeOptions]="[15, 25, 50, 75, 100]">
 </mat-paginator>

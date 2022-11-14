@@ -1,7 +1,7 @@
 <div fxLayout="row">
     <div *ngFor="let button of buttons">
         <button *ngIf="button.click; else hyperlink"
-            class="mat-button marker-action-{{button.click}}"
+            class="mat-button marker-button-{{button.click}}"
             (click)="emitButtonClick(button.click)"
             [disabled]="button.disabled"
             mat-button>
@@ -18,7 +18,7 @@
             </ng-template>
         </button>
         <ng-template #hyperlink>
-            <a class="mat-button marker-action-{{button.click}}"
+            <a class="mat-button marker-button-{{button.click}}"
                 [attr.disabled]="button.disabled"
                 [href]="button.href"
                 target="_blank"

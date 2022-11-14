@@ -39,7 +39,11 @@ export default sandboxOf(PagedGridComponent, {
 })
 .add('default', {
     template: `
-    <ngx-material-dashboard-paged-grid [collectionButtons]="collectionButtons" [data]="data" [fields]="fields" class="marker-paged-grid">
+    <ngx-material-dashboard-paged-grid
+        [collectionButtons]="collectionButtons"
+        [dataSource$]="data"
+        [fields]="fields"
+        class="marker-paged-grid">
         <ng-template #model let-model="model">
             <mat-card>
                 <mat-card-title>

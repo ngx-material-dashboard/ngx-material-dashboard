@@ -19,7 +19,7 @@ import { PagedGridWithRaisedButtonsBarComponent } from './paged-grid-with-raised
         [fields]="fields">
         <ngx-material-dashboard-paged-grid
             [data]="data"
-            #pagedCollection>
+            #collection>
             <ng-template #model let-model="model">
                 <h2>Dummy Model</h2>
                 <span>{{model.id}}</span>

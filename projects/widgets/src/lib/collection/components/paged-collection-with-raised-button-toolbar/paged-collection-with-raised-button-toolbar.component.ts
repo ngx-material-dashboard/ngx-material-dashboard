@@ -1,11 +1,10 @@
-import { Component, ContentChild, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-toolbar/paged-collection-with-toolbar.component';
-import { PagedCollectionComponent } from '../paged-collection/paged-collection.component';
 
 /**
  * The `PagedCollectionWithRaisedButtonToolbar` extends the
@@ -19,11 +18,12 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
     template: ''
 })
 export class PagedCollectionWithRaisedButtonToolbarComponent<T extends JsonModel>
-    extends PagedCollectionWithToolbarComponent<T> {
+    extends PagedCollectionWithToolbarComponent<T>
+    implements AfterViewInit {
 
     /** A reference to the filter drop down included in the toolbar above the collection. */
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
     /** The buttons to render in the toolbar. */
     @Input() form!: FormGroup;
-    @ViewChild(RaisedButtonToolbarComponent) override toolbar!: RaisedButtonToolbarComponent;
+    //override toolbar!: RaisedButtonToolbarComponent;
 }

@@ -2,8 +2,9 @@
     [collectionButtons]="collectionButtons"
     [dataSource]="dataSource$"
     [displayedColumns]="displayedColumns"
-    [multiple]="multiple$"
-    (buttonClick)="onButtonClick($event)">
+    [multiple]="multiple"
+    (buttonClick)="onButtonClick($event)"
+    #collection>
     <!-- Additional columns defined in tag where this component is used -->
     <ng-container></ng-container>
 </ngx-material-dashboard-table>

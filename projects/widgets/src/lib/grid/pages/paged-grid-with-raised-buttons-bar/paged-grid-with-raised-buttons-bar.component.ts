@@ -72,10 +72,10 @@ export class PagedGridWithRaisedButtonsBarComponent<T extends JsonModel>
     extends PagedCollectionWithRaisedButtonToolbarComponent<T>
     implements AfterViewInit {
 
-    override ngAfterViewInit(): void {
-        this.paginator$ = this.collectionCmp.paginator$;
-        this.sort$ = this.collectionCmp.sort$;
-        this.dataSource = this.collectionCmp.dataSource$;
-        super.ngAfterViewInit();
-    }
+    // override ngAfterViewInit(): void {
+    //     this.paginator$ = this.collectionCmp..paginator$;
+    //     this.sort$ = this.collectionCmp.collection$.sort$;
+    //     //this.dataSource = this.collectionCmp.dataSource$;
+    //     super.ngAfterViewInit();
+    // }
 }

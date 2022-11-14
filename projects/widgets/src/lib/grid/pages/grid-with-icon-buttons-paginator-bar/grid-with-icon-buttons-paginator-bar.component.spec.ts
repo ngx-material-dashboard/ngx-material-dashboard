@@ -7,6 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
+import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
+import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { GridComponent } from '../../components/grid/grid.component';
 
 import { GridWithIconButtonsPaginatorBarComponent } from './grid-with-icon-buttons-paginator-bar.component';
@@ -39,6 +41,8 @@ describe('GridWithIconButtonsPaginatorBarComponent', () => {
             declarations: [
                 GridComponent,
                 GridWithIconButtonsPaginatorBarComponent,
+                IconButtonsComponent,
+                IconButtonsWithPaginatorComponent,
                 TestGridWithIconButtonsPaginatorBarComponent
             ],
             imports: [

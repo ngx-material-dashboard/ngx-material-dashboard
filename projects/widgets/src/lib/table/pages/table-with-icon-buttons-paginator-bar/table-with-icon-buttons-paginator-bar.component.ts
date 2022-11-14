@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, Input } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ContentChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { SelectionService } from '../../../collection/services/selection.service';
@@ -71,7 +71,8 @@ import { TableComponent } from '../../components/table/table.component';
     styleUrls: ['./table-with-icon-buttons-paginator-bar.component.css']
 })
 export class TableWithIconButtonsPaginatorBarComponent<T extends JsonModel>
-    extends PagedCollectionWithIconToolbarComponent<T> implements AfterContentInit {
+    extends PagedCollectionWithIconToolbarComponent<T>
+    implements AfterViewInit {
 
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
@@ -80,12 +81,15 @@ export class TableWithIconButtonsPaginatorBarComponent<T extends JsonModel>
     /** A reference to the sort defined for the component. */
     override sort$: MatSort;
 
-    constructor(matSort: MatSort, selectionService: SelectionService<T>) {
-        super(selectionService);
+    constructor(matSort: MatSort, changeDetectorRef: ChangeDetectorRef) {
+        super(changeDetectorRef);
         this.sort$ = matSort;
     }
 
-    ngAfterContentInit(): void {
-        this.dataSource = this.table.dataSource$;
-    }
+    // override ngAfterViewInit(): void {
+    //     this.collectionCmp.sort$ = this.sort$;
+    // }
+    // ngAfterContentInit(): void {
+    //     this.dataSource = this.table.dataSource$;
+    // }
 }

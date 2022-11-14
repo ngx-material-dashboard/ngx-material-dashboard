@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -29,8 +29,9 @@ graph TD
  * collection components extend off of. This manages things like initialize
  * and connect/disconnect to/from the dataSource, along with tracking models
  * rendered in the collection based on changes to the state (i.e. sort
- * changes). Additionally it tracks the current selection and provides an
- * output observable for parent components to be able to manage button click
+ * changes). Additionally it provides the ability to select one or more items
+ * in the collection along with the ability to track the current selection, and
+ * an output observable for parent components to be able to manage button click
  * events coming from buttons associated with each item in the collection.
  * NOTE: any sorting included should be of type `MatSort` or the `Sorter`
  * defined in the `toolbar` module for this library, which actually just
@@ -139,34 +140,25 @@ export class CollectionComponent<T extends JsonModel>
     }
     /** The event to emit when button is clicked in toolbar or collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
-    /** The source for the collection data. */
-    dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
-    /** The models to display in collection. */
-    models: T[] = [];
-    /** Boolean value indicating whether multiple rows can be selected. */
-    multiple$: boolean = true;
-    /** The model to track items selected in the collection. */
-    selection: SelectionModel<T>;
+    @Output() lengthChange: EventEmitter<number>;
     /** 
      * A reference to the sorter in the template. Only paged table would really
      * have a reference directly in this component, but paged list and grid will
      * need SorterComponent, so need to include this as optional type in order to
      * be able to override in extending components.
      */
-    sort$?: MatSort | SorterComponent;
+     @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;
+    /** The source for the collection data. */
+    dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
+    length: number = 0;
+    /** The models to display in collection. */
+    models: T[] = [];
+    /** Boolean value indicating whether multiple rows can be selected. */
+    multiple$: boolean = true;
+    /** The model to track items selected in the collection. */
+    selection: SelectionModel<T>;
     /** The subscriptions for the component. */
     sub: Subscription;
-
-    /**
-     * Returns the total number of items in the dataSource.
-     */
-    get length(): number {
-        if (this.dataSource$ instanceof RemoteDataSource) {
-            return this.dataSource$.total;
-        } else {
-            return this.dataSource$.data.length;
-        }
-    }
 
     /**
      * Returns the selection service that tracks and emits changes to the
@@ -187,13 +179,14 @@ export class CollectionComponent<T extends JsonModel>
         private selectionService$: SelectionService<T>
     ) {
         this.buttonClick = new EventEmitter<ButtonClick>();
+        this.lengthChange = new EventEmitter<number>();
         this.selection = new SelectionModel<T>(this.multiple$, []);
         this.selectionService.selectionSubject.next(this.selection);
         this.sub = new Subscription();
     }
 
     ngAfterViewInit(): void {
-        this.initSortSubs();
+        this.initSort();
     }
 
     /**
@@ -226,15 +219,26 @@ export class CollectionComponent<T extends JsonModel>
         // https://github.com/angular/components/issues/9419#issuecomment-359594686
         this.dataSource$.connect().subscribe((res: T[]) => {
             this.models = res;
+
+            if (this.dataSource$ instanceof RemoteDataSource) {
+                this.length = this.dataSource$.total;
+            } else {
+                this.length = this.dataSource$.data.length;
+            }
+            this.lengthChange.emit(this.length);
         });
+
+        this.initSort();
     }
 
     /**
      * Initializes subscription for when user changes the sort order for data
      * in the collection.
      */
-    initSortSubs(): void {
-        this.dataSource$.sort = this.sort;
+    initSort(): void {
+        if (this.dataSource$) {
+            this.dataSource$.sort = this.sort;
+        }
     }
 
     /**

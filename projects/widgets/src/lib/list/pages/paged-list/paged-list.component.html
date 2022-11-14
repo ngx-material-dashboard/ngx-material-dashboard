@@ -1,4 +1,8 @@
-<ngx-material-dashboard-list [dataSource]="dataSource$">
+<ngx-material-dashboard-list
+    [collectionButtons]="collectionButtons"
+    [dataSource]="dataSource$"
+    [fields]="fields"
+    #collection>
     <ng-template #model let-model="model">
         <div fxFlex>
             <ng-container 
@@ -7,7 +11,7 @@
         </div>
     </ng-template>
 </ngx-material-dashboard-list>
-<mat-paginator [length]="dataSource$.data.length"
-                [pageSize]="pageSize" 
+<mat-paginator [length]="length"
+                [pageSize]="pageSize"
                 [pageSizeOptions]="[15, 25, 50, 75, 100]">
 </mat-paginator>

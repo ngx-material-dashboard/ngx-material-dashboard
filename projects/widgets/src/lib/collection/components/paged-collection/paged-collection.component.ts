@@ -1,14 +1,18 @@
-import { AfterViewInit, Component, ContentChild, Input, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { Subscription } from 'rxjs';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
+import { Button } from '../../interfaces/button.interface';
+import { RemoteDataSource } from '../../services/remote-data-source.service';
 
 import { CollectionComponent } from '../collection/collection.component';
 
 /**
  * The `PagedCollection` expands upon the capabilities of the `Collection` by
- * extending that component and providing paging capabilities. Any paginator
- * used should be of type `MatPaginator`.
+ * extending it and providing paging capabilities. Any paginator used should be
+ * of type `MatPaginator`.
  * 
  * @overviewDetails
  * 
@@ -47,7 +51,6 @@ import { CollectionComponent } from '../collection/collection.component';
     template: ''
 })
 export class PagedCollectionComponent <T extends JsonModel>
-    extends CollectionComponent<T>
     implements AfterViewInit, OnDestroy {
 
     /**
@@ -55,15 +58,24 @@ export class PagedCollectionComponent <T extends JsonModel>
      * This is mainly used for any collection other than a table.
      */
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
-    /** 
+    /** The buttons to render with each item in collection. */
+    @Input() collectionButtons: Button[] = [];
+    @Input() dataSource$!: T[] | MatTableDataSource<T> | RemoteDataSource<T>;
+    @Input() fields: string[] = [];
+    /**
      * The max number of pages to display in the paginator. Defaults to 10
      * (does not include 'First', 'Prev', 'Next', 'Last').
      */
     @Input() maxPages: number = 10;
+    @Input() multiple: boolean = true;
     /** Number of items to display on a page. Defaults to 25. */
     @Input() pageSize: number = 25;
+    @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator$?: MatPaginator;
+    @ViewChild('collection') collection$!: CollectionComponent<T>;
+    length: number = 0;
+    sub: Subscription;
 
     /**
      * Returns the paginator for the component if it exists. Some paginated
@@ -80,17 +92,32 @@ export class PagedCollectionComponent <T extends JsonModel>
         }
     }
 
-    override ngAfterViewInit(): void {
-        super.ngAfterViewInit();
-        this.initPageSub();
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
+        this.buttonClick = new EventEmitter<ButtonClick>();
+        this.sub = new Subscription();
+    }
+
+    ngAfterViewInit(): void {
+        this.initPaginator();
+        const sub = this.collection$.lengthChange.subscribe((length: number) => {
+            this.length = length;
+            this.changeDetectorRef.detectChanges();
+        })
+        this.sub.add(sub);
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     /**
      * Initializes subscription for when user changes page or page size. Works
      * for both local and remote data.
      */
-    initPageSub(): void {
-        this.dataSource$.paginator = this.paginator;
+    initPaginator(): void {
+        if (this.collection$.dataSource$) {
+            this.collection$.dataSource$.paginator = this.paginator;
+        }
     }
 
     onButtonClick(buttonClick: ButtonClick): void {

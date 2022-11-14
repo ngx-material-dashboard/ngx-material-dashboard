@@ -1,6 +1,7 @@
 import { Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
 import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { CollectionComponent } from '../../../collection/components/collection/collection.component';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 
 /**
@@ -82,7 +83,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
     styleUrls: ['./table.component.css']
 })
 export class TableComponent<T extends JsonModel>
-    extends PagedCollectionComponent<T> {
+    extends CollectionComponent<T> {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;

@@ -39,10 +39,10 @@ import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-rais
         <ngx-material-dashboard-paged-table
             class="marker-paged-table"
             [collectionButtons]="collectionButtons"
-            [data]="data"
+            [dataSource$]="data"
             [displayedColumns]="displayedColumns"
             collection
-            #pagedCollection>    
+            #collection>    
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -107,7 +107,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
         page = new PagedTableWithToolbarElement(
             fixture,
             '.marker-paged-table',
-            ['.marker-action-create', '.marker-action-edit', '.marker-action-delete']
+            ['.marker-button-create', '.marker-button-edit', '.marker-button-delete']
         );
     });
 
@@ -126,10 +126,10 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             page.table.selectItem(0);
 
             // when: the button is clicked
-            page.toolbar.clickButton('.marker-action-edit');
+            page.toolbar.clickButton('.marker-button-edit');
 
             // then: the buttonClick emit method should have been called
-            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.dataSource$.data[0] });
+            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.collectionCmp.collection$.dataSource$.data[0] });
         });
 
         it('should call onButtonClick event for buttons that don\'t require selection', () => {
@@ -137,7 +137,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             const spy = spyOn(component.pagedTableWithToolbar, 'onToolbarButtonClick').and.callThrough();
 
             // when: the button is clicked
-            page.toolbar.clickButton('.marker-action-create');
+            page.toolbar.clickButton('.marker-button-create');
 
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'create' });
@@ -188,7 +188,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             page.table.clickItemButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
-            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.dataSource$.data[0] });
+            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.collectionCmp.collection$.dataSource$.data[0] });
         });
     });
 });

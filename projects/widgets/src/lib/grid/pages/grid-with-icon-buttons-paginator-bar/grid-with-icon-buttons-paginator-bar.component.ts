@@ -70,12 +70,12 @@ import { GridComponent } from '../../components/grid/grid.component';
     styleUrls: ['./grid-with-icon-buttons-paginator-bar.component.css']
 })
 export class GridWithIconButtonsPaginatorBarComponent<T extends JsonModel>
-    extends PagedCollectionWithIconToolbarComponent<T> implements AfterContentInit {
+    extends PagedCollectionWithIconToolbarComponent<T> {
 
     /** A reference to the table in the template. */
     @ContentChild(GridComponent) collection!: GridComponent<T>;
 
-    ngAfterContentInit(): void {
-        this.dataSource = this.collection.dataSource$;
-    }
+    // ngAfterContentInit(): void {
+    //     this.collectionCmp.collection$.dataSource = this.collection.dataSource$;
+    // }
 }

@@ -15,9 +15,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
+import { CollectionModule } from '../../../collection/collection.module';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
+import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-raised-buttons-bar.component';
 
@@ -26,6 +28,7 @@ const pageSize = 5;
 export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
     declarations: [
         PagedTableComponent,
+        TableComponent
     ],
     imports: [
         HttpClientTestingModule,
@@ -41,6 +44,7 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
         BrowserAnimationsModule,
         FlexLayoutModule,
         FontAwesomeModule,
+        CollectionModule,
         ToolbarModule
     ],
     providers: [
@@ -50,19 +54,20 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
 })
 .add('table with toolbar with multi-select', {
     template: `
-    <ngx-material-dashboard-paged-table-with-raised-buttons-bar [toolbarButtons]="toolbarButtons">
+    <ngx-material-dashboard-paged-table-with-raised-buttons-bar
+        [toolbarButtons]="toolbarButtons">
         <ngx-material-dashboard-filter-drop-down filter>
             <!-- filter form goes here -->
         </ngx-material-dashboard-filter-drop-down>
         <ngx-material-dashboard-paged-table
             matSort 
             [collectionButtons]="collectionButtons"
-            [data]="data"
+            [dataSource$]="data"
             [displayedColumns]="displayedColumns"
             [multiple]="multiple"
             class="marker-paged-table"
             collection
-            #pagedCollection>
+            #collection>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -91,12 +96,12 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
         <ngx-material-dashboard-paged-table
             matSort
             [collectionButtons]="collectionButtons"
-            [data]="data"
+            [dataSource$]="data"
             [displayedColumns]="displayedColumns"
             [multiple]="multiple"
             class="marker-paged-table"
             collection
-            #pagedCollection>
+            #collection>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>

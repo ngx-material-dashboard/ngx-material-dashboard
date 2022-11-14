@@ -59,9 +59,11 @@ export default sandboxOf(TableWithIconButtonsPaginatorBarComponent, {
         matSort>
         <ngx-material-dashboard-table
             [collectionButtons]="collectionButtons"
-            [data]="data"
+            [dataSource]="data"
             [displayedColumns]="displayedColumns"
-            [multiple]="multiple">
+            [multiple]="multiple"
+            collection
+            #collection>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>

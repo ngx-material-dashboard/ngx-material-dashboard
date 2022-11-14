@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ContentChild, Input, OnDestroy } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -8,6 +9,10 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
+import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
+import { RemoteDataSource } from '../../services/remote-data-source.service';
+import { SelectionService } from '../../services/selection.service';
+import { CollectionComponent } from '../collection/collection.component';
 import { PagedCollectionComponent } from '../paged-collection/paged-collection.component';
 
 /**
@@ -46,35 +51,43 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
     template: ''
 })
 export class PagedCollectionWithToolbarComponent<T extends JsonModel>
-    extends PagedCollectionComponent<T>
     implements AfterViewInit, OnDestroy {
 
     /** A reference to the collection that should be included inside the selector for this component. */
-    @ContentChild('pagedCollection') collectionCmp!: PagedCollectionComponent<T>;
+    @ContentChild('collection') collectionCmp!: CollectionComponent<T> | PagedCollectionComponent<T>;
+    @Input() fields: string[] = [];
+    @Input() multiple: boolean = true;
     /** The buttons to render in the toolbar. */
     @Input() toolbarButtons: ToolbarButton[] = [];
+    @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the toolbar in the template. */
-    toolbar!: IconButtonsWithPaginatorComponent<T> | RaisedButtonToolbarComponent;
+    @ViewChild('toolbar') toolbar!: IconButtonsWithPaginatorComponent<T> | RaisedButtonToolbarComponent;
     /**
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.
      */
     disableableToolbarButtons: ToolbarButton[] = [];
+    length: number = 0;
+    /** A reference to the paginator in the template. */
+    paginator$?: MatPaginator;
+    sort$?: MatSort | SorterComponent;
+    sub: Subscription;
 
-    override get paginator(): MatPaginator | null {
+    get paginator(): MatPaginator | null {
         if (this.paginator$) {
             // if paginator$ already defined, then return that (should be view
             // child paginator as defined in PagedCollection)
             return this.paginator$;
         } else if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
             //  paginator is in toolbar if toolbar is IconButtonsWithPaginator
+            console.log(this.toolbar.paginator);
             return this.toolbar.paginator;
         } else {
             return null;
         }
     }
-
-    override get sort(): MatSort | undefined {
+    
+    get sort(): MatSort | undefined {
         if (this.sort$) {
             // if sort$ already defined, then return that
             return this.sort$;
@@ -86,15 +99,33 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
 
-    override ngAfterViewInit(): void {
-        super.ngAfterViewInit();
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
+        this.buttonClick = new EventEmitter<ButtonClick>();
+        this.sub = new Subscription();
+    }
+
+    ngAfterViewInit(): void {
+        if (this.collectionCmp instanceof CollectionComponent) {
+            this.collectionCmp.dataSource$.paginator = this.paginator;
+        }
+
         // get buttons that can be disabled from given list of buttons
         this.disableableToolbarButtons = this.toolbarButtons.filter((button: ToolbarButton) => button.canDisable);
         this.sub = new Subscription();
-        const sub = this.selectionService.selectionChange.subscribe((disabled: boolean) => {
-            this.selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
+        let selectionService: SelectionService<T>;
+        if (this.collectionCmp instanceof CollectionComponent) {
+            selectionService = this.collectionCmp.selectionService;
+        } else {
+            selectionService = this.collectionCmp.collection$.selectionService;
+        }
+        const sub = selectionService.selectionChange.subscribe((disabled: boolean) => {
+            selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
         });
         this.sub.add(sub);
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     /**
@@ -104,9 +135,15 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
      * @param buttonClick A buttonClick event from the tableToolbar.
      */
     onToolbarButtonClick(buttonClick: ButtonClick): void {
-        if (!this.selection.isEmpty()) {
+        let selection: SelectionModel<T>;
+        if (this.collectionCmp instanceof CollectionComponent) {
+            selection = this.collectionCmp.selection;
+        } else {
+            selection = this.collectionCmp.collection$.selection;
+        }
+        if (!selection.isEmpty()) {
             // make sure selection is not empty before adding selected row(s)
-            buttonClick.row = this.selection.selected[0];
+            buttonClick.row = selection.selected[0];
         }
         this.buttonClick.emit(buttonClick);
     }

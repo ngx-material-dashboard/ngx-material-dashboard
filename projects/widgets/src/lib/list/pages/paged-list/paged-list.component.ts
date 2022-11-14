@@ -44,4 +44,3 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
 })
 export class PagedListComponent<T extends JsonModel>
     extends PagedCollectionComponent<T> {}
-
