@@ -1,7 +1,7 @@
 <div class="marker-list">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-checkbox class="marker-checkbox-select-all"
-            (change)="masterToggle($event.checked)"
+            (change)="masterToggle()"
             [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>

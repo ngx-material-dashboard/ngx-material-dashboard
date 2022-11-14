@@ -7,13 +7,10 @@ describe('RaisedButtonToolbarComponent', () => {
   let fixture: ComponentFixture<RaisedButtonToolbarComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ RaisedButtonToolbarComponent ]
-    })
-    .compileComponents();
-  });
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(RaisedButtonToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

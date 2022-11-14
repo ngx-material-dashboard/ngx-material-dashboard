@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
+import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
@@ -63,7 +64,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     /** The event to emit when button is clicked in collection or toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the toolbar in the template. */
-    @ViewChild('toolbar') toolbar!: IconButtonsWithPaginatorComponent<T> | RaisedButtonToolbarComponent;
+    @ViewChild('toolbar') toolbar!: IconButtonsWithPaginatorComponent<T> | ButtonToolbarComponent;
     /**
      * These are the buttons in the toolbar that can be disabled. Just a filtered
      * subset of toolbarButtons that have canDisable=true.

@@ -95,7 +95,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
                 FlexLayoutModule,
                 FontAwesomeModule
             ],
-            teardown: { destroyAfterEach: false }
+            
         });
     });
 

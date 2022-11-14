@@ -381,6 +381,6 @@ function init(mockRouter: any, queryParams: any = {}): void {
             MockModule(FontAwesomeModule)
         ],
         providers,
-        teardown: { destroyAfterEach: false }
+        
     });
 }

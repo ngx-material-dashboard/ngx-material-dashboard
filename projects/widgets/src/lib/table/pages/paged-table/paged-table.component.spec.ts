@@ -114,7 +114,7 @@ describe('PagedTableComponent', () => {
                 providers: [
                     { provide: JsonDatastore, useClass: Datastore }
                 ],
-                teardown: { destroyAfterEach: false }
+                
             });
         });
     
@@ -297,7 +297,7 @@ describe('PagedTableComponent', () => {
                     { provide: Datastore, deps: [HttpClient] },
                     { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
                 ],
-                teardown: { destroyAfterEach: false }
+                
             });
         });
 

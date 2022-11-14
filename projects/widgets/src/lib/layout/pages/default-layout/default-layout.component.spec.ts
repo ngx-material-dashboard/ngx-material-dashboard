@@ -32,7 +32,7 @@ describe('DefaultLayoutComponent', () => {
                 MockModule(MatToolbarModule),
                 MockModule(FontAwesomeModule)
             ],
-            teardown: { destroyAfterEach: false }
+            
         });
     });
 

@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ContentChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
@@ -23,4 +24,5 @@ export class PagedCollectionWithRaisedButtonToolbarComponent<T extends JsonModel
 
     /** A reference to the filter drop down included in the toolbar above the collection. */
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
+    @Input() form!: FormGroup;
 }

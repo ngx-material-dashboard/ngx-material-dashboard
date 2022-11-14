@@ -6,14 +6,11 @@ describe('ButtonToolbarComponent', () => {
   let component: ButtonToolbarComponent;
   let fixture: ComponentFixture<ButtonToolbarComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ButtonToolbarComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ButtonToolbarComponent ]
+    });
+
     fixture = TestBed.createComponent(ButtonToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

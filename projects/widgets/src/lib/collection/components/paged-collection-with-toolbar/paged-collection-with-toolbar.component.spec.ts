@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
@@ -6,13 +6,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
-import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
-import { MockModule } from 'ng-mocks';
-import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
-import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 
-import { PagedCollectionWithToolbarComponent } from './paged-collection-with-toolbar.component';
-import { PagedListWithRaisedButtonsBarComponent } from '@ngx-material-dashboard/widgets';
+import { PagedListWithRaisedButtonsBarComponent } from '../../../list/pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
 import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
 import { ListComponent } from '../../../list/components/list/list.component';
 import { PagedCollectionWithToolbarElement } from '@ngx-material-dashboard/testing/src/lib/page-elements/paged-collection-with-toolbar/paged-collection-with-toolbar.element';
@@ -22,12 +17,10 @@ import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
 import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CollectionComponent } from '../collection/collection.component';
-import { PagedCollectionComponent } from '../paged-collection/paged-collection.component';
-import { PagedCollectionWithRaisedButtonToolbarComponent } from '../paged-collection-with-raised-button-toolbar/paged-collection-with-raised-button-toolbar.component';
+import { CollectionModule } from '../../collection.module';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 
 /** Component to test with. */
 @Component({
@@ -71,14 +64,9 @@ describe('PagedCollectionWithToolbarComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ButtonsComponent,
                 ListComponent,
-                PagedCollectionWithToolbarComponent,
-                PagedCollectionWithRaisedButtonToolbarComponent,
                 PagedListComponent,
                 PagedListWithRaisedButtonsBarComponent,
-                RaisedButtonToolbarComponent,
-                SorterComponent,
                 TestPagedCollectionWithToolbarComponent
             ],
             imports: [
@@ -89,15 +77,18 @@ describe('PagedCollectionWithToolbarComponent', () => {
                 MatSortModule,
                 MatToolbarModule,
                 NoopAnimationsModule,
-                FontAwesomeModule
-            ]
+                FontAwesomeModule,
+                CollectionModule,
+                ToolbarModule
+            ],
+            teardown: { destroyAfterEach: false }
         });
 
         fixture = TestBed.createComponent(TestPagedCollectionWithToolbarComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
 
-        componentPagedList = component.pagedListWithToolbar.collectionCmp as unknown as PagedListComponent<DummyObject>;
+        componentPagedList = component.pagedListWithToolbar.collectionCmp as PagedListComponent<DummyObject>;
         page = new PagedCollectionWithToolbarElement(
             fixture,
             '.marker-paged-list',

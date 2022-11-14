@@ -60,7 +60,7 @@ describe('PagedCollectionComponent', () => {
                 MatSelectModule,
                 MockModule(FontAwesomeModule)
             ],
-            teardown: { destroyAfterEach: false }
+            
         });
     });
 

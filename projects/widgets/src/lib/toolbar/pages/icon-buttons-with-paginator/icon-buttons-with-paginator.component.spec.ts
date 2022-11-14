@@ -7,14 +7,11 @@ describe('IconButtonsWithPaginatorComponent', () => {
   let component: IconButtonsWithPaginatorComponent<DummyObject>;
   let fixture: ComponentFixture<IconButtonsWithPaginatorComponent<DummyObject>>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ IconButtonsWithPaginatorComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ IconButtonsWithPaginatorComponent ]
+    });
+
     fixture = TestBed.createComponent(IconButtonsWithPaginatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -101,7 +101,7 @@ describe('PagedTableWithToolbarElement', () => {
                 MatPaginatorModule,
                 NoopAnimationsModule
             ],
-            teardown: { destroyAfterEach: false }
+            
         });
     
         const fixture = TestBed.createComponent(PagedTableWithToolbarComponent);
