@@ -4,11 +4,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 
 import { GridWithIconButtonsPaginatorBarComponent } from './grid-with-icon-buttons-paginator-bar.component';
@@ -41,8 +43,6 @@ describe('GridWithIconButtonsPaginatorBarComponent', () => {
             declarations: [
                 GridComponent,
                 GridWithIconButtonsPaginatorBarComponent,
-                IconButtonsComponent,
-                IconButtonsWithPaginatorComponent,
                 TestGridWithIconButtonsPaginatorBarComponent
             ],
             imports: [
@@ -50,7 +50,9 @@ describe('GridWithIconButtonsPaginatorBarComponent', () => {
                 MockModule(MatGridListModule),
                 MockModule(MatPaginatorModule),
                 MockModule(MatSelectModule),
-                MockModule(FontAwesomeModule)
+                MockModule(FontAwesomeModule),
+                NoopAnimationsModule,
+                ToolbarModule
             ]
         });
     });
