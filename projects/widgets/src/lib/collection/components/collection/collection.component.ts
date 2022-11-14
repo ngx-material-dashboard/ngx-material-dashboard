@@ -25,8 +25,7 @@ graph TD
  * The `Collection` defines the most basic properties needed to render a
  * collection. It is similar to the `MatTable` component, but designed to
  * work with any type of collection (i.e. grid, list, table). This works
- * with both local and remote data. It is the base component that all other
- * collection components extend off of. This manages things like initialize
+ * with both local and remote data. This manages things like initialize
  * and connect/disconnect to/from the dataSource, along with tracking models
  * rendered in the collection based on changes to the state (i.e. sort
  * changes). Additionally it provides the ability to select one or more items
@@ -138,18 +137,20 @@ export class CollectionComponent<T extends JsonModel>
         this.selection = new SelectionModel<T>(multiple, this.initiallySelectedValues);
         this.selectionService.selectionSubject.next(this.selection);
     }
-    /** The event to emit when button is clicked in toolbar or collection. */
+    /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
+    /** The event to emit when the collection data length changes. */
     @Output() lengthChange: EventEmitter<number>;
-    /** 
-     * A reference to the sorter in the template. Only paged table would really
-     * have a reference directly in this component, but paged list and grid will
-     * need SorterComponent, so need to include this as optional type in order to
-     * be able to override in extending components.
+    /**
+     * A reference to the sorter in the template. Only used for components that
+     * utilize the SorterComponent (like list and grid), however MatSort is 
+     * included so it can be used with tables. Any tables that utilize sorting
+     * in headers need to override this (see the TableComponent for an example).
      */
      @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;
     /** The source for the collection data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
+    /** The total number of elements in the collection. */
     length: number = 0;
     /** The models to display in collection. */
     models: T[] = [];
@@ -185,6 +186,9 @@ export class CollectionComponent<T extends JsonModel>
         this.sub = new Subscription();
     }
 
+    /**
+     * Initializes the sort for the component after the view is initialized.
+     */
     ngAfterViewInit(): void {
         this.initSort();
     }
@@ -199,11 +203,12 @@ export class CollectionComponent<T extends JsonModel>
 
     /**
      * Initializes the data source bsaed on the type of data/source given, and
-     * any additional properties required (i.e. paging/sorting).
+     * any additional properties required (i.e. sorting).
      * 
-     * @param data Either an array (local data) or a RemoteDataSource.
+     * @param data Either an array (local data), MatTableDataSource, or RemoteDataSource.
      */
     initDataSource(dataSource: T[] | MatTableDataSource<T> | RemoteDataSource<T>): void {
+        // initialize the dataSource
         if (dataSource instanceof RemoteDataSource) {
             this.dataSource$ = dataSource;
         } else {
@@ -218,8 +223,11 @@ export class CollectionComponent<T extends JsonModel>
         // data; see below github issue comment
         // https://github.com/angular/components/issues/9419#issuecomment-359594686
         this.dataSource$.connect().subscribe((res: T[]) => {
+            // set the models to render in the collection
             this.models = res;
 
+            // set the total length of the dataSource and emit lengthChange
+            // event so parent components can update accordingly
             if (this.dataSource$ instanceof RemoteDataSource) {
                 this.length = this.dataSource$.total;
             } else {
@@ -228,6 +236,7 @@ export class CollectionComponent<T extends JsonModel>
             this.lengthChange.emit(this.length);
         });
 
+        // re-initialize the sort on the dataSource
         this.initSort();
     }
 
@@ -260,7 +269,7 @@ export class CollectionComponent<T extends JsonModel>
      * visible elements in the collection are selected; otherwise selects all
      * visible elements in the collection.
      */
-    masterToggle(event: boolean): void {
+    masterToggle(): void {
         if (this.isAllSelected() || !this.multiple$) {
             // clear all selections and disable ToolbarButtons
             this.selection.clear();

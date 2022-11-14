@@ -10,9 +10,9 @@ import { RemoteDataSource } from '../../services/remote-data-source.service';
 import { CollectionComponent } from '../collection/collection.component';
 
 /**
- * The `PagedCollection` expands upon the capabilities of the `Collection` by
- * extending it and providing paging capabilities. Any paginator used should be
- * of type `MatPaginator`.
+ * The `PagedCollection` is a wrapper component for the `Collection` which adds
+ * paging capabilities. This component expects a `Collection` to be defined as
+ * a child in the template. Any paginator used should be of type `MatPaginator`.
  * 
  * @overviewDetails
  * 
@@ -30,9 +30,7 @@ import { CollectionComponent } from '../collection/collection.component';
  * 
  * ## Features
  * 
- * All of the features from the [Collection](/widgets/components/collection)
- * are available for use in this component. The `PagedCollection` adds paging
- * capabilities as well.
+ * The `PagedCollection` provides paging capabilities for collections.
  * 
  * ### Paginator
  * 
@@ -60,29 +58,32 @@ export class PagedCollectionComponent <T extends JsonModel>
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
     /** The buttons to render with each item in collection. */
     @Input() collectionButtons: Button[] = [];
+    /** The dataSource for the collection. */
     @Input() dataSource$!: T[] | MatTableDataSource<T> | RemoteDataSource<T>;
+    /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: string[] = [];
     /**
      * The max number of pages to display in the paginator. Defaults to 10
      * (does not include 'First', 'Prev', 'Next', 'Last').
      */
     @Input() maxPages: number = 10;
+    /** Boolean value to indicate whether multiple rows can be selected. */
     @Input() multiple: boolean = true;
     /** Number of items to display on a page. Defaults to 25. */
     @Input() pageSize: number = 25;
+    /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator$?: MatPaginator;
+    /** A reference to the collection in the template. */
     @ViewChild('collection') collection$!: CollectionComponent<T>;
+    /** The total number of elements in the collection. */
     length: number = 0;
+    /** The subscriptions for the component. */
     sub: Subscription;
 
     /**
-     * Returns the paginator for the component if it exists. Some paginated
-     * components include the paginator directly in the template associated
-     * with the component that extends this one, while there are others that
-     * may include the paginator in a toolbar that is in the parent of the
-     * paged collection component.
+     * Returns the paginator for the component if it exists.
      */
     get paginator(): MatPaginator | null {
         if (this.paginator$) {
@@ -120,6 +121,12 @@ export class PagedCollectionComponent <T extends JsonModel>
         }
     }
 
+    /**
+     * Handler for when the user clicks a button associated with an item in the
+     * collection.
+     *
+     * @param buttonClick The value emitted from the collection. 
+     */
     onButtonClick(buttonClick: ButtonClick): void {
         this.buttonClick.emit(buttonClick);
     }

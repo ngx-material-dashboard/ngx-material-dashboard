@@ -19,12 +19,12 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
  * The `PagedCollectionWithToolbar` expands upon the capabilities of the
  * `Collection` and `PagedCollection` by providing features that a collection
  * should have when associated with a toolbar used to manage data in the
- * collection. It is effectively a wrapper for a `PagedCollection` and one of
- * the toolbars defined in the `toolbar` module. This component acts as a base
- * component for paged collections with toolbars, defining properties and
- * functions needed for those components without defining the type of toolbar
- * used in the component. As such this component is not meant to be used
- * directly. Instead you should use the `PagedCollectionWithIconBar` or
+ * collection. It is a wrapper for a `PagedCollection` and one of the toolbars
+ * defined in the `toolbar` module. This component acts as a base component
+ * for paged collections with toolbars, defining properties and functions
+ * needed for those components without defining the type of toolbar used in the
+ * component. As such this component is not meant to be used directly. Instead
+ * you should use the `PagedCollectionWithIconBar` or
  * `PagedCollectionWithRaisedButtonBar` component, which define the type of
  * toolbar expected to be used in the template (either the
  * `IconButtonWithPaginator` or the `RaisedButtonToolbar` respectively).
@@ -55,10 +55,13 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
 
     /** A reference to the collection that should be included inside the selector for this component. */
     @ContentChild('collection') collectionCmp!: CollectionComponent<T> | PagedCollectionComponent<T>;
+    /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: string[] = [];
+    /** Boolean value to indicate whether multiple rows can be selected. */
     @Input() multiple: boolean = true;
     /** The buttons to render in the toolbar. */
     @Input() toolbarButtons: ToolbarButton[] = [];
+    /** The event to emit when button is clicked in collection or toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the toolbar in the template. */
     @ViewChild('toolbar') toolbar!: IconButtonsWithPaginatorComponent<T> | RaisedButtonToolbarComponent;
@@ -67,12 +70,19 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
      * subset of toolbarButtons that have canDisable=true.
      */
     disableableToolbarButtons: ToolbarButton[] = [];
+    /** The total number of elements in the collection. */
     length: number = 0;
-    /** A reference to the paginator in the template. */
+    /** A reference to the paginator for the component. */
     paginator$?: MatPaginator;
+    /** A reference to the sort for the component. */
     sort$?: MatSort | SorterComponent;
+    /** The subscriptions for the component. */
     sub: Subscription;
 
+    /**
+     * Returns the paginator for the component, whether it resides in paged
+     * collection, or in the toolbar.
+     */
     get paginator(): MatPaginator | null {
         if (this.paginator$) {
             // if paginator$ already defined, then return that (should be view
@@ -87,6 +97,9 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
     
+    /**
+     * Returns the sort for the component.
+     */
     get sort(): MatSort | undefined {
         if (this.sort$) {
             // if sort$ already defined, then return that
