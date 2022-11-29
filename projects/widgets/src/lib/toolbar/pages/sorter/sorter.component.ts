@@ -25,6 +25,10 @@ export class SorterComponent extends MatSort implements OnInit {
     /** The list of fields to include in the sort. */
     @Input() options: string[] = [];
 
+    constructor() {
+        super();
+    }
+
     /**
      * Lifecycle method automatically called by angular when the component is
      * initialized.

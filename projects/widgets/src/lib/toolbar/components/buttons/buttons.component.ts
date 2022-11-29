@@ -28,7 +28,7 @@ export class ButtonsComponent implements OnInit {
     /**
      * Destroys any subscriptions for the component.
      */
-     ngOnDestroy(): void {
+    ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 

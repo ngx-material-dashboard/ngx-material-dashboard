@@ -39,7 +39,7 @@ import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-rais
         <ngx-material-dashboard-paged-table
             class="marker-paged-table"
             [collectionButtons]="collectionButtons"
-            [dataSource$]="data"
+            [dataSource]="data"
             [displayedColumns]="displayedColumns"
             collection
             #collection>    
@@ -111,6 +111,17 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
         );
     });
 
+    const testData = TEST_DATA;
+
+    beforeEach(async() => {
+        component.data = testData;
+        fixture.detectChanges();
+
+        component.pagedTableWithToolbar.pageSize = 5;
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+    
     // it('should filter out buttons that cannot be disabled by default', () => {
     //     expect(component..tableWithToolbar.disableableToolbarButtons.length).toBe(1);
     //     expect(component.tableWithToolbar.disableableToolbarButtons[0].click).toBe('edit');
@@ -123,7 +134,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             const spy = spyOn(component, 'onButtonClick');
 
             // and: a selected row
-            page.table.selectItem(0);
+            page.collection.selectItem(0);
 
             // when: the button is clicked
             page.toolbar.clickButton('.marker-button-edit');
@@ -185,7 +196,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             const spy = spyOn(component.pagedTableWithToolbar.collectionCmp, 'onButtonClick');
 
             // when: a button is clicked in one of the rows
-            page.table.clickItemButton('edit', 0);
+            page.collection.clickItemButton('edit', 0);
 
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'edit', row: component.pagedTableWithToolbar.collectionCmp.collection$.dataSource$.data[0] });

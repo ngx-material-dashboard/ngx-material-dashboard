@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
@@ -12,10 +12,28 @@ import { FilterDropDownComponent } from '../../toolbar/components/filter-drop-do
     selector: '[ngxMaterialDashboardSearchFilter]'
 })
 export class SearchFilterDirective<T extends JsonModel>
-    implements AfterViewInit, OnDestroy {
+    implements OnDestroy {
 
     /** The filter drop down. */
-    @Input() filter!: FilterDropDownComponent;
+    @Input() set filter(val: FilterDropDownComponent) {
+        if (val && this.collection && this.form) {
+            const sub = val.searchClick.subscribe(() => {
+                // set dataSource filter based on values entered on searchFilter
+                const searchFilterData = this.form.get('searchFilter') as FormGroup;
+                this.collection.dataSource.filter = this.buildSearchFilter(searchFilterData);
+                this.searchClick.emit(this.collection.dataSource.filter);
+
+                if (this.collection.dataSource instanceof RemoteDataSource) {
+                    // refresh the data with updated filter
+                    this.collection.dataSource.refresh();
+                } else {
+                    // TODO handle local dataSource
+                    throw Error('Local datasource not yet handled');
+                }
+            });
+            this.sub.add(sub);
+        }
+    }
     /** The form to render in the filter drop down. */
     @Input() form!: FormGroup;
     /** 
@@ -23,29 +41,13 @@ export class SearchFilterDirective<T extends JsonModel>
      * selector for this component.
      */
     @Input() collection!: PagedCollectionComponent<T>;
+    @Output() searchClick: EventEmitter<SearchFilterMap>;
     /** The subscriptions in the component. */
     sub: Subscription;
 
-    constructor() {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
+        this.searchClick = new EventEmitter();
         this.sub = new Subscription();
-    }
-
-    ngAfterViewInit(): void {
-        // set up subscription for when user clicks search button on filter
-        const sub = this.filter.searchClick.subscribe(() => {
-            // set dataSource filter based on values entered on searchFilter
-            const searchFilterData = this.form.get('searchFilter') as FormGroup;
-            this.collection.dataSource$.filter = this.buildSearchFilter(searchFilterData);
-
-            if (this.collection.dataSource$ instanceof RemoteDataSource) {
-                // refresh the data with updated filter
-                this.collection.dataSource$.refresh();
-            } else {
-                // TODO handle local dataSource
-                throw Error('Local datasource not yet handled');
-            }
-        });
-        this.sub.add(sub);
     }
 
     /**

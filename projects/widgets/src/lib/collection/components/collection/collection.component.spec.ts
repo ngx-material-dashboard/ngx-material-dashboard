@@ -42,6 +42,7 @@ import { CollectionComponent } from './collection.component';
     multiple: boolean = true;
 }
 
+// this seems to be running slowly; see if anything can be done to speed up
 describe('CollectionComponent', () => {
     let component: TestCollectionComponent;
     let fixture: ComponentFixture<TestCollectionComponent>;

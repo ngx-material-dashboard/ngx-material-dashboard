@@ -1,20 +1,29 @@
 import { ComponentFixture } from '@angular/core/testing';
+import { CollectionElement } from '../collection/collection.element';
+import { IconButtonsWithPaginatorBarElement } from '../icon-buttons-with-paginator-bar/icon-buttons-with-paginator-bar.element';
 
 import { PagedCollectionElement } from '../paged-collection/paged-collection.element';
 import { ToolbarElement } from '../toolbar/toolbar.element';
 
-export class PagedCollectionWithToolbarElement extends PagedCollectionElement {
+export class PagedCollectionWithToolbarElement {
 
-    toolbar: ToolbarElement;
+    collection: CollectionElement | PagedCollectionElement;
+    toolbar: ToolbarElement | IconButtonsWithPaginatorBarElement;
 
     constructor(fixture: ComponentFixture<any>,
         selector: string,
         itemSelector: string,
         itemCheckboxSelector: string,
         buttonSelectors: string[],
-        selectable = true
+        selectable: boolean = true,
+        toolbarType: string = 'raised-buttons'
     ) {
-        super(fixture, selector, itemSelector, itemCheckboxSelector, selectable);
-        this.toolbar = new ToolbarElement(fixture, buttonSelectors);
+        if (toolbarType === 'raised-buttons') {
+            this.collection = new PagedCollectionElement(fixture, selector, itemSelector, itemCheckboxSelector, selectable);
+            this.toolbar = new ToolbarElement(fixture, buttonSelectors);
+        } else {
+            this.collection = new CollectionElement(fixture, selector, itemSelector, itemCheckboxSelector, selectable);
+            this.toolbar = new IconButtonsWithPaginatorBarElement(fixture, buttonSelectors);
+        }
     }
 }

@@ -62,7 +62,7 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
         <ngx-material-dashboard-paged-table
             matSort 
             [collectionButtons]="collectionButtons"
-            [dataSource$]="data"
+            [dataSource]="data"
             [displayedColumns]="displayedColumns"
             [multiple]="multiple"
             class="marker-paged-table"
@@ -96,7 +96,7 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
         <ngx-material-dashboard-paged-table
             matSort
             [collectionButtons]="collectionButtons"
-            [dataSource$]="data"
+            [dataSource]="data"
             [displayedColumns]="displayedColumns"
             [multiple]="multiple"
             class="marker-paged-table"

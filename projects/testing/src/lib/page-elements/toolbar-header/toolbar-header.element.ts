@@ -1,4 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
+import { MenuElement } from '../menu/menu.element';
 import { ToolbarElement } from '../toolbar/toolbar.element';
 
 /**
@@ -16,6 +17,7 @@ export class ToolbarHeaderElement extends ToolbarElement {
 
     /** The logo in the toolbar. */
     private logoElement: HTMLElement;
+    filterDropDown?: MenuElement;
 
     /**
      * Creates a new ToolbarElement.
@@ -23,11 +25,16 @@ export class ToolbarHeaderElement extends ToolbarElement {
      * @param fixture {@link ComponentFixture} where toolbar is rendered.
      */
     constructor(
-        fixture: ComponentFixture<any>
+        fixture: ComponentFixture<any>,
+        buttonSelectors?: string[]
     ) {
         super(fixture, ['.marker-bars-button', '.marker-home-button']);
 
         this.logoElement = this.query<HTMLElement>('.marker-header-logo');
+
+        if (buttonSelectors) {
+            this.filterDropDown = new MenuElement(fixture, buttonSelectors);
+        }
     }
 
     /**

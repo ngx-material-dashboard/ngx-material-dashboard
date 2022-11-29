@@ -20,7 +20,7 @@ const pageSize = 5;
 @Component({
     template: `
     <ngx-material-dashboard-paged-list
-        [dataSource$]="data"
+        [dataSource]="data"
         [fields]="fields"
         [pageSize]="pageSize"
         class="marker-paged-list">

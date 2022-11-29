@@ -21,6 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CollectionModule } from '../../collection.module';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
+import { MatTableModule } from '@angular/material/table';
 
 /** Component to test with. */
 @Component({
@@ -31,7 +32,7 @@ import { ToolbarModule } from '../../../toolbar/toolbar.module';
         #pagedListWithToolbar>
         <ngx-material-dashboard-paged-list
             [collectionButtons]="collectionButtons"
-            [dataSource$]="data"
+            [dataSource]="data"
             [fields]="fields"
             class="marker-paged-list"
             collection
@@ -61,7 +62,7 @@ describe('PagedCollectionWithToolbarComponent', () => {
     let fixture: ComponentFixture<TestPagedCollectionWithToolbarComponent>;
     let page: PagedCollectionWithToolbarElement;
 
-    beforeEach(() => {
+    beforeEach(async() => {
         TestBed.configureTestingModule({
             declarations: [
                 ListComponent,
@@ -80,8 +81,7 @@ describe('PagedCollectionWithToolbarComponent', () => {
                 FontAwesomeModule,
                 CollectionModule,
                 ToolbarModule
-            ],
-            teardown: { destroyAfterEach: false }
+            ]
         });
 
         fixture = TestBed.createComponent(TestPagedCollectionWithToolbarComponent);
@@ -96,6 +96,10 @@ describe('PagedCollectionWithToolbarComponent', () => {
             '.marker-checkbox-item-select',
             ['.marker-button-create', '.marker-button-edit', '.marker-button-delete']
         );
+
+        component.data = TEST_DATA;
+        fixture.detectChanges();
+        await fixture.whenStable();
     });
 
     describe('Toolbar Tests', () => {
@@ -105,7 +109,7 @@ describe('PagedCollectionWithToolbarComponent', () => {
             const spy = spyOn(component, 'onButtonClick');
 
             // and: a selected row
-            page.selectItem(0);
+            page.collection.selectItem(0);
 
             // when: the button is clicked
             page.toolbar.clickButton('.marker-button-edit');

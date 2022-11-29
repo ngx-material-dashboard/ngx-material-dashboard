@@ -26,11 +26,11 @@ import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-pag
         ButtonsComponent,
         ButtonToolbarComponent,
         FilterDropDownComponent,
-        SearchFilterDirective,
-        SorterComponent,
         IconButtonsComponent,
+        IconButtonsWithPaginatorComponent,
         RaisedButtonToolbarComponent,
-        IconButtonsWithPaginatorComponent
+        SearchFilterDirective,
+        SorterComponent
     ],
     exports: [
         ButtonToolbarComponent,

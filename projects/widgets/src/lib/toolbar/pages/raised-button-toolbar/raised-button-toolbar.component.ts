@@ -37,7 +37,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
     templateUrl: './raised-button-toolbar.component.html',
     styleUrls: ['./raised-button-toolbar.component.css']
 })
-export class RaisedButtonToolbarComponent implements OnInit {
+export class RaisedButtonToolbarComponent {
 
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
@@ -54,13 +54,6 @@ export class RaisedButtonToolbarComponent implements OnInit {
     constructor() {
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.sub = new Subscription();
-    }
-
-    /**
-     * Lifecycle method automatically called by angular when the component is
-     * initialized.
-     */
-    ngOnInit(): void {
     }
 
     /**

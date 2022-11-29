@@ -22,6 +22,7 @@ import { TableComponent } from '../../components/table/table.component';
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
 import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
+import { CollectionModule } from '../../../collection/collection.module';
 
 const pageSize = 5;
 const testData: DummyObject[] = TEST_DATA;
@@ -31,7 +32,7 @@ const testData: DummyObject[] = TEST_DATA;
     <ngx-material-dashboard-paged-table
         matSort
         [collectionButtons]="collectionButtons"
-        [dataSource$]="data"
+        [dataSource]="data"
         [displayedColumns]="displayedColumns"
         [multiple]="multiple"
         class="marker-paged-table">
@@ -59,7 +60,7 @@ const testData: DummyObject[] = TEST_DATA;
     <ngx-material-dashboard-paged-table 
         matSort
         [collectionButtons]="collectionButtons"
-        [dataSource$]="dataSource"
+        [dataSource]="dataSource"
         [displayedColumns]="displayedColumns"
         [multiple]="multiple"
         class="marker-paged-table">
@@ -94,9 +95,7 @@ describe('PagedTableComponent', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [
-                    CollectionComponent,
                     TableComponent,
-                    PagedCollectionComponent,
                     PagedTableComponent,
                     TestPagedTableComponent
                 ],
@@ -109,12 +108,12 @@ describe('PagedTableComponent', () => {
                     MatTableModule,
                     NoopAnimationsModule,
                     MockModule(FlexLayoutModule),
-                    MockModule(FontAwesomeModule)
+                    MockModule(FontAwesomeModule),
+                    CollectionModule
                 ],
                 providers: [
                     { provide: JsonDatastore, useClass: Datastore }
-                ],
-                
+                ]
             });
         });
     
@@ -152,9 +151,10 @@ describe('PagedTableComponent', () => {
             // tests where it doesn't matter whether multi-select is allowed
             describe('Mulit-select Independent', () => {
     
-                beforeEach(() => {
+                beforeEach(async() => {
                     // initialize the component with dummy data and allow multi-select
                     page = init(data);
+                    await page.fixture.whenStable();
                 });
     
                 it('should emit buttonClick event when action button clicked in row', () => {
@@ -178,11 +178,13 @@ describe('PagedTableComponent', () => {
                 });
     
                 it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
+                    page.fixture.detectChanges();
                     expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
                 });
     
                 it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
                     // when: next page button is clicked
+                    page.fixture.detectChanges();
                     page.paginator.clickNextButton();
     
                     // then: the paginator range label should update to next page

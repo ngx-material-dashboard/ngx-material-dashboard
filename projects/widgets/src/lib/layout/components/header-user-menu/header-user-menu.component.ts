@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 // import { AuthService } from '@app-core/services/auth.service';
 
@@ -10,11 +10,10 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 export class HeaderUserMenuComponent {
 
     @Input() username = '';
+    @Output() logoutClick: EventEmitter<boolean> = new EventEmitter();
     caretDown = faCaretDown;
 
-    // constructor(private authService: AuthService) { }
-
     logout(): void {
-        // this.authService.logout();
+        this.logoutClick.emit(true);
     }
 }

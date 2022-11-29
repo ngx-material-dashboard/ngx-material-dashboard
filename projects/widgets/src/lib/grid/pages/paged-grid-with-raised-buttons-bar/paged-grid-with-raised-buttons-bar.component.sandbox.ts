@@ -49,7 +49,7 @@ export default sandboxOf(PagedGridWithRaisedButtonsBarComponent, {
         class="marker-paged-grid">
         <ngx-material-dashboard-paged-grid
             [collectionButtons]="collectionButtons"
-            [dataSource$]="data"
+            [dataSource]="data"
             [fields]="fields"
             collection
             #collection>

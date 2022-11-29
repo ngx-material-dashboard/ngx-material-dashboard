@@ -50,9 +50,17 @@ import { MatSort, Sort, SortDirection } from '@angular/material/sort';
  */
 export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
 
+    /** The paginatore associated with component where this data source is used. */
+    private paginator$?: MatPaginator;
+    /** The sorter associated with component where this data source is used. */
+    private sort$?: MatSort;
+    /** Subject for dataSource connection. */
+    protected dataSubject: BehaviorSubject<T[]>;
+    /** Subject for when connection to load data is active. */
+    protected loadingSubject: BehaviorSubject<boolean>;
     /** The active field to sort on. */
     active?: string;
-    /** The data to display in the table. */
+    /** The data to display in the collection. */
     data: T[];
     /** The direction of the sort (asc or desc). */
     direction?: SortDirection;
@@ -64,22 +72,14 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     include?: string;
     /** Indicates when connection to load data is active. */
     loading: Observable<boolean>;
-    /** The paginatore associated with component where this data source is used. */
-    private paginator$?: MatPaginator;
     /** The page of data to get. */
     pageIndex?: number;
     /** The number of results to get. */
     pageSize?: number;
-    /** The sorter associated with component where this data source is used. */
-    private sort$?: MatSort;
     /** The total number of items in the table. */
     total: number;
     /** The total number of pages. */
     totalPages?: number;
-    /** Subject for dataSource connection. */
-    protected dataSubject: BehaviorSubject<T[]>;
-    /** Subject for when connection to load data is active. */
-    protected loadingSubject: BehaviorSubject<boolean>;
 
     /**
      * Returns the paginator for the data source.
@@ -148,7 +148,7 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     }
 
     /**
-     * Loads the data for the table.
+     * Loads the data for the collection.
      *
      * @param filter The filter to apply when loading the data.
      * @param sort The column to sort the data.
@@ -198,17 +198,6 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
             this.dataSubject.next(this.data);
         });
     }
-
-    /**
-     * The orderBy parameter includes the direction and column to sort; if the
-     * order is desc, then 'ORDERBYDESC' is used. 'ORDERBY' defaults to
-     * ascending order.
-     * TODO allow sort and order by multiple columns; should just be concatenating
-     * additional parameters so something like '^ORDERBYname^ORDERBYcreated_on'.
-     */
-    // private get orderBy(): string {
-    //     return `^ORDERBY${ this.order === 'desc' ? 'DESC' : '' }${ this.sort$ }`;
-    // }
 
     /**
      * Reload the data using current paging and query parameters.

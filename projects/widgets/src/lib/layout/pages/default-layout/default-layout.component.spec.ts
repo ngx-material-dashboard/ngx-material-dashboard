@@ -13,68 +13,173 @@ import { HeaderUserLoginComponent } from '../../components/header-user-login/hea
 import { HeaderUserMenuComponent } from '../../components/header-user-menu/header-user-menu.component';
 import { DefaultLayoutComponent } from './default-layout.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
+import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
+
+@Component({
+    template: `
+    <ngx-material-dashboard-default-layout>
+        <ngx-material-dashboard-filter-drop-down filter>
+            <form [formGroup]="formGroup">
+                <mat-form-field>
+                    <mat-label>Task Name</mat-label>
+                    <input matInput
+                        formControlName="name"
+                        placeholder="Search task by name..." 
+                        class="marker-input-name">
+                </mat-form-field>
+            </form>
+        </ngx-material-dashboard-filter-drop-down>
+    </ngx-material-dashboard-default-layout>
+    `
+}) class LayoutWithFilterTest {
+    @ViewChild(DefaultLayoutComponent) layout!: DefaultLayoutComponent;
+    @ViewChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
+    formGroup!: FormGroup;
+
+    constructor(private formBuilder: FormBuilder) {}
+
+    ngOnInit(): void {
+        this.formGroup = this.formBuilder.group({
+            name: null
+        });
+    }
+}
 
 describe('DefaultLayoutComponent', () => {
-    let component: DefaultLayoutComponent;
-    let fixture: ComponentFixture<DefaultLayoutComponent>;
     let page: DefaultLayoutPage;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [
-                DefaultLayoutComponent,
-                HeaderComponent,
-                MockComponents(FooterComponent, HeaderUserLoginComponent, HeaderUserMenuComponent, LoadingComponent, SidenavComponent)
-            ],
-            imports: [
-                RouterTestingModule,
-                MockModule(MatSidenavModule),
-                MockModule(MatToolbarModule),
-                MockModule(FontAwesomeModule)
-            ],
-            
+    describe('Default settings', () => {
+
+        let component: DefaultLayoutComponent;
+        let fixture: ComponentFixture<DefaultLayoutComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [
+                    DefaultLayoutComponent,
+                    HeaderComponent,
+                    MockComponents(FooterComponent, HeaderUserLoginComponent, HeaderUserMenuComponent, LoadingComponent, SidenavComponent)
+                ],
+                imports: [
+                    RouterTestingModule,
+                    MockModule(MatSidenavModule),
+                    MockModule(MatToolbarModule),
+                    MockModule(FontAwesomeModule)
+                ]
+            });
+        });
+    
+        beforeEach(() => {
+            fixture = TestBed.createComponent(DefaultLayoutComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            page = new DefaultLayoutPage(fixture);
+        });
+    
+        it('should create', () => {
+            expect(component).toBeTruthy();
+        });
+    
+        it('should render ngx-material-dashboard-header', () => {
+            expect(page.query('ngx-material-dashboard-header')).toBeDefined();
+        });
+    
+        it('should render "My App" logo by default', () => {
+            expect(page.header.logo).toEqual('My App');
+        });
+    
+        it('should render ngx-material-dashboard-footer', () => {
+            expect(page.query('ngx-material-dashboard-footer')).toBeDefined();
+        });
+    
+        it('should render ngx-material-dashboard-sidenav', () => {
+            expect(page.query('ngx-material-dashboard-sidenav')).toBeDefined();
+        });
+    
+        it('should not render any sidenav items by default', () => {
+            expect(page.sidenav.listItemsLength).toEqual(0);
+        });
+    
+        it('should toggle the sidenav when the bars button is clicked', async() => {
+            // given: a spy on the sidenav toggle method
+            const spy = spyOn(component.sidenav, 'toggle');
+    
+            // when: the bars button is clicked in the header
+            await page.header.clickButton('.marker-bars-button');
+    
+            // then: the sidenav toggle function should have been called
+            expect(spy).toHaveBeenCalled();
         });
     });
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(DefaultLayoutComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        page = new DefaultLayoutPage(fixture);
-    });
+    describe('With Filter', () => {
+        let component: LayoutWithFilterTest;
+        let fixture: ComponentFixture<LayoutWithFilterTest>;
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [
+                    DefaultLayoutComponent,
+                    HeaderComponent,
+                    LayoutWithFilterTest,
+                    MockComponents(FooterComponent, HeaderUserLoginComponent, HeaderUserMenuComponent, LoadingComponent, SidenavComponent)
+                ],
+                imports: [
+                    RouterTestingModule,
+                    FormsModule,
+                    MatButtonModule,
+                    MatDividerModule,
+                    MatFormFieldModule,
+                    MatInputModule,
+                    MatMenuModule,
+                    MatSidenavModule,
+                    MatToolbarModule,
+                    NoopAnimationsModule,
+                    ReactiveFormsModule,
+                    FontAwesomeModule,
+                    ToolbarModule
+                ],
+                teardown: { destroyAfterEach: false }
+            });
+        });
+    
+        beforeEach(() => {
+            fixture = TestBed.createComponent(LayoutWithFilterTest);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
 
-    it('should render ngx-material-dashboard-header', () => {
-        expect(page.query('ngx-material-dashboard-header')).toBeDefined();
-    });
+            // filter undefined in header for some reason, so define it with
+            // filter in test component and re-run aftercontentinit to ensure
+            // search click subscription setup
+            component.layout.header.filter = component.filter;
+            component.layout.header.ngAfterContentInit();
+            fixture.detectChanges();
 
-    it('should render "My App" logo by default', () => {
-        expect(page.header.logo).toEqual('My App');
-    });
+            page = new DefaultLayoutPage(
+                fixture,
+                [],
+                [],
+                ['.marker-button-search']
+            );
+        });
 
-    it('should render ngx-material-dashboard-footer', () => {
-        expect(page.query('ngx-material-dashboard-footer')).toBeDefined();
-    });
+        it('should emit true when search button clicked in filter', () => {
+            page.header.filterDropDown?.initButtons();
+            const spy = spyOn(component.layout.clickSearch, 'emit');
 
-    it('should render ngx-material-dashboard-sidenav', () => {
-        expect(page.query('ngx-material-dashboard-sidenav')).toBeDefined();
-    });
-
-    it('should not render any sidenav items by default', () => {
-        expect(page.sidenav.listItemsLength).toEqual(0);
-    });
-
-    it('should toggle the sidenav when the bars button is clicked', async() => {
-        // given: a spy on the sidenav toggle method
-        const spy = spyOn(component.sidenav, 'toggle');
-
-        // when: the bars button is clicked in the header
-        await page.header.clickButton('.marker-bars-button');
-
-        // then: the sidenav toggle function should have been called
-        expect(spy).toHaveBeenCalled();
+            page.header.filterDropDown?.clickButton('.marker-button-search');
+    
+            expect(spy).toHaveBeenCalled();
+        });
     });
 });

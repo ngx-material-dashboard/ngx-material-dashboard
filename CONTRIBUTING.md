@@ -20,5 +20,6 @@ be aware that if you submit any bugs/issues for this project or any library
 within, I most likely will not get to them in any sort of timely manner. That's
 nothing against you, and I'm not saying that I wont' get to issues at all, it's
 just that I have other things I have to work on that afford me the ability to
-work on projects like this. And those do take priority since they actually pay
-the bills. Thank you in advance for your patience and understanding.
+work on projects like this. And those other things do take priority since they
+actually pay the bills. Thank you in advance for your patience and
+understanding.

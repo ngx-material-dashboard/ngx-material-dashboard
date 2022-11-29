@@ -1,6 +1,6 @@
-import { Component, ContentChild, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { ChangeDetectionStrategy, Component, ContentChild, ViewChild } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { CollectionComponent } from '../collection/collection.component';
 import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-toolbar/paged-collection-with-toolbar.component';
@@ -16,7 +16,8 @@ import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-to
  * [here](/widgets/components/icon-buttons-with-paginator).
  */
 @Component({
-    template: ''
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PagedCollectionWithIconToolbarComponent<T extends JsonModel>
     extends PagedCollectionWithToolbarComponent<T> {
@@ -27,12 +28,4 @@ export class PagedCollectionWithIconToolbarComponent<T extends JsonModel>
      */
     @ContentChild('collection') override collectionCmp!: CollectionComponent<T>;
     @ViewChild(IconButtonsWithPaginatorComponent) override toolbar!: IconButtonsWithPaginatorComponent<T>;
-
-    /**
-     * Returns the paginator for the component. Paginator is rendered inside
-     * toolbar; so return paginator from there.
-     */
-    override get paginator(): MatPaginator | null {
-        return this.toolbar.paginator;
-    }
 }

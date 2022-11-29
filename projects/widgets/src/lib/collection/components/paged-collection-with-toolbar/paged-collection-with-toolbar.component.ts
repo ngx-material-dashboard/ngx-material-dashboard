@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -48,7 +48,8 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
  * for toolbar and collection button events.
  */
 @Component({
-    template: ''
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     implements AfterViewInit, OnDestroy {
@@ -59,6 +60,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     @Input() fields: string[] = [];
     /** Boolean value to indicate whether multiple rows can be selected. */
     @Input() multiple: boolean = true;
+    @Input() pageSize: number = 25;
     /** The buttons to render in the toolbar. */
     @Input() toolbarButtons: ToolbarButton[] = [];
     /** The event to emit when button is clicked in collection or toolbar. */
@@ -111,7 +113,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         }
     }
 
-    constructor() {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.sub = new Subscription();
     }
@@ -119,6 +121,11 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     ngAfterViewInit(): void {
         if (this.collectionCmp instanceof CollectionComponent) {
             this.collectionCmp.dataSource$.paginator = this.paginator;
+            const sub = this.collectionCmp.lengthChange.subscribe((length: number) => {
+                this.length = length;
+                this.changeDetectorRef.detectChanges();
+            });
+            this.sub.add(sub);
         }
 
         // get buttons that can be disabled from given list of buttons
@@ -132,6 +139,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         }
         const sub = selectionService.selectionChange.subscribe((disabled: boolean) => {
             selectionService.toggleButtons(disabled, this.disableableToolbarButtons);
+            this.changeDetectorRef.detectChanges();
         });
         this.sub.add(sub);
     }

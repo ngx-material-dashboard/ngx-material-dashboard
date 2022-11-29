@@ -60,8 +60,8 @@ export class GridComponent<T extends JsonModel>
     cols: number = 2;
 
     constructor(
-        private changeDetectorRef: ChangeDetectorRef,
         private screenSizeService: ScreenSizeService,
+        private changeDetectorRef: ChangeDetectorRef,
         selectionService: SelectionService<T>
     ) {
         super(selectionService);

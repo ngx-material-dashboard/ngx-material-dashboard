@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { HeaderComponent } from '../../components/header/header.component';
 
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 
@@ -51,7 +52,8 @@ export class DefaultLayoutComponent {
     /** Boolean indicating whether the screen size is small (defaults to false). */
     @Input() isSmallScreen = false;
     /** Event emitted when user clicks search button in filter. */
-    @Output() clickSearchFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() clickSearch: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @ViewChild(HeaderComponent) header!: HeaderComponent;
     /** The sidenav defined in the template. */
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
@@ -67,8 +69,8 @@ export class DefaultLayoutComponent {
      *
      * @param res Boolean value to indicate if search button was clicked. 
      */
-    onSearchFilter(res: boolean) {
-        this.clickSearchFilter.emit(res);
+    onSearchFilterClick(res: boolean) {
+        this.clickSearch.emit(res);
     }
 
     /**

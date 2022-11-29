@@ -17,7 +17,7 @@ export class HeaderComponent implements AfterContentInit {
     /** The main "logo" text for the app. */
     @Input() logo = 'My App';
     /** Event emitted when user clicks search button in drop down filter. */
-    @Output() clickSearchFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() searchFilterClick: EventEmitter<boolean> = new EventEmitter<boolean>();
     /** Event emitted when user clicks button to toggle sidenav. */
     @Output() toggleSidenav: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
@@ -28,7 +28,7 @@ export class HeaderComponent implements AfterContentInit {
     ngAfterContentInit(): void {
         if (this.filter) {
             this.filter.searchClick.subscribe((val: boolean) => {
-                this.clickSearchFilter.emit(val);
+                this.searchFilterClick.emit(val);
             });
         }
     }

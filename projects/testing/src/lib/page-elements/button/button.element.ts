@@ -92,7 +92,7 @@ import { PageElement } from '../page/page.element';
 export class ButtonElement extends PageElement {
 
     /** The HTML button element. */
-    private button: HTMLButtonElement;
+    button: HTMLButtonElement;
 
     /**
      * Creates a new ButtonElement.

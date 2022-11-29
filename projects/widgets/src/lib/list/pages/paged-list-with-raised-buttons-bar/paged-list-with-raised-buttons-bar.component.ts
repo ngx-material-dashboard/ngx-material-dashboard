@@ -70,5 +70,4 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
     styleUrls: ['./paged-list-with-raised-buttons-bar.component.css']
 })
 export class PagedListWithRaisedButtonsBarComponent<T extends JsonModel>
-    extends PagedCollectionWithRaisedButtonToolbarComponent<T>
-    implements AfterViewInit {}
+    extends PagedCollectionWithRaisedButtonToolbarComponent<T> {}

@@ -1,9 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
+
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
 import { SorterComponent } from '../sorter/sorter.component';

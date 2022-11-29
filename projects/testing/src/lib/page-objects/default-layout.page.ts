@@ -25,11 +25,12 @@ export class DefaultLayoutPage extends PageElement {
     constructor(
         fixture: ComponentFixture<any>,
         sidenavListItemSelectors: string[] = [],
-        sidenavListItemChildSelectors: string[] = []
+        sidenavListItemChildSelectors: string[] = [],
+        headerFilterButtonSelectors: string[] = []
     ) {
         super(fixture);
 
-        this.header = new ToolbarHeaderElement(fixture);
+        this.header = new ToolbarHeaderElement(fixture, headerFilterButtonSelectors);
         this.sidenav = new SidenavElement(
             fixture,
             sidenavListItemSelectors,

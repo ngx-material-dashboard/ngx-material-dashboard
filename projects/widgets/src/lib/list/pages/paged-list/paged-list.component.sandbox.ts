@@ -43,7 +43,7 @@ export default sandboxOf(PagedListComponent, {
     template: `
     <ngx-material-dashboard-paged-list
         [collectionButtons]="collectionButtons"
-        [dataSource$]="data"
+        [dataSource]="data"
         [fields]="fields"
         class="marker-paged-list">
         <ng-template #model let-model="model">

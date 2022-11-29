@@ -22,7 +22,7 @@ import { faCaretDown, faSearch, IconDefinition } from '@fortawesome/free-solid-s
     templateUrl: './filter-drop-down.component.html',
     styleUrls: ['./filter-drop-down.component.scss']
 })
-export class FilterDropDownComponent implements AfterViewInit, OnInit {
+export class FilterDropDownComponent implements AfterViewInit {
 
     /** The event emitted when the user clicks the search button. */
     @Output() searchClick: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -38,15 +38,10 @@ export class FilterDropDownComponent implements AfterViewInit, OnInit {
     constructor() { }
 
     ngAfterViewInit(): void {
-        // wait a tick to avoid expressionchangedafterithasbeencheckederror
+        // wait a tick to avoid expressionchangedafterithasbeencheckederror;
+        // then set menuWidth to width of search field where drop down is
+        // rendered from
         setTimeout(() => this.menuWidth = this.field.nativeElement.clientWidth);
-    }
-
-    ngOnInit(): void {
-        // this.form = this.formBuilder.group({
-        //     search: null // { value: null, disabled: true }
-        // });
-        // this.parentForm.addControl('searchForm', this.form);
     }
 
     clear(): void {

@@ -59,7 +59,7 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
         </ngx-material-dashboard-filter-drop-down>
         <ngx-material-dashboard-paged-list
             [collectionButtons]="collectionButtons"
-            [dataSource$]="data"
+            [dataSource]="data"
             [fields]="fields"
             class="marker-paged-list"
             collection

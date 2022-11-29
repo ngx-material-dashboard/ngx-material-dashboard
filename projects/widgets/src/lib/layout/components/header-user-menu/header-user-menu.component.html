@@ -4,6 +4,8 @@
     <span>{{username}}</span>
     <fa-icon class="pl-2" [icon]="caretDown"></fa-icon>
 </button>
-<mat-menu #menu="matMenu">
-    <button mat-menu-item class="marker-logout-button" (click)="logout()">Logout</button>
+<mat-menu xPosition="before" yPosition="below" #menu="matMenu">
+    <div matMenuContent #menuContent>
+        <button mat-menu-item class="marker-button-logout" (click)="logout()">Logout</button>
+    </div>
 </mat-menu>

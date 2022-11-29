@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -46,7 +46,8 @@ import { CollectionComponent } from '../collection/collection.component';
  * `MatPaginator` in order to work with the dataSource.
  */
 @Component({
-    template: ''
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PagedCollectionComponent <T extends JsonModel>
     implements AfterViewInit, OnDestroy {
@@ -59,7 +60,9 @@ export class PagedCollectionComponent <T extends JsonModel>
     /** The buttons to render with each item in collection. */
     @Input() collectionButtons: Button[] = [];
     /** The dataSource for the collection. */
-    @Input() dataSource$!: T[] | MatTableDataSource<T> | RemoteDataSource<T>;
+    @Input() set dataSource(val: T[] | MatTableDataSource<T> | RemoteDataSource<T>) {
+        this.dataSource$ = val;
+    }
     /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: string[] = [];
     /**
@@ -77,11 +80,15 @@ export class PagedCollectionComponent <T extends JsonModel>
     @ViewChild(MatPaginator) paginator$?: MatPaginator;
     /** A reference to the collection in the template. */
     @ViewChild('collection') collection$!: CollectionComponent<T>;
+    dataSource$!: T[] | MatTableDataSource<T> | RemoteDataSource<T>;
     /** The total number of elements in the collection. */
     length: number = 0;
     /** The subscriptions for the component. */
     sub: Subscription;
 
+    get dataSource(): T[] | MatTableDataSource<T> | RemoteDataSource<T> {
+        return this.dataSource$;
+    }
     /**
      * Returns the paginator for the component if it exists.
      */
@@ -93,7 +100,7 @@ export class PagedCollectionComponent <T extends JsonModel>
         }
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    constructor() {
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.sub = new Subscription();
     }
@@ -102,7 +109,6 @@ export class PagedCollectionComponent <T extends JsonModel>
         this.initPaginator();
         const sub = this.collection$.lengthChange.subscribe((length: number) => {
             this.length = length;
-            this.changeDetectorRef.detectChanges();
         })
         this.sub.add(sub);
     }

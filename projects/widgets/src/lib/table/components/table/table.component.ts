@@ -1,8 +1,10 @@
-import { Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
+
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
-import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
+import { SelectionService } from '../../../collection/services/selection.service';
 
 /**
  * The `Table` is a wrapper for `MatTable`, and provides features defined in
@@ -83,7 +85,8 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
     styleUrls: ['./table.component.css']
 })
 export class TableComponent<T extends JsonModel>
-    extends CollectionComponent<T> {
+    extends CollectionComponent<T>
+    implements AfterContentInit {
 
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
@@ -100,5 +103,10 @@ export class TableComponent<T extends JsonModel>
      */
     ngAfterContentInit(): void {
         this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
+    }
+
+    constructor(selectionService: SelectionService<T>, matSort: MatSort) {
+        super(selectionService);
+        this.sort$ = matSort;
     }
 }

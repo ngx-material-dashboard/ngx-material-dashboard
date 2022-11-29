@@ -55,9 +55,9 @@ export default sandboxOf(TableWithIconButtonsPaginatorBarComponent, {
     template: `
     <ngx-material-dashboard-table-with-icon-buttons-paginator-bar
         [toolbarButtons]="toolbarButtons"
-        class="marker-paged-table"
-        matSort>
+        class="marker-paged-table">
         <ngx-material-dashboard-table
+            matSort
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
             [displayedColumns]="displayedColumns"

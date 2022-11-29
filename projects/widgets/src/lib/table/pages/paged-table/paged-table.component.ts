@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatColumnDef, MatTable } from '@angular/material/table';
@@ -213,7 +213,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'ngx-material-dashboard-paged-table',
     templateUrl: './paged-table.component.html',
-    styleUrls: ['./paged-table.component.scss']
+    styleUrls: ['./paged-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PagedTableComponent<T extends JsonModel>
     extends PagedCollectionComponent<T>
@@ -236,8 +237,8 @@ export class PagedTableComponent<T extends JsonModel>
      * 
      * @param sort$ DI directive needed for sorting columns.
      */
-    constructor(private sort$: MatSort, changeDetectorRef: ChangeDetectorRef) {
-        super(changeDetectorRef);
+    constructor(private sort$: MatSort) {
+        super();
     }
 
     /**

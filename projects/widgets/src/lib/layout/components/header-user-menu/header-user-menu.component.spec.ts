@@ -1,54 +1,46 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MockModule } from 'ng-mocks';
+import { MenuElement } from '@ngx-material-dashboard/testing';
 
 import { HeaderUserMenuComponent } from './header-user-menu.component';
 
 describe('HeaderUserMenuComponent', () => {
-    // let authService: AuthService;
-    let compiled: any;
     let component: HeaderUserMenuComponent;
     let fixture: ComponentFixture<HeaderUserMenuComponent>;
+    let filterDropDown: MenuElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ HeaderUserMenuComponent ],
             imports: [
-                HttpClientTestingModule,
-                MockModule(MatMenuModule),
-                MockModule(FontAwesomeModule),
-                // MockModule(AuthConfigModule)
-            ]
+                MatButtonModule,
+                MatMenuModule,
+                FontAwesomeModule,
+                NoopAnimationsModule
+            ],
+            teardown: { destroyAfterEach: false }
         });
 
-        // authService = TestBed.inject(AuthService);
+        fixture = TestBed.createComponent(HeaderUserMenuComponent);
+        component = fixture.componentInstance;
+        component.username = 'Bugs';
+        fixture.detectChanges();
+
+        filterDropDown = new MenuElement(fixture, ['.marker-button-logout']);
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HeaderUserMenuComponent);
-        component = fixture.componentInstance;
-        compiled = fixture.nativeElement;
+        filterDropDown.initButtons();
+    });
+
+    it('should call logout method when logout button clicked', () => {
+        const spy = spyOn(component.logoutClick, 'emit');
+        filterDropDown.clickButton('.marker-button-logout');
         fixture.detectChanges();
+
+        expect(spy).toHaveBeenCalled();
     });
-
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    // it('should call logout method in authService when logout button clicked', () => {
-    //     // given: the logout button
-    //     const logoutButton = compiled.querySelector('.marker-logout-button');
-
-    //     // and: a spy on the authService
-    //     // const spy = spyOn(authService, 'logout');
-
-    //     // when: the logout button is clicked
-    //     logoutButton.click();
-    //     fixture.detectChanges();
-
-    //     // then: the logout function should have been called
-    //     expect(spy).toHaveBeenCalled();
-    // });
 });

@@ -16,16 +16,14 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { JsonDatastore } from "@ngx-material-dashboard/base-json";
 import { Datastore } from "@ngx-material-dashboard/base-json/test/services/datastore.service";
 import { TEST_DATA } from "@ngx-material-dashboard/testing";
-import { CollectionModule } from "../../../collection/collection.module";
 import { sandboxOf } from "angular-playground";
+
+import { CollectionModule } from "../../../collection/collection.module";
 import { EDIT_BUTTON, DELETE_BUTTON } from "../../../collection/shared/buttons";
 import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from "../../../toolbar/shared/toolbar-buttons";
 import { ToolbarModule } from "../../../toolbar/toolbar.module";
 import { ListComponent } from "../../components/list/list.component";
 import { ListWithIconButtonsPaginatorBarComponent } from "./list-with-icon-buttons-paginator-bar.component";
-import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
-import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
-import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
 
 const pageSize = 5;
 

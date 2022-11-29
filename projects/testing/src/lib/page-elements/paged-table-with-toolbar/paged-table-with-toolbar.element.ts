@@ -1,7 +1,7 @@
-import { ComponentFixture } from "@angular/core/testing";
-import { PageElement } from "../page/page.element";
-import { PagedTableElement } from "../paged-table/paged-table.element";
-import { ToolbarElement } from "../toolbar/toolbar.element";
+import { ComponentFixture } from '@angular/core/testing';
+
+import { PagedCollectionWithToolbarElement } from '../paged-collection-with-toolbar/paged-collection-with-toolbar.element';
+import { PagedTableElement } from '../paged-table/paged-table.element';
 
 /**
  * The `PagedTableWithToolbarElement` defines properties and functions useful
@@ -15,12 +15,12 @@ import { ToolbarElement } from "../toolbar/toolbar.element";
  * See the [PagedTableElement](/testing/page-elements/paged-table) and
  * [ToolbarElement](/testing/page-elements/toolbar) for more details.
  */
-export class PagedTableWithToolbarElement extends PageElement {
+export class PagedTableWithToolbarElement extends PagedCollectionWithToolbarElement {
 
     /** The paged table element. */
-    table: PagedTableElement;
+    override collection: PagedTableElement;
     /** The toolbar element. */
-    toolbar: ToolbarElement;
+    //override toolbar: ToolbarElement;
 
     /**
      * Creates a new PagedTableElement.
@@ -36,11 +36,12 @@ export class PagedTableWithToolbarElement extends PageElement {
         tableSelector: string,
         buttonSelectors: string[],
         selectable = true,
+        toolbarType: string = 'raised-buttons',
         noDataColumnSelector = 'noData'
     ) {
-        super(fixture);
+        super(fixture, tableSelector, 'mat-row', '.marker-checkbox-row-select', buttonSelectors, selectable, toolbarType);
 
-        this.table = new PagedTableElement(fixture, tableSelector, selectable, noDataColumnSelector);
-        this.toolbar = new ToolbarElement(fixture, buttonSelectors);
+        this.collection = new PagedTableElement(fixture, tableSelector, selectable, noDataColumnSelector);
+        //this.toolbar = new ToolbarElement(fixture, buttonSelectors);
     }
 }

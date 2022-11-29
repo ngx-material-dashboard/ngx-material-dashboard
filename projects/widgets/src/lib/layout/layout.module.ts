@@ -19,6 +19,7 @@ import { DefaultLayoutComponent } from './pages/default-layout/default-layout.co
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { DrawerRailModule } from 'angular-material-rail-drawer';
+import { ToolbarModule } from '../toolbar/toolbar.module';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { DrawerRailModule } from 'angular-material-rail-drawer';
         MatSidenavModule,
         MatToolbarModule,
         DrawerRailModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        ToolbarModule
     ],
     providers: [
         LoadingService

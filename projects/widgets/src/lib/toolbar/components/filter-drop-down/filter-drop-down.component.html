@@ -5,7 +5,7 @@
     <div fxFlex fxLayout="row">
         <fa-icon class="pr-2" matPrefix [icon]="faSearch"></fa-icon>
         <span fxFlex>Search...</span>
-        <fa-icon [icon]="faCaretDown"></fa-icon>
+        <fa-icon [icon]="faCaretDown" class="marker-menu-trigger"></fa-icon>
     </div>
     <mat-divider fxFlex></mat-divider>
 </div>
@@ -19,7 +19,7 @@
         <div fxLayout="row">
             <div fxFlex></div>
             <button mat-flat-button (click)="clear()">Clear</button>
-            <button mat-raised-button color="primary" (click)="search()">Search</button>
+            <button mat-raised-button color="primary" (click)="search()" class="marker-button-search">Search</button>
         </div>
     </div>
 </mat-menu>

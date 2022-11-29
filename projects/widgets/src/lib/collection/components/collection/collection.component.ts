@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -95,7 +95,8 @@ graph TD
  * collection. 
  */
 @Component({
-    template: ''
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionComponent<T extends JsonModel>
     implements AfterViewInit, OnDestroy {
@@ -223,9 +224,13 @@ export class CollectionComponent<T extends JsonModel>
         // subscribe to connect observable to get filtered, paged, sorted
         // data; see below github issue comment
         // https://github.com/angular/components/issues/9419#issuecomment-359594686
-        this.dataSource$.connect().subscribe((res: T[]) => {
+        const sub = this.dataSource$.connect().subscribe((res: T[]) => {
             // set the models to render in the collection
             this.models = res;
+            // TODO figure out why needed to make karma tests pass due to
+            // expressionchangedafter... but seems to work fine when running
+            // component in app without this
+            //this.changeDetectorRef.markForCheck() //.detectChanges();
 
             // set the total length of the dataSource and emit lengthChange
             // event so parent components can update accordingly
@@ -236,6 +241,7 @@ export class CollectionComponent<T extends JsonModel>
             }
             this.lengthChange.emit(this.length);
         });
+        this.sub.add(sub);
 
         // re-initialize the sort on the dataSource
         this.initSort();
@@ -246,7 +252,7 @@ export class CollectionComponent<T extends JsonModel>
      * in the collection.
      */
     initSort(): void {
-        if (this.dataSource$) {
+        if (this.dataSource$ && this.sort) {
             this.dataSource$.sort = this.sort;
         }
     }
