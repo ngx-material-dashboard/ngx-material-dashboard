@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -33,6 +33,7 @@ const pageSize = 5;
     </ngx-material-dashboard-paged-list>
     `
 }) class TestPagedCollectionComponent {
+    @ViewChild(PagedListComponent) pagedList!: PagedListComponent<DummyObject>;
     data: DummyObject[] = [];
     fields: string[] = ['id'];
     pageSize: number = pageSize;
@@ -104,5 +105,12 @@ describe('PagedCollectionComponent', () => {
             // then: the paginator range label should update to next page
             expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
         });
+
+        it('should return null for paginator if paginator$ undefined', () => {
+            component.pagedList.paginator$ = undefined;
+            fixture.detectChanges();
+
+            expect(component.pagedList.paginator).toBeNull();
+        })
     });
 });

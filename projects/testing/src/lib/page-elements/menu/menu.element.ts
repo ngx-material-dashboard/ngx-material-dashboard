@@ -17,7 +17,7 @@ import { PageElement } from '../page/page.element';
     private buttonElementsMap: { [selector: string]: ButtonElement } = {};
     private buttonSelectors: string[] = [];
     private container!: OverlayContainer;
-    private containerElement!: HTMLElement;
+    containerElement!: HTMLElement;
     private parentElement?: HTMLElement;
 
     constructor(fixture: ComponentFixture<any>, buttonSelectors: string[] = ['.marker-button-search'], parentElement?: HTMLElement) {

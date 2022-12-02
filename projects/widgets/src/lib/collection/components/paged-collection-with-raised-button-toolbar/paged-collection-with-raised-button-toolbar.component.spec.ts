@@ -7,41 +7,38 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
+import { PagedListWithRaisedButtonsBarComponent } from '../../../list/pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
 import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
+import { Button } from '../../interfaces/button.interface';
+import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
 
 import { PagedCollectionWithRaisedButtonToolbarComponent } from './paged-collection-with-raised-button-toolbar.component';
-
-@Component({
-    selector: 'paged-list-with-toolbar',
-    template: `
-    <ngx-material-dashboard-raised-button-toolbar></ngx-material-dashboard-raised-button-toolbar>
-    <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
-    <div *ngFor="let model of models">
-        <ng-container 
-            *ngTemplateOutlet="template; context: { model: model }">
-        </ng-container>
-    </div>
-    <mat-paginator [length]="dataSource$.data.length"
-                [pageSize]="pageSize" 
-                [pageSizeOptions]="[15, 25, 50, 75, 100]">
-    </mat-paginator>
-    `
-}) class PagedListWithToolbarComponent
-    extends PagedCollectionWithRaisedButtonToolbarComponent<DummyObject> {}
 
 /** Component to test with. */
 @Component({
     template: `
-    <paged-list-with-toolbar [data]="data" [fields]="fields">
-        <ng-template #model let-model="model">
-            <h2>Dummy Model</h2>
-            <span>{{model.id}}</span>
-        </ng-template>
-    </paged-list-with-toolbar>
+    <ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+        <ngx-material-dashboard-filter-drop-down filter>
+            <!-- filter form goes here -->
+        </ngx-material-dashboard-filter-drop-down>
+        <ngx-material-dashboard-paged-list
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [fields]="fields"
+            class="marker-paged-list"
+            collection
+            #collection>
+            <ng-template #model let-model="model">
+                <h2>Dummy Model</h2>
+                <span>{{model.id}}</span>
+            </ng-template>
+        </ngx-material-dashboard-paged-list>
+    </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
     `
 }) class TestPagedCollectionWithRaisedButtonToolbarComponent {
+    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -54,7 +51,7 @@ describe('PagedCollectionWithRaisedButtonToolbarComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ButtonsComponent,
-                PagedListWithToolbarComponent,
+                PagedListWithRaisedButtonsBarComponent,
                 PagedCollectionWithRaisedButtonToolbarComponent,
                 RaisedButtonToolbarComponent,
                 SorterComponent

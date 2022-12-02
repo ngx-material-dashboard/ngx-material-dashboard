@@ -9,15 +9,15 @@ import { Directive, HostListener } from '@angular/core';
  * 
  * @overviewDetails
  * ## Basic Usage Example
- * ```typescript
- * <div [matMenuTriggerFor]="menu">
+ * ```html
+ * <div [matMenuTriggerFor]="filterMenu">
  *     <span>Drop Down</span>
  * </div>
  * <mat-menu #filterMenu="matMenu">
  *     <form ngxMaterialDashboardClickStopPropagation>
  *         <!-- form fields go here -->
  *     </form>
- * </div>
+ * </mat-menu>
  * ```
  */
 @Directive({

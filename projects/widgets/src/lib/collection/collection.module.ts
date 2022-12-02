@@ -6,7 +6,6 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSortModule } from '@angular/material/sort';
-import { CollectionButtonClickDirective } from './directives/collection-button-click.directive';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CollectionComponent } from './components/collection/collection.component';
 import { PagedCollectionWithToolbarComponent } from './components/paged-collection-with-toolbar/paged-collection-with-toolbar.component';
@@ -16,15 +15,11 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from './components/pa
 
 @NgModule({
     declarations: [
-        CollectionButtonClickDirective,
         CollectionComponent,
         PagedCollectionWithToolbarComponent,
         PagedCollectionComponent,
         PagedCollectionWithIconToolbarComponent,
         PagedCollectionWithRaisedButtonToolbarComponent
-    ],
-    exports: [
-        CollectionButtonClickDirective
     ],
     imports: [
         CommonModule,
