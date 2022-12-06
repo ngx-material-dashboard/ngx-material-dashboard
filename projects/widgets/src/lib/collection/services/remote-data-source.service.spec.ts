@@ -83,4 +83,15 @@ describe('RemoteDataSourceService', () => {
 
         expect(service.paginator).toBeUndefined();
     });
+
+    it('should call load with default params', () => {
+        // given: a spy on the datastore findAll method
+        const spy = spyOn(datastore, 'findAll').and.returnValue(of(new JsonApiQueryData(TEST_DATA, { meta: { total: TEST_DATA.length }})));
+
+        // when: load method is called without any params
+        service.load();
+
+        // expect: the findAll method should have been called
+        expect(spy).toHaveBeenCalled();
+    });
 });

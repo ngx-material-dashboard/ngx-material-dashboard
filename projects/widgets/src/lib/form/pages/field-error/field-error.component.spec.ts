@@ -31,6 +31,38 @@ describe('FieldErrorComponent', () => {
             expect(page.errorMessage).toBeNull();
         });
     });
+
+    describe('Field Undefined', () => {
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [ FieldErrorComponent ],
+                imports: [ FormsModule, ReactiveFormsModule, MatFormFieldModule ]
+            });
+        
+            // define a form and field with Validators to use for the component
+            const formBuilder = new FormBuilder();
+            const form = formBuilder.group({});
+            const validationMessages: ValidationMessage[] = [
+                { type: 'required', message: 'Field is required' }
+            ];
+        
+            // create the FieldErrorComponent and set input properties on the component
+            const fixture = TestBed.createComponent(FieldErrorComponent);
+            const component = fixture.componentInstance;
+            component.field = 'field';
+            component.form = form;
+            component.validationMessages = validationMessages;
+            fixture.detectChanges();
+        
+            // return an instance of the FieldErrorPage class to help with tests
+            page = new FieldErrorPage(fixture, component, 'field');
+        });
+
+        it('should not display any error messages', () => {
+            expect(page.errorMessage).toBeNull();
+        });
+    });
 });
 
 /**
