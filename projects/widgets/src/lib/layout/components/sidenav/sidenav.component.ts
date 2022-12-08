@@ -142,8 +142,11 @@ export class SidenavComponent implements OnDestroy, OnInit {
 
                 if (childIndex >= 0) {
                     return true;
-                } else if (item.route) {
-                    return this.router.url.includes(`/${item.route.join('/').replace('./', '')}`);
+                // I don't think below else if ever comes to pass or even makes sense
+                // really since a sidenavItem with children will most likely not have
+                // a route
+                // } else if (item.route) {
+                //     return this.router.url.includes(`/${item.route.join('/').replace('./', '')}`);
                 } else {
                     return this.router.url.endsWith(`/${item.selector}`) || this.router.url.includes(`/${item.selector}/`);
                 }

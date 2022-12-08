@@ -119,6 +119,8 @@ import { PageElement } from '../page/page.element';
  */
 export class SidenavElement extends PageElement {
 
+    private listItemChildSelectors: string[];
+    private listItemGrandChildSelectors: string[];
     /** List of main items in sidenav. */
     private listItemElements: HTMLElement[] = [];
     /** Map of CSS selectors to list items in sidenav. */
@@ -143,6 +145,8 @@ export class SidenavElement extends PageElement {
         listItemGrandChildSelectors: string[] = []
     ) {
         super(fixture);
+        this.listItemChildSelectors = listItemChildSelectors;
+        this.listItemGrandChildSelectors = listItemGrandChildSelectors;
 
         // set listItemElements and listElementsMap based on given text which
         // is used in CSS selectors
@@ -152,14 +156,27 @@ export class SidenavElement extends PageElement {
             this.listItemElementsMap[listItemSelector] = listElement;
         });
 
-        // set listItemChildElementsMap based on given text which is used in
-        // CSS selectors
-        listItemChildSelectors.forEach((listItemChildSelector: string) => {
-            const listChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemChildSelector}`);
-            this.listItemChildElementsMap[listItemChildSelector] = listChildElement;
-        });
+        // try to initialize children and grandchildren; not all will initialize if
+        // sidenavItems are not expanded though...
+        this.initChildren();
+        this.initGrandChildren();
+    }
 
-        listItemGrandChildSelectors.forEach((listItemGrandChildSelector: string) => {
+    // set listItemChildElementsMap based on given text which is used in
+    // CSS selectors
+    private initChildren() {
+        this.listItemChildSelectors.forEach((listItemChildSelector: string) => {
+            try {
+                const listChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemChildSelector}`);
+                this.listItemChildElementsMap[listItemChildSelector] = listChildElement;
+            } catch (error) {
+
+            }
+        });
+    }
+
+    private initGrandChildren() {
+        this.listItemGrandChildSelectors.forEach((listItemGrandChildSelector: string) => {
             try {
                 const listGrandChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemGrandChildSelector}`);
                 this.listItemGrandChildElementsMap[listItemGrandChildSelector] = listGrandChildElement;
@@ -192,6 +209,12 @@ export class SidenavElement extends PageElement {
         this.getListItem(selector).click();
         this.fixture.detectChanges();
         await this.fixture.whenStable();
+
+        // try initializing children/grandchildren in case this is first time
+        // element is expanded; TODO probably keep track of expanded items and
+        // only do this as needed
+        this.initChildren();
+        this.initGrandChildren();
     }
 
     /**

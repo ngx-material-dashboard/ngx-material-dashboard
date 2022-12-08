@@ -231,81 +231,124 @@ describe('SidenavComponent', () => {
     });
 
     describe('Sidenavitems with children', () => {
-        const children: SidenavItem[] = [
+        const children1: SidenavItem[] = [
             { route: ['1'], selector: '1', text: '1'},
             { route: ['2'], selector: '2', text: '2', queryParams: { status: 'Pending' }},
             { route: ['3'], selector: '3', text: '3'}
         ];
-        const sidenavItems: SidenavItem[] = [{ children: children, selector: 'requests', text: 'Requests' }];
+        const children2: SidenavItem[] = [
+            { route: ['4'], selector: '4', text: '4'}
+        ];
+        const sidenavItems: SidenavItem[] = [
+            { children: children1, selector: 'requests', text: 'Requests' },
+            { children: children2, selector: 'results', text: 'Results'}
+        ];
 
-        beforeEach(() => {
-            mockRouter = {
-                events: of({}),
-                navigate(): void {},
-                url: '/requests/1'
-            }
-            init(mockRouter);
+        describe('SidenavItem with children active', () => {
 
-            fixture = TestBed.createComponent(SidenavComponent);
-            component = fixture.componentInstance;
-            component.sidenavItems = sidenavItems;
-            fixture.detectChanges();
+            beforeEach(() => {
+                mockRouter = {
+                    events: of({}),
+                    navigate(): void {},
+                    url: '/requests/1'
+                }
+                init(mockRouter);
+    
+                fixture = TestBed.createComponent(SidenavComponent);
+                component = fixture.componentInstance;
+                component.sidenavItems = sidenavItems;
+                fixture.detectChanges();
 
-            pageElement = new SidenavElement(fixture, ['requests'], ['1', '2', '3']);
+                pageElement = new SidenavElement(fixture, ['requests', 'results'], ['1', '2', '3', '4']);
+            });
+    
+            it('should expand parent sidenavItem and highlight child', () => {
+                // expect: there should only be one highlighted sidenav item
+                const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
+                expect(selectedSidenavItemElements.length).toEqual(1);
+    
+                // and: the active sidenavItem content should match the current sidenavItem
+                expect(pageElement.isListItemActive('1')).toEqual(true);
+    
+                // and: the parent should be expanded (i.e. have angle down icon)
+                expect(pageElement.isListItemExpanded('requests')).toEqual(true);
+            });
+    
+            it('should close parent when sidenavItem is clicked', () => {
+                // when: the button is clicked
+                pageElement.clickListItem('requests');
+    
+                // then: the parent should be collapsed (i.e. have angle right icon)
+                expect(pageElement.isListItemExpanded('requests')).toEqual(false);
+            });
+    
+            it('should navigate to 2nd child when sidenavItem is clicked', async() => {
+                // given: a spy on the navigate function
+                const spy = spyOn(mockRouter, 'navigate');
+    
+                // when: the button is clicked
+                await pageElement.clickListItem('2');
+    
+                // then: the navigate function should have been called
+                expect(spy).toHaveBeenCalled();
+            });
+    
+            it('should navigate to 3rd child when sidenavItem is clicked', async() => {
+                // given: a spy on the navigate function
+                const spy = spyOn(mockRouter, 'navigate');
+    
+                // when: the button is clicked
+                await pageElement.clickListItem('3');
+    
+                // then: the navigate function should have been called
+                expect(spy).toHaveBeenCalled();
+            });
+    
+            it('should return false for isToggled when given item index does not exist', () => {
+                expect(component.isToggled(-1)).toBeFalse();
+            });
         });
 
-        it('should expand parent sidenavItem and highlight child', () => {
-            // expect: there should only be one highlighted sidenav item
-            const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
-            expect(selectedSidenavItemElements.length).toEqual(1);
+        describe('SidenavItem without children active', () => {
 
-            // and: the active sidenavItem content should match the current sidenavItem
-            expect(pageElement.isListItemActive('1')).toEqual(true);
+            beforeEach(() => {
+                mockRouter = {
+                    events: of({}),
+                    navigate(): void {},
+                    url: '/results'
+                }
+                init(mockRouter);
+    
+                fixture = TestBed.createComponent(SidenavComponent);
+                component = fixture.componentInstance;
+                component.sidenavItems = sidenavItems;
+                fixture.detectChanges();
+    
+                pageElement = new SidenavElement(fixture, ['requests', 'results'], ['1', '2', '3', '4']);
+            });
 
-            // and: the parent should be expanded (i.e. have angle down icon)
-            expect(pageElement.isListItemExpanded('requests')).toEqual(true);
-        });
-
-        it('should close parent when sidenavItem is clicked', () => {
-            // when: the button is clicked
-            pageElement.clickListItem('requests');
-
-            // then: the parent should be collapsed (i.e. have angle right icon)
-            expect(pageElement.isListItemExpanded('requests')).toEqual(false);
-        });
-
-        it('should navigate to 2nd child when sidenavItem is clicked', async() => {
-            // given: a spy on the navigate function
-            const spy = spyOn(mockRouter, 'navigate');
-
-            // when: the button is clicked
-            await pageElement.clickListItem('2');
-
-            // then: the navigate function should have been called
-            expect(spy).toHaveBeenCalled();
-        });
-
-        it('should navigate to 3rd child when sidenavItem is clicked', async() => {
-            // given: a spy on the navigate function
-            const spy = spyOn(mockRouter, 'navigate');
-
-            // when: the button is clicked
-            await pageElement.clickListItem('3');
-
-            // then: the navigate function should have been called
-            expect(spy).toHaveBeenCalled();
-        })
-
-        it('should return false for isToggled when given item index does not exist', () => {
-            expect(component.isToggled(-1)).toBeFalse();
+            it('should expand results item by default', () => {
+                expect(pageElement.isListItemExpanded('results')).toBeTrue();
+            });
         });
     });
 
     describe('Sidenavitems with grand children', () => {
         const grandChildren1: SidenavItem[] = [{ route: ['1', 'g1'], selector: 'g1', text: 'g1' }, { route: ['1', 'g11'], selector: 'g11', text: 'g11', queryParams: { status: 'Pending' }}];
         const grandChildren2: SidenavItem[] = [{ route: ['2', 'g2'], selector: 'g2', text: 'g2' }, { route: ['2', 'g22'], selector: 'g22', text: 'g22', queryParams: { status: 'Pending' }}];
-        const children: SidenavItem[] = [{ selector: '1', text: '1', children: grandChildren1 }, { selector: '2', text: '2', children: grandChildren2 }];
-        const sidenavItems: SidenavItem[] = [{ children: children, selector: 'requests', text: 'Requests' }];
+        const grandChildren3: SidenavItem[] = [{ route: ['3', 'g2'], selector: 'g3', text: 'g3'}];
+        const children1: SidenavItem[] = [
+            { selector: '1', text: '1', children: grandChildren1 },
+            { selector: '2', text: '2', children: grandChildren2 }
+        ];
+        const children2: SidenavItem[] = [
+            { selector: '3', text: '3', children: grandChildren3 },
+            { route: ['4'], selector: '4', text: '4' }
+        ];
+        const sidenavItems: SidenavItem[] = [
+            { children: children1, selector: 'requests', text: 'Requests' },
+            { children: children2, selector: 'results', text: 'Results'}
+        ];
 
         describe('Route ends at grandChild (i.e. no sub routes)', () => {
 
@@ -322,10 +365,15 @@ describe('SidenavComponent', () => {
                 component.sidenavItems = sidenavItems;
                 fixture.detectChanges();
     
-                pageElement = new SidenavElement(fixture, ['requests'], ['1', '2'], ['g1', 'g11', 'g2', 'g22']);
+                pageElement = new SidenavElement(
+                    fixture,
+                    ['requests', 'results'],
+                    ['1', '2', '3', '4'],
+                    ['g1', 'g11', 'g2', 'g22', 'g3']
+                );
             });
 
-            it('should expand parent sidenavItem and highlight child', () => {
+            it('should expand parent sidenavItem and highlight child by default', () => {
                 // expect: there should only be one highlighted sidenav item
                 const selectedSidenavItemElements: HTMLElement[] = pageElement.queryAll('.selected-list-item');
                 expect(selectedSidenavItemElements.length).toEqual(1);
@@ -345,6 +393,19 @@ describe('SidenavComponent', () => {
 
             it('should return false for isChildToggled when given childItemIndex undefined', () => {
                 expect(component.isChildToggled(0, -1)).toBeFalse();
+            });
+
+            it('should expand results sidenavItem when it is clicked', () => {
+                pageElement.clickListItem('results');
+
+                expect(pageElement.isListItemExpanded('results')).toBeTrue();
+            });
+
+            it('should expand child item 3 when it is clicked', async() => {
+                await pageElement.clickListItem('results');
+                await pageElement.clickListItem('3');
+
+                expect(pageElement.isListItemExpanded('3')).toBeTrue();
             });
         });
 

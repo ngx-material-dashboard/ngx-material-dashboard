@@ -129,4 +129,18 @@ describe('PagedCollectionWithToolbarComponent', () => {
             expect(spy).toHaveBeenCalledWith({ click: 'create' });
         });
     });
+
+    it('should return null for paginator if paginator$ undefined', () => {
+        component.pagedListWithToolbar.paginator$ = undefined;
+        fixture.detectChanges();
+
+        expect(component.pagedListWithToolbar.paginator).toBeNull();
+    });
+
+    it('should return undefined for sort if sort undefined', () => {
+        component.pagedListWithToolbar.sort$ = undefined;
+        fixture.detectChanges();
+
+        expect(component.pagedListWithToolbar.sort).toBeUndefined();
+    });
 });

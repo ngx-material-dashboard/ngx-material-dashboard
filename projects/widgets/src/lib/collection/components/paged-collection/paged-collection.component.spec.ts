@@ -111,6 +111,6 @@ describe('PagedCollectionComponent', () => {
             fixture.detectChanges();
 
             expect(component.pagedList.paginator).toBeNull();
-        })
+        });
     });
 });
