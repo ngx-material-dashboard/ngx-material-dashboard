@@ -231,7 +231,11 @@ describe('SidenavComponent', () => {
     });
 
     describe('Sidenavitems with children', () => {
-        const children: SidenavItem[] = [{ route: ['1'], selector: '1', text: '1'}, { route: ['2'], selector: '2', text: '2', queryParams: { status: 'Pending' }}];
+        const children: SidenavItem[] = [
+            { route: ['1'], selector: '1', text: '1'},
+            { route: ['2'], selector: '2', text: '2', queryParams: { status: 'Pending' }},
+            { route: ['3'], selector: '3', text: '3'}
+        ];
         const sidenavItems: SidenavItem[] = [{ children: children, selector: 'requests', text: 'Requests' }];
 
         beforeEach(() => {
@@ -247,7 +251,7 @@ describe('SidenavComponent', () => {
             component.sidenavItems = sidenavItems;
             fixture.detectChanges();
 
-            pageElement = new SidenavElement(fixture, ['requests'], ['1', '2']);
+            pageElement = new SidenavElement(fixture, ['requests'], ['1', '2', '3']);
         });
 
         it('should expand parent sidenavItem and highlight child', () => {
@@ -279,6 +283,21 @@ describe('SidenavComponent', () => {
 
             // then: the navigate function should have been called
             expect(spy).toHaveBeenCalled();
+        });
+
+        it('should navigate to 3rd child when sidenavItem is clicked', async() => {
+            // given: a spy on the navigate function
+            const spy = spyOn(mockRouter, 'navigate');
+
+            // when: the button is clicked
+            await pageElement.clickListItem('3');
+
+            // then: the navigate function should have been called
+            expect(spy).toHaveBeenCalled();
+        })
+
+        it('should return false for isToggled when given item index does not exist', () => {
+            expect(component.isToggled(-1)).toBeFalse();
         });
     });
 
@@ -322,6 +341,10 @@ describe('SidenavComponent', () => {
 
                 // and the parent's sibling should not be expanded
                 expect(pageElement.isListItemExpanded('2')).toEqual(false);
+            });
+
+            it('should return false for isChildToggled when given childItemIndex undefined', () => {
+                expect(component.isChildToggled(0, -1)).toBeFalse();
             });
         });
 

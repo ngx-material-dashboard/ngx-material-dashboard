@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { Subscription } from 'rxjs';
+import { catchError, map, Subscription, tap, throwError } from 'rxjs';
 
 import { PagedCollectionComponent } from '../../collection/components/paged-collection/paged-collection.component';
 import { RemoteDataSource } from '../../collection/services/remote-data-source.service';
@@ -21,6 +21,10 @@ export class SearchFilterDirective<T extends JsonModel>
                 // set dataSource filter based on values entered on searchFilter
                 const searchFilterData = this.form.get('searchFilter') as FormGroup;
                 this.collection.dataSource.filter = this.buildSearchFilter(searchFilterData);
+                
+                // emit the filter in case parent components want to handle themselves
+                // TODO settle on whether parent component handles filter or it is done
+                // here
                 this.searchClick.emit(this.collection.dataSource.filter);
 
                 if (this.collection.dataSource instanceof RemoteDataSource) {
@@ -28,7 +32,7 @@ export class SearchFilterDirective<T extends JsonModel>
                     this.collection.dataSource.refresh();
                 } else {
                     // TODO handle local dataSource
-                    throw Error('Local datasource not yet handled');
+                    this.throwError();
                 }
             });
             this.sub.add(sub);
@@ -73,5 +77,9 @@ export class SearchFilterDirective<T extends JsonModel>
 
     ngOnDestroy(): void {
         this.sub.unsubscribe();
+    }
+
+    throwError(): void {
+        throw new Error('Local datasource not yet handled');
     }
 }

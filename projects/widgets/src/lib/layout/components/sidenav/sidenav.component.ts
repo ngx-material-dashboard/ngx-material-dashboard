@@ -231,7 +231,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
      */
     isChildToggled(i: number, iChild: number) {
         const children = this.toggle[i].children;
-        if (children) {
+        if (children && children[iChild]) {
             return children[iChild];
         } else {
             return false;

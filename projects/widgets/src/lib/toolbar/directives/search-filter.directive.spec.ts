@@ -62,6 +62,7 @@ import { SearchFilterDirective } from './search-filter.directive';
 class SearchFilterDirectiveTestComponent implements OnInit {
 
     @ViewChild('pagedCollectionWithToolbar') pagedCollection!: PagedListWithRaisedButtonsBarComponent<DummyObject>;
+    @ViewChild(SearchFilterDirective) directive!: SearchFilterDirective<DummyObject>;
     filterCmp!: FilterDropDownComponent;
     collectionCmp!: PagedListComponent<DummyObject> | CollectionComponent<DummyObject>;
     data: DummyObject[] | RemoteDataSource<DummyObject> = [];
@@ -142,6 +143,22 @@ describe('SearchFilterDirective', () => {
         const spy = spyOn(component, 'onSearchClick').and.callThrough();
         filterDropDown.clickButton('.marker-button-search');
 
+        expect(spy).toHaveBeenCalled();
+    });
+
+    it('should throw an error when data is local data', () => {
+        // given: a spy on the throwError method in the directive
+        const spy = spyOn(component.directive, 'throwError').and.callThrough();
+
+        // and: some component data
+        component.data = TEST_DATA;
+        fixture.detectChanges();
+
+        // when: the search button is clicked
+        filterDropDown.clickButton('.marker-button-search');
+        fixture.detectChanges();
+
+        // then: the throwError method should have been called
         expect(spy).toHaveBeenCalled();
     });
 });

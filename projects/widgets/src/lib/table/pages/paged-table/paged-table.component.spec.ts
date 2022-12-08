@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
@@ -190,6 +190,18 @@ describe('PagedTableComponent', () => {
                     // then: the paginator range label should update to next page
                     expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
                 });
+
+                it('should initialize dataSource with MatTableDataSource', () => {
+                    // given: a MatTableDataSource
+                    const datasource = new MatTableDataSource(TEST_DATA);
+
+                    // when: the data is set
+                    page.fixture.componentInstance.data = datasource;
+                    page.fixture.detectChanges();
+
+                    // expect: table dataSource to be MatTableDataSource
+                    expect(page.fixture.componentInstance.table.dataSource).toEqual(datasource);
+                })
             });
     
             describe('Multi-select Enabled', () => {
