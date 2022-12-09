@@ -86,10 +86,6 @@ describe('DefaultLayoutComponent', () => {
             page = new DefaultLayoutPage(fixture);
         });
     
-        it('should create', () => {
-            expect(component).toBeTruthy();
-        });
-    
         it('should render ngx-material-dashboard-header', () => {
             expect(page.query('ngx-material-dashboard-header')).toBeDefined();
         });
@@ -109,7 +105,7 @@ describe('DefaultLayoutComponent', () => {
         it('should not render any sidenav items by default', () => {
             expect(page.sidenav.listItemsLength).toEqual(0);
         });
-    
+
         it('should toggle the sidenav when the bars button is clicked', async() => {
             // given: a spy on the sidenav toggle method
             const spy = spyOn(component.sidenav, 'toggle');
@@ -119,6 +115,9 @@ describe('DefaultLayoutComponent', () => {
     
             // then: the sidenav toggle function should have been called
             expect(spy).toHaveBeenCalled();
+
+            // and: the opened getter should return true
+            expect(component.opened).toBeTrue();
         });
     });
 

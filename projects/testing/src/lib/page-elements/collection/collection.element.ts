@@ -181,7 +181,7 @@ export class CollectionElement extends PageElement {
     /**
      * Returns the checkbox for selecting all visible items.
      */
-     get selectAllCheckbox(): CheckboxElement {
+    get selectAllCheckbox(): CheckboxElement {
         const element: HTMLElement = this.query<HTMLElement>('.marker-checkbox-select-all', this.collectionElement);
         return new CheckboxElement(this.fixture, element);
     }

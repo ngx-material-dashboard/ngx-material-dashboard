@@ -58,10 +58,10 @@ export class DefaultLayoutComponent {
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
     /**
-     * Returns true if mode is "rail."
+     * Returns true if sidenav is opened.
      */
     get opened(): boolean {
-        return this.mode === 'rail';
+        return this.sidenav.opened;
     }
 
     /**
@@ -77,6 +77,7 @@ export class DefaultLayoutComponent {
      * Toggles the sidenav.
      */
     toggleSidenav(): void {
+        this.sidenav.opened = !this.sidenav.opened;
         this.sidenav.toggle();
     }
 }

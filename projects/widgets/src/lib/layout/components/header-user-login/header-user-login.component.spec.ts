@@ -69,6 +69,17 @@ describe('HeaderUserLoginComponent', () => {
             expect(page.query('.marker-login-button')).toBeDefined();
         });
 
+        it('should call login method when login button clicked', () => {
+            // given: a spy on the login function
+            const spy = spyOn(component, 'login').and.callThrough();
+
+            // when: the login button clicked
+            page.query<HTMLButtonElement>('.marker-login-button').click();
+
+            // then: the login function should have been called
+            expect(spy).toHaveBeenCalled();
+        });
+
         // it('should call the authService.login function when login button clicked', () => {
         //     // given: a spy on the authService login function
         //     const spy = spyOn(service, 'login');
