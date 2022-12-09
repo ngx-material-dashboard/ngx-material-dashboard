@@ -407,6 +407,23 @@ describe('SidenavComponent', () => {
 
                 expect(pageElement.isListItemExpanded('3')).toBeTrue();
             });
+
+            it('should call selectGrandChild when grandchild item clicked', async() => {
+                // given: a spy on the selectGrandChild method
+                const spy = spyOn(component, 'selectGrandChild').and.callThrough();
+
+                // when: the g11 grandchild is clicked
+                await pageElement.clickListItem('g11');
+
+                // then: the spy should have been called
+                expect(spy).toHaveBeenCalled();
+
+                // when: the g1 granchilc is clicked
+                await pageElement.clickListItem('g1');
+
+                // then: the spy should have been called
+                expect(spy).toHaveBeenCalled();
+            });
         });
 
         describe('Route ends after grandChild (i.e. sub routes from tabs or something)', () => {
@@ -464,7 +481,6 @@ function init(mockRouter: any, queryParams: any = {}): void {
             MockModule(MatSidenavModule),
             MockModule(FontAwesomeModule)
         ],
-        providers,
-        
+        providers
     });
 }
