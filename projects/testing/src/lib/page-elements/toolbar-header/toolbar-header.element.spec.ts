@@ -21,19 +21,44 @@ describe('ToolbarElement', () => {
 
     let toolbarElement: ToolbarHeaderElement;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [ToolbarComponent],
-            imports: [
-                MockModule(MatToolbarModule)
-            ]
+    describe('Without buttonSelectors', () => {
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [ToolbarComponent],
+                imports: [
+                    MockModule(MatToolbarModule)
+                ]
+            });
+        
+            const fixture = TestBed.createComponent(ToolbarComponent);
+            toolbarElement = new ToolbarHeaderElement(fixture);
         });
     
-        const fixture = TestBed.createComponent(ToolbarComponent);
-        toolbarElement = new ToolbarHeaderElement(fixture);
+        it('should return "My App" for logo', () => {
+            expect(toolbarElement.logo).toEqual('My App');
+        });
+
+        it('should not initialize filterDropDown property', () => {
+            expect(toolbarElement.filterDropDown).toBeUndefined();
+        });
     });
 
-    it('should return "My App" for logo', () => {
-        expect(toolbarElement.logo).toEqual('My App');
+    describe('With buttonSelectors', () => {
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [ToolbarComponent],
+                imports: [
+                    MockModule(MatToolbarModule)
+                ]
+            });
+        
+            const fixture = TestBed.createComponent(ToolbarComponent);
+            toolbarElement = new ToolbarHeaderElement(fixture, ['.marker-bars-button']);
+        });
+    
+        it('should initialize filterDropDown property', () => {
+            expect(toolbarElement.filterDropDown).toBeDefined();
+        });
     });
 });

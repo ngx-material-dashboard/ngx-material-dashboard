@@ -34,7 +34,7 @@ export class IconButtonsWithPaginatorBarElement extends ToolbarElement {
         if (this.selectAllCheckbox) {
             return this.selectAllCheckbox.checked;
         } else {
-            throw Error('');
+            throw Error('Select all checkbox undefined');
         }
     }
 }
