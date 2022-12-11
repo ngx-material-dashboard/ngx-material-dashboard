@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -86,16 +87,17 @@ import { PagedCollectionWithToolbarElement } from './paged-collection-with-toolb
     </div>
     `
 }) class TestPagedCollectionWithRaisedButtonsBarComponent {
-
+    models: DummyObject[] = TEST_DATA;
 }
 
 describe('PagedCollectionWithToolbarElement', () => {
 
-    let fixture: ComponentFixture<TestPagedCollectionWithIconToolbarComponent>;
-    let component: TestPagedCollectionWithIconToolbarComponent;
     let element: PagedCollectionWithToolbarElement;
 
     describe('Icon Toolbar with Paginator', () => {
+
+        let fixture: ComponentFixture<TestPagedCollectionWithIconToolbarComponent>;
+        let component: TestPagedCollectionWithIconToolbarComponent;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -103,6 +105,7 @@ describe('PagedCollectionWithToolbarElement', () => {
                     TestPagedCollectionWithIconToolbarComponent
                 ],
                 imports: [
+                    CommonModule,
                     MatCheckboxModule,
                     MatPaginatorModule,
                     NoopAnimationsModule
@@ -131,21 +134,25 @@ describe('PagedCollectionWithToolbarElement', () => {
 
     describe('Rasied Button Toolbar', () => {
 
+        let fixture: ComponentFixture<TestPagedCollectionWithRaisedButtonsBarComponent>;
+        let component: TestPagedCollectionWithRaisedButtonsBarComponent;
+
         describe('Default constructor properties', () => {
 
             beforeEach(() => {
                 TestBed.configureTestingModule({
                     declarations: [
-                        TestPagedCollectionWithIconToolbarComponent
+                        TestPagedCollectionWithRaisedButtonsBarComponent
                     ],
                     imports: [
+                        CommonModule,
                         MatCheckboxModule,
                         MatPaginatorModule,
                         NoopAnimationsModule
                     ]
                 });
         
-                fixture = TestBed.createComponent(TestPagedCollectionWithIconToolbarComponent);
+                fixture = TestBed.createComponent(TestPagedCollectionWithRaisedButtonsBarComponent);
                 component = fixture.componentInstance;
                 fixture.detectChanges();
 
@@ -171,16 +178,17 @@ describe('PagedCollectionWithToolbarElement', () => {
             beforeEach(() => {
                 TestBed.configureTestingModule({
                     declarations: [
-                        TestPagedCollectionWithIconToolbarComponent
+                        TestPagedCollectionWithRaisedButtonsBarComponent
                     ],
                     imports: [
+                        CommonModule,
                         MatCheckboxModule,
                         MatPaginatorModule,
                         NoopAnimationsModule
                     ]
                 });
-        
-                fixture = TestBed.createComponent(TestPagedCollectionWithIconToolbarComponent);
+
+                fixture = TestBed.createComponent(TestPagedCollectionWithRaisedButtonsBarComponent);
                 component = fixture.componentInstance;
                 fixture.detectChanges();
 
