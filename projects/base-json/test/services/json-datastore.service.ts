@@ -33,9 +33,8 @@ export class JsonDatastore extends BaseJsonDatastore {
 
     protected extractQueryData<T extends JsonModel>(
         response: HttpResponse<object>,
-        modelType: ModelType<T>,
-        withMeta = false
-    ): Array<T> | JsonApiQueryData<T> {
+        modelType: ModelType<T>
+    ): JsonApiQueryData<T> {
         const body: any = response.body;
         const models: T[] = [];
 
@@ -45,11 +44,7 @@ export class JsonDatastore extends BaseJsonDatastore {
             models.push(model);
         });
 
-        if (withMeta && withMeta === true) {
-            return new JsonApiQueryData(models, this.parseMeta(body, modelType));
-        }
-
-        return models;
+        return new JsonApiQueryData(models, this.parseMeta(body, modelType));
     }
 
     protected extractRecordData<T extends JsonModel>(

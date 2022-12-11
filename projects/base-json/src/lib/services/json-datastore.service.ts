@@ -281,9 +281,8 @@ export abstract class JsonDatastore {
      */
     protected abstract extractQueryData(
          response: HttpResponse<object>,
-         modelType: ModelType<any>,
-         withMeta?: boolean
-    ): Array<any> | JsonApiQueryData<any>;
+         modelType: ModelType<any>
+    ): JsonApiQueryData<any>;
  
     /**
      * Parses and extracts record data from the given HTTP response body for a
@@ -324,7 +323,7 @@ export abstract class JsonDatastore {
         const url = this.buildUrl(modelType, params, undefined, customUrl);
         return this.httpClient.get<any>(url, requestOptions).pipe(
             map((res: any) => {
-                return this.extractQueryData(res, modelType, true) as JsonApiQueryData<T>;
+                return this.extractQueryData(res, modelType);
             }),
             catchError((res: any) => this.handleError(res))
         );
