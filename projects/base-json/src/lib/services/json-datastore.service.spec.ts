@@ -284,10 +284,10 @@ describe('JsonDatastoreService', () => {
 
     describe('findRecord', () => {
 
-        // beforeEach(() => {
-        //     datastore = new Datastore(TestBed.inject(HttpClient));
-        //     httpMock = TestBed.inject(HttpTestingController);
-        // });
+        beforeEach(() => {
+            datastore = new Datastore(TestBed.inject(HttpClient));
+            httpMock = TestBed.inject(HttpTestingController);
+        });
 
         it('should get task', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/tasks/${TASK_ID}`;
