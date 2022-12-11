@@ -669,6 +669,28 @@ describe('JsonDatastoreService', () => {
                 name: 'Potter'
             });
         });
+
+        it('should include meta transition in body when update called with transition', () => {
+            const expectedUrl = `${BASE_URL}/${API_VERSION}/authors/${AUTHOR_ID}`;
+            const author = new Author(datastore, {
+                id: AUTHOR_ID,
+                date_of_birth: parseISO(AUTHOR_BIRTH),
+                name: AUTHOR_NAME
+            });
+
+            datastore.updateRecord(author, 'specialTransition').subscribe();
+
+            httpMock.expectNone(`${BASE_URL}/${API_VERSION}/authors`);
+            const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
+            const obj = saveRequest.request.body;
+
+            expect(obj.meta.transition).toEqual('specialTransition');
+
+            saveRequest.flush({
+                id: obj.id,
+                name: 'Potter'
+            });
+        });
     });
     //     it('should remove empty ToMany-relationships', () => {
     //         const expectedUrl = `${BASE_URL}/${API_VERSION}/authors/${AUTHOR_ID}`;
