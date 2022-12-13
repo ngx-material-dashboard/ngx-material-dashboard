@@ -86,10 +86,12 @@ export class JsonApiDatastore extends JsonDatastore {
         return new modelType(this, data);
     }
 
-    public serializeModel(model: any, attributesMetadata?: any, transition?: string, includeRelationships?: boolean): any {
-        if (!attributesMetadata) {
-            attributesMetadata = Reflect.getMetadata('Attribute', model);
-        }
+    public serializeModel(
+        model: any,
+        attributesMetadata: any,
+        transition?: string,
+        includeRelationships?: boolean
+    ): any {
         const modelConfig: ModelConfig = model.modelConfig;
         const typeName: string = modelConfig.type;
         const relationships: any = this.getRelationships(model);
