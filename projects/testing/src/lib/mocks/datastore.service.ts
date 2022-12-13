@@ -89,8 +89,8 @@ export class Datastore extends JsonDatastore {
         
     }
 
-    protected extractQueryData(response: HttpResponse<object>, modelType: ModelType<any>, withMeta?: boolean): any[] | JsonApiQueryData<any> {
-        return [];
+    protected extractQueryData(response: HttpResponse<object>, modelType: ModelType<any>, withMeta?: boolean): JsonApiQueryData<any> {
+        return new JsonApiQueryData([]);
     }
 
     protected extractRecordData(res: HttpResponse<object>, modelType: ModelType<any>, model?: any) {
