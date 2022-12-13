@@ -3,7 +3,6 @@ export * from './collection/components/paged-collection/paged-collection.compone
 export * from './collection/components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';
 export * from './collection/components/paged-collection-with-raised-button-toolbar/paged-collection-with-raised-button-toolbar.component';
 export * from './collection/components/paged-collection-with-toolbar/paged-collection-with-toolbar.component';
-export * from './collection/directives/collection-button-click.directive';
 export * from './collection/enums/button-click-actions.enum';
 export * from './collection/interfaces/button.interface';
 export * from './collection/services/remote-data-source.service';
