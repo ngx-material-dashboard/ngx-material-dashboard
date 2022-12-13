@@ -91,8 +91,8 @@ export class SelectElement extends PageElement {
      * @param options the array of options available in the select menu
      * @param key the key of the 'mat-option' to select
      */
-    selectOptionByKey(options: HTMLElement[], key: string) {
-        options.forEach((option: HTMLElement) => {
+    selectOptionByKey(key: string) {
+        this.options.forEach((option: HTMLElement) => {
             if (option.innerText.trim() === key) {
                 this.selectOption(option);
             }

@@ -59,11 +59,30 @@ describe('SelectElement', () => {
         selectElement.initOptions();
     }));
 
-    it('should return selected value', fakeAsync(() => {
+    it('should select option by index', fakeAsync(() => {
         // when: an option is selected
         selectElement.select(0);
 
-        // then: the value returned should match expected value
+        // then: the select value should match expected value
         expect(selectElement.value).toEqual('Batman');
-    }));  
+    }));
+
+    it('should select option by HTMLElement', fakeAsync(() => {
+        // given: HTMLElement for option
+        const option = selectElement.options[0];
+
+        // when: selectOption called with given option
+        selectElement.selectOption(option);
+
+        // then: the select value should match expected value
+        expect(selectElement.value).toEqual('Batman');
+    }));
+
+    it('should select option by text', fakeAsync(() => {
+        // when: selectOptionByKey called
+        selectElement.selectOptionByKey('Batman');
+
+        // then: the select value should match expected value
+        expect(selectElement.value).toEqual('Batman');
+    }));
 });
