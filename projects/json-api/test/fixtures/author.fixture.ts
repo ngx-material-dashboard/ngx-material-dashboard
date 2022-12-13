@@ -4,6 +4,8 @@ import { getSampleSection } from './section.fixture';
 import { getSampleParagraph } from './paragraph.fixture';
 import { getSampleSentence } from './sentence.fixture';
 import { getSampleCategory } from './category.fixture';
+import { getSampleEBook } from './e-book.fixture';
+import { getSampleEChapter } from './e-chapter.fixture';
 
 export const AUTHOR_ID = '1';
 export const AUTHOR_NAME = 'J. R. R. Tolkien';
@@ -36,6 +38,12 @@ export function getAuthorData(relationship?: string, total: number = 0): any {
                         self: '/v1/authors/1/relationships/books',
                         related: '/v1/authors/1/books'
                     }
+                },
+                ebooks: {
+                    links: {
+                        self: '/v1/authors/1/relationships/e-books',
+                        related: '/v1/authors/1/e-books'
+                    }
                 }
             },
             links: {
@@ -50,6 +58,17 @@ export function getAuthorData(relationship?: string, total: number = 0): any {
             response.relationships.books.data.push({
                 id: '' + i,
                 type: 'books'
+            });
+        }
+    }
+
+    if (relationship && relationship.indexOf('e-books') !== -1) {
+        response.relationships.ebooks.data = [];
+
+        for (let i = 1; i <= total; i++) {
+            response.relationships.ebooks.data.push({
+                id: '' + i,
+                type: 'e-books'
             });
         }
     }
@@ -115,6 +134,24 @@ export function getIncludedBooks(totalBooks: number, relationship?: string, tota
             }
         }
 
+        if (relationship && relationship.indexOf('books.firstEChapter') !== -1) {
+            const firstChapterId = '1';
+
+            book.relationships['first-e-chapter'] = {
+                data: {
+                id: firstChapterId,
+                    type: 'e-chapters'
+                }
+            };
+
+            const findFirstChapterInclude = responseArray.find((chapter) => chapter.id === firstChapterId);
+
+            if (!findFirstChapterInclude) {
+                const chapter = getSampleEChapter(i, `${firstChapterId}`, CHAPTER_TITLE);
+                responseArray.push(chapter);
+            }
+        }
+
         if (relationship && relationship.indexOf('books.firstChapter.firstSection') !== -1) {
             const section = getSampleSection('1', '1');
             responseArray.push(section);
@@ -133,3 +170,14 @@ export function getIncludedBooks(totalBooks: number, relationship?: string, tota
 
     return responseArray;
 }
+
+export function getIncludedEBooks(totalBooks: number, relationship?: string, totalChapters: number = 0): any[] {
+    const responseArray: any[] = [];
+
+    for (let i = 1; i <= totalBooks; i++) {
+        const book: any = getSampleEBook(i, AUTHOR_ID, CATEGORY_ID);
+        responseArray.push(book);
+    }
+
+    return responseArray;
+}    

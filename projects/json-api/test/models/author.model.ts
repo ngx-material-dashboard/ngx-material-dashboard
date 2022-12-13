@@ -5,6 +5,7 @@ import { HasMany } from '@ngx-material-dashboard/json-api/src/lib/decorators/has
 import { Book } from './book.model';
 import { PageMetaData } from './page-meta-data';
 import { School } from './school.model';
+import { EBook } from './e-book.model';
 
 @JsonApiModelConfig({
     type: 'authors',
@@ -33,6 +34,9 @@ export class Author extends JsonApiModel {
 
     @HasMany()
     books?: Book[];
+
+    @HasMany()
+    ebooks?: EBook[];
 
     @NestedAttribute({converter: new JsonModelConverter<any>(School)})
     school?: School;

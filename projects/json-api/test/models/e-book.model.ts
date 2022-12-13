@@ -6,12 +6,11 @@ import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json
 import { JsonApiModel } from '@ngx-material-dashboard/json-api/src/lib/models/json-api.model';
 import { HasMany } from '@ngx-material-dashboard/json-api/src/lib/decorators/has-many.decorator';
 import { BelongsTo } from '@ngx-material-dashboard/json-api/src/lib/decorators/belongs-to.decorator';
-import { EChapter } from './e-chapter.model';
 
 @JsonApiModelConfig({
-  type: 'books'
+  type: 'e-books'
 })
-export class Book extends JsonApiModel {
+export class EBook extends JsonApiModel {
 
     @Attribute()
     title?: string;
@@ -33,9 +32,6 @@ export class Book extends JsonApiModel {
 
     @BelongsTo({key: 'first-chapter'})
     firstChapter?: Chapter;
-
-    @BelongsTo({key: 'first-e-chapter'})
-    firstEChapter?: EChapter;
 
     @BelongsTo()
     author?: Author;

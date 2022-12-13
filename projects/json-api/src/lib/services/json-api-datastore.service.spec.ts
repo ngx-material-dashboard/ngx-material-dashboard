@@ -351,6 +351,50 @@ describe('JsonApiDatastore', () => {
             }, {status: 201, statusText: 'Created'});
         });
 
+        it('should save record with meta data', () => {
+            const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
+            const author = datastore.createRecord(Author, {
+                name: AUTHOR_NAME,
+                date_of_birth: AUTHOR_BIRTH
+            });
+
+            datastore.saveRecordWithMetaData(
+                author,
+                {},
+                {
+                    data: 'I am meta data'
+                }
+            ).subscribe((val: Author) => {
+                expect(val.id).toBeDefined();
+                expect(val.id).toEqual(AUTHOR_ID);
+            });
+
+            httpMock.expectNone(`${BASE_URL}/${API_VERSION}`);
+            const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
+            const obj = saveRequest.request.body.data;
+            expect(obj.attributes).toBeDefined();
+            expect(obj.attributes.name).toEqual(AUTHOR_NAME);
+            expect(obj.attributes.dob).toEqual(parseISO(AUTHOR_BIRTH).toISOString());
+            expect(obj.id).toBeUndefined();
+            expect(obj.type).toBe('authors');
+            expect(obj.relationships).toBeUndefined();
+            const meta = saveRequest.request.body.meta;
+            expect(meta.data).toBeDefined();
+
+            saveRequest.flush({
+                meta: {
+                    data: 'I am meta data'
+                },
+                data: {
+                    id: AUTHOR_ID,
+                    type: 'authors',
+                    attributes: {
+                        name: AUTHOR_NAME,
+                    }
+                }
+            }, {status: 201, statusText: 'Created'});
+        });
+
         it('should throw error on new author with 201 response but no body', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
             const author = datastore.createRecord(Author, {

@@ -1,9 +1,9 @@
 import { BOOK_PUBLISHED, BOOK_TITLE } from './author.fixture';
 
-export function getSampleBook(i: number, authorId: string, categoryId: string = '1') {
+export function getSampleEBook(i: number, authorId: string, categoryId: string = '1') {
     return {
         id: '' + i,
-        type: 'books',
+        type: 'e-books',
         attributes: {
             date_published: BOOK_PUBLISHED,
             title: BOOK_TITLE,
@@ -13,26 +13,20 @@ export function getSampleBook(i: number, authorId: string, categoryId: string = 
         relationships: {
         chapters: {
             links: {
-                self: '/v1/books/1/relationships/chapters',
-                related: '/v1/books/1/chapters'
+                self: '/v1/e-books/1/relationships/chapters',
+                related: '/v1/e-books/1/chapters'
             }
         },
         firstChapter: {
             links: {
-                self: '/v1/books/1/relationships/firstChapter',
-                related: '/v1/books/1/firstChapter'
-            }
-        },
-        firstEChapter: {
-            links: {
-                self: '/v1/books/1/relationships/firstEChapter',
-                related: '/v1/books/1/firstEChapter'
+                self: '/v1/e-books/1/relationships/firstChapter',
+                related: '/v1/e-books/1/firstChapter'
             }
         },
         author: {
             links: {
-                self: '/v1/books/1/relationships/author',
-                related: '/v1/books/1/author'
+                self: '/v1/e-books/1/relationships/author',
+                related: '/v1/e-books/1/author'
             },
             data: {
                 id: authorId,
@@ -41,8 +35,8 @@ export function getSampleBook(i: number, authorId: string, categoryId: string = 
         },
         category: {
             links: {
-                self: '/v1/books/1/relationships/category',
-                related: '/v1/books/1/category'
+                self: '/v1/e-books/1/relationships/category',
+                related: '/v1/e-books/1/category'
             },
             data: {
                 id: categoryId,
@@ -51,7 +45,7 @@ export function getSampleBook(i: number, authorId: string, categoryId: string = 
         }
         },
         links: {
-            self: '/v1/books/1'
+            self: '/v1/e-books/1'
         }
     };
 }

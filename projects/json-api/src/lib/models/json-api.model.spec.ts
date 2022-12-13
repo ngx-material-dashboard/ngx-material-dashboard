@@ -4,9 +4,10 @@ import { parseISO } from 'date-fns';
 
 import { Datastore } from '@ngx-material-dashboard/json-api/test/datastore.service';
 import { Author } from '@ngx-material-dashboard/json-api/test/models/author.model';
-import { AUTHOR_ID, BOOK_PUBLISHED, BOOK_TITLE, CHAPTER_TITLE, getAuthorData, getIncludedBooks } from '@ngx-material-dashboard/json-api/test/fixtures/author.fixture';
+import { AUTHOR_ID, BOOK_PUBLISHED, BOOK_TITLE, CHAPTER_TITLE, getAuthorData, getIncludedBooks, getIncludedEBooks } from '@ngx-material-dashboard/json-api/test/fixtures/author.fixture';
 import { Book } from '@ngx-material-dashboard/json-api/test/models/book.model';
 import { Chapter } from '@ngx-material-dashboard/json-api/test/models/chapter.model';
+import { getSampleEBook } from '@ngx-material-dashboard/json-api/test/fixtures/e-book.fixture';
 
 describe('JsonApiModel', () => {
     let datastore: Datastore;
@@ -217,6 +218,18 @@ describe('JsonApiModel', () => {
                 }
             });
 
+            it('should throw an error when relationship model type not found', () => {
+                const BOOK_NUMBER = 4;
+                const DATA = getAuthorData('e-books', BOOK_NUMBER);
+                author = new Author(datastore, DATA);
+
+                try{
+                    author.syncRelationships(DATA, getIncludedEBooks(BOOK_NUMBER));
+                } catch(error: any) {
+                    expect(error.message).toEqual('parseHasMany - Model type for relationship e-books not found.');
+                }
+            });
+
             describe('update relationships', () => {
                 it('should return updated relationship', () => {
                     const REL = 'books';
@@ -244,6 +257,7 @@ describe('JsonApiModel', () => {
         });
 
         describe('parseBelongsTo', () => {
+            
             it('should parse the first level of belongsTo relationships', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
@@ -315,6 +329,20 @@ describe('JsonApiModel', () => {
                 
                 if (author.books && author.books[0].firstChapter && author.books[0].firstChapter.firstSection && author.books[0].firstChapter.firstSection.firstParagraph) {
                     expect(author.books[0].firstChapter.firstSection.firstParagraph.firstSentence).toBeDefined();
+                }
+            });
+
+            it('should throw error for belongsTo relationship not found', () => {
+                const REL = 'books';
+                const BOOK_NUMBER = 2;
+                const DATA = getAuthorData(REL, BOOK_NUMBER);
+                const INCLUDED = getIncludedBooks(BOOK_NUMBER, 'books.eChapters,books.firstEChapter', 5);
+
+                author = new Author(datastore, DATA);
+                try {
+                    author.syncRelationships(DATA, INCLUDED);
+                } catch (error: any) {
+                    expect(error.message).toEqual('parseBelongsTo - Model type for relationship e-chapters not found.');
                 }
             });
         });

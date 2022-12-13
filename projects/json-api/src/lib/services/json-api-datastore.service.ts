@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {
+    AttributeMetadata,
     JsonApiQueryData,
     JsonDatastore,
     ModelConfig,
@@ -12,6 +13,8 @@ import { Observable, of } from 'rxjs';
 import 'reflect-metadata';
 
 import { JsonApiModel } from '../models/json-api.model';
+
+const AttributeMetadataIndex: string = AttributeMetadata as any;
 
 /**
  * Implements methods necessary to perform all CRUD operations as defined in
@@ -62,14 +65,8 @@ export class JsonApiDatastore extends JsonDatastore {
         const url: string = this.buildUrl(modelType, params);
 
         let httpCall: Observable<HttpResponse<object>>;
-        const body: any = {
-            meta: meta,
-            data: {
-                relationships,
-                type: typeName,
-                id: model.id
-            }
-        };
+        const body: any = this.serializeModel(model, model[AttributeMetadataIndex], undefined, true);
+        body.meta = meta;
 
         httpCall = this.httpClient.post<object>(url, body, { observe: 'response' }) as Observable<HttpResponse<object>>;
         return httpCall.pipe(
