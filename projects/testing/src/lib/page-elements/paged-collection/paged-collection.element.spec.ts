@@ -34,8 +34,8 @@ import { PagedCollectionElement } from './paged-collection.element';
                 </div>
             </div>
         </div>
-        <mat-paginator [length]="length"
-            [pageSize]="pageSize"
+        <mat-paginator [length]="models.length"
+            pageSize="15"
             [pageSizeOptions]="[15, 25, 50, 75, 100]"
             #paginator>
         </mat-paginator>
