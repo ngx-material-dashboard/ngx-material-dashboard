@@ -104,4 +104,15 @@ describe('TableElement', () => {
             expect(error).toBeDefined();
         }
     });
+
+    it('should return cell element by row and column index', () => {
+        // when: the getCellByColumnIndex method is called
+        const cell = table.getCellByColumnIndex(0, 1);
+
+        // expect: the cell element to be defined
+        expect(cell).toBeDefined();
+
+        // and: the innerText should match expected value
+        expect(cell.innerText).toEqual('0');
+    });
 });

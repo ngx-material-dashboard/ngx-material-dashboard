@@ -44,6 +44,10 @@ describe('CheckboxElement', () => {
         // then: the checkbox should not be checked
         expect(checkboxElement.checked).toBeFalse();
     });
+
+    it('should return false for checkbox disabled property', () => {
+        expect(checkboxElement.disabled).toBeFalse();
+    });
 });
 
 function init(component: any, querySelector = 'div') {

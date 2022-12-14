@@ -58,6 +58,42 @@ import { SidenavElement } from './sidenav.element';
     click() : void {}
 }
 
+@Component({
+    template: `
+    <mat-nav-list>
+        <mat-list-item class="marker-list-item-button-activeParent"
+                (click)="click()">
+            <span class="marker-angle-down"></span>
+            <span fxFlex="0 0 auto" class="marker-list-item">
+                <span class="pl-2 marker-list-item-text">Active Item With Children</span>
+            </span>
+        </mat-list-item>
+        <mat-list-item class="marker-list-item-button-activeChild selected-list-item"
+                (click)="click()">
+            <span class="marker-angle-down"></span>
+            <span fxFlex="0 0 auto" class="marker-list-item pl-4">
+                <span class="pl-2 marker-list-item-text">Active Child With Grand Children</span>
+            </span>
+        </mat-list-item>
+        <mat-list-item class="marker-list-item-button-activeGrandChild selected-list-item"
+                (click)="click()">
+            <span fxFlex="0 0 auto" class="marker-list-item pl-4">
+                <span class="pl-2 marker-list-item-text">Active Grand Child</span>
+            </span>
+        </mat-list-item>
+        <mat-list-item class="marker-list-item-button-inactiveItem"
+                (click)="click()">
+            <span class="marker-angle-right"></span>
+            <span fxFlex="0 0 auto" class="marker-list-item pl-4">
+                <span class="pl-2 marker-list-item-text">Inactive Item</span>
+            </span>
+        </mat-list-item>
+    </mat-nav-list>
+    `
+}) class SidenavWithGrandChildrenComponent {
+    click() : void {}
+}
+
 describe('SidenavElement', () => {
 
     let buttonClickSpy: jasmine.Spy;
@@ -97,7 +133,7 @@ describe('SidenavElement', () => {
         // does allow for defining a sidenav without any elements, so test(s) are
         // included here for that case
         beforeEach(() => {
-            sidenavElement = init(SidenavEmptyComponent, null, null);
+            sidenavElement = init(SidenavEmptyComponent);
         });
 
         it('should create the sidenavElement', () => {
@@ -132,9 +168,47 @@ describe('SidenavElement', () => {
             expect(sidenavElement.isListItemActive('activeChild')).toBeTrue();
         });
     });
+
+    describe('SidenavItem with Grand Children', () => {
+
+        beforeEach(() => {
+            sidenavElement = init(
+                SidenavWithGrandChildrenComponent,
+                ['activeParent', 'inactiveItem'],
+                ['activeChild'],
+                ['activeGrandChild']
+            );
+            buttonClickSpy = spyOn(sidenavElement.fixture.componentInstance, 'click');
+        });
+
+        it('should have 2 main sidenav elements', () => {
+            expect(sidenavElement.listItemsLength).toEqual(2);
+        });
+
+        it('should return true when isListItemExpanded is called with activeParent', () => {
+            expect(sidenavElement.isListItemExpanded('activeParent')).toBeTrue();
+        });
+
+        it('should return false when isListItemExpanded is called with inactiveItem', () => {
+            expect(sidenavElement.isListItemExpanded('inactiveItem')).toBeFalse();
+        });
+
+        it('should return true when isListItemExpanded is called for activeChild', () => {
+            expect(sidenavElement.isListItemExpanded('activeChild')).toBeTrue();
+        });
+
+        it('should return true when isListItemActive is called for activeGrandChild', () => {
+            expect(sidenavElement.isListItemActive('activeGrandChild')).toBeTrue();
+        });
+    });
 });
 
-function init(component: any, listItemSelectors: string[] | null, listItemChildSelectors: string[] | null): SidenavElement {
+function init(
+    component: any,
+    listItemSelectors?: string[],
+    listItemChildSelectors?: string[],
+    listItemGrandChildrenSelectors?: string[]
+): SidenavElement {
     TestBed.configureTestingModule({
         declarations: [component],
         imports: [
@@ -145,7 +219,12 @@ function init(component: any, listItemSelectors: string[] | null, listItemChildS
 
     const fixture = TestBed.createComponent(component);
     if (listItemSelectors && listItemChildSelectors) {
-        return new SidenavElement(fixture, listItemSelectors, listItemChildSelectors);
+        return new SidenavElement(
+            fixture,
+            listItemSelectors,
+            listItemChildSelectors,
+            listItemGrandChildrenSelectors
+        );
     } else {
         return new SidenavElement(fixture);
     }
