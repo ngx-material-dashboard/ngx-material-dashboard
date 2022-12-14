@@ -129,17 +129,17 @@ describe('CollectionElement', () => {
             }
         });
 
-        it('should throw error when selectAll method called', () => {
+        it('should throw error when selectAll method called', async() => {
             try {
-                element.selectAll();
+                await element.selectAll();
             } catch(error: any) {
                 expect(error.message).toEqual('Collection is not selectable');
             }
         });
 
-        it('should throw error when selectItem method called', () => {
+        it('should throw error when selectItem method called', async() => {
             try {
-                element.selectItem(0);
+                await element.selectItem(0);
             } catch(error: any) {
                 expect(error.message).toEqual('Collection is not selectable');
             }
