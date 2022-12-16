@@ -5,9 +5,10 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { TEST_DATA } from '../../fixtures/dummy-object.fixture';
-import { DummyObject } from '../../mocks/dummy-object.mock';
+import { getTaskData } from '../../fixtures/task.fixture';
 import { TableElement } from './table.element';
+
+const TEST_DATA = getTaskData(20);
 
 @Component({
     template: `
@@ -31,9 +32,13 @@ import { TableElement } from './table.element';
                 </mat-checkbox>
             </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-            <mat-cell *matCellDef="let obj">{{obj.id}}</mat-cell>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let obj">{{obj.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+            <mat-cell *matCellDef="let obj">{{obj.description}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="noData">
             <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
@@ -48,8 +53,8 @@ import { TableElement } from './table.element';
     </mat-table>`
 }) class Table implements AfterViewInit {
     @ViewChild(MatSort) sort!: MatSort;
-    dataSource: MatTableDataSource<DummyObject> = new MatTableDataSource<DummyObject>(TEST_DATA);
-    displayedColumns: string[] = ['select', 'id'];
+    dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>(TEST_DATA);
+    displayedColumns: string[] = ['select', 'name', 'description'];
 
     ngAfterViewInit() {
         this.dataSource.sort = this.sort;
@@ -91,7 +96,7 @@ describe('TableElement', () => {
         const spy = spyOn(component, 'onSortChange');
 
         // when: the id column header is clicked
-        table.clickColumnHeader('id');
+        table.clickColumnHeader('name');
 
         // expect: the sortChange to have been called 
         expect(spy).toHaveBeenCalled();
@@ -113,6 +118,6 @@ describe('TableElement', () => {
         expect(cell).toBeDefined();
 
         // and: the innerText should match expected value
-        expect(cell.innerText).toEqual('0');
+        expect(cell.innerText).toEqual(TEST_DATA[0].name);
     });
 });

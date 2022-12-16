@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DatastoreConfig, JsonDatastore, JsonApiDatastoreConfig, ModelType, JsonApiQueryData } from '@ngx-material-dashboard/base-json';
 import { Observable, of } from 'rxjs';
-import { DummyObject } from './dummy-object.mock';
+import { Task } from '../models/task.model';
 
 const BASE_URL = 'http://localhost:8080/api'
 
@@ -39,7 +39,7 @@ const BASE_URL = 'http://localhost:8080/api'
 @JsonApiDatastoreConfig({
     baseUrl: BASE_URL,
     models: {
-        'dummy-object': DummyObject
+        tasks: Task
     }
 })
 export class Datastore extends JsonDatastore {

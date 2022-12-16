@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TEST_DATA } from '../../fixtures/dummy-object.fixture';
-import { DummyObject } from '../../mocks/dummy-object.mock';
+
+import { getTaskData } from '../../fixtures/task.fixture';
+import { Task } from '../../models/task.model';
 import { CollectionElement } from './collection.element';
 
 @Component({
@@ -22,9 +23,15 @@ import { CollectionElement } from './collection.element';
                         (change)="onRowSelected(model);">
                     </mat-checkbox>
                     <div fxFlex>
-                        <ng-container 
-                            *ngTemplateOutlet="template; context: { model: model }">
-                        </ng-container>
+                        <span>{{model.name}}</span>
+                        <span>{{model.description}}</span>
+                        <div class="marker-list-item-buttons" fxLayout="row" fxLayoutGap="5px">
+                        <button class="marker-button-edit"
+                            (click)="onClick()">
+                            <span>Edit</span>
+                            <div class="mat-button-focus-overlay"></div>
+                            <div class="mat-button-ripple mat-ripple"></div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -32,7 +39,9 @@ import { CollectionElement } from './collection.element';
     </div>
     `
 }) class TestSelectableCollectionComponent {
-    models: DummyObject[] = TEST_DATA;
+    models: Task[] = getTaskData(20);
+
+    onClick(): void {}
 }
 
 @Component({
@@ -50,7 +59,7 @@ import { CollectionElement } from './collection.element';
     </div>
     `
 }) class TestNotSelectableCollectionComponent {
-    models: DummyObject[] = TEST_DATA;
+    models: Task[] = getTaskData(20);
 }
 
 describe('CollectionElement', () => {
@@ -85,6 +94,42 @@ describe('CollectionElement', () => {
 
         it('should create a selectable collection by default', () => {
             expect(element.itemCheckboxes.length).toBeGreaterThan(0);
+        });
+
+        it('should click button in given row', () => {
+            // given: a spy on the components onClick method
+            const spy = spyOn(component, 'onClick');
+
+            // when: a button in row is clicked
+            element.clickItemButton('edit', 0);
+
+            // then: the spy should have been called
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('should click button in given row if itemSelector defined without "."', () => {
+            // given: an itemSelector with a "." to designate CSS class
+            element.itemSelector = 'marker-list-item';
+
+            // and:a spy on the components onClick method
+            const spy = spyOn(component, 'onClick');
+
+            // when: a button in row is clicked
+            element.clickItemButton('edit', 0);
+
+            // then: the spy should have been called
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('should throw an error if buttons are not found', () => {
+            // given: non existant item selector
+            element.itemSelector = 'nonExistantItem';
+
+            try {
+                element.clickItemButton('edit', 0);
+            } catch(error: any) {
+                expect(error.message).toEqual('Expected HTMLButtonElement with CSS selector ".marker-button-edit" in collection item buttons')
+            }
         });
     });
 

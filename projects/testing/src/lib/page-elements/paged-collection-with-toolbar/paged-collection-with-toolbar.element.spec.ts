@@ -4,10 +4,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TEST_DATA } from '../../fixtures/dummy-object.fixture';
-import { DummyObject } from '../../mocks/dummy-object.mock';
+import { getTaskData } from '../../fixtures/task.fixture';
+import { Task } from '../../models/task.model';
+
 import { IconButtonsWithPaginatorBarElement } from '../icon-buttons-with-paginator-bar/icon-buttons-with-paginator-bar.element';
-import { PagedCollectionElement } from '../paged-collection/paged-collection.element';
 import { ToolbarElement } from '../toolbar/toolbar.element';
 import { PagedCollectionWithToolbarElement } from './paged-collection-with-toolbar.element';
 
@@ -47,7 +47,7 @@ import { PagedCollectionWithToolbarElement } from './paged-collection-with-toolb
     </div>
     `
 }) class TestPagedCollectionWithIconToolbarComponent {
-    models: DummyObject[] = TEST_DATA;
+    models: Task[] = getTaskData(20);
 
     onButtonClick() {}
 }
@@ -87,7 +87,7 @@ import { PagedCollectionWithToolbarElement } from './paged-collection-with-toolb
     </div>
     `
 }) class TestPagedCollectionWithRaisedButtonsBarComponent {
-    models: DummyObject[] = TEST_DATA;
+    models: Task[] = getTaskData(20);
 }
 
 describe('PagedCollectionWithToolbarElement', () => {

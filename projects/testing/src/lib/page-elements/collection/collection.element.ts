@@ -162,7 +162,7 @@ export class CollectionElement extends PageElement {
      * @param selectable Boolean value indicating whether collection has items that are selectable (defaults to true).
      * @param noDataColumnSelector Optional CSS selector for no data column definition (defaults to 'noData').
      */
-     constructor(
+    constructor(
         fixture: ComponentFixture<any>,
         selector: string,
         itemSelector: string,

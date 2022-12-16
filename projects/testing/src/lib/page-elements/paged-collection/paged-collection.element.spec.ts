@@ -4,8 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TEST_DATA } from '../../fixtures/dummy-object.fixture';
-import { DummyObject } from '../../mocks/dummy-object.mock';
+import { getTaskData } from '../../fixtures/task.fixture';
 import { PagedCollectionElement } from './paged-collection.element';
 
 @Component({
@@ -42,7 +41,7 @@ import { PagedCollectionElement } from './paged-collection.element';
     </div>
     `
 }) class TestPagedCollectionComponent {
-    models: DummyObject[] = TEST_DATA;
+    models: Task[] = getTaskData(20);
 }
 
 describe('PagedCollectionElement', () => {

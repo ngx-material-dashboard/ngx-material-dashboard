@@ -5,7 +5,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DummyObject, DUMMY_OBJECT_DATA } from '../../mocks/dummy-object.mock';
 import { PagedTableWithToolbarElement } from './paged-table-with-toolbar.element';
 
 @Component({
@@ -73,18 +72,18 @@ import { PagedTableWithToolbarElement } from './paged-table-with-toolbar.element
 }) class PagedTableWithToolbarComponent {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-    dataSource: MatTableDataSource<DummyObject> = new MatTableDataSource();
+    dataSource: MatTableDataSource<Task> = new MatTableDataSource();
     displayedColumns: string[] = ['select', 'id', 'actions'];
     length = 0;
     pageSize = 25; 
 
-    set data(data: DummyObject[]) {
+    set data(data: Task[]) {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.length = data.length;
     }
 
-    onActionButtonClick(action: string, row: DummyObject): void {}
+    onActionButtonClick(action: string, row: Task): void {}
 }
 
 describe('PagedTableWithToolbarElement', () => {

@@ -4,7 +4,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DummyObject, DUMMY_OBJECT_DATA } from '../../mocks/dummy-object.mock';
+import { getTaskData } from '../../fixtures/task.fixture';
 import { PagedTableElement } from './paged-table.element';
 
 @Component({
@@ -61,18 +61,18 @@ import { PagedTableElement } from './paged-table.element';
 }) class PagedTableComponent {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-    dataSource: MatTableDataSource<DummyObject> = new MatTableDataSource();
+    dataSource: MatTableDataSource<Task> = new MatTableDataSource();
     displayedColumns: string[] = ['select', 'id', 'actions'];
     length = 0;
     pageSize = 25; 
 
-    set data(data: DummyObject[]) {
+    set data(data: Task[]) {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.length = data.length;
     }
 
-    onActionButtonClick(action: string, row: DummyObject): void {}
+    onActionButtonClick(action: string, row: Task): void {}
 }
 
 describe('PagedTableElement', () => {
@@ -82,8 +82,10 @@ describe('PagedTableElement', () => {
 
     describe('Table With Data', () => {
 
+        let data = getTaskData(200);
+
         beforeEach(() => {
-            pagedTableElement = init(DUMMY_OBJECT_DATA);
+            pagedTableElement = init(data);
             actionButtonSpy = spyOn(pagedTableElement.component, 'onActionButtonClick');
         });
 
@@ -124,7 +126,7 @@ describe('PagedTableElement', () => {
             pagedTableElement.clickItemButton('edit', 0);
 
             // expect: the onActionButtonClick should have been called
-            expect(actionButtonSpy).toHaveBeenCalledWith('edit', DUMMY_OBJECT_DATA[0]);
+            expect(actionButtonSpy).toHaveBeenCalledWith('edit', data[0]);
         });
 
         it('should click the delete action button in first row', () => {
@@ -132,7 +134,7 @@ describe('PagedTableElement', () => {
             pagedTableElement.clickItemButton('delete', 0);
 
             // expect: the onActionButtonClick should have been called
-            expect(actionButtonSpy).toHaveBeenCalledWith('delete', DUMMY_OBJECT_DATA[0]);
+            expect(actionButtonSpy).toHaveBeenCalledWith('delete', data[0]);
         });
 
         it('should throw an error when trying click button that does not exist in first row', () => {
@@ -155,7 +157,7 @@ describe('PagedTableElement', () => {
 
         it('should add data to table when data setter method called', () => {
             // when: the data setter is called
-            pagedTableElement.data = DUMMY_OBJECT_DATA;
+            pagedTableElement.data = getTaskData(200);
 
             // then: there should be data now (simplest test I can think of is check paginatorRange)
             expect(pagedTableElement.paginator.pagingatorRange.innerText).toEqual('1 – 25 of 200');
@@ -166,12 +168,12 @@ describe('PagedTableElement', () => {
             const spy: jasmine.Spy = spyOn(pagedTableElement, 'queryAll').and.callFake(() => { throw Error('I am a random error') });
 
             // expect: random error to be thrown when set data method called (which should trigger row init function)
-            expect(() => { pagedTableElement.data = DUMMY_OBJECT_DATA }).toThrowError('I am a random error');
+            expect(() => { pagedTableElement.data = getTaskData() }).toThrowError('I am a random error');
         });
     });
 });
 
-function init(data: DummyObject[] = []) {
+function init(data: Task[] = []) {
     TestBed.configureTestingModule({
         declarations: [PagedTableComponent],
         imports: [
