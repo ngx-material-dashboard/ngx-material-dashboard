@@ -69,7 +69,7 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     /** The direction of the sort (asc or desc). */
     direction?: SortDirection;
     /** The filter to apply when loading data. */
-    filter?: {};
+    filter?: any;
     /** The custom headers to include with the request. */
     headers?: HttpHeaders;
     /** Any relationships to include with the request. */
@@ -163,7 +163,7 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
      * @param headers Custom header values.
      */
     load(
-        filter: {} = {},
+        filter: any = {},
         active: string = 'id',
         direction: SortDirection = 'asc',
         pageIndex: number = 0,

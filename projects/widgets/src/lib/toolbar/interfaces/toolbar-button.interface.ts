@@ -144,7 +144,7 @@ export interface ToolbarButton {
     /** A stacked icon. */
     stackedIcon?: IconDefinition;
     /** Styles specific to stacked icon. */
-    stackedIconStyles?: {};
+    stackedIconStyles?: any;
     /** Boolean value to indicate whether the button should be disabled if more than one row selected. */
     multiSelectDisabled?: boolean;
     /** The text for the item (required). */

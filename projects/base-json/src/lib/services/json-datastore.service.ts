@@ -623,7 +623,12 @@ export abstract class JsonDatastore {
         const dirtyData: any = {};
 
         for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    attributesMetadata,
+                    propertyName
+                )
+            ) {
                 const metadata: any = attributesMetadata[propertyName];
 
                 // include all attributes regardless of whether they are dirty

@@ -66,7 +66,12 @@ export class JsonModel {
         const attributesMetadata: any = this[AttributeMetadataIndex];
         let hasDirtyAttributes = false;
         for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    attributesMetadata,
+                    propertyName
+                )
+            ) {
                 const metadata: any = attributesMetadata[propertyName];
                 if (metadata.hasDirtyAttributes) {
                     hasDirtyAttributes = true;
@@ -100,7 +105,12 @@ export class JsonModel {
     public rollbackAttributes(): void {
         const attributesMetadata: any = this[AttributeMetadataIndex];
         for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    attributesMetadata,
+                    propertyName
+                )
+            ) {
                 if (attributesMetadata[propertyName].hasDirtyAttributes) {
                     this[propertyName] = _.cloneDeep(
                         attributesMetadata[propertyName].oldValue
@@ -141,7 +151,12 @@ export class JsonModel {
     private checkChanges() {
         const attributesMetadata: any = this[AttributeMetadata];
         for (const propertyName in attributesMetadata) {
-            if (attributesMetadata.hasOwnProperty(propertyName)) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    attributesMetadata,
+                    propertyName
+                )
+            ) {
                 const metadata: any = attributesMetadata[propertyName];
                 if (metadata.nested) {
                     this[AttributeMetadata][propertyName].hasDirtyAttributes =

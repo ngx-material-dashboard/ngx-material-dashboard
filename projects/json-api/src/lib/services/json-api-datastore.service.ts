@@ -69,7 +69,6 @@ export class JsonApiDatastore extends JsonDatastore {
         const relationships: any = this.getRelationships(model);
         const url: string = this.buildUrl(modelType, params);
 
-        let httpCall: Observable<HttpResponse<object>>;
         const body: any = this.serializeModel(
             model,
             model[AttributeMetadataIndex],
@@ -78,9 +77,10 @@ export class JsonApiDatastore extends JsonDatastore {
         );
         body.meta = meta;
 
-        httpCall = this.httpClient.post<object>(url, body, {
-            observe: 'response'
-        }) as Observable<HttpResponse<object>>;
+        const httpCall: Observable<HttpResponse<object>> =
+            this.httpClient.post<object>(url, body, {
+                observe: 'response'
+            }) as Observable<HttpResponse<object>>;
         return httpCall.pipe(
             map((res) =>
                 [200, 201].indexOf(res.status) !== -1
@@ -165,7 +165,7 @@ export class JsonApiDatastore extends JsonDatastore {
             Reflect.getMetadata('HasMany', data) || [];
 
         for (const key in data) {
-            if (data.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
                 if (data[key] instanceof JsonApiModel) {
                     relationships = relationships || {};
 
@@ -332,8 +332,11 @@ export class JsonApiDatastore extends JsonDatastore {
 
         for (const relationship in relationships) {
             if (
-                relationships.hasOwnProperty(relationship) &&
-                model.hasOwnProperty(relationship) &&
+                Object.prototype.hasOwnProperty.call(
+                    relationships,
+                    relationship
+                ) &&
+                Object.prototype.hasOwnProperty.call(model, relationship) &&
                 model[relationship]
             ) {
                 const relationshipModel: JsonApiModel = model[relationship];
