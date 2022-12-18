@@ -68,8 +68,7 @@ describe('ClickStopPropagationDirective', () => {
                 ReactiveFormsModule,
                 NoopAnimationsModule,
                 FontAwesomeModule
-            ],
-            teardown: { destroyAfterEach: false }
+            ]
         });
 
         fixture = TestBed.createComponent(ClickStopPropagationDirectiveTest);

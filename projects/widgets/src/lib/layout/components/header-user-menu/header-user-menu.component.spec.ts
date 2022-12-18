@@ -20,8 +20,7 @@ describe('HeaderUserMenuComponent', () => {
                 MatMenuModule,
                 FontAwesomeModule,
                 NoopAnimationsModule
-            ],
-            teardown: { destroyAfterEach: false }
+            ]
         });
 
         fixture = TestBed.createComponent(HeaderUserMenuComponent);

@@ -102,8 +102,7 @@ describe('TableWithIconButtonsPaginatorBarComponent', () => {
                 FontAwesomeModule,
                 CollectionModule,
                 ToolbarModule
-            ],
-            teardown: { destroyAfterEach: false }
+            ]
         });
     });
 

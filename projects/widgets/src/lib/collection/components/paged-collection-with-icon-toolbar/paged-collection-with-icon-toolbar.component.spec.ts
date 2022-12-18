@@ -97,8 +97,7 @@ describe('PagedCollectionWithIconToolbarComponent', () => {
                 FontAwesomeModule,
                 CollectionModule,
                 ToolbarModule
-            ],
-            teardown: { destroyAfterEach: false }
+            ]
         });
     });
 

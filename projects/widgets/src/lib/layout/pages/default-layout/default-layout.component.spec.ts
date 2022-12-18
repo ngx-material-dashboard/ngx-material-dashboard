@@ -166,8 +166,7 @@ describe('DefaultLayoutComponent', () => {
                     ReactiveFormsModule,
                     FontAwesomeModule,
                     ToolbarModule
-                ],
-                teardown: { destroyAfterEach: false }
+                ]
             });
         });
 
