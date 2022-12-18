@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -12,18 +11,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
     DummyObject,
     IconButtonsWithPaginatorBarElement,
-    PagedCollectionWithToolbarElement,
     PagedTableWithToolbarElement,
-    TableElement,
     TEST_DATA
 } from '@ngx-material-dashboard/testing';
-import { MockModule } from 'ng-mocks';
 import { CollectionModule } from '../../../collection/collection.module';
 import { Button } from '../../../collection/interfaces/button.interface';
 import { EDIT_BUTTON, DELETE_BUTTON } from '../../../collection/shared/buttons';
-import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
-import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import {
     CREATE_TOOLBAR_BUTTON,
     EDIT_TOOLBAR_BUTTON,

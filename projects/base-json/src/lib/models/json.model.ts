@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash-es';
 
 import { AttributeMetadata } from '../constants/symbols';
-import { Attribute } from '../decorators/attribute.decorator';
 import { ModelConfig } from '../interfaces/model-config.interface';
 import { JsonDatastore } from '../services/json-datastore.service';
 

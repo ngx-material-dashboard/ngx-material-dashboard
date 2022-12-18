@@ -15,7 +15,6 @@ import {
     PagedTableWithToolbarElement,
     TEST_DATA
 } from '@ngx-material-dashboard/testing';
-import { MockModule } from 'ng-mocks';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { Button } from '../../../collection/interfaces/button.interface';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';

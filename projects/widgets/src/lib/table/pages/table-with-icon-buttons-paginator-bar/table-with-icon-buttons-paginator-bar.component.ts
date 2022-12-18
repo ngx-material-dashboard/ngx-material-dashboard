@@ -1,10 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    Input
-} from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, ContentChild, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { PagedCollectionWithIconToolbarComponent } from '../../../collection/components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';

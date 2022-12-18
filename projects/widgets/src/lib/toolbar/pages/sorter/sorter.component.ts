@@ -1,13 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { MatSort, SortDirection } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import {
     faArrowDownShortWide,
     faArrowUpWideShort,
-    faCaretDown,
     IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
-import { SortOrder } from '../../interfaces/sort-order.interface';
 
 /**
  * A custom component meant to allow user to change sort order for paged

@@ -1,8 +1,6 @@
 import { reformatText } from '../../../generators/documentation/helpers';
 import { Constructor } from './constructor.model';
-import { Declaration } from './declaration.model';
 import { Decorator } from './decorator.model';
-import { FunctionModel } from './function.model';
 import { MethodModel } from './method.model';
 import { Property } from './property.model';
 import { TypedocBase } from './typedoc-base.model';

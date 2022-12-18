@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     ChangeDetectorRef,
     Directive,
     EventEmitter,
@@ -9,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { catchError, map, Subscription, tap, throwError } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { PagedCollectionComponent } from '../../collection/components/paged-collection/paged-collection.component';
 import { RemoteDataSource } from '../../collection/services/remote-data-source.service';

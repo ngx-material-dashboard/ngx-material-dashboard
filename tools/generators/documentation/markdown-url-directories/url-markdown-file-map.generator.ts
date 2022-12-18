@@ -122,7 +122,7 @@ export class UrlMarkdownFileMapGenerator {
         ];
 
         // get base directory (should be same for all overview files)
-        const directory = t.overviewFiles[0][0].directory;
+        // const directory = t.overviewFiles[0][0].directory;
 
         // initialize array of arrays for overview files
         this.urlFilesMap[`${url}/overview`] = [];

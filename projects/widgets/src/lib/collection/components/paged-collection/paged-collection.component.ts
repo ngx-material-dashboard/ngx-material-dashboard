@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
     EventEmitter,
@@ -100,6 +99,7 @@ export class PagedCollectionComponent<T extends JsonModel>
     /** The subscriptions for the component. */
     sub: Subscription;
 
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     get dataSource(): T[] | MatTableDataSource<T> | RemoteDataSource<T> {
         return this.dataSource$;
     }

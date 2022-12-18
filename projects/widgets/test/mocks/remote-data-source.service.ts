@@ -21,7 +21,7 @@ export class RemoteDataSourceMock<
     }
 
     override load(
-        filter: {} = {},
+        filter: any = {},
         active: string = 'id',
         direction: SortDirection = 'asc',
         pageIndex: number = 0,

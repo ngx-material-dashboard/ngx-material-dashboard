@@ -1,4 +1,3 @@
-import { Parameter } from './parameter.model';
 import { Signature } from './signature.model';
 import { TypedocBase } from './typedoc-base.model';
 

@@ -8,8 +8,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
-import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
-import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 

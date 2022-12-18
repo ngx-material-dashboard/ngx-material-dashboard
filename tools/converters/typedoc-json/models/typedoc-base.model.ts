@@ -3,7 +3,6 @@ import { Module } from './module.model';
 import { OverviewDetail } from './overview-detail.model';
 import { Parameter } from './parameter.model';
 import { Source } from './source.model';
-import { TypeModel } from './type.model';
 import { UsageNote } from './usage-note.model';
 
 /**

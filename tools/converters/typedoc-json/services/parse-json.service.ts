@@ -1,7 +1,4 @@
-import {
-    CLAZZ_SPECIFIC_TYPES,
-    moduleTypes
-} from '../../../generators/documentation/helpers';
+import { CLAZZ_SPECIFIC_TYPES } from '../../../generators/documentation/helpers';
 import * as data from '../../../../docs.json';
 import { Accessor } from '../models/accessor.model';
 import { Clazz } from '../models/clazz.model';

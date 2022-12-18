@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import {
     AttributeMetadata,
     JsonApiQueryData,
@@ -64,8 +64,8 @@ export class JsonApiDatastore extends JsonDatastore {
         meta: { [param: string]: string }
     ): Observable<T> {
         const modelType = <ModelType<T>>model.constructor;
-        const modelConfig: ModelConfig = model.modelConfig;
-        const typeName: string = modelConfig.type;
+        // const modelConfig: ModelConfig = model.modelConfig;
+        // const typeName: string = modelConfig.type;
         const relationships: any = this.getRelationships(model);
         const url: string = this.buildUrl(modelType, params);
 
