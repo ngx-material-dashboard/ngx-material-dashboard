@@ -6,6 +6,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { getTaskData } from '../../fixtures/task.fixture';
+import { Task } from '../../models/task.model';
 import { TableElement } from './table.element';
 
 const TEST_DATA = getTaskData(20);

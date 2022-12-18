@@ -1,4 +1,3 @@
-import { Task } from '../models/task.model';
 export const TASK_NAME = 'Create Task Test Fixture';
 export const TASK_DESCRIPTION = 'Add Task data for unit tests';
 export const TASK_DUE_DATE = '2022-05-04';

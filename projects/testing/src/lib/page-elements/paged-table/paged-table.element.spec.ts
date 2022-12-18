@@ -5,6 +5,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { getTaskData } from '../../fixtures/task.fixture';
+import { Task } from '../../models/task.model';
 import { PagedTableElement } from './paged-table.element';
 
 @Component({

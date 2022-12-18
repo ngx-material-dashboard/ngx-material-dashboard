@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { getTaskData } from '../../fixtures/task.fixture';
+import { Task } from '../../models/task.model';
 import { PagedCollectionElement } from './paged-collection.element';
 
 @Component({
