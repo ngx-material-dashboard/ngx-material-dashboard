@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-    MatDialog,
     MatDialogModule,
     MatDialogRef,
     MAT_DIALOG_DATA

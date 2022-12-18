@@ -25,7 +25,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CollectionModule } from '../../collection.module';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
-import { MatTableModule } from '@angular/material/table';
 
 /** Component to test with. */
 @Component({

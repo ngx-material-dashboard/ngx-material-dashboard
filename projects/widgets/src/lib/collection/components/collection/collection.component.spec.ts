@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -17,8 +16,7 @@ import {
     CollectionElement,
     Datastore,
     DummyObject,
-    DUMMY_OBJECT_DATA,
-    TEST_DATA
+    DUMMY_OBJECT_DATA
 } from '@ngx-material-dashboard/testing';
 
 import { ListComponent } from '../../../list/components/list/list.component';

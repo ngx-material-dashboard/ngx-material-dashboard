@@ -1,6 +1,5 @@
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     Input,
@@ -10,7 +9,6 @@ import {
     SimpleChanges
 } from '@angular/core';
 import * as Gumshoe from 'gumshoejs';
-import { first } from 'rxjs/operators';
 import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
 
 @Component({

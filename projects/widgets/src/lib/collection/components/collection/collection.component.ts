@@ -2,7 +2,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
     EventEmitter,

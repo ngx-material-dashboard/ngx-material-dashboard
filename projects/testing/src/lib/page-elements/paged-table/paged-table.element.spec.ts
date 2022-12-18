@@ -207,10 +207,7 @@ describe('PagedTableElement', () => {
 
         it('should throw an error when something other than mat-row not found in occurs when querying for mat-rows', () => {
             // given: a spy on the queryAll method for PageElement (currently best way I can think of to test random error)
-            const spy: jasmine.Spy = spyOn(
-                pagedTableElement,
-                'queryAll'
-            ).and.callFake(() => {
+            spyOn(pagedTableElement, 'queryAll').and.callFake(() => {
                 throw Error('I am a random error');
             });
 

@@ -1,10 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';

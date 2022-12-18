@@ -2,10 +2,8 @@ import {
     AfterViewChecked,
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ElementRef,
     QueryList,
-    TemplateRef,
     ViewChild,
     ViewChildren
 } from '@angular/core';

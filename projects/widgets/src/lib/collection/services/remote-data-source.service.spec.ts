@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
@@ -11,7 +10,7 @@ import {
 } from '@ngx-material-dashboard/base-json';
 import { Datastore, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-model.mock';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RemoteDataSource } from './remote-data-source.service';
 

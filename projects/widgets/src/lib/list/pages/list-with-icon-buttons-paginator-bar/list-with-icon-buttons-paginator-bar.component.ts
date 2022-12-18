@@ -1,9 +1,4 @@
-import {
-    AfterContentInit,
-    Component,
-    ContentChild,
-    OnInit
-} from '@angular/core';
+import { Component, ContentChild } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { PagedCollectionWithIconToolbarComponent } from '../../../collection/components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';
 import { ListComponent } from '../../components/list/list.component';
