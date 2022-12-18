@@ -1,6 +1,12 @@
 /**
  * Code taken from https://github.com/ghidoz/angular2-jsonapi/pull/277 and
- * updated to work with current version of typescript
+ * updated to work with current version of typescript. The utilities is sad to
+ * say a part of the library I do not know enough about since I just copied the
+ * code and updated it enough to get it to function, and still have all the
+ * unit tests pass. I am slowly going through the code to get a better
+ * understanding of what exactly it is doing, and adding unit tests and
+ * comments in places where I think I have a basic understanding of what is
+ * going on.
  */
 
 /* tslint:disable:no-bitwise */
@@ -35,6 +41,13 @@ const compactQueue = (queue: any) => {
   }
 };
 
+/**
+ * Converts the given source array into an object.
+ *
+ * @param source 
+ * @param options 
+ * @returns 
+ */
 const arrayToObject = (source: any, options: any) => {
   const obj = options && options.plainObjects ? Object.create(null) : {};
   for (let i = 0; i < source.length; ++i) {
@@ -46,6 +59,18 @@ const arrayToObject = (source: any, options: any) => {
   return obj;
 };
 
+/**
+ * Merges the source into the target. This DOES modify the original target
+ * value, and does not return a new object (assuming the target is an object or
+ * an array; a new object or array is returned if the target is a primitive).
+ * If you need to keep the original object/array as is you might consider
+ * passing a copy of the object without reference.
+ *
+ * @param target The object to add to. 
+ * @param source The object to add.
+ * @param options ?
+ * @returns The target with source added to it.
+ */
 const merge = (target: any, source: any, options: any) => {
   /* eslint no-param-reassign: 0 */
   if (!source) {
@@ -53,13 +78,16 @@ const merge = (target: any, source: any, options: any) => {
   }
 
   if (typeof source !== 'object') {
+    // if the source is not an object, then it's  a primitive?
     if (isArray(target)) {
+      // just add the value to array
       target.push(source);
     } else if (target && typeof target === 'object') {
       if ((options && (options.plainObjects || options.allowPrototypes)) || !has.call(Object.prototype, source)) {
         target[source] = true;
       }
     } else {
+      // both target and array are primitives so return an array...
       return [target, source];
     }
 
@@ -217,7 +245,14 @@ const isBuffer = (obj: any) => {
   return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
 };
 
-const combine = (a: any, b: any) => [].concat(a, b);
+/**
+ * Returns a new array of the given arrays combined, b array added to a array.
+ *
+ * @param a The array to add to.
+ * @param b The array to add.
+ * @returns A new array with b added to a.
+ */
+const combine = (a: any, b: any) => a.concat(b);
 
 const maybeMap = (val: any, fn: any) => {
   if (isArray(val)) {
