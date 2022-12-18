@@ -9,11 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import {
-    Datastore,
-    DummyObject,
-    TEST_DATA
-} from '@ngx-material-dashboard/testing';
+import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { DEFAULT_TOOLBAR_BUTTONS } from '@ngx-material-dashboard/widgets';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
@@ -67,7 +63,7 @@ export default sandboxOf(PagedGridWithRaisedButtonsBarComponent, {
     </ngx-material-dashboard-paged-grid-with-raised-buttons-bar>`,
     context: {
         collectionButtons: DEFAULT_COLLECTION_BUTTONS,
-        data: TEST_DATA,
+        data: getTaskData(20),
         fields: ['id'],
         toolbarButtons: DEFAULT_TOOLBAR_BUTTONS
     }

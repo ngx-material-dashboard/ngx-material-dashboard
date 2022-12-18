@@ -1,7 +1,7 @@
 import {
     Attribute,
     JsonApiModelConfig
-} from '@ngx-material-dashboard/base-json/src/lib';
+} from '@ngx-material-dashboard/base-json';
 import { JsonModel } from './json.model';
 
 @JsonApiModelConfig({

@@ -11,9 +11,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-    DummyObject,
+    Task,
     PagedTableWithToolbarElement,
-    TEST_DATA
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { Button } from '../../../collection/interfaces/button.interface';
@@ -33,6 +33,8 @@ import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 
 import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-raised-buttons-bar.component';
+
+const testData = getTaskData(20);
 
 @Component({
     template: `
@@ -75,14 +77,14 @@ import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-rais
 })
 class TestPagedTableWithRaisedButtonsBarComponent {
     @ViewChild(PagedTableWithRaisedButtonsBarComponent)
-    pagedTableWithToolbar!: PagedTableWithRaisedButtonsBarComponent<DummyObject>;
+    pagedTableWithToolbar!: PagedTableWithRaisedButtonsBarComponent<Task>;
     collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     toolbarButtons: ToolbarButton[] = [
         { ...CREATE_TOOLBAR_BUTTON },
         { ...EDIT_TOOLBAR_BUTTON },
         { ...DELETE_TOOLBAR_BUTTON }
     ];
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = testData;
     displayedColumns: string[] = ['select', 'id', 'actions'];
 
     onButtonClick(btnClick: ButtonClick): void {}
@@ -138,8 +140,6 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
             ]
         );
     });
-
-    const testData = TEST_DATA;
 
     beforeEach(async () => {
         component.data = testData;

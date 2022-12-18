@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { ListComponent } from '../../components/list/list.component';
@@ -21,7 +21,7 @@ import { PagedListComponent } from './paged-list.component';
     `
 })
 class TestPagedListComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     fields: string[] = ['id'];
 }
 

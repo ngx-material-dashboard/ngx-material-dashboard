@@ -5,7 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 
 import { PagedListWithRaisedButtonsBarComponent } from '../../../list/pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
 import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
@@ -25,6 +25,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CollectionModule } from '../../collection.module';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
+
+const testData = getTaskData(20);
 
 /** Component to test with. */
 @Component({
@@ -54,8 +56,8 @@ import { ToolbarModule } from '../../../toolbar/toolbar.module';
 })
 class TestPagedCollectionWithToolbarComponent {
     @ViewChild('pagedListWithToolbar')
-    pagedListWithToolbar!: PagedListWithRaisedButtonsBarComponent<DummyObject>;
-    data: DummyObject[] = TEST_DATA;
+    pagedListWithToolbar!: PagedListWithRaisedButtonsBarComponent<Task>;
+    data: Task[] = testData;
     fields: string[] = ['id'];
     collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     toolbarButtons: ToolbarButton[] = [
@@ -69,7 +71,7 @@ class TestPagedCollectionWithToolbarComponent {
 
 describe('PagedCollectionWithToolbarComponent', () => {
     let component: TestPagedCollectionWithToolbarComponent;
-    let componentPagedList: PagedListComponent<DummyObject>;
+    let componentPagedList: PagedListComponent<Task>;
     let fixture: ComponentFixture<TestPagedCollectionWithToolbarComponent>;
     let page: PagedCollectionWithToolbarElement;
 
@@ -102,7 +104,7 @@ describe('PagedCollectionWithToolbarComponent', () => {
         fixture.detectChanges();
 
         componentPagedList = component.pagedListWithToolbar
-            .collectionCmp as PagedListComponent<DummyObject>;
+            .collectionCmp as PagedListComponent<Task>;
         page = new PagedCollectionWithToolbarElement(
             fixture,
             '.marker-paged-list',
@@ -115,7 +117,7 @@ describe('PagedCollectionWithToolbarComponent', () => {
             ]
         );
 
-        component.data = TEST_DATA;
+        component.data = testData;
         fixture.detectChanges();
         await fixture.whenStable();
     });

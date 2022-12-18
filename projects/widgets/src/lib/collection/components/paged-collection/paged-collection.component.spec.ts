@@ -7,9 +7,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-    DummyObject,
     PagedCollectionElement,
-    TEST_DATA
+    Task,
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ListComponent } from '../../../list/components/list/list.component';
@@ -39,8 +39,8 @@ const pageSize = 5;
     `
 })
 class TestPagedCollectionComponent {
-    @ViewChild(PagedListComponent) pagedList!: PagedListComponent<DummyObject>;
-    data: DummyObject[] = [];
+    @ViewChild(PagedListComponent) pagedList!: PagedListComponent<Task>;
+    data: Task[] = [];
     fields: string[] = ['id'];
     pageSize: number = pageSize;
 }
@@ -90,7 +90,7 @@ describe('PagedCollectionComponent', () => {
     });
 
     describe('With Collection Data', () => {
-        const testData = TEST_DATA;
+        const testData = getTaskData(20);
 
         beforeEach(() => {
             component.data = testData;

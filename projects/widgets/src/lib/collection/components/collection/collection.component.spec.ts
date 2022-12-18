@@ -10,13 +10,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
+import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import {
     CheckboxElement,
     CollectionElement,
     Datastore,
-    DummyObject,
-    DUMMY_OBJECT_DATA
+    Task,
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 
 import { ListComponent } from '../../../list/components/list/list.component';
@@ -42,9 +42,9 @@ import { CollectionComponent } from './collection.component';
     `
 })
 class TestCollectionComponent {
-    @ViewChild(ListComponent) collection!: ListComponent<DummyObject>;
+    @ViewChild(ListComponent) collection!: ListComponent<Task>;
     collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
-    data: DummyObject[] = [];
+    data: Task[] = [];
     fields: string[] = ['id'];
     multiple: boolean = true;
 }
@@ -105,7 +105,7 @@ describe('CollectionComponent', () => {
             const spy = spyOn(component.collection, 'initDataSource');
 
             // when: the data is updated
-            component.data = [...DUMMY_OBJECT_DATA];
+            component.data = [...getTaskData()];
             fixture.detectChanges();
 
             // then: initDataSource should have been called
@@ -121,7 +121,7 @@ describe('CollectionComponent', () => {
         describe('Mulit-select Independent', () => {
             beforeEach(() => {
                 // initialize the component with dummy data and allow multi-select
-                page = init(DUMMY_OBJECT_DATA);
+                page = init(getTaskData());
             });
 
             it('should emit buttonClick event when action button clicked in row', () => {
@@ -137,7 +137,7 @@ describe('CollectionComponent', () => {
                 // then: the tableButtonClick emit method should have been called
                 expect(spy).toHaveBeenCalledWith({
                     click: 'edit',
-                    row: DUMMY_OBJECT_DATA[0]
+                    row: getTaskData()[0]
                 });
             });
 
@@ -154,7 +154,7 @@ describe('CollectionComponent', () => {
         describe('Multi-select Enabled', () => {
             beforeEach(() => {
                 // initialize the component with dummy data and allow multi-select
-                page = init(DUMMY_OBJECT_DATA);
+                page = init(getTaskData());
             });
 
             describe('No rows selected initially', () => {
@@ -202,7 +202,7 @@ describe('CollectionComponent', () => {
         describe('Multi-select Disabled', () => {
             beforeEach(() => {
                 // initialize the component with dummy data and disable multi-select
-                page = init(DUMMY_OBJECT_DATA, false);
+                page = init(getTaskData(20), false);
             });
 
             it('should allow row to be selected and deselected', () => {
@@ -241,7 +241,7 @@ describe('CollectionComponent', () => {
  * @param multiple Boolean value to set whether table allows multiple selection.
  * @return A page helper to aid in tests.
  */
-function init(data: JsonModel[] = [], multiple = true): CollectionElement {
+function init(data: Task[] = [], multiple = true): CollectionElement {
     const fixture: ComponentFixture<TestCollectionComponent> =
         TestBed.createComponent(TestCollectionComponent);
     const component = fixture.componentInstance;

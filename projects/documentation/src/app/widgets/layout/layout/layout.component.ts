@@ -1700,7 +1700,7 @@ const routeSidenavItems: any = {
         {
             route: ['./', 'testing', 'dummy-object'],
             selector: 'dummy-object',
-            text: 'DummyObject'
+            text: 'Task'
         }
     ]
 };

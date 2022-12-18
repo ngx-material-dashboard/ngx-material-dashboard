@@ -9,11 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import {
-    Datastore,
-    DummyObject,
-    TEST_DATA
-} from '@ngx-material-dashboard/testing';
+import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
@@ -59,7 +55,7 @@ export default sandboxOf(PagedTableComponent, {
     </ngx-material-dashboard-paged-table>`,
         context: {
             buttons: [EDIT_BUTTON, DELETE_BUTTON],
-            data: TEST_DATA,
+            data: getTaskData(20),
             displayedColumns: ['select', 'id', 'actions'],
             multiple: true
         }
@@ -85,7 +81,7 @@ export default sandboxOf(PagedTableComponent, {
     </ngx-material-dashboard-paged-table>`,
         context: {
             buttons: [EDIT_BUTTON, DELETE_BUTTON],
-            data: TEST_DATA,
+            data: getTaskData(20),
             displayedColumns: ['select', 'id', 'actions'],
             multiple: false
         }

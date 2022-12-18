@@ -5,7 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { PagedListWithRaisedButtonsBarComponent } from '../../../list/pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
 import { ButtonsComponent } from '../../../toolbar/components/buttons/buttons.component';
@@ -41,7 +41,7 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from './paged-collect
 })
 class TestPagedCollectionWithRaisedButtonToolbarComponent {
     collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     fields: string[] = ['id'];
 }
 

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 
@@ -20,7 +20,7 @@ import { ListComponent } from './list.component';
     `
 })
 class TestListComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     fields: string[] = ['id'];
 }
 

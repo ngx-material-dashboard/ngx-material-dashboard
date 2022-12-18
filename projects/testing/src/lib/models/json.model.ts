@@ -1,7 +1,7 @@
 import {
     Attribute,
     JsonModel as BaseJsonModel
-} from '@ngx-material-dashboard/base-json/src/lib';
+} from '@ngx-material-dashboard/base-json';
 import { JsonDatastore } from '../services/json-datastore.service';
 
 export class JsonModel extends BaseJsonModel {

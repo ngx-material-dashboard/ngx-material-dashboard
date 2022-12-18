@@ -6,7 +6,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
@@ -28,7 +28,7 @@ import { GridWithIconButtonsPaginatorBarComponent } from './grid-with-icon-butto
     `
 })
 class TestGridWithIconButtonsPaginatorBarComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     fields: string[] = ['id'];
 }
 

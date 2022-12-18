@@ -9,10 +9,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-    DummyObject,
+    Task,
     IconButtonsWithPaginatorBarElement,
     PagedTableWithToolbarElement,
-    TEST_DATA
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { CollectionModule } from '../../../collection/collection.module';
 import { Button } from '../../../collection/interfaces/button.interface';
@@ -65,14 +65,14 @@ import { TableWithIconButtonsPaginatorBarComponent } from './table-with-icon-but
 })
 class TestTableWithIconButtonsPaginatorBarComponent {
     @ViewChild(TableWithIconButtonsPaginatorBarComponent)
-    pagedTableComponent!: TableWithIconButtonsPaginatorBarComponent<DummyObject>;
+    pagedTableComponent!: TableWithIconButtonsPaginatorBarComponent<Task>;
     collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
     toolbarButtons: ToolbarButton[] = [
         CREATE_TOOLBAR_BUTTON,
         EDIT_TOOLBAR_BUTTON,
         DELETE_TOOLBAR_BUTTON
     ];
-    data: DummyObject[] = [];
+    data: Task[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
 }
 
@@ -155,7 +155,7 @@ describe('TableWithIconButtonsPaginatorBarComponent', () => {
     });
 
     describe('With Collection Data', () => {
-        const testData = TEST_DATA;
+        const testData = getTaskData(20);
 
         beforeEach(() => {
             component.data = testData;

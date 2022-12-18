@@ -9,10 +9,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-    DummyObject,
+    Task,
     IconButtonsWithPaginatorBarElement,
     PagedCollectionWithToolbarElement,
-    TEST_DATA
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { ListComponent } from '../../../list/components/list/list.component';
 import { ListWithIconButtonsPaginatorBarComponent } from '../../../list/pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
@@ -30,6 +30,7 @@ import { Button } from '../../interfaces/button.interface';
 import { EDIT_BUTTON, DELETE_BUTTON } from '../../shared/buttons';
 
 const pageSize = 5;
+const testData = getTaskData(20);
 
 /** Component to test with. */
 @Component({
@@ -59,21 +60,20 @@ const pageSize = 5;
 })
 class TestPagedCollectionWithIconToolbarComponent {
     @ViewChild('pagedListWithToolbar')
-    pagedListWithToolbar!: ListWithIconButtonsPaginatorBarComponent<DummyObject>;
+    pagedListWithToolbar!: ListWithIconButtonsPaginatorBarComponent<Task>;
     collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
     toolbarButtons: ToolbarButton[] = [
         CREATE_TOOLBAR_BUTTON,
         EDIT_TOOLBAR_BUTTON,
         DELETE_TOOLBAR_BUTTON
     ];
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = testData;
     fields: string[] = ['id'];
 
     onButtonClick(btnClick: ButtonClick) {}
 }
 
 describe('PagedCollectionWithIconToolbarComponent', () => {
-    const testData = TEST_DATA;
     let component: TestPagedCollectionWithIconToolbarComponent;
     let fixture: ComponentFixture<TestPagedCollectionWithIconToolbarComponent>;
     let page: PagedCollectionWithToolbarElement;
@@ -163,7 +163,6 @@ describe('PagedCollectionWithIconToolbarComponent', () => {
     });
 
     describe('With Collection Data', () => {
-        const testData = TEST_DATA;
 
         beforeEach(async () => {
             component.data = testData;

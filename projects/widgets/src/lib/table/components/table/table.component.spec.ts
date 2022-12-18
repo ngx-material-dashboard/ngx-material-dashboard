@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 
 import { TableComponent } from './table.component';
 
@@ -34,7 +34,7 @@ import { TableComponent } from './table.component';
     `
 })
 class TestTableComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     displayedColumns: string[] = ['select', 'id', 'actions'];
 }
 

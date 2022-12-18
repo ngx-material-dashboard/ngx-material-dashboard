@@ -6,7 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-    DummyObject,
+    Task,
     IconButtonsWithPaginatorBarElement
 } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
@@ -21,10 +21,8 @@ import { SorterComponent } from '../sorter/sorter.component';
 import { IconButtonsWithPaginatorComponent } from './icon-buttons-with-paginator.component';
 
 describe('IconButtonsWithPaginatorComponent', () => {
-    let component: IconButtonsWithPaginatorComponent<DummyObject>;
-    let fixture: ComponentFixture<
-        IconButtonsWithPaginatorComponent<DummyObject>
-    >;
+    let component: IconButtonsWithPaginatorComponent<Task>;
+    let fixture: ComponentFixture<IconButtonsWithPaginatorComponent<any>>;
     let page: IconButtonsWithPaginatorBarElement;
 
     beforeEach(() => {

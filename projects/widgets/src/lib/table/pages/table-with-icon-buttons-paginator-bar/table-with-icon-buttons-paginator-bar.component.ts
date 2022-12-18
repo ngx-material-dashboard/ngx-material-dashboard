@@ -38,7 +38,7 @@ import { TableComponent } from '../../components/table/table.component';
  *     selector: 'basic-paged-table-usage-example',
  *     templateUrl: './basic-paged-table-usage-example.html'
  * }) export class BasicPagedTableUsageExample {
- *     data: DummyObject[] = [...];
+ *     data: Task[] = [...];
  *     fields: string[] = ['id'];
  *     // either create your own, or use copies of buttons provided for both
  *     // collection and toolbar; use copies without references in case you

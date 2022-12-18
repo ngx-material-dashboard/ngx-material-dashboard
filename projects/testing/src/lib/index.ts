@@ -1,7 +1,8 @@
-export * from './fixtures/dummy-object.fixture';
+export * from './fixtures/task.fixture';
 
 export * from './mocks/datastore.service';
-export * from './mocks/dummy-object.mock';
+
+export * from './models/task.model';
 
 export * from './page-elements/button/button.element';
 export * from './page-elements/checkbox/checkbox.element';

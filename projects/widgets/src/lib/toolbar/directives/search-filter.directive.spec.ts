@@ -21,9 +21,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import {
     Datastore,
-    DummyObject,
+    Task,
     MenuElement,
-    TEST_DATA
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks/remote-data-source.service';
 import { CollectionComponent } from '../../collection/components/collection/collection.component';
@@ -74,14 +74,12 @@ import { SearchFilterDirective } from './search-filter.directive';
 })
 class SearchFilterDirectiveTestComponent implements OnInit {
     @ViewChild('pagedCollectionWithToolbar')
-    pagedCollection!: PagedListWithRaisedButtonsBarComponent<DummyObject>;
+    pagedCollection!: PagedListWithRaisedButtonsBarComponent<Task>;
     @ViewChild(SearchFilterDirective)
-    directive!: SearchFilterDirective<DummyObject>;
+    directive!: SearchFilterDirective<Task>;
     filterCmp!: FilterDropDownComponent;
-    collectionCmp!:
-        | PagedListComponent<DummyObject>
-        | CollectionComponent<DummyObject>;
-    data: DummyObject[] | RemoteDataSource<DummyObject> = [];
+    collectionCmp!: PagedListComponent<Task> | CollectionComponent<Task>;
+    data: Task[] | RemoteDataSource<Task> = [];
     fields: string[] = ['id'];
     formGroup!: FormGroup;
     parentForm!: FormGroup;
@@ -148,10 +146,7 @@ describe('SearchFilterDirective', () => {
         fixture = TestBed.createComponent(SearchFilterDirectiveTestComponent);
         const jsonDatastore = TestBed.inject(JsonDatastore);
         component = fixture.componentInstance;
-        component.data = new RemoteDataSourceMock<DummyObject>(
-            DummyObject,
-            jsonDatastore
-        );
+        component.data = new RemoteDataSourceMock<Task>(Task, jsonDatastore);
         fixture.detectChanges();
 
         component.filterCmp = component.pagedCollection.filter;
@@ -177,7 +172,7 @@ describe('SearchFilterDirective', () => {
         const spy = spyOn(component.directive, 'throwError').and.callThrough();
 
         // and: some component data
-        component.data = TEST_DATA;
+        component.data = getTaskData(20);
         fixture.detectChanges();
 
         // when: the search button is clicked

@@ -3,7 +3,7 @@ import {
     Attribute,
     JsonApiModelConfig,
     PropertyConverter
-} from '@ngx-material-dashboard/base-json/src/lib';
+} from '@ngx-material-dashboard/base-json';
 import { JsonModel } from './json.model';
 import { PageMetaData } from './page-meta-data';
 

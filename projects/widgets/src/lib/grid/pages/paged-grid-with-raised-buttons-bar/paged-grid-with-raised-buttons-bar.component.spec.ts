@@ -5,7 +5,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { MockModule } from 'ng-mocks';
 import { GridComponent } from '../../components/grid/grid.component';
@@ -28,7 +28,7 @@ import { PagedGridWithRaisedButtonsBarComponent } from './paged-grid-with-raised
     `
 })
 class TestPagedGridWithRaisedButtonsBarComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     fields: string[] = ['id'];
 }
 

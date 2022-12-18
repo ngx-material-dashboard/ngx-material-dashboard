@@ -13,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
@@ -83,7 +83,7 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
             EDIT_TOOLBAR_BUTTON,
             DELETE_TOOLBAR_BUTTON
         ],
-        data: TEST_DATA,
+        data: getTaskData(20),
         fields: ['id']
     }
 });

@@ -14,9 +14,9 @@ import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
 import {
     CheckboxElement,
     Datastore,
-    DummyObject,
+    Task,
     PagedTableElement,
-    TEST_DATA
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
@@ -31,7 +31,7 @@ import { RemoteDataSourceMock } from '@ngx-material-dashboard/widgets/test/mocks
 import { CollectionModule } from '../../../collection/collection.module';
 
 const pageSize = 5;
-const testData: DummyObject[] = TEST_DATA;
+const testData: Task[] = getTaskData(20);
 
 @Component({
     template: `
@@ -64,7 +64,7 @@ const testData: DummyObject[] = TEST_DATA;
     `
 })
 class TestPagedTableComponent {
-    @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
+    @ViewChild(PagedTableComponent) table!: PagedTableComponent<Task>;
     collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     data: JsonModel[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
@@ -102,15 +102,15 @@ class TestPagedTableComponent {
     `
 })
 class TestRemotePagedTableComponent {
-    @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
+    @ViewChild(PagedTableComponent) table!: PagedTableComponent<Task>;
     collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
-    dataSource: RemoteDataSourceMock<DummyObject>;
+    dataSource: RemoteDataSourceMock<Task>;
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 
     constructor(private jsonApiDatastore: JsonDatastore) {
-        this.dataSource = new RemoteDataSourceMock<DummyObject>(
-            DummyObject,
+        this.dataSource = new RemoteDataSourceMock<Task>(
+            Task,
             this.jsonApiDatastore
         );
     }
@@ -177,7 +177,7 @@ describe('PagedTableComponent', () => {
         });
 
         describe('With Table Data', () => {
-            const data: DummyObject[] = testData;
+            const data: Task[] = testData;
 
             // tests where it doesn't matter whether multi-select is allowed
             describe('Mulit-select Independent', () => {
@@ -236,7 +236,7 @@ describe('PagedTableComponent', () => {
 
                 it('should initialize dataSource with MatTableDataSource', () => {
                     // given: a MatTableDataSource
-                    const datasource = new MatTableDataSource(TEST_DATA);
+                    const datasource = new MatTableDataSource(getTaskData(20));
 
                     // when: the data is set
                     page.fixture.componentInstance.data = datasource;
@@ -465,7 +465,7 @@ function init(data: JsonModel[] = [], multiple = true): PagedTableElement {
  * @returns A page helper to aid in tests.
  */
 function initRemote(
-    data: DummyObject[] = [],
+    data: Task[] = [],
     multiple = true,
     pageSize = 5
 ): PagedTableElement {
@@ -480,7 +480,7 @@ function initRemote(
     // and child PagedTableComponent exists
     component.table.pageSize = pageSize;
     if (component.table.collection$.dataSource$ instanceof RemoteDataSource) {
-        // const remoteDataSource: RemoteDataSource<DummyObject> = component.table.collection$.dataSource$;
+        // const remoteDataSource: RemoteDataSource<Task> = component.table.collection$.dataSource$;
         // spyOn(remoteDataSource, 'load').and.callFake(
         //     (
         //         filter?: {},

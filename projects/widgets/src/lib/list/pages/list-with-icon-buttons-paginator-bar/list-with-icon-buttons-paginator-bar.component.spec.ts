@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
@@ -29,7 +29,7 @@ import { ListWithIconButtonsPaginatorBarComponent } from './list-with-icon-butto
     `
 })
 class TestListWithIconButtonsPaginatorBarComponent {
-    data: DummyObject[] = TEST_DATA;
+    data: Task[] = getTaskData(20);
     fields: string[] = ['id'];
 }
 

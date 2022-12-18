@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore } from '@ngx-material-dashboard/base-json/test/services/datastore.service';
-import { TEST_DATA } from '@ngx-material-dashboard/testing';
+import { getTaskData } from '@ngx-material-dashboard/testing';
 import { CollectionModule } from '@ngx-material-dashboard/widgets';
 import { sandboxOf } from 'angular-playground';
 import { EDIT_BUTTON, DELETE_BUTTON } from '../../../collection/shared/buttons';
@@ -87,7 +87,7 @@ export default sandboxOf(GridWithIconButtonsPaginatorBarComponent, {
             EDIT_TOOLBAR_BUTTON,
             DELETE_TOOLBAR_BUTTON
         ],
-        data: TEST_DATA,
+        data: getTaskData(20),
         fields: ['id'],
         multiple: true
     }

@@ -5,13 +5,17 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 
-import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
+import {
+    Datastore,
+    Task
+} from '@ngx-material-dashboard/base-json/test/public-api';
 import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface';
 import {
     DELETE_TOOLBAR_BUTTON,
     EDIT_TOOLBAR_BUTTON
 } from '../../toolbar/shared/toolbar-buttons';
 import { SelectionService } from './selection.service';
+import { getTaskData } from '@ngx-material-dashboard/testing';
 
 describe('SelectionService', () => {
     let jsonApiDatastore: JsonDatastore;
@@ -66,15 +70,10 @@ describe('SelectionService', () => {
             const buttons: ToolbarButton[] = [editButton];
 
             // and: some dummy data
-            const data: DummyObject[] = [
-                new DummyObject(jsonApiDatastore, { id: '1' }),
-                new DummyObject(jsonApiDatastore, { id: '2' })
-            ];
+            const data: Task[] = getTaskData(2);
 
             // and: multiple selections
-            service.selectionSubject.next(
-                new SelectionModel<JsonModel>(true, data)
-            );
+            service.selectionSubject.next(new SelectionModel<any>(true, data));
 
             // when: the toggleButtons method is called
             service.toggleButtons(false, buttons);
@@ -90,9 +89,9 @@ describe('SelectionService', () => {
         //     const buttons: ToolbarButton[] = [DELETE_TOOLBAR_BUTTON];
 
         //     // and: some dummy data that contains values that cannot be deleted
-        //     const o1 = new DummyObject('1');
+        //     const o1 = new Task('1');
         //     o1.deletable = false;
-        //     const data: DummyObject[] = [o1, new DummyObject('2')];
+        //     const data: Task[] = [o1, new Task('2')];
         //     service.selectionSubject.next(new SelectionModel<JsonModel>(true, data));
 
         //     // when: the toggleButtons method is called
@@ -109,7 +108,7 @@ describe('SelectionService', () => {
         //     const buttons: ToolbarButton[] = [DELETE_TOOLBAR_BUTTON];
 
         //     // and: some dummy data
-        //     const data: DummyObject[] = [new DummyObject('1'), new DummyObject('2')];
+        //     const data: Task[] = [new Task('1'), new Task('2')];
         //     service.selectionSubject.next(new SelectionModel<JsonModel>(true, data));
 
         //     // when: the toggleButtons method is called

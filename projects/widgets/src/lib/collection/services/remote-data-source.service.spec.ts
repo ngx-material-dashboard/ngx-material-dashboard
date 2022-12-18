@@ -8,7 +8,7 @@ import {
     JsonDatastore,
     JsonModel
 } from '@ngx-material-dashboard/base-json';
-import { Datastore, TEST_DATA } from '@ngx-material-dashboard/testing';
+import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-model.mock';
 import { of } from 'rxjs';
 
@@ -44,6 +44,7 @@ describe('RemoteDataSourceService', () => {
 
     it('should call findAll method from baseModelService when sortChange called', () => {
         // given: a spy on the datastore findAll method
+        const TEST_DATA = getTaskData(20);
         const spy = spyOn(datastore, 'findAll').and.returnValue(
             of(
                 new JsonApiQueryData(TEST_DATA, {
@@ -95,6 +96,7 @@ describe('RemoteDataSourceService', () => {
 
     it('should call load with default params', () => {
         // given: a spy on the datastore findAll method
+        const TEST_DATA = getTaskData(20);
         const spy = spyOn(datastore, 'findAll').and.returnValue(
             of(
                 new JsonApiQueryData(TEST_DATA, {

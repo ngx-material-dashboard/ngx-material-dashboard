@@ -1,4 +1,7 @@
-import { DatastoreConfig, JsonApiDatastoreConfig } from '../../src/lib';
+import {
+    DatastoreConfig,
+    JsonApiDatastoreConfig
+} from '@ngx-material-dashboard/base-json';
 
 import { JsonDatastore } from './json-datastore.service';
 import { Task } from '../models/task.model';

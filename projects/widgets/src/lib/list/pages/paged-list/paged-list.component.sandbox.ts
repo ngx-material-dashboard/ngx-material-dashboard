@@ -12,8 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import {
     Datastore,
-    DummyObject,
-    TEST_DATA
+    getTaskData
 } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
@@ -62,7 +61,7 @@ export default sandboxOf(PagedListComponent, {
     </ngx-material-dashboard-paged-list>`,
     context: {
         collectionButtons: DEFAULT_COLLECTION_BUTTONS,
-        data: TEST_DATA,
+        data: getTaskData(20),
         fields: ['id']
     }
 });

@@ -175,7 +175,7 @@ export class SidenavElement extends PageElement {
                 this.listItemChildElementsMap[listItemChildSelector] =
                     listChildElement;
             } catch (error) {
-                console.log(error);
+                /* empty */
             }
         });
     }
@@ -191,7 +191,7 @@ export class SidenavElement extends PageElement {
                         listItemGrandChildSelector
                     ] = listGrandChildElement;
                 } catch (error) {
-                    console.log(error);
+                    /* empty */
                 }
             }
         );

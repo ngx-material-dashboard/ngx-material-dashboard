@@ -46,7 +46,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
  *     selector: 'basic-grid-usage-example',
  *     templateUrl: './basic-grid-usage-example.html'
  * }) export class BasicGridUsageExample {
- *     data: DummyObject[] = [...];
+ *     data: Task[] = [...];
  *     fields: string[] = ['id'];
  * }
  * ```

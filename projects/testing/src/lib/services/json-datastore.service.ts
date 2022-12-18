@@ -5,7 +5,7 @@ import {
     JsonApiQueryData,
     JsonDatastore as BaseJsonDatastore,
     ModelType
-} from '@ngx-material-dashboard/base-json/src/lib';
+} from '@ngx-material-dashboard/base-json';
 import { JsonModel } from '../models/json.model';
 
 @Injectable()
