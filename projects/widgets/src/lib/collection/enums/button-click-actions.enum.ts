@@ -7,4 +7,4 @@ export enum ButtonClickAction {
     Create = 'create',
     Edit = 'edit',
     Delete = 'delete'
-};
+}

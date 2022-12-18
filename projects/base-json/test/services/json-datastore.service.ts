@@ -19,7 +19,7 @@ export class JsonDatastore extends BaseJsonDatastore {
     public serializeModel(model: any, attributesMetadata: any, transition?: string): any {
         const data: any = this.getDirtyAttributes(attributesMetadata, model);
 
-        let body = data;
+        const body = data;
         body.id = model.id
         
         if (transition) {

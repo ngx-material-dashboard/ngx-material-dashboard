@@ -186,7 +186,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
             // sidenav route with router.url
             const filteredRoute = sidenavItem.route.filter((it: any) => it !== './');
             // join filtered route parts
-            let route = filteredRoute.join('/');
+            const route = filteredRoute.join('/');
 
             if (route === '') {
                 return this.router.url === '/';

@@ -39,12 +39,12 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     let routes = '[';
     let routeIndex = 0;
     modules.forEach((module: Module) => {
-        let moduleRoutes = '';
+        const moduleRoutes = '';
         let moduleChildren = '[';
         let moduleTypeIndex: number = 0;
         const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));        
         moduleTypes.forEach((moduleType: string) => {
-            let moduleTypeRoutes = '';
+            const moduleTypeRoutes = '';
             let moduleTypeChildren = '[';
             let classIndex: number = 0;
 
@@ -149,7 +149,7 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     routes += `, ${createBasicRoute('overview')}]`;
     routes = createRouteWithChildrenAndComponent('', routes, 'LayoutComponent');
 
-    let homeRoute = `${createLazyLoadedRoute('', './routed-modules/home/home.module', 'HomeModule')}`;
+    const homeRoute = `${createLazyLoadedRoute('', './routed-modules/home/home.module', 'HomeModule')}`;
 
     const file = path.join(
         baseDocsSrcDir,
@@ -233,7 +233,7 @@ function generateChildrenRoutes(
     moduleTypeChildren: string,
     moduleType?: string
 ) {
-    let classRoutes = '';
+    const classRoutes = '';
     const className = `${reformatText(base.name)}`;
     const children: string = generateChildren(
         className,

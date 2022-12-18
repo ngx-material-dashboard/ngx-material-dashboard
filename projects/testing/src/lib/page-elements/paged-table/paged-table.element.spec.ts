@@ -82,7 +82,7 @@ describe('PagedTableElement', () => {
 
     describe('Table With Data', () => {
 
-        let data = getTaskData(200);
+        const data = getTaskData(200);
 
         beforeEach(() => {
             pagedTableElement = init(data);

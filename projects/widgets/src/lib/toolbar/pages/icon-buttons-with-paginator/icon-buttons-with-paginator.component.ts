@@ -72,7 +72,7 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
     /** The number of items to render in the page. */
     @Input() pageSize: number = 25;
     /** The model to track items selected in the table. */
-    @Input() selection: SelectionModel<T> = new SelectionModel<T>(this.multiple, []);;
+    @Input() selection: SelectionModel<T> = new SelectionModel<T>(this.multiple, []);
     /** Event emitted when user clicks button in toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** Event emitted when user clicks the select all checkbox. */

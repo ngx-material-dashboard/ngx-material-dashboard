@@ -66,7 +66,7 @@ export class UrlMarkdownFileMapGenerator {
 
     generateUrlFilesMap(): void {
         this.modules.forEach((m: Module) => {
-            let url: string = `/${m.displayName}`;
+            const url: string = `/${m.displayName}`;
 
             // add overviews for each main library
             this.urlFilesMap[url] = [[`assets/docs/${m.displayName}/overview.md`]];

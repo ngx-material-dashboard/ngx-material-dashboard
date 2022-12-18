@@ -29,7 +29,7 @@ const jsonModuleStrings: string[] = [
 ]
 
 export function generateSidenavItems(modules: Module[], urls: string[], moduleClasses: Clazz[]) {
-    let sidenavItems: { [route: string]: SidenavItem[] } = {};
+    const sidenavItems: { [route: string]: SidenavItem[] } = {};
     
     // create JSON sidenav items separately since these work a little different
     // from the rest of the modules; the sidenav for JSON modules includes info
