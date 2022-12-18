@@ -6,7 +6,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { MatSidenavContainer } from '@angular/material/sidenav';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { Router } from '@angular/router';
 import { SidenavItem } from '@ngx-material-dashboard/widgets';
 
 const routeSidenavItems: any = {

@@ -1,10 +1,3 @@
-import { getSampleBook } from './book.fixture';
-import { getSampleChapter } from './chapter.fixture';
-import { getSampleSection } from './section.fixture';
-import { getSampleParagraph } from './paragraph.fixture';
-import { getSampleSentence } from './sentence.fixture';
-import { getSampleCategory } from './category.fixture';
-
 export const AUTHOR_ID = '1';
 export const AUTHOR_NAME = 'J. R. R. Tolkien';
 export const AUTHOR_BIRTH = '1892-01-03';

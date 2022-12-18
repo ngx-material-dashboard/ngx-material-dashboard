@@ -1,5 +1,4 @@
 import { ModelConfig } from '../interfaces/model-config.interface';
-import { JsonModel } from './json.model';
 
 /**
  * The `JsonApiNestedModel` is meant to be used for complex attributes. Any
@@ -54,7 +53,7 @@ export class JsonApiNestedModel {
         return this.transformSerializedNamesToPropertyNames();
     }
 
-    protected transformSerializedNamesToPropertyNames<T extends JsonModel>() {
+    protected transformSerializedNamesToPropertyNames() {
         const serializedNameToPropertyName = this.getModelPropertyNames();
         const properties: any = {};
         Object.keys(serializedNameToPropertyName).forEach((serializedName) => {

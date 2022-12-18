@@ -1,19 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-    ComponentFixture,
-    fakeAsync,
-    TestBed,
-    tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,7 +14,6 @@ import {
     PagedCollectionWithToolbarElement,
     TEST_DATA
 } from '@ngx-material-dashboard/testing';
-import { MockModule } from 'ng-mocks';
 import { ListComponent } from '../../../list/components/list/list.component';
 import { ListWithIconButtonsPaginatorBarComponent } from '../../../list/pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
 

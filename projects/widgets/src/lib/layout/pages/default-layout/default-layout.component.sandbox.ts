@@ -25,7 +25,6 @@ import { HeaderUserMenuComponent } from '../../components/header-user-menu/heade
 import { HeaderComponent } from '../../components/header/header.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
-import { LayoutModule } from '../../layout.module';
 import { LoadingService } from '../../services/loading.service';
 import { DefaultLayoutComponent } from './default-layout.component';
 

@@ -3,7 +3,7 @@ import {
     HttpTestingController,
     HttpClientTestingModule
 } from '@angular/common/http/testing';
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { parseISO } from 'date-fns';
 
 import {
@@ -290,7 +290,7 @@ describe('JsonDatastoreService', () => {
             };
 
             datastore.findAll(Task).subscribe({
-                next: (tasks) => fail('onNext has been called'),
+                next: () => fail('onNext has been called'),
                 error: (response) => {
                     expect(response).toEqual(jasmine.any(ErrorResponse));
                     expect(response.errors.length).toEqual(1);

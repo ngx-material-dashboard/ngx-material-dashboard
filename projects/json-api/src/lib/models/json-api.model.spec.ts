@@ -15,7 +15,6 @@ import {
 } from '@ngx-material-dashboard/json-api/test/fixtures/author.fixture';
 import { Book } from '@ngx-material-dashboard/json-api/test/models/book.model';
 import { Chapter } from '@ngx-material-dashboard/json-api/test/models/chapter.model';
-import { getSampleEBook } from '@ngx-material-dashboard/json-api/test/fixtures/e-book.fixture';
 
 describe('JsonApiModel', () => {
     let datastore: Datastore;
@@ -266,7 +265,7 @@ describe('JsonApiModel', () => {
                 it('should return updated relationship', () => {
                     const REL = 'books';
                     const BOOK_NUMBER = 1;
-                    const CHAPTERS_NUMBER = 4;
+                    //const CHAPTERS_NUMBER = 4;
                     const DATA = getAuthorData(REL, BOOK_NUMBER);
                     const INCLUDED = getIncludedBooks(BOOK_NUMBER);
                     const NEW_BOOK_TITLE = 'The Hobbit';
@@ -292,7 +291,7 @@ describe('JsonApiModel', () => {
             it('should parse the first level of belongsTo relationships', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
-                const CHAPTERS_NUMBER = 4;
+                //const CHAPTERS_NUMBER = 4;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
                 const INCLUDED = getIncludedBooks(
                     BOOK_NUMBER,
@@ -311,7 +310,7 @@ describe('JsonApiModel', () => {
             it('should parse the second level of belongsTo relationships', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
-                const CHAPTERS_NUMBER = 4;
+                //const CHAPTERS_NUMBER = 4;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
                 const INCLUDED = getIncludedBooks(
                     BOOK_NUMBER,
@@ -332,7 +331,7 @@ describe('JsonApiModel', () => {
             it('should parse the third level of belongsTo relationships', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
-                const CHAPTERS_NUMBER = 4;
+                //const CHAPTERS_NUMBER = 4;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
                 const INCLUDED = getIncludedBooks(
                     BOOK_NUMBER,
@@ -358,7 +357,7 @@ describe('JsonApiModel', () => {
             it('should parse the fourth level of belongsTo relationships', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
-                const CHAPTERS_NUMBER = 4;
+                //const CHAPTERS_NUMBER = 4;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
                 const INCLUDED = getIncludedBooks(
                     BOOK_NUMBER,

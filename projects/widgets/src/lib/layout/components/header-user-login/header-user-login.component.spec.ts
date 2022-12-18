@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Page } from '../../../../../test/helpers/page.helper';
-import { MockComponent, MockModule } from 'ng-mocks';
+import { MockComponent } from 'ng-mocks';
 import { HeaderUserMenuComponent } from '../header-user-menu/header-user-menu.component';
 
 import { HeaderUserLoginComponent } from './header-user-login.component';

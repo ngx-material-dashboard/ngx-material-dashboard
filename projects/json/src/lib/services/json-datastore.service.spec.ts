@@ -24,7 +24,6 @@ import {
     AUTHOR_BIRTH,
     AUTHOR_ID,
     AUTHOR_NAME,
-    BOOK_TITLE,
     getAuthorData
 } from '@ngx-material-dashboard/json/test/fixtures/author.fixture';
 import { Author } from '@ngx-material-dashboard/json/test/models/author.model';

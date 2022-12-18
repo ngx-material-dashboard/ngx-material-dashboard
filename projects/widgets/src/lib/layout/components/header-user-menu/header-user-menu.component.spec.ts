@@ -1,12 +1,4 @@
-import {
-    ComponentFixture,
-    discardPeriodicTasks,
-    fakeAsync,
-    flush,
-    flushMicrotasks,
-    TestBed,
-    tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

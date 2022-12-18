@@ -6,11 +6,7 @@ import {
     Input,
     Output
 } from '@angular/core';
-import {
-    faBars,
-    faMicrophone,
-    IconDefinition
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
 
 /**
