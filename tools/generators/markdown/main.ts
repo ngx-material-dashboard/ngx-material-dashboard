@@ -9,17 +9,23 @@ import { Clazz } from '../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../converters/typedoc-json/models/function.model';
 import { Module } from '../../converters/typedoc-json/models/module.model';
 import { TypedocBase } from '../../converters/typedoc-json/models/typedoc-base.model';
-import { UsageNote, USAGE_TYPES } from '../../converters/typedoc-json/models/usage-note.model';
-import { MODULE_TYPE_DIRECTORY_MAP, reformatText } from '../../generators/documentation/helpers';
+import {
+    UsageNote,
+    USAGE_TYPES
+} from '../../converters/typedoc-json/models/usage-note.model';
+import {
+    MODULE_TYPE_DIRECTORY_MAP,
+    reformatText
+} from '../../generators/documentation/helpers';
 import { TypeAlias } from '../../converters/typedoc-json/models/type-alias.model';
 
 const DOCS_DIRECTORY_MAP: { [module: string]: string } = {
     'base-json': 'base-json',
-    'json': 'json',
+    json: 'json',
     'json-api': 'json-api',
-    'widgets': 'widgets',
-    'testing': 'testing'
-}
+    widgets: 'widgets',
+    testing: 'testing'
+};
 
 export function generateMarkdown(modules: Module[]) {
     registerHelpers();
@@ -44,7 +50,7 @@ export function generateMarkdown(modules: Module[]) {
 
     const directiveTemplate = Handlebars.compile(
         fs.readFileSync(path.join(TEMPLATE_PATH, 'directive.hbs')).toString()
-    )
+    );
 
     const overviewTemplate = Handlebars.compile(
         fs.readFileSync(path.join(TEMPLATE_PATH, 'overview.hbs')).toString()
@@ -72,7 +78,7 @@ export function generateMarkdown(modules: Module[]) {
 
         module.classes.forEach((clazz: Clazz) => {
             const outputPath = buildOutputPath(baseOutputPath, clazz);
-            let output 
+            let output;
             if (clazz.name.endsWith('Component')) {
                 output = componentTemplate(clazz);
             } else if (clazz.name.endsWith('Directive')) {
@@ -84,37 +90,88 @@ export function generateMarkdown(modules: Module[]) {
             }
             let overviewIndex = 0;
             writeFile(outputPath, 'api.md', output);
-            clazz.apiFile = { directory: makeRelative(outputPath), fileName: 'api.md' };
-            writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(clazz));
-            clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
+            clazz.apiFile = {
+                directory: makeRelative(outputPath),
+                fileName: 'api.md'
+            };
+            writeFile(
+                outputPath,
+                `overview-${overviewIndex}.md`,
+                overviewTemplate(clazz)
+            );
+            clazz.overviewFiles[overviewIndex] = [
+                {
+                    directory: makeRelative(outputPath),
+                    fileName: `overview-${overviewIndex++}.md`
+                }
+            ];
 
-            overviewIndex = addTags(clazz, outputPath, overviewIndex, usageNotesTemplaet);
+            overviewIndex = addTags(
+                clazz,
+                outputPath,
+                overviewIndex,
+                usageNotesTemplaet
+            );
         });
 
         module.functions.forEach((f: FunctionModel) => {
             const outputPath = buildOutputPath(baseOutputPath, f);
             const output = decoratorTemplate(f);
             writeFile(outputPath, 'api.md', output);
-            f.apiFile = { directory: makeRelative(outputPath), fileName: 'api.md' };
+            f.apiFile = {
+                directory: makeRelative(outputPath),
+                fileName: 'api.md'
+            };
 
-            let overviewIndex = 0
-            writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(f));
-            f.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
+            let overviewIndex = 0;
+            writeFile(
+                outputPath,
+                `overview-${overviewIndex}.md`,
+                overviewTemplate(f)
+            );
+            f.overviewFiles[overviewIndex] = [
+                {
+                    directory: makeRelative(outputPath),
+                    fileName: `overview-${overviewIndex++}.md`
+                }
+            ];
 
-            overviewIndex = addTags(f, outputPath, overviewIndex, usageNotesTemplaet);
+            overviewIndex = addTags(
+                f,
+                outputPath,
+                overviewIndex,
+                usageNotesTemplaet
+            );
         });
 
         module.typeAliases.forEach((f: TypeAlias) => {
             const outputPath = buildOutputPath(baseOutputPath, f);
             const output = decoratorTemplate(f);
             writeFile(outputPath, 'api.md', output);
-            f.apiFile = { directory: makeRelative(outputPath), fileName: 'api.md' };
+            f.apiFile = {
+                directory: makeRelative(outputPath),
+                fileName: 'api.md'
+            };
 
-            let overviewIndex = 0
-            writeFile(outputPath, `overview-${overviewIndex}.md`, overviewTemplate(f));
-            f.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex++}.md` }];
+            let overviewIndex = 0;
+            writeFile(
+                outputPath,
+                `overview-${overviewIndex}.md`,
+                overviewTemplate(f)
+            );
+            f.overviewFiles[overviewIndex] = [
+                {
+                    directory: makeRelative(outputPath),
+                    fileName: `overview-${overviewIndex++}.md`
+                }
+            ];
 
-            overviewIndex = addTags(f, outputPath, overviewIndex, usageNotesTemplaet);
+            overviewIndex = addTags(
+                f,
+                outputPath,
+                overviewIndex,
+                usageNotesTemplaet
+            );
         });
     });
 }
@@ -154,41 +211,73 @@ function addTags(
                 // if the note has a header; this creates an additional
                 // markdown file that just contains the header text which
                 // works since component rendering markdown just renders
-                // files as they are in order (TODO figure out a better 
+                // files as they are in order (TODO figure out a better
                 // way to handle this since it forces additional http
                 // request for markdown file with a single line)
                 writeFile(outputPath, `${fileName}-header.md`, tag.header);
-                clazz.overviewFiles[overviewIndex++] = [{directory: makeRelative(outputPath), fileName: `${fileName}-header.md`}];
+                clazz.overviewFiles[overviewIndex++] = [
+                    {
+                        directory: makeRelative(outputPath),
+                        fileName: `${fileName}-header.md`
+                    }
+                ];
             }
 
             const types = usageNote.types;
             if (types) {
                 if (Object.keys(types).length > 1) {
                     clazz.overviewFiles[overviewIndex] = [];
-                    for(const type of USAGE_TYPES) {
+                    for (const type of USAGE_TYPES) {
                         if (types[type]) {
                             const usageNotes = template(types[type]);
-                            writeFile(outputPath, `${fileName}-${type}.md`, usageNotes);
-                            clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}-${type}.md`] = usageNote;
-                            clazz.overviewFiles[overviewIndex].push({ directory: makeRelative(outputPath), fileName:`${fileName}-${type}.md` });
+                            writeFile(
+                                outputPath,
+                                `${fileName}-${type}.md`,
+                                usageNotes
+                            );
+                            clazz.fileUsageNoteMap[
+                                `${usageNoteFileBase}/${fileName}-${type}.md`
+                            ] = usageNote;
+                            clazz.overviewFiles[overviewIndex].push({
+                                directory: makeRelative(outputPath),
+                                fileName: `${fileName}-${type}.md`
+                            });
                         }
                     }
                 } else {
                     const usageNotes = template(usageNote.text);
                     writeFile(outputPath, `${fileName}.md`, usageNotes);
-                    clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
-                    clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
+                    clazz.fileUsageNoteMap[
+                        `${usageNoteFileBase}/${fileName}.md`
+                    ] = usageNote;
+                    clazz.overviewFiles[overviewIndex] = [
+                        {
+                            directory: makeRelative(outputPath),
+                            fileName: `${fileName}.md`
+                        }
+                    ];
                 }
             } else {
                 const usageNotes = template(usageNote.text);
                 writeFile(outputPath, `${fileName}.md`, usageNotes);
-                clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] = usageNote;
-                clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`${fileName}.md` }];
+                clazz.fileUsageNoteMap[`${usageNoteFileBase}/${fileName}.md`] =
+                    usageNote;
+                clazz.overviewFiles[overviewIndex] = [
+                    {
+                        directory: makeRelative(outputPath),
+                        fileName: `${fileName}.md`
+                    }
+                ];
             }
         } else {
             const details = template(tag.content?.text);
             writeFile(outputPath, `overview-${overviewIndex}.md`, details);
-            clazz.overviewFiles[overviewIndex] = [{ directory: makeRelative(outputPath), fileName:`overview-${overviewIndex}.md` }];
+            clazz.overviewFiles[overviewIndex] = [
+                {
+                    directory: makeRelative(outputPath),
+                    fileName: `overview-${overviewIndex}.md`
+                }
+            ];
         }
         overviewIndex++;
     });
@@ -197,14 +286,11 @@ function addTags(
 }
 
 function append(outputPath: string, text: string) {
-    return path.join(
-        outputPath,
-        text
-    );
+    return path.join(outputPath, text);
 }
 
 function makeRelative(directory: string) {
-    return directory.substring(directory.indexOf('assets'))
+    return directory.substring(directory.indexOf('assets'));
 }
 
 function writeFile(directory: string, filename: string, data: any): void {
@@ -212,7 +298,7 @@ function writeFile(directory: string, filename: string, data: any): void {
         // create directory if it doesn't exist
         fs.mkdir(directory, { recursive: true }, (err) => {
             if (err) {
-                throw err
+                throw err;
             } else {
                 writeFileUtil(directory, filename, data);
             }
@@ -228,9 +314,14 @@ function writeFile(directory: string, filename: string, data: any): void {
  *  - a+ = Open file for reading and appending. The file is created if not exists
  */
 function writeFileUtil(directory: string, filename: string, data: any) {
-     fs.writeFile(`${directory}/${filename}`, data, { flag: 'w' }, function(err) {
-        if (err) return console.error(err); 
-    });
+    fs.writeFile(
+        `${directory}/${filename}`,
+        data,
+        { flag: 'w' },
+        function (err) {
+            if (err) return console.error(err);
+        }
+    );
 }
 
 function getModuleType(t: TypedocBase): string | undefined {

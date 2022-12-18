@@ -32,15 +32,15 @@ export const CLAZZ_SPECIFIC_TYPES: string[] = [
 ];
 
 export const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
-    'Component': 'components',
-    'Converter': 'converters',
-    'Directive': 'directives',
+    Component: 'components',
+    Converter: 'converters',
+    Directive: 'directives',
     '.decorator.': 'decorators',
     '.element.': 'elements',
     '.enum.': 'enums',
-    'interface': 'interfaces',
+    interface: 'interfaces',
     '.model.': 'models',
-    'Module': 'modules',
+    Module: 'modules',
     '.page.': 'pages',
     '.service.': 'services'
 };
@@ -64,9 +64,14 @@ export function capitalizeFirstLetter(s: string) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export function filterModuleTypeUrls(moduleName: string, moduleUrls: string[], includes: boolean, notIncludes: boolean) {
+export function filterModuleTypeUrls(
+    moduleName: string,
+    moduleUrls: string[],
+    includes: boolean,
+    notIncludes: boolean
+) {
     return moduleUrls.filter((it: string) => {
-        for(const moduleType of moduleTypes) {
+        for (const moduleType of moduleTypes) {
             if (it.includes(`/${moduleName}/${moduleType}/`)) {
                 return includes;
             }
@@ -90,7 +95,7 @@ export function reformatText(text: string): string {
         // with Dialog at end which can be removed
         text = text.replace('Dialog', '');
     }
-    for(let i = 0; i < text.length; i++) {
+    for (let i = 0; i < text.length; i++) {
         const character = text.charAt(i);
         if (character === character.toUpperCase()) {
             if (i > 0) {

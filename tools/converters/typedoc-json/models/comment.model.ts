@@ -2,7 +2,7 @@ import { OverviewDetail } from './overview-detail.model';
 import { UsageNote } from './usage-note.model';
 
 export class Tag {
-    header?: string
+    header?: string;
     tag!: string;
     text!: string;
     type!: string;
@@ -14,7 +14,6 @@ export class Tag {
 }
 
 export class Comment {
-
     overviewDetails: OverviewDetail[] = [];
     returns?: string;
     /** The first paragraph in the documentation. */

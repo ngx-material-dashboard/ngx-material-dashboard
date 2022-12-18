@@ -2,7 +2,6 @@ import { Clazz } from './clazz.model';
 import { Decorator } from './decorator.model';
 
 export class Directive extends Clazz {
-
     selector?: string;
 
     constructor(data: Partial<Directive>) {

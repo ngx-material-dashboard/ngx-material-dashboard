@@ -3,7 +3,6 @@ import { Signature } from './signature.model';
 import { TypedocBase } from './typedoc-base.model';
 
 export class MethodModel extends TypedocBase {
-
     override kindString: string = 'Method';
     signatures: Signature[];
     returns?: string;

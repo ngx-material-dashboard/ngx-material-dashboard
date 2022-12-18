@@ -1,4 +1,7 @@
-import { CLAZZ_SPECIFIC_TYPES, moduleTypes } from '../../../generators/documentation/helpers';
+import {
+    CLAZZ_SPECIFIC_TYPES,
+    moduleTypes
+} from '../../../generators/documentation/helpers';
 import * as data from '../../../../docs.json';
 import { Accessor } from '../models/accessor.model';
 import { Clazz } from '../models/clazz.model';
@@ -20,7 +23,7 @@ const MODULE_SORT_ORDER: string[] = [
     'json-api',
     'widgets',
     'testing'
-]
+];
 
 const NG_MODULE_VALS: string[] = [
     'declarations',
@@ -38,7 +41,6 @@ const NG_MODULE_VALS: string[] = [
  * located at root of workspace.
  */
 export class ParseJsonService {
-
     /** The raw JSON read from imported docs.json typedoc output file. */
     fileData: any;
     /** The root JSON object containing all output data from typedoc. */
@@ -54,11 +56,16 @@ export class ParseJsonService {
      */
     constructor() {
         this.fileData = (data as any).default;
-        this.typedocBase = new TypedocBase(this.fileData as Partial<TypedocBase>);
+        this.typedocBase = new TypedocBase(
+            this.fileData as Partial<TypedocBase>
+        );
         this.extractModulesData();
         this.extractNgModuleData();
         this.modules.sort((a: Module, b: Module) => {
-            return MODULE_SORT_ORDER.indexOf(a.displayName) - MODULE_SORT_ORDER.indexOf(b.displayName);
+            return (
+                MODULE_SORT_ORDER.indexOf(a.displayName) -
+                MODULE_SORT_ORDER.indexOf(b.displayName)
+            );
         });
         this.ngModuleClasses.sort((a: Clazz, b: Clazz) => {
             return a.displayName.localeCompare(b.displayName);
@@ -79,7 +86,9 @@ export class ParseJsonService {
     private extractComponentData(c: Component): void {
         const decorators = c.decorators;
         if (decorators) {
-            const args: string = this.sanitizeArguments(decorators[0].arguments);
+            const args: string = this.sanitizeArguments(
+                decorators[0].arguments
+            );
             NG_MODULE_VALS.forEach((val: string) => {
                 type ObjectKey = keyof Clazz;
                 const key = val as ObjectKey;
@@ -96,17 +105,24 @@ export class ParseJsonService {
      * decorator (i.e. declarations, exports, imports, etc).
      */
     private extractNgModuleData(): void {
-        this.ngModuleClasses = this.classes.filter((it: Clazz) => it.name.endsWith('Module'));
+        this.ngModuleClasses = this.classes.filter((it: Clazz) =>
+            it.name.endsWith('Module')
+        );
         this.ngModuleClasses.forEach((ngModule: Clazz) => {
             const decorators = ngModule.decorators;
             if (decorators) {
-                const args: string = this.sanitizeArguments(decorators[0].arguments);
+                const args: string = this.sanitizeArguments(
+                    decorators[0].arguments
+                );
                 NG_MODULE_VALS.forEach((val: string) => {
                     type ObjectKey = keyof Clazz;
                     const key = val as ObjectKey;
                     const arrayData = this.extractArrayData(args, val);
                     arrayData.forEach((arrVal: string) => {
-                        const c: Component | Directive | Service | undefined = this.classes.find((it: Clazz) => it.name === arrVal);
+                        const c: Component | Directive | Service | undefined =
+                            this.classes.find(
+                                (it: Clazz) => it.name === arrVal
+                            );
                         if (c) {
                             c.ngModule = ngModule;
                             if (c instanceof Component) {
@@ -132,7 +148,9 @@ export class ParseJsonService {
             // classes defined in same path as module, but that may not be
             // included in decorators; i.e. interfaces, models, etc.) and add
             // them to appropriate array if they haven't already been added
-            const classesInModule = this.classes.filter((c: Clazz) => c.sources[0].fileName.includes(ngModule.sources[0].path));
+            const classesInModule = this.classes.filter((c: Clazz) =>
+                c.sources[0].fileName.includes(ngModule.sources[0].path)
+            );
             classesInModule.forEach((c: Clazz) => {
                 if (c instanceof Service && !ngModule.services.includes(c)) {
                     ngModule.services.push(c);
@@ -150,7 +168,7 @@ export class ParseJsonService {
             .replaceAll('\n', '') // remove all new line characters
             .replaceAll(' ', '')
             .replaceAll('./', '')
-            .replaceAll('\'', ''); // remove any spaces so parsing is easier
+            .replaceAll("'", ''); // remove any spaces so parsing is easier
     }
 
     getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
@@ -164,7 +182,7 @@ export class ParseJsonService {
     private extractData(val: string, key: string): string | string[] | null {
         if (val.indexOf(`${key}:[`) >= 0) {
             return this.extractArrayData(val, key);
-        } else if (val.indexOf(`${key}:`) >= 0){
+        } else if (val.indexOf(`${key}:`) >= 0) {
             let res = '';
             key += ':';
             const startIndex = val.indexOf(key) + key.length;
@@ -178,7 +196,7 @@ export class ParseJsonService {
             }
 
             return res;
-        } else { 
+        } else {
             return null;
         }
     }
@@ -186,14 +204,14 @@ export class ParseJsonService {
     /**
      * Parses and extracts basic JSON array data from a JSON string given the
      * key of the array data.
-     * @param val 
+     * @param val
      */
     private extractArrayData(val: string, key: string): string[] {
         key += ':[';
         const arrayData: string[] = [];
         const startIndex = val.indexOf(key) + key.length;
         let arrayVal = '';
-        for(let i = startIndex; i < val.length; i++) {
+        for (let i = startIndex; i < val.length; i++) {
             const c = val.charAt(i);
             if (c === ',' || c === ']') {
                 arrayData.push(arrayVal);
@@ -235,7 +253,10 @@ export class ParseJsonService {
                 } else if (t.name.endsWith('Directive')) {
                     c = new Directive(t);
                     this.extractComponentData(c);
-                } else if (t.name.endsWith('Service') || t.sources[0].fileName.includes('.service.')) {
+                } else if (
+                    t.name.endsWith('Service') ||
+                    t.sources[0].fileName.includes('.service.')
+                ) {
                     c = new Service(t);
                     module.services.push(c);
                 } else if (t.sources[0].fileName.includes('.interface.')) {
@@ -247,7 +268,11 @@ export class ParseJsonService {
                     if (c.sources[0].fileName.includes('.enum.')) {
                         module.enums.push(c);
                     } else {
-                        if (!CLAZZ_SPECIFIC_TYPES.find((it: string) => c.sources[0].fileName.includes(`.${it}.`))) {
+                        if (
+                            !CLAZZ_SPECIFIC_TYPES.find((it: string) =>
+                                c.sources[0].fileName.includes(`.${it}.`)
+                            )
+                        ) {
                             module.nonSpecificClasses.push(c);
                         }
                     }

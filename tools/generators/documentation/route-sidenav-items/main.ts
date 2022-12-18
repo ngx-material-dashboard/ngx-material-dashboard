@@ -22,19 +22,21 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
-const jsonModuleStrings: string[] = [
-    'base-json',
-    'json',
-    'json-api'
-]
+const jsonModuleStrings: string[] = ['base-json', 'json', 'json-api'];
 
-export function generateSidenavItems(modules: Module[], urls: string[], moduleClasses: Clazz[]) {
+export function generateSidenavItems(
+    modules: Module[],
+    urls: string[],
+    moduleClasses: Clazz[]
+) {
     const sidenavItems: { [route: string]: SidenavItem[] } = {};
-    
+
     // create JSON sidenav items separately since these work a little different
     // from the rest of the modules; the sidenav for JSON modules includes info
     // from multiple libraries as opposed to the widgets or testing
-    const jsonModules = modules.filter((it: Module) => jsonModuleStrings.includes(it.displayName));
+    const jsonModules = modules.filter((it: Module) =>
+        jsonModuleStrings.includes(it.displayName)
+    );
     const jsonSidenavItems: SidenavItem[] = [];
     jsonModules.forEach((module: Module) => {
         const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
@@ -53,11 +55,12 @@ export function generateSidenavItems(modules: Module[], urls: string[], moduleCl
                 const addedUrls: string[] = [];
                 // add each module with child component, directive, etc nested items
                 moduleClasses.forEach((c: Clazz) => {
-                    const nestedSidenavItem: SidenavItem = createNestedSidenavItem(
-                        c.displayName,
-                        c.displayName,
-                        getSidenavItemsNew(c, module, addedUrls)
-                    );
+                    const nestedSidenavItem: SidenavItem =
+                        createNestedSidenavItem(
+                            c.displayName,
+                            c.displayName,
+                            getSidenavItemsNew(c, module, addedUrls)
+                        );
                     sItems.push(nestedSidenavItem);
                 });
 
@@ -66,7 +69,10 @@ export function generateSidenavItems(modules: Module[], urls: string[], moduleCl
                 const otherItems = getSidenavItems(module, urls, addedUrls);
                 sidenavItems[module.displayName] = [...sItems, ...otherItems];
             } else {
-                sidenavItems[module.displayName] = getSidenavItems(module, urls);
+                sidenavItems[module.displayName] = getSidenavItems(
+                    module,
+                    urls
+                );
             }
         } else {
             sidenavItems[module.displayName] = jsonSidenavItems;
@@ -88,13 +94,41 @@ export function generateSidenavItems(modules: Module[], urls: string[], moduleCl
     );
 }
 
-function getSidenavItemsNew(clazz: Clazz, module: Module, addedUrls: string[]): SidenavItem[] {
+function getSidenavItemsNew(
+    clazz: Clazz,
+    module: Module,
+    addedUrls: string[]
+): SidenavItem[] {
     const sidenavItems: SidenavItem[] = [];
-    getClassSidenavItems(clazz.components, module, 'Components', sidenavItems, addedUrls);
-    getClassSidenavItems(clazz.directives, module, 'Directives', sidenavItems, addedUrls);
+    getClassSidenavItems(
+        clazz.components,
+        module,
+        'Components',
+        sidenavItems,
+        addedUrls
+    );
+    getClassSidenavItems(
+        clazz.directives,
+        module,
+        'Directives',
+        sidenavItems,
+        addedUrls
+    );
     getClassSidenavItems(clazz.enums, module, 'Enums', sidenavItems, addedUrls);
-    getClassSidenavItems(clazz.interfaces, module, 'Interfaces', sidenavItems, addedUrls);
-    getClassSidenavItems(clazz.services as Clazz[], module, 'Services', sidenavItems, addedUrls);
+    getClassSidenavItems(
+        clazz.interfaces,
+        module,
+        'Interfaces',
+        sidenavItems,
+        addedUrls
+    );
+    getClassSidenavItems(
+        clazz.services as Clazz[],
+        module,
+        'Services',
+        sidenavItems,
+        addedUrls
+    );
     return sidenavItems;
 }
 
@@ -108,7 +142,9 @@ function getClassSidenavItems(
     const children: SidenavItem[] = [];
 
     // sort the classes first; then create list of child sidenav items for module
-    classes = classes.sort((a: Clazz, b: Clazz) => a.name.localeCompare(b.name));
+    classes = classes.sort((a: Clazz, b: Clazz) =>
+        a.name.localeCompare(b.name)
+    );
     classes.forEach((c: Clazz) => {
         let url: string = c.url;
         url = url?.replace('/api', '').replace('/overview', '');
@@ -131,16 +167,24 @@ function getClassSidenavItems(
     }
 }
 
-function getSidenavItems(module: Module, urls: string[], addedUrls: string[] = []) {
+function getSidenavItems(
+    module: Module,
+    urls: string[],
+    addedUrls: string[] = []
+) {
     const sidenavItems: SidenavItem[] = [];
-    const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));
+    const moduleUrls: string[] = urls.filter((it: string) =>
+        it.includes(`/${module.displayName}/`)
+    );
 
     // handle different module/class types (i.e. components vs directives vs
     // services etc.) as the URLs for these classes will be nested under their
     // respective type
     moduleTypes.forEach((moduleType: string) => {
         const children: SidenavItem[] = [];
-        const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}`));
+        const moduleTypeUrls: string[] = moduleUrls.filter((it: string) =>
+            it.includes(`/${module.displayName}/${moduleType}`)
+        );
         moduleTypeUrls.forEach((url: string) => {
             url = url.replace('/api', '').replace('/overview', '');
             if (!addedUrls.includes(url)) {
@@ -159,10 +203,15 @@ function getSidenavItems(module: Module, urls: string[], addedUrls: string[] = [
             sidenavItems.push(nestedSidenavItem);
         }
     });
-    
+
     // handle classes that reside directly at the root of the library, i.e.
     // those classes that do not have a specific type (component, service, etc)
-    const nonModuleTypeUrls: string[] = filterModuleTypeUrls(module.displayName, moduleUrls, false, true);
+    const nonModuleTypeUrls: string[] = filterModuleTypeUrls(
+        module.displayName,
+        moduleUrls,
+        false,
+        true
+    );
     nonModuleTypeUrls.forEach((url: string) => {
         if (url !== `/${module.displayName}/`) {
             // do not add sidenav items for root urls
@@ -185,7 +234,11 @@ function getSidenavItems(module: Module, urls: string[], addedUrls: string[] = [
  * @param children The children to include for the sidenav item.
  * @returns The sidenav item with children sidenav items.
  */
-function createNestedSidenavItem(text: string, selector: string, children: SidenavItem[]): SidenavItem {
+function createNestedSidenavItem(
+    text: string,
+    selector: string,
+    children: SidenavItem[]
+): SidenavItem {
     return {
         text,
         selector,
@@ -196,9 +249,9 @@ function createNestedSidenavItem(text: string, selector: string, children: Siden
 /**
  * Creates a basic sidenav item that should contain a single route.
  *
- * @param module 
- * @param url 
- * @returns 
+ * @param module
+ * @param url
+ * @returns
  */
 function createSidenavItem(module: Module, url: string): SidenavItem {
     let route;
@@ -210,7 +263,7 @@ function createSidenavItem(module: Module, url: string): SidenavItem {
         // get the last value in the route which should match a selector format
         selector = route[route.length - 1];
         // convert the selector format to camel case text for pretty display
-        text = convertSelectorToText(selector)
+        text = convertSelectorToText(selector);
     } else {
         // special case for when displayName and URL match, just include
         // the url for the route
@@ -223,5 +276,5 @@ function createSidenavItem(module: Module, url: string): SidenavItem {
         route,
         selector,
         text
-    }
+    };
 }

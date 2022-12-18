@@ -3,7 +3,6 @@ import { Decorator } from './decorator.model';
 import { TypeModel } from './type.model';
 import { Parameter } from './parameter.model';
 export class Property extends TypedocBase {
-
     propertyDecorator?: Decorator;
     propertyDecoratorDisplay: string = '';
     displayType: string;
@@ -51,10 +50,14 @@ export class Property extends TypedocBase {
      */
     static sort(a: Property, b: Property): number {
         if (a.propertyDecorator && b.propertyDecorator) {
-            if (a.propertyDecorator.type.name === b.propertyDecorator.type.name) {
+            if (
+                a.propertyDecorator.type.name === b.propertyDecorator.type.name
+            ) {
                 return a.name.localeCompare(b.name);
             } else {
-                return a.propertyDecorator.type.name.localeCompare(b.propertyDecorator.type.name);
+                return a.propertyDecorator.type.name.localeCompare(
+                    b.propertyDecorator.type.name
+                );
             }
         } else if (!a.propertyDecorator && !b.propertyDecorator) {
             return a.name.localeCompare(b.name);

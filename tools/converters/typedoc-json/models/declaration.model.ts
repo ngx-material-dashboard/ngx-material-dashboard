@@ -14,7 +14,6 @@ import { TypedocBase } from './typedoc-base.model';
  * created and how displayType is rendered for TypeModels in markdown.
  */
 export class Declaration extends TypedocBase {
-
     indexSignature?: Signature;
 
     constructor(data: Partial<Declaration>) {
@@ -31,7 +30,7 @@ export class Declaration extends TypedocBase {
             this.children = [];
             this.displayName = '{';
             data.children.forEach((c: Partial<Property>, index: number) => {
-                const p = new Property(c)
+                const p = new Property(c);
                 this.children.push(p);
                 if (index > 0) {
                     this.displayName += ', ';

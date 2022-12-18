@@ -3,7 +3,6 @@ import { TypeModel } from './type.model';
 import { TypedocBase } from './typedoc-base.model';
 
 export class Signature extends TypedocBase {
-
     constructor(data: Partial<Signature>) {
         super(data);
         this.parameters = [];

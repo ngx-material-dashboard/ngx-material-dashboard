@@ -1,8 +1,8 @@
 import { Comment } from './comment.model';
-import { Module } from "./module.model";
+import { Module } from './module.model';
 import { OverviewDetail } from './overview-detail.model';
 import { Parameter } from './parameter.model';
-import { Source } from "./source.model";
+import { Source } from './source.model';
 import { TypeModel } from './type.model';
 import { UsageNote } from './usage-note.model';
 
@@ -35,8 +35,8 @@ export class TypedocBase {
     urlFilesMap: { [url: string]: string[][] } = {};
     fileUsageNoteMap: { [file: string]: UsageNote } = {};
     overviewDetails: OverviewDetail[] = [];
-    apiFile!: { directory: string, fileName: string };
-    overviewFiles: { directory: string, fileName: string }[][] = [];
+    apiFile!: { directory: string; fileName: string };
+    overviewFiles: { directory: string; fileName: string }[][] = [];
 
     constructor(data: Partial<TypedocBase>) {
         Object.assign(this, data);

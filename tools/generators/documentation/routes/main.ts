@@ -1,11 +1,7 @@
 import * as path from 'path';
 import { ReplaceInFile } from '../../../files/replace-in-file';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
-import {
-    filterModuleTypeUrls,
-    moduleTypes,
-    reformatText
-} from '../helpers';
+import { filterModuleTypeUrls, moduleTypes, reformatText } from '../helpers';
 import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../../converters/typedoc-json/models/function.model';
 import { TypeAlias } from '../../../converters/typedoc-json/models/type-alias.model';
@@ -31,9 +27,9 @@ const baseDocsSrcDir = path.join(
  * surprisingly (especially from where it started); there is still plenty more
  * that I can do to cut down on the repeated code and hopefully make this code
  * a bit easier to follow, maintain, and use
- * 
- * @param modules 
- * @param urls 
+ *
+ * @param modules
+ * @param urls
  */
 export function generateRoutes(modules: Module[], urls: string[]) {
     let routes = '[';
@@ -42,14 +38,18 @@ export function generateRoutes(modules: Module[], urls: string[]) {
         const moduleRoutes = '';
         let moduleChildren = '[';
         let moduleTypeIndex: number = 0;
-        const moduleUrls: string[] = urls.filter((it: string) => it.includes(`/${module.displayName}/`));        
+        const moduleUrls: string[] = urls.filter((it: string) =>
+            it.includes(`/${module.displayName}/`)
+        );
         moduleTypes.forEach((moduleType: string) => {
             const moduleTypeRoutes = '';
             let moduleTypeChildren = '[';
             let classIndex: number = 0;
 
             // handle URLs that include module types
-            const moduleTypeUrls: string[] = moduleUrls.filter((it: string) => it.includes(`/${module.displayName}/${moduleType}/`));
+            const moduleTypeUrls: string[] = moduleUrls.filter((it: string) =>
+                it.includes(`/${module.displayName}/${moduleType}/`)
+            );
             module.classes.forEach((clazz: Clazz) => {
                 if (!clazz.name.includes('Module') && !clazz.isConstant) {
                     const res = generateChildrenRoutes(
@@ -106,7 +106,12 @@ export function generateRoutes(modules: Module[], urls: string[]) {
 
         // handle URLs that are non specific classes (i.e. not component,
         // directive, interface, etc.)
-        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(`${module.displayName}`, moduleUrls, false, true);
+        const nonModuleTypeUrls: string[] = filterModuleTypeUrls(
+            `${module.displayName}`,
+            moduleUrls,
+            false,
+            true
+        );
         module.nonSpecificClasses.forEach((clazz: Clazz) => {
             const res = generateChildrenRoutes(
                 clazz,
@@ -149,13 +154,13 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     routes += `, ${createBasicRoute('overview')}]`;
     routes = createRouteWithChildrenAndComponent('', routes, 'LayoutComponent');
 
-    const homeRoute = `${createLazyLoadedRoute('', './routed-modules/home/home.module', 'HomeModule')}`;
+    const homeRoute = `${createLazyLoadedRoute(
+        '',
+        './routed-modules/home/home.module',
+        'HomeModule'
+    )}`;
 
-    const file = path.join(
-        baseDocsSrcDir,
-        'app',
-        'app-routing.module.ts'
-    );
+    const file = path.join(baseDocsSrcDir, 'app', 'app-routing.module.ts');
     const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
     replaceInFile.replace(
         /const routes: Routes = \[.*\];/g,
@@ -182,7 +187,11 @@ function createRouteWithChildren(path: string, children: string) {
  * @param component The component to render at the base of the route.
  * @returns A route with children and a component.
  */
-function createRouteWithChildrenAndComponent(path: string, children: string, component: string = 'TabbedDocumentComponent') {
+function createRouteWithChildrenAndComponent(
+    path: string,
+    children: string,
+    component: string = 'TabbedDocumentComponent'
+) {
     return `{ path: '${path}', component: ${component}, children: ${children}}`;
 }
 
@@ -206,7 +215,11 @@ function createBasicRoute(path: string) {
  * @param moduleName The name of the module to lazy load.
  * @returns A lazy loaded route.
  */
-function createLazyLoadedRoute(path: string, importPath: string, moduleName: string) {
+function createLazyLoadedRoute(
+    path: string,
+    importPath: string,
+    moduleName: string
+) {
     if (path === '') {
         return `{ path: '${path}', pathMatch: 'full', loadChildren: () => import('${importPath}').then(m => m.${moduleName})}`;
     } else {
@@ -218,7 +231,7 @@ function createLazyLoadedRoute(path: string, importPath: string, moduleName: str
  * Creates and returns a route to redirect to the given path when no path is
  * provided (i.e. path === '').
  *
- * @param path The path to redirecto to. 
+ * @param path The path to redirecto to.
  * @returns A route to redirect to given path when no path is provided.
  */
 function createRedirectRoute(path: string) {
@@ -244,7 +257,7 @@ function generateChildrenRoutes(
 
     return addChildrenToRoutes(
         children,
-        classRoutes, 
+        classRoutes,
         className,
         classIndex,
         moduleTypeChildren,
@@ -256,13 +269,13 @@ function generateChildrenRoutes(
  * Adds an array of child routes to an existing set of routes, if there are
  * children routes defined (i.e. if children !== '[]').
  *
- * @param children 
- * @param routes 
- * @param routeName 
- * @param index 
- * @param routeChildren 
- * @param callback 
- * @returns 
+ * @param children
+ * @param routes
+ * @param routeName
+ * @param index
+ * @param routeChildren
+ * @param callback
+ * @returns
  */
 function addChildrenToRoutes(
     children: string,
@@ -308,7 +321,9 @@ function generateChildren(
     moduleType?: string
 ): string {
     let children: string = '[';
-    const classUrls: string[] = urls.filter((it: string) => it.includes(`/${name}/`));
+    const classUrls: string[] = urls.filter((it: string) =>
+        it.includes(`/${name}/`)
+    );
     classUrls.forEach((url: string, i: number) => {
         url = url.replace(`/${module.displayName}/`, '');
         if (moduleType) {

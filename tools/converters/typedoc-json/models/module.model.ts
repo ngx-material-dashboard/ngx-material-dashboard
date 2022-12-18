@@ -5,7 +5,6 @@ import { TypeAlias } from './type-alias.model';
 import { TypedocBase } from './typedoc-base.model';
 
 export class Module extends TypedocBase {
-
     override kindString: string = 'Module';
     classes: Clazz[] = [];
     enums: Clazz[] = [];

@@ -1,7 +1,4 @@
-export const USAGE_TYPES: string[] = [
-    'html',
-    'typescript'
-];
+export const USAGE_TYPES: string[] = ['html', 'typescript'];
 
 export class UsageNote {
     header?: string;
@@ -28,7 +25,9 @@ export class UsageNote {
 
     private getType(type: string): string[] {
         const typeStrings: string[] = [];
-        const start = this.text.findIndex((it: string) => it === `\`\`\`${type}`);
+        const start = this.text.findIndex(
+            (it: string) => it === `\`\`\`${type}`
+        );
         if (start >= 0) {
             for (let i = start; i < this.text.length; i++) {
                 typeStrings.push(this.text[i]);

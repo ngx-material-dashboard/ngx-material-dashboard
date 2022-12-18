@@ -11,7 +11,6 @@ import * as path from 'path';
  * the library changes over time.
  */
 export class MarkdownDirectoryParser {
-
     /**
      * A map of directories to files in those directories to be filled by the
      * readDirectoryRecursively function.
@@ -23,20 +22,30 @@ export class MarkdownDirectoryParser {
      * directories_files_map, and adding each file located in those directories to
      * the list of files associated with that directory's key in the
      * directories_files_map.
-     *  
+     *
      * @param directory The directory to read recursively.
      */
     readDirectoryRecursively(directory: string) {
         fs.readdirSync(directory).forEach((file: string) => {
             const absolutePath = path.join(directory, file);
             if (fs.statSync(absolutePath).isDirectory()) {
-                this.directoriesFilesMap[this.makeRelativeDirectory(absolutePath)] = [];
+                this.directoriesFilesMap[
+                    this.makeRelativeDirectory(absolutePath)
+                ] = [];
                 return this.readDirectoryRecursively(absolutePath);
             } else {
-                if (!this.directoriesFilesMap[this.makeRelativeDirectory(directory)]) {
-                    this.directoriesFilesMap[this.makeRelativeDirectory(directory)] = [];
+                if (
+                    !this.directoriesFilesMap[
+                        this.makeRelativeDirectory(directory)
+                    ]
+                ) {
+                    this.directoriesFilesMap[
+                        this.makeRelativeDirectory(directory)
+                    ] = [];
                 }
-                return this.directoriesFilesMap[this.makeRelativeDirectory(directory)].push(file);
+                return this.directoriesFilesMap[
+                    this.makeRelativeDirectory(directory)
+                ].push(file);
             }
         });
     }

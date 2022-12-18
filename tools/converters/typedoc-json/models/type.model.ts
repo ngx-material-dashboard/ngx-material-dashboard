@@ -9,17 +9,21 @@ export class TypeModel {
     type!: string;
     types?: TypeModel[];
     /** Any included type arguments (i.e. "<T>" for type). */
-    typeArguments?: { type: string, id: number, name: string }[];
-    /** 
+    typeArguments?: { type: string; id: number; name: string }[];
+    /**
      * Type information for arrays (there may be more this includes, but that's
      * what I've determined so far).
      */
-    elementType?: { type: string, name?: string, declaration?: Declaration };
-    value?: string | null; 
+    elementType?: { type: string; name?: string; declaration?: Declaration };
+    value?: string | null;
 
     constructor(data: Partial<TypeModel>) {
         Object.assign(this, data);
-        if (data.type === 'array' && data.elementType && data.elementType.declaration) {
+        if (
+            data.type === 'array' &&
+            data.elementType &&
+            data.elementType.declaration
+        ) {
             // if the type is array and elementType defined, then array should
             // be JSON object literal and that should be defined in
             // elementType.declaration

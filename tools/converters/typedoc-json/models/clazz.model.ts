@@ -8,7 +8,6 @@ import { Property } from './property.model';
 import { TypedocBase } from './typedoc-base.model';
 
 export class Clazz extends TypedocBase {
-
     override kindString: string = 'Class';
     constructor$!: Constructor;
     components: Clazz[] = [];
@@ -20,7 +19,7 @@ export class Clazz extends TypedocBase {
     properties: Property[] = [];
     sortedProperties: Property[] = [];
     declarations: Clazz[] = [];
-    exports: Clazz[] = []
+    exports: Clazz[] = [];
     imports: Clazz[] = [];
     indexSignature?: Property;
 

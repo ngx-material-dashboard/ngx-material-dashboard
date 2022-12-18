@@ -25,7 +25,7 @@ const SHARED_FILES: { [lib: string]: string[] } = {
         'assets/docs/shared/error-handling.md',
         'assets/docs/shared/end-overview.md'
     ],
-    'json': [
+    json: [
         'assets/docs/json/format.md',
         'assets/docs/json/install.md',
         'assets/docs/shared/configuration.md',
@@ -50,16 +50,13 @@ const SHARED_FILES: { [lib: string]: string[] } = {
         'assets/docs/shared/error-handling.md',
         'assets/docs/shared/end-overview.md'
     ]
-}
+};
 
 export class UrlMarkdownFileMapGenerator {
-
     modules: Module[];
     urlFilesMap: { [url: string]: string[][] };
 
-    constructor(
-        modules: Module[]
-    ) {
+    constructor(modules: Module[]) {
         this.modules = modules;
         this.urlFilesMap = {};
     }
@@ -69,9 +66,13 @@ export class UrlMarkdownFileMapGenerator {
             const url: string = `/${m.displayName}`;
 
             // add overviews for each main library
-            this.urlFilesMap[url] = [[`assets/docs/${m.displayName}/overview.md`]];
+            this.urlFilesMap[url] = [
+                [`assets/docs/${m.displayName}/overview.md`]
+            ];
             m.urlFilesMap[url] = [[`assets/docs/${m.displayName}/overview.md`]];
-            const key = Object.keys(SHARED_FILES).find((it: string) => m.displayName === it);
+            const key = Object.keys(SHARED_FILES).find(
+                (it: string) => m.displayName === it
+            );
             if (key) {
                 SHARED_FILES[key].forEach((dir: string) => {
                     this.urlFilesMap[url].push([dir]);
@@ -100,10 +101,12 @@ export class UrlMarkdownFileMapGenerator {
         // add special case for root overview URL
         this.urlFilesMap['/overview'] = [['assets/docs/overview.md']];
         // special case for main json overview (for all JSON libraries)
-        this.urlFilesMap['/json-overview'] = [['/assets/docs/json-overview.md']];
+        this.urlFilesMap['/json-overview'] = [
+            ['/assets/docs/json-overview.md']
+        ];
         SHARED_FILES['json-overview'].forEach((file: string) => {
             this.urlFilesMap['/json-overview'].push([file]);
-        })
+        });
     }
 
     private addToUrlFilesMap(m: Module, t: TypedocBase) {
@@ -111,8 +114,12 @@ export class UrlMarkdownFileMapGenerator {
         const url = this.buildUrl(`/${m.displayName}`, t);
 
         // add the api route for API markdown file
-        this.urlFilesMap[`${url}/api`] = [[`${t.apiFile.directory}/${t.apiFile.fileName}`]];
-        t.urlFilesMap[`${url}/api`] = [[`${t.apiFile.directory}/${t.apiFile.fileName}`]];
+        this.urlFilesMap[`${url}/api`] = [
+            [`${t.apiFile.directory}/${t.apiFile.fileName}`]
+        ];
+        t.urlFilesMap[`${url}/api`] = [
+            [`${t.apiFile.directory}/${t.apiFile.fileName}`]
+        ];
 
         // get base directory (should be same for all overview files)
         const directory = t.overviewFiles[0][0].directory;
@@ -120,17 +127,19 @@ export class UrlMarkdownFileMapGenerator {
         // initialize array of arrays for overview files
         this.urlFilesMap[`${url}/overview`] = [];
         t.urlFilesMap[`${url}/overview`] = [];
-        t.overviewFiles.forEach((f: { directory: string, fileName: string}[]) => {
-            // get list of files from array of directory and file name objects
-            // and append list to array of arrays of overview files
-            const files: string[] = f.map(
-                (it: {directory: string, fileName: string}) => {
-                    return this.append(it.directory, it.fileName);
-                }
-            );
-            this.urlFilesMap[`${url}/overview`].push(files);
-            t.urlFilesMap[`${url}/overview`].push(files);
-        });
+        t.overviewFiles.forEach(
+            (f: { directory: string; fileName: string }[]) => {
+                // get list of files from array of directory and file name objects
+                // and append list to array of arrays of overview files
+                const files: string[] = f.map(
+                    (it: { directory: string; fileName: string }) => {
+                        return this.append(it.directory, it.fileName);
+                    }
+                );
+                this.urlFilesMap[`${url}/overview`].push(files);
+                t.urlFilesMap[`${url}/overview`].push(files);
+            }
+        );
     }
 
     private buildUrl(outputPath: string, t: TypedocBase) {
@@ -139,16 +148,13 @@ export class UrlMarkdownFileMapGenerator {
         if (moduleType) {
             outputPath = this.append(outputPath, moduleType);
         }
-    
+
         // add formatted class name to directory hierarchy
         return this.append(outputPath, reformatText(t.name));
     }
 
     private append(outputPath: string, text: string) {
-        return path.join(
-            outputPath,
-            text
-        );
+        return path.join(outputPath, text);
     }
 }
 

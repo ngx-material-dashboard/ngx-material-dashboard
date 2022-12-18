@@ -5,7 +5,6 @@ import { TypeModel } from './type.model';
 import { TypedocBase } from './typedoc-base.model';
 
 export class Accessor extends Property {
-
     override kindString: string = 'Accessor';
     getSignature?: TypedocBase[];
     setSignature?: TypedocBase[];
@@ -30,11 +29,13 @@ export class Accessor extends Property {
             if (data.setSignature[0].parameters) {
                 this.parameters = [];
                 this.displayType = '';
-                data.setSignature[0].parameters.forEach((p: Partial<Parameter>) => {
-                    const param = new Parameter(p);
-                    this.parameters?.push(param);
-                    this.displayType += param.displayType;
-                });
+                data.setSignature[0].parameters.forEach(
+                    (p: Partial<Parameter>) => {
+                        const param = new Parameter(p);
+                        this.parameters?.push(param);
+                        this.displayType += param.displayType;
+                    }
+                );
             }
         }
 

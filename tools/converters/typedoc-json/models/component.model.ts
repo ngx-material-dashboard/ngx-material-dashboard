@@ -2,7 +2,6 @@ import { Clazz } from './clazz.model';
 import { Decorator } from './decorator.model';
 
 export class Component extends Clazz {
-
     selector?: string;
     templateUrl?: string;
 

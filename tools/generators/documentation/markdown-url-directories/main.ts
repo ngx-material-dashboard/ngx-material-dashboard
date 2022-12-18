@@ -33,11 +33,13 @@ export function updateMarkdownRoutes(modules: Module[]) {
         'tabbed-document',
         'tabbed-document-tab',
         'tabbed-document-tab.component.ts'
-    )
+    );
     const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
     replaceInFile.replace(
         /const URL_DIRECTORY_MAP: UrlDirectoryMap = {.*};/g,
-        `const URL_DIRECTORY_MAP: UrlDirectoryMap = ${JSON.stringify(urlMarkdownFileMapGenerator.urlFilesMap)};`
+        `const URL_DIRECTORY_MAP: UrlDirectoryMap = ${JSON.stringify(
+            urlMarkdownFileMapGenerator.urlFilesMap
+        )};`
     );
 
     return urlMarkdownFileMapGenerator.urlFilesMap;

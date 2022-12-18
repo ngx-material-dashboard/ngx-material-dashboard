@@ -6,6 +6,9 @@ export class Source {
 
     constructor(data: Partial<Source>) {
         Object.assign(this, data);
-        this.path = this.fileName.substring(0, this.fileName.lastIndexOf('/') + 1);
+        this.path = this.fileName.substring(
+            0,
+            this.fileName.lastIndexOf('/') + 1
+        );
     }
 }

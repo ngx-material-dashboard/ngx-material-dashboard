@@ -2,7 +2,6 @@ import { Clazz } from './clazz.model';
 import { Decorator } from './decorator.model';
 
 export class Service extends Clazz {
-
     constructor(data: Partial<Service>) {
         super(data);
 

@@ -13,5 +13,9 @@ generateMarkdown(service.modules);
 // update markdown routes and get map of URLs to markdown files
 const urlFilesMap = updateMarkdownRoutes(service.modules);
 
-generateSidenavItems(service.modules, Object.keys(urlFilesMap), service.ngModuleClasses);
+generateSidenavItems(
+    service.modules,
+    Object.keys(urlFilesMap),
+    service.ngModuleClasses
+);
 generateRoutes(service.modules, Object.keys(urlFilesMap));

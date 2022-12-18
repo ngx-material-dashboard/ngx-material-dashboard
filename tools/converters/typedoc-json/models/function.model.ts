@@ -3,7 +3,6 @@ import { Signature } from './signature.model';
 import { TypedocBase } from './typedoc-base.model';
 
 export class FunctionModel extends TypedocBase {
-
     override kindString: string = 'Function';
     returns: string | undefined;
     returnType: string | undefined;
