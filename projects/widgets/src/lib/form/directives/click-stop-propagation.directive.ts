@@ -6,7 +6,7 @@ import { Directive, HostListener } from '@angular/core';
  * when the user clicks in the form defined for the drop down, but it can be
  * used anywhere you want to prevent `click` events from propagating to parent
  * elements.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```html
@@ -21,14 +21,13 @@ import { Directive, HostListener } from '@angular/core';
  * ```
  */
 @Directive({
-  selector: '[ngxMaterialDashboardClickStopPropagation]'
+    selector: '[ngxMaterialDashboardClickStopPropagation]'
 })
 export class ClickStopPropagationDirective {
-
     /**
      * Calls the `stopPropagation` function on the given event.
      *
-     * @param event A `click` event. 
+     * @param event A `click` event.
      */
     @HostListener('click', ['$event'])
     public onClick(event: any): void {

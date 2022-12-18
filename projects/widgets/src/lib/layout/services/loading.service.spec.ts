@@ -25,7 +25,7 @@ describe('LoadingService', () => {
             setLoading(service, true, activeRequests);
         });
 
-        for(let i = 0; i < activeRequests.length; i++) {
+        for (let i = 0; i < activeRequests.length; i++) {
             it(`should emit as still loading when only ${activeRequests[i]} completes`, () => {
                 // when: the request completes
                 service.setLoading(false, activeRequests[i]);
@@ -73,12 +73,16 @@ describe('LoadingService', () => {
 
             // then: the loading observable should emit as false
             expect(loading).toEqual(false);
-        })
+        });
     });
 });
 
-function setLoading(service: LoadingService, loading: boolean, requestUrls: string[]) {
-    for(let i = 0; i < requestUrls.length; i++) {
+function setLoading(
+    service: LoadingService,
+    loading: boolean,
+    requestUrls: string[]
+) {
+    for (let i = 0; i < requestUrls.length; i++) {
         service.setLoading(loading, requestUrls[i]);
     }
 }

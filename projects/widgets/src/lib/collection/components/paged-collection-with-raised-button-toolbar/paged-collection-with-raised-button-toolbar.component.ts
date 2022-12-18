@@ -1,4 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, Input } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    Input
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
@@ -19,12 +25,14 @@ import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-to
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PagedCollectionWithRaisedButtonToolbarComponent<T extends JsonModel>
+export class PagedCollectionWithRaisedButtonToolbarComponent<
+        T extends JsonModel
+    >
     extends PagedCollectionWithToolbarComponent<T>
-    implements AfterViewInit {
-
+    implements AfterViewInit
+{
     /** A reference to the filter drop down included in the toolbar above the collection. */
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
-    
+
     @Input() form!: FormGroup;
 }

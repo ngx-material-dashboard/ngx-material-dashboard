@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ViewChild
+} from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
@@ -19,13 +24,14 @@ import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-to
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PagedCollectionWithIconToolbarComponent<T extends JsonModel>
-    extends PagedCollectionWithToolbarComponent<T> {
-
+export class PagedCollectionWithIconToolbarComponent<
+    T extends JsonModel
+> extends PagedCollectionWithToolbarComponent<T> {
     /**
      * Reference to the collection included in template for component. This is
      * expected to be a Collection since paging is rendered in toolbar.
      */
     @ContentChild('collection') override collectionCmp!: CollectionComponent<T>;
-    @ViewChild(IconButtonsWithPaginatorComponent) override toolbar!: IconButtonsWithPaginatorComponent<T>;
+    @ViewChild(IconButtonsWithPaginatorComponent)
+    override toolbar!: IconButtonsWithPaginatorComponent<T>;
 }

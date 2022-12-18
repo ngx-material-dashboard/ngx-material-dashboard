@@ -17,19 +17,19 @@ import { GridWithIconButtonsPaginatorBarComponent } from './grid-with-icon-butto
 
 @Component({
     template: `
-    <ngx-material-dashboard-grid-with-icon-buttons-paginator-bar
-        [fields]="fields">
-        <ngx-material-dashboard-grid
-            [data]="data"
-            #collection>
-            <ng-template #model let-model="model">
-                <h2>Dummy Model</h2>
-                <span>{{model.id}}</span>
-            </ng-template>
-        </ngx-material-dashboard-grid>
-    </ngx-material-dashboard-grid-with-icon-buttons-paginator-bar>
+        <ngx-material-dashboard-grid-with-icon-buttons-paginator-bar
+            [fields]="fields"
+        >
+            <ngx-material-dashboard-grid [data]="data" #collection>
+                <ng-template #model let-model="model">
+                    <h2>Dummy Model</h2>
+                    <span>{{ model.id }}</span>
+                </ng-template>
+            </ngx-material-dashboard-grid>
+        </ngx-material-dashboard-grid-with-icon-buttons-paginator-bar>
     `
-}) class TestGridWithIconButtonsPaginatorBarComponent {
+})
+class TestGridWithIconButtonsPaginatorBarComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -58,7 +58,9 @@ describe('GridWithIconButtonsPaginatorBarComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestGridWithIconButtonsPaginatorBarComponent);
+        fixture = TestBed.createComponent(
+            TestGridWithIconButtonsPaginatorBarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,5 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -17,18 +23,18 @@ import { SorterComponent } from '../sorter/sorter.component';
  * button alignment; buttons are aligned left, after the optional select
  * checkbox, and the paginator is aligned to the right side of the page, after
  * the optional `Sorter`.
- * 
+ *
  * ## Features
- * 
+ *
  * You may optional exclude a select checkbox and `Sorter`. These default to
  * automatically be included. Simply set the corresponding `display` input
  * value to `false` if you want to exclude either feature.
- * 
+ *
  * ### Optional Select Checkbox
- * 
+ *
  * The optional select checkbox is meant to act as a master toggle for
  * collections, similar to the master toggle rendered in the header row above
- * a table with select option. See the material 
+ * a table with select option. See the material
  * [docs](https://material.angular.io/components/table/examples#table-selection)
  * for what I'm talking about. If included it is the first thing rendered in
  * the toolbar so it can line up with collection content rendered as a list. If
@@ -37,12 +43,12 @@ import { SorterComponent } from '../sorter/sorter.component';
  * in the table with select). This was made optional so this toolbar can be used
  * above the `PagedTable` that already includes the master toggle select in the
  * header row (there is no reason to include multiple master toggles).
- * 
- * To handle when the user (de)selects the checkbox you can use the 
+ *
+ * To handle when the user (de)selects the checkbox you can use the
  * `masterToggle` output event emitter in the parent component.
- * 
+ *
  * ### Sorter
- * 
+ *
  * The optional `Sorter` is rendered before the `MatPaginator` and is meant
  * to sort contents of the collection. Like the masterToggle, this is optional
  * so this toolbar can be used above the `PagedTable`, which already includes
@@ -54,7 +60,6 @@ import { SorterComponent } from '../sorter/sorter.component';
     styleUrls: ['./icon-buttons-with-paginator.component.css']
 })
 export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
-
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
     /** Boolean to indicate whether to render the select all checkbox. */
@@ -72,7 +77,10 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
     /** The number of items to render in the page. */
     @Input() pageSize: number = 25;
     /** The model to track items selected in the table. */
-    @Input() selection: SelectionModel<T> = new SelectionModel<T>(this.multiple, []);
+    @Input() selection: SelectionModel<T> = new SelectionModel<T>(
+        this.multiple,
+        []
+    );
     /** Event emitted when user clicks button in toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** Event emitted when user clicks the select all checkbox. */
@@ -103,7 +111,7 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
      * Emits a masterToggle event to the parent with the latest value for the
      * master toggle checkbox.
      *
-     * @param check The checkbox change event. 
+     * @param check The checkbox change event.
      */
     emitMasterToggle(check: MatCheckboxChange): void {
         this.masterToggle.emit(check.checked);

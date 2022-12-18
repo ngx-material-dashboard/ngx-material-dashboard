@@ -6,13 +6,13 @@ import { MetaModelType } from '../models/json-api-meta.model';
  * if you have certain data models that are included in a different version of
  * your API you can set that here, and the datastore should use the overriding
  * options.
- * 
+ *
  * The `type` is the only required property for `JsonApiModelConfig`. All other
  * properties are optional. If only `type` is included, then that is used when
  * generating URLs for API endpoints in the `JsonDatastore`. You can use the
  * `modelEndpointUrl` property, which if included will take precedent over the
  * `type` value.
- * 
+ *
  * See [JsonApiModelConfig](/base-json/decorators/json-api-model-config) for
  * more details on using this interface.
  */

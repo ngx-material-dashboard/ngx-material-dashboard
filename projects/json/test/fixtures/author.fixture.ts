@@ -21,24 +21,24 @@ export const CHAPTER_TITLE = 'The Return Journey';
 
 export function getAuthorData(relationship?: string, total: number = 0): any {
     const response: any = {
-            id: AUTHOR_ID,
-            // type: 'authors',
-            name: AUTHOR_NAME,
-            dob: AUTHOR_BIRTH,
-            date_of_death: AUTHOR_DEATH,
-            created_at: AUTHOR_CREATED,
-            updated_at: AUTHOR_UPDATED,
-            // relationships: {
-            //     books: {
-            //         links: {
-            //             self: '/v1/authors/1/relationships/books',
-            //             related: '/v1/authors/1/books'
-            //         }
-            //     }
-            // },
-            // links: {
-            //     self: '/v1/authors/1'
-            // }
+        id: AUTHOR_ID,
+        // type: 'authors',
+        name: AUTHOR_NAME,
+        dob: AUTHOR_BIRTH,
+        date_of_death: AUTHOR_DEATH,
+        created_at: AUTHOR_CREATED,
+        updated_at: AUTHOR_UPDATED
+        // relationships: {
+        //     books: {
+        //         links: {
+        //             self: '/v1/authors/1/relationships/books',
+        //             related: '/v1/authors/1/books'
+        //         }
+        //     }
+        // },
+        // links: {
+        //     self: '/v1/authors/1'
+        // }
     };
 
     // if (relationship && relationship.indexOf('books') !== -1) {

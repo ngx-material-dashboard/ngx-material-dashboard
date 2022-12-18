@@ -8,15 +8,15 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * Attribute decorator defines a custom property decorator that should be added
  * to each property defined in your client side data models that you intend to
  * include in HTTP request/response data handled by the JSON library.
- * 
- * @param options Custom options included in decorator. 
+ *
+ * @param options Custom options included in decorator.
  * @returns A custom property decorator for JSON attributes.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
  * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
- * 
+ *
  * class Task extends JsonModel {
  *     // this property does not get included in HTTP request/response data
  *     internalProperty?: string;
@@ -25,36 +25,42 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  *     @Attribute() dueDate?: string;
  * }
  * ```
- * 
+ *
  * The `Attribute` decorator includes an optional `AttributeDecoratorOptions`
  * parameter which provides configuration options to define how to convert
  * a property, and a custom key to use when serializing/deserializing JSON.
  * If no options are included, then the attribute will be parsed as is, so
  * the key should match the property name in your data model, and the value to
- * be converted should either be a primitive, date, or other data model 
+ * be converted should either be a primitive, date, or other data model
  * defined in your client side code.
- * 
+ *
  * ## AttributeDecoratorOptions Usage Example
  * ```typescript
  * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
  * import {CustomDateConverter} from './custom-date-converter';
- * 
+ *
  * class Task extends JsonModel {
  *     @Attribute() name?: string;
- *     @Attribute({ 
+ *     @Attribute({
  *         converter: CustomDateConverter,
  *         serializedName: 'due_date'
  *     }) dueDate?: string;
  * }
  * ```
- * 
+ *
  * See the docs for
  * [AttributeDecoratorOptions](/base-json/interfaces/attribute-decorator-options)
  * for more details.
  */
-export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
+export function Attribute(
+    options: AttributeDecoratorOptions = {}
+): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {
-        const converter = (dataType: any, value: any, forSerialisation = false): any => {
+        const converter = (
+            dataType: any,
+            value: any,
+            forSerialisation = false
+        ): any => {
             let attrConverter;
 
             if (options.converter) {
@@ -88,18 +94,22 @@ export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDeco
 
             Reflect.defineMetadata('Attribute', metadata, target);
 
-            const mappingMetadata = Reflect.getMetadata('AttributeMapping', target) || {};
-            const serializedPropertyName = options.serializedName !== undefined ? options.serializedName : propertyName;
+            const mappingMetadata =
+                Reflect.getMetadata('AttributeMapping', target) || {};
+            const serializedPropertyName =
+                options.serializedName !== undefined
+                    ? options.serializedName
+                    : propertyName;
             mappingMetadata[serializedPropertyName] = propertyName;
             Reflect.defineMetadata('AttributeMapping', mappingMetadata, target);
         };
 
-        const setMetadata = (
-            instance: any,
-            oldValue: any,
-            newValue: any
-        ) => {
-            const targetType = Reflect.getMetadata('design:type', target, propertyName);
+        const setMetadata = (instance: any, oldValue: any, newValue: any) => {
+            const targetType = Reflect.getMetadata(
+                'design:type',
+                target,
+                propertyName
+            );
 
             if (!instance[AttributeMetadata]) {
                 instance[AttributeMetadata] = {};
@@ -114,12 +124,16 @@ export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDeco
             };
         };
 
-        const getter = function(this: any) {
+        const getter = function (this: any) {
             return this[`_${String(propertyName)}`];
         };
 
-        const setter = function(this: any, newVal: any) {
-            const targetType = Reflect.getMetadata('design:type', target, propertyName);
+        const setter = function (this: any, newVal: any) {
+            const targetType = Reflect.getMetadata(
+                'design:type',
+                target,
+                propertyName
+            );
             const convertedValue = converter(targetType, newVal);
             let oldValue = null;
 
@@ -130,7 +144,10 @@ export function Attribute(options: AttributeDecoratorOptions = {}): PropertyDeco
                 oldValue = converter(targetType, newVal);
             } else {
                 // otherwise model doesn't exist on server side
-                if (this[AttributeMetadata] && this[AttributeMetadata][propertyName]) {
+                if (
+                    this[AttributeMetadata] &&
+                    this[AttributeMetadata][propertyName]
+                ) {
                     // if attribute metadata exists for this property then set
                     // old value to existing metadata value
                     oldValue = this[AttributeMetadata][propertyName].oldValue;

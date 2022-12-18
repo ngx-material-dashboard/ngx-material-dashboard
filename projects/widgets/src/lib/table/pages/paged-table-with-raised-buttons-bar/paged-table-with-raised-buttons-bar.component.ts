@@ -11,7 +11,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  * built in paging and basic data management buttons with easy to use
  * handlers for when the user clicks a button in the toolbar or the
  * collection. The toolbar is rendered above the data paged-table.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -64,7 +64,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  *     toolbarButtons: ToolbarButton[] = [
  *         {...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}
  *     ];
- * 
+ *
  *     onButtonClick(btnClick: ButtonClick): void {
  *         if (btnClick.click === 'create') {
  *             // handle create
@@ -82,9 +82,10 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
     templateUrl: './paged-table-with-raised-buttons-bar.component.html',
     styleUrls: ['./paged-table-with-raised-buttons-bar.component.scss']
 })
-export class PagedTableWithRaisedButtonsBarComponent<T extends JsonModel> 
-    extends PagedCollectionWithRaisedButtonToolbarComponent<T> implements AfterViewInit {
-
+export class PagedTableWithRaisedButtonsBarComponent<T extends JsonModel>
+    extends PagedCollectionWithRaisedButtonToolbarComponent<T>
+    implements AfterViewInit
+{
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */

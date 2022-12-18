@@ -19,10 +19,7 @@ describe('TabbedDocumentTabComponent', () => {
                 MockComponent(ScrollspyNavLayoutComponent),
                 TabbedDocumentTabComponent
             ],
-            imports: [
-                RouterTestingModule,
-                MatButtonModule
-            ],
+            imports: [RouterTestingModule, MatButtonModule],
             providers: [AnchorService]
         });
     });

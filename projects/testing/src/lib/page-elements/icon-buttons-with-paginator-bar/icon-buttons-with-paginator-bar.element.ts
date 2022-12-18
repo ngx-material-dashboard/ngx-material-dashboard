@@ -4,13 +4,15 @@ import { PaginatorElement } from '../paginator/paginator.element';
 import { ToolbarElement } from '../toolbar/toolbar.element';
 
 export class IconButtonsWithPaginatorBarElement extends ToolbarElement {
-
     paginator: PaginatorElement;
 
     constructor(fixture: ComponentFixture<any>, buttonSelectors?: string[]) {
         super(fixture, buttonSelectors);
 
-        this.paginator = new PaginatorElement(fixture, this.fixture.nativeElement);
+        this.paginator = new PaginatorElement(
+            fixture,
+            this.fixture.nativeElement
+        );
     }
 
     /**
@@ -18,9 +20,12 @@ export class IconButtonsWithPaginatorBarElement extends ToolbarElement {
      */
     get selectAllCheckbox(): CheckboxElement | undefined {
         try {
-            const element: HTMLElement = this.query<HTMLElement>('.marker-checkbox-select-all', this.fixture.nativeElement);
+            const element: HTMLElement = this.query<HTMLElement>(
+                '.marker-checkbox-select-all',
+                this.fixture.nativeElement
+            );
             return new CheckboxElement(this.fixture, element);
-        } catch(error) {
+        } catch (error) {
             return undefined;
         }
     }
@@ -28,7 +33,7 @@ export class IconButtonsWithPaginatorBarElement extends ToolbarElement {
     /**
      * Returns true if select all checkbox is checked.
      *
-     * @returns True if select all checkbox is checked. 
+     * @returns True if select all checkbox is checked.
      */
     isAllSelected(): boolean {
         if (this.selectAllCheckbox) {

@@ -6,7 +6,7 @@ import { TableElement } from '../table/table.element';
 /**
  * The `PagedTable` addes paging capabilities to the `Table` by adding a
  * `Paginator` property.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
@@ -31,7 +31,7 @@ import { TableElement } from '../table/table.element';
  *         // create the PagedTable PageElement (NOTE: this assumes you defined a
  *         // CSS selector marker for the table as defined below; this is in case
  *         // you have a component with more than 1 PagedTable, each table should
- *         // have their own CSS selector for the PagedTable element to work 
+ *         // have their own CSS selector for the PagedTable element to work
  *         // correctly)
  *         pagedTable = new PagedTable(fixture, '.marker-example-paged-table');
  *     });
@@ -55,7 +55,7 @@ import { TableElement } from '../table/table.element';
  *     });
  *
  *     describe('With Table Data', () => {
- *       
+ *
  *         beforeEach(() => {
  *             pagedTable.data = TEST_DATA // set some test data for the table
  *         });
@@ -74,44 +74,43 @@ import { TableElement } from '../table/table.element';
  *         });
  *     });
  * });
- * ``` 
- * 
+ * ```
+ *
  * ## Features
- * 
+ *
  * `PagedTableElements` have multiple features built in, including the ability
  * to get all displayed column header values, get the row displayed when there
  * is not table data (if it is being displayed), click buttons in any row of
  * the table, get the contents of any cell given row and column, check if all
  * rows are selected, check if a single row is selected, select all rows, and
  * select individual rows.
- * 
+ *
  * ### Displayed Columns
- * 
+ *
  * The `displayedColumns` getter will return an array of `HTMLElements` header
  * cells from the table. The contents of the `HTMLElements` should be the
  * column header text.
- * 
+ *
  * ### No Data Row
- * 
+ *
  * The `noDataRow` getter returns the `HTMLElement` containing the no data row.
  * If there is data in the table the element's parent should have the `hide`
  * class.
- * 
+ *
  * ### Get Cell Contents
- * 
+ *
  * The `getCellByColumnIndex` returns an HTMLElement with the cell contents at
  * the given row and column. Now that I'm writing the documentation the name of
  * this method is a bit of a misnomer. Should be by row and column index.
  */
 export class PagedTableElement extends TableElement {
-
     /** The paginator element included with the table. */
     paginator: PaginatorElement;
 
     /**
      * Creates a new PagedTableElement.
      *
-     * @param fixture Fixture for component under test. 
+     * @param fixture Fixture for component under test.
      * @param selector CSS selector for table (this should be unique for each table in case of multiple).
      * @param selectable Boolean value indicating whether table has rows that are selectable (defaults to true).
      * @param noDataColumnSelector Optional CSS selector for no data column definition (defaults to 'noData').
@@ -125,7 +124,12 @@ export class PagedTableElement extends TableElement {
         super(fixture, selector, selectable, noDataColumnSelector);
 
         this.component = fixture.componentInstance;
-        this.columnHeaders = Array.from(this.queryAll<HTMLElement>('mat-header-cell', this.collectionElement));
+        this.columnHeaders = Array.from(
+            this.queryAll<HTMLElement>(
+                'mat-header-cell',
+                this.collectionElement
+            )
+        );
         this.paginator = new PaginatorElement(fixture, this.collectionElement);
     }
 }

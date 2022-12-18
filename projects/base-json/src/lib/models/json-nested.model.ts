@@ -5,10 +5,10 @@ import { JsonModel } from './json.model';
  * The `JsonApiNestedModel` is meant to be used for complex attributes. Any
  * field defined for a `JsonApiNestedModel` attribute that is changed will mark
  * the entire attribute as dirty.
- * 
+ *
  * An address is one example of a complex attribute which for whatever reason
  * you don't include as a relationship in your code.
- * 
+ *
  * ```json
  * {
  *     street: '21 Jump Street',
@@ -17,12 +17,12 @@ import { JsonModel } from './json.model';
  *     zip: '55555'
  * }
  * ```
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
  * import {JsonApiNestedModel} from '@ngx-material-dashboard/base-json';
- * 
+ *
  * export class Address extends JsonApiNestedModel {
  *     street: string;
  *     city: string;
@@ -58,9 +58,14 @@ export class JsonApiNestedModel {
         const serializedNameToPropertyName = this.getModelPropertyNames();
         const properties: any = {};
         Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
-            if (this && this[serializedName] !== null &&
-                this[serializedName] !== undefined && serializedName !== 'nestedDataSerialization') {
-                properties[serializedNameToPropertyName[serializedName]] = this[serializedName];
+            if (
+                this &&
+                this[serializedName] !== null &&
+                this[serializedName] !== undefined &&
+                serializedName !== 'nestedDataSerialization'
+            ) {
+                properties[serializedNameToPropertyName[serializedName]] =
+                    this[serializedName];
             }
         });
 

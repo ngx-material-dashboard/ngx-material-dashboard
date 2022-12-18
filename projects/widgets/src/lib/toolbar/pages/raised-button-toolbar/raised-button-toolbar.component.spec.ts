@@ -4,7 +4,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToolbarElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ButtonsComponent } from '../../components/buttons/buttons.component';
-import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from '../../shared/toolbar-buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON
+} from '../../shared/toolbar-buttons';
 
 import { RaisedButtonToolbarComponent } from './raised-button-toolbar.component';
 
@@ -15,10 +19,7 @@ describe('RaisedButtonToolbarComponent', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            declarations: [
-                ButtonsComponent,
-                RaisedButtonToolbarComponent
-            ],
+            declarations: [ButtonsComponent, RaisedButtonToolbarComponent],
             imports: [
                 MockModule(MatToolbarModule),
                 MockModule(FontAwesomeModule)
@@ -27,10 +28,18 @@ describe('RaisedButtonToolbarComponent', () => {
 
         fixture = TestBed.createComponent(RaisedButtonToolbarComponent);
         component = fixture.componentInstance;
-        component.buttons = [{...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}];
+        component.buttons = [
+            { ...CREATE_TOOLBAR_BUTTON },
+            { ...EDIT_TOOLBAR_BUTTON },
+            { ...DELETE_TOOLBAR_BUTTON }
+        ];
         fixture.detectChanges();
 
-        page = new ToolbarElement(fixture, ['.marker-button-create', '.marker-button-edit', '.marker-button-delete']);
+        page = new ToolbarElement(fixture, [
+            '.marker-button-create',
+            '.marker-button-edit',
+            '.marker-button-delete'
+        ]);
     });
 
     it('should emit create event when create button clicked', () => {

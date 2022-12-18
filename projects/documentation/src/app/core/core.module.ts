@@ -1,4 +1,9 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import {
+    ModuleWithProviders,
+    NgModule,
+    Optional,
+    SkipSelf
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { interceptorProviders } from './interceptors/interceptor.provider';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,7 +23,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
         CommonModule,
         HttpClientModule,
         FontAwesomeModule,
-        MarkdownModule.forRoot({ 
+        MarkdownModule.forRoot({
             loader: HttpClient,
             markedOptions: {
                 provide: MarkedOptions,
@@ -39,19 +44,18 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
     ]
 })
 export class CoreModule {
-
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
         if (parentModule) {
-            throw new Error('CoreModule is already loaded. Import only in AppModule');
+            throw new Error(
+                'CoreModule is already loaded. Import only in AppModule'
+            );
         }
     }
 
     static forRoot(): ModuleWithProviders<CoreModule> {
         return {
             ngModule: CoreModule,
-            providers: [
-                interceptorProviders
-            ]
+            providers: [interceptorProviders]
         };
     }
 }

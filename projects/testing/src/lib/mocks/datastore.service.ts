@@ -1,19 +1,25 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DatastoreConfig, JsonDatastore, JsonApiDatastoreConfig, ModelType, JsonApiQueryData } from '@ngx-material-dashboard/base-json';
+import {
+    DatastoreConfig,
+    JsonDatastore,
+    JsonApiDatastoreConfig,
+    ModelType,
+    JsonApiQueryData
+} from '@ngx-material-dashboard/base-json';
 import { Observable, of } from 'rxjs';
 import { Task } from '../models/task.model';
 
-const BASE_URL = 'http://localhost:8080/api'
+const BASE_URL = 'http://localhost:8080/api';
 
 /**
  * A mock datastore that can be used for tests. This datastore will not make
  * any HTML requests, removing the need for that dependency in your tests. You
  * can use this mock service in any place that injects the `JsonDatastore`.
- * 
+ *
  * > NOTE: The functionality in this class is mostly incomplete, and needs to
  * > be filled out to potentially be more useful for tests.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```typescript
@@ -85,15 +91,24 @@ export class Datastore extends JsonDatastore {
         return new modelType(this, data);
     }
 
-    serializeModel(model: any, attributesMetadata: any, transition?: string, includeRelationships?: boolean) {
-        
-    }
+    serializeModel(
+        model: any,
+        attributesMetadata: any,
+        transition?: string,
+        includeRelationships?: boolean
+    ) {}
 
-    protected extractQueryData(response: HttpResponse<object>, modelType: ModelType<any>, withMeta?: boolean): JsonApiQueryData<any> {
+    protected extractQueryData(
+        response: HttpResponse<object>,
+        modelType: ModelType<any>,
+        withMeta?: boolean
+    ): JsonApiQueryData<any> {
         return new JsonApiQueryData([]);
     }
 
-    protected extractRecordData(res: HttpResponse<object>, modelType: ModelType<any>, model?: any) {
-        
-    }
+    protected extractRecordData(
+        res: HttpResponse<object>,
+        modelType: ModelType<any>,
+        model?: any
+    ) {}
 }

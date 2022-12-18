@@ -5,16 +5,15 @@ import { CollectionElement } from '../collection/collection.element';
  * The `Table` addes properties and functions to the `Collection` specific to
  * testing components with tables. Things specific to table components are
  * column headers, ability to click column headers (for sorting), displaying a
- * noData row, and getting the contents of a particular cell in the table. 
+ * noData row, and getting the contents of a particular cell in the table.
  */
 export class TableElement extends CollectionElement {
-
     columnHeaders: HTMLElement[];
 
     /**
      * Creates a new PagedTableElement.
      *
-     * @param fixture Fixture for component under test. 
+     * @param fixture Fixture for component under test.
      * @param selector CSS selector for table (this should be unique for each table in case of multiple).
      * @param selectable Boolean value indicating whether table has rows that are selectable (defaults to true).
      * @param noDataColumnSelector Optional CSS selector for no data column definition (defaults to 'noData').
@@ -25,10 +24,21 @@ export class TableElement extends CollectionElement {
         selectable = true,
         private noDataColumnSelector = 'noData'
     ) {
-        super(fixture, selector, 'mat-row', '.marker-checkbox-row-select', selectable);
+        super(
+            fixture,
+            selector,
+            'mat-row',
+            '.marker-checkbox-row-select',
+            selectable
+        );
 
         this.component = fixture.componentInstance;
-        this.columnHeaders = Array.from(this.queryAll<HTMLElement>('mat-header-cell', this.collectionElement));
+        this.columnHeaders = Array.from(
+            this.queryAll<HTMLElement>(
+                'mat-header-cell',
+                this.collectionElement
+            )
+        );
     }
 
     /**
@@ -37,16 +47,22 @@ export class TableElement extends CollectionElement {
      * @returns An array of header cells displayed in the table.
      */
     get displayedColumns(): HTMLElement[] {
-        return this.queryAll<HTMLElement>('mat-header-cell', this.collectionElement);
+        return this.queryAll<HTMLElement>(
+            'mat-header-cell',
+            this.collectionElement
+        );
     }
 
     /**
      * Returns the no data row.
-     * 
+     *
      * @returns The row displayed when there is no data in the table.
      */
     get noDataRow(): HTMLElement {
-        return this.query<HTMLElement>(`.mat-column-${this.noDataColumnSelector}`, this.collectionElement);
+        return this.query<HTMLElement>(
+            `.mat-column-${this.noDataColumnSelector}`,
+            this.collectionElement
+        );
     }
 
     /**
@@ -62,7 +78,9 @@ export class TableElement extends CollectionElement {
         );
         if (headerCell == null) {
             // throw an error if the header column is not found
-            throw new Error(`Expected mat-header-cell with name "${columnName}"`);
+            throw new Error(
+                `Expected mat-header-cell with name "${columnName}"`
+            );
         } else {
             headerCell.click();
         }
@@ -76,7 +94,11 @@ export class TableElement extends CollectionElement {
      * @returns An HTMLElement of the cell in the row at the given column index.
      */
     getCellByColumnIndex(rowIndex: number, colIndex: number): HTMLElement {
-        const cells = Array.from(this.items[rowIndex].querySelectorAll('mat-cell') as NodeListOf<HTMLElement>);
+        const cells = Array.from(
+            this.items[rowIndex].querySelectorAll(
+                'mat-cell'
+            ) as NodeListOf<HTMLElement>
+        );
         return cells[colIndex];
     }
 }

@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse
+} from '@angular/common/http';
 import { LoadingService } from '@ngx-material-dashboard/widgets';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -15,22 +21,31 @@ import { catchError, map } from 'rxjs/operators';
  */
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
-
     constructor(private loadingService: LoadingService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         // mark the requests URL as loading
         this.loadingService.setLoading(true, request.url);
-        return next.handle(request).pipe(catchError((err) => {
-            // 
-            this.loadingService.setLoading(false, request.url);
-            // throw error so HttpErrorInterceptor can handle accordingly
-            return throwError(() => err);
-        })).pipe(map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
-            if (evt instanceof HttpResponse) {
-                this.loadingService.setLoading(false, request.url);
-            }
-            return evt;
-        }));
+        return next
+            .handle(request)
+            .pipe(
+                catchError((err) => {
+                    //
+                    this.loadingService.setLoading(false, request.url);
+                    // throw error so HttpErrorInterceptor can handle accordingly
+                    return throwError(() => err);
+                })
+            )
+            .pipe(
+                map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
+                    if (evt instanceof HttpResponse) {
+                        this.loadingService.setLoading(false, request.url);
+                    }
+                    return evt;
+                })
+            );
     }
 }

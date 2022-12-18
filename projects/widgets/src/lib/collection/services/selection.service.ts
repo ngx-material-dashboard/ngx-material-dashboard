@@ -10,7 +10,7 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
  * or clicks on the select all checkbox. It can be used anywhere select boxes
  * are used, but you will need to initialize the service and handle selection
  * changes manually if you want to use this anywhere else right now.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -26,21 +26,21 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
  * import {SelectionModel} from '@angular/cdk/collections';
  * import {Component} from '@angular/core';
  * import {SelectionService} from '@ngx-material-dashboard/widgets';
- * 
+ *
  * @Component({
  *     selector: 'selection-example',
  *     templateUrl: './selection-example.html'
  * })
  * export class SelectionExample<T> {
- * 
+ *
  *     selection: SelectionModel<T>;
  *     things: T[] = []; // assuming this is initialized and filled with data
- * 
+ *
  *     constructor(private selectionService: SelectionService<T>) {
  *         this.selection = new SelectionModel<T>(true, []);
  *         this.selectionService.selectionSubject.next(this.selection);
  *     }
- * 
+ *
  *     onSelected(val: T): void {
  *         this.selection.toggle(val);
  *         // update the selection in the selectionService
@@ -53,7 +53,6 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
     providedIn: 'root'
 })
 export class SelectionService<T> {
-
     /** The observable that tracks the model that tracks items selected in table. */
     selection: Observable<SelectionModel<T>>;
     /** The subject that tracks the model that tracks items selected in table. */
@@ -64,7 +63,9 @@ export class SelectionService<T> {
     selectionChangeSubject: BehaviorSubject<boolean>;
 
     constructor() {
-        this.selectionSubject = new BehaviorSubject<SelectionModel<T>>(new SelectionModel<T>(true, []));
+        this.selectionSubject = new BehaviorSubject<SelectionModel<T>>(
+            new SelectionModel<T>(true, [])
+        );
         this.selection = this.selectionSubject.asObservable();
         this.selectionChangeSubject = new BehaviorSubject<boolean>(true);
         this.selectionChange = this.selectionChangeSubject.asObservable();
@@ -94,7 +95,11 @@ export class SelectionService<T> {
     }
 
     private toggleButton(button: ToolbarButton, disabled: boolean): void {
-        if (!disabled && this.selectionValue.selected.length > 1 && button.multiSelectDisabled) {
+        if (
+            !disabled &&
+            this.selectionValue.selected.length > 1 &&
+            button.multiSelectDisabled
+        ) {
             // disable the ToolbarButton if more than one element is selected and the button does
             // not allow multiple selections (i.e. "Edit" buttons)
             button.disabled = true;

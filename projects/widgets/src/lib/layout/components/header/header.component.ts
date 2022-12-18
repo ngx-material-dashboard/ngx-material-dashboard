@@ -1,5 +1,16 @@
-import { AfterContentInit, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
-import { faBars, faMicrophone, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+    AfterContentInit,
+    Component,
+    ContentChild,
+    EventEmitter,
+    Input,
+    Output
+} from '@angular/core';
+import {
+    faBars,
+    faMicrophone,
+    IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
 
 /**
@@ -11,15 +22,16 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterContentInit {
-
     /** A reference to the optional filter drop down to include. */
     @ContentChild(FilterDropDownComponent) filter?: FilterDropDownComponent;
     /** The main "logo" text for the app. */
     @Input() logo = 'My App';
     /** Event emitted when user clicks search button in drop down filter. */
-    @Output() searchFilterClick: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() searchFilterClick: EventEmitter<boolean> =
+        new EventEmitter<boolean>();
     /** Event emitted when user clicks button to toggle sidenav. */
-    @Output() toggleSidenav: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() toggleSidenav: EventEmitter<boolean> =
+        new EventEmitter<boolean>();
     /**
      * The bars icon to display in the header.
      */

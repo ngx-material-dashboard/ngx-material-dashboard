@@ -7,8 +7,8 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * The `PagedList` is a wrapper for the `List`, and renders items in a list
  * with built in paging capabilities. You must provide the template for each
  * item to render in the list. A `MatPaginator` is rendered below the `Sorter`
- * and data list to provide paging capabilities for the data. 
- * 
+ * and data list to provide paging capabilities for the data.
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -28,7 +28,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * ```typescript
  * import {Component} from '@angular/core';
  * import {Task} from './tasks'; // this should extend JsonModel
- * 
+ *
  * @Component({
  *     selector: 'basic-usage-example',
  *     templateUrl: './basic-usage-example.html'
@@ -42,5 +42,6 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
     templateUrl: './paged-list.component.html',
     styleUrls: ['./paged-list.component.css']
 })
-export class PagedListComponent<T extends JsonModel>
-    extends PagedCollectionComponent<T> {}
+export class PagedListComponent<
+    T extends JsonModel
+> extends PagedCollectionComponent<T> {}

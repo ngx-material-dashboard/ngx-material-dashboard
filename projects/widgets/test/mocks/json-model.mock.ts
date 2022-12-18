@@ -1,6 +1,6 @@
-import { HttpHeaders } from "@angular/common/http";
-import { JsonModel } from "@ngx-material-dashboard/base-json";
-import { Observable, of } from "rxjs";
+import { HttpHeaders } from '@angular/common/http';
+import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { Observable, of } from 'rxjs';
 
 /**
  * Use a mock of the JsonApiModel so we don't need to worry about

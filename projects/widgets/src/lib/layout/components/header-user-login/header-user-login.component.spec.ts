@@ -22,9 +22,9 @@ describe('HeaderUserLoginComponent', () => {
             ],
             imports: [
                 HttpClientTestingModule,
-                RouterTestingModule,
+                RouterTestingModule
                 // MockModule(AuthConfigModule)
-            ],
+            ]
             // providers: [AuthService]
         });
 
@@ -41,7 +41,6 @@ describe('HeaderUserLoginComponent', () => {
     });
 
     describe('User logged in', () => {
-
         beforeEach(() => {
             // the only thing that differentiates a logged in user with one that
             // is not is whether username is defined (at least for this component)
@@ -52,7 +51,9 @@ describe('HeaderUserLoginComponent', () => {
         });
 
         it('should render user header menu component by default', () => {
-            expect(page.query('ngx-material-dashboard-user-header-menu')).toBeDefined();
+            expect(
+                page.query('ngx-material-dashboard-user-header-menu')
+            ).toBeDefined();
         });
 
         it('should not render login button by default', () => {
@@ -62,7 +63,9 @@ describe('HeaderUserLoginComponent', () => {
 
     describe('User not logged in', () => {
         it('should not render user header menu component by default', () => {
-            expect(page.query('ngx-material-dashboard-user-header-menu')).toBeNull();
+            expect(
+                page.query('ngx-material-dashboard-user-header-menu')
+            ).toBeNull();
         });
 
         it('should render login button by default', () => {

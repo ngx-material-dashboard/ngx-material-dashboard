@@ -1,10 +1,14 @@
-export function getSampleSection(sectionId: string, chapterId: string, content: string = 'Dummy content') {
+export function getSampleSection(
+    sectionId: string,
+    chapterId: string,
+    content: string = 'Dummy content'
+) {
     return {
         id: sectionId,
         // type: 'sections',
         content,
         created_at: '2016-10-01T12:54:32Z',
-        updated_at: '2016-10-01T12:54:32Z',
+        updated_at: '2016-10-01T12:54:32Z'
         // relationships: {
         //     chapter: {
         //         data: {

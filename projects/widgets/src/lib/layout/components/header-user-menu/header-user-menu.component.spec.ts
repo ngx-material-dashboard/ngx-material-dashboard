@@ -1,4 +1,12 @@
-import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
+import {
+    ComponentFixture,
+    discardPeriodicTasks,
+    fakeAsync,
+    flush,
+    flushMicrotasks,
+    TestBed,
+    tick
+} from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +22,7 @@ describe('HeaderUserMenuComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ HeaderUserMenuComponent ],
+            declarations: [HeaderUserMenuComponent],
             imports: [
                 MatButtonModule,
                 MatMenuModule,

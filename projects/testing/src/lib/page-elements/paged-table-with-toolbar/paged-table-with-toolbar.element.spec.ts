@@ -11,15 +11,17 @@ import { PagedTableWithToolbarElement } from './paged-table-with-toolbar.element
     styles: ['.hide { display: none; }'],
     template: `
         <mat-toolbar>
-            <button class="marker-action-enabled"
+            <button
+                class="marker-action-enabled"
                 (click)="emitButtonClick()"
-                mat-button>
-            </button>
-            <button class="marker-action-disabled"
+                mat-button
+            ></button>
+            <button
+                class="marker-action-disabled"
                 (click)="emitButtonClick()"
                 disabled="true"
-                mat-button>
-            </button>
+                mat-button
+            ></button>
         </mat-toolbar>
         <div class="marker-pagedTable">
             <mat-table [dataSource]="dataSource">
@@ -36,11 +38,19 @@ import { PagedTableWithToolbarElement } from './paged-table-with-toolbar.element
                 </ng-container>
                 <!-- Additional columns defined in tag where this component is used -->
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-                    <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >ID</mat-header-cell
+                    >
+                    <mat-cell class="col1-cell" *matCellDef="let obj">{{
+                        obj.id
+                    }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="noData">
-                    <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+                    <mat-footer-cell
+                        *matFooterCellDef
+                        colspan="displayedColumns.length"
+                        fxLayoutAlign="center center"
+                    >
                         No data found
                     </mat-footer-cell>
                 </ng-container>
@@ -49,33 +59,49 @@ import { PagedTableWithToolbarElement } from './paged-table-with-toolbar.element
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell class="actions-cell" *matCellDef="let row">
-                        <button class="button-marker-edit" (click)="onActionButtonClick('edit', row)">
+                        <button
+                            class="button-marker-edit"
+                            (click)="onActionButtonClick('edit', row)"
+                        >
                             Edit
                         </button>
-                        <button class="button-marker-delete" (click)="onActionButtonClick('delete', row)">
+                        <button
+                            class="button-marker-delete"
+                            (click)="onActionButtonClick('delete', row)"
+                        >
                             Delete
                         </button>
                     </mat-cell>
                 </ng-container>
 
                 <!-- row definitions -->
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns" class="pointer"></mat-row>
-                <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': length > 0}"></mat-footer-row>
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns"
+                ></mat-header-row>
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                    class="pointer"
+                ></mat-row>
+                <mat-footer-row
+                    *matFooterRowDef="['noData']"
+                    [ngClass]="{ hide: length > 0 }"
+                ></mat-footer-row>
             </mat-table>
-            <mat-paginator [length]="length" 
-                            [pageSize]="pageSize" 
-                            [pageSizeOptions]="[15, 25, 50, 75, 100]">
+            <mat-paginator
+                [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[15, 25, 50, 75, 100]"
+            >
             </mat-paginator>
         </div>
     `
-}) class PagedTableWithToolbarComponent {
-
+})
+class PagedTableWithToolbarComponent {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     dataSource: MatTableDataSource<Task> = new MatTableDataSource();
     displayedColumns: string[] = ['select', 'id', 'actions'];
     length = 0;
-    pageSize = 25; 
+    pageSize = 25;
 
     set data(data: Task[]) {
         this.dataSource = new MatTableDataSource(data);
@@ -87,7 +113,6 @@ import { PagedTableWithToolbarElement } from './paged-table-with-toolbar.element
 }
 
 describe('PagedTableWithToolbarElement', () => {
-
     let pagedTableWithToolbarElement: PagedTableWithToolbarElement;
 
     beforeEach(() => {
@@ -99,14 +124,17 @@ describe('PagedTableWithToolbarElement', () => {
                 MatToolbarModule,
                 MatPaginatorModule,
                 NoopAnimationsModule
-            ],
-            
+            ]
         });
-    
+
         const fixture = TestBed.createComponent(PagedTableWithToolbarComponent);
         fixture.detectChanges();
-    
-        pagedTableWithToolbarElement = new PagedTableWithToolbarElement(fixture, '.marker-pagedTable', []); 
+
+        pagedTableWithToolbarElement = new PagedTableWithToolbarElement(
+            fixture,
+            '.marker-pagedTable',
+            []
+        );
     });
 
     it('should create element', () => {

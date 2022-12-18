@@ -9,7 +9,7 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
  * the user confirms in the dialog, then the result returned to the dialog
  * opener is `true`. This allows for complete control of deleting the thing
  * the user wants to delete.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
@@ -21,9 +21,9 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
  *     templateUrl: './confirm-delete-dialog-usage-example.html'
  * })
  * export class ConfirmDeleteDialogUsageExample {
- *     
+ *
  *     constructor(private dialog: MatDialog) {}
- * 
+ *
  *     // you will need to call this somewhere, either from a button `(click)`
  *     // event, or perhaps in a subscribe block to some observable
  *     openConfirmDeleteDialog(): void {
@@ -32,7 +32,7 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
  *             ConfirmDeleteDialogComponent,
  *             {data: {context:'Are you sure you want to delete value?', title:'Delete value?'}}
  *         );
- * 
+ *
  *         // handle when dialog closed
  *         dialogRef.afterClosed().subscribe((confirm: boolean) => {
  *             if (confirm) {
@@ -49,7 +49,6 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
     styleUrls: ['./confirm-delete-dialog.component.scss']
 })
 export class ConfirmDeleteDialogComponent implements OnInit {
-
     /** The icon to render in the dialog. */
     faTrash: IconDefinition = faTrash;
     /** The title to display in the dialog. */
@@ -58,15 +57,14 @@ export class ConfirmDeleteDialogComponent implements OnInit {
     content: string;
 
     constructor(
-      private dialogRef: MatDialogRef<ConfirmDeleteDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) private data: DialogData
+        private dialogRef: MatDialogRef<ConfirmDeleteDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: DialogData
     ) {
         this.title = this.data.title;
         this.content = this.data.content;
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     /**
      * Closes the dialog without returning any value so dialog opener can

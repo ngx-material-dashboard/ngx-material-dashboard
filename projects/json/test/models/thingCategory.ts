@@ -4,9 +4,9 @@ import { JsonModel } from '@ngx-material-dashboard/json/src/lib/models/json.mode
 import { JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
 
 @JsonApiModelConfig({
-  type: 'thing_category'
+    type: 'thing_category'
 })
 export class ThingCategory extends JsonModel {
-  @HasMany()
-  members!: Thing[];
+    @HasMany()
+    members!: Thing[];
 }

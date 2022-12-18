@@ -1,4 +1,9 @@
-import { AfterContentInit, Component, ContentChild, OnInit } from '@angular/core';
+import {
+    AfterContentInit,
+    Component,
+    ContentChild,
+    OnInit
+} from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { PagedCollectionWithIconToolbarComponent } from '../../../collection/components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';
 import { ListComponent } from '../../components/list/list.component';
@@ -10,7 +15,7 @@ import { ListComponent } from '../../components/list/list.component';
  * management buttons with easy to use handlers for when the user clicks a
  * button in the toolbar or the collection. The toolbar is rendered above the
  * data list.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -51,7 +56,7 @@ import { ListComponent } from '../../components/list/list.component';
  *     toolbarButtons: ToolbarButton[] = [
  *         {...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}
  *     ];
- * 
+ *
  *     onButtonClick(btnClick: ButtonClick): void {
  *         if (btnClick.click === 'create') {
  *             // handle create
@@ -69,9 +74,9 @@ import { ListComponent } from '../../components/list/list.component';
     templateUrl: './list-with-icon-buttons-paginator-bar.component.html',
     styleUrls: ['./list-with-icon-buttons-paginator-bar.component.css']
 })
-export class ListWithIconButtonsPaginatorBarComponent<T extends JsonModel>
-    extends PagedCollectionWithIconToolbarComponent<T> {
-
+export class ListWithIconButtonsPaginatorBarComponent<
+    T extends JsonModel
+> extends PagedCollectionWithIconToolbarComponent<T> {
     /** A reference to the table in the template. */
     @ContentChild(ListComponent) collection!: ListComponent<T>;
 }

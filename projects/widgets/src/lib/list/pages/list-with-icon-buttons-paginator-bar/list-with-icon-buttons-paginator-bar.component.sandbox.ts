@@ -1,36 +1,38 @@
-import { HttpClient } from "@angular/common/http";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatSortModule } from "@angular/material/sort";
-import { MatTableModule } from "@angular/material/table";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { JsonDatastore } from "@ngx-material-dashboard/base-json";
-import { Datastore } from "@ngx-material-dashboard/base-json/test/services/datastore.service";
-import { TEST_DATA } from "@ngx-material-dashboard/testing";
-import { sandboxOf } from "angular-playground";
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { JsonDatastore } from '@ngx-material-dashboard/base-json';
+import { Datastore } from '@ngx-material-dashboard/base-json/test/services/datastore.service';
+import { TEST_DATA } from '@ngx-material-dashboard/testing';
+import { sandboxOf } from 'angular-playground';
 
-import { CollectionModule } from "../../../collection/collection.module";
-import { EDIT_BUTTON, DELETE_BUTTON } from "../../../collection/shared/buttons";
-import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from "../../../toolbar/shared/toolbar-buttons";
-import { ToolbarModule } from "../../../toolbar/toolbar.module";
-import { ListComponent } from "../../components/list/list.component";
-import { ListWithIconButtonsPaginatorBarComponent } from "./list-with-icon-buttons-paginator-bar.component";
+import { CollectionModule } from '../../../collection/collection.module';
+import { EDIT_BUTTON, DELETE_BUTTON } from '../../../collection/shared/buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON
+} from '../../../toolbar/shared/toolbar-buttons';
+import { ToolbarModule } from '../../../toolbar/toolbar.module';
+import { ListComponent } from '../../components/list/list.component';
+import { ListWithIconButtonsPaginatorBarComponent } from './list-with-icon-buttons-paginator-bar.component';
 
 const pageSize = 5;
 
 export default sandboxOf(ListWithIconButtonsPaginatorBarComponent, {
-    declarations: [
-        ListComponent
-    ],
+    declarations: [ListComponent],
     imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -53,8 +55,7 @@ export default sandboxOf(ListWithIconButtonsPaginatorBarComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-})
-.add('list with icon buttons paginator bar with multi-select', {
+}).add('list with icon buttons paginator bar with multi-select', {
     template: `
     <ngx-material-dashboard-list-with-icon-buttons-paginator-bar
         [toolbarButtons]="toolbarButtons"
@@ -80,7 +81,11 @@ export default sandboxOf(ListWithIconButtonsPaginatorBarComponent, {
     </ngx-material-dashboard-list-with-icon-buttons-paginator-bar>`,
     context: {
         collectionButtons: [EDIT_BUTTON, DELETE_BUTTON],
-        toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
+        toolbarButtons: [
+            CREATE_TOOLBAR_BUTTON,
+            EDIT_TOOLBAR_BUTTON,
+            DELETE_TOOLBAR_BUTTON
+        ],
         data: TEST_DATA,
         fields: ['id'],
         multiple: true

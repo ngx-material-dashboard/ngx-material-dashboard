@@ -4,16 +4,15 @@ import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-doc
 import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
 
 @Component({
-  animations: [ZOOM_ANIMATION],
-  selector: 'app-scrollspy-nav-layout',
-  templateUrl: './scrollspy-nav-layout.component.html',
-  styleUrls: ['./scrollspy-nav-layout.component.scss']
+    animations: [ZOOM_ANIMATION],
+    selector: 'app-scrollspy-nav-layout',
+    templateUrl: './scrollspy-nav-layout.component.html',
+    styleUrls: ['./scrollspy-nav-layout.component.scss']
 })
 export class ScrollspyNavLayoutComponent {
-
-    @Input()headings: Element[] | undefined;
-    @Input()nestedHeadings: NestedHeading | undefined;
-    @Input()nestedGrandChildren: NestedHeading | undefined;
+    @Input() headings: Element[] | undefined;
+    @Input() nestedHeadings: NestedHeading | undefined;
+    @Input() nestedGrandChildren: NestedHeading | undefined;
     faChevronUp: IconDefinition = faChevronUp;
 
     showScrollUpButton = false;

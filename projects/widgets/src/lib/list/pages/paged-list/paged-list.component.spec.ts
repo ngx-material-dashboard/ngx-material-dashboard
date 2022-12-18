@@ -14,14 +14,15 @@ import { PagedListComponent } from './paged-list.component';
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-list [data]="data" [fields]="fields">
-        <ng-template #model let-model="model">
-            <h2>Dummy Model</h2>
-            <span>{{model.id}}</span>
-        </ng-template>
-    </ngx-material-dashboard-paged-list>
+        <ngx-material-dashboard-paged-list [data]="data" [fields]="fields">
+            <ng-template #model let-model="model">
+                <h2>Dummy Model</h2>
+                <span>{{ model.id }}</span>
+            </ng-template>
+        </ngx-material-dashboard-paged-list>
     `
-}) class TestPagedListComponent {
+})
+class TestPagedListComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -32,11 +33,7 @@ describe('PagedListComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                ListComponent,
-                PagedListComponent,
-                SorterComponent
-            ],
+            declarations: [ListComponent, PagedListComponent, SorterComponent],
             imports: [
                 MockModule(MatCheckboxModule),
                 MockModule(MatPaginatorModule),

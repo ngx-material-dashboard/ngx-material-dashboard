@@ -5,9 +5,9 @@ import 'reflect-metadata';
  * should be included with the datastore service implementation included in
  * your application.
  *
- * @param config Custom options included in decorator. 
+ * @param config Custom options included in decorator.
  * @returns Custom class decorator for JSON datastore service.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
@@ -25,7 +25,7 @@ import 'reflect-metadata';
  * })
  * export class JsonApiService extends JsonDatastore {}
  * ```
- * 
+ *
  * The example above shows the minimum properties you should include with the
  * `JsonApiDatastoreConfig` `decorator`. Additional properties can be
  * included. See the [API](/base-json/interfaces/datastore-config/api) docs

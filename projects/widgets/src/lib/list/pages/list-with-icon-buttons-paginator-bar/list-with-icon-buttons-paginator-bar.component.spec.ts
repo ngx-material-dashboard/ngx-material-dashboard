@@ -16,17 +16,19 @@ import { ListWithIconButtonsPaginatorBarComponent } from './list-with-icon-butto
 
 @Component({
     template: `
-    <ngx-material-dashboard-list-with-icons-buttons-paginator-bar
-        [fields]="fields">
-        <ngx-material-dashboard-list [data]="data">
-            <ng-template #model let-model="model">
-                <h2>Dummy Model</h2>
-                <span>{{model.id}}</span>
-            </ng-template>
-        </ngx-material-dashboard-list>
-    </ngx-material-dashboard-list-with-icons-buttons-paginator-bar>
+        <ngx-material-dashboard-list-with-icons-buttons-paginator-bar
+            [fields]="fields"
+        >
+            <ngx-material-dashboard-list [data]="data">
+                <ng-template #model let-model="model">
+                    <h2>Dummy Model</h2>
+                    <span>{{ model.id }}</span>
+                </ng-template>
+            </ngx-material-dashboard-list>
+        </ngx-material-dashboard-list-with-icons-buttons-paginator-bar>
     `
-}) class TestListWithIconButtonsPaginatorBarComponent {
+})
+class TestListWithIconButtonsPaginatorBarComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -51,11 +53,13 @@ describe('ListWithIconButtonsPaginatorBarComponent', () => {
                 MockModule(MatToolbarModule),
                 MockModule(FontAwesomeModule)
             ]
-        })
+        });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestListWithIconButtonsPaginatorBarComponent);
+        fixture = TestBed.createComponent(
+            TestListWithIconButtonsPaginatorBarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

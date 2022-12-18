@@ -12,7 +12,14 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
-import { CheckboxElement, CollectionElement, Datastore, DummyObject, DUMMY_OBJECT_DATA, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    CheckboxElement,
+    CollectionElement,
+    Datastore,
+    DummyObject,
+    DUMMY_OBJECT_DATA,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 
 import { ListComponent } from '../../../list/components/list/list.component';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
@@ -23,20 +30,22 @@ import { CollectionComponent } from './collection.component';
 /** Component to test with. */
 @Component({
     template: `
-    <ngx-material-dashboard-list
-        [collectionButtons]="collectionButtons"
-        [dataSource]="data"
-        [fields]="fields"
-        [multiple]="multiple">
-        <ng-template #model let-model="model">
-            <h2>Dummy Model</h2>
-            <span>{{model.id}}</span>
-        </ng-template>
-    </ngx-material-dashboard-list>
+        <ngx-material-dashboard-list
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [fields]="fields"
+            [multiple]="multiple"
+        >
+            <ng-template #model let-model="model">
+                <h2>Dummy Model</h2>
+                <span>{{ model.id }}</span>
+            </ng-template>
+        </ngx-material-dashboard-list>
     `
-}) class TestCollectionComponent {
+})
+class TestCollectionComponent {
     @ViewChild(ListComponent) collection!: ListComponent<DummyObject>;
-    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}]
+    collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     data: DummyObject[] = [];
     fields: string[] = ['id'];
     multiple: boolean = true;
@@ -68,9 +77,7 @@ describe('CollectionComponent', () => {
                 FlexLayoutModule,
                 FontAwesomeModule
             ],
-            providers: [
-                { provide: JsonDatastore, useClass: Datastore }
-            ]
+            providers: [{ provide: JsonDatastore, useClass: Datastore }]
         });
 
         fixture = TestBed.createComponent(TestCollectionComponent);
@@ -79,14 +86,15 @@ describe('CollectionComponent', () => {
     });
 
     describe('No Collection Data', () => {
-
         beforeEach(() => {
             // initialize component without any data
             page = init();
         });
 
         it('should not have any rows selected by default', () => {
-            expect(page.component.collection.selection.selected.length).toEqual(0);
+            expect(page.component.collection.selection.selected.length).toEqual(
+                0
+            );
             expect(page.component.collection.isAllSelected()).toEqual(false);
         });
 
@@ -111,10 +119,8 @@ describe('CollectionComponent', () => {
     });
 
     describe('With Collection Data', () => {
-
         // tests where it doesn't matter whether multi-select is allowed
         describe('Mulit-select Independent', () => {
-
             beforeEach(() => {
                 // initialize the component with dummy data and allow multi-select
                 page = init(DUMMY_OBJECT_DATA);
@@ -122,13 +128,19 @@ describe('CollectionComponent', () => {
 
             it('should emit buttonClick event when action button clicked in row', () => {
                 // given: a spy on the tableButtonClick
-                const spy = spyOn(page.component.collection.buttonClick, 'emit');
+                const spy = spyOn(
+                    page.component.collection.buttonClick,
+                    'emit'
+                );
 
                 // when: a button is clicked in one of the rows
                 page.clickItemButton('edit', 0);
 
                 // then: the tableButtonClick emit method should have been called
-                expect(spy).toHaveBeenCalledWith({ click: 'edit', row: DUMMY_OBJECT_DATA[0] });
+                expect(spy).toHaveBeenCalledWith({
+                    click: 'edit',
+                    row: DUMMY_OBJECT_DATA[0]
+                });
             });
 
             // it('should not display no data row', () => {
@@ -142,7 +154,6 @@ describe('CollectionComponent', () => {
         });
 
         describe('Multi-select Enabled', () => {
-
             beforeEach(() => {
                 // initialize the component with dummy data and allow multi-select
                 page = init(DUMMY_OBJECT_DATA);
@@ -150,8 +161,12 @@ describe('CollectionComponent', () => {
 
             describe('No rows selected initially', () => {
                 it('should not have any rows selected by default', () => {
-                    expect(page.component.collection.selection.selected.length).toEqual(0);
-                    expect(page.component.collection.isAllSelected()).toEqual(false);
+                    expect(
+                        page.component.collection.selection.selected.length
+                    ).toEqual(0);
+                    expect(page.component.collection.isAllSelected()).toEqual(
+                        false
+                    );
                 });
 
                 it('should select all rows when checkbox in header checked', () => {
@@ -159,7 +174,9 @@ describe('CollectionComponent', () => {
                     page.selectAll();
 
                     // then: the component should return true for isAllSelected()
-                    expect(page.component.collection.isAllSelected()).toEqual(true);
+                    expect(page.component.collection.isAllSelected()).toEqual(
+                        true
+                    );
 
                     // and: all rows should have their checkboxes checked
                     const checkBoxes: CheckboxElement[] = page.itemCheckboxes;
@@ -226,15 +243,18 @@ describe('CollectionComponent', () => {
  * @param multiple Boolean value to set whether table allows multiple selection.
  * @return A page helper to aid in tests.
  */
- function init(
-    data: JsonModel[] = [],
-    multiple = true
-): CollectionElement {
-    const fixture: ComponentFixture<TestCollectionComponent> = TestBed.createComponent(TestCollectionComponent);
+function init(data: JsonModel[] = [], multiple = true): CollectionElement {
+    const fixture: ComponentFixture<TestCollectionComponent> =
+        TestBed.createComponent(TestCollectionComponent);
     const component = fixture.componentInstance;
     component.data = data;
     component.multiple = multiple;
     fixture.detectChanges();
 
-    return new CollectionElement(fixture, '.marker-list', '.marker-list-item', '.marker-checkbox-item-select');
+    return new CollectionElement(
+        fixture,
+        '.marker-list',
+        '.marker-list-item',
+        '.marker-checkbox-item-select'
+    );
 }

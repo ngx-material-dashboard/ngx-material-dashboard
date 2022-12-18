@@ -55,4 +55,4 @@ import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-pag
         FormModule
     ]
 })
-export class ToolbarModule { }
+export class ToolbarModule {}

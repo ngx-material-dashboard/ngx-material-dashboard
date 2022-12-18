@@ -58,4 +58,4 @@ import { TableComponent } from './components/table/table.component';
         ToolbarModule
     ]
 })
-export class TableModule { }
+export class TableModule {}

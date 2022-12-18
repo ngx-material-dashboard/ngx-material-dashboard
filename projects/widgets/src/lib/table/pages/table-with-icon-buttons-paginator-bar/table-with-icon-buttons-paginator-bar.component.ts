@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, ContentChild, Input } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    Input
+} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
@@ -12,7 +17,7 @@ import { TableComponent } from '../../components/table/table.component';
  * management buttons with easy to use handlers for when the user clicks a
  * button in the toolbar or the collection. The toolbar is rendered above the
  * data paged-table.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -52,7 +57,7 @@ import { TableComponent } from '../../components/table/table.component';
  *     toolbarButtons: ToolbarButton[] = [
  *         {...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}
  *     ];
- * 
+ *
  *     onButtonClick(btnClick: ButtonClick): void {
  *         if (btnClick.click === 'create') {
  *             // handle create
@@ -70,9 +75,9 @@ import { TableComponent } from '../../components/table/table.component';
     templateUrl: './table-with-icon-buttons-paginator-bar.component.html',
     styleUrls: ['./table-with-icon-buttons-paginator-bar.component.css']
 })
-export class TableWithIconButtonsPaginatorBarComponent<T extends JsonModel>
-    extends PagedCollectionWithIconToolbarComponent<T> {
-
+export class TableWithIconButtonsPaginatorBarComponent<
+    T extends JsonModel
+> extends PagedCollectionWithIconToolbarComponent<T> {
     /** Columns to display in the table. */
     @Input() displayedColumns: string[] = ['select', 'actions'];
     /** A reference to the table in the template. */

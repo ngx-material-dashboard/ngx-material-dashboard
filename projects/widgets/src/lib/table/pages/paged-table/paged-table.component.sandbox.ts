@@ -9,7 +9,11 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    Datastore,
+    DummyObject,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
@@ -34,8 +38,8 @@ export default sandboxOf(PagedTableComponent, {
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
 })
-.add('table with multi-select', {
-    template: `
+    .add('table with multi-select', {
+        template: `
     <ngx-material-dashboard-paged-table 
         matSort 
         [collectionButtons]="buttons"
@@ -53,15 +57,15 @@ export default sandboxOf(PagedTableComponent, {
             </mat-footer-cell>
         </ng-container>
     </ngx-material-dashboard-paged-table>`,
-    context: {
-        buttons: [EDIT_BUTTON, DELETE_BUTTON],
-        data: TEST_DATA,
-        displayedColumns: ['select', 'id', 'actions'],
-        multiple: true
-    }
-})
-.add('table without multi-select', {
-    template: `
+        context: {
+            buttons: [EDIT_BUTTON, DELETE_BUTTON],
+            data: TEST_DATA,
+            displayedColumns: ['select', 'id', 'actions'],
+            multiple: true
+        }
+    })
+    .add('table without multi-select', {
+        template: `
     <ngx-material-dashboard-paged-table
         matSort
         [collectionButtons]="buttons"
@@ -79,10 +83,10 @@ export default sandboxOf(PagedTableComponent, {
             </mat-footer-cell>
         </ng-container>
     </ngx-material-dashboard-paged-table>`,
-    context: {
-        buttons: [EDIT_BUTTON, DELETE_BUTTON],
-        data: TEST_DATA,
-        displayedColumns: ['select', 'id', 'actions'],
-        multiple: false
-    }
-});
+        context: {
+            buttons: [EDIT_BUTTON, DELETE_BUTTON],
+            data: TEST_DATA,
+            displayedColumns: ['select', 'id', 'actions'],
+            multiple: false
+        }
+    });

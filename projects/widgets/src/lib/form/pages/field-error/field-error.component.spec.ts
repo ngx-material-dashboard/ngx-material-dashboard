@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+    FormBuilder,
+    Validators,
+    FormsModule,
+    ReactiveFormsModule
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
@@ -33,20 +38,19 @@ describe('FieldErrorComponent', () => {
     });
 
     describe('Field Undefined', () => {
-
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [ FieldErrorComponent ],
-                imports: [ FormsModule, ReactiveFormsModule, MatFormFieldModule ]
+                declarations: [FieldErrorComponent],
+                imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule]
             });
-        
+
             // define a form and field with Validators to use for the component
             const formBuilder = new FormBuilder();
             const form = formBuilder.group({});
             const validationMessages: ValidationMessage[] = [
                 { type: 'required', message: 'Field is required' }
             ];
-        
+
             // create the FieldErrorComponent and set input properties on the component
             const fixture = TestBed.createComponent(FieldErrorComponent);
             const component = fixture.componentInstance;
@@ -54,7 +58,7 @@ describe('FieldErrorComponent', () => {
             component.form = form;
             component.validationMessages = validationMessages;
             fixture.detectChanges();
-        
+
             // return an instance of the FieldErrorPage class to help with tests
             page = new FieldErrorPage(fixture, component, 'field');
         });
@@ -72,8 +76,8 @@ describe('FieldErrorComponent', () => {
  */
 function init(): FieldErrorPage {
     TestBed.configureTestingModule({
-        declarations: [ FieldErrorComponent ],
-        imports: [ FormsModule, ReactiveFormsModule, MatFormFieldModule ]
+        declarations: [FieldErrorComponent],
+        imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule]
     });
 
     // define a form and field with Validators to use for the component
@@ -102,13 +106,16 @@ function init(): FieldErrorPage {
  * FieldErrorComponent for use in the above spec.
  */
 class FieldErrorPage extends Page<FieldErrorComponent> {
-
     /** The component this page represents. */
     private component: FieldErrorComponent;
     /** The name of the field on the form for the component. */
     private fieldName: string;
 
-    constructor(fixture: ComponentFixture<FieldErrorComponent>, component: FieldErrorComponent, field: string) {
+    constructor(
+        fixture: ComponentFixture<FieldErrorComponent>,
+        component: FieldErrorComponent,
+        field: string
+    ) {
         super(fixture);
         this.component = component;
         this.fieldName = field;

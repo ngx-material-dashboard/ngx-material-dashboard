@@ -1,15 +1,20 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { catchError, map, Observable, of, throwError } from "rxjs";
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpHeaders,
+    HttpResponse
+} from '@angular/common/http';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 
-import { DatastoreConfig } from "../interfaces/datastore-config.interface";
-import { ModelConfig } from "../interfaces/model-config.interface";
-import { ModelType } from "../interfaces/model-type.interface";
-import { JsonApiQueryData } from "../models/json-api-query-data";
-import { JsonModel } from "../models/json.model";
-import { ErrorResponse } from "../models/error-response.model";
+import { DatastoreConfig } from '../interfaces/datastore-config.interface';
+import { ModelConfig } from '../interfaces/model-config.interface';
+import { ModelType } from '../interfaces/model-type.interface';
+import { JsonApiQueryData } from '../models/json-api-query-data';
+import { JsonModel } from '../models/json.model';
+import { ErrorResponse } from '../models/error-response.model';
 import stringify from '../utilities/stringify';
-import { Injectable } from "@angular/core";
-import { AttributeMetadata } from "../constants/symbols";
+import { Injectable } from '@angular/core';
+import { AttributeMetadata } from '../constants/symbols';
 
 const AttributeMetadataIndex: string = AttributeMetadata as any;
 
@@ -21,28 +26,28 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * JSON response body data and converting it into client side data models. I've
  * created the methods so that they are as generic as possible, meaning they do
  * not care about how the JSON and your client side data models are structured.
- * 
+ *
  * ## Extending this Service
- * 
+ *
  * This service must be extended to complete the functionality required for the
  * CRUD methods. The [json](/json) and [json-api](/json-api) libraries contain
  * a datastore service that extend this class. I suggest taking a look at these
  * libraries to see if they will work for your application. If they do not they
  * should at the very least provide examples of how to extend this class. I do
  * include some details on what you need to do to extend this class below.
- * 
+ *
  * > NOTE: All examples provided below are taken from the
  * > [JsonDatastore](/json/services/json-datastore) in the `json` library.
- * 
+ *
  * To make the service as generic as possible I had to define several abstract
  * method calls that need to be implemented to handle parsing and generating
  * JSON data to/from your client. The methods that must be implemented are
  * `createRecord`, `deserializeModel`, `serializeModel`, `extractQueryData`,
  * and `extractRecordData`. See below for details on the methods that
  * need to be implemented when extending this class.
- * 
+ *
  * ### createRecord
- * 
+ *
  * Creates and returns a new instance of the given data as the given model
  * type. This should only create the instance and should not make any HTTP
  * requests to save the model. It is a convenience method for initializing
@@ -52,15 +57,15 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * meaning the data should be a map of key/value pairs where the keys match
  * up with the attributes defined for your models. Below is the most basic
  * implementation:
- * 
+ *
  * ```typescript
  * public createRecord<T extends JsonModel>(modelType: ModelType<T>, data: Partial<T>): T {
  *     return new modelType(this, data);
  * }
  * ```
- * 
+ *
  * ### deserializeModel
- * 
+ *
  * Returns the given JSON data as the given model type. The JSON data should
  * be data extracted directly from the body of a JSON API response, and is
  * mainly called from the extractQueryData and extractRecordData methods.
@@ -71,19 +76,19 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * data models, so that the constructor can use `Object.assign(this, data)`
  * (or some variation of that can be used to assign all properties their
  * corresponding values).
- * 
+ *
  * ```typescript
  * public deserializeModel<T extends JsonModel>(modelType: ModelType<T>, data: any): T {
  *     data = this.transformSerializedNamesToPropertyNames(modelType, data);
  *     return new modelType(this, data);
  * }
  * ```
- * 
+ *
  * ### serializeModel
- * 
+ *
  * Returns a JSON literal that can be included in an HTTP request body from
  * the given model.
- * 
+ *
  * ```typescript
  * public serializeModel(model: any, attributesMetadata: any, transition?: string): any {
  *     const data: any = this.getDirtyAttributes(attributesMetadata, model);
@@ -103,15 +108,15 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  *     return body;
  * }
  * ```
- * 
+ *
  * ### extractQueryData
- * 
+ *
  * Parses and extracts query data from the given HTTP response body for
- * lists of models (used by findAll), and returns it as a 
+ * lists of models (used by findAll), and returns it as a
  * {@link JsonApiQueryData} that includes a list of models of the given
  * modelType and meta data (i.e. total number of results for determining
  * how many pages there are).
- * 
+ *
  * ```typescript
  * protected extractQueryData<T extends JsonModel>(
  *     response: HttpResponse<object>,
@@ -134,12 +139,12 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  *     return models;
  * }
  * ```
- * 
+ *
  * ### extractRecordData
- * 
+ *
  * Parses and extracts record data from the given HTTP response body for a
  * single object and returns it as the given modelType.
- * 
+ *
  * ```typescript
  * protected extractRecordData<T extends JsonModel>(
  *     res: HttpResponse<object>,
@@ -166,16 +171,17 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  */
 @Injectable()
 export abstract class JsonDatastore {
-
     /** Options included in DatastoreConfig decorator. */
     protected config!: DatastoreConfig;
     /** An internal data store map of model types to model objects mapped by id. */
     protected internalStore: { [type: string]: { [id: string]: any } } = {};
     private globalHeaders!: HttpHeaders;
     private globalRequestOptions: object = {};
-    private toQueryString: (params: any) => string = this.datastoreConfig.overrides
-        && this.datastoreConfig.overrides.toQueryString ?
-            this.datastoreConfig.overrides.toQueryString : this._toQueryString;
+    private toQueryString: (params: any) => string =
+        this.datastoreConfig.overrides &&
+        this.datastoreConfig.overrides.toQueryString
+            ? this.datastoreConfig.overrides.toQueryString
+            : this._toQueryString;
 
     constructor(protected httpClient: HttpClient) {}
 
@@ -204,7 +210,10 @@ export abstract class JsonDatastore {
      * types to include in JSON API interface.
      */
     public get datastoreConfig(): DatastoreConfig {
-        const configFromDecorator: DatastoreConfig = Reflect.getMetadata('JsonApiDatastoreConfig', this.constructor);
+        const configFromDecorator: DatastoreConfig = Reflect.getMetadata(
+            'JsonApiDatastoreConfig',
+            this.constructor
+        );
         return Object.assign(configFromDecorator, this.config);
     }
 
@@ -230,7 +239,7 @@ export abstract class JsonDatastore {
      * meaning the data should be a map of key/value pairs where the keys match
      * up with the attributes defined for your models. Below is the most basic
      * implementation:
-     * 
+     *
      * ```typescript
      * public createRecord<T extends JsonModel>(modelType: ModelType<T>, data: Partial<T>): T {
      *     return new modelType(this, data);
@@ -251,26 +260,31 @@ export abstract class JsonDatastore {
      * method to take advantage of options included in {@link Attribute}
      * decorators defined in your data models.
      *
-     * @param modelType The model type to return. 
+     * @param modelType The model type to return.
      * @param data The JSON data to use to create an object of modelType.
      * @returns An object of given modelType with given data.
      */
     public abstract deserializeModel(modelType: ModelType<any>, data: any): any;
- 
+
     /**
      * Returns a JSON object that can be included in an HTTP request body from
      * the given model.
      *
-     * @param model The model with data to serialize. 
+     * @param model The model with data to serialize.
      * @param attributesMetadata Metadata for the model instance.
      * @param transition Optional transition string to include as meta data in request body.
      * @param includeRelationships Optional boolean value to include relationship data with body.
      */
-    public abstract serializeModel(model: any, attributesMetadata: any, transition?: string, includeRelationships?: boolean): any;
- 
+    public abstract serializeModel(
+        model: any,
+        attributesMetadata: any,
+        transition?: string,
+        includeRelationships?: boolean
+    ): any;
+
     /**
      * Parses and extracts query data from the given HTTP response body for
-     * lists of models (used by findAll), and returns it as a 
+     * lists of models (used by findAll), and returns it as a
      * {@link JsonApiQueryData} that includes a list of models of the given
      * modelType and meta data (i.e. total number of results for determining
      * how many pages there are).
@@ -280,22 +294,22 @@ export abstract class JsonDatastore {
      * @param withMeta Optional boolean value indicating if meta data included.
      */
     protected abstract extractQueryData(
-         response: HttpResponse<object>,
-         modelType: ModelType<any>
+        response: HttpResponse<object>,
+        modelType: ModelType<any>
     ): JsonApiQueryData<any>;
- 
+
     /**
      * Parses and extracts record data from the given HTTP response body for a
      * single object and returns it as the given modelType.
-     * 
+     *
      * @param res The HTTP response from the server.
-     * @param modelType The type of model the data 
-     * @param model 
+     * @param modelType The type of model the data
+     * @param model
      */
     protected abstract extractRecordData(
-         res: HttpResponse<object>,
-         modelType: ModelType<any>,
-         model?: any
+        res: HttpResponse<object>,
+        modelType: ModelType<any>,
+        model?: any
     ): any;
 
     //---Default CRUD Methods--------------------------------------------------
@@ -319,7 +333,10 @@ export abstract class JsonDatastore {
         headers?: HttpHeaders,
         customUrl?: string
     ): Observable<JsonApiQueryData<T>> {
-        const requestOptions: object = this.buildRequestOptions({headers, observe: 'response'});
+        const requestOptions: object = this.buildRequestOptions({
+            headers,
+            observe: 'response'
+        });
         const url = this.buildUrl(modelType, params, undefined, customUrl);
         return this.httpClient.get<any>(url, requestOptions).pipe(
             map((res: any) => {
@@ -343,7 +360,10 @@ export abstract class JsonDatastore {
         headers?: HttpHeaders,
         customUrl?: string
     ): Observable<T> {
-        const requestOptions: object = this.buildRequestOptions({headers, observe: 'response'});
+        const requestOptions: object = this.buildRequestOptions({
+            headers,
+            observe: 'response'
+        });
         const url = this.buildUrl(modelType, params, id, customUrl);
         return this.httpClient.get(url, requestOptions).pipe(
             map((res: any) => this.extractRecordData(res, modelType)),
@@ -354,7 +374,7 @@ export abstract class JsonDatastore {
     /**
      * Deletes an existing model.
      *
-     * @param modelType The type of model to delete. 
+     * @param modelType The type of model to delete.
      * @param id The id of the model to delete.
      * @param headers Optional headers to include with the request.
      * @param customUrl Optional custom URL to use for request.
@@ -365,12 +385,14 @@ export abstract class JsonDatastore {
         headers?: HttpHeaders,
         customUrl?: string
     ): Observable<any> {
-        const requestOptions: object = this.buildRequestOptions({headers});
+        const requestOptions: object = this.buildRequestOptions({ headers });
         const url: string = this.buildUrl(modelType, null, id, customUrl);
 
-        return this.httpClient.delete(url, requestOptions).pipe(
-            catchError((res: HttpErrorResponse) => this.handleError(res))
-        );
+        return this.httpClient
+            .delete(url, requestOptions)
+            .pipe(
+                catchError((res: HttpErrorResponse) => this.handleError(res))
+            );
     }
 
     /**
@@ -394,23 +416,47 @@ export abstract class JsonDatastore {
         customUrl?: string
     ): Observable<any> {
         const modelType = model.constructor as ModelType<any>;
-        const url: string = this.buildUrl(modelType, params, model.id, customUrl);
+        const url: string = this.buildUrl(
+            modelType,
+            params,
+            model.id,
+            customUrl
+        );
 
         let httpCall: Observable<HttpResponse<object>>;
-        const body: any = this.serializeModel(model, attributesMetadata, undefined, true);
-        const requestOptions: object = this.buildRequestOptions({headers, observe: 'response'});
+        const body: any = this.serializeModel(
+            model,
+            attributesMetadata,
+            undefined,
+            true
+        );
+        const requestOptions: object = this.buildRequestOptions({
+            headers,
+            observe: 'response'
+        });
 
         if (model.id) {
             // if the id exists, then model should exist in DB so send PATCH
-            httpCall = this.httpClient.patch<object>(url, body, requestOptions) as Observable<HttpResponse<object>>;
+            httpCall = this.httpClient.patch<object>(
+                url,
+                body,
+                requestOptions
+            ) as Observable<HttpResponse<object>>;
         } else {
             // if id doesn't exist, then new model so send POST
-            httpCall = this.httpClient.post<object>(url, body, requestOptions) as Observable<HttpResponse<object>>;
+            httpCall = this.httpClient.post<object>(
+                url,
+                body,
+                requestOptions
+            ) as Observable<HttpResponse<object>>;
         }
 
-        return httpCall
-        .pipe(
-            map((res) => [200, 201].indexOf(res.status) !== -1 ? this.extractRecordData(res, modelType, model) : model),
+        return httpCall.pipe(
+            map((res) =>
+                [200, 201].indexOf(res.status) !== -1
+                    ? this.extractRecordData(res, modelType, model)
+                    : model
+            ),
             catchError((res) => {
                 if (res == null) {
                     return of(model);
@@ -423,7 +469,7 @@ export abstract class JsonDatastore {
     /**
      * Updates an existing model.
      *
-     * @param model The model to update. 
+     * @param model The model to update.
      * @param transition Optional transition to include with update data.
      * @param params Optional parameters to include with HTTP request.
      * @param includeRelationships Optional boolean value indicating whether to include relationships with request.
@@ -443,13 +489,24 @@ export abstract class JsonDatastore {
         // the model data to include in the request body
         // get attribute metadata for model
         const attributesMetadata: any = model[AttributeMetadataIndex];
-        const body: any = this.serializeModel(model, attributesMetadata, transition, includeRelationships);
+        const body: any = this.serializeModel(
+            model,
+            attributesMetadata,
+            transition,
+            includeRelationships
+        );
 
         // send the PATCH request
-        const httpPatch = this.httpClient.patch(url, body, { headers: requestHeaders, observe: 'response', params });
+        const httpPatch = this.httpClient.patch(url, body, {
+            headers: requestHeaders,
+            observe: 'response',
+            params
+        });
         return httpPatch.pipe(
             map((res: HttpResponse<object>) => {
-                    return [200, 201].indexOf(res.status) !== -1 ? this.extractRecordData(res, modelType, model) : model;
+                return [200, 201].indexOf(res.status) !== -1
+                    ? this.extractRecordData(res, modelType, model)
+                    : model;
             }),
             catchError((res) => {
                 if (res == null) {
@@ -498,11 +555,13 @@ export abstract class JsonDatastore {
     /**
      * Adds the given model or models to the internal data store for the
      * service.
-     * 
+     *
      * @param modelOrModels The model or models to add to the data store.
      */
     public addToStore(modelOrModels: JsonModel | JsonModel[]): void {
-        const models = Array.isArray(modelOrModels) ? modelOrModels : [modelOrModels];
+        const models = Array.isArray(modelOrModels)
+            ? modelOrModels
+            : [modelOrModels];
         const type: string = models[0].modelConfig.type;
         let typeStore = this.internalStore[type];
 
@@ -521,11 +580,13 @@ export abstract class JsonDatastore {
      * Generates and returns request options from given customOptions headers
      * and globalRequestOptions.
      *
-     * @param customOptions Custom options that contains headers to include in request. 
+     * @param customOptions Custom options that contains headers to include in request.
      * @returns Combined globalRequestOptions and optional custom headers.
      */
     buildRequestOptions(customOptions: any = {}): object {
-        const httpHeaders: HttpHeaders = this.buildHttpHeaders(customOptions.headers);
+        const httpHeaders: HttpHeaders = this.buildHttpHeaders(
+            customOptions.headers
+        );
 
         const requestOptions: object = Object.assign(customOptions, {
             headers: httpHeaders
@@ -538,8 +599,9 @@ export abstract class JsonDatastore {
      * Returns the attributes that are dirty.
      */
     protected get getDirtyAttributes() {
-        if (this.datastoreConfig.overrides
-            && this.datastoreConfig.overrides.getDirtyAttributes
+        if (
+            this.datastoreConfig.overrides &&
+            this.datastoreConfig.overrides.getDirtyAttributes
         ) {
             return this.datastoreConfig.overrides.getDirtyAttributes;
         }
@@ -552,10 +614,12 @@ export abstract class JsonDatastore {
      * are excluded when they shouldn't be). TODO: figure out root cause of
      * issue in attributesMetadata.
      *
-     * @param attributesMetadata Metadata for attributes for model. 
+     * @param attributesMetadata Metadata for attributes for model.
      * @returns The model attributes that are dirty.
      */
-    protected static getDirtyAttributes(attributesMetadata: any): { string: any } {
+    protected static getDirtyAttributes(attributesMetadata: any): {
+        string: any;
+    } {
         const dirtyData: any = {};
 
         for (const propertyName in attributesMetadata) {
@@ -565,8 +629,13 @@ export abstract class JsonDatastore {
                 // include all attributes regardless of whether they are dirty
                 // as the dirty check seems to be broken right now
                 //if (metadata.hasDirtyAttributes) {
-                    const attributeName = metadata.serializedName != null ? metadata.serializedName : propertyName;
-                    dirtyData[attributeName] = metadata.serialisationValue ? metadata.serialisationValue : metadata.newValue;
+                const attributeName =
+                    metadata.serializedName != null
+                        ? metadata.serializedName
+                        : propertyName;
+                dirtyData[attributeName] = metadata.serialisationValue
+                    ? metadata.serialisationValue
+                    : metadata.newValue;
                 //}
             }
         }
@@ -586,7 +655,7 @@ export abstract class JsonDatastore {
                     const val = this.globalHeaders.get(key);
                     if (val) {
                         requestHeaders = requestHeaders.set(key, val);
-                    }                
+                    }
                 }
             });
         }
@@ -624,11 +693,18 @@ export abstract class JsonDatastore {
             return queryParams ? `${customUrl}?${queryParams}` : customUrl;
         }
 
-        const modelConfig: ModelConfig = Reflect.getMetadata('JsonApiModelConfig', modelType);
+        const modelConfig: ModelConfig = Reflect.getMetadata(
+            'JsonApiModelConfig',
+            modelType
+        );
         const baseUrl = modelConfig.baseUrl || this.datastoreConfig.baseUrl;
-        const apiVersion = modelConfig.apiVersion || this.datastoreConfig.apiVersion;
-        const modelEndpointUrl: string = modelConfig.modelEndpointUrl || modelConfig.type;
-        const url: string = [baseUrl, apiVersion, modelEndpointUrl, id].filter((x) => x).join('/');
+        const apiVersion =
+            modelConfig.apiVersion || this.datastoreConfig.apiVersion;
+        const modelEndpointUrl: string =
+            modelConfig.modelEndpointUrl || modelConfig.type;
+        const url: string = [baseUrl, apiVersion, modelEndpointUrl, id]
+            .filter((x) => x)
+            .join('/');
 
         return queryParams ? `${url}?${queryParams}` : url;
     }
@@ -663,28 +739,48 @@ export abstract class JsonDatastore {
     }
 
     protected parseMeta(body: any, modelType: ModelType<JsonModel>): any {
-        const metaModel: any = Reflect.getMetadata('JsonApiModelConfig', modelType).meta;
+        const metaModel: any = Reflect.getMetadata(
+            'JsonApiModelConfig',
+            modelType
+        ).meta;
         return new metaModel(body);
     }
 
     public peekRecord<T>(modelType: ModelType<T>, id: string): T | null {
-        const type: string = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
-        return this.internalStore[type] ? this.internalStore[type][id] as T : null;
+        const type: string = Reflect.getMetadata(
+            'JsonApiModelConfig',
+            modelType
+        ).type;
+        return this.internalStore[type]
+            ? (this.internalStore[type][id] as T)
+            : null;
     }
 
     public peekAll<T>(modelType: ModelType<T>): Array<T> {
         const type = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
         const typeStore = this.internalStore[type];
-        return typeStore ? Object.keys(typeStore).map((key) => typeStore[key] as T) : [];
+        return typeStore
+            ? Object.keys(typeStore).map((key) => typeStore[key] as T)
+            : [];
     }
 
-    public transformSerializedNamesToPropertyNames<T>(modelType: ModelType<T>, attributes: any): any {
-        const serializedNameToPropertyName = this.getModelPropertyNames(modelType.prototype);
+    public transformSerializedNamesToPropertyNames<T>(
+        modelType: ModelType<T>,
+        attributes: any
+    ): any {
+        const serializedNameToPropertyName = this.getModelPropertyNames(
+            modelType.prototype
+        );
         const properties: any = {};
 
         Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
-            if (attributes && attributes[serializedName] !== null && attributes[serializedName] !== undefined) {
-                properties[serializedNameToPropertyName[serializedName]] = attributes[serializedName];
+            if (
+                attributes &&
+                attributes[serializedName] !== null &&
+                attributes[serializedName] !== undefined
+            ) {
+                properties[serializedNameToPropertyName[serializedName]] =
+                    attributes[serializedName];
             }
         });
 
@@ -692,6 +788,6 @@ export abstract class JsonDatastore {
     }
 
     private _toQueryString(params: any): string {
-        return stringify(params, {arrayFormat: 'brackets'});
+        return stringify(params, { arrayFormat: 'brackets' });
     }
 }

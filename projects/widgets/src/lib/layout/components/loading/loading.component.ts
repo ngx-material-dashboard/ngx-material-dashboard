@@ -8,11 +8,11 @@ import { LoadingService } from '../../services/loading.service';
  * when HTTP requests are in progress. This component is automatically included
  * in the `DefaultLayout`, so there is no need to include this yourself if you
  * are using that.
- * 
+ *
  * You may use this component if you are not using the `DefaultLayout`. The
  * `LoadingService` must be conigured for this component to work correctly. See
  * the [LoadingService](/widgets/services/loading) documentation for more info.
- * 
+ *
  *  @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -35,7 +35,6 @@ import { LoadingService } from '../../services/loading.service';
     styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit {
-
     /** Boolean indicating whether or not to display loading spinner. */
     loading: boolean;
     /** The subscriptions for the component. */
@@ -47,7 +46,7 @@ export class LoadingComponent implements OnInit {
     }
 
     ngOnInit() {
-        const sub = this.loadingService.loadingSub.subscribe(loadingState => {
+        const sub = this.loadingService.loadingSub.subscribe((loadingState) => {
             this.loading = loadingState;
         });
         sub.add(sub);

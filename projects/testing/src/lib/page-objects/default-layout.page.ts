@@ -11,7 +11,6 @@ import { ToolbarHeaderElement } from '../page-elements/toolbar-header/toolbar-he
  * [SidenavElement](/testing/element/sidenav) documentation for more details.
  */
 export class DefaultLayoutPage extends PageElement {
-
     /** The header toolbar for the page. */
     header: ToolbarHeaderElement;
     /** The sidenav for the page. */
@@ -30,7 +29,10 @@ export class DefaultLayoutPage extends PageElement {
     ) {
         super(fixture);
 
-        this.header = new ToolbarHeaderElement(fixture, headerFilterButtonSelectors);
+        this.header = new ToolbarHeaderElement(
+            fixture,
+            headerFilterButtonSelectors
+        );
         this.sidenav = new SidenavElement(
             fixture,
             sidenavListItemSelectors,

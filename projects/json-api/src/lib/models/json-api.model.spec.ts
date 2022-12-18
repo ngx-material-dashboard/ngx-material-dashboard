@@ -4,7 +4,15 @@ import { parseISO } from 'date-fns';
 
 import { Datastore } from '@ngx-material-dashboard/json-api/test/datastore.service';
 import { Author } from '@ngx-material-dashboard/json-api/test/models/author.model';
-import { AUTHOR_ID, BOOK_PUBLISHED, BOOK_TITLE, CHAPTER_TITLE, getAuthorData, getIncludedBooks, getIncludedEBooks } from '@ngx-material-dashboard/json-api/test/fixtures/author.fixture';
+import {
+    AUTHOR_ID,
+    BOOK_PUBLISHED,
+    BOOK_TITLE,
+    CHAPTER_TITLE,
+    getAuthorData,
+    getIncludedBooks,
+    getIncludedEBooks
+} from '@ngx-material-dashboard/json-api/test/fixtures/author.fixture';
 import { Book } from '@ngx-material-dashboard/json-api/test/models/book.model';
 import { Chapter } from '@ngx-material-dashboard/json-api/test/models/chapter.model';
 import { getSampleEBook } from '@ngx-material-dashboard/json-api/test/fixtures/e-book.fixture';
@@ -14,19 +22,14 @@ describe('JsonApiModel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule
-            ],
-            providers: [
-                Datastore
-            ]
+            imports: [HttpClientTestingModule],
+            providers: [Datastore]
         });
 
         datastore = TestBed.inject(Datastore);
     });
 
     describe('constructor', () => {
-
         it('should be instantiated with attributes', () => {
             const DATA = {
                 id: '1',
@@ -34,20 +37,30 @@ describe('JsonApiModel', () => {
                     name: 'Daniele',
                     surname: 'Ghidoli',
                     date_of_birth: new Date(1987, 4, 25),
-                    school: {name: 'Massachusetts Institute of Technology', students: 11319, foundation: new Date(1861, 9, 4)}
+                    school: {
+                        name: 'Massachusetts Institute of Technology',
+                        students: 11319,
+                        foundation: new Date(1861, 9, 4)
+                    }
                 }
             };
             const author: Author = new Author(datastore, DATA);
             expect(author).toBeDefined();
             expect(author.id).toBe('1');
             expect(author.name).toBe('Daniele');
-            if (author.date_of_birth ) {
-                expect(author.date_of_birth.getTime()).toBe(parseISO('1987-05-25').getTime());
+            if (author.date_of_birth) {
+                expect(author.date_of_birth.getTime()).toBe(
+                    parseISO('1987-05-25').getTime()
+                );
             }
             if (author.school && author.school.foundation) {
-                expect(author.school.name).toBe('Massachusetts Institute of Technology');
+                expect(author.school.name).toBe(
+                    'Massachusetts Institute of Technology'
+                );
                 expect(author.school.students).toBe(11319);
-                expect(author.school.foundation.getTime()).toBe(parseISO('1861-10-04').getTime());
+                expect(author.school.foundation.getTime()).toBe(
+                    parseISO('1861-10-04').getTime()
+                );
             }
         });
 
@@ -57,11 +70,9 @@ describe('JsonApiModel', () => {
             expect(author.id).toBeUndefined();
             expect(author.date_of_birth).toBeUndefined();
         });
-
     });
 
     describe('hasDirtyAttributes', () => {
-
         it('should be instantiated with attributes', () => {
             const DATA = {
                 id: '1',
@@ -97,11 +108,9 @@ describe('JsonApiModel', () => {
             expect(author.hasDirtyAttributes).toBeFalsy();
             expect(author.name).toContain(DATA.attributes.name);
         });
-
     });
 
     describe('syncRelationships', () => {
-
         let author: Author;
 
         it('should return the object when there is no relationship included', () => {
@@ -112,7 +121,6 @@ describe('JsonApiModel', () => {
         });
 
         describe('parseHasMany', () => {
-
             it('should return the parsed relationships when one is included', () => {
                 const BOOK_NUMBER = 4;
                 const DATA = getAuthorData('books', BOOK_NUMBER);
@@ -130,7 +138,9 @@ describe('JsonApiModel', () => {
                         }
                         expect(book.title).toBe(BOOK_TITLE);
                         if (book.date_published) {
-                            expect(book.date_published.valueOf()).toBe(parseISO(BOOK_PUBLISHED).valueOf());
+                            expect(book.date_published.valueOf()).toBe(
+                                parseISO(BOOK_PUBLISHED).valueOf()
+                            );
                         }
                     });
                 }
@@ -161,7 +171,9 @@ describe('JsonApiModel', () => {
                         expect(book.author).toBeDefined();
                         expect(book.author).toEqual(author);
                         if (book.author && book.author.books && author.books) {
-                            expect(book.author.books[index]).toEqual(author.books[index]);
+                            expect(book.author.books[index]).toEqual(
+                                author.books[index]
+                            );
                         }
                     });
                 }
@@ -172,12 +184,17 @@ describe('JsonApiModel', () => {
                 const REL = 'books.category.books';
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
                 author = new Author(datastore, DATA);
-                author.syncRelationships(DATA, getIncludedBooks(BOOK_NUMBER, REL));
+                author.syncRelationships(
+                    DATA,
+                    getIncludedBooks(BOOK_NUMBER, REL)
+                );
                 if (author.books) {
                     author.books.forEach((book: Book) => {
                         expect(book.category).toBeDefined();
                         if (book.category && book.category.books) {
-                            expect(book.category.books.length).toBe(BOOK_NUMBER);
+                            expect(book.category.books.length).toBe(
+                                BOOK_NUMBER
+                            );
                         }
                     });
                 }
@@ -188,7 +205,11 @@ describe('JsonApiModel', () => {
                 const BOOK_NUMBER = 2;
                 const CHAPTERS_NUMBER = 4;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
-                const INCLUDED = getIncludedBooks(BOOK_NUMBER, REL, CHAPTERS_NUMBER);
+                const INCLUDED = getIncludedBooks(
+                    BOOK_NUMBER,
+                    REL,
+                    CHAPTERS_NUMBER
+                );
                 author = new Author(datastore, DATA);
                 author.syncRelationships(DATA, INCLUDED);
                 expect(author).toBeDefined();
@@ -203,16 +224,22 @@ describe('JsonApiModel', () => {
                         }
                         expect(book.title).toBe(BOOK_TITLE);
                         if (book.date_published) {
-                            expect(book.date_published.valueOf()).toBe(parseISO(BOOK_PUBLISHED).valueOf());
+                            expect(book.date_published.valueOf()).toBe(
+                                parseISO(BOOK_PUBLISHED).valueOf()
+                            );
                         }
                         expect(book.chapters).toBeDefined();
                         if (book.chapters) {
                             expect(book.chapters.length).toBe(CHAPTERS_NUMBER);
-                            book.chapters.forEach((chapter: Chapter, cindex: number) => {
-                                expect(chapter instanceof Chapter).toBeTruthy();
-                                expect(chapter.title).toBe(CHAPTER_TITLE);
-                                expect(chapter.book).toEqual(book);
-                            });
+                            book.chapters.forEach(
+                                (chapter: Chapter, cindex: number) => {
+                                    expect(
+                                        chapter instanceof Chapter
+                                    ).toBeTruthy();
+                                    expect(chapter.title).toBe(CHAPTER_TITLE);
+                                    expect(chapter.book).toEqual(book);
+                                }
+                            );
                         }
                     });
                 }
@@ -223,10 +250,15 @@ describe('JsonApiModel', () => {
                 const DATA = getAuthorData('e-books', BOOK_NUMBER);
                 author = new Author(datastore, DATA);
 
-                try{
-                    author.syncRelationships(DATA, getIncludedEBooks(BOOK_NUMBER));
-                } catch(error: any) {
-                    expect(error.message).toEqual('parseHasMany - Model type for relationship e-books not found.');
+                try {
+                    author.syncRelationships(
+                        DATA,
+                        getIncludedEBooks(BOOK_NUMBER)
+                    );
+                } catch (error: any) {
+                    expect(error.message).toEqual(
+                        'parseHasMany - Model type for relationship e-books not found.'
+                    );
                 }
             });
 
@@ -257,13 +289,16 @@ describe('JsonApiModel', () => {
         });
 
         describe('parseBelongsTo', () => {
-            
             it('should parse the first level of belongsTo relationships', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
                 const CHAPTERS_NUMBER = 4;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
-                const INCLUDED = getIncludedBooks(BOOK_NUMBER, 'books.chapters,books.firstChapter', 5);
+                const INCLUDED = getIncludedBooks(
+                    BOOK_NUMBER,
+                    'books.chapters,books.firstChapter',
+                    5
+                );
 
                 author = new Author(datastore, DATA);
                 author.syncRelationships(DATA, INCLUDED);
@@ -286,9 +321,11 @@ describe('JsonApiModel', () => {
 
                 author = new Author(datastore, DATA);
                 author.syncRelationships(DATA, INCLUDED);
-                
+
                 if (author.books && author.books[0].firstChapter) {
-                    expect(author.books[0].firstChapter.firstSection).toBeDefined();
+                    expect(
+                        author.books[0].firstChapter.firstSection
+                    ).toBeDefined();
                 }
             });
 
@@ -307,8 +344,14 @@ describe('JsonApiModel', () => {
                 author = new Author(datastore, DATA);
                 author.syncRelationships(DATA, INCLUDED);
 
-                if (author.books && author.books[0].firstChapter && author.books[0].firstChapter.firstSection) {
-                    expect(author.books[0].firstChapter.firstSection.firstParagraph).toBeDefined();
+                if (
+                    author.books &&
+                    author.books[0].firstChapter &&
+                    author.books[0].firstChapter.firstSection
+                ) {
+                    expect(
+                        author.books[0].firstChapter.firstSection.firstParagraph
+                    ).toBeDefined();
                 }
             });
 
@@ -326,9 +369,17 @@ describe('JsonApiModel', () => {
 
                 author = new Author(datastore, DATA);
                 author.syncRelationships(DATA, INCLUDED);
-                
-                if (author.books && author.books[0].firstChapter && author.books[0].firstChapter.firstSection && author.books[0].firstChapter.firstSection.firstParagraph) {
-                    expect(author.books[0].firstChapter.firstSection.firstParagraph.firstSentence).toBeDefined();
+
+                if (
+                    author.books &&
+                    author.books[0].firstChapter &&
+                    author.books[0].firstChapter.firstSection &&
+                    author.books[0].firstChapter.firstSection.firstParagraph
+                ) {
+                    expect(
+                        author.books[0].firstChapter.firstSection.firstParagraph
+                            .firstSentence
+                    ).toBeDefined();
                 }
             });
 
@@ -336,20 +387,25 @@ describe('JsonApiModel', () => {
                 const REL = 'books';
                 const BOOK_NUMBER = 2;
                 const DATA = getAuthorData(REL, BOOK_NUMBER);
-                const INCLUDED = getIncludedBooks(BOOK_NUMBER, 'books.eChapters,books.firstEChapter', 5);
+                const INCLUDED = getIncludedBooks(
+                    BOOK_NUMBER,
+                    'books.eChapters,books.firstEChapter',
+                    5
+                );
 
                 author = new Author(datastore, DATA);
                 try {
                     author.syncRelationships(DATA, INCLUDED);
                 } catch (error: any) {
-                    expect(error.message).toEqual('parseBelongsTo - Model type for relationship e-chapters not found.');
+                    expect(error.message).toEqual(
+                        'parseBelongsTo - Model type for relationship e-chapters not found.'
+                    );
                 }
             });
         });
     });
 
     describe('hasDirtyAttributes & rollbackAttributes', () => {
-
         const DATA = {
             id: '1',
             attributes: {

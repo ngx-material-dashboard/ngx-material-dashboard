@@ -7,7 +7,7 @@ import { PageElement } from '../page/page.element';
  * there are only buttons included, and is mainly a wrapper around the
  * `ButtonElement` with easy access to the buttons (and therefore
  * `ButtonElements`) defined in the toolbar.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```typescript
@@ -38,7 +38,7 @@ import { PageElement } from '../page/page.element';
  * describe('ToolbarElement', () => {
  *     let buttonClickSpy: jasmine.Spy;
  *     let toolbarElement: ToolbarElement;
- * 
+ *
  *     beforeEach(() => {
  *         TestBed.configureTestingModule({
  *             declarations: [ToolbarComponent],
@@ -52,32 +52,32 @@ import { PageElement } from '../page/page.element';
  *         toolbarElement = new ToolbarElement(fixture, ['.marker-action-enabled', '.marker-action-disabled']);
  *         buttonClickSpy = spyOn(toolbarElement.fixture.componentInstance, 'emitButtonClick');
  *     });
- *   
+ *
  *     describe('Enabled Button', () => {
- *   
+ *
  *         it('should return false for isButtonDisabled', () => {
  *             expect(toolbarElement.isButtonDisabled('.marker-action-enabled')).toBeFalse();
  *         });
- *   
+ *
  *         it('should emitButtonClick when button clicked', () => {
  *             // when: the enabled button is clicked
  *             toolbarElement.clickButton('.marker-action-enabled');
- *   
+ *
  *             // expect: the emitButtonClick should have been called
  *             expect(buttonClickSpy).toHaveBeenCalled();
  *         });
  *     });
- *   
+ *
  *     describe('Disabled Button', () => {
- *   
+ *
  *         it('should return true for isButtonDisabled', () => {
  *             expect(toolbarElement.isButtonDisabled('.marker-action-disabled')).toBeTrue();
  *         });
- *   
+ *
  *         it('should not emitButtonClick when button clicked', () => {
  *             // when: the disabled button is clicked
  *             toolbarElement.clickButton('.marker-action-disabled');
- *   
+ *
  *             // expect: the emitButtonClick should not have been called
  *             expect(buttonClickSpy).not.toHaveBeenCalled();
  *         });
@@ -86,7 +86,6 @@ import { PageElement } from '../page/page.element';
  * ```
  */
 export class ToolbarElement extends PageElement {
-
     /** The list of buttons rendered in toolbar. */
     private buttonElements: ButtonElement[] = [];
     /** A map of selectors to buttons. */
@@ -96,7 +95,7 @@ export class ToolbarElement extends PageElement {
      * Creates a new ToolbarElement.
      *
      * @param fixture {@link ComponentFixture} where toolbar is rendered.
-     * @param buttonSelectors Optional list of CSS selectors for all buttons on toolbar. 
+     * @param buttonSelectors Optional list of CSS selectors for all buttons on toolbar.
      */
     constructor(
         fixture: ComponentFixture<any>,
@@ -116,7 +115,7 @@ export class ToolbarElement extends PageElement {
      * Clicks the button in the toolbar with the given selector and waits for
      * the fixture to be stable.
      *
-     * @param selector The CSS selector for the button to click. 
+     * @param selector The CSS selector for the button to click.
      */
     public async clickButton(selector: string): Promise<void> {
         await this.buttonElementsMap[selector].click();

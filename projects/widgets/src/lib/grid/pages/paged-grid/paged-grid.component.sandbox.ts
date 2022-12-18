@@ -9,7 +9,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    Datastore,
+    DummyObject,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
@@ -36,8 +40,7 @@ export default sandboxOf(PagedGridComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-})
-.add('default', {
+}).add('default', {
     template: `
     <ngx-material-dashboard-paged-grid
         [collectionButtons]="collectionButtons"

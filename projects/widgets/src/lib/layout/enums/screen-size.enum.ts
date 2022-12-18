@@ -1,7 +1,7 @@
 /**
  * A set of screen sizes.
  */
- export enum ScreenSize {
+export enum ScreenSize {
     XSmall,
     Small,
     Medium,

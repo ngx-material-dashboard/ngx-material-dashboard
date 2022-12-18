@@ -13,7 +13,7 @@ describe('FilterService', () => {
     it('should update search value when search method called', () => {
         // given: spy on filterSub service property
         const spy = spyOn(service.filterSub, 'next');
-        const filter = { filter: { name: 'Add more unit tests!' }};
+        const filter = { filter: { name: 'Add more unit tests!' } };
 
         // when: search method called
         service.search(filter);

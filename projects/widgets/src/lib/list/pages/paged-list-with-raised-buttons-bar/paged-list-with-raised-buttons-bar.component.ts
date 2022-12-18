@@ -10,7 +10,7 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
  * management buttons with easy to use handlers for when the user clicks a
  * button in the toolbar or the collection. The toolbar is rendered above the
  * data list, and the `MatPaginator` is rendered below the data list.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -51,7 +51,7 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
  *     toolbarButtons: ToolbarButton[] = [
  *         {...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}
  *     ];
- * 
+ *
  *     onButtonClick(btnClick: ButtonClick): void {
  *         if (btnClick.click === 'create') {
  *             // handle create
@@ -69,5 +69,6 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
     templateUrl: './paged-list-with-raised-buttons-bar.component.html',
     styleUrls: ['./paged-list-with-raised-buttons-bar.component.css']
 })
-export class PagedListWithRaisedButtonsBarComponent<T extends JsonModel>
-    extends PagedCollectionWithRaisedButtonToolbarComponent<T> {}
+export class PagedListWithRaisedButtonsBarComponent<
+    T extends JsonModel
+> extends PagedCollectionWithRaisedButtonToolbarComponent<T> {}

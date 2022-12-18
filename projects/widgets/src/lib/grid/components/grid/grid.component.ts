@@ -1,4 +1,14 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ContentChild, ElementRef, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import {
+    AfterViewChecked,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ElementRef,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
@@ -48,14 +58,16 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.css']
 })
-export class GridComponent<T extends JsonModel> 
-    extends CollectionComponent<T> implements AfterViewChecked {
-
+export class GridComponent<T extends JsonModel>
+    extends CollectionComponent<T>
+    implements AfterViewChecked
+{
     /** A reference to the grid list in the component. */
     @ViewChild(MatGridList, { read: ElementRef }) grid!: ElementRef;
     @ViewChild(SorterComponent) override sort$?: SorterComponent;
     /** A reference to the grid tiles in the component. */
-    @ViewChildren(MatGridTile, { read: ElementRef }) tiles!: QueryList<ElementRef>;
+    @ViewChildren(MatGridTile, { read: ElementRef })
+    tiles!: QueryList<ElementRef>;
     /** The number of columns to render in the grid. */
     cols: number = 2;
 
@@ -80,7 +92,9 @@ export class GridComponent<T extends JsonModel>
                 // first child of MatGridTile is figure, then it is component passed
                 // in in template (i.e. the component we are looking for when calculating
                 // number of columns)
-                const tileWidth = this.tiles.first.nativeElement.children[0].children[0].offsetWidth;
+                const tileWidth =
+                    this.tiles.first.nativeElement.children[0].children[0]
+                        .offsetWidth;
 
                 this.cols = Math.floor(width / (tileWidth + 2));
                 this.changeDetectorRef.detectChanges();

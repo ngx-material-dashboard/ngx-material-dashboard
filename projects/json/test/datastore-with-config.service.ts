@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { DatastoreConfig, JsonApiDatastoreConfig } from '@ngx-material-dashboard/base-json';
+import {
+    DatastoreConfig,
+    JsonApiDatastoreConfig
+} from '@ngx-material-dashboard/base-json';
 
 import { JsonDatastore } from '@ngx-material-dashboard/json/src/lib/services/json-datastore.service';
 import { Author } from './models/author.model';

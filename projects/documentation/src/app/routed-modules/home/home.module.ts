@@ -7,9 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-    declarations: [
-        HomeComponent
-    ],
+    declarations: [HomeComponent],
     imports: [
         CommonModule,
         FlexLayoutModule,
@@ -17,4 +15,4 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         HomeRoutingModule
     ]
 })
-export class HomeModule { }
+export class HomeModule {}

@@ -6,52 +6,60 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IconButtonsWithPaginatorBarElement } from './icon-buttons-with-paginator-bar.element';
 
 @Component({
-    template: `
-    <div fxLayout="row">
+    template: ` <div fxLayout="row">
         <div fxLayoutAlign="center center">
             <mat-checkbox
                 class="marker-checkbox-select-all"
-                (change)="onCheckboxChange()">
+                (change)="onCheckboxChange()"
+            >
             </mat-checkbox>
         </div>
         <div fxFlex></div>
-        <button class="mat-button marker-button-click-me"
-            (click)="onButtonClick()">
+        <button
+            class="mat-button marker-button-click-me"
+            (click)="onButtonClick()"
+        >
             Click Me
         </button>
-        <mat-paginator [length]="length"
+        <mat-paginator
+            [length]="length"
             [pageSize]="pageSize"
             [pageSizeOptions]="[15, 25, 50, 75, 100]"
-            #paginator>
+            #paginator
+        >
         </mat-paginator>
     </div>`
-}) class Bar {
+})
+class Bar {
     onButtonClick(): void {}
 
     onCheckboxChange(): void {}
 }
 
 @Component({
-    template: `
-    <div fxLayout="row">
-        <button class="mat-button marker-button-click-me"
-            (click)="onButtonClick()">
+    template: ` <div fxLayout="row">
+        <button
+            class="mat-button marker-button-click-me"
+            (click)="onButtonClick()"
+        >
             Click Me
         </button>
-        <mat-paginator [length]="length"
+        <mat-paginator
+            [length]="length"
             [pageSize]="pageSize"
             [pageSizeOptions]="[15, 25, 50, 75, 100]"
-            #paginator>
+            #paginator
+        >
         </mat-paginator>
     </div>`
-}) class BarWithoutCheckbox {
+})
+class BarWithoutCheckbox {
     onButtonClick(): void {}
 
     onCheckboxChange(): void {}
 }
 
 describe('IconButtonsWithPaginatorBarElement', () => {
-
     let fixture: ComponentFixture<Bar>;
     let component: Bar;
     let bar: IconButtonsWithPaginatorBarElement;
@@ -59,28 +67,28 @@ describe('IconButtonsWithPaginatorBarElement', () => {
     describe('Bar with checkbox', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [
-                    Bar
-                ],
+                declarations: [Bar],
                 imports: [
                     MatCheckboxModule,
                     MatPaginatorModule,
                     NoopAnimationsModule
                 ]
             });
-    
+
             fixture = TestBed.createComponent(Bar);
             component = fixture.componentInstance;
             fixture.detectChanges();
-    
-            bar = new IconButtonsWithPaginatorBarElement(fixture, ['.marker-button-click-me']);
+
+            bar = new IconButtonsWithPaginatorBarElement(fixture, [
+                '.marker-button-click-me'
+            ]);
         });
-    
+
         it('should return select all checkbox', () => {
             expect(bar.selectAllCheckbox).toBeDefined();
         });
 
-        it('should return true when select all checkbox is checked', async() => {
+        it('should return true when select all checkbox is checked', async () => {
             // when: the selectAllCheckbox is clicked
             await bar.selectAllCheckbox?.click();
 
@@ -90,26 +98,25 @@ describe('IconButtonsWithPaginatorBarElement', () => {
     });
 
     describe('Bar without checkbox', () => {
-
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [
-                    BarWithoutCheckbox
-                ],
+                declarations: [BarWithoutCheckbox],
                 imports: [
                     MatCheckboxModule,
                     MatPaginatorModule,
                     NoopAnimationsModule
                 ]
             });
-    
+
             fixture = TestBed.createComponent(Bar);
             component = fixture.componentInstance;
             fixture.detectChanges();
-    
-            bar = new IconButtonsWithPaginatorBarElement(fixture, ['.marker-button-click-me']);
+
+            bar = new IconButtonsWithPaginatorBarElement(fixture, [
+                '.marker-button-click-me'
+            ]);
         });
-    
+
         it('should return undefined for select all checkbox', () => {
             expect(bar.selectAllCheckbox).toBeUndefined();
         });
@@ -117,7 +124,7 @@ describe('IconButtonsWithPaginatorBarElement', () => {
         it('should throw an error when isAllSelected method called', () => {
             try {
                 bar.isAllSelected();
-            } catch(error: any) {
+            } catch (error: any) {
                 expect(error.message).toEqual('Select all checkbox undefined');
             }
         });

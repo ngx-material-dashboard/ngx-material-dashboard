@@ -6,18 +6,18 @@ import { Overrides } from './overrides.interface';
  * where you define things like the base URL to use when making HTTP requests
  * to your server side API as well as the models you want to include with those
  * requests.
- * 
+ *
  * See [JsonApiDatastoreConfig](/base-json/decorators/json-api-datastore-config)
  * for more details on using this interface.
  */
 export interface DatastoreConfig {
-    /** 
+    /**
      * The version for the API if you use that as part of your URL. If included
      * in configuration, then version is included after baseUrl when generating
      * URL value for API calls (i.e. `.../api/${apiVersion}/...`).
      */
     apiVersion?: string;
-    /** 
+    /**
      * Base URL to use when generating URLs for API calls; something like the
      * following http://localhost:8080/api.
      */

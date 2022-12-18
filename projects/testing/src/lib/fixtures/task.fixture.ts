@@ -7,8 +7,8 @@ export const TASK_IS_COMPLETE = false;
 
 export function getTaskData(total: number = 1): any[] {
     const response: any[] = [];
-    
-    for (let i = 0; i < total; i++ ) {
+
+    for (let i = 0; i < total; i++) {
         response.push({
             id: i,
             name: TASK_NAME,

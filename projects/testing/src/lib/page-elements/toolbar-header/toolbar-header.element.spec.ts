@@ -15,25 +15,23 @@ import { ToolbarHeaderElement } from './toolbar-header.element';
             </button>
         </mat-toolbar>
     `
-}) class ToolbarComponent {}
+})
+class ToolbarComponent {}
 
 describe('ToolbarElement', () => {
-
     let toolbarElement: ToolbarHeaderElement;
 
     describe('Without buttonSelectors', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [ToolbarComponent],
-                imports: [
-                    MockModule(MatToolbarModule)
-                ]
+                imports: [MockModule(MatToolbarModule)]
             });
-        
+
             const fixture = TestBed.createComponent(ToolbarComponent);
             toolbarElement = new ToolbarHeaderElement(fixture);
         });
-    
+
         it('should return "My App" for logo', () => {
             expect(toolbarElement.logo).toEqual('My App');
         });
@@ -44,19 +42,18 @@ describe('ToolbarElement', () => {
     });
 
     describe('With buttonSelectors', () => {
-
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [ToolbarComponent],
-                imports: [
-                    MockModule(MatToolbarModule)
-                ]
+                imports: [MockModule(MatToolbarModule)]
             });
-        
+
             const fixture = TestBed.createComponent(ToolbarComponent);
-            toolbarElement = new ToolbarHeaderElement(fixture, ['.marker-bars-button']);
+            toolbarElement = new ToolbarHeaderElement(fixture, [
+                '.marker-bars-button'
+            ]);
         });
-    
+
         it('should initialize filterDropDown property', () => {
             expect(toolbarElement.filterDropDown).toBeDefined();
         });

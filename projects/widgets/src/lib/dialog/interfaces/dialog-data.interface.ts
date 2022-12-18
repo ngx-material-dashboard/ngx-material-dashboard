@@ -2,7 +2,7 @@
  * Properties that should be passed in to the `ConfirmDeleteDialog`. This
  * allows title and text content to be set dynamically in `component` where the
  * dialog is called from.
- * 
+ *
  * ## Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
@@ -13,16 +13,16 @@
  *     templateUrl: './dialog-data-usage-example.html'
  * })
  * export class DialogDataUsageExample {
- *     
+ *
  *     constructor(private dialog: MatDialog) {}
- * 
+ *
  *     openConfirmDeleteDialog(): void {
  *         // configure DialogData
  *         const data: DialogData = {data: {context:'Are you sure you want to delete value?', title:'Delete value?'}};
- *         
+ *
  *         // open dialog with data
  *         const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, data);
- * 
+ *
  *         // additional logic to handle when dialog is closed...
  *     }
  * }

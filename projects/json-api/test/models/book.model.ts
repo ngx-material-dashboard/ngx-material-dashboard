@@ -2,17 +2,19 @@
 import { Chapter } from './chapter.model';
 import { Author } from './author.model';
 import { Category } from './category.model';
-import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json';
+import {
+    Attribute,
+    JsonApiModelConfig
+} from '@ngx-material-dashboard/base-json';
 import { JsonApiModel } from '@ngx-material-dashboard/json-api/src/lib/models/json-api.model';
 import { HasMany } from '@ngx-material-dashboard/json-api/src/lib/decorators/has-many.decorator';
 import { BelongsTo } from '@ngx-material-dashboard/json-api/src/lib/decorators/belongs-to.decorator';
 import { EChapter } from './e-chapter.model';
 
 @JsonApiModelConfig({
-  type: 'books'
+    type: 'books'
 })
 export class Book extends JsonApiModel {
-
     @Attribute()
     title?: string;
 
@@ -28,13 +30,13 @@ export class Book extends JsonApiModel {
     @HasMany()
     chapters?: Chapter[];
 
-    @HasMany({key: 'important-chapters'})
+    @HasMany({ key: 'important-chapters' })
     importantChapters?: Chapter[];
 
-    @BelongsTo({key: 'first-chapter'})
+    @BelongsTo({ key: 'first-chapter' })
     firstChapter?: Chapter;
 
-    @BelongsTo({key: 'first-e-chapter'})
+    @BelongsTo({ key: 'first-e-chapter' })
     firstEChapter?: EChapter;
 
     @BelongsTo()

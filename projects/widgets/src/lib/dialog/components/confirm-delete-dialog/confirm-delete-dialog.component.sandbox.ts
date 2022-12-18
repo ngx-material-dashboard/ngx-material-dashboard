@@ -1,5 +1,9 @@
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+    MatDialogModule,
+    MatDialogRef,
+    MAT_DIALOG_DATA
+} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { sandboxOf } from 'angular-playground';
@@ -14,10 +18,18 @@ export default sandboxOf(ConfirmDeleteDialogComponent, {
         FontAwesomeModule
     ],
     providers: [
-        { provide: MatDialogRef, useValue: { close: (dialogResult: any) => { } }},
-        { provide: MAT_DIALOG_DATA, useValue: { title: 'Delete Thing', content: 'Are you sure you want to delete the thing?'} }
+        {
+            provide: MatDialogRef,
+            useValue: { close: (dialogResult: any) => {} }
+        },
+        {
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+                title: 'Delete Thing',
+                content: 'Are you sure you want to delete the thing?'
+            }
+        }
     ]
-})
-.add('default', {
+}).add('default', {
     template: `<ngx-material-dashboard-confirm-delete-dialog></ngx-material-dashboard-confirm-delete-dialog>`
 });

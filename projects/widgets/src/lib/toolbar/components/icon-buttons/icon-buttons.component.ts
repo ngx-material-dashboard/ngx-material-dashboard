@@ -4,12 +4,11 @@ import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
 
 @Component({
-  selector: 'ngx-material-dashboard-icon-buttons',
-  templateUrl: './icon-buttons.component.html',
-  styleUrls: ['./icon-buttons.component.css']
+    selector: 'ngx-material-dashboard-icon-buttons',
+    templateUrl: './icon-buttons.component.html',
+    styleUrls: ['./icon-buttons.component.css']
 })
 export class IconButtonsComponent implements OnInit {
-
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
     /** Event emitted when user clicks button in toolbar. */
@@ -25,7 +24,7 @@ export class IconButtonsComponent implements OnInit {
     /**
      * Destroys any subscriptions for the component.
      */
-     ngOnDestroy(): void {
+    ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 
@@ -44,5 +43,4 @@ export class IconButtonsComponent implements OnInit {
     emitButtonClick(buttonClick: string): void {
         this.buttonClick.emit({ click: buttonClick });
     }
-
 }

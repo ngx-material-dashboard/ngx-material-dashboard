@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+    FormGroup,
+    FormBuilder,
+    FormsModule,
+    ReactiveFormsModule
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,24 +15,29 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
 
 @Component({
     template: `
-    <div [matMenuTriggerFor]="filterMenu">
-        <span class="marker-menu-trigger">Drop Down</span>
-    </div>
-    <mat-menu #filterMenu="matMenu">
-        <form ngxMaterialDashboardClickStopPropagation
-            [formGroup]="formGroup"
-            #form>
-            <mat-form-field>
-                <mat-label>Task Name</mat-label>
-                <input matInput
-                    formControlName="name"
-                    placeholder="Search task by name..." 
-                    class="marker-input-name">
-            </mat-form-field>
-        </form>
-    </mat-menu>
+        <div [matMenuTriggerFor]="filterMenu">
+            <span class="marker-menu-trigger">Drop Down</span>
+        </div>
+        <mat-menu #filterMenu="matMenu">
+            <form
+                ngxMaterialDashboardClickStopPropagation
+                [formGroup]="formGroup"
+                #form
+            >
+                <mat-form-field>
+                    <mat-label>Task Name</mat-label>
+                    <input
+                        matInput
+                        formControlName="name"
+                        placeholder="Search task by name..."
+                        class="marker-input-name"
+                    />
+                </mat-form-field>
+            </form>
+        </mat-menu>
     `
-}) class ClickStopPropagationDirectiveTest implements OnInit {
+})
+class ClickStopPropagationDirectiveTest implements OnInit {
     @ViewChild('form') form: any;
     formGroup!: FormGroup;
 
@@ -68,7 +78,7 @@ describe('ClickStopPropagationDirective', () => {
 
         menu = new MenuElement(fixture);
     });
-    
+
     it('should stop propagation of click event when clicking in form', () => {
         // given: an open drop down menu
         menu.open();
@@ -80,7 +90,9 @@ describe('ClickStopPropagationDirective', () => {
         // then: the drop down menu should still be open; TODO probably a better
         // way to do this
         expect(
-            menu.containerElement.children[0].classList.contains('cdk-overlay-backdrop-showing')
+            menu.containerElement.children[0].classList.contains(
+                'cdk-overlay-backdrop-showing'
+            )
         ).toBeDefined();
     });
 });

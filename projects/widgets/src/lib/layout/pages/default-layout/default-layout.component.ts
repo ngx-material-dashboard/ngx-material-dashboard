@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { HeaderComponent } from '../../components/header/header.component';
 
@@ -9,7 +15,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * and main content based on the current route. The layout should have a sticky
  * footer, meaning if the main content is not tall enough to fill the existing
  * space, then the footer will stick to the bottom of the page.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -35,12 +41,11 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * ```
  */
 @Component({
-  selector: 'ngx-material-dashboard-default-layout',
-  templateUrl: './default-layout.component.html',
-  styleUrls: ['./default-layout.component.scss']
+    selector: 'ngx-material-dashboard-default-layout',
+    templateUrl: './default-layout.component.html',
+    styleUrls: ['./default-layout.component.scss']
 })
 export class DefaultLayoutComponent {
-
     /** Text to display next to copyright date. */
     @Input() company = '';
     /** The main "logo" text for the app to display in the header. */
@@ -67,7 +72,7 @@ export class DefaultLayoutComponent {
     /**
      * Handler for when the user clicks the search button in the filter.
      *
-     * @param res Boolean value to indicate if search button was clicked. 
+     * @param res Boolean value to indicate if search button was clicked.
      */
     onSearchFilterClick(res: boolean) {
         this.clickSearch.emit(res);

@@ -1,6 +1,19 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { faCaretDown, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCaretDown,
+    faSearch,
+    IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 
 /**
  * A drop down component for filtering data. The component includes all tags
@@ -10,7 +23,7 @@ import { faCaretDown, faSearch, IconDefinition } from '@fortawesome/free-solid-s
  * thing you must provide is a form with one or more fields to filter your data.
  * See the [PagedTableWithToolbar](/widgets/components/paged-table-with-toolbar)
  * for more details.
- * 
+ *
  * > NOTE: The key for each control included in the form should match up with
  * > expected filter values to be included in query parameters sent to your API.
  * > This allows a map to be generated dynamically by looping over controls,
@@ -23,11 +36,11 @@ import { faCaretDown, faSearch, IconDefinition } from '@fortawesome/free-solid-s
     styleUrls: ['./filter-drop-down.component.scss']
 })
 export class FilterDropDownComponent implements AfterViewInit {
-
     /** The event emitted when the user clicks the search button. */
     @Output() searchClick: EventEmitter<boolean> = new EventEmitter<boolean>();
     /** A reference to the search field in the component. */
-    @ViewChild('searchField', { static: true, read: ElementRef }) field!: ElementRef<HTMLElement>;
+    @ViewChild('searchField', { static: true, read: ElementRef })
+    field!: ElementRef<HTMLElement>;
     /** The icon used to open the drop down. */
     faCaretDown: IconDefinition = faCaretDown;
     /** The icon to display next to search text. */
@@ -35,18 +48,18 @@ export class FilterDropDownComponent implements AfterViewInit {
     /** The width of the menu. */
     menuWidth: any;
 
-    constructor() { }
+    constructor() {}
 
     ngAfterViewInit(): void {
         // wait a tick to avoid expressionchangedafterithasbeencheckederror;
         // then set menuWidth to width of search field where drop down is
         // rendered from
-        setTimeout(() => this.menuWidth = this.field.nativeElement.clientWidth);
+        setTimeout(
+            () => (this.menuWidth = this.field.nativeElement.clientWidth)
+        );
     }
 
-    clear(): void {
-
-    }
+    clear(): void {}
 
     search(): void {
         this.searchClick.emit(true);

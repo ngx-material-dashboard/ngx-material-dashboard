@@ -18,17 +18,18 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
 
 /**
  * Implements methods necessary to perform all CRUD operations as defined in
- * base-json [JsonDatastore](/base-json/services/json-datastore). See the 
+ * base-json [JsonDatastore](/base-json/services/json-datastore). See the
  * `json-api` [usage](/json-api#usage) documentation for more details on
  * configuring and the [Datastore](/json-api#datastore) for more details on
  * using this datastore.
  */
 @Injectable()
 export class JsonApiDatastore extends JsonDatastore {
-
-
-    public createRecord<T extends JsonApiModel>(modelType: ModelType<T>, data?: any): T {
-        return new modelType(this, {attributes: data});
+    public createRecord<T extends JsonApiModel>(
+        modelType: ModelType<T>,
+        data?: any
+    ): T {
+        return new modelType(this, { attributes: data });
     }
 
     // override default implementation to include call to updateRelationships
@@ -40,9 +41,13 @@ export class JsonApiDatastore extends JsonDatastore {
         headers?: HttpHeaders,
         customUrl?: string
     ): Observable<T> {
-        return super.saveRecord(attributesMetadata, model, params, headers, customUrl).pipe(
-            map((res) => this.updateRelationships(res, this.getRelationships(model)))
-        );
+        return super
+            .saveRecord(attributesMetadata, model, params, headers, customUrl)
+            .pipe(
+                map((res) =>
+                    this.updateRelationships(res, this.getRelationships(model))
+                )
+            );
     }
 
     /**
@@ -65,12 +70,23 @@ export class JsonApiDatastore extends JsonDatastore {
         const url: string = this.buildUrl(modelType, params);
 
         let httpCall: Observable<HttpResponse<object>>;
-        const body: any = this.serializeModel(model, model[AttributeMetadataIndex], undefined, true);
+        const body: any = this.serializeModel(
+            model,
+            model[AttributeMetadataIndex],
+            undefined,
+            true
+        );
         body.meta = meta;
 
-        httpCall = this.httpClient.post<object>(url, body, { observe: 'response' }) as Observable<HttpResponse<object>>;
+        httpCall = this.httpClient.post<object>(url, body, {
+            observe: 'response'
+        }) as Observable<HttpResponse<object>>;
         return httpCall.pipe(
-            map((res) => [200, 201].indexOf(res.status) !== -1 ? this.extractRecordData(res, modelType, model) : model),
+            map((res) =>
+                [200, 201].indexOf(res.status) !== -1
+                    ? this.extractRecordData(res, modelType, model)
+                    : model
+            ),
             catchError((res) => {
                 if (res == null) {
                     return of(model);
@@ -81,8 +97,14 @@ export class JsonApiDatastore extends JsonDatastore {
         );
     }
 
-    public deserializeModel<T extends JsonApiModel>(modelType: ModelType<T>, data: any): T {
-        data.attributes = this.transformSerializedNamesToPropertyNames(modelType, data.attributes);
+    public deserializeModel<T extends JsonApiModel>(
+        modelType: ModelType<T>,
+        data: any
+    ): T {
+        data.attributes = this.transformSerializedNamesToPropertyNames(
+            modelType,
+            data.attributes
+        );
         return new modelType(this, data);
     }
 
@@ -104,7 +126,10 @@ export class JsonApiDatastore extends JsonDatastore {
                     relationships,
                     type: typeName,
                     id: model.id,
-                    attributes: this.getDirtyAttributes(attributesMetadata, model)
+                    attributes: this.getDirtyAttributes(
+                        attributesMetadata,
+                        model
+                    )
                 }
             };
         } else {
@@ -113,7 +138,10 @@ export class JsonApiDatastore extends JsonDatastore {
                 data: {
                     type: typeName,
                     id: model.id,
-                    attributes: this.getDirtyAttributes(attributesMetadata, model)
+                    attributes: this.getDirtyAttributes(
+                        attributesMetadata,
+                        model
+                    )
                 }
             };
         }
@@ -131,47 +159,57 @@ export class JsonApiDatastore extends JsonDatastore {
     protected getRelationships(data: any): any {
         let relationships: any;
 
-        const belongsToMetadata: any[] = Reflect.getMetadata('BelongsTo', data) || [];
-        const hasManyMetadata: any[] = Reflect.getMetadata('HasMany', data) || [];
+        const belongsToMetadata: any[] =
+            Reflect.getMetadata('BelongsTo', data) || [];
+        const hasManyMetadata: any[] =
+            Reflect.getMetadata('HasMany', data) || [];
 
         for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-            if (data[key] instanceof JsonApiModel) {
-                relationships = relationships || {};
-
-                if (data[key].id) {
-                    const entity = belongsToMetadata.find((it: any) => it.propertyName === key);
-                    const relationshipKey = entity.relationship;
-                    relationships[relationshipKey] = {
-                        data: this.buildSingleRelationshipData(data[key])
-                    };
-                }
-            } else if (data[key] instanceof Array) {
-                const entity = hasManyMetadata.find((it: any) => it.propertyName === key);
-                if (entity && this.isValidToManyRelation(data[key])) {
+            if (data.hasOwnProperty(key)) {
+                if (data[key] instanceof JsonApiModel) {
                     relationships = relationships || {};
 
-                    const relationshipKey = entity.relationship;
-                    const relationshipData = data[key]
-                    .filter((model: JsonApiModel) => model.id)
-                    .map((model: JsonApiModel) => this.buildSingleRelationshipData(model));
+                    if (data[key].id) {
+                        const entity = belongsToMetadata.find(
+                            (it: any) => it.propertyName === key
+                        );
+                        const relationshipKey = entity.relationship;
+                        relationships[relationshipKey] = {
+                            data: this.buildSingleRelationshipData(data[key])
+                        };
+                    }
+                } else if (data[key] instanceof Array) {
+                    const entity = hasManyMetadata.find(
+                        (it: any) => it.propertyName === key
+                    );
+                    if (entity && this.isValidToManyRelation(data[key])) {
+                        relationships = relationships || {};
 
-                    relationships[relationshipKey] = {
-                        data: relationshipData
-                    };
-                }
-            }  else if (data[key] === null) {
-                const entity = belongsToMetadata.find((entity: any) => entity.propertyName === key);
+                        const relationshipKey = entity.relationship;
+                        const relationshipData = data[key]
+                            .filter((model: JsonApiModel) => model.id)
+                            .map((model: JsonApiModel) =>
+                                this.buildSingleRelationshipData(model)
+                            );
 
-                if (entity) {
-                    relationships = relationships || {};
+                        relationships[relationshipKey] = {
+                            data: relationshipData
+                        };
+                    }
+                } else if (data[key] === null) {
+                    const entity = belongsToMetadata.find(
+                        (entity: any) => entity.propertyName === key
+                    );
 
-                    relationships[entity.relationship] = {
-                    data: null
-                    };
+                    if (entity) {
+                        relationships = relationships || {};
+
+                        relationships[entity.relationship] = {
+                            data: null
+                        };
+                    }
                 }
             }
-        }
         }
 
         return relationships;
@@ -181,25 +219,43 @@ export class JsonApiDatastore extends JsonDatastore {
         if (!objects.length) {
             return true;
         }
-        const isJsonApiModel = objects.every((item) => item instanceof JsonApiModel);
+        const isJsonApiModel = objects.every(
+            (item) => item instanceof JsonApiModel
+        );
         if (!isJsonApiModel) {
             return false;
         }
-        const types = objects.map((item: JsonApiModel) => item.modelConfig.modelEndpointUrl || item.modelConfig.type);
-        return types
-        .filter((type: string, index: number, self: string[]) => self.indexOf(type) === index)
-        .length === 1;
+        const types = objects.map(
+            (item: JsonApiModel) =>
+                item.modelConfig.modelEndpointUrl || item.modelConfig.type
+        );
+        return (
+            types.filter(
+                (type: string, index: number, self: string[]) =>
+                    self.indexOf(type) === index
+            ).length === 1
+        );
     }
 
     protected buildSingleRelationshipData(model: JsonApiModel): any {
         const relationshipType: string = model.modelConfig.type;
-        const relationShipData: { type: string, id?: string, attributes?: any } = {type: relationshipType};
+        const relationShipData: {
+            type: string;
+            id?: string;
+            attributes?: any;
+        } = { type: relationshipType };
 
         if (model.id) {
             relationShipData.id = model.id;
         } else {
-            const attributesMetadata: any = Reflect.getMetadata('Attribute', model);
-            relationShipData.attributes = this.getDirtyAttributes(attributesMetadata, model);
+            const attributesMetadata: any = Reflect.getMetadata(
+                'Attribute',
+                model
+            );
+            relationShipData.attributes = this.getDirtyAttributes(
+                attributesMetadata,
+                model
+            );
         }
 
         return relationShipData;
@@ -254,7 +310,8 @@ export class JsonApiDatastore extends JsonDatastore {
             model.modelInitialization = false;
         }
 
-        const deserializedModel = model || this.deserializeModel(modelType, body.data);
+        const deserializedModel =
+            model || this.deserializeModel(modelType, body.data);
         this.addToStore(deserializedModel);
         if (body.included) {
             deserializedModel.syncRelationships(body.data, body.included);
@@ -264,26 +321,49 @@ export class JsonApiDatastore extends JsonDatastore {
         return deserializedModel;
     }
 
-    protected updateRelationships<T extends JsonApiModel>(model: T, relationships: any): T {
-        const modelsTypes: any = Reflect.getMetadata('JsonApiDatastoreConfig', this.constructor).models;
+    protected updateRelationships<T extends JsonApiModel>(
+        model: T,
+        relationships: any
+    ): T {
+        const modelsTypes: any = Reflect.getMetadata(
+            'JsonApiDatastoreConfig',
+            this.constructor
+        ).models;
 
         for (const relationship in relationships) {
-            if (relationships.hasOwnProperty(relationship) && model.hasOwnProperty(relationship) && model[relationship]) {
+            if (
+                relationships.hasOwnProperty(relationship) &&
+                model.hasOwnProperty(relationship) &&
+                model[relationship]
+            ) {
                 const relationshipModel: JsonApiModel = model[relationship];
-                const hasMany: any[] = Reflect.getMetadata('HasMany', relationshipModel);
+                const hasMany: any[] = Reflect.getMetadata(
+                    'HasMany',
+                    relationshipModel
+                );
                 const propertyHasMany: any = find(hasMany, (property: any) => {
-                    return modelsTypes[property.relationship] === model.constructor;
+                    return (
+                        modelsTypes[property.relationship] === model.constructor
+                    );
                 });
 
                 if (propertyHasMany) {
-                    relationshipModel[propertyHasMany.propertyName] = relationshipModel[propertyHasMany.propertyName] || [];
+                    relationshipModel[propertyHasMany.propertyName] =
+                        relationshipModel[propertyHasMany.propertyName] || [];
 
-                    const indexOfModel = relationshipModel[propertyHasMany.propertyName].indexOf(model);
+                    const indexOfModel =
+                        relationshipModel[propertyHasMany.propertyName].indexOf(
+                            model
+                        );
 
                     if (indexOfModel === -1) {
-                        relationshipModel[propertyHasMany.propertyName].push(model);
+                        relationshipModel[propertyHasMany.propertyName].push(
+                            model
+                        );
                     } else {
-                        relationshipModel[propertyHasMany.propertyName][indexOfModel] = model;
+                        relationshipModel[propertyHasMany.propertyName][
+                            indexOfModel
+                        ] = model;
                     }
                 }
             }

@@ -1,5 +1,9 @@
 /* tslint:disable:variable-name */
-import { Attribute, JsonApiModelConfig, PropertyConverter } from '@ngx-material-dashboard/base-json/src/lib';
+import {
+    Attribute,
+    JsonApiModelConfig,
+    PropertyConverter
+} from '@ngx-material-dashboard/base-json/src/lib';
 import { JsonModel } from './json.model';
 import { PageMetaData } from './page-meta-data';
 
@@ -7,9 +11,8 @@ export const TASK_API_VERSION = 'v3';
 export const TASK_MODEL_ENDPOINT_URL = 'custom-task';
 
 class CustomConverter implements PropertyConverter {
-
     mask(value: any): string {
-        return 'I am a custom value'
+        return 'I am a custom value';
     }
 
     unmask(value: string | null): string | null {
@@ -21,12 +24,12 @@ class CustomConverter implements PropertyConverter {
 }
 
 @JsonApiModelConfig({
-  apiVersion: TASK_API_VERSION,
-  modelEndpointUrl: TASK_MODEL_ENDPOINT_URL,
-  type: 'tasks',
-  meta: PageMetaData
-}) export class CustomTask extends JsonModel {
-
+    apiVersion: TASK_API_VERSION,
+    modelEndpointUrl: TASK_MODEL_ENDPOINT_URL,
+    type: 'tasks',
+    meta: PageMetaData
+})
+export class CustomTask extends JsonModel {
     /** The name of the Task. */
     @Attribute() name?: string;
     /** The description of the Task.*/
@@ -37,5 +40,6 @@ class CustomConverter implements PropertyConverter {
     @Attribute() dateCompleted?: Date;
     /** Set to true if the Task is complete, false if it is pending. */
     @Attribute() isComplete: boolean = false;
-    @Attribute({ converter: new CustomConverter() }) customConverterProperty?: string;
+    @Attribute({ converter: new CustomConverter() })
+    customConverterProperty?: string;
 }

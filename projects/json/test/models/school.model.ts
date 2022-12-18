@@ -2,7 +2,6 @@ import { JsonApiNestedModel } from '@ngx-material-dashboard/base-json/src/lib/mo
 import { JsonAttribute } from '@ngx-material-dashboard/base-json/src/lib/decorators/json-attribute.decorator';
 
 export class School extends JsonApiNestedModel {
-
     @JsonAttribute()
     public name?: string;
 

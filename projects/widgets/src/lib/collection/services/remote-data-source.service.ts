@@ -2,7 +2,12 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { JsonDatastore, JsonApiQueryData, ModelType, JsonModel } from '@ngx-material-dashboard/base-json';
+import {
+    JsonDatastore,
+    JsonApiQueryData,
+    ModelType,
+    JsonModel
+} from '@ngx-material-dashboard/base-json';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort, SortDirection } from '@angular/material/sort';
 
@@ -11,7 +16,7 @@ import { MatSort, Sort, SortDirection } from '@angular/material/sort';
  * filter, paginate, and retrieve data from your main data source. Ultimately
  * this relies on an implementation of the `JsonDatastore` which is where the
  * functionality to filter, paginate, and retreive data comes from.
- * 
+ *
  * There are two main functions to use to sort, filter, paginate, and retrieve
  * data. The `load` function includes parameters to sort, filter, paginate, and
  * retrieve data. All parameters are optional, so if you call `load()` without
@@ -19,11 +24,11 @@ import { MatSort, Sort, SortDirection } from '@angular/material/sort';
  * with the default sort of id values in ascending order, and with default
  * number of 25 results. The other function is `refresh()` which just calls
  * `load` using the last parameter values used.
- * 
+ *
  * ## Basic Usage Example
  * ```typescript
  * class RemoteDataSourceUsageExample<T extends JsonModel> {
- *     
+ *
  *     dataSource: RemoteDataSource<T>;
  *
  *     constructor(
@@ -32,24 +37,23 @@ import { MatSort, Sort, SortDirection } from '@angular/material/sort';
  *     ) {
  *         this.dataSource = new RemoteDataSource(this.modelType, this.jsonApiService);
  *     }
- * 
+ *
  *     loadData(): void {
  *         this.dataSource.load();
  *     }
- * 
+ *
  *     refresh(): void {
  *         this.dataSource.refresh();
  *     }
  * }
- *  
+ *
  * ```
- * 
+ *
  * > NOTE: The `RemoteDataSource` can be used with any component that paginates
  * > data, whether it is a grid, list, table, or any other kind of paged
  * > component that I can't think of right now.
  */
 export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
-
     /** The paginatore associated with component where this data source is used. */
     private paginator$?: MatPaginator;
     /** The sorter associated with component where this data source is used. */
@@ -176,33 +180,40 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
         this.headers = headers;
 
         // paged query for models that match the given filter and order results
-        this.baseModelService.findAll(
-            this.modelType,
-            {
+        this.baseModelService
+            .findAll(this.modelType, {
                 page_size: pageSize.toString(),
                 page: pageIndex.toString(),
                 filter,
                 sort: active,
                 order: direction,
                 include
-            }
-        ).subscribe((res: JsonApiQueryData<T>) => {
-            // update meta data (totalPages based on total results and pageSize)
-            this.total = res.getMeta().meta.total;
-            if (this.pageSize) {
-                this.totalPages = this.total / this.pageSize;
-            }
+            })
+            .subscribe((res: JsonApiQueryData<T>) => {
+                // update meta data (totalPages based on total results and pageSize)
+                this.total = res.getMeta().meta.total;
+                if (this.pageSize) {
+                    this.totalPages = this.total / this.pageSize;
+                }
 
-            // update data for source with models returned from query
-            this.data = res.getModels() as T[];
-            this.dataSubject.next(this.data);
-        });
+                // update data for source with models returned from query
+                this.data = res.getModels() as T[];
+                this.dataSubject.next(this.data);
+            });
     }
 
     /**
      * Reload the data using current paging and query parameters.
      */
     refresh(): void {
-        this.load(this.filter, this.active, this.direction, this.pageIndex, this.pageSize, this.include, this.headers);
+        this.load(
+            this.filter,
+            this.active,
+            this.direction,
+            this.pageIndex,
+            this.pageSize,
+            this.include,
+            this.headers
+        );
     }
 }

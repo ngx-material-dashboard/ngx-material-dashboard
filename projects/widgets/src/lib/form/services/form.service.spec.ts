@@ -9,12 +9,8 @@ describe('FormService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                ReactiveFormsModule
-            ],
-            providers: [
-                { provide: FormBuilder, useValue: formBuilder }
-            ]
+            imports: [ReactiveFormsModule],
+            providers: [{ provide: FormBuilder, useValue: formBuilder }]
         });
         service = TestBed.inject(FormService);
     });

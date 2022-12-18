@@ -13,7 +13,7 @@ export const DEFAULT_OPTIONS: JsonModelConverterConfig = {
 /**
  * A JSON object converter that handles converting complex attributes. Complex
  * attributes include array of simply typed values [1,2,3], array of complex
- * values [{name: 'Create Docs', ...}, ...], or a complex object 
+ * values [{name: 'Create Docs', ...}, ...], or a complex object
  * {name: 'Create Docs', ...}. This converter must be included as the converter
  * value for `AttributeDecoratorOptions` when you are using the
  * `NestedAttribute` decorator.
@@ -24,7 +24,7 @@ export class JsonModelConverter<T> implements PropertyConverter {
 
     constructor(model: T, options: JsonModelConverterConfig = {}) {
         this.modelType = model; // <ModelType<T>>model
-        this.options = {...DEFAULT_OPTIONS, ...options};
+        this.options = { ...DEFAULT_OPTIONS, ...options };
     }
 
     mask(value: any): T | Array<T> {
@@ -38,7 +38,9 @@ export class JsonModelConverter<T> implements PropertyConverter {
         let result = null;
         if (this.options.hasMany) {
             if (!Array.isArray(value)) {
-                throw new Error(`ERROR: JsonModelConverter: Expected array but got ${typeof value}.`);
+                throw new Error(
+                    `ERROR: JsonModelConverter: Expected array but got ${typeof value}.`
+                );
             }
             result = [];
             for (const item of value) {

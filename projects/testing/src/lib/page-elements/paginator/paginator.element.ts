@@ -1,10 +1,10 @@
-import { ComponentFixture } from "@angular/core/testing";
-import { PageElement } from "../page/page.element";
+import { ComponentFixture } from '@angular/core/testing';
+import { PageElement } from '../page/page.element';
 
 /**
  * The PaginatorElement class defines properties and functions useful for
  * testing components with a paginator.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * import {Component} from '@angular/core';
@@ -13,13 +13,13 @@ import { PageElement } from "../page/page.element";
  * import {MatPaginatorModule} from '@angular/material/paginator';
  * import {NoopAnimationsModule} from '@angular/platform-browser/animations';
  * import {PaginatorElement} from '@ngx-material-dashboard/testing';
- * 
+ *
  * // define a simple component with a button to test with
  * @Component({
  *     template: `
  *         <div>
- *             <mat-paginator [length]="length" 
- *                 [pageSize]="pageSize" 
+ *             <mat-paginator [length]="length"
+ *                 [pageSize]="pageSize"
  *                 [pageSizeOptions]="[15, 25, 50, 75, 100]"
  *                 (page)="page()">
  *             </mat-paginator>
@@ -33,7 +33,7 @@ import { PageElement } from "../page/page.element";
  *         // do something when page event occurs
  *     }
  * }
- * 
+ *
  * describe('PaginatorElement defined', () => {
  *     let pageClickSpy: jasmine.Spy;
  *     let paginatorElement: PaginatorElement;
@@ -47,10 +47,10 @@ import { PageElement } from "../page/page.element";
  *          const fixture = TestBed.createComponent(component);
  *          fixture.detectChanges();
  *          const element = fixture.nativeElement.querySelector(querySelector);
- *          paginatorElement = new PaginatorElement(fixture, element);  
+ *          paginatorElement = new PaginatorElement(fixture, element);
  *          pageClickSpy = spyOn(paginatorElement.fixture.componentInstance, 'page');
  *     });
- *   
+ *
  *     it('should return "1 – 25 of 200" for paginator range when length=200 and pageSize=25', () => {
  *         expect(paginatorElement.pagingatorRange.innerText).toEqual('1 – 25 of 200');
  *     });
@@ -83,25 +83,24 @@ import { PageElement } from "../page/page.element";
  *     });
  * });
  * ```
- * 
+ *
  * ## Features
- * 
+ *
  * The `PaginatorElement` provides the ability to read the range label (i.e.
  * the text that reads "x - y of z" in the paginator), and click next and
  * previous buttons.
- * 
+ *
  * ### Range Label
- * 
+ *
  * The `paginatorRange` getter returns an `HTMLElement` with the range label.
- * 
+ *
  * ### Next/Previous
- * 
+ *
  * The `clickNextButton` and `clickPreviousButton` methods click the next and
  * previous buttons respectively. Both of these methods are asynchronous, so
  * you should use async/await when using these methods in your code.
  */
 export class PaginatorElement extends PageElement {
-
     /** The HTML element for the paginator. */
     element: HTMLElement;
 
@@ -122,7 +121,9 @@ export class PaginatorElement extends PageElement {
      * Returns the paginator range label, something like "x of y".
      */
     get pagingatorRange(): HTMLElement {
-        const range = this.element.querySelector<HTMLElement>('.mat-paginator-range-label');
+        const range = this.element.querySelector<HTMLElement>(
+            '.mat-paginator-range-label'
+        );
         if (range) {
             return range;
         } else {
@@ -150,13 +151,17 @@ export class PaginatorElement extends PageElement {
      * @param marker The class to query for the button.
      */
     private async clickPageButtonHelper(marker: string): Promise<void> {
-        const button = this.element.querySelector<HTMLButtonElement>(`.mat-paginator-navigation-${marker}`);
+        const button = this.element.querySelector<HTMLButtonElement>(
+            `.mat-paginator-navigation-${marker}`
+        );
         if (button) {
             button.click();
             this.fixture.detectChanges();
             await this.fixture.whenStable();
         } else {
-            throw Error(`Error mat-paginator-navigation-${marker} not found when trying to click ${marker} button`);
+            throw Error(
+                `Error mat-paginator-navigation-${marker} not found when trying to click ${marker} button`
+            );
         }
     }
 }

@@ -33,4 +33,4 @@ import { GridWithIconButtonsPaginatorBarComponent } from './pages/grid-with-icon
         ToolbarModule
     ]
 })
-export class GridModule { }
+export class GridModule {}

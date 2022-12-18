@@ -8,18 +8,17 @@ import { ClickStopPropagationDirective } from './directives/click-stop-propagati
 import { TabStopPropagationDirective } from './directives/tab-stop-propagation.directive';
 
 @NgModule({
-    declarations: [FieldErrorComponent, ClickStopPropagationDirective, TabStopPropagationDirective],
+    declarations: [
+        FieldErrorComponent,
+        ClickStopPropagationDirective,
+        TabStopPropagationDirective
+    ],
     exports: [
         ClickStopPropagationDirective,
         TabStopPropagationDirective,
         FieldErrorComponent
     ],
-    imports: [
-        CommonModule,
-        MatFormFieldModule
-    ],
-    providers: [
-        FormService
-    ]
+    imports: [CommonModule, MatFormFieldModule],
+    providers: [FormService]
 })
-export class FormModule { }
+export class FormModule {}

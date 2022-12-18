@@ -1,4 +1,8 @@
-export function getSampleSentence(sentenceId: string, paragraphId: string, content: string = 'Dummy content') {
+export function getSampleSentence(
+    sentenceId: string,
+    paragraphId: string,
+    content: string = 'Dummy content'
+) {
     return {
         id: sentenceId,
         type: 'sentences',

@@ -3,6 +3,6 @@ import { NgModule } from '@angular/core';
 import { AnchorService } from './anchor.service';
 
 @NgModule({
-  providers: [AnchorService],
+    providers: [AnchorService]
 })
-export class AnchorModule { }
+export class AnchorModule {}

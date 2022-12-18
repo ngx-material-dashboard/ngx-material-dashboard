@@ -9,7 +9,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * per form field (if your fields have multiple validators). This component
  * should be rendered inside of a mat-error tag so it displays correctly below
  * a form field.
- * 
+ *
  * The component requires 3 input values, (1) the name of the field to render
  * errors for, (2) the `FormGroup` where the field is defined, (3) and an array
  * of `ValidationMessage`s which define the error messages for their respective
@@ -18,7 +18,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * arrays of `ValidationMessage`s. See
  * [ValidationMessages](/widgets/interfaces/validation-messages) for more
  * info about the `ValidationMessages` type.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -27,7 +27,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  *         <mat-label>Username</mat-label>
  *         <input matInput type="text" formControlName="username">
  *         <mat-error>
- *             <ngx-material-dashboard-field-error 
+ *             <ngx-material-dashboard-field-error
  *                 field='username'
  *                 [form]="form"
  *                 [validationMessages]="validationMessages.username">
@@ -38,7 +38,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  *         <mat-label>Password</mat-label>
  *         <input matInput type="password" formControlName="password">
  *         <mat-error>
- *             <ngx-material-dashboard-field-error 
+ *             <ngx-material-dashboard-field-error
  *                 field='password'
  *                 [form]="form"
  *                 [validationMessages]="validationMessages.password">
@@ -51,7 +51,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * import {Component} from '@angular/core';
  * import {FormControl, FormGroup} from '@angular/forms';
  * import {ValidationMessages} from '@ngx-material-dashboard/widgets';
- * 
+ *
  * @Component({
  *     selector: 'field-error-basic-usage-example',
  *     templateUrl: './field-error-basic-usage-example.html'
@@ -77,7 +77,6 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
     styleUrls: ['./field-error.component.scss']
 })
 export class FieldErrorComponent {
-
     /** The name of the field the errors should be displayed for. */
     @Input() field = '';
     /**

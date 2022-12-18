@@ -18,7 +18,6 @@ import { ComponentFixture } from '@angular/core/testing';
  * ```
  */
 export class Page<Component> {
-
     constructor(protected fixture: ComponentFixture<Component>) {}
 
     /**
@@ -56,7 +55,11 @@ export class Page<Component> {
      * @param input The input whose value should be set.
      * @param value The value to set for the input.
      */
-    setInputValue(input: HTMLInputElement, value: string, eventType = 'input'): void {
+    setInputValue(
+        input: HTMLInputElement,
+        value: string,
+        eventType = 'input'
+    ): void {
         input.value = value;
         input.dispatchEvent(new Event(eventType));
         this.fixture.detectChanges();

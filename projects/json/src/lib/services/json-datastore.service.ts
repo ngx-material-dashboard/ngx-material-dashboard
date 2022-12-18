@@ -1,6 +1,10 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JsonApiQueryData, JsonDatastore as BaseJsonDatastore, ModelType } from '@ngx-material-dashboard/base-json';
+import {
+    JsonApiQueryData,
+    JsonDatastore as BaseJsonDatastore,
+    ModelType
+} from '@ngx-material-dashboard/base-json';
 import { JsonModel } from '../models/json.model';
 
 /**
@@ -11,17 +15,26 @@ import { JsonModel } from '../models/json.model';
  */
 @Injectable()
 export class JsonDatastore extends BaseJsonDatastore {
-
-    public createRecord<T extends JsonModel>(modelType: ModelType<T>, data: Partial<T>): T {
+    public createRecord<T extends JsonModel>(
+        modelType: ModelType<T>,
+        data: Partial<T>
+    ): T {
         return new modelType(this, data);
     }
 
-    public deserializeModel<T extends JsonModel>(modelType: ModelType<T>, data: any): T {
+    public deserializeModel<T extends JsonModel>(
+        modelType: ModelType<T>,
+        data: any
+    ): T {
         data = this.transformSerializedNamesToPropertyNames(modelType, data);
         return new modelType(this, data);
     }
 
-    public serializeModel(model: any, attributesMetadata: any, transition?: string): any {
+    public serializeModel(
+        model: any,
+        attributesMetadata: any,
+        transition?: string
+    ): any {
         const data: any = this.getDirtyAttributes(attributesMetadata, model);
 
         let body;
@@ -82,7 +95,8 @@ export class JsonDatastore extends BaseJsonDatastore {
             model.modelInitialization = false;
         }
 
-        const deserializedModel = model || this.deserializeModel(modelType, body);
+        const deserializedModel =
+            model || this.deserializeModel(modelType, body);
         this.addToStore(deserializedModel);
         // if (body.included) {
         //     deserializedModel.syncRelationships(body.data, body.included);

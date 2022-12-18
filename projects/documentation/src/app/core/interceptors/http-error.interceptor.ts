@@ -1,4 +1,10 @@
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import {
+    HttpEvent,
+    HttpInterceptor,
+    HttpHandler,
+    HttpRequest,
+    HttpErrorResponse
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
@@ -10,10 +16,12 @@ import { catchError } from 'rxjs/operators';
  */
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-
     constructor(private toastrService: ToastrService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 let errorMessage = '';
@@ -31,16 +39,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     //         errorMessage = 'You are not authorized to make that request, you may be logged out. Try logging in again. Please contact support if the error persists and you believe you should have access to the requested resource.';
                     //     }
                     // } else {
-                        // if (error.error.error) {
-                        //     errorMessage = error.error.error;
-                        // } else {
-                        //     errorMessage = error.error.errors[0].detail;
-                        // }
-                        
+                    // if (error.error.error) {
+                    //     errorMessage = error.error.error;
+                    // } else {
+                    //     errorMessage = error.error.errors[0].detail;
+                    // }
+
                     // }
 
                     console.log(error);
-                    
+
                     this.toastrService.error(errorMessage);
                 }
                 return throwError(() => new Error(errorMessage));

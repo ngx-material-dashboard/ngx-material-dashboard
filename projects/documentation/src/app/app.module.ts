@@ -20,9 +20,7 @@ import { LayoutModule } from './widgets/layout/layout.module';
 import { TabbedDocumentModule } from './widgets/tabbed-document/tabbed-document.module';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         FlexLayoutModule,
         MatButtonModule,
@@ -42,4 +40,4 @@ import { TabbedDocumentModule } from './widgets/tabbed-document/tabbed-document.
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

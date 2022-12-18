@@ -14,7 +14,7 @@ describe('FilterDropDownComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ FilterDropDownComponent ],
+            declarations: [FilterDropDownComponent],
             imports: [
                 ReactiveFormsModule,
                 MatDividerModule,

@@ -20,9 +20,7 @@ import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-
         ListWithIconButtonsPaginatorBarComponent,
         PagedListWithRaisedButtonsBarComponent
     ],
-    exports: [
-        PagedListComponent
-    ],
+    exports: [PagedListComponent],
     imports: [
         CommonModule,
         FlexLayoutModule,
@@ -34,4 +32,4 @@ import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-
         ToolbarModule
     ]
 })
-export class ListModule { }
+export class ListModule {}

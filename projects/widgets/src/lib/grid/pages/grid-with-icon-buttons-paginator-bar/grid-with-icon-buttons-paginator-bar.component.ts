@@ -10,7 +10,7 @@ import { GridComponent } from '../../components/grid/grid.component';
  * management buttons with easy to use handlers for when the user clicks a
  * button in the toolbar or the collection. The toolbar is rendered above the
  * data grid.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -51,7 +51,7 @@ import { GridComponent } from '../../components/grid/grid.component';
  *     toolbarButtons: ToolbarButton[] = [
  *         {...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}
  *     ];
- * 
+ *
  *     onButtonClick(btnClick: ButtonClick): void {
  *         if (btnClick.click === 'create') {
  *             // handle create
@@ -69,9 +69,9 @@ import { GridComponent } from '../../components/grid/grid.component';
     templateUrl: './grid-with-icon-buttons-paginator-bar.component.html',
     styleUrls: ['./grid-with-icon-buttons-paginator-bar.component.css']
 })
-export class GridWithIconButtonsPaginatorBarComponent<T extends JsonModel>
-    extends PagedCollectionWithIconToolbarComponent<T> {
-
+export class GridWithIconButtonsPaginatorBarComponent<
+    T extends JsonModel
+> extends PagedCollectionWithIconToolbarComponent<T> {
     /** A reference to the grid in the template. */
     @ContentChild(GridComponent) collection!: GridComponent<T>;
 }

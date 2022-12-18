@@ -8,14 +8,11 @@ import { Task } from '@ngx-material-dashboard/base-json/test/models/task.model';
 import { TASK_DUE_DATE } from '@ngx-material-dashboard/base-json/test/fixtures/task.fixture';
 
 describe('JsonModel', () => {
-
     let datastore: Datastore;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-            ],
+            imports: [HttpClientTestingModule],
             providers: [
                 {
                     provide: Datastore,
@@ -28,7 +25,6 @@ describe('JsonModel', () => {
     });
 
     describe('constructor', () => {
-
         it('should be instantiated with attributes', () => {
             const DATA = {
                 id: '1',
@@ -40,7 +36,9 @@ describe('JsonModel', () => {
             expect(task.id).toBe('1');
             expect(task.name).toBe('Daniele');
             if (task.dueDate) {
-                expect(task.dueDate.toUTCString()).toBe(parseISO(TASK_DUE_DATE).toUTCString());
+                expect(task.dueDate.toUTCString()).toBe(
+                    parseISO(TASK_DUE_DATE).toUTCString()
+                );
             }
         });
 
@@ -50,6 +48,5 @@ describe('JsonModel', () => {
             expect(task.id).toBeUndefined();
             expect(task.dueDate).toBeUndefined();
         });
-
     });
 });

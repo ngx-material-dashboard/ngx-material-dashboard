@@ -1,21 +1,21 @@
-import { JsonApiError } from "../interfaces/json-api-error.interface";
+import { JsonApiError } from '../interfaces/json-api-error.interface';
 
 /**
  * An array of error objects that provide information about problems encountered
  * while performing an operation. This is used by the
  * [JsonDatastore](/base-json/services/json-datastore) to handle errors that
  * occur on the server.
- * 
+ *
  * If the server returns a `HttpErrorResponse` that follows the
  * [JSON:API](https://jsonapi.org/format/#error-objects) Spec format for error
- * responses, the `JsonDatastore` parses the response and creates an 
+ * responses, the `JsonDatastore` parses the response and creates an
  * `ErrorResponse` object that is then thrown so you can handle rendering the
  * error message for your users. If the `HttpErrorResponse` does not follow the
  * [JSON:API] spec format, then the error response is thrown as is. This means
  * that even if your server API does not follow the [JSON:API] spec, you should
  * still be able to handle error responses from your server; you will just have
  * to handle the logic to parse the error response yourself.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
@@ -37,18 +37,17 @@ import { JsonApiError } from "../interfaces/json-api-error.interface";
  *     return throwError(() => error);
  * }
  * ```
- * 
+ *
  * > NOTE: The above example comes straight from the `JsonDatastore`.
  */
 export class ErrorResponse {
-
-    /** 
+    /**
      * The array of errors that provide information about problems encountered
      * while performing an operation.
      */
     errors?: JsonApiError[] = [];
 
-    constructor(errors ?: JsonApiError[]) {
+    constructor(errors?: JsonApiError[]) {
         if (errors) {
             this.errors = errors;
         }

@@ -10,7 +10,6 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-
     /** Text to display next to copyright date. */
     @Input() company = '';
     /** The current date to use when displaying the copyright notice. */

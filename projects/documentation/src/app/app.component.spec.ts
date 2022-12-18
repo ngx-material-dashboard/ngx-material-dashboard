@@ -36,9 +36,7 @@ describe('AppComponent', () => {
                 MarkdownModule.forChild(),
                 CoreModule.forRoot()
             ],
-            declarations: [
-                AppComponent
-            ]
+            declarations: [AppComponent]
         });
     });
 

@@ -17,16 +17,17 @@ import { PagedListWithRaisedButtonsBarComponent } from './paged-list-with-raised
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-list-with-raised-button-toolbar>
-        <ngx-material-dashboard-paged-list [data]="data" [fields]="fields">
-            <ng-template #model let-model="model">
-                <h2>Dummy Model</h2>
-                <span>{{model.id}}</span>
-            </ng-template>
-        </ngx-material-dashboard-paged-list>
-    </ngx-material-dashboard-paged-list-with-raised-button-toolbar>
+        <ngx-material-dashboard-paged-list-with-raised-button-toolbar>
+            <ngx-material-dashboard-paged-list [data]="data" [fields]="fields">
+                <ng-template #model let-model="model">
+                    <h2>Dummy Model</h2>
+                    <span>{{ model.id }}</span>
+                </ng-template>
+            </ngx-material-dashboard-paged-list>
+        </ngx-material-dashboard-paged-list-with-raised-button-toolbar>
     `
-}) class TestPagedListWithRaisedButtonsBarComponent {
+})
+class TestPagedListWithRaisedButtonsBarComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -56,7 +57,9 @@ describe('PagedListWithRaisedButtonsBarComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestPagedListWithRaisedButtonsBarComponent);
+        fixture = TestBed.createComponent(
+            TestPagedListWithRaisedButtonsBarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

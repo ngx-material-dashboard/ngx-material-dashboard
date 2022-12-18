@@ -7,7 +7,10 @@ import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 
 import { Datastore, DummyObject } from '@ngx-material-dashboard/testing';
 import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface';
-import { DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../toolbar/shared/toolbar-buttons';
+import {
+    DELETE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON
+} from '../../toolbar/shared/toolbar-buttons';
 import { SelectionService } from './selection.service';
 
 describe('SelectionService', () => {
@@ -17,9 +20,7 @@ describe('SelectionService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [
-                { provide: JsonDatastore, useValue: Datastore }
-            ]
+            providers: [{ provide: JsonDatastore, useValue: Datastore }]
         });
         service = TestBed.inject(SelectionService);
         jsonApiDatastore = TestBed.inject(JsonDatastore);
@@ -65,10 +66,15 @@ describe('SelectionService', () => {
             const buttons: ToolbarButton[] = [editButton];
 
             // and: some dummy data
-            const data: DummyObject[] = [new DummyObject(jsonApiDatastore, { id: '1' }), new DummyObject(jsonApiDatastore, { id: '2' })];
+            const data: DummyObject[] = [
+                new DummyObject(jsonApiDatastore, { id: '1' }),
+                new DummyObject(jsonApiDatastore, { id: '2' })
+            ];
 
             // and: multiple selections
-            service.selectionSubject.next(new SelectionModel<JsonModel>(true, data));
+            service.selectionSubject.next(
+                new SelectionModel<JsonModel>(true, data)
+            );
 
             // when: the toggleButtons method is called
             service.toggleButtons(false, buttons);

@@ -8,22 +8,32 @@ import { TableComponent } from './table.component';
 
 @Component({
     template: `
-    <ngx-material-dashboard-table 
-        matSort
-        [data]="data"
-        [displayedColumns]="displayedColumns">
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-            <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="noData">
-            <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
-                No data found
-            </mat-footer-cell>
-        </ng-container>
-    </ngx-material-dashboard-table>
+        <ngx-material-dashboard-table
+            matSort
+            [data]="data"
+            [displayedColumns]="displayedColumns"
+        >
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >ID</mat-header-cell
+                >
+                <mat-cell class="col1-cell" *matCellDef="let obj">{{
+                    obj.id
+                }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell
+                    *matFooterCellDef
+                    colspan="displayedColumns.length"
+                    fxLayoutAlign="center center"
+                >
+                    No data found
+                </mat-footer-cell>
+            </ng-container>
+        </ngx-material-dashboard-table>
     `
-}) class TestTableComponent {
+})
+class TestTableComponent {
     data: DummyObject[] = TEST_DATA;
     displayedColumns: string[] = ['select', 'id', 'actions'];
 }
@@ -34,11 +44,8 @@ describe('TableComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ TableComponent ],
-            imports: [
-                MatSortModule,
-                MatTableModule
-            ]
+            declarations: [TableComponent],
+            imports: [MatSortModule, MatTableModule]
         });
     });
 

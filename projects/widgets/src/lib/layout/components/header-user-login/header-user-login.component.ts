@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./header-user-login.component.scss']
 })
 export class HeaderUserLoginComponent implements OnInit {
-
     username: string | undefined;
 
     // constructor(private authService: AuthService) {}
@@ -27,5 +26,4 @@ export class HeaderUserLoginComponent implements OnInit {
     login(): void {
         // this.authService.login();
     }
-
 }

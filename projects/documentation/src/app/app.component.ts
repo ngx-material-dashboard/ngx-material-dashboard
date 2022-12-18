@@ -1,8 +1,19 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    HostListener,
+    Inject,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faCaretDown, faFillDrip, faMinus } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCaretDown,
+    faFillDrip,
+    faMinus
+} from '@fortawesome/free-solid-svg-icons';
 import { AnchorService } from './shared/anchor/anchor.service';
 
 @Component({
@@ -11,14 +22,13 @@ import { AnchorService } from './shared/anchor/anchor.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
     private readonly stickyClassName = 'mat-tab-nav-bar--sticky';
     faCaretDown: IconDefinition = faCaretDown;
     faDash: IconDefinition = faMinus;
     faGitHub: IconDefinition = faGithub;
     faFillDrip: IconDefinition = faFillDrip;
     date: Date = new Date();
-    githubLink: string = 'https://github.com/ngx-material-dashboard'
+    githubLink: string = 'https://github.com/ngx-material-dashboard';
     theme = 'light';
     nextTheme = 'dark';
 
@@ -38,14 +48,16 @@ export class AppComponent implements OnInit {
         const tabHeader = this.header.nativeElement as HTMLElement;
         const tabHeaderOffset = Math.ceil(tabHeader.offsetTop);
         const windowOffset = Math.ceil(window.pageYOffset);
-        const hasStickyClass = tabHeader.classList.contains(this.stickyClassName);
+        const hasStickyClass = tabHeader.classList.contains(
+            this.stickyClassName
+        );
         if (!hasStickyClass && windowOffset >= tabHeaderOffset) {
             tabHeader.classList.add(this.stickyClassName);
         }
         if (hasStickyClass && windowOffset < tabHeaderOffset) {
             tabHeader.classList.remove(this.stickyClassName);
         }
-  }
+    }
 
     constructor(
         @Inject(DOCUMENT) private document: Document,

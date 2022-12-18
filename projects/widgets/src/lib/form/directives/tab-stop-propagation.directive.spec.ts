@@ -1,7 +1,6 @@
 import { TabStopPropagationDirective } from './tab-stop-propagation.directive';
 
 describe('TabStopPropagationDirective', () => {
-
     let directive: TabStopPropagationDirective;
 
     beforeEach(() => {

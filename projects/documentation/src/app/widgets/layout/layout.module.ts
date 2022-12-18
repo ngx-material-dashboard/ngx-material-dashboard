@@ -6,9 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [
-        LayoutComponent
-    ],
+    declarations: [LayoutComponent],
     imports: [
         CommonModule,
         RouterModule,
@@ -16,4 +14,4 @@ import { RouterModule } from '@angular/router';
         DashboardLayoutModule
     ]
 })
-export class LayoutModule { }
+export class LayoutModule {}

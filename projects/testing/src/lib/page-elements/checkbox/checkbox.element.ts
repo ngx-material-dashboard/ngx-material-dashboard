@@ -1,17 +1,17 @@
-import { ComponentFixture } from "@angular/core/testing";
-import { PageElement } from "../page/page.element";
+import { ComponentFixture } from '@angular/core/testing';
+import { PageElement } from '../page/page.element';
 
 /**
  * The `CheckboxElement` class defines properties and functions useful for
  * testing components with one or more checkboxes.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
  * import {CheckboxElement} from '@ngx-material-dashboard/testing';
- * 
+ *
  * // define a simple component with a button to test with
  * @Component({
  *     template: `
@@ -26,7 +26,7 @@ import { PageElement } from "../page/page.element";
  *         // do something when checkbox changed...
  *     }
  * }
- * 
+ *
  * describe('CheckboxElement', () => {
  *
  *     let checkboxClickSpy: jasmine.Spy;
@@ -36,7 +36,7 @@ import { PageElement } from "../page/page.element";
  *         TestBed.configureTestingModule({
  *             declarations: [CheckboxComponent]
  *         });
- *         
+ *
  *         const fixture = TestBed.createComponent(CheckboxComponent);
  *         checkboxElement = new CheckboxElement(fixture, '.marker-checkbox');
  *         checkboxClickSpy = spyOn(checkboxElement.fixture.componentInstance, 'onChange');
@@ -59,40 +59,39 @@ import { PageElement } from "../page/page.element";
  *     });
  * });
  * ```
- * 
+ *
  * ## Features
- * 
+ *
  * `CheckboxElements` can be clicked, and you can check for whether checkbox is
  * checked or disabled.
- * 
+ *
  * ### Click
- * 
+ *
  * Once you have defined a `CheckboxElement` simply call the `click` function
  * to simulate a user clicking the checkbox in the UI. This function is
  * asynchronous so you should use `async/await` in your test code.
- * 
+ *
  * ```typescript
  * it('should do something when checkbox is clicked', async() => {
  *     // when: the checkbox is clicked
  *     await checkboxElement.click();
- * 
+ *
  *     // then: something should happen
  *     // do your tests for whatever you expect to happen when button clicked
  * });
  * ```
- * 
+ *
  * ### Checked
- * 
+ *
  * The `CheckboxElement` includes a `checked` getter that returns true if the
  * input associated with the checkbox is checked, otherwise it returns false.
- * 
+ *
  * ### Disabled
- * 
+ *
  * Additionally the `CheckboxElement` includes a `disabled` getter that returns
  * true if the checkbox is disabled.
  */
 export class CheckboxElement extends PageElement {
-
     /** The checkbox HTML input element. */
     private input: HTMLInputElement;
 
@@ -105,7 +104,7 @@ export class CheckboxElement extends PageElement {
     constructor(fixture: ComponentFixture<any>, parentElement: HTMLElement) {
         super(fixture);
 
-        // get the checkbox HTML input element from the given parent 
+        // get the checkbox HTML input element from the given parent
         this.input = this.query<HTMLInputElement>('input', parentElement);
     }
 

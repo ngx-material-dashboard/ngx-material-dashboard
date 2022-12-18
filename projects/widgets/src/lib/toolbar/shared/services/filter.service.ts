@@ -8,7 +8,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class FilterService {
-
     /** An observable of the filter map. */
     readonly filter: Observable<any>;
     /** The behavior subject that tracks the latest filter map. */

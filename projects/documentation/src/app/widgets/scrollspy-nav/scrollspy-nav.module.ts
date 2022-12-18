@@ -5,11 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ScrollspyNavComponent } from './scrollspy-nav.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-    ],
+    imports: [CommonModule, RouterModule],
     declarations: [ScrollspyNavComponent],
     exports: [ScrollspyNavComponent]
 })
-export class ScrollspyNavModule { }
+export class ScrollspyNavModule {}

@@ -31,11 +31,7 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
         SidenavComponent,
         LoadingComponent
     ],
-    exports: [
-        DefaultLayoutComponent,
-        LoadingComponent,
-        SidenavComponent
-    ],
+    exports: [DefaultLayoutComponent, LoadingComponent, SidenavComponent],
     imports: [
         CommonModule,
         FlexLayoutModule,
@@ -50,8 +46,6 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
         FontAwesomeModule,
         ToolbarModule
     ],
-    providers: [
-        LoadingService
-    ]
+    providers: [LoadingService]
 })
-export class LayoutModule { }
+export class LayoutModule {}

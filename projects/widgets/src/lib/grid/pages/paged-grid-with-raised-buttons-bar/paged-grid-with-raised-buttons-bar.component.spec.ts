@@ -15,19 +15,19 @@ import { PagedGridWithRaisedButtonsBarComponent } from './paged-grid-with-raised
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-grid-with-raised-buttons-bar
-        [fields]="fields">
-        <ngx-material-dashboard-paged-grid
-            [data]="data"
-            #collection>
-            <ng-template #model let-model="model">
-                <h2>Dummy Model</h2>
-                <span>{{model.id}}</span>
-            </ng-template>
-        </ngx-material-dashboard-paged-grid>
-    </ngx-material-dashboard-paged-grid-with-raised-buttons-bar>
+        <ngx-material-dashboard-paged-grid-with-raised-buttons-bar
+            [fields]="fields"
+        >
+            <ngx-material-dashboard-paged-grid [data]="data" #collection>
+                <ng-template #model let-model="model">
+                    <h2>Dummy Model</h2>
+                    <span>{{ model.id }}</span>
+                </ng-template>
+            </ngx-material-dashboard-paged-grid>
+        </ngx-material-dashboard-paged-grid-with-raised-buttons-bar>
     `
-}) class TestPagedGridWithRaisedButtonsBarComponent {
+})
+class TestPagedGridWithRaisedButtonsBarComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -38,7 +38,7 @@ describe('PagedGridWithRaisedButtonsBarComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ 
+            declarations: [
                 GridComponent,
                 PagedGridComponent,
                 SorterComponent,
@@ -55,7 +55,9 @@ describe('PagedGridWithRaisedButtonsBarComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestPagedGridWithRaisedButtonsBarComponent);
+        fixture = TestBed.createComponent(
+            TestPagedGridWithRaisedButtonsBarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

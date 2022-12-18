@@ -9,7 +9,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, IconButtonsWithPaginatorBarElement, PagedCollectionWithToolbarElement, PagedTableWithToolbarElement, TableElement, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    DummyObject,
+    IconButtonsWithPaginatorBarElement,
+    PagedCollectionWithToolbarElement,
+    PagedTableWithToolbarElement,
+    TableElement,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { CollectionModule } from '../../../collection/collection.module';
 import { Button } from '../../../collection/interfaces/button.interface';
@@ -17,7 +24,11 @@ import { EDIT_BUTTON, DELETE_BUTTON } from '../../../collection/shared/buttons';
 import { IconButtonsComponent } from '../../../toolbar/components/icon-buttons/icon-buttons.component';
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
-import { CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON
+} from '../../../toolbar/shared/toolbar-buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { TableComponent } from '../../components/table/table.component';
 
@@ -25,32 +36,48 @@ import { TableWithIconButtonsPaginatorBarComponent } from './table-with-icon-but
 
 @Component({
     template: `
-    <ngx-material-dashboard-table-with-icon-buttons-paginator-bar
-        [toolbarButtons]="toolbarButtons"
-        class="marker-paged-table">
-        <ngx-material-dashboard-table
-            matSort
-            [collectionButtons]="collectionButtons"
-            [dataSource]="data"
-            [displayedColumns]="displayedColumns"
-            collection
-            #collection>
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-                <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="noData">
-                <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
-                    No data found
-                </mat-footer-cell>
-            </ng-container>
-        </ngx-material-dashboard-table>
-    </ngx-material-dashboard-table-with-icon-buttons-paginator-bar>
+        <ngx-material-dashboard-table-with-icon-buttons-paginator-bar
+            [toolbarButtons]="toolbarButtons"
+            class="marker-paged-table"
+        >
+            <ngx-material-dashboard-table
+                matSort
+                [collectionButtons]="collectionButtons"
+                [dataSource]="data"
+                [displayedColumns]="displayedColumns"
+                collection
+                #collection
+            >
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >ID</mat-header-cell
+                    >
+                    <mat-cell class="col1-cell" *matCellDef="let obj">{{
+                        obj.id
+                    }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="noData">
+                    <mat-footer-cell
+                        *matFooterCellDef
+                        colspan="displayedColumns.length"
+                        fxLayoutAlign="center center"
+                    >
+                        No data found
+                    </mat-footer-cell>
+                </ng-container>
+            </ngx-material-dashboard-table>
+        </ngx-material-dashboard-table-with-icon-buttons-paginator-bar>
     `
-}) class TestTableWithIconButtonsPaginatorBarComponent {
-    @ViewChild(TableWithIconButtonsPaginatorBarComponent) pagedTableComponent!: TableWithIconButtonsPaginatorBarComponent<DummyObject>;
+})
+class TestTableWithIconButtonsPaginatorBarComponent {
+    @ViewChild(TableWithIconButtonsPaginatorBarComponent)
+    pagedTableComponent!: TableWithIconButtonsPaginatorBarComponent<DummyObject>;
     collectionButtons: Button[] = [EDIT_BUTTON, DELETE_BUTTON];
-    toolbarButtons: ToolbarButton[] = [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON];
+    toolbarButtons: ToolbarButton[] = [
+        CREATE_TOOLBAR_BUTTON,
+        EDIT_TOOLBAR_BUTTON,
+        DELETE_TOOLBAR_BUTTON
+    ];
     data: DummyObject[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
 }
@@ -87,14 +114,20 @@ describe('TableWithIconButtonsPaginatorBarComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestTableWithIconButtonsPaginatorBarComponent);
+        fixture = TestBed.createComponent(
+            TestTableWithIconButtonsPaginatorBarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
 
         page = new PagedTableWithToolbarElement(
             fixture,
             '.marker-paged-table',
-            ['.marker-button-create', '.marker-button-edit', '.marker-button-delete'],
+            [
+                '.marker-button-create',
+                '.marker-button-edit',
+                '.marker-button-delete'
+            ],
             true,
             'icon-buttons-with-paginator-bar'
         );
@@ -102,7 +135,6 @@ describe('TableWithIconButtonsPaginatorBarComponent', () => {
     });
 
     describe('Without Collection Data', () => {
-
         beforeEach(() => {
             component.data = [];
             fixture.detectChanges();
@@ -123,14 +155,15 @@ describe('TableWithIconButtonsPaginatorBarComponent', () => {
         });
 
         it('should display "0 of 0" in paginator range label', () => {
-            expect(toolbar.paginator.pagingatorRange.innerText).toEqual('0 of 0');
+            expect(toolbar.paginator.pagingatorRange.innerText).toEqual(
+                '0 of 0'
+            );
         });
     });
 
     describe('With Collection Data', () => {
-
         const testData = TEST_DATA;
-        
+
         beforeEach(() => {
             component.data = testData;
             fixture.detectChanges();
@@ -140,15 +173,21 @@ describe('TableWithIconButtonsPaginatorBarComponent', () => {
         });
 
         it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
-            expect(toolbar.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+            expect(toolbar.paginator.pagingatorRange.innerText).toEqual(
+                `1 – ${pageSize} of ${testData.length}`
+            );
         });
 
-        it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
+        it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${
+            testData.length
+        }" in paginator range label when next page button clicked`, () => {
             // when: next page button is clicked
             toolbar.paginator.clickNextButton();
 
             // then: the paginator range label should update to next page
-            expect(toolbar.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+            expect(toolbar.paginator.pagingatorRange.innerText).toEqual(
+                `${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`
+            );
         });
     });
 });

@@ -5,17 +5,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, IconButtonsWithPaginatorBarElement } from '@ngx-material-dashboard/testing';
+import {
+    DummyObject,
+    IconButtonsWithPaginatorBarElement
+} from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { IconButtonsComponent } from '../../components/icon-buttons/icon-buttons.component';
-import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../shared/toolbar-buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON
+} from '../../shared/toolbar-buttons';
 import { SorterComponent } from '../sorter/sorter.component';
 
 import { IconButtonsWithPaginatorComponent } from './icon-buttons-with-paginator.component';
 
 describe('IconButtonsWithPaginatorComponent', () => {
     let component: IconButtonsWithPaginatorComponent<DummyObject>;
-    let fixture: ComponentFixture<IconButtonsWithPaginatorComponent<DummyObject>>;
+    let fixture: ComponentFixture<
+        IconButtonsWithPaginatorComponent<DummyObject>
+    >;
     let page: IconButtonsWithPaginatorBarElement;
 
     beforeEach(() => {
@@ -37,10 +46,18 @@ describe('IconButtonsWithPaginatorComponent', () => {
 
         fixture = TestBed.createComponent(IconButtonsWithPaginatorComponent);
         component = fixture.componentInstance;
-        component.buttons = [{...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}];
+        component.buttons = [
+            { ...CREATE_TOOLBAR_BUTTON },
+            { ...EDIT_TOOLBAR_BUTTON },
+            { ...DELETE_TOOLBAR_BUTTON }
+        ];
         fixture.detectChanges();
 
-        page = new IconButtonsWithPaginatorBarElement(fixture, ['.marker-button-create', '.marker-button-edit', '.marker-button-delete']);
+        page = new IconButtonsWithPaginatorBarElement(fixture, [
+            '.marker-button-create',
+            '.marker-button-edit',
+            '.marker-button-delete'
+        ]);
     });
 
     it('should render select all checkbox by default', () => {
@@ -51,11 +68,11 @@ describe('IconButtonsWithPaginatorComponent', () => {
         expect(page.query('ngx-material-dashboard-sorter')).toBeDefined();
     });
 
-    it('should emit master toggle value when select all checkbox checked', async() => {
+    it('should emit master toggle value when select all checkbox checked', async () => {
         const spy = spyOn(component.masterToggle, 'emit');
 
         await page.selectAllCheckbox?.click();
 
         expect(spy).toHaveBeenCalledWith(true);
-    })
+    });
 });

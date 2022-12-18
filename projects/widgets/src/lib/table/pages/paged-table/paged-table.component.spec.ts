@@ -11,7 +11,13 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
-import { CheckboxElement, Datastore, DummyObject, PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    CheckboxElement,
+    Datastore,
+    DummyObject,
+    PagedTableElement,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
 import { Button } from '../../../collection/interfaces/button.interface';
@@ -29,27 +35,37 @@ const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table
-        matSort
-        [collectionButtons]="collectionButtons"
-        [dataSource]="data"
-        [displayedColumns]="displayedColumns"
-        [multiple]="multiple"
-        class="marker-paged-table">
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-            <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="noData">
-            <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
-                No data found
-            </mat-footer-cell>
-        </ng-container>
-    </ngx-material-dashboard-paged-table>
+        <ngx-material-dashboard-paged-table
+            matSort
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [displayedColumns]="displayedColumns"
+            [multiple]="multiple"
+            class="marker-paged-table"
+        >
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >ID</mat-header-cell
+                >
+                <mat-cell class="col1-cell" *matCellDef="let obj">{{
+                    obj.id
+                }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell
+                    *matFooterCellDef
+                    colspan="displayedColumns.length"
+                    fxLayoutAlign="center center"
+                >
+                    No data found
+                </mat-footer-cell>
+            </ng-container>
+        </ngx-material-dashboard-paged-table>
     `
-}) class TestPagedTableComponent {
+})
+class TestPagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
+    collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     data: JsonModel[] = [];
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
@@ -57,38 +73,50 @@ const testData: DummyObject[] = TEST_DATA;
 
 @Component({
     template: `
-    <ngx-material-dashboard-paged-table 
-        matSort
-        [collectionButtons]="collectionButtons"
-        [dataSource]="dataSource"
-        [displayedColumns]="displayedColumns"
-        [multiple]="multiple"
-        class="marker-paged-table">
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-            <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="noData">
-            <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
-                No data found
-            </mat-footer-cell>
-        </ng-container>
-    </ngx-material-dashboard-paged-table>
+        <ngx-material-dashboard-paged-table
+            matSort
+            [collectionButtons]="collectionButtons"
+            [dataSource]="dataSource"
+            [displayedColumns]="displayedColumns"
+            [multiple]="multiple"
+            class="marker-paged-table"
+        >
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >ID</mat-header-cell
+                >
+                <mat-cell class="col1-cell" *matCellDef="let obj">{{
+                    obj.id
+                }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell
+                    *matFooterCellDef
+                    colspan="displayedColumns.length"
+                    fxLayoutAlign="center center"
+                >
+                    No data found
+                </mat-footer-cell>
+            </ng-container>
+        </ngx-material-dashboard-paged-table>
     `
-}) class TestRemotePagedTableComponent {
+})
+class TestRemotePagedTableComponent {
     @ViewChild(PagedTableComponent) table!: PagedTableComponent<DummyObject>;
-    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
+    collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     dataSource: RemoteDataSourceMock<DummyObject>;
     displayedColumns: string[] = ['select', 'id', 'actions'];
     multiple = true;
 
     constructor(private jsonApiDatastore: JsonDatastore) {
-        this.dataSource = new RemoteDataSourceMock<DummyObject>(DummyObject, this.jsonApiDatastore);
+        this.dataSource = new RemoteDataSourceMock<DummyObject>(
+            DummyObject,
+            this.jsonApiDatastore
+        );
     }
 }
 
 describe('PagedTableComponent', () => {
-
     describe('Local data source', () => {
         let page: PagedTableElement;
 
@@ -111,84 +139,99 @@ describe('PagedTableComponent', () => {
                     MockModule(FontAwesomeModule),
                     CollectionModule
                 ],
-                providers: [
-                    { provide: JsonDatastore, useClass: Datastore }
-                ]
+                providers: [{ provide: JsonDatastore, useClass: Datastore }]
             });
         });
-    
+
         describe('No Table Data', () => {
-    
             beforeEach(() => {
                 // initialize component without any data
                 page = init();
             });
-    
+
             it('should not have any rows selected by default', () => {
-                expect(page.component.table.collection$.selection.selected.length).toEqual(0);
-                expect(page.component.table.collection$.isAllSelected()).toEqual(false);
+                expect(
+                    page.component.table.collection$.selection.selected.length
+                ).toEqual(0);
+                expect(
+                    page.component.table.collection$.isAllSelected()
+                ).toEqual(false);
             });
-    
+
             it('should display no data row', () => {
                 // given: the no data row
                 const noDataRow: HTMLElement = page.noDataRow;
-    
+
                 // expect: the row to be defined
                 expect(noDataRow).toBeDefined();
-    
+
                 // and: the text of the row to be 'No data found'
                 expect(noDataRow.innerText).toEqual('No data found');
             });
-    
+
             it('should display "0 of 0" in paginator range label', () => {
-                expect(page.paginator.pagingatorRange.innerText).toEqual('0 of 0');
+                expect(page.paginator.pagingatorRange.innerText).toEqual(
+                    '0 of 0'
+                );
             });
         });
-    
+
         describe('With Table Data', () => {
             const data: DummyObject[] = testData;
-    
+
             // tests where it doesn't matter whether multi-select is allowed
             describe('Mulit-select Independent', () => {
-    
-                beforeEach(async() => {
+                beforeEach(async () => {
                     // initialize the component with dummy data and allow multi-select
                     page = init(data);
                     await page.fixture.whenStable();
                 });
-    
+
                 it('should emit buttonClick event when action button clicked in row', () => {
                     // given: a spy on the tableButtonClick
                     const spy = spyOn(page.component.table.buttonClick, 'emit');
-    
+
                     // when: a button is clicked in one of the rows
                     page.clickItemButton('edit', 0);
-    
+
                     // then: the tableButtonClick emit method should have been called
-                    expect(spy).toHaveBeenCalledWith({ click: 'edit', row: data[0] });
+                    expect(spy).toHaveBeenCalledWith({
+                        click: 'edit',
+                        row: data[0]
+                    });
                 });
-    
+
                 it('should not display no data row', () => {
                     // given: the no data row and it's parent
                     const noDataRow = page.noDataRow;
                     const noDataRowParent = noDataRow.parentElement;
-    
+
                     // expect: the parent should have "hide" class to hide row
                     expect(noDataRowParent?.className).toContain('hide');
                 });
-    
+
                 it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
                     page.fixture.detectChanges();
-                    expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+                    expect(page.paginator.pagingatorRange.innerText).toEqual(
+                        `1 – ${pageSize} of ${testData.length}`
+                    );
                 });
-    
-                it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
+
+                it(`should display "${pageSize + 1} - ${
+                    pageSize + pageSize
+                } of ${
+                    testData.length
+                }" in paginator range label when next page button clicked`, () => {
                     // when: next page button is clicked
                     page.fixture.detectChanges();
                     page.paginator.clickNextButton();
-    
+
                     // then: the paginator range label should update to next page
-                    expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+                    expect(page.paginator.pagingatorRange.innerText).toEqual(
+                        `${pageSize + 1} – ${pageSize + pageSize} of ${
+                            testData.length
+                        }`
+                    );
                 });
 
                 it('should initialize dataSource with MatTableDataSource', () => {
@@ -200,80 +243,90 @@ describe('PagedTableComponent', () => {
                     page.fixture.detectChanges();
 
                     // expect: table dataSource to be MatTableDataSource
-                    expect(page.fixture.componentInstance.table.dataSource).toEqual(datasource);
-                })
+                    expect(
+                        page.fixture.componentInstance.table.dataSource
+                    ).toEqual(datasource);
+                });
             });
-    
+
             describe('Multi-select Enabled', () => {
-    
                 beforeEach(() => {
                     // initialize the component with dummy data and allow multi-select
                     page = init(data);
                 });
-    
+
                 describe('No rows selected initially', () => {
                     it('should not have any rows selected by default', () => {
-                        expect(page.component.table.collection$.selection.selected.length).toEqual(0);
-                        expect(page.component.table.collection$.isAllSelected()).toEqual(false);
+                        expect(
+                            page.component.table.collection$.selection.selected
+                                .length
+                        ).toEqual(0);
+                        expect(
+                            page.component.table.collection$.isAllSelected()
+                        ).toEqual(false);
                     });
-    
+
                     it('should select all rows when checkbox in header checked', () => {
                         // when: the select all checkbox is checked
                         page.selectAll();
-    
+
                         // then: the component should return true for isAllSelected()
-                        expect(page.component.table.collection$.isAllSelected()).toEqual(true);
-    
+                        expect(
+                            page.component.table.collection$.isAllSelected()
+                        ).toEqual(true);
+
                         // and: all rows should have their checkboxes checked
-                        const checkBoxes: CheckboxElement[] = page.itemCheckboxes;
+                        const checkBoxes: CheckboxElement[] =
+                            page.itemCheckboxes;
                         checkBoxes.forEach((checkbox: CheckboxElement) => {
                             expect(checkbox.checked).toBeTrue();
                         });
                     });
-    
+
                     it('should clear selection from all rows when checkbox in header checked if all rows selected', () => {
                         // setup: select all rows
                         page.selectAll();
-    
+
                         // when: the select all rows button is clicked again
                         page.selectAll();
-    
+
                         // then: no rows should have their checkboxes checked
-                        const checkBoxes: CheckboxElement[] = page.itemCheckboxes;
+                        const checkBoxes: CheckboxElement[] =
+                            page.itemCheckboxes;
                         checkBoxes.forEach((checkbox: CheckboxElement) => {
                             expect(checkbox.checked).toBeFalse();
                         });
                     });
                 });
             });
-    
+
             describe('Multi-select Disabled', () => {
                 beforeEach(() => {
                     // initialize the component with dummy data and disable multi-select
                     page = init(data, false);
                 });
-    
+
                 it('should allow row to be selected and deselected', () => {
                     // when: the checkbox is checked in first row
                     page.selectItem(0);
-    
+
                     // then: the checkbox should be checked
                     expect(page.isItemSelected(0)).toBeTrue();
-    
+
                     // when: the checkbox is unchecked
                     page.selectItem(0);
-    
+
                     // then: checkbox should be unchecked
                     expect(page.isItemSelected(0)).toBeFalse();
                 });
-    
+
                 it('should only select one row at a time', () => {
                     // when: the first checkbox is checked
                     page.selectItem(0); //.clickCheckbox(checkbox1InputElement);
-    
+
                     // and: the second checkbox is checked
                     page.selectItem(1); //age.clickCheckbox(checkbox2InputElement);
-    
+
                     // then: the second checkbox should be the only checkbox checked
                     expect(page.isItemSelected(0)).toBeFalse();
                     expect(page.isItemSelected(1)).toBeTrue();
@@ -283,7 +336,6 @@ describe('PagedTableComponent', () => {
     });
 
     describe('Remote data source', () => {
-
         let page: PagedTableElement;
 
         beforeEach(() => {
@@ -307,11 +359,18 @@ describe('PagedTableComponent', () => {
                     MockModule(FontAwesomeModule)
                 ],
                 providers: [
-                    { provide: RemoteDataSource, userClass: RemoteDataSourceMock, deps: [Datastore] },
+                    {
+                        provide: RemoteDataSource,
+                        userClass: RemoteDataSourceMock,
+                        deps: [Datastore]
+                    },
                     { provide: Datastore, deps: [HttpClient] },
-                    { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
-                ],
-                
+                    {
+                        provide: JsonDatastore,
+                        useClass: Datastore,
+                        deps: [HttpClient]
+                    }
+                ]
             });
         });
 
@@ -323,21 +382,22 @@ describe('PagedTableComponent', () => {
             it('should display no data row', () => {
                 // given: the no data row
                 const noDataRow: HTMLElement = page.noDataRow;
-    
+
                 // expect: the row to be defined
                 expect(noDataRow).toBeDefined();
-    
+
                 // and: the text of the row to be 'No data found'
                 expect(noDataRow.innerText).toEqual('No data found');
             });
-    
+
             it('should display "0 of 0" in paginator range label', () => {
-                expect(page.paginator.pagingatorRange.innerText).toEqual('0 of 0');
+                expect(page.paginator.pagingatorRange.innerText).toEqual(
+                    '0 of 0'
+                );
             });
         });
 
         describe('With Table data', () => {
-
             beforeEach(() => {
                 page = initRemote(testData);
             });
@@ -352,15 +412,23 @@ describe('PagedTableComponent', () => {
             });
 
             it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
-                expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+                expect(page.paginator.pagingatorRange.innerText).toEqual(
+                    `1 – ${pageSize} of ${testData.length}`
+                );
             });
 
-            it(`should display "${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
+            it(`should display "${pageSize + 1} – ${pageSize + pageSize} of ${
+                testData.length
+            }" in paginator range label when next page button clicked`, () => {
                 // when: next page button is clicked
                 page.paginator.clickNextButton();
 
                 // then: the paginator range label should update to next page
-                expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+                expect(page.paginator.pagingatorRange.innerText).toEqual(
+                    `${pageSize + 1} – ${pageSize + pageSize} of ${
+                        testData.length
+                    }`
+                );
             });
         });
     });
@@ -373,11 +441,9 @@ describe('PagedTableComponent', () => {
  * @param multiple Boolean value to set whether table allows multiple selection.
  * @return A page helper to aid in tests.
  */
-function init(
-    data: JsonModel[] = [],
-    multiple = true
-): PagedTableElement {
-    const fixture: ComponentFixture<TestPagedTableComponent> = TestBed.createComponent(TestPagedTableComponent);
+function init(data: JsonModel[] = [], multiple = true): PagedTableElement {
+    const fixture: ComponentFixture<TestPagedTableComponent> =
+        TestBed.createComponent(TestPagedTableComponent);
     const component = fixture.componentInstance;
     component.data = data;
     component.multiple = multiple;
@@ -403,7 +469,8 @@ function initRemote(
     multiple = true,
     pageSize = 5
 ): PagedTableElement {
-    const fixture: ComponentFixture<TestRemotePagedTableComponent> = TestBed.createComponent(TestRemotePagedTableComponent);
+    const fixture: ComponentFixture<TestRemotePagedTableComponent> =
+        TestBed.createComponent(TestRemotePagedTableComponent);
     const component = fixture.componentInstance;
     component.multiple = multiple;
     component.dataSource.setTestData(data);
@@ -434,11 +501,11 @@ function initRemote(
         // )
 
         //if (component.table.collection$.dataSource$ instanceof RemoteDataSource) {
-            // also set pageSize on table datasource and refresh; need instanceof
-            // RemoteDataSource since table.dataSource$ has multiple types even
-            // though it should be RemoteDataSource type for these tests
-            component.table.collection$.dataSource$.pageSize = pageSize;
-            component.table.collection$.dataSource$.refresh();
+        // also set pageSize on table datasource and refresh; need instanceof
+        // RemoteDataSource since table.dataSource$ has multiple types even
+        // though it should be RemoteDataSource type for these tests
+        component.table.collection$.dataSource$.pageSize = pageSize;
+        component.table.collection$.dataSource$.refresh();
         //}
     }
     fixture.detectChanges();

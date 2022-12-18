@@ -7,12 +7,12 @@ export const TASK_API_VERSION = 'v3';
 export const TASK_MODEL_ENDPOINT_URL = 'custom-task';
 
 @JsonApiModelConfig({
-  apiVersion: TASK_API_VERSION,
-  modelEndpointUrl: TASK_MODEL_ENDPOINT_URL,
-  type: 'tasks',
-  meta: PageMetaData
-}) export class CustomTask extends JsonModel {
-
+    apiVersion: TASK_API_VERSION,
+    modelEndpointUrl: TASK_MODEL_ENDPOINT_URL,
+    type: 'tasks',
+    meta: PageMetaData
+})
+export class CustomTask extends JsonModel {
     /** The name of the Task. */
     @Attribute() name?: string;
     /** The description of the Task.*/

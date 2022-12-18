@@ -19,11 +19,11 @@ import { PageElement } from '../page/page.element';
  * does not need to be unique between collections, and should be the same for
  * each item. This is so the class can query for a list of HTMLElements that
  * match the item selector starting at the collection selector.
- * 
+ *
  * > NOTE: If you configure a CollectionElement as not selectable, then
  * > functions that relate to selection capabilities will throw an error and
  * > should result in failures in your tests.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```typescript
@@ -48,7 +48,7 @@ import { PageElement } from '../page/page.element';
  *         // create the PagedTable PageElement (NOTE: this assumes you defined a
  *         // CSS selector marker for the collection as defined below; this is in case
  *         // you have a component with more than 1 PagedTable, each collection should
- *         // have their own CSS selector for the PagedTable element to work 
+ *         // have their own CSS selector for the PagedTable element to work
  *         // correctly)
  *         pagedTable = new PagedTable(fixture, '.marker-example-paged-collection');
  *     });
@@ -72,7 +72,7 @@ import { PageElement } from '../page/page.element';
  *     });
  *
  *     describe('With Collection Data', () => {
- *       
+ *
  *         beforeEach(() => {
  *             pagedTable.data = TEST_DATA // set some test data for the collection
  *         });
@@ -91,41 +91,41 @@ import { PageElement } from '../page/page.element';
  *         });
  *     });
  * });
- * ``` 
- * 
- * @overviewDetails 
+ * ```
+ *
+ * @overviewDetails
  * ## Features
- * 
+ *
  * `CollectionElements` have multiple features built in, including the ability
  * to click buttons in any element of the collection, check if all items are
  * selected, check if a single item is selected, select all items, and
  * select individual items.
- * 
+ *
  * ### Click Collection Button
- * 
+ *
  * The `clickItemButton` method clicks the button with the given text in the
  * given item and column. If your actions column is defined last you can omit
  * the column as this defaults to the last column in the collection.
- * 
+ *
  * ### All Rows Selected
- * 
+ *
  * The `isAllSelected` method returns true if all rows in the collection are
  * selected. Otherwise returns false.
- * 
+ *
  * ### Is Item Selected
- * 
+ *
  * The `isItemSelected` method returns true if the item at the given index is
  * selected.
- * 
+ *
  * ### Select All Rows
- * 
+ *
  * The `selectAll` function clicks the checkbox in the header which should
  * select all rows in the collection (or deselect all rows if all selected). This
  * method is asynchronous, so you should use async/await when calling this
  * in your code.
- * 
+ *
  * ### Select Item
- * 
+ *
  * The `selectItem` function clicks the checkbox at the given item. This method
  * is asynchronouse, sou you should use async/await when calling this in your
  * code.
@@ -152,10 +152,10 @@ export class CollectionElement extends PageElement {
      * need to be unique since the element will query from the HTMLElement found
      * with given selector. Optional checkboxItemSelector and selectable
      * parameters are included to control marker for item select checkboxes and
-     * whether collection allows multi-select. These default to 
+     * whether collection allows multi-select. These default to
      * '.marker-checkbox-item-select' and true respectively.
      *
-     * @param fixture Fixture for component under test. 
+     * @param fixture Fixture for component under test.
      * @param selector CSS selector for collection.
      * @param itemSelector CSS selector for each item in collection.
      * @param checkboxItemSelector CSS selector for checkboxes associated with each item.
@@ -175,14 +175,20 @@ export class CollectionElement extends PageElement {
         this.collectionElement = this.query<HTMLElement>(selector);
         this.itemSelector = itemSelector;
         this.checkboxItemSelector = checkboxItemSelector;
-        this.initItemsAndCheckboxes(this.itemSelector, this.checkboxItemSelector);
+        this.initItemsAndCheckboxes(
+            this.itemSelector,
+            this.checkboxItemSelector
+        );
     }
 
     /**
      * Returns the checkbox for selecting all visible items.
      */
     get selectAllCheckbox(): CheckboxElement {
-        const element: HTMLElement = this.query<HTMLElement>('.marker-checkbox-select-all', this.collectionElement);
+        const element: HTMLElement = this.query<HTMLElement>(
+            '.marker-checkbox-select-all',
+            this.collectionElement
+        );
         return new CheckboxElement(this.fixture, element);
     }
 
@@ -192,7 +198,10 @@ export class CollectionElement extends PageElement {
     set data(data: JsonModel[]) {
         this.component.data = data;
         this.fixture.detectChanges();
-        this.initItemsAndCheckboxes(this.itemSelector, this.checkboxItemSelector);
+        this.initItemsAndCheckboxes(
+            this.itemSelector,
+            this.checkboxItemSelector
+        );
     }
 
     /**
@@ -200,10 +209,16 @@ export class CollectionElement extends PageElement {
      * created, and when data set for element (so items and corresponding
      * checkboxes are updated accordingly).
      */
-    private initItemsAndCheckboxes(selector: string, checkboxkItemSelector: string) {
+    private initItemsAndCheckboxes(
+        selector: string,
+        checkboxkItemSelector: string
+    ) {
         try {
-            this.items = this.queryAll<HTMLElement>(selector, this.collectionElement);
-        } catch(error: any) {
+            this.items = this.queryAll<HTMLElement>(
+                selector,
+                this.collectionElement
+            );
+        } catch (error: any) {
             if (error.message.toString().includes(`${selector} not found in`)) {
                 // this should happen when no data loaded in collection; might be
                 // possible that selector just not defined though...
@@ -218,12 +233,17 @@ export class CollectionElement extends PageElement {
         // re-initialize item checkboxes and query for CSS selectors if applicable
         this.itemCheckboxes = [];
         if (this.items.length > 0 && this.selectable) {
-            // only query for item checkboxes if items available and collection selectable 
-            const checkboxes: HTMLElement[] = this.queryAll<HTMLElement>(checkboxkItemSelector, this.collectionElement);
+            // only query for item checkboxes if items available and collection selectable
+            const checkboxes: HTMLElement[] = this.queryAll<HTMLElement>(
+                checkboxkItemSelector,
+                this.collectionElement
+            );
 
             // add each checkbox HTML element to item checkboxes
             checkboxes.forEach((checkbox: HTMLElement) => {
-                this.itemCheckboxes.push(new CheckboxElement(this.fixture, checkbox));
+                this.itemCheckboxes.push(
+                    new CheckboxElement(this.fixture, checkbox)
+                );
             });
         }
     }
@@ -238,12 +258,19 @@ export class CollectionElement extends PageElement {
     clickItemButton(click: string, rowIndex: number): void {
         const item: HTMLElement = this.items[rowIndex];
         // add a '.' to start if itemSelector doesn't already have it
-        const selectorStart: string = this.itemSelector.startsWith('.') ? '' : '.';
-        const itemButtons: HTMLElement | null = item.querySelector(`${selectorStart}${this.itemSelector}-buttons`);
-        const button: HTMLButtonElement | null | undefined = itemButtons?.querySelector(`.marker-button-${click}`);
+        const selectorStart: string = this.itemSelector.startsWith('.')
+            ? ''
+            : '.';
+        const itemButtons: HTMLElement | null = item.querySelector(
+            `${selectorStart}${this.itemSelector}-buttons`
+        );
+        const button: HTMLButtonElement | null | undefined =
+            itemButtons?.querySelector(`.marker-button-${click}`);
         if (button == null) {
             // throw an error if the button is not found
-            throw new Error(`Expected HTMLButtonElement with CSS selector ".marker-button-${click}" in collection item buttons`);
+            throw new Error(
+                `Expected HTMLButtonElement with CSS selector ".marker-button-${click}" in collection item buttons`
+            );
         } else {
             // click the button if it is not null
             button.click();
@@ -253,11 +280,11 @@ export class CollectionElement extends PageElement {
     /**
      * Returns true if header checkbox is checked.
      *
-     * @returns True if header checkbox is checked. 
+     * @returns True if header checkbox is checked.
      */
     isAllSelected(): boolean {
         if (this.selectable) {
-        return this.selectAllCheckbox.checked;
+            return this.selectAllCheckbox.checked;
         } else {
             throw Error('Collection is not selectable');
         }

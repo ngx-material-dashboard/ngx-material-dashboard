@@ -13,21 +13,26 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
-import { Datastore, DummyObject, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    Datastore,
+    DummyObject,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
 import { CollectionModule } from '../../../collection/collection.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
-import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON
+} from '../../../toolbar/shared/toolbar-buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from '../paged-list/paged-list.component';
 import { PagedListWithRaisedButtonsBarComponent } from './paged-list-with-raised-buttons-bar.component';
 
 export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
-    declarations: [
-        ListComponent,
-        PagedListComponent
-    ],
+    declarations: [ListComponent, PagedListComponent],
     imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -49,8 +54,7 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-})
-.add('default', {
+}).add('default', {
     template: `
     <ngx-material-dashboard-paged-list-with-raised-buttons-bar
         [toolbarButtons]="toolbarButtons">
@@ -78,7 +82,11 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
     </ngx-material-dashboard-paged-list-with-raised-buttons-bar>`,
     context: {
         collectionButtons: DEFAULT_COLLECTION_BUTTONS,
-        toolbarButtons: [CREATE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON],
+        toolbarButtons: [
+            CREATE_TOOLBAR_BUTTON,
+            EDIT_TOOLBAR_BUTTON,
+            DELETE_TOOLBAR_BUTTON
+        ],
         data: TEST_DATA,
         fields: ['id']
     }

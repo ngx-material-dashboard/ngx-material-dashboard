@@ -5,7 +5,6 @@ import { JsonModel } from './json.model';
     type: 'tasks'
 })
 export class Task extends JsonModel {
-
     /** The name of the Task. */
     @Attribute() name?: string;
     /** The description of the Task.*/

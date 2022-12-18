@@ -17,12 +17,11 @@ import { ActivatedRoute, Router, UrlTree } from '@angular/router';
  */
 @Injectable()
 export class AnchorService {
-
     constructor(
         private locationStrategy: LocationStrategy,
         private route: ActivatedRoute,
-        private router: Router,
-    ) { }
+        private router: Router
+    ) {}
 
     /**
      * Intercept clicks on `HTMLAnchorElement` to use `Router.navigate()`
@@ -78,9 +77,13 @@ export class AnchorService {
     }
 
     private getUrlTree(url: string): UrlTree {
-        const urlPath = this.stripFragment(url) || this.stripFragment(this.router.url);
+        const urlPath =
+            this.stripFragment(url) || this.stripFragment(this.router.url);
         const urlFragment = this.router.parseUrl(url).fragment || undefined;
-        return this.router.createUrlTree([urlPath], { relativeTo: this.route, fragment: urlFragment });
+        return this.router.createUrlTree([urlPath], {
+            relativeTo: this.route,
+            fragment: urlFragment
+        });
     }
 
     private isExternalUrl(url: string): boolean {
@@ -88,7 +91,9 @@ export class AnchorService {
     }
 
     private isRouterLink(element: HTMLAnchorElement): boolean {
-        return element.getAttributeNames().some(n => n.startsWith('_ngcontent'));
+        return element
+            .getAttributeNames()
+            .some((n) => n.startsWith('_ngcontent'));
     }
 
     private stripFragment(url: string): string {

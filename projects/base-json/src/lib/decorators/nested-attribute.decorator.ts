@@ -1,21 +1,21 @@
 import * as _ from 'lodash-es';
 
-import {AttributeDecoratorOptions} from '../interfaces/attribute-decorator-options.interface';
-import {AttributeMetadata} from '../constants/symbols';
- 
+import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-options.interface';
+import { AttributeMetadata } from '../constants/symbols';
+
 /**
  * Nested Attributes can be used for complex attributes. Complex attributes
  * include array of simply typed values `[1,2,3]`, array of complex values
  * `[{name: 'Create Docs', ...}, ...]`, or a complex object
  * `{name: 'Create Docs', ...}`.
- * 
+ *
  * > NOTE: when using the `NestedAttribute` decorator you must include
  * > `JsonModelConverter` as the `converter` option in
  * > `AttributeDecoratorOptions`.
- * 
- * @param options Custom options included in decorator. 
+ *
+ * @param options Custom options included in decorator.
  * @returns A custom property decorator for JSON attributes.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Examples
  * ```typescript
@@ -36,7 +36,11 @@ export function NestedAttribute(
     options: AttributeDecoratorOptions = {}
 ): PropertyDecorator {
     return (target: any, propertyName: string | symbol) => {
-        const converter = (dataType: any, value: any, forSerialisation = false): any => {
+        const converter = (
+            dataType: any,
+            value: any,
+            forSerialisation = false
+        ): any => {
             let attrConverter;
 
             if (options.converter) {
@@ -57,10 +61,11 @@ export function NestedAttribute(
             }
 
             return value;
-            };
+        };
 
-            const saveAnnotations = () => {
-            const metadata = Reflect.getMetadata('NestedAttribute', target) || {};
+        const saveAnnotations = () => {
+            const metadata =
+                Reflect.getMetadata('NestedAttribute', target) || {};
 
             metadata[propertyName] = {
                 marked: true
@@ -68,8 +73,12 @@ export function NestedAttribute(
 
             Reflect.defineMetadata('NestedAttribute', metadata, target);
 
-            const mappingMetadata = Reflect.getMetadata('AttributeMapping', target) || {};
-            const serializedPropertyName = options.serializedName !== undefined ? options.serializedName : propertyName;
+            const mappingMetadata =
+                Reflect.getMetadata('AttributeMapping', target) || {};
+            const serializedPropertyName =
+                options.serializedName !== undefined
+                    ? options.serializedName
+                    : propertyName;
             mappingMetadata[serializedPropertyName] = propertyName;
             Reflect.defineMetadata('AttributeMapping', mappingMetadata, target);
         };
@@ -80,13 +89,18 @@ export function NestedAttribute(
             if (!instance[AttributeMetadata]) {
                 instance[AttributeMetadata] = {};
             }
-            if (instance[AttributeMetadata][propertyName] && !instance.isModelInitialization()) {
+            if (
+                instance[AttributeMetadata][propertyName] &&
+                !instance.isModelInitialization()
+            ) {
                 instance[AttributeMetadata][propertyName].newValue = newValue;
-                instance[AttributeMetadata][propertyName].hasDirtyAttributes = !_.isEqual(
-                    instance[AttributeMetadata][propertyName].oldValue,
-                    newValue
-                );
-                instance[AttributeMetadata][propertyName].serialisationValue = newValue;
+                instance[AttributeMetadata][propertyName].hasDirtyAttributes =
+                    !_.isEqual(
+                        instance[AttributeMetadata][propertyName].oldValue,
+                        newValue
+                    );
+                instance[AttributeMetadata][propertyName].serialisationValue =
+                    newValue;
             } else {
                 const oldValue = _.cloneDeep(newValue);
                 instance[AttributeMetadata][propertyName] = {
@@ -99,12 +113,16 @@ export function NestedAttribute(
             }
         };
 
-        const getter = function(this: any) {
+        const getter = function (this: any) {
             return this[`_${String(propertyName)}`];
         };
 
-        const setter = function(this: any, newVal: any) {
-            const targetType = Reflect.getMetadata('design:type', target, propertyName);
+        const setter = function (this: any, newVal: any) {
+            const targetType = Reflect.getMetadata(
+                'design:type',
+                target,
+                propertyName
+            );
             this[`_${String(propertyName)}`] = converter(targetType, newVal);
             updateMetadata(target);
         };
@@ -117,7 +135,6 @@ export function NestedAttribute(
                 enumerable: true,
                 configurable: true
             });
-
         }
     };
 }

@@ -4,7 +4,11 @@ import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { JsonApiQueryData, JsonDatastore, JsonModel } from '@ngx-material-dashboard/base-json';
+import {
+    JsonApiQueryData,
+    JsonDatastore,
+    JsonModel
+} from '@ngx-material-dashboard/base-json';
 import { Datastore, TEST_DATA } from '@ngx-material-dashboard/testing';
 import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-model.mock';
 import { Observable, of } from 'rxjs';
@@ -17,10 +21,7 @@ describe('RemoteDataSourceService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                MatSortModule
-            ],
+            imports: [HttpClientTestingModule, MatSortModule],
             providers: [
                 { provide: JsonDatastore, useClass: Datastore },
                 { provide: JsonModel, useClass: JsonModelMock },
@@ -44,7 +45,13 @@ describe('RemoteDataSourceService', () => {
 
     it('should call findAll method from baseModelService when sortChange called', () => {
         // given: a spy on the datastore findAll method
-        const spy = spyOn(datastore, 'findAll').and.returnValue(of(new JsonApiQueryData(TEST_DATA, { meta: { total: TEST_DATA.length }})));
+        const spy = spyOn(datastore, 'findAll').and.returnValue(
+            of(
+                new JsonApiQueryData(TEST_DATA, {
+                    meta: { total: TEST_DATA.length }
+                })
+            )
+        );
 
         // and: a defined MatS
         const sort = new MatSort();
@@ -69,7 +76,10 @@ describe('RemoteDataSourceService', () => {
     it('should return MatPaginator from getter when paginator defined', () => {
         // given: a MatPaginator
         const changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-        const paginator = new MatPaginator(new MatPaginatorIntl(), changeDetectorRef);
+        const paginator = new MatPaginator(
+            new MatPaginatorIntl(),
+            changeDetectorRef
+        );
 
         // when: the paginator is set for the service
         service.paginator = paginator;
@@ -79,14 +89,20 @@ describe('RemoteDataSourceService', () => {
     });
 
     it('should return undefined from getter if paginator not set', () => {
-        service.paginator = undefined // ensure paginator undefined
+        service.paginator = undefined; // ensure paginator undefined
 
         expect(service.paginator).toBeUndefined();
     });
 
     it('should call load with default params', () => {
         // given: a spy on the datastore findAll method
-        const spy = spyOn(datastore, 'findAll').and.returnValue(of(new JsonApiQueryData(TEST_DATA, { meta: { total: TEST_DATA.length }})));
+        const spy = spyOn(datastore, 'findAll').and.returnValue(
+            of(
+                new JsonApiQueryData(TEST_DATA, {
+                    meta: { total: TEST_DATA.length }
+                })
+            )
+        );
 
         // when: load method is called without any params
         service.load();

@@ -6,11 +6,11 @@ import { PagedCollectionElement } from '../paged-collection/paged-collection.ele
 import { ToolbarElement } from '../toolbar/toolbar.element';
 
 export class PagedCollectionWithToolbarElement {
-
     collection: CollectionElement | PagedCollectionElement;
     toolbar: ToolbarElement | IconButtonsWithPaginatorBarElement;
 
-    constructor(fixture: ComponentFixture<any>,
+    constructor(
+        fixture: ComponentFixture<any>,
         selector: string,
         itemSelector: string,
         itemCheckboxSelector: string,
@@ -19,11 +19,26 @@ export class PagedCollectionWithToolbarElement {
         toolbarType: string = 'raised-buttons'
     ) {
         if (toolbarType === 'raised-buttons') {
-            this.collection = new PagedCollectionElement(fixture, selector, itemSelector, itemCheckboxSelector, selectable);
+            this.collection = new PagedCollectionElement(
+                fixture,
+                selector,
+                itemSelector,
+                itemCheckboxSelector,
+                selectable
+            );
             this.toolbar = new ToolbarElement(fixture, buttonSelectors);
         } else {
-            this.collection = new CollectionElement(fixture, selector, itemSelector, itemCheckboxSelector, selectable);
-            this.toolbar = new IconButtonsWithPaginatorBarElement(fixture, buttonSelectors);
+            this.collection = new CollectionElement(
+                fixture,
+                selector,
+                itemSelector,
+                itemCheckboxSelector,
+                selectable
+            );
+            this.toolbar = new IconButtonsWithPaginatorBarElement(
+                fixture,
+                buttonSelectors
+            );
         }
     }
 }

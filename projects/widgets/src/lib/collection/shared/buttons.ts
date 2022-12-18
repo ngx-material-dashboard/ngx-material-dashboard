@@ -4,7 +4,7 @@ import { Button } from '../interfaces/button.interface';
 /**
  * A basic edit button.
  */
- export const EDIT_BUTTON: Button = {
+export const EDIT_BUTTON: Button = {
     icon: faEdit,
     click: 'edit'
 };

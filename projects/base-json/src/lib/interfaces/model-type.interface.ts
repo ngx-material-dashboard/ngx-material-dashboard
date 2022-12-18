@@ -1,6 +1,6 @@
 /**
  * An object of the defined type T that can be instantiated.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
@@ -14,4 +14,4 @@
  * }
  * ```
  */
-export type ModelType<T> = new(...args: any[]) => T;
+export type ModelType<T> = new (...args: any[]) => T;

@@ -15,7 +15,7 @@ describe('SorterComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ SorterComponent ],
+            declarations: [SorterComponent],
             imports: [
                 MatFormFieldModule,
                 MatSelectModule,

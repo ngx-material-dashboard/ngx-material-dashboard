@@ -6,20 +6,20 @@ import { FormGroup, FormArray } from '@angular/forms';
  *
  * @overviewDetails
  * ## Features
- * 
+ *
  * Currently the only method available is `markAsTouched`. This will iterate
  * through the controls of given form and mark them all as touched. Mainly
  * intended to cause change detection so potential error messages are rendered
  * for all controls on the given form where appropriate, allowing for nested
  * FormGroups and FormArrays.
- * 
+ *
  * ## Basic Usage Example
  * ```typescript
  * // ...
  * import {FormService} from '@ngx-material-dashboard/widgets';
  * // ...
  * constructor(private formService: FormService) {}
- * 
+ *
  * submit(form: FormGroup | FormArray): void {
  *     this.formService.markAsTouched(form);
  * }
@@ -29,7 +29,6 @@ import { FormGroup, FormArray } from '@angular/forms';
     providedIn: 'root'
 })
 export class FormService {
-
     /**
      * Iterates through the controls of the given form and marks them as touched.
      * Mainly intended to display error messages on form. Allows for nested
@@ -39,7 +38,7 @@ export class FormService {
      * @param form The form group or array to mark as touched.
      */
     markAsTouched(form: FormGroup | FormArray): void {
-        Object.keys(form.controls).forEach(controlName => {
+        Object.keys(form.controls).forEach((controlName) => {
             const control = form.get(controlName);
             if (control instanceof FormGroup || control instanceof FormArray) {
                 // recurse and handle nested FormGroups/FormArrays

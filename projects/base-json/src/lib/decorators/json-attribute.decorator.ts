@@ -7,7 +7,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * decorator includes meta data that tracks new and old data for each attribute
  * which allows for checking if objects have dirty attributes, and rolling back
  * attribute values to previous state.
- * 
+ *
  * To be honest I'm not sure why you would want to use this over the `Attribute`
  * decorator, but the [angular2-jsonapi](https://github.com/ghidoz/angular2-jsonapi)
  * library included this decorator, so I'm including it here as well. The only
@@ -15,12 +15,18 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * your data has dirty attributes, or you don't need to provide the ability to
  * rolling back attribute data.
  *
- * @param options Custom options included in decorator. 
+ * @param options Custom options included in decorator.
  * @returns A custom property decorator for JSON attributes.
  */
-export function JsonAttribute(options: AttributeDecoratorOptions = {}): PropertyDecorator {
-  return (target: any, propertyName: string | symbol) => {
-        const converter = (dataType: any, value: any, forSerialisation = false): any => {
+export function JsonAttribute(
+    options: AttributeDecoratorOptions = {}
+): PropertyDecorator {
+    return (target: any, propertyName: string | symbol) => {
+        const converter = (
+            dataType: any,
+            value: any,
+            forSerialisation = false
+        ): any => {
             let attrConverter;
 
             if (options.converter) {
@@ -37,7 +43,7 @@ export function JsonAttribute(options: AttributeDecoratorOptions = {}): Property
 
             if (attrConverter) {
                 if (!forSerialisation) {
-                return attrConverter.mask(value);
+                    return attrConverter.mask(value);
                 }
                 return attrConverter.unmask(value);
             }
@@ -54,21 +60,33 @@ export function JsonAttribute(options: AttributeDecoratorOptions = {}): Property
 
             Reflect.defineMetadata('JsonAttribute', metadata, target);
 
-            const mappingMetadata = Reflect.getMetadata('AttributeMapping', target) || {};
-            const serializedPropertyName = options.serializedName !== undefined ? options.serializedName : propertyName;
+            const mappingMetadata =
+                Reflect.getMetadata('AttributeMapping', target) || {};
+            const serializedPropertyName =
+                options.serializedName !== undefined
+                    ? options.serializedName
+                    : propertyName;
             mappingMetadata[serializedPropertyName] = propertyName;
             Reflect.defineMetadata('AttributeMapping', mappingMetadata, target);
         };
 
-        const getter = function(this: any) {
+        const getter = function (this: any) {
             if (target.nestedDataSerialization) {
-                return converter(Reflect.getMetadata('design:type', target, propertyName), this[`_${String(propertyName)}`], true);
+                return converter(
+                    Reflect.getMetadata('design:type', target, propertyName),
+                    this[`_${String(propertyName)}`],
+                    true
+                );
             }
             return this[`_${String(propertyName)}`];
         };
 
-        const setter = function(this: any, newVal: any) {
-            const targetType = Reflect.getMetadata('design:type', target, propertyName);
+        const setter = function (this: any, newVal: any) {
+            const targetType = Reflect.getMetadata(
+                'design:type',
+                target,
+                propertyName
+            );
             this[`_${String(propertyName)}`] = converter(targetType, newVal);
         };
 

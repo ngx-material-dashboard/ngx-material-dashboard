@@ -1,4 +1,11 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core';
+import {
+    AfterContentInit,
+    Component,
+    ContentChildren,
+    Input,
+    QueryList,
+    ViewChild
+} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatColumnDef, MatTable } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
@@ -11,13 +18,13 @@ import { SelectionService } from '../../../collection/services/selection.service
  * `Collection`. Think of it as a `MatTable` plus, or `MatTable+` for short
  * if you will. Sorting columns in the table is automatically built in to
  * the component. Additionally it provides built in select one or more (or all)
- * capabilities, as well as rendering one or more buttons in each row and 
+ * capabilities, as well as rendering one or more buttons in each row and
  * emitting click events for you to handle response to clicks.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
- * <ngx-material-dashboard-table 
+ * <ngx-material-dashboard-table
  *     matSort
  *     [collectionButtons]="collectionButtons"
  *     [data]="data"
@@ -46,30 +53,30 @@ import { SelectionService } from '../../../collection/services/selection.service
  *     displayedColumns: string[] = ['select', 'id', 'actions'];
  * }
  * ```
- * 
+ *
  * ## Features
- * 
+ *
  * The `Table` automatically wires up sorting, renders and handles select
  * one or more rows, as well as adding one or more buttons to each row and
  * handling click events for those buttons.
- * 
+ *
  * ### Sorting
- * 
+ *
  * To make sorting work all you need to do is add the `matSort` directive to
  * the `Table` selector and the `mat-sort-header` directive to the header cells
  * for the columns you want to be able to sort on. Other than making sure to
  * include the `MatSortModule` in the module where you define the component
  * that uses `Table`, there is nothing else you need to do.
- * 
+ *
  * ### Select
- * 
+ *
  * The `Table` defines a column for selecting one, more, or all rows in the
  * table (select all being in the header). To utilize the select column simply
  * include `'select'` as one of the `displayedColumns` for the `Table`, and
  * it will be rendered along with all other columns included in the property.
- * 
+ *
  * ### Row Buttons
- * 
+ *
  * A column for rendering one or more buttons in each row of the table is
  * also included in the main template. Additionally, `Table` includes
  * the `buttonClick` event emitter that emits a `ButtonClick` event which
@@ -86,8 +93,8 @@ import { SelectionService } from '../../../collection/services/selection.service
 })
 export class TableComponent<T extends JsonModel>
     extends CollectionComponent<T>
-    implements AfterContentInit {
-
+    implements AfterContentInit
+{
     /** A reference to the columns defined; allows user to define columns inside selector for this component. */
     @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
     /** Columns to display in the table. */
@@ -102,7 +109,9 @@ export class TableComponent<T extends JsonModel>
      * is aware of all additional columns included.
      */
     ngAfterContentInit(): void {
-        this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
+        this.columnDefs.forEach((columnDef) =>
+            this.table.addColumnDef(columnDef)
+        );
     }
 
     constructor(selectionService: SelectionService<T>, matSort: MatSort) {

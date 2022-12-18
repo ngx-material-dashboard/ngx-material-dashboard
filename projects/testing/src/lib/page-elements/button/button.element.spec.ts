@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { TestBed } from "@angular/core/testing";
-import { ButtonElement } from "./button.element";
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { ButtonElement } from './button.element';
 
 @Component({
     template: `
@@ -8,7 +8,8 @@ import { ButtonElement } from "./button.element";
             <button class="marker-button" (click)="onClick()"></button>
         </div>
     `
-}) class ButtonComponent {
+})
+class ButtonComponent {
     onClick(): void {}
 }
 
@@ -18,52 +19,55 @@ import { ButtonElement } from "./button.element";
             <button disabled class="marker-button" (click)="onClick()"></button>
         </div>
     `
-}) class DisabledButtonComponent {
+})
+class DisabledButtonComponent {
     onClick(): void {}
 }
 
 describe('ButtonElement', () => {
-
     let buttonClickSpy: jasmine.Spy;
     let buttonElement: ButtonElement;
 
     describe('Enabled Button', () => {
-
         describe('ButtonElement defined with HTMLElement', () => {
-
             beforeEach(() => {
                 buttonElement = init(ButtonComponent, 'div');
-                buttonClickSpy = spyOn(buttonElement.fixture.componentInstance, 'onClick');
+                buttonClickSpy = spyOn(
+                    buttonElement.fixture.componentInstance,
+                    'onClick'
+                );
             });
 
             it('should return false for isDisabled', () => {
                 expect(buttonElement.isDisabled()).toBeFalse();
             });
 
-            it('should click the button when click method called', async() => {
+            it('should click the button when click method called', async () => {
                 // when: the buttonElement click button is called
                 await buttonElement.click();
-    
+
                 // then: the buttonClickSpy should have been called
                 expect(buttonClickSpy).toHaveBeenCalled();
             });
         });
 
         describe('ButtonElement defined without HTMLElement', () => {
-
             beforeEach(() => {
                 buttonElement = init(ButtonComponent);
-                buttonClickSpy = spyOn(buttonElement.fixture.componentInstance, 'onClick');
+                buttonClickSpy = spyOn(
+                    buttonElement.fixture.componentInstance,
+                    'onClick'
+                );
             });
-    
+
             it('should return false for isDisabled', () => {
                 expect(buttonElement.isDisabled()).toBeFalse();
             });
-    
-            it('should click the button when click method called', async() => {
+
+            it('should click the button when click method called', async () => {
                 // when: the buttonElement click button is called
                 await buttonElement.click();
-    
+
                 // then: the buttonClickSpy should have been called
                 expect(buttonClickSpy).toHaveBeenCalled();
             });
@@ -71,17 +75,19 @@ describe('ButtonElement', () => {
     });
 
     describe('Disabled Button', () => {
-
         beforeEach(() => {
             buttonElement = init(DisabledButtonComponent);
-            buttonClickSpy = spyOn(buttonElement.fixture.componentInstance, 'onClick');
+            buttonClickSpy = spyOn(
+                buttonElement.fixture.componentInstance,
+                'onClick'
+            );
         });
 
         it('should return true for isDisabled', () => {
             expect(buttonElement.isDisabled()).toBeTrue();
         });
 
-        it('should not click the button when click method called', async() => {
+        it('should not click the button when click method called', async () => {
             // when: the buttonElement click button is called
             await buttonElement.click();
 

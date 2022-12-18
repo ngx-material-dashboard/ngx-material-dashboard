@@ -9,21 +9,24 @@ import { PaginatorElement } from './paginator.element';
 @Component({
     template: `
         <div>
-            <mat-paginator [length]="length" 
-                [pageSize]="pageSize" 
+            <mat-paginator
+                [length]="length"
+                [pageSize]="pageSize"
                 [pageSizeOptions]="[15, 25, 50, 75, 100]"
-                (page)="page()">
+                (page)="page()"
+            >
             </mat-paginator>
         </div>
     `
-}) class PaginatorComponent {
+})
+class PaginatorComponent {
     length = 200;
     pageSize = 25;
 
     page(): void {}
 }
 
-/** 
+/**
  * This represents a component with "undefined" paginator. The mat-paginator
  * tag is still present so the PaginatorElement can be created, but the
  * PaginatorModule is mocked in "undefined" tests below to prevent full
@@ -35,22 +38,26 @@ import { PaginatorElement } from './paginator.element';
             <mat-paginator></mat-paginator>
         </div>
     `
-}) class PaginatorUndefinedComponent {}
+})
+class PaginatorUndefinedComponent {}
 
 describe('PaginatorElement', () => {
-
     let pageClickSpy: jasmine.Spy;
     let paginatorElement: PaginatorElement;
 
     describe('PaginatorElement defined', () => {
-
         beforeEach(() => {
             paginatorElement = init(PaginatorComponent);
-            pageClickSpy = spyOn(paginatorElement.fixture.componentInstance, 'page');
+            pageClickSpy = spyOn(
+                paginatorElement.fixture.componentInstance,
+                'page'
+            );
         });
-    
+
         it('should return "1 – 25 of 200" for paginator range when length=200 and pageSize=25', () => {
-            expect(paginatorElement.pagingatorRange.innerText).toEqual('1 – 25 of 200');
+            expect(paginatorElement.pagingatorRange.innerText).toEqual(
+                '1 – 25 of 200'
+            );
         });
 
         it('should emit page event when next button clicked', () => {
@@ -83,32 +90,44 @@ describe('PaginatorElement', () => {
 
     describe('PaginatorElement undefined', () => {
         beforeEach(() => {
-            paginatorElement = init(PaginatorUndefinedComponent, 'div', [MockModule(MatPaginatorModule)]);
+            paginatorElement = init(PaginatorUndefinedComponent, 'div', [
+                MockModule(MatPaginatorModule)
+            ]);
         });
 
         it('should throw an error when calling paginatorRange property', () => {
-            expect(() => { paginatorElement.pagingatorRange }).toThrowError('Paginator range label not found');
+            expect(() => {
+                paginatorElement.pagingatorRange;
+            }).toThrowError('Paginator range label not found');
         });
 
-        it('should throw an error when calling clickNextButton', async() => {
+        it('should throw an error when calling clickNextButton', async () => {
             try {
                 await paginatorElement.clickNextButton();
-            } catch(error: any) {
-                expect(error.message).toEqual('Error mat-paginator-navigation-next not found when trying to click next button');
+            } catch (error: any) {
+                expect(error.message).toEqual(
+                    'Error mat-paginator-navigation-next not found when trying to click next button'
+                );
             }
         });
 
-        it('should throw an error when calling clickPreviousButton', async() => {
+        it('should throw an error when calling clickPreviousButton', async () => {
             try {
                 await paginatorElement.clickPreviousButton();
-            } catch(error: any) {
-                expect(error.message).toEqual('Error mat-paginator-navigation-previous not found when trying to click previous button');
+            } catch (error: any) {
+                expect(error.message).toEqual(
+                    'Error mat-paginator-navigation-previous not found when trying to click previous button'
+                );
             }
         });
     });
 });
 
-function init(component: any, querySelector = 'div', imports: any[] = [MatButtonModule, MatPaginatorModule, NoopAnimationsModule]) {
+function init(
+    component: any,
+    querySelector = 'div',
+    imports: any[] = [MatButtonModule, MatPaginatorModule, NoopAnimationsModule]
+) {
     TestBed.configureTestingModule({
         declarations: [component],
         imports: imports
@@ -118,5 +137,5 @@ function init(component: any, querySelector = 'div', imports: any[] = [MatButton
     fixture.detectChanges();
 
     const element = fixture.nativeElement.querySelector(querySelector);
-    return new PaginatorElement(fixture, element);  
+    return new PaginatorElement(fixture, element);
 }

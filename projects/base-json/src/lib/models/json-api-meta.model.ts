@@ -1,7 +1,7 @@
 /**
  * An object of the defined type T that can be instantiated.
  */
-export type MetaModelType<T> = new(response: any) => T;
+export type MetaModelType<T> = new (response: any) => T;
 
 /**
  * Metadata such as links or data for pagination purposes can also be included
@@ -9,7 +9,7 @@ export type MetaModelType<T> = new(response: any) => T;
  * this, the class name needs to be added in the ModelConfig. If no
  * MetadataModel is explicitly defined, the default one will be used, which
  * contains an array of links and meta property.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript

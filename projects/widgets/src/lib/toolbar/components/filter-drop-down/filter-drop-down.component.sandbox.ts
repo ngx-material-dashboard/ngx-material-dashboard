@@ -18,8 +18,7 @@ export default sandboxOf(FilterDropDownComponent, {
         MatToolbarModule,
         FontAwesomeModule
     ]
-})
-.add('default', {
+}).add('default', {
     template: `
     <mat-toolbar>
         <div fxFlex></div>

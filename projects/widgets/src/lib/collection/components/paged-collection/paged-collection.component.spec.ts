@@ -6,7 +6,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DummyObject, PagedCollectionElement, TEST_DATA } from '@ngx-material-dashboard/testing';
+import {
+    DummyObject,
+    PagedCollectionElement,
+    TEST_DATA
+} from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 import { ListComponent } from '../../../list/components/list/list.component';
 import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
@@ -19,20 +23,22 @@ const pageSize = 5;
 /** Component to test with. */
 @Component({
     template: `
-    <ngx-material-dashboard-paged-list
-        [dataSource]="data"
-        [fields]="fields"
-        [pageSize]="pageSize"
-        class="marker-paged-list">
-        <ng-template #model let-model="model">
-            <div fxLayout="row">
-                <span>Dummy Model</span>
-                <span>{{model.id}}</span>
-            </div>
-        </ng-template>
-    </ngx-material-dashboard-paged-list>
+        <ngx-material-dashboard-paged-list
+            [dataSource]="data"
+            [fields]="fields"
+            [pageSize]="pageSize"
+            class="marker-paged-list"
+        >
+            <ng-template #model let-model="model">
+                <div fxLayout="row">
+                    <span>Dummy Model</span>
+                    <span>{{ model.id }}</span>
+                </div>
+            </ng-template>
+        </ngx-material-dashboard-paged-list>
     `
-}) class TestPagedCollectionComponent {
+})
+class TestPagedCollectionComponent {
     @ViewChild(PagedListComponent) pagedList!: PagedListComponent<DummyObject>;
     data: DummyObject[] = [];
     fields: string[] = ['id'];
@@ -60,8 +66,7 @@ describe('PagedCollectionComponent', () => {
                 MatPaginatorModule,
                 MatSelectModule,
                 MockModule(FontAwesomeModule)
-            ],
-            
+            ]
         });
     });
 
@@ -79,31 +84,35 @@ describe('PagedCollectionComponent', () => {
     });
 
     describe('No Collection Data', () => {
-
         it('should display "0 of 0" in paginator range label', () => {
             expect(page.paginator.pagingatorRange.innerText).toEqual('0 of 0');
         });
     });
 
     describe('With Collection Data', () => {
-
         const testData = TEST_DATA;
-        
+
         beforeEach(() => {
             component.data = testData;
             fixture.detectChanges();
         });
 
         it(`should display "1 – ${pageSize} of ${testData.length}" in paginator range label`, () => {
-            expect(page.paginator.pagingatorRange.innerText).toEqual(`1 – ${pageSize} of ${testData.length}`);
+            expect(page.paginator.pagingatorRange.innerText).toEqual(
+                `1 – ${pageSize} of ${testData.length}`
+            );
         });
 
-        it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${testData.length}" in paginator range label when next page button clicked`, () => {
+        it(`should display "${pageSize + 1} - ${pageSize + pageSize} of ${
+            testData.length
+        }" in paginator range label when next page button clicked`, () => {
             // when: next page button is clicked
             page.paginator.clickNextButton();
 
             // then: the paginator range label should update to next page
-            expect(page.paginator.pagingatorRange.innerText).toEqual(`${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`);
+            expect(page.paginator.pagingatorRange.innerText).toEqual(
+                `${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`
+            );
         });
 
         it('should return null for paginator if paginator$ undefined', () => {

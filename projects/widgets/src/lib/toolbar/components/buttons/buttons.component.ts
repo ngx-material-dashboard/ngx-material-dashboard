@@ -4,15 +4,14 @@ import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
 
 /**
- * Displays a list of `ToolbarButtons`. 
+ * Displays a list of `ToolbarButtons`.
  */
 @Component({
-  selector: 'ngx-material-dashboard-buttons',
-  templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.css']
+    selector: 'ngx-material-dashboard-buttons',
+    templateUrl: './buttons.component.html',
+    styleUrls: ['./buttons.component.css']
 })
 export class ButtonsComponent implements OnInit {
-
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
     /** Event emitted when user clicks button in toolbar. */

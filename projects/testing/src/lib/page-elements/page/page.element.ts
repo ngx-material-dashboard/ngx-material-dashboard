@@ -5,8 +5,8 @@ import { ComponentFixture } from '@angular/core/testing';
  * other page elements and objects should extend this class to make use of
  * basic utility functions needed for tests. Currently the only utility
  * functions needed are query and queryAll, to find one or more HTML
- * elements in component under test. 
- * 
+ * elements in component under test.
+ *
  * If either query or queryAll fail to find an element that matches the given
  * selector, then an error is thrown. This seems to be the appropriate response
  * for testing utilities, since the page elements themselves will expect the
@@ -16,14 +16,13 @@ import { ComponentFixture } from '@angular/core/testing';
  * structuring their component for their tests.
  */
 export class PageElement {
-
     /** The fixture for component under test. */
-    fixture: ComponentFixture<any>
+    fixture: ComponentFixture<any>;
 
     /**
      * Creates a new PageElement.
      *
-     * @param fixture The fixture for component under test. 
+     * @param fixture The fixture for component under test.
      */
     constructor(fixture: ComponentFixture<any>) {
         this.fixture = fixture;
@@ -49,15 +48,15 @@ export class PageElement {
         let closure: (selector: string) => T | null;
         if (element) {
             // if the element is defined then create closure to query from element
-            closure = function(selector: string): T | null {
+            closure = function (selector: string): T | null {
                 return element.querySelector(selector) as any;
             };
         } else {
             // if element not defined then create closure to query from fixture
             const fixture = this.fixture;
-            closure = function(selector: string): T {
+            closure = function (selector: string): T {
                 return fixture.nativeElement.querySelector(selector);
-            }
+            };
         }
         return this.queryUtil<T>(selector, closure, element);
     }
@@ -80,15 +79,15 @@ export class PageElement {
         let closure: (selector: string) => T[] | null;
         if (element) {
             // if element defined then create closure to query all from element
-            closure = function(selector: string): T[] | null {
+            closure = function (selector: string): T[] | null {
                 return element.querySelectorAll(selector) as any;
             };
         } else {
             // if element not defined then create closure to query all from fixture
             const fixture = this.fixture;
-            closure = function(selector: string): T[] {
+            closure = function (selector: string): T[] {
                 return fixture.nativeElement.querySelectorAll(selector);
-            }
+            };
         }
         return this.queryUtil<T[]>(selector, closure, element);
     }

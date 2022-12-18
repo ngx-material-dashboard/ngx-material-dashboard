@@ -9,11 +9,6 @@ import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog
 @NgModule({
     declarations: [ConfirmDeleteDialogComponent],
     exports: [ConfirmDeleteDialogComponent],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatDialogModule,
-        FontAwesomeModule
-    ]
+    imports: [CommonModule, MatButtonModule, MatDialogModule, FontAwesomeModule]
 })
-export class DialogModule { }
+export class DialogModule {}

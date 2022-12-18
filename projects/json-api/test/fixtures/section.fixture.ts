@@ -1,4 +1,8 @@
-export function getSampleSection(sectionId: string, chapterId: string, content: string = 'Dummy content') {
+export function getSampleSection(
+    sectionId: string,
+    chapterId: string,
+    content: string = 'Dummy content'
+) {
     return {
         id: sectionId,
         type: 'sections',
@@ -10,13 +14,13 @@ export function getSampleSection(sectionId: string, chapterId: string, content: 
         relationships: {
             chapter: {
                 data: {
-                id: chapterId,
+                    id: chapterId,
                     type: 'chapters'
                 }
             },
             firstParagraph: {
                 data: {
-                id: '1',
+                    id: '1',
                     type: 'paragraphs'
                 }
             }

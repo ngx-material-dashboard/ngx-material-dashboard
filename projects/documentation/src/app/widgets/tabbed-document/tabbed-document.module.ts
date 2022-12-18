@@ -26,4 +26,4 @@ import { RouterModule } from '@angular/router';
     declarations: [TabbedDocumentComponent, TabbedDocumentTabComponent],
     exports: [TabbedDocumentComponent, TabbedDocumentTabComponent]
 })
-export class TabbedDocumentModule { }
+export class TabbedDocumentModule {}

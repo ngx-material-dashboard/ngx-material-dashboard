@@ -8,19 +8,18 @@ import { SelectElement } from './select.element';
 
 @Component({
     template: `
-    <mat-form-field>
-        <mat-label>DC Character</mat-label>
-        <mat-select>
-            <mat-option 
-                *ngFor="let char of dcChars"
-                [value]="char.value">
-                {{char.viewValue}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>DC Character</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let char of dcChars" [value]="char.value">
+                    {{ char.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     `
-}) class SelectComponent {
-    dcChars: { value: string, viewValue: string}[] = [
+})
+class SelectComponent {
+    dcChars: { value: string; viewValue: string }[] = [
         {
             value: '1',
             viewValue: 'Batman'
@@ -37,17 +36,12 @@ import { SelectElement } from './select.element';
 }
 
 describe('SelectElement', () => {
-
     let selectElement: SelectElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [SelectComponent],
-            imports: [
-                MatFormFieldModule,
-                MatSelectModule,
-                NoopAnimationsModule
-            ]
+            imports: [MatFormFieldModule, MatSelectModule, NoopAnimationsModule]
         });
 
         const fixture = TestBed.createComponent(SelectComponent);

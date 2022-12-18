@@ -23,32 +23,32 @@ export const CHAPTER_TITLE = 'The Return Journey';
 
 export function getAuthorData(relationship?: string, total: number = 0): any {
     const response: any = {
-            id: AUTHOR_ID,
-            type: 'authors',
-            attributes: {
-                name: AUTHOR_NAME,
-                dob: AUTHOR_BIRTH,
-                date_of_death: AUTHOR_DEATH,
-                created_at: AUTHOR_CREATED,
-                updated_at: AUTHOR_UPDATED
-            },
-            relationships: {
-                books: {
-                    links: {
-                        self: '/v1/authors/1/relationships/books',
-                        related: '/v1/authors/1/books'
-                    }
-                },
-                ebooks: {
-                    links: {
-                        self: '/v1/authors/1/relationships/e-books',
-                        related: '/v1/authors/1/e-books'
-                    }
+        id: AUTHOR_ID,
+        type: 'authors',
+        attributes: {
+            name: AUTHOR_NAME,
+            dob: AUTHOR_BIRTH,
+            date_of_death: AUTHOR_DEATH,
+            created_at: AUTHOR_CREATED,
+            updated_at: AUTHOR_UPDATED
+        },
+        relationships: {
+            books: {
+                links: {
+                    self: '/v1/authors/1/relationships/books',
+                    related: '/v1/authors/1/books'
                 }
             },
-            links: {
-                self: '/v1/authors/1'
+            ebooks: {
+                links: {
+                    self: '/v1/authors/1/relationships/e-books',
+                    related: '/v1/authors/1/e-books'
+                }
             }
+        },
+        links: {
+            self: '/v1/authors/1'
+        }
     };
 
     if (relationship && relationship.indexOf('books') !== -1) {
@@ -76,7 +76,11 @@ export function getAuthorData(relationship?: string, total: number = 0): any {
     return response;
 }
 
-export function getIncludedBooks(totalBooks: number, relationship?: string, totalChapters: number = 0): any[] {
+export function getIncludedBooks(
+    totalBooks: number,
+    relationship?: string,
+    totalChapters: number = 0
+): any[] {
     const responseArray: any[] = [];
     let chapterId = 0;
 
@@ -93,7 +97,11 @@ export function getIncludedBooks(totalBooks: number, relationship?: string, tota
                     type: 'chapters'
                 });
 
-                const chapter = getSampleChapter(i, `${chapterId}`, CHAPTER_TITLE);
+                const chapter = getSampleChapter(
+                    i,
+                    `${chapterId}`,
+                    CHAPTER_TITLE
+                );
 
                 responseArray.push(chapter);
             }
@@ -101,12 +109,15 @@ export function getIncludedBooks(totalBooks: number, relationship?: string, tota
 
         if (relationship && relationship.indexOf('books.category') !== -1) {
             let categoryInclude = responseArray.find((category) => {
-                return category.type === 'categories' && category.id === CATEGORY_ID;
+                return (
+                    category.type === 'categories' &&
+                    category.id === CATEGORY_ID
+                );
             });
 
             if (!categoryInclude) {
                 categoryInclude = getSampleCategory(CATEGORY_ID);
-                categoryInclude.relationships.books = {data: []};
+                categoryInclude.relationships.books = { data: [] };
                 responseArray.push(categoryInclude);
             }
 
@@ -121,48 +132,76 @@ export function getIncludedBooks(totalBooks: number, relationship?: string, tota
 
             book.relationships['first-chapter'] = {
                 data: {
-                id: firstChapterId,
+                    id: firstChapterId,
                     type: 'chapters'
                 }
             };
 
-            const findFirstChapterInclude = responseArray.find((chapter) => chapter.id === firstChapterId);
+            const findFirstChapterInclude = responseArray.find(
+                (chapter) => chapter.id === firstChapterId
+            );
 
             if (!findFirstChapterInclude) {
-                const chapter = getSampleChapter(i, `${firstChapterId}`, CHAPTER_TITLE);
+                const chapter = getSampleChapter(
+                    i,
+                    `${firstChapterId}`,
+                    CHAPTER_TITLE
+                );
                 responseArray.push(chapter);
             }
         }
 
-        if (relationship && relationship.indexOf('books.firstEChapter') !== -1) {
+        if (
+            relationship &&
+            relationship.indexOf('books.firstEChapter') !== -1
+        ) {
             const firstChapterId = '1';
 
             book.relationships['first-e-chapter'] = {
                 data: {
-                id: firstChapterId,
+                    id: firstChapterId,
                     type: 'e-chapters'
                 }
             };
 
-            const findFirstChapterInclude = responseArray.find((chapter) => chapter.id === firstChapterId);
+            const findFirstChapterInclude = responseArray.find(
+                (chapter) => chapter.id === firstChapterId
+            );
 
             if (!findFirstChapterInclude) {
-                const chapter = getSampleEChapter(i, `${firstChapterId}`, CHAPTER_TITLE);
+                const chapter = getSampleEChapter(
+                    i,
+                    `${firstChapterId}`,
+                    CHAPTER_TITLE
+                );
                 responseArray.push(chapter);
             }
         }
 
-        if (relationship && relationship.indexOf('books.firstChapter.firstSection') !== -1) {
+        if (
+            relationship &&
+            relationship.indexOf('books.firstChapter.firstSection') !== -1
+        ) {
             const section = getSampleSection('1', '1');
             responseArray.push(section);
         }
 
-        if (relationship && relationship.indexOf('books.firstChapter.firstSection.firstParagraph') !== -1) {
+        if (
+            relationship &&
+            relationship.indexOf(
+                'books.firstChapter.firstSection.firstParagraph'
+            ) !== -1
+        ) {
             const paragraph = getSampleParagraph('1', '1');
             responseArray.push(paragraph);
         }
 
-        if (relationship && relationship.indexOf('books.firstChapter.firstSection.firstParagraph.firstSentence') !== -1) {
+        if (
+            relationship &&
+            relationship.indexOf(
+                'books.firstChapter.firstSection.firstParagraph.firstSentence'
+            ) !== -1
+        ) {
             const sentence = getSampleSentence('1', '1');
             responseArray.push(sentence);
         }
@@ -171,7 +210,11 @@ export function getIncludedBooks(totalBooks: number, relationship?: string, tota
     return responseArray;
 }
 
-export function getIncludedEBooks(totalBooks: number, relationship?: string, totalChapters: number = 0): any[] {
+export function getIncludedEBooks(
+    totalBooks: number,
+    relationship?: string,
+    totalChapters: number = 0
+): any[] {
     const responseArray: any[] = [];
 
     for (let i = 1; i <= totalBooks; i++) {
@@ -180,4 +223,4 @@ export function getIncludedEBooks(totalBooks: number, relationship?: string, tot
     }
 
     return responseArray;
-}    
+}

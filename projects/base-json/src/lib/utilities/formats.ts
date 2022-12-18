@@ -11,7 +11,8 @@ import util from './utils';
  * going on.
  */
 
-const replace: (searchValue: string | RegExp, replaceValue: string) => string = String.prototype.replace;
+const replace: (searchValue: string | RegExp, replaceValue: string) => string =
+    String.prototype.replace;
 const percentTwenties = /%20/g;
 
 const Format = {

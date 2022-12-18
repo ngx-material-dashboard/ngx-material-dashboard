@@ -1,4 +1,8 @@
-export function getSampleParagraph(paragraphId: string, sectionId: string, content: string = 'Dummy content') {
+export function getSampleParagraph(
+    paragraphId: string,
+    sectionId: string,
+    content: string = 'Dummy content'
+) {
     return {
         id: paragraphId,
         type: 'paragraphs',
@@ -10,13 +14,13 @@ export function getSampleParagraph(paragraphId: string, sectionId: string, conte
         relationships: {
             section: {
                 data: {
-                id: sectionId,
+                    id: sectionId,
                     type: 'sections'
                 }
             },
             firstSentence: {
                 data: {
-                id: '1',
+                    id: '1',
                     type: 'sentences'
                 }
             }

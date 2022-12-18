@@ -1,7 +1,7 @@
-import { HttpHeaders } from "@angular/common/http";
-import { SortDirection } from "@angular/material/sort";
-import { JsonModel } from "@ngx-material-dashboard/base-json";
-import { RemoteDataSource } from "../../src/lib/collection/services/remote-data-source.service";
+import { HttpHeaders } from '@angular/common/http';
+import { SortDirection } from '@angular/material/sort';
+import { JsonModel } from '@ngx-material-dashboard/base-json';
+import { RemoteDataSource } from '../../src/lib/collection/services/remote-data-source.service';
 
 /**
  * The RemoteDataSourceMock class is meant to mock the basic behavior of the
@@ -9,8 +9,9 @@ import { RemoteDataSource } from "../../src/lib/collection/services/remote-data-
  * function that needs to be mocked is the load function to avoid making any
  * actual requests.
  */
-export class RemoteDataSourceMock<T extends JsonModel> extends RemoteDataSource<T> {
-    
+export class RemoteDataSourceMock<
+    T extends JsonModel
+> extends RemoteDataSource<T> {
     /** The test data to use when the load method is called. */
     private testData: T[] = [];
 
@@ -39,7 +40,10 @@ export class RemoteDataSourceMock<T extends JsonModel> extends RemoteDataSource<
         this.total = this.testData.length;
         this.totalPages = this.total / pageSize;
         if (this.testData.length > 0) {
-            this.data = this.testData.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
+            this.data = this.testData.slice(
+                pageIndex * pageSize,
+                pageIndex * pageSize + pageSize
+            );
         }
 
         // just set the data and call the next function on the dataSubject so

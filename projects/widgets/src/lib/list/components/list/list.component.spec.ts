@@ -11,14 +11,15 @@ import { ListComponent } from './list.component';
 
 @Component({
     template: `
-    <ngx-material-dashboard-list [data]="data" [fields]="fields">
-        <ng-template #model let-model="model">
-            <h2>Dummy Model</h2>
-            <span>{{model.id}}</span>
-        </ng-template>
-    </ngx-material-dashboard-list>
+        <ngx-material-dashboard-list [data]="data" [fields]="fields">
+            <ng-template #model let-model="model">
+                <h2>Dummy Model</h2>
+                <span>{{ model.id }}</span>
+            </ng-template>
+        </ngx-material-dashboard-list>
     `
-}) class TestListComponent {
+})
+class TestListComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -29,11 +30,7 @@ describe('ListComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                ListComponent,
-                TestListComponent,
-                SorterComponent
-            ],
+            declarations: [ListComponent, TestListComponent, SorterComponent],
             imports: [
                 MockModule(MatCheckboxModule),
                 MockModule(MatSelectModule),

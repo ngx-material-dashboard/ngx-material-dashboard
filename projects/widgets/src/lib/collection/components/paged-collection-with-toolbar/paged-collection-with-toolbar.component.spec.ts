@@ -14,7 +14,11 @@ import { PagedCollectionWithToolbarElement } from '@ngx-material-dashboard/testi
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { Button } from '../../interfaces/button.interface';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
-import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../../toolbar/shared/toolbar-buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON
+} from '../../../toolbar/shared/toolbar-buttons';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -26,32 +30,40 @@ import { MatTableModule } from '@angular/material/table';
 /** Component to test with. */
 @Component({
     template: `
-    <ngx-material-dashboard-paged-list-with-raised-buttons-bar
-        [toolbarButtons]="toolbarButtons"
-        (buttonClick)="onButtonClick($event)"
-        #pagedListWithToolbar>
-        <ngx-material-dashboard-paged-list
-            [collectionButtons]="collectionButtons"
-            [dataSource]="data"
-            [fields]="fields"
-            class="marker-paged-list"
-            collection
-            #collection>
-            <ng-template #model let-model="model">
-                <div fxLayout="row">
-                    <span>Dummy Model</span>
-                    <span>{{model.id}}</span>
-                </div>
-            </ng-template>
-        </ngx-material-dashboard-paged-list>
-    </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+        <ngx-material-dashboard-paged-list-with-raised-buttons-bar
+            [toolbarButtons]="toolbarButtons"
+            (buttonClick)="onButtonClick($event)"
+            #pagedListWithToolbar
+        >
+            <ngx-material-dashboard-paged-list
+                [collectionButtons]="collectionButtons"
+                [dataSource]="data"
+                [fields]="fields"
+                class="marker-paged-list"
+                collection
+                #collection
+            >
+                <ng-template #model let-model="model">
+                    <div fxLayout="row">
+                        <span>Dummy Model</span>
+                        <span>{{ model.id }}</span>
+                    </div>
+                </ng-template>
+            </ngx-material-dashboard-paged-list>
+        </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
     `
-}) class TestPagedCollectionWithToolbarComponent {
-    @ViewChild('pagedListWithToolbar') pagedListWithToolbar!: PagedListWithRaisedButtonsBarComponent<DummyObject>;
+})
+class TestPagedCollectionWithToolbarComponent {
+    @ViewChild('pagedListWithToolbar')
+    pagedListWithToolbar!: PagedListWithRaisedButtonsBarComponent<DummyObject>;
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
-    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
-    toolbarButtons: ToolbarButton[] = [{...CREATE_TOOLBAR_BUTTON}, {...EDIT_TOOLBAR_BUTTON}, {...DELETE_TOOLBAR_BUTTON}];
+    collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
+    toolbarButtons: ToolbarButton[] = [
+        { ...CREATE_TOOLBAR_BUTTON },
+        { ...EDIT_TOOLBAR_BUTTON },
+        { ...DELETE_TOOLBAR_BUTTON }
+    ];
 
     onButtonClick(buttonClick: ButtonClick): void {}
 }
@@ -62,7 +74,7 @@ describe('PagedCollectionWithToolbarComponent', () => {
     let fixture: ComponentFixture<TestPagedCollectionWithToolbarComponent>;
     let page: PagedCollectionWithToolbarElement;
 
-    beforeEach(async() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
             declarations: [
                 ListComponent,
@@ -84,17 +96,24 @@ describe('PagedCollectionWithToolbarComponent', () => {
             ]
         });
 
-        fixture = TestBed.createComponent(TestPagedCollectionWithToolbarComponent);
+        fixture = TestBed.createComponent(
+            TestPagedCollectionWithToolbarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
 
-        componentPagedList = component.pagedListWithToolbar.collectionCmp as PagedListComponent<DummyObject>;
+        componentPagedList = component.pagedListWithToolbar
+            .collectionCmp as PagedListComponent<DummyObject>;
         page = new PagedCollectionWithToolbarElement(
             fixture,
             '.marker-paged-list',
             '.marker-list-item',
             '.marker-checkbox-item-select',
-            ['.marker-button-create', '.marker-button-edit', '.marker-button-delete']
+            [
+                '.marker-button-create',
+                '.marker-button-edit',
+                '.marker-button-delete'
+            ]
         );
 
         component.data = TEST_DATA;
@@ -103,7 +122,6 @@ describe('PagedCollectionWithToolbarComponent', () => {
     });
 
     describe('Toolbar Tests', () => {
-
         it('should call onButtonClick event when button that requires selection clicked', () => {
             // given: a spy on the buttonClick for the PagedTableWithToolbarComponent
             const spy = spyOn(component, 'onButtonClick');
@@ -115,10 +133,13 @@ describe('PagedCollectionWithToolbarComponent', () => {
             page.toolbar.clickButton('.marker-button-edit');
 
             // then: the buttonClick emit method should have been called
-            expect(spy).toHaveBeenCalledWith({ click: 'edit', row: componentPagedList.collection$.dataSource$.data[0] });
+            expect(spy).toHaveBeenCalledWith({
+                click: 'edit',
+                row: componentPagedList.collection$.dataSource$.data[0]
+            });
         });
 
-        it('should call onButtonClick event for buttons that don\'t require selection', () => {
+        it("should call onButtonClick event for buttons that don't require selection", () => {
             // given: a spy on the buttonClick for the PagedTableWithToolbarComponent
             const spy = spyOn(component, 'onButtonClick').and.callThrough();
 

@@ -1,10 +1,11 @@
 import utils from './utils';
 
 describe('utils', () => {
-    
     describe('arrayToObject', () => {
-
-        const arr: string[] = ['Create Task Test Fixture', 'Add Task data for unit tests'];
+        const arr: string[] = [
+            'Create Task Test Fixture',
+            'Add Task data for unit tests'
+        ];
 
         it('should convert array to object', () => {
             const obj = utils.arrayToObject(arr, {});
@@ -15,7 +16,6 @@ describe('utils', () => {
     });
 
     describe('combine', () => {
-
         const a: string[] = ['a', 'b', 'c'];
         const b: string[] = ['d', 'e', 'f'];
 
@@ -25,11 +25,16 @@ describe('utils', () => {
     });
 
     describe('merge', () => {
-
         it('should merge arrays', () => {
             const source: string[] = ['d', 'e'];
             const target: string[] = ['a', 'b', 'c'];
-            expect(utils.merge(target, source, null)).toEqual(['a', 'b', 'c', 'd', 'e']);
+            expect(utils.merge(target, source, null)).toEqual([
+                'a',
+                'b',
+                'c',
+                'd',
+                'e'
+            ]);
         });
 
         it('should append a value to an array', () => {

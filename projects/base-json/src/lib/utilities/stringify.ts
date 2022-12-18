@@ -50,11 +50,12 @@ const defaults = {
     strictNullHandling: false
 };
 
-const isNonNullishPrimitive = (v: any) => typeof v === 'string'
-  || typeof v === 'number'
-  || typeof v === 'boolean'
-  || typeof v === 'symbol'
-  || typeof v === 'bigint';
+const isNonNullishPrimitive = (v: any) =>
+    typeof v === 'string' ||
+    typeof v === 'number' ||
+    typeof v === 'boolean' ||
+    typeof v === 'symbol' ||
+    typeof v === 'bigint';
 
 const stringify = (
     object: any,
@@ -87,7 +88,9 @@ const stringify = (
 
     if (obj === null) {
         if (strictNullHandling) {
-            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder, charset, 'key') : prefix;
+            return encoder && !encodeValuesOnly
+                ? encoder(prefix, defaults.encoder, charset, 'key')
+                : prefix;
         }
 
         obj = '';
@@ -95,8 +98,14 @@ const stringify = (
 
     if (isNonNullishPrimitive(obj) || utils.isBuffer(obj)) {
         if (encoder) {
-            const keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset, 'key');
-            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder, charset, 'value'))];
+            const keyValue = encodeValuesOnly
+                ? prefix
+                : encoder(prefix, defaults.encoder, charset, 'key');
+            return [
+                formatter(keyValue) +
+                    '=' +
+                    formatter(encoder(obj, defaults.encoder, charset, 'value'))
+            ];
         }
         return [formatter(prefix) + '=' + formatter(String(obj))];
     }
@@ -110,7 +119,9 @@ const stringify = (
     let objKeys;
     if (generateArrayPrefix === 'comma' && isArray(obj)) {
         // we need to join elements in
-        objKeys = [{value: obj.length > 0 ? obj.join(',') || null : undefined}];
+        objKeys = [
+            { value: obj.length > 0 ? obj.join(',') || null : undefined }
+        ];
     } else if (isArray(filter)) {
         objKeys = filter;
     } else {
@@ -119,30 +130,38 @@ const stringify = (
     }
 
     for (const key of objKeys) {
-        const value = typeof key === 'object' && key.value !== undefined ? key.value : obj[key];
+        const value =
+            typeof key === 'object' && key.value !== undefined
+                ? key.value
+                : obj[key];
         if (skipNulls && value === null) {
             continue;
         }
 
         const keyPrefix = isArray(obj)
-            ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(prefix, key) : prefix
+            ? typeof generateArrayPrefix === 'function'
+                ? generateArrayPrefix(prefix, key)
+                : prefix
             : prefix + (allowDots ? '.' + key : '[' + key + ']');
 
-        pushToArray(values, stringify(
-            value,
-            keyPrefix,
-            generateArrayPrefix,
-            strictNullHandling,
-            skipNulls,
-            encoder,
-            filter,
-            sort,
-            allowDots,
-            serializeDate,
-            formatter,
-            encodeValuesOnly,
-            charset
-        ));
+        pushToArray(
+            values,
+            stringify(
+                value,
+                keyPrefix,
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly,
+                charset
+            )
+        );
     }
 
     return values;
@@ -153,13 +172,23 @@ const normalizeStringifyOptions = (opts: any) => {
         return defaults;
     }
 
-    if (opts.encoder !== null && opts.encoder !== undefined && typeof opts.encoder !== 'function') {
+    if (
+        opts.encoder !== null &&
+        opts.encoder !== undefined &&
+        typeof opts.encoder !== 'function'
+    ) {
         throw new TypeError('Encoder has to be a function.');
     }
 
     const charset = opts.charset || defaults.charset;
-    if (typeof opts.charset !== 'undefined' && opts.charset !== 'utf-8' && opts.charset !== 'iso-8859-1') {
-        throw new TypeError('The charset option must be either utf-8, iso-8859-1, or undefined');
+    if (
+        typeof opts.charset !== 'undefined' &&
+        opts.charset !== 'utf-8' &&
+        opts.charset !== 'iso-8859-1'
+    ) {
+        throw new TypeError(
+            'The charset option must be either utf-8, iso-8859-1, or undefined'
+        );
     }
 
     let format = formats.default;
@@ -177,20 +206,48 @@ const normalizeStringifyOptions = (opts: any) => {
     }
 
     return {
-        addQueryPrefix: typeof opts.addQueryPrefix === 'boolean' ? opts.addQueryPrefix : defaults.addQueryPrefix,
-        allowDots: typeof opts.allowDots === 'undefined' ? defaults.allowDots : !!opts.allowDots,
+        addQueryPrefix:
+            typeof opts.addQueryPrefix === 'boolean'
+                ? opts.addQueryPrefix
+                : defaults.addQueryPrefix,
+        allowDots:
+            typeof opts.allowDots === 'undefined'
+                ? defaults.allowDots
+                : !!opts.allowDots,
         charset,
-        charsetSentinel: typeof opts.charsetSentinel === 'boolean' ? opts.charsetSentinel : defaults.charsetSentinel,
-        delimiter: typeof opts.delimiter === 'undefined' ? defaults.delimiter : opts.delimiter,
-        encode: typeof opts.encode === 'boolean' ? opts.encode : defaults.encode,
-        encoder: typeof opts.encoder === 'function' ? opts.encoder : defaults.encoder,
-        encodeValuesOnly: typeof opts.encodeValuesOnly === 'boolean' ? opts.encodeValuesOnly : defaults.encodeValuesOnly,
+        charsetSentinel:
+            typeof opts.charsetSentinel === 'boolean'
+                ? opts.charsetSentinel
+                : defaults.charsetSentinel,
+        delimiter:
+            typeof opts.delimiter === 'undefined'
+                ? defaults.delimiter
+                : opts.delimiter,
+        encode:
+            typeof opts.encode === 'boolean' ? opts.encode : defaults.encode,
+        encoder:
+            typeof opts.encoder === 'function'
+                ? opts.encoder
+                : defaults.encoder,
+        encodeValuesOnly:
+            typeof opts.encodeValuesOnly === 'boolean'
+                ? opts.encodeValuesOnly
+                : defaults.encodeValuesOnly,
         filter,
         formatter,
-        serializeDate: typeof opts.serializeDate === 'function' ? opts.serializeDate : defaults.serializeDate,
-        skipNulls: typeof opts.skipNulls === 'boolean' ? opts.skipNulls : defaults.skipNulls,
+        serializeDate:
+            typeof opts.serializeDate === 'function'
+                ? opts.serializeDate
+                : defaults.serializeDate,
+        skipNulls:
+            typeof opts.skipNulls === 'boolean'
+                ? opts.skipNulls
+                : defaults.skipNulls,
         sort: typeof opts.sort === 'function' ? opts.sort : null,
-        strictNullHandling: typeof opts.strictNullHandling === 'boolean' ? opts.strictNullHandling : defaults.strictNullHandling
+        strictNullHandling:
+            typeof opts.strictNullHandling === 'boolean'
+                ? opts.strictNullHandling
+                : defaults.strictNullHandling
     };
 };
 
@@ -224,7 +281,10 @@ export default (object: any, opts: any) => {
         arrayFormat = 'indices';
     }
 
-    const generateArrayPrefix = arrayPrefixGenerators[arrayFormat as keyof typeof arrayPrefixGenerators];
+    const generateArrayPrefix =
+        arrayPrefixGenerators[
+            arrayFormat as keyof typeof arrayPrefixGenerators
+        ];
 
     if (!objKeys) {
         objKeys = Object.keys(obj);
@@ -242,21 +302,24 @@ export default (object: any, opts: any) => {
             continue;
         }
 
-        pushToArray(keys, stringify(
-            obj[key],
-            key,
-            generateArrayPrefix,
-            options.strictNullHandling,
-            options.skipNulls,
-            options.encode ? options.encoder : null,
-            options.filter,
-            options.sort,
-            options.allowDots,
-            options.serializeDate,
-            options.formatter,
-            options.encodeValuesOnly,
-            options.charset
-        ));
+        pushToArray(
+            keys,
+            stringify(
+                obj[key],
+                key,
+                generateArrayPrefix,
+                options.strictNullHandling,
+                options.skipNulls,
+                options.encode ? options.encoder : null,
+                options.filter,
+                options.sort,
+                options.allowDots,
+                options.serializeDate,
+                options.formatter,
+                options.encodeValuesOnly,
+                options.charset
+            )
+        );
     }
 
     const joined = keys.join(options.delimiter);

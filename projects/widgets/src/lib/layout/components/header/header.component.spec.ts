@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,26 +25,31 @@ import { HeaderComponent } from './header.component';
 
 @Component({
     template: `
-    <ngx-material-dashboard-header [logo]="logo"
-        (clickSearchFilter)="onSearchFilter($event)"
-        (toggleSidenav)="toggleSidenav()">
-        <ngx-material-dashboard-filter-drop-down>
-            <form [formGroup]="formGroup">
-                <mat-form-field>
-                    <mat-label>Task Name</mat-label>
-                    <input matInput
-                        formControlName="name"
-                        placeholder="Search task by name..." 
-                        class="marker-input-name">
-                </mat-form-field>
-            </form>
-        </ngx-material-dashboard-filter-drop-down>
-    </ngx-material-dashboard-header>
+        <ngx-material-dashboard-header
+            [logo]="logo"
+            (clickSearchFilter)="onSearchFilter($event)"
+            (toggleSidenav)="toggleSidenav()"
+        >
+            <ngx-material-dashboard-filter-drop-down>
+                <form [formGroup]="formGroup">
+                    <mat-form-field>
+                        <mat-label>Task Name</mat-label>
+                        <input
+                            matInput
+                            formControlName="name"
+                            placeholder="Search task by name..."
+                            class="marker-input-name"
+                        />
+                    </mat-form-field>
+                </form>
+            </ngx-material-dashboard-filter-drop-down>
+        </ngx-material-dashboard-header>
     `
-}) class TestHeaderComponent implements OnInit {
+})
+class TestHeaderComponent implements OnInit {
     @ViewChild(HeaderComponent) header!: HeaderComponent;
     formGroup!: FormGroup;
-    logo: string = 'My App'
+    logo: string = 'My App';
 
     constructor(private formBuilder: FormBuilder) {}
 
@@ -92,7 +102,9 @@ describe('HeaderComponent', () => {
         const compiled = fixture.nativeElement;
 
         // expect: the text "My App" should be rendered
-        expect(compiled.querySelector('.marker-home-button').textContent).toContain('My App');
+        expect(
+            compiled.querySelector('.marker-home-button').textContent
+        ).toContain('My App');
     });
 
     it('should emit true when bars button is clicked in top bar', () => {

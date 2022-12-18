@@ -1,4 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    NgZone,
+    OnChanges,
+    OnDestroy,
+    SimpleChanges
+} from '@angular/core';
 import * as Gumshoe from 'gumshoejs';
 import { first } from 'rxjs/operators';
 import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
@@ -8,20 +18,23 @@ import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-doc
     templateUrl: './scrollspy-nav.component.html',
     styleUrls: ['./scrollspy-nav.component.scss']
 })
-export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestroy {
-
-    @Input()headings: Element[] | undefined;
-    @Input()nestedHeadings: NestedHeading | undefined;
-    @Input()nestedGrandChildren: NestedHeading | undefined;
+export class ScrollspyNavComponent
+    implements AfterViewInit, OnChanges, OnDestroy
+{
+    @Input() headings: Element[] | undefined;
+    @Input() nestedHeadings: NestedHeading | undefined;
+    @Input() nestedGrandChildren: NestedHeading | undefined;
     private scrollSpy: Gumshoe | undefined;
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
         private zone: NgZone
-    ) { }
+    ) {}
 
     ngAfterViewInit(): void {
-        this.removeHidden(this.elementRef.nativeElement.parentElement?.parentElement);
+        this.removeHidden(
+            this.elementRef.nativeElement.parentElement?.parentElement
+        );
         this.zone.onStable
             // .pipe(first())
             // by continously listening for this we take a performance hit, but
@@ -38,8 +51,11 @@ export class ScrollspyNavComponent implements AfterViewInit, OnChanges, OnDestro
                         // browser just stops responding
                         this.scrollSpy.destroy();
                     }
-                    this.scrollSpy = new Gumshoe(linkSelector, { offset: 64, reflow: true });
-                } catch(error: any) {
+                    this.scrollSpy = new Gumshoe(linkSelector, {
+                        offset: 64,
+                        reflow: true
+                    });
+                } catch (error: any) {
                     // console.log(error);
                 }
             });

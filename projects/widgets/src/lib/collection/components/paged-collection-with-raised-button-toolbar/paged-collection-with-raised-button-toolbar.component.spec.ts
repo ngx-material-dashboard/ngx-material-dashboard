@@ -19,26 +19,28 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from './paged-collect
 /** Component to test with. */
 @Component({
     template: `
-    <ngx-material-dashboard-paged-list-with-raised-buttons-bar>
-        <ngx-material-dashboard-filter-drop-down filter>
-            <!-- filter form goes here -->
-        </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-list
-            [collectionButtons]="collectionButtons"
-            [dataSource]="data"
-            [fields]="fields"
-            class="marker-paged-list"
-            collection
-            #collection>
-            <ng-template #model let-model="model">
-                <h2>Dummy Model</h2>
-                <span>{{model.id}}</span>
-            </ng-template>
-        </ngx-material-dashboard-paged-list>
-    </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+        <ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+            <ngx-material-dashboard-filter-drop-down filter>
+                <!-- filter form goes here -->
+            </ngx-material-dashboard-filter-drop-down>
+            <ngx-material-dashboard-paged-list
+                [collectionButtons]="collectionButtons"
+                [dataSource]="data"
+                [fields]="fields"
+                class="marker-paged-list"
+                collection
+                #collection
+            >
+                <ng-template #model let-model="model">
+                    <h2>Dummy Model</h2>
+                    <span>{{ model.id }}</span>
+                </ng-template>
+            </ngx-material-dashboard-paged-list>
+        </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
     `
-}) class TestPagedCollectionWithRaisedButtonToolbarComponent {
-    collectionButtons: Button[] = [{...EDIT_BUTTON}, {...DELETE_BUTTON}];
+})
+class TestPagedCollectionWithRaisedButtonToolbarComponent {
+    collectionButtons: Button[] = [{ ...EDIT_BUTTON }, { ...DELETE_BUTTON }];
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -67,7 +69,9 @@ describe('PagedCollectionWithRaisedButtonToolbarComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestPagedCollectionWithRaisedButtonToolbarComponent);
+        fixture = TestBed.createComponent(
+            TestPagedCollectionWithRaisedButtonToolbarComponent
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -10,11 +10,8 @@ describe('TabbedDocumentComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ TabbedDocumentComponent ],
-            imports: [
-                RouterTestingModule,
-                MatTabsModule
-            ]
+            declarations: [TabbedDocumentComponent],
+            imports: [RouterTestingModule, MatTabsModule]
         });
     });
 

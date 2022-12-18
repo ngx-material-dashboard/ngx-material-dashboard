@@ -4,7 +4,7 @@ import { PageElement } from '../page/page.element';
 /**
  * The SidenavElement class defines properties and functions for testing
  * components that utilize a Sidenav.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```typescript
@@ -81,44 +81,43 @@ import { PageElement } from '../page/page.element';
  *     it('should return true when isListItemActive is called for activeChild', () => {
  *         expect(sidenavElement.isListItemActive('activeChild')).toBeTrue();
  *     });
- * 
+ *
  *     it('should do something when inactiveItem is clicked', async() => {
  *         // when: the inactiveItem is clicked
  *         await sidenavElement.clickListItem('inactiveItem');
- * 
+ *
  *         // then: something should happen
  *         // perform your tests...
  *     });
  * });
  * ```
- * 
+ *
  * ## Features
- * 
+ *
  * The main features available for the `SidenavElement` are the ability to get
  * the number of main (top level) sidenav items are in the sidenav, click a
  * sidenav item, check if a sidenav item is active, and check if a sidenav item
- * is expanded. 
- * 
+ * is expanded.
+ *
  * ### Click Sidenav Item
- * 
+ *
  * The `clickListItem` method will click the sidenav item with the given
  * selector. This method is asynchronous, so you should use async/await when
  * calling this method in your code.
- * 
+ *
  * ### Sidenav Item Active
- * 
+ *
  * The `isListItemActive` method will return true if the sidenav item with the
  * given selector is active, otherwise it will return false. A sidenav item is
  * active if it contains the `selected-list-item` class.
- * 
+ *
  * ### Sidenav Item Expanded
- * 
+ *
  * The `isListItemExanded` method will return true if the sidenav item with the
  * given selector is expanded, otherwise it will return false. A sidenav item
  * is expanded if it has the angle down icon in the sidenav item.
  */
 export class SidenavElement extends PageElement {
-
     private listItemChildSelectors: string[];
     private listItemGrandChildSelectors: string[];
     /** List of main items in sidenav. */
@@ -128,7 +127,8 @@ export class SidenavElement extends PageElement {
     /** Map of CSS selectors to child list items in sidenav. */
     private listItemChildElementsMap: { [selector: string]: HTMLElement } = {};
     /** Map of CSS selector to grand child list itmes in sidenav. */
-    private listItemGrandChildElementsMap: { [selector: string]: HTMLElement } = {};
+    private listItemGrandChildElementsMap: { [selector: string]: HTMLElement } =
+        {};
 
     /**
      * Creates a new SidenavElement.
@@ -151,7 +151,9 @@ export class SidenavElement extends PageElement {
         // set listItemElements and listElementsMap based on given text which
         // is used in CSS selectors
         listItemSelectors.forEach((listItemSelector: string) => {
-            const listElement: HTMLElement = this.query(`.marker-list-item-button-${listItemSelector}`);
+            const listElement: HTMLElement = this.query(
+                `.marker-list-item-button-${listItemSelector}`
+            );
             this.listItemElements.push(listElement);
             this.listItemElementsMap[listItemSelector] = listElement;
         });
@@ -167,23 +169,28 @@ export class SidenavElement extends PageElement {
     private initChildren() {
         this.listItemChildSelectors.forEach((listItemChildSelector: string) => {
             try {
-                const listChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemChildSelector}`);
-                this.listItemChildElementsMap[listItemChildSelector] = listChildElement;
-            } catch (error) {
-
-            }
+                const listChildElement: HTMLElement = this.query(
+                    `.marker-list-item-button-${listItemChildSelector}`
+                );
+                this.listItemChildElementsMap[listItemChildSelector] =
+                    listChildElement;
+            } catch (error) {}
         });
     }
 
     private initGrandChildren() {
-        this.listItemGrandChildSelectors.forEach((listItemGrandChildSelector: string) => {
-            try {
-                const listGrandChildElement: HTMLElement = this.query(`.marker-list-item-button-${listItemGrandChildSelector}`);
-                this.listItemGrandChildElementsMap[listItemGrandChildSelector] = listGrandChildElement;
-            } catch (error) {
-
+        this.listItemGrandChildSelectors.forEach(
+            (listItemGrandChildSelector: string) => {
+                try {
+                    const listGrandChildElement: HTMLElement = this.query(
+                        `.marker-list-item-button-${listItemGrandChildSelector}`
+                    );
+                    this.listItemGrandChildElementsMap[
+                        listItemGrandChildSelector
+                    ] = listGrandChildElement;
+                } catch (error) {}
             }
-        });
+        );
     }
 
     /**
@@ -195,7 +202,7 @@ export class SidenavElement extends PageElement {
 
     /**
      * Clicks a list item in the sidenav and waits for fixture to be stable.
-     * 
+     *
      * NOTE: if given item is a child item, then you must handle expanding
      * the parent item to allow the child to be clicked (does it make sense to
      * automatically do this? what if fixture already has parent expanded from
@@ -203,7 +210,7 @@ export class SidenavElement extends PageElement {
      * actually collapses it?... it's certainly possible to add logic to
      * handle that case, but do I really want to do that here...?)
      *
-     * @param selector CSS selector for list item to click. 
+     * @param selector CSS selector for list item to click.
      */
     public async clickListItem(selector: string): Promise<void> {
         this.getListItem(selector).click();
@@ -221,11 +228,13 @@ export class SidenavElement extends PageElement {
      * Returns true if list item with given selector is active. A list item is
      * active if it contains "selected-list-item" in it's CSS class list.
      *
-     * @param selector CSS selector for list item to determine active status. 
+     * @param selector CSS selector for list item to determine active status.
      * @returns true if list item with given selector is active; otherwise false.
      */
     public isListItemActive(selector: string): boolean {
-        return this.getListItem(selector).classList.contains('selected-list-item');
+        return this.getListItem(selector).classList.contains(
+            'selected-list-item'
+        );
     }
 
     /**
@@ -233,7 +242,7 @@ export class SidenavElement extends PageElement {
      * item from the main list first, if the item is not found there, then the
      * child element list is used.
      *
-     * @param selector CSS selector for list item to get. 
+     * @param selector CSS selector for list item to get.
      * @returns List item by the given selector.
      */
     private getListItem(selector: string): HTMLElement {
@@ -255,7 +264,7 @@ export class SidenavElement extends PageElement {
     /**
      * Returns true if list item with given selector is expanded. A list item
      * is expanded if it contains an angle down icon (i.e. has an element with
-     * the "marker-angle-down" selector). NOTE: a list item can only be 
+     * the "marker-angle-down" selector). NOTE: a list item can only be
      * expanded if it has children.
      *
      * @param selector CSS selector for list item to determine expanded state.
@@ -266,7 +275,7 @@ export class SidenavElement extends PageElement {
             // if listItem not found, then listItem should be in child elements
             listItem = this.listItemChildElementsMap[selector];
         }
-        
+
         const angleIcon = listItem.querySelector('.marker-angle-down');
         return angleIcon !== null;
     }

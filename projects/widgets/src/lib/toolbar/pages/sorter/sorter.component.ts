@@ -1,7 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSort, SortDirection } from '@angular/material/sort';
-import { faArrowDownShortWide, faArrowUpWideShort, faCaretDown, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowDownShortWide,
+    faArrowUpWideShort,
+    faCaretDown,
+    IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import { SortOrder } from '../../interfaces/sort-order.interface';
 
 /**
@@ -12,16 +17,16 @@ import { SortOrder } from '../../interfaces/sort-order.interface';
  * sort change for the collection.
  */
 @Component({
-  selector: 'ngx-material-dashboard-sorter',
-  templateUrl: './sorter.component.html',
-  styleUrls: ['./sorter.component.css']
+    selector: 'ngx-material-dashboard-sorter',
+    templateUrl: './sorter.component.html',
+    styleUrls: ['./sorter.component.css']
 })
 export class SorterComponent extends MatSort implements OnInit {
-
     /** The icon used for displaying current sort order. */
     faSort: IconDefinition = faArrowUpWideShort;
     /** The options to display in the select drop down. */
-    selectOptions: { field: string, icon: IconDefinition, order: string }[] = [];
+    selectOptions: { field: string; icon: IconDefinition; order: string }[] =
+        [];
     /** The list of fields to include in the sort. */
     @Input() options: string[] = [];
 
@@ -35,10 +40,22 @@ export class SorterComponent extends MatSort implements OnInit {
      */
     override ngOnInit(): void {
         super.ngOnInit();
-        for(const option of this.options) {
-            this.selectOptions.push({ field: option, icon: faArrowUpWideShort, order: 'asc' });
-            this.selectOptions.push({ field: option, icon: faArrowDownShortWide, order: 'desc' });
-            this.sortables.set(option, { id: option, start: 'asc', disableClear: true});
+        for (const option of this.options) {
+            this.selectOptions.push({
+                field: option,
+                icon: faArrowUpWideShort,
+                order: 'asc'
+            });
+            this.selectOptions.push({
+                field: option,
+                icon: faArrowDownShortWide,
+                order: 'desc'
+            });
+            this.sortables.set(option, {
+                id: option,
+                start: 'asc',
+                disableClear: true
+            });
         }
     }
 
@@ -53,7 +70,9 @@ export class SorterComponent extends MatSort implements OnInit {
         this.active = event.value.field;
         this.faSort = event.value.icon;
         this.direction = event.value.order;
-        this.sortChange.emit({ active: this.active, direction: this.direction });
+        this.sortChange.emit({
+            active: this.active,
+            direction: this.direction
+        });
     }
-
 }

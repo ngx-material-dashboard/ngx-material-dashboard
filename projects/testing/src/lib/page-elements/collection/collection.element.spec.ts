@@ -8,37 +8,60 @@ import { CollectionElement } from './collection.element';
 
 @Component({
     template: `
-    <div class="marker-collection">
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-            <mat-checkbox class="marker-checkbox-select-all"
-                (change)="masterToggle()">
-            </mat-checkbox>
-            <div fxFlex></div>
-        </div>
-        <div fxLayout="column" fxLayoutGap="5px">
-            <div *ngFor="let model of models">
-                <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-                    <mat-checkbox class="marker-checkbox-item-select"
-                        (click)="$event.stopPropagation()"
-                        (change)="onRowSelected(model);">
-                    </mat-checkbox>
-                    <div fxFlex>
-                        <span>{{model.name}}</span>
-                        <span>{{model.description}}</span>
-                        <div class="marker-list-item-buttons" fxLayout="row" fxLayoutGap="5px">
-                        <button class="marker-button-edit"
-                            (click)="onClick()">
-                            <span>Edit</span>
-                            <div class="mat-button-focus-overlay"></div>
-                            <div class="mat-button-ripple mat-ripple"></div>
-                        </button>
+        <div class="marker-collection">
+            <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="10px"
+            >
+                <mat-checkbox
+                    class="marker-checkbox-select-all"
+                    (change)="masterToggle()"
+                >
+                </mat-checkbox>
+                <div fxFlex></div>
+            </div>
+            <div fxLayout="column" fxLayoutGap="5px">
+                <div *ngFor="let model of models">
+                    <div
+                        class="marker-list-item"
+                        fxLayout="row"
+                        fxLayoutAlign="center center"
+                        fxLayoutGap="10px"
+                    >
+                        <mat-checkbox
+                            class="marker-checkbox-item-select"
+                            (click)="$event.stopPropagation()"
+                            (change)="onRowSelected(model)"
+                        >
+                        </mat-checkbox>
+                        <div fxFlex>
+                            <span>{{ model.name }}</span>
+                            <span>{{ model.description }}</span>
+                            <div
+                                class="marker-list-item-buttons"
+                                fxLayout="row"
+                                fxLayoutGap="5px"
+                            >
+                                <button
+                                    class="marker-button-edit"
+                                    (click)="onClick()"
+                                >
+                                    <span>Edit</span>
+                                    <div class="mat-button-focus-overlay"></div>
+                                    <div
+                                        class="mat-button-ripple mat-ripple"
+                                    ></div>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     `
-}) class TestSelectableCollectionComponent {
+})
+class TestSelectableCollectionComponent {
     models: Task[] = getTaskData(20);
 
     onClick(): void {}
@@ -46,42 +69,48 @@ import { CollectionElement } from './collection.element';
 
 @Component({
     template: `
-    <div class="marker-collection">
-        <div fxLayout="column" fxLayoutGap="5px">
-            <div *ngFor="let model of models">
-                <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-                    <ng-container 
-                        *ngTemplateOutlet="template; context: { model: model }">
-                    </ng-container>
+        <div class="marker-collection">
+            <div fxLayout="column" fxLayoutGap="5px">
+                <div *ngFor="let model of models">
+                    <div
+                        class="marker-list-item"
+                        fxLayout="row"
+                        fxLayoutAlign="center center"
+                        fxLayoutGap="10px"
+                    >
+                        <ng-container
+                            *ngTemplateOutlet="
+                                template;
+                                context: { model: model }
+                            "
+                        >
+                        </ng-container>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     `
-}) class TestNotSelectableCollectionComponent {
+})
+class TestNotSelectableCollectionComponent {
     models: Task[] = getTaskData(20);
 }
 
 describe('CollectionElement', () => {
-
     let element: CollectionElement;
 
     describe('Default constructor parameters', () => {
-
         let fixture: ComponentFixture<TestSelectableCollectionComponent>;
         let component: TestSelectableCollectionComponent;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [
-                    TestSelectableCollectionComponent
-                ],
-                imports: [
-                    MatCheckboxModule
-                ]
+                declarations: [TestSelectableCollectionComponent],
+                imports: [MatCheckboxModule]
             });
 
-            fixture = TestBed.createComponent(TestSelectableCollectionComponent);
+            fixture = TestBed.createComponent(
+                TestSelectableCollectionComponent
+            );
             component = fixture.componentInstance;
             fixture.detectChanges();
 
@@ -127,25 +156,26 @@ describe('CollectionElement', () => {
 
             try {
                 element.clickItemButton('edit', 0);
-            } catch(error: any) {
-                expect(error.message).toEqual('Expected HTMLButtonElement with CSS selector ".marker-button-edit" in collection item buttons')
+            } catch (error: any) {
+                expect(error.message).toEqual(
+                    'Expected HTMLButtonElement with CSS selector ".marker-button-edit" in collection item buttons'
+                );
             }
         });
     });
 
     describe('Not Selectable Collection', () => {
-
         let fixture: ComponentFixture<TestNotSelectableCollectionComponent>;
         let component: TestNotSelectableCollectionComponent;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [
-                    TestNotSelectableCollectionComponent
-                ]
+                declarations: [TestNotSelectableCollectionComponent]
             });
 
-            fixture = TestBed.createComponent(TestNotSelectableCollectionComponent);
+            fixture = TestBed.createComponent(
+                TestNotSelectableCollectionComponent
+            );
             component = fixture.componentInstance;
             fixture.detectChanges();
 
@@ -161,7 +191,7 @@ describe('CollectionElement', () => {
         it('should throw error when isAllSelected method called', () => {
             try {
                 element.isAllSelected();
-            } catch(error: any) {
+            } catch (error: any) {
                 expect(error.message).toEqual('Collection is not selectable');
             }
         });
@@ -169,23 +199,23 @@ describe('CollectionElement', () => {
         it('should throw error when isItemSelected method called', () => {
             try {
                 element.isItemSelected(0);
-            } catch(error: any) {
+            } catch (error: any) {
                 expect(error.message).toEqual('Collection is not selectable');
             }
         });
 
-        it('should throw error when selectAll method called', async() => {
+        it('should throw error when selectAll method called', async () => {
             try {
                 await element.selectAll();
-            } catch(error: any) {
+            } catch (error: any) {
                 expect(error.message).toEqual('Collection is not selectable');
             }
         });
 
-        it('should throw error when selectItem method called', async() => {
+        it('should throw error when selectItem method called', async () => {
             try {
                 await element.selectItem(0);
-            } catch(error: any) {
+            } catch (error: any) {
                 expect(error.message).toEqual('Collection is not selectable');
             }
         });

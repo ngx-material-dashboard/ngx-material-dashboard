@@ -12,7 +12,7 @@ describe('LayoutComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ LayoutComponent ],
+            declarations: [LayoutComponent],
             imports: [
                 NoopAnimationsModule,
                 RouterTestingModule,

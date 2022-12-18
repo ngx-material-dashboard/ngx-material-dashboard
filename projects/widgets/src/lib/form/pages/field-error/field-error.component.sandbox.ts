@@ -1,4 +1,9 @@
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { sandboxOf } from 'angular-playground';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
@@ -13,9 +18,8 @@ const validationMessages: ValidationMessage[] = [
 ];
 
 export default sandboxOf(FieldErrorComponent, {
-    imports: [ FormsModule, ReactiveFormsModule, MatFormFieldModule ]
-})
-.add('default', {
+    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule]
+}).add('default', {
     template: `<ngx-material-dashboard-field-error [field]="field" [form]="form" [validationMessages]="validationMessages"></ngx-material-dashboard-field-error>`,
     context: {
         field: 'field',

@@ -1,4 +1,9 @@
-import { Attribute, JsonApiModelConfig, JsonModelConverter, NestedAttribute } from '@ngx-material-dashboard/base-json';
+import {
+    Attribute,
+    JsonApiModelConfig,
+    JsonModelConverter,
+    NestedAttribute
+} from '@ngx-material-dashboard/base-json';
 import { JsonModel } from '@ngx-material-dashboard/json/src/lib/models/json.model';
 
 import { PageMetaData } from './page-meta-data';
@@ -29,6 +34,6 @@ export class Author extends JsonModel {
     // @HasMany()
     // books?: Book[];
 
-    @NestedAttribute({converter: new JsonModelConverter<any>(School)})
+    @NestedAttribute({ converter: new JsonModelConverter<any>(School) })
     school?: School;
 }

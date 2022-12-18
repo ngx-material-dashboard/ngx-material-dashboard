@@ -1,4 +1,10 @@
-import { animate, query, style, transition, trigger } from '@angular/animations';
+import {
+    animate,
+    query,
+    style,
+    transition,
+    trigger
+} from '@angular/animations';
 
 export const ROUTE_ANIMATION = trigger('routeAnimation', [
     transition('* <=> *', [
@@ -13,5 +19,5 @@ export const ROUTE_ANIMATION = trigger('routeAnimation', [
             ],
             { optional: true }
         )
-    ]),
+    ])
 ]);

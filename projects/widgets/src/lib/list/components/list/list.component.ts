@@ -8,7 +8,7 @@ import { CollectionComponent } from '../../../collection/components/collection/c
  * A `Sorter` is rendered above the data list, which is meant to allow users to
  * well sort the data in the list based on the provided `field` options users
  * should be able to sort the data on.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -40,5 +40,6 @@ import { CollectionComponent } from '../../../collection/components/collection/c
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css']
 })
-export class ListComponent<T extends JsonModel>
-    extends CollectionComponent<T> {}
+export class ListComponent<
+    T extends JsonModel
+> extends CollectionComponent<T> {}

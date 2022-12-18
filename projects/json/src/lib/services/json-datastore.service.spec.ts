@@ -1,28 +1,50 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+    HttpTestingController,
+    HttpClientTestingModule
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { API_VERSION, BASE_URL, Datastore } from '@ngx-material-dashboard/json/test/datastore.service';
-import { API_VERSION_FROM_CONFIG, BASE_URL_FROM_CONFIG, DatastoreWithConfig } from '@ngx-material-dashboard/json/test/datastore-with-config.service';
-import { AUTHOR_API_VERSION, AUTHOR_MODEL_ENDPOINT_URL, CustomAuthor } from '@ngx-material-dashboard/json/test/models/custom-author.model';
-import { AUTHOR_BIRTH, AUTHOR_ID, AUTHOR_NAME, BOOK_TITLE, getAuthorData } from '@ngx-material-dashboard/json/test/fixtures/author.fixture';
+import {
+    API_VERSION,
+    BASE_URL,
+    Datastore
+} from '@ngx-material-dashboard/json/test/datastore.service';
+import {
+    API_VERSION_FROM_CONFIG,
+    BASE_URL_FROM_CONFIG,
+    DatastoreWithConfig
+} from '@ngx-material-dashboard/json/test/datastore-with-config.service';
+import {
+    AUTHOR_API_VERSION,
+    AUTHOR_MODEL_ENDPOINT_URL,
+    CustomAuthor
+} from '@ngx-material-dashboard/json/test/models/custom-author.model';
+import {
+    AUTHOR_BIRTH,
+    AUTHOR_ID,
+    AUTHOR_NAME,
+    BOOK_TITLE,
+    getAuthorData
+} from '@ngx-material-dashboard/json/test/fixtures/author.fixture';
 import { Author } from '@ngx-material-dashboard/json/test/models/author.model';
 import { parseISO } from 'date-fns';
 import { Book } from '@ngx-material-dashboard/json/test/models/book.model';
 import { getSampleBook } from '@ngx-material-dashboard/json/test/fixtures/book.fixture';
-import { ErrorResponse, JsonApiQueryData, ModelConfig } from '@ngx-material-dashboard/base-json';
+import {
+    ErrorResponse,
+    JsonApiQueryData,
+    ModelConfig
+} from '@ngx-material-dashboard/base-json';
 
 describe('JsonDatastoreService', () => {
-
     let datastore: Datastore;
     let datastoreWithConfig: DatastoreWithConfig;
     let httpMock: HttpTestingController;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-            ],
+            imports: [HttpClientTestingModule],
             providers: [
                 {
                     provide: Datastore,
@@ -45,57 +67,82 @@ describe('JsonDatastoreService', () => {
     });
 
     describe('query', () => {
-
         it('should build basic url and apiVersion from the config variable if exists', () => {
-            const authorModelConfig: ModelConfig = Reflect.getMetadata('JsonApiModelConfig', Author);
+            const authorModelConfig: ModelConfig = Reflect.getMetadata(
+                'JsonApiModelConfig',
+                Author
+            );
             const expectedUrl = `${BASE_URL_FROM_CONFIG}/${API_VERSION_FROM_CONFIG}/${authorModelConfig.type}`;
-    
+
             datastoreWithConfig.findAll(Author).subscribe();
-    
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            queryRequest.flush({data: []});
+
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            queryRequest.flush({ data: [] });
             expect(queryRequest.request.url).toBe(expectedUrl);
         });
 
         // tslint:disable-next-line:max-line-length
         it('should use apiVersion and modelEnpointUrl from the model instead of datastore if model has apiVersion and/or modelEndpointUrl specified', () => {
-            const authorModelConfig: ModelConfig = Reflect.getMetadata('JsonApiModelConfig', CustomAuthor);
+            const authorModelConfig: ModelConfig = Reflect.getMetadata(
+                'JsonApiModelConfig',
+                CustomAuthor
+            );
             const expectedUrl = `${BASE_URL_FROM_CONFIG}/${AUTHOR_API_VERSION}/${AUTHOR_MODEL_ENDPOINT_URL}`;
-    
+
             datastoreWithConfig.findAll(CustomAuthor).subscribe();
-    
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            queryRequest.flush({data: []});
+
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            queryRequest.flush({ data: [] });
             expect(queryRequest.request.url).toBe(expectedUrl);
         });
 
         it('should build basic url from the data from datastore decorator', () => {
-            const authorModelConfig: ModelConfig = Reflect.getMetadata('JsonApiModelConfig', Author);
+            const authorModelConfig: ModelConfig = Reflect.getMetadata(
+                'JsonApiModelConfig',
+                Author
+            );
             const expectedUrl = `${BASE_URL}/${API_VERSION}/${authorModelConfig.type}`;
 
             datastore.findAll(Author).subscribe();
 
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            queryRequest.flush({data: []});
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            queryRequest.flush({ data: [] });
             expect(queryRequest.request.url).toBe(expectedUrl);
         });
 
         it('should set JSON API headers', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
-    
+
             datastore.findAll(Author).subscribe();
-    
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            expect(queryRequest.request.headers.get('Content-Type')).toEqual('application/json');
-            expect(queryRequest.request.headers.get('Accept')).toEqual('application/json');
-            queryRequest.flush({data: []});
+
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            expect(queryRequest.request.headers.get('Content-Type')).toEqual(
+                'application/json'
+            );
+            expect(queryRequest.request.headers.get('Accept')).toEqual(
+                'application/json'
+            );
+            queryRequest.flush({ data: [] });
             expect(queryRequest.request.url).toBe(expectedUrl);
         });
 
         it('should build url with nested params', () => {
             const queryData = {
                 page: {
-                    size: 10, number: 1
+                    size: 10,
+                    number: 1
                 },
                 include: 'comments',
                 filter: {
@@ -106,57 +153,90 @@ describe('JsonDatastoreService', () => {
             };
 
             // tslint:disable-next-line:prefer-template
-            const expectedUrl = `${BASE_URL}/${API_VERSION}/` + 'authors?' +
-                encodeURIComponent('page[size]') + '=10&' +
-                encodeURIComponent('page[number]') + '=1&' +
-                encodeURIComponent('include') + '=comments&' +
-                encodeURIComponent('filter[title][keyword]') + '=Tolkien';
+            const expectedUrl =
+                `${BASE_URL}/${API_VERSION}/` +
+                'authors?' +
+                encodeURIComponent('page[size]') +
+                '=10&' +
+                encodeURIComponent('page[number]') +
+                '=1&' +
+                encodeURIComponent('include') +
+                '=comments&' +
+                encodeURIComponent('filter[title][keyword]') +
+                '=Tolkien';
 
             datastore.findAll(Author, queryData).subscribe();
 
             httpMock.expectNone(`${BASE_URL}/${API_VERSION}`);
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            queryRequest.flush({data: []});
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            queryRequest.flush({ data: [] });
             expect(queryRequest.request.url).toBe(expectedUrl);
         });
 
         it('should have custom headers', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
 
-            datastore.findAll(Author, null, new HttpHeaders({Authorization: 'Bearer'})).subscribe();
+            datastore
+                .findAll(
+                    Author,
+                    null,
+                    new HttpHeaders({ Authorization: 'Bearer' })
+                )
+                .subscribe();
 
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            expect(queryRequest.request.headers.get('Authorization')).toEqual('Bearer');
-            queryRequest.flush({data: []});
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            expect(queryRequest.request.headers.get('Authorization')).toEqual(
+                'Bearer'
+            );
+            queryRequest.flush({ data: [] });
             httpMock.verify();
         });
 
         it('should override base headers', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
 
-            datastore.headers = new HttpHeaders({Authorization: 'Bearer'});
-            datastore.findAll(Author, null, new HttpHeaders({Authorization: 'Basic'})).subscribe();
+            datastore.headers = new HttpHeaders({ Authorization: 'Bearer' });
+            datastore
+                .findAll(
+                    Author,
+                    null,
+                    new HttpHeaders({ Authorization: 'Basic' })
+                )
+                .subscribe();
 
-            const queryRequest = httpMock.expectOne({method: 'GET', url: expectedUrl});
-            expect(queryRequest.request.headers.get('Authorization')).toEqual('Basic');
-            queryRequest.flush({data: []});
+            const queryRequest = httpMock.expectOne({
+                method: 'GET',
+                url: expectedUrl
+            });
+            expect(queryRequest.request.headers.get('Authorization')).toEqual(
+                'Basic'
+            );
+            queryRequest.flush({ data: [] });
             httpMock.verify();
         });
 
         it('should get authors', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
 
-            datastore.findAll(Author).subscribe((data: JsonApiQueryData<Author>) => {
-                const authors = data.getModels();
-                expect(authors).toBeDefined();
-                expect(authors.length).toEqual(1);
-                expect(authors[0].id).toEqual(AUTHOR_ID);
-                expect(authors[0].name).toEqual(AUTHOR_NAME);
-                expect(authors[1]).toBeUndefined();
-            });
+            datastore
+                .findAll(Author)
+                .subscribe((data: JsonApiQueryData<Author>) => {
+                    const authors = data.getModels();
+                    expect(authors).toBeDefined();
+                    expect(authors.length).toEqual(1);
+                    expect(authors[0].id).toEqual(AUTHOR_ID);
+                    expect(authors[0].name).toEqual(AUTHOR_NAME);
+                    expect(authors[1]).toBeUndefined();
+                });
 
             const queryRequest = httpMock.expectOne(expectedUrl);
-            queryRequest.flush({data: [getAuthorData()]});
+            queryRequest.flush({ data: [getAuthorData()] });
         });
 
         it('should get authors with custom metadata', () => {
@@ -188,7 +268,9 @@ describe('JsonDatastoreService', () => {
             datastore.findAll(Book).subscribe((document) => {
                 expect(document).toBeDefined();
                 expect(document.getModels().length).toEqual(1);
-                expect(document.getMeta().links[0]).toEqual('http://www.example.org');
+                expect(document.getMeta().links[0]).toEqual(
+                    'http://www.example.org'
+                );
             });
 
             const findAllRequest = httpMock.expectOne(expectedUrl);
@@ -229,64 +311,84 @@ describe('JsonDatastoreService', () => {
                 error: (response) => {
                     expect(response).toEqual(jasmine.any(ErrorResponse));
                     expect(response.errors.length).toEqual(1);
-                    expect(response.errors[0].code).toEqual(dummyResponse.errors[0].code);
-                    expect(response.errors[0].title).toEqual(dummyResponse.errors[0].title);
-                    expect(response.errors[0].detail).toEqual(dummyResponse.errors[0].detail);
+                    expect(response.errors[0].code).toEqual(
+                        dummyResponse.errors[0].code
+                    );
+                    expect(response.errors[0].title).toEqual(
+                        dummyResponse.errors[0].title
+                    );
+                    expect(response.errors[0].detail).toEqual(
+                        dummyResponse.errors[0].detail
+                    );
                 },
                 complete: () => fail('onCompleted has been called')
             });
 
             const queryRequest = httpMock.expectOne(expectedUrl);
-            queryRequest.flush(dummyResponse, {status: 500, statusText: 'Internal Server Error'});
+            queryRequest.flush(dummyResponse, {
+                status: 500,
+                statusText: 'Internal Server Error'
+            });
         });
 
         it('should generate correct query string for array params with findAll', () => {
-            const expectedQueryString = 'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
-            const expectedUrl = encodeURI(`${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`);
+            const expectedQueryString =
+                'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
+            const expectedUrl = encodeURI(
+                `${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`
+            );
 
-            datastore.findAll(Book, {arrayParam: [4, 5, 6]}).subscribe();
+            datastore.findAll(Book, { arrayParam: [4, 5, 6] }).subscribe();
 
             const findAllRequest = httpMock.expectOne(expectedUrl);
-            findAllRequest.flush({data: []});
+            findAllRequest.flush({ data: [] });
             expect(findAllRequest.request.url).toBe(expectedUrl);
         });
 
         it('should generate correct query string for array params with query', () => {
-            const expectedQueryString = 'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
-            const expectedUrl = encodeURI(`${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`);
+            const expectedQueryString =
+                'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
+            const expectedUrl = encodeURI(
+                `${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`
+            );
 
-            datastore.findAll(Book, {arrayParam: [4, 5, 6]}).subscribe();
+            datastore.findAll(Book, { arrayParam: [4, 5, 6] }).subscribe();
 
             const queryRequest = httpMock.expectOne(expectedUrl);
-            queryRequest.flush({data: []});
+            queryRequest.flush({ data: [] });
             expect(queryRequest.request.url).toBe(expectedUrl);
         });
 
         it('should generate correct query string for nested params with findAll', () => {
             const expectedQueryString = 'filter[text]=test123';
-            const expectedUrl = encodeURI(`${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`);
+            const expectedUrl = encodeURI(
+                `${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`
+            );
 
-            datastore.findAll(Book, {filter: {text: 'test123'}}).subscribe();
+            datastore
+                .findAll(Book, { filter: { text: 'test123' } })
+                .subscribe();
 
             const findAllRequest = httpMock.expectOne(expectedUrl);
-            findAllRequest.flush({data: []});
+            findAllRequest.flush({ data: [] });
             expect(findAllRequest.request.url).toBe(expectedUrl);
         });
 
         it('should generate correct query string for nested array params with findAll', () => {
             const expectedQueryString = 'filter[text][]=1&filter[text][]=2';
-            const expectedUrl = encodeURI(`${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`);
+            const expectedUrl = encodeURI(
+                `${BASE_URL}/${API_VERSION}/books?${expectedQueryString}`
+            );
 
-            datastore.findAll(Book, {filter: {text: [1, 2]}}).subscribe();
+            datastore.findAll(Book, { filter: { text: [1, 2] } }).subscribe();
 
             const findAllRequest = httpMock.expectOne(expectedUrl);
-            findAllRequest.flush({data: []});
+            findAllRequest.flush({ data: [] });
             expect(findAllRequest.request.url).toBe(expectedUrl);
         });
     });
 
     describe('findRecord', () => {
-
         beforeEach(() => {
             datastore = new Datastore(TestBed.inject(HttpClient));
             httpMock = TestBed.inject(HttpTestingController);
@@ -304,22 +406,26 @@ describe('JsonDatastoreService', () => {
             const findRecordRequest = httpMock.expectOne(expectedUrl);
             findRecordRequest.flush(getAuthorData());
             expect(findRecordRequest.request.url).toBe(expectedUrl);
-        })
+        });
 
         it('should generate correct query string for array params with findRecord', () => {
-            const expectedQueryString = 'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
-            const expectedUrl = encodeURI(`${BASE_URL}/${API_VERSION}/books/1?${expectedQueryString}`);
+            const expectedQueryString =
+                'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
+            const expectedUrl = encodeURI(
+                `${BASE_URL}/${API_VERSION}/books/1?${expectedQueryString}`
+            );
 
-            datastore.findRecord(Book, '1', {arrayParam: [4, 5, 6]}).subscribe();
+            datastore
+                .findRecord(Book, '1', { arrayParam: [4, 5, 6] })
+                .subscribe();
 
             const findRecordRequest = httpMock.expectOne(expectedUrl);
-            findRecordRequest.flush({data: getAuthorData()});
+            findRecordRequest.flush({ data: getAuthorData() });
             expect(findRecordRequest.request.url).toBe(expectedUrl);
         });
     });
 
     describe('saveRecord', () => {
-
         it('should create new author', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors`;
             const author = datastore.createRecord(Author, {
@@ -333,16 +439,22 @@ describe('JsonDatastoreService', () => {
             });
 
             httpMock.expectNone(`${BASE_URL}/${API_VERSION}`);
-            const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
+            const saveRequest = httpMock.expectOne({
+                method: 'POST',
+                url: expectedUrl
+            });
             const obj = saveRequest.request.body;
             expect(obj.name).toEqual(AUTHOR_NAME);
             expect(obj.dob).toEqual(parseISO(AUTHOR_BIRTH).toISOString());
             expect(obj.id).toBeUndefined();
 
-            saveRequest.flush({
-                id: AUTHOR_ID,
-                name: AUTHOR_NAME,
-            }, {status: 201, statusText: 'Created'});
+            saveRequest.flush(
+                {
+                    id: AUTHOR_ID,
+                    name: AUTHOR_NAME
+                },
+                { status: 201, statusText: 'Created' }
+            );
         });
 
         it('should throw error on new author with 201 response but no body', () => {
@@ -353,11 +465,15 @@ describe('JsonDatastoreService', () => {
 
             author.save().subscribe({
                 next: () => fail('should throw error'),
-                error: (error) => expect(error).toEqual(new Error('no body in response'))
+                error: (error) =>
+                    expect(error).toEqual(new Error('no body in response'))
             });
 
-            const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
-            saveRequest.flush(null, {status: 201, statusText: 'Created'});
+            const saveRequest = httpMock.expectOne({
+                method: 'POST',
+                url: expectedUrl
+            });
+            saveRequest.flush(null, { status: 201, statusText: 'Created' });
         });
 
         // it('should throw error on new author with 201 response but no data', () => {
@@ -385,8 +501,11 @@ describe('JsonDatastoreService', () => {
                 expect(val).toBeDefined();
             });
 
-            const saveRequest = httpMock.expectOne({method: 'POST', url: expectedUrl});
-            saveRequest.flush(null, {status: 204, statusText: 'No Content'});
+            const saveRequest = httpMock.expectOne({
+                method: 'POST',
+                url: expectedUrl
+            });
+            saveRequest.flush(null, { status: 204, statusText: 'No Content' });
         });
 
         // it('should create new author with existing ToMany-relationship', () => {
@@ -527,7 +646,6 @@ describe('JsonDatastoreService', () => {
     });
 
     describe('updateRecord', () => {
-
         it('should update author with 200 response (no data)', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/authors/${AUTHOR_ID}`;
             const author = new Author(datastore, {
@@ -543,7 +661,10 @@ describe('JsonDatastoreService', () => {
             });
 
             httpMock.expectNone(`${BASE_URL}/${API_VERSION}/authors`);
-            const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
+            const saveRequest = httpMock.expectOne({
+                method: 'PATCH',
+                url: expectedUrl
+            });
             const obj = saveRequest.request.body;
             expect(obj.name).toEqual('Rowling');
             expect(obj.dob).toEqual(parseISO('1965-07-31').toISOString());
@@ -632,14 +753,17 @@ describe('JsonDatastoreService', () => {
             });
 
             httpMock.expectNone(`${BASE_URL}/${API_VERSION}/authors`);
-            const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
+            const saveRequest = httpMock.expectOne({
+                method: 'PATCH',
+                url: expectedUrl
+            });
             const obj = saveRequest.request.body;
             expect(obj.name).toEqual('Rowling');
             expect(obj.dob).toEqual(parseISO('1965-07-31').toISOString());
             expect(obj.id).toBe(AUTHOR_ID);
             // expect(obj.relationships).toBeUndefined();
 
-            saveRequest.flush(null, {status: 204, statusText: 'No Content'});
+            saveRequest.flush(null, { status: 204, statusText: 'No Content' });
         });
 
         it('should integrate server updates on 200 response', () => {
@@ -657,7 +781,10 @@ describe('JsonDatastoreService', () => {
             });
 
             httpMock.expectNone(`${BASE_URL}/${API_VERSION}/authors`);
-            const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
+            const saveRequest = httpMock.expectOne({
+                method: 'PATCH',
+                url: expectedUrl
+            });
             const obj = saveRequest.request.body;
             expect(obj.name).toEqual('Rowling');
             expect(obj.dob).toEqual(parseISO('1965-07-31').toISOString());
@@ -681,7 +808,10 @@ describe('JsonDatastoreService', () => {
             datastore.updateRecord(author, 'specialTransition').subscribe();
 
             httpMock.expectNone(`${BASE_URL}/${API_VERSION}/authors`);
-            const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
+            const saveRequest = httpMock.expectOne({
+                method: 'PATCH',
+                url: expectedUrl
+            });
             const obj = saveRequest.request.body;
 
             expect(obj.meta.transition).toEqual('specialTransition');
@@ -698,11 +828,11 @@ describe('JsonDatastoreService', () => {
     //         const BOOK_NUMBER = 2;
     //         const DATA = getAuthorData('books', BOOK_NUMBER);
     //         const author = new Author(datastore, DATA);
-    
+
     //         author.books = [];
-    
+
     //         author.save().subscribe();
-    
+
     //         httpMock.expectNone(`${BASE_URL}/${API_VERSION}/authors`);
     //         const saveRequest = httpMock.expectOne({method: 'PATCH', url: expectedUrl});
     //         const obj = saveRequest.request.body.data;
@@ -710,7 +840,7 @@ describe('JsonDatastoreService', () => {
     //         expect(obj.relationships.books).toBeDefined();
     //         expect(obj.relationships.books.data).toBeDefined();
     //         expect(obj.relationships.books.data.length).toBe(0);
-    
+
     //         saveRequest.flush({});
     //     });
     // });

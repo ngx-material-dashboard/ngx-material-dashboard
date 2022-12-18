@@ -31,4 +31,4 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from './components/pa
         ToolbarModule
     ]
 })
-export class CollectionModule { }
+export class CollectionModule {}

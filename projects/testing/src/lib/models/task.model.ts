@@ -1,11 +1,13 @@
-import { Attribute, JsonApiModelConfig } from '@ngx-material-dashboard/base-json/src/lib';
+import {
+    Attribute,
+    JsonApiModelConfig
+} from '@ngx-material-dashboard/base-json/src/lib';
 import { JsonModel } from './json.model';
 
 @JsonApiModelConfig({
     type: 'tasks'
 })
 export class Task extends JsonModel {
-
     /** The name of the Task. */
     @Attribute() name?: string;
     /** The description of the Task.*/

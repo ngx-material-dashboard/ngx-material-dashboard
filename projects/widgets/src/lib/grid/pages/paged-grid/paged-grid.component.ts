@@ -7,7 +7,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * The `PagedGrid` is a wrapper for the `Grid` component which adds paging
  * capabilities. Like the `Grid`, you must define the template for each item in
  * the grid in the template where you intend to include this component.
- * 
+ *
  * @usageNotes
  * ## Basic Usage Example
  * ```html
@@ -27,7 +27,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * ```typescript
  * import {Component} from '@angular/core';
  * import {Task} from './tasks'; // this should extend JsonModel
- * 
+ *
  * @Component({
  *     selector: 'basic-usage-example',
  *     templateUrl: './basic-usage-example.html'
@@ -41,5 +41,6 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
     templateUrl: './paged-grid.component.html',
     styleUrls: ['./paged-grid.component.css']
 })
-export class PagedGridComponent<T extends JsonModel> 
-    extends PagedCollectionComponent<T> {}
+export class PagedGridComponent<
+    T extends JsonModel
+> extends PagedCollectionComponent<T> {}

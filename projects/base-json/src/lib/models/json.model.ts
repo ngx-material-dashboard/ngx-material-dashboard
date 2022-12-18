@@ -1,11 +1,11 @@
-import { HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash-es';
 
-import { AttributeMetadata } from "../constants/symbols";
-import { Attribute } from "../decorators/attribute.decorator";
-import { ModelConfig } from "../interfaces/model-config.interface";
-import { JsonDatastore } from "../services/json-datastore.service";
+import { AttributeMetadata } from '../constants/symbols';
+import { Attribute } from '../decorators/attribute.decorator';
+import { ModelConfig } from '../interfaces/model-config.interface';
+import { JsonDatastore } from '../services/json-datastore.service';
 
 /**
  * HACK/FIXME:
@@ -20,14 +20,14 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * The JsonModel class represents the base model object for all client side
  * data models. All client side data models that will interface with server
  * side APIs through this library should extend this class.
- * 
+ *
  * @overviewDetails
  * ## Basic Usage Example
  * ```typescript
  * import {JsonModel as BasJsonModel} from "@ngx-material-dashboard/base-json";
  *
  * export class JsonModel extends BaseJsonModel {
- * 
+ *
  *     constructor(internalDatastore: JsonDatastore, data?: any) {
  *         super(internalDatastore);
  *
@@ -42,11 +42,10 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * ```
  */
 export class JsonModel {
-
     /** The primary key identifier for the model. */
     id?: string;
     /** The datastore service that performs CRUD operations. */
-    internalDatastore: JsonDatastore
+    internalDatastore: JsonDatastore;
     /** Boolean value indicating whether model is being initialized. */
     modelInitialization = false;
     /** Map of strings to any objects, used for tracking object meta data. */
@@ -59,7 +58,7 @@ export class JsonModel {
     /**
      * Returns true if this model has dirty attributes. A model has dirty
      * attributes if any of it's properties changed.
-     * 
+     *
      * @returns true if the model has dirty attributes.
      */
     get hasDirtyAttributes(): boolean {
@@ -89,7 +88,7 @@ export class JsonModel {
     /**
      * Returns `true` if model is being initialized.
      *
-     * @returns `true` if model is being initialized. 
+     * @returns `true` if model is being initialized.
      */
     public isModelInitialization(): boolean {
         return this.modelInitialization;
@@ -103,7 +102,9 @@ export class JsonModel {
         for (const propertyName in attributesMetadata) {
             if (attributesMetadata.hasOwnProperty(propertyName)) {
                 if (attributesMetadata[propertyName].hasDirtyAttributes) {
-                    this[propertyName] = _.cloneDeep(attributesMetadata[propertyName].oldValue);
+                    this[propertyName] = _.cloneDeep(
+                        attributesMetadata[propertyName].oldValue
+                    );
                 }
             }
         }
@@ -113,15 +114,25 @@ export class JsonModel {
      * Saves the object using the internal datastore as long as there are
      * changes to be saved.
      *
-     * @param params Any parameters to include in the request. 
+     * @param params Any parameters to include in the request.
      * @param headers Any custom headers to include in the request.
      * @param customUrl A custom URL to save the object.
      * @returns An Observable of the model being saved.
      */
-    public save(params?: any, headers?: HttpHeaders, customUrl?: string): Observable<this> {
+    public save(
+        params?: any,
+        headers?: HttpHeaders,
+        customUrl?: string
+    ): Observable<this> {
         this.checkChanges();
         const attributesMetadata: any = this[AttributeMetadataIndex];
-        return this.internalDatastore.saveRecord(attributesMetadata, this, params, headers, customUrl);
+        return this.internalDatastore.saveRecord(
+            attributesMetadata,
+            this,
+            params,
+            headers,
+            customUrl
+        );
     }
 
     /**
@@ -133,15 +144,23 @@ export class JsonModel {
             if (attributesMetadata.hasOwnProperty(propertyName)) {
                 const metadata: any = attributesMetadata[propertyName];
                 if (metadata.nested) {
-                    this[AttributeMetadata][propertyName].hasDirtyAttributes = !_.isEqual(
-                        attributesMetadata[propertyName].oldValue,
-                        attributesMetadata[propertyName].newValue
-                    );
-                    this[AttributeMetadata][propertyName].serialisationValue = attributesMetadata[propertyName].converter(
-                        Reflect.getMetadata('design:type', this, propertyName),
-                        _.cloneDeep(attributesMetadata[propertyName].newValue),
-                        true
-                    );
+                    this[AttributeMetadata][propertyName].hasDirtyAttributes =
+                        !_.isEqual(
+                            attributesMetadata[propertyName].oldValue,
+                            attributesMetadata[propertyName].newValue
+                        );
+                    this[AttributeMetadata][propertyName].serialisationValue =
+                        attributesMetadata[propertyName].converter(
+                            Reflect.getMetadata(
+                                'design:type',
+                                this,
+                                propertyName
+                            ),
+                            _.cloneDeep(
+                                attributesMetadata[propertyName].newValue
+                            ),
+                            true
+                        );
                 }
             }
         }

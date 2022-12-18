@@ -5,7 +5,7 @@
  * Spec states that Error objects MUST be returned as an array keyed by errors
  * in the top level of a JSON:API document, which means the `HttpErrorResponse`
  * returned from the API should contain an array of these types of objects.
- * 
+ *
  * The [JsonDatastore](/base-json/services/json-datastore) handles parsing
  * `HttpErrorResponse`s into an `ErrorResponse` object, which contains an
  * array of `JsonApiError`s. See the documentation for the
@@ -20,17 +20,17 @@ export interface JsonApiError {
      * occurrence of the problem.
      */
     links?: Array<any>;
-    /** 
+    /**
      * The HTTP status code applicable to this problem, expressed as a string
-     * value. 
+     * value.
      */
     status?: string;
     /** An applicaiton-specific error code, expressed as a string value. */
     code?: string;
-    /** 
+    /**
      * A short, human-readable summary of the problem that SHOULD NOT change
      * from occurrence to occurrence of the problem, except for purposes of
-     * localization. 
+     * localization.
      */
     title?: string;
     /**
@@ -48,7 +48,7 @@ export interface JsonApiError {
      */
     source?: {
         pointer?: string;
-        parameter?: string
+        parameter?: string;
     };
     /**
      * A [meta object](https://jsonapi.org/format/#document-meta) containing

@@ -7,21 +7,21 @@ import { PropertyConverter } from './property-converter.interface';
  * use camelCase for your properties), and you can also provide a custom
  * converter function in case the attribute cannot be converted as a primitive,
  * date, or defined data model in your client side code.
- * 
+ *
  * See [Attribute](/base-json/decorators/attribute) for more details on using
  * this interface.
- * 
+ *
  * ## Converter
- * 
+ *
  * The `converter` property defines how to convert your property between a JSON
  * literal and whatever object type you want to convert to/from. The property
  * takes a class that implements `PropertyConverter` interface, which must
  * implement 2 methods, `mask` and `unmask`. See the
  * [PropertyConverter](/base-json/interfaces/property-converter) docs for more
  * details.
- * 
+ *
  * ## Serialized Name
- * 
+ *
  * The `serializedName` property defines a custom name to use for the property
  * key in JSON. This is really meant for converting property keys that do not
  * match the name of the property where this decorator is defined. For example,

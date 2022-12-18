@@ -1,4 +1,8 @@
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import {
+    BreakpointObserver,
+    Breakpoints,
+    BreakpointState
+} from '@angular/cdk/layout';
 import { TestBed } from '@angular/core/testing';
 import { Observable, from, filter, map } from 'rxjs';
 
@@ -11,38 +15,52 @@ import { ScreenSizeService } from './screen-size.service';
 
 describe('ScreenSizeService', () => {
     let service: ScreenSizeService;
-    const widths: number[] = [
-        500,
-        600,
-        960,
-        1800,
-        1920
-    ]
+    const widths: number[] = [500, 600, 960, 1800, 1920];
     // an array of breakpoint match values; initially all are false
     const matchObj = [
-        { matchStr: '(max-width: 599.98px)', result: false, bp: Breakpoints.XSmall },
-        { matchStr: '(min-width: 600px) and (max-width: 959.98px)', result: false, bp: Breakpoints.Small },
-        { matchStr: '(min-width: 960px) and (max-width: 1279.98px)', result: false, bp: Breakpoints.Medium },
-        { matchStr: '(min-width: 1280px) and (max-width: 1919.98px)', result: false, bp: Breakpoints.Large },
-        { matchStr: '(min-width: 1920px)', result: false, bp: Breakpoints.XLarge }
+        {
+            matchStr: '(max-width: 599.98px)',
+            result: false,
+            bp: Breakpoints.XSmall
+        },
+        {
+            matchStr: '(min-width: 600px) and (max-width: 959.98px)',
+            result: false,
+            bp: Breakpoints.Small
+        },
+        {
+            matchStr: '(min-width: 960px) and (max-width: 1279.98px)',
+            result: false,
+            bp: Breakpoints.Medium
+        },
+        {
+            matchStr: '(min-width: 1280px) and (max-width: 1919.98px)',
+            result: false,
+            bp: Breakpoints.Large
+        },
+        {
+            matchStr: '(min-width: 1920px)',
+            result: false,
+            bp: Breakpoints.XLarge
+        }
     ];
     // A fake observable for returning breakpoint matches based on values
     // defined in matchObj (updating using resize function)
     const fakeObserve = (s: string[]): Observable<BreakpointState> =>
-    from(matchObj).pipe(
-        filter(match => match.result),
-        map(match => {
-            // set breakpoints to map of breakpoint name to result from
-            // matchObj; service looks at breakpoints['<name>'] when
-            // determining size to return
-            const breakpoints: any = {};
-            matchObj.forEach(it => {
-                breakpoints[it.bp] = it.result;
-            });
+        from(matchObj).pipe(
+            filter((match) => match.result),
+            map((match) => {
+                // set breakpoints to map of breakpoint name to result from
+                // matchObj; service looks at breakpoints['<name>'] when
+                // determining size to return
+                const breakpoints: any = {};
+                matchObj.forEach((it) => {
+                    breakpoints[it.bp] = it.result;
+                });
 
-            return ({ matches: match.result, breakpoints: breakpoints })
-        })
-    );
+                return { matches: match.result, breakpoints: breakpoints };
+            })
+        );
     // a spy on the breakpointobserver observe method
     const bpSpy = jasmine.createSpyObj('BreakpointObserver', ['observe']);
 
@@ -55,7 +73,7 @@ describe('ScreenSizeService', () => {
     function resize(width: number): void {
         matchObj[0].result = width <= 599.98;
         matchObj[1].result = width >= 600 && width <= 959.98;
-        matchObj[2].result = width >=  960 && width <= 1279.98;
+        matchObj[2].result = width >= 960 && width <= 1279.98;
         matchObj[3].result = width >= 1280 && width <= 1919.98;
         matchObj[4].result = width >= 1920;
     }
@@ -80,5 +98,5 @@ describe('ScreenSizeService', () => {
                 expect(ScreenSize[s]).toEqual(ScreenSize[index]);
             });
         });
-    })
+    });
 });

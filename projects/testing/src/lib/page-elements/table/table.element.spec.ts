@@ -11,49 +11,68 @@ import { TableElement } from './table.element';
 const TEST_DATA = getTaskData(20);
 
 @Component({
-    template: `
-    <mat-table 
+    template: ` <mat-table
         class="marker-table"
         matSort
         [dataSource]="dataSource"
-        (matSortChange)="onSortChange()">
+        (matSortChange)="onSortChange()"
+    >
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef>
                 <mat-checkbox
                     class="marker-checkbox-select-all"
-                    (change)="masterToggle()">
+                    (change)="masterToggle()"
+                >
                 </mat-checkbox>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <mat-checkbox 
+                <mat-checkbox
                     class="marker-checkbox-row-select"
-                    (change)="onRowSelected(row);">
+                    (change)="onRowSelected(row)"
+                >
                 </mat-checkbox>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-            <mat-cell *matCellDef="let obj">{{obj.name}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Name</mat-header-cell
+            >
+            <mat-cell *matCellDef="let obj">{{ obj.name }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-            <mat-cell *matCellDef="let obj">{{obj.description}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Description</mat-header-cell
+            >
+            <mat-cell *matCellDef="let obj">{{ obj.description }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="noData">
-            <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+            <mat-footer-cell
+                *matFooterCellDef
+                colspan="displayedColumns.length"
+                fxLayoutAlign="center center"
+            >
                 No data found
             </mat-footer-cell>
         </ng-container>
 
         <!-- row definitions -->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns" class="pointer"></mat-row>
-        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': length > 0}"></mat-footer-row>
+        <mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="pointer"
+        ></mat-row>
+        <mat-footer-row
+            *matFooterRowDef="['noData']"
+            [ngClass]="{ hide: length > 0 }"
+        ></mat-footer-row>
     </mat-table>`
-}) class Table implements AfterViewInit {
+})
+class Table implements AfterViewInit {
     @ViewChild(MatSort) sort!: MatSort;
-    dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>(TEST_DATA);
+    dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>(
+        TEST_DATA
+    );
     displayedColumns: string[] = ['select', 'name', 'description'];
 
     ngAfterViewInit() {
@@ -68,14 +87,13 @@ const TEST_DATA = getTaskData(20);
 }
 
 describe('TableElement', () => {
-
     let fixture: ComponentFixture<Table>;
     let component: Table;
     let table: TableElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ Table ],
+            declarations: [Table],
             imports: [
                 MatCheckboxModule,
                 MatSortModule,
@@ -98,14 +116,14 @@ describe('TableElement', () => {
         // when: the id column header is clicked
         table.clickColumnHeader('name');
 
-        // expect: the sortChange to have been called 
+        // expect: the sortChange to have been called
         expect(spy).toHaveBeenCalled();
     });
 
     it('should throw an error when trying to click column that does not exist', () => {
         try {
             table.clickColumnHeader('nonExistentColumn');
-        } catch(error) {
+        } catch (error) {
             expect(error).toBeDefined();
         }
     });

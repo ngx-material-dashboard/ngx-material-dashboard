@@ -8,7 +8,7 @@ describe('FooterComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ FooterComponent ]
+            declarations: [FooterComponent]
         });
     });
 
@@ -30,6 +30,8 @@ describe('FooterComponent', () => {
         const compiled = fixture.nativeElement;
 
         // expect: the full year should be rendered
-        expect(compiled.querySelector('span').textContent).toContain(`${date.getFullYear()}`);
+        expect(compiled.querySelector('span').textContent).toContain(
+            `${date.getFullYear()}`
+        );
     });
 });

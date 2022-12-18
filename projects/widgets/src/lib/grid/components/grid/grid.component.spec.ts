@@ -12,14 +12,15 @@ import { GridComponent } from './grid.component';
 
 @Component({
     template: `
-    <ngx-material-dashboard-grid [data]="data" [fields]="fields">
-        <ng-template #model let-model="model">
-            <h2>Dummy Model</h2>
-            <span>{{model.id}}</span>
-        </ng-template>
-    </ngx-material-dashboard-grid>
+        <ngx-material-dashboard-grid [data]="data" [fields]="fields">
+            <ng-template #model let-model="model">
+                <h2>Dummy Model</h2>
+                <span>{{ model.id }}</span>
+            </ng-template>
+        </ngx-material-dashboard-grid>
     `
-}) class TestGridComponent {
+})
+class TestGridComponent {
     data: DummyObject[] = TEST_DATA;
     fields: string[] = ['id'];
 }
@@ -30,11 +31,7 @@ describe('GridComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                GridComponent,
-                SorterComponent,
-                TestGridComponent
-            ],
+            declarations: [GridComponent, SorterComponent, TestGridComponent],
             imports: [
                 MockModule(MatCheckboxModule),
                 MockModule(MatGridListModule),

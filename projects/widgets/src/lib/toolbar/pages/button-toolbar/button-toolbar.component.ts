@@ -8,16 +8,15 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  * toolbar. Basically just left or right alignment in the toolbar. It also
  * includes the ability to render custom content in the middle of the toolbar,
  * for things like the search filter drop down meant to be rendered above
- * paged collections in any component that utilizes the 
+ * paged collections in any component that utilizes the
  * `PagedCollectionWithToolbar`.
  */
 @Component({
-  selector: 'ngx-material-dashboard-button-toolbar',
-  templateUrl: './button-toolbar.component.html',
-  styleUrls: ['./button-toolbar.component.css']
+    selector: 'ngx-material-dashboard-button-toolbar',
+    templateUrl: './button-toolbar.component.html',
+    styleUrls: ['./button-toolbar.component.css']
 })
 export class ButtonToolbarComponent {
-
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
     /**

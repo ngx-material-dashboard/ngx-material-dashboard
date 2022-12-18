@@ -13,7 +13,6 @@ import { PageElement } from '../page/page.element';
  * https://gist.github.com/glendaviesnz/fc8e99b41f0dda8b1c0dc4d397e0d152
  */
 export class SelectElement extends PageElement {
-
     private container!: OverlayContainer;
     private containerElement!: HTMLElement;
     private options$!: HTMLElement[];
@@ -28,7 +27,9 @@ export class SelectElement extends PageElement {
             this.containerElement = oc.getContainerElement();
         })();
         this.parentElement = parentElement;
-        this.selectDebugElement = this.fixture.debugElement.query(By.css(`mat-select`));
+        this.selectDebugElement = this.fixture.debugElement.query(
+            By.css(`mat-select`)
+        );
         this.selectElement = this.selectDebugElement.nativeElement;
         this.options$ = [];
     }
@@ -38,12 +39,19 @@ export class SelectElement extends PageElement {
     }
 
     get trigger(): HTMLElement {
-        return this.query<HTMLElement>('.mat-select-trigger', this.parentElement);
+        return this.query<HTMLElement>(
+            '.mat-select-trigger',
+            this.parentElement
+        );
     }
 
     initOptions(): void {
         this.open();
-        this.options$ = Array.from(this.containerElement.querySelectorAll('mat-option') as NodeListOf<HTMLElement>);
+        this.options$ = Array.from(
+            this.containerElement.querySelectorAll(
+                'mat-option'
+            ) as NodeListOf<HTMLElement>
+        );
     }
 
     /**
@@ -51,7 +59,9 @@ export class SelectElement extends PageElement {
      * the placeholder is returned. See answer in following stackoverflow: https://stackoverflow.com/a/53724641.
      */
     get value(): any {
-        const matSelectValueDebugElement = this.selectDebugElement.query(By.css('.mat-select-trigger .mat-select-value')).nativeElement;
+        const matSelectValueDebugElement = this.selectDebugElement.query(
+            By.css('.mat-select-trigger .mat-select-value')
+        ).nativeElement;
         const value = matSelectValueDebugElement.children[0].children[0];
         return value.innerText;
     }

@@ -12,22 +12,22 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  * can take a look at
  * [PagedCollectionWithRaisedButtonToolbar](/widgets/components/paged-collection-with-raised-button-toolbar)
  * for an example of how you can use this component.
- * 
+ *
  * @overviewDetails
- * 
- * ## Features 
- * 
+ *
+ * ## Features
+ *
  * The toolbar allows you to control the alignment of buttons (i.e. left or
  * right). It also includes the ability to render an optional `FilterDropDown`.
- * 
+ *
  * ### Button Alignment
- * 
+ *
  * To align buttons to the left or right simply use the `buttonAlign` input
  * with the desired `left` or `right` value. Buttons default to be `right`
  * aligned.
- * 
+ *
  * ### Optional Filter Drop Down
- * 
+ *
  * You may include an optional `FilterDropDown` that renders a detailed formed
  * to filter paged collections. See the following for more details on the
  * [FilterDropDown](/widgets/components/filter-drop-down).
@@ -38,7 +38,6 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
     styleUrls: ['./raised-button-toolbar.component.css']
 })
 export class RaisedButtonToolbarComponent {
-
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
     /**

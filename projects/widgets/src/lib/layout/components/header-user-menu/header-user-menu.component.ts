@@ -8,7 +8,6 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./header-user-menu.component.scss']
 })
 export class HeaderUserMenuComponent {
-
     @Input() username = '';
     @Output() logoutClick: EventEmitter<boolean> = new EventEmitter();
     caretDown = faCaretDown;
