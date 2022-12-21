@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { getTaskData } from '../../fixtures/task.fixture';
 import { Task } from '../../models/task.model';
@@ -14,7 +15,7 @@ import { PagedCollectionWithToolbarElement } from './paged-collection-with-toolb
 @Component({
     template: `
         <div class="marker-paged-collection">
-            <div>
+            <div class="marker-collection-toolbar">
                 <mat-paginator
                     [length]="length"
                     [pageSize]="pageSize"
@@ -75,7 +76,7 @@ class TestPagedCollectionWithIconToolbarComponent {
 @Component({
     template: `
         <div class="marker-paged-collection">
-            <div class="marker-toolbar"></div>
+            <mat-toolbar></mat-toolbar>
             <div class="marker-list">
                 <div
                     fxLayout="row"
@@ -186,6 +187,7 @@ describe('PagedCollectionWithToolbarElement', () => {
                         CommonModule,
                         MatCheckboxModule,
                         MatPaginatorModule,
+                        MatToolbarModule,
                         NoopAnimationsModule
                     ]
                 });

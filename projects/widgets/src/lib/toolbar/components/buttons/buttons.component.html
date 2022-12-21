@@ -1,4 +1,4 @@
-<div fxLayout="row">
+<div fxLayout="row" class="marker-buttons-bar">
     <div *ngFor="let button of buttons">
         <button *ngIf="button.click; else hyperlink"
             class="mat-button marker-button-{{button.click}}"

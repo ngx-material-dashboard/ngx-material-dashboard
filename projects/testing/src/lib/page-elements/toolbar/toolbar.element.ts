@@ -90,6 +90,7 @@ export class ToolbarElement extends PageElement {
     private buttonElements: ButtonElement[] = [];
     /** A map of selectors to buttons. */
     private buttonElementsMap: { [selector: string]: ButtonElement } = {};
+    protected toolbar: HTMLElement;
 
     /**
      * Creates a new ToolbarElement.
@@ -99,7 +100,8 @@ export class ToolbarElement extends PageElement {
      */
     constructor(
         fixture: ComponentFixture<any>,
-        buttonSelectors: string[] = []
+        buttonSelectors: string[] = [],
+        toolbarSelector: string = 'mat-toolbar'
     ) {
         super(fixture);
 
@@ -109,6 +111,8 @@ export class ToolbarElement extends PageElement {
             this.buttonElements.push(button);
             this.buttonElementsMap[selector] = button;
         });
+
+        this.toolbar = this.query<HTMLElement>(toolbarSelector);
     }
 
     /**

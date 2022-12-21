@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IconButtonsWithPaginatorBarElement } from './icon-buttons-with-paginator-bar.element';
 
 @Component({
-    template: ` <div fxLayout="row">
+    template: ` <div fxLayout="row" class="marker-collection-toolbar">
         <div fxLayoutAlign="center center">
             <mat-checkbox
                 class="marker-checkbox-select-all"

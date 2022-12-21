@@ -34,11 +34,15 @@ describe('IconButtonsComponent', () => {
         ];
         fixture.detectChanges();
 
-        page = new ToolbarElement(fixture, [
-            '.marker-button-create',
-            '.marker-button-edit',
-            '.marker-button-delete'
-        ]);
+        page = new ToolbarElement(
+            fixture,
+            [
+                '.marker-button-create',
+                '.marker-button-edit',
+                '.marker-button-delete'
+            ],
+            '.marker-icon-buttons-bar'
+        );
     });
 
     it('should emit create event when create button clicked', () => {

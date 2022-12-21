@@ -1,18 +1,33 @@
 import { ComponentFixture } from '@angular/core/testing';
 import { CheckboxElement } from '../checkbox/checkbox.element';
 import { PaginatorElement } from '../paginator/paginator.element';
+import { SelectElement } from '../select/select.element';
 import { ToolbarElement } from '../toolbar/toolbar.element';
 
 export class IconButtonsWithPaginatorBarElement extends ToolbarElement {
     paginator: PaginatorElement;
+    sorter?: SelectElement;
 
-    constructor(fixture: ComponentFixture<any>, buttonSelectors?: string[]) {
-        super(fixture, buttonSelectors);
+    constructor(
+        fixture: ComponentFixture<any>,
+        buttonSelectors?: string[],
+        toolbarSelector: string = '.marker-collection-toolbar'
+    ) {
+        super(fixture, buttonSelectors, toolbarSelector);
 
         this.paginator = new PaginatorElement(
             fixture,
             this.fixture.nativeElement
         );
+
+        try {
+            this.sorter = new SelectElement(
+                fixture,
+                this.query<HTMLElement>('.mat-sort', this.toolbar)
+            );
+        } catch (error) {
+            console.log('.mat-sort not found in paginator bar element');
+        }
     }
 
     /**

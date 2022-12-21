@@ -2,6 +2,7 @@ import { ComponentFixture } from '@angular/core/testing';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { CheckboxElement } from '../checkbox/checkbox.element';
 import { PageElement } from '../page/page.element';
+import { SelectElement } from '../select/select.element';
 
 /**
  * The `CollectionElement` defines properties and functions useful for testing
@@ -143,6 +144,7 @@ export class CollectionElement extends PageElement {
     itemCheckboxes!: CheckboxElement[];
     /** CSS selector for each item in collection. */
     itemSelector: string;
+    sorter?: SelectElement;
 
     /**
      * Creates a new CollectionElement in given fixture with given CSS selector.
@@ -179,6 +181,15 @@ export class CollectionElement extends PageElement {
             this.itemSelector,
             this.checkboxItemSelector
         );
+
+        try {
+            this.sorter = new SelectElement(
+                this.fixture,
+                this.collectionElement
+            );
+        } catch (error) {
+            console.log('.mat-sort not found in collection element');
+        }
     }
 
     /**

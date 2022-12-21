@@ -105,7 +105,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
     /** The subscriptions for the component. */
     sub: Subscription;
     /** Tracks the toggle status for items in sidenav. */
-    toggle: { toggle: boolean; children?: boolean[] }[] = [];
+    toggle: { toggle: boolean; children: boolean[] }[] = [];
 
     constructor(private route: ActivatedRoute, private router: Router) {
         this.sub = new Subscription();
@@ -160,25 +160,25 @@ export class SidenavComponent implements OnDestroy, OnInit {
                         this.router.url.includes(`/${item.selector}/`)
                     );
                 }
-            } else if (item.route) {
-                return this.router.url.includes(
-                    `/${item.route.join('/').replace('./', '')}`
-                );
             } else {
-                return false;
+                return this.router.url.includes(
+                    `/${item.route?.join('/').replace('./', '')}`
+                );
             }
         });
 
-        this.toggle = new Array<{ toggle: boolean }>(this.sidenavItems$.length);
+        this.toggle = new Array<{ toggle: boolean; children: boolean[] }>(
+            this.sidenavItems$.length
+        );
         for (let i = 0; i < this.toggle.length; i++) {
-            this.toggle[i] = { toggle: index === i };
+            this.toggle[i] = { toggle: index === i, children: [] };
         }
 
         this.sidenavItems$.forEach((item: SidenavItem, i: number) => {
             if (item.children !== undefined) {
-                this.toggle[i].children = [];
+                //this.toggle[i].children = [];
                 for (let j = 0; j < item.children.length; j++) {
-                    this.toggle[i].children?.push(
+                    this.toggle[i].children.push(
                         index === i && childIndex === j
                     );
                 }

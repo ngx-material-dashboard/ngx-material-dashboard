@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, flush, inject } from '@angular/core/testing';
+import { ComponentFixture, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { PageElement } from '../page/page.element';
@@ -63,7 +63,7 @@ export class SelectElement extends PageElement {
             By.css('.mat-select-trigger .mat-select-value')
         ).nativeElement;
         const value = matSelectValueDebugElement.children[0].children[0];
-        return value.innerText;
+        return value?.innerText;
     }
 
     /**

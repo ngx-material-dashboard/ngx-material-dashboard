@@ -153,16 +153,10 @@ describe('PagedCollectionWithToolbarComponent', () => {
     });
 
     it('should return null for paginator if paginator$ undefined', () => {
-        component.pagedListWithToolbar.paginator$ = undefined;
-        fixture.detectChanges();
-
-        expect(component.pagedListWithToolbar.paginator).toBeNull();
+        expect(component.pagedListWithToolbar.paginator).toBeUndefined();
     });
 
     it('should return undefined for sort if sort undefined', () => {
-        component.pagedListWithToolbar.sort$ = undefined;
-        fixture.detectChanges();
-
         expect(component.pagedListWithToolbar.sort).toBeUndefined();
     });
 });

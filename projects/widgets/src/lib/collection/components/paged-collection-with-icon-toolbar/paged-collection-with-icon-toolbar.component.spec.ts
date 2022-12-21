@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+    ComponentFixture,
+    fakeAsync,
+    TestBed,
+    tick
+} from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -36,6 +41,7 @@ const testData = getTaskData(20);
 @Component({
     template: `
         <ngx-material-dashboard-list-with-icon-buttons-paginator-bar
+            [displaySorterInToolbar]="displaySorterInToolbar"
             [toolbarButtons]="toolbarButtons"
             (buttonClick)="onButtonClick($event)"
             class="marker-paged-list"
@@ -68,6 +74,7 @@ class TestPagedCollectionWithIconToolbarComponent {
         DELETE_TOOLBAR_BUTTON
     ];
     data: Task[] = testData;
+    displaySorterInToolbar = false;
     fields: string[] = ['id'];
 
     onButtonClick(btnClick: ButtonClick) {}
@@ -97,7 +104,8 @@ describe('PagedCollectionWithIconToolbarComponent', () => {
                 FontAwesomeModule,
                 CollectionModule,
                 ToolbarModule
-            ]
+            ],
+            teardown: { destroyAfterEach: false }
         });
     });
 
@@ -160,10 +168,20 @@ describe('PagedCollectionWithIconToolbarComponent', () => {
             // then: the buttonClick emit method should have been called
             expect(spy).toHaveBeenCalledWith({ click: 'create' });
         });
+
+        it('should not render sorter in toolbar by default', () => {
+            expect(toolbar.sorter).toBeUndefined();
+        });
+
+        it('should render sorter in toolbar when requested', () => {
+            component.displaySorterInToolbar = true;
+            fixture.detectChanges();
+
+            expect(component.pagedListWithToolbar.sort).toBeDefined();
+        });
     });
 
     describe('With Collection Data', () => {
-
         beforeEach(async () => {
             component.data = testData;
             fixture.detectChanges();
@@ -191,6 +209,13 @@ describe('PagedCollectionWithIconToolbarComponent', () => {
             expect(toolbar.paginator.pagingatorRange.innerText).toEqual(
                 `${pageSize + 1} – ${pageSize + pageSize} of ${testData.length}`
             );
+        });
+
+        it('should render sorter in collection', () => {
+            expect(page.collection.sorter).toBeDefined();
+            expect(
+                component.pagedListWithToolbar.collection.sort
+            ).toBeDefined();
         });
     });
 });

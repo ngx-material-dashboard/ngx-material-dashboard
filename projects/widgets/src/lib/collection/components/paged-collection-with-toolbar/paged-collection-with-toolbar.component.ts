@@ -20,7 +20,6 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
-import { RaisedButtonToolbarComponent } from '../../../toolbar/pages/raised-button-toolbar/raised-button-toolbar.component';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { SelectionService } from '../../services/selection.service';
 import { CollectionComponent } from '../collection/collection.component';
@@ -69,6 +68,8 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     @ContentChild('collection') collectionCmp!:
         | CollectionComponent<T>
         | PagedCollectionComponent<T>;
+    /** Boolean to indicate whether sorter should render in header. */
+    @Input() displaySorterInToolbar: boolean = false;
     /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: string[] = [];
     /** Boolean value to indicate whether multiple rows can be selected. */
@@ -89,10 +90,6 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     disableableToolbarButtons: ToolbarButton[] = [];
     /** The total number of elements in the collection. */
     length: number = 0;
-    /** A reference to the paginator for the component. */
-    paginator$?: MatPaginator;
-    /** A reference to the sort for the component. */
-    sort$?: MatSort | SorterComponent;
     /** The subscriptions for the component. */
     sub: Subscription;
 
@@ -100,16 +97,12 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
      * Returns the paginator for the component, whether it resides in paged
      * collection, or in the toolbar.
      */
-    get paginator(): MatPaginator | null {
-        if (this.paginator$) {
-            // if paginator$ already defined, then return that (should be view
-            // child paginator as defined in PagedCollection)
-            return this.paginator$;
-        } else if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
-            //  paginator is in toolbar if toolbar is IconButtonsWithPaginator
+    get paginator(): MatPaginator | undefined {
+        if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
+            //  paginator should be in toolbar if toolbar is IconButtonsWithPaginator
             return this.toolbar.paginator;
         } else {
-            return null;
+            return undefined;
         }
     }
 
@@ -117,11 +110,8 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
      * Returns the sort for the component.
      */
     get sort(): MatSort | undefined {
-        if (this.sort$) {
-            // if sort$ already defined, then return that
-            return this.sort$;
-        } else if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
-            // sort is in toolbar if toolbar is IconButtonsWithPaginator
+        if (this.toolbar instanceof IconButtonsWithPaginatorComponent) {
+            // sort should be in toolbar if toolbar is IconButtonsWithPaginator
             return this.toolbar.sort;
         } else {
             return undefined;
