@@ -1726,7 +1726,7 @@ export class LayoutComponent implements AfterViewInit, OnInit {
     }
     ngOnInit(): void {
         this.setSidenavItems();
-        this.router.events.subscribe((e) => {
+        this.router.events.subscribe(() => {
             this.setSidenavItems();
         });
     }

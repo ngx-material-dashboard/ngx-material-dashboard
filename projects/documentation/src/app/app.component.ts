@@ -75,12 +75,14 @@ export class AppComponent implements OnInit {
     setTheme(theme: string): void {
         this.nextTheme = theme === 'light' ? 'dark' : 'light';
         this.theme = theme;
-        const bodyClassList = this.document.querySelector('body')!.classList;
-        const removeClassList = /\w*-theme\b/.exec(bodyClassList.value);
-        if (removeClassList) {
-            bodyClassList.remove(...removeClassList);
+        const bodyClassList = this.document.querySelector('body')?.classList;
+        if (bodyClassList) {
+            const removeClassList = /\w*-theme\b/.exec(bodyClassList.value);
+            if (removeClassList) {
+                bodyClassList.remove(...removeClassList);
+            }
+            bodyClassList.add(`${this.theme}-theme`);
+            localStorage.setItem('theme', this.theme);
         }
-        bodyClassList.add(`${this.theme}-theme`);
-        localStorage.setItem('theme', this.theme);
     }
 }

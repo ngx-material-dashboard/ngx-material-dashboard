@@ -96,7 +96,7 @@ export class AnchorService {
             .some((n) => n.startsWith('_ngcontent'));
     }
 
-    private stripFragment(url: string): string {
-        return /[^#]*/.exec(url)![0];
+    private stripFragment(url: string): string | undefined {
+        return /[^#]*/.exec(url)?.[0];
     }
 }

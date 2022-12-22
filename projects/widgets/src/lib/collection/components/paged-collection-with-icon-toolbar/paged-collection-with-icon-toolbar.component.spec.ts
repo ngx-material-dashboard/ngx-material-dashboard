@@ -1,10 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-    ComponentFixture,
-    fakeAsync,
-    TestBed,
-    tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
