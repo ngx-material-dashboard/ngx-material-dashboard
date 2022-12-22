@@ -261,22 +261,6 @@ describe('JsonDatastoreService', () => {
             httpMock.verify();
         });
 
-        // it('should get data with default metadata', () => {
-        //     const expectedUrl = `${BASE_URL}/${API_VERSION}/books`;
-
-        //     datastore.findAll(Book).subscribe((document) => {
-        //         expect(document).toBeDefined();
-        //         expect(document.getModels().length).toEqual(1);
-        //         expect(document.getMeta().links[0]).toEqual('http://www.example.org');
-        //     });
-
-        //     const findAllRequest = httpMock.expectOne(expectedUrl);
-        //     findAllRequest.flush({
-        //         data: [getSampleBook(1, '1')],
-        //         links: ['http://www.example.org']
-        //     });
-        // });
-
         it('should fire error', () => {
             const expectedUrl = `${BASE_URL}/${API_VERSION}/tasks`;
             const dummyResponse = {
