@@ -1,5 +1,28 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
+interface BaseSidenavItem {
+    /** The icon to display next to the text (optional). */
+    icon?: IconDefinition;
+    /** Optional parameters to include in route (should be JSON object literal). */
+    queryParams?: any;
+    /** The CSS selector for the item. */
+    selector: string;
+    /** The text for the item. */
+    text: string;
+    /** The text to display as a tooltip over the item (optional). */
+    tooltip?: string;
+}
+
+export interface SidenavItemWithChildren extends BaseSidenavItem {
+    /** SidenavItem's to nest under this one. */
+    children: SidenavItem[];
+}
+
+export interface SidenavItemWithRoute extends BaseSidenavItem {
+    /** The route to use when the item is clicked. */
+    route: any[];
+}
+
 /**
  * An item to render inside the `Sidenav`. A `Sidenav` can have any number of
  * `SidenavItems`. A `SidenavItem` should either direct the user to a specific
@@ -65,19 +88,4 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
  * const sidenavItem = { route: ['tasks'], text: 'Pending', selector: 'pending', tooltip: 'Manage Pending Tasks' };
  * ```
  */
-export interface SidenavItem {
-    /** SidenavItem's to nest under this one. You should not include a route if including children. */
-    children?: SidenavItem[];
-    /** The icon to display next to the text (optional). */
-    icon?: IconDefinition;
-    /** Optional parameters to include in route (should be JSON object literal). */
-    queryParams?: any;
-    /** The route to use when the item is clicked (optional if children not defined). */
-    route?: any[];
-    /** The CSS selector for the item. */
-    selector: string;
-    /** The text for the item. */
-    text: string;
-    /** The text to display as a tooltip over the item (optional). */
-    tooltip?: string;
-}
+export type SidenavItem = SidenavItemWithChildren | SidenavItemWithRoute;

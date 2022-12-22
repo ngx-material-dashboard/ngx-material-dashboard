@@ -33,6 +33,8 @@ import {
     styleUrls: ['./filter-drop-down.component.scss']
 })
 export class FilterDropDownComponent implements AfterViewInit {
+    @Output() clearSearchForm: EventEmitter<boolean> =
+        new EventEmitter<boolean>();
     /** The event emitted when the user clicks the search button. */
     @Output() searchClick: EventEmitter<boolean> = new EventEmitter<boolean>();
     /** A reference to the search field in the component. */
@@ -56,7 +58,9 @@ export class FilterDropDownComponent implements AfterViewInit {
         );
     }
 
-    clear(): void {}
+    clear(): void {
+        this.clearSearchForm.emit(true);
+    }
 
     search(): void {
         this.searchClick.emit(true);

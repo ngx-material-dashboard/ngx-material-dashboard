@@ -9,7 +9,10 @@ import { MockModule } from 'ng-mocks';
 import { of } from 'rxjs';
 
 import { SidenavComponent } from './sidenav.component';
-import { SidenavItem } from '../../interfaces/sidenav.interface';
+import {
+    SidenavItem,
+    SidenavItemWithRoute
+} from '../../interfaces/sidenav.interface';
 
 describe('SidenavComponent', () => {
     let component: SidenavComponent;
@@ -48,7 +51,7 @@ describe('SidenavComponent', () => {
     });
 
     describe('Basic SidenavItems', () => {
-        const sidenavItems: SidenavItem[] = [
+        const sidenavItems: SidenavItemWithRoute[] = [
             { route: ['1'], selector: '1', text: '1' },
             { route: ['2'], selector: '2', text: '2' }
         ];
@@ -56,7 +59,7 @@ describe('SidenavComponent', () => {
         /**
          * Loop through each of the sidenavItems for the tests below.
          */
-        sidenavItems.forEach((item: SidenavItem) => {
+        sidenavItems.forEach((item: SidenavItemWithRoute) => {
             describe(`${item.text} SidenavItem`, () => {
                 beforeEach(() => {
                     // mock for the Router object

@@ -78,7 +78,7 @@ export class SearchFilterDirective<T extends JsonModel> implements OnDestroy {
     private buildSearchFilter(searchFilterData: FormGroup): SearchFilterMap {
         const searchFilter: SearchFilterMap = {};
         Object.keys(searchFilterData.controls).forEach((key: string) => {
-            searchFilter[key] = searchFilterData.get(key)?.value;
+            searchFilter[key] = searchFilterData.controls[key].value;
         });
         return searchFilter;
     }

@@ -130,10 +130,10 @@ export class SidenavComponent implements OnDestroy, OnInit {
     private initSidenavItems() {
         let childIndex: number;
         const index = this.sidenavItems$.findIndex((item: SidenavItem) => {
-            if (item.children !== undefined) {
+            if ('children' in item) {
                 childIndex = item.children.findIndex(
                     (childItem: SidenavItem) => {
-                        if (childItem.route) {
+                        if ('route' in childItem) {
                             return this.router.url.includes(
                                 `/${item.selector}/${childItem.route
                                     .join('/')
@@ -162,7 +162,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
                 }
             } else {
                 return this.router.url.includes(
-                    `/${item.route?.join('/').replace('./', '')}`
+                    `/${item.route.join('/').replace('./', '')}`
                 );
             }
         });
@@ -175,7 +175,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
         }
 
         this.sidenavItems$.forEach((item: SidenavItem, i: number) => {
-            if (item.children !== undefined) {
+            if ('children' in item) {
                 //this.toggle[i].children = [];
                 for (let j = 0; j < item.children.length; j++) {
                     this.toggle[i].children.push(
@@ -195,7 +195,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
      * @returns true if the current URL ends with the route in the given SidenavItem.
      */
     isActive(sidenavItem: SidenavItem, parent?: SidenavItem): boolean {
-        if (sidenavItem.route) {
+        if ('route' in sidenavItem) {
             // remove './' from beggining of the route to avoid issues comparing
             // sidenav route with router.url
             const filteredRoute = sidenavItem.route.filter(
@@ -272,7 +272,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
      */
     select(index: number): void {
         const sidenavItem = this.sidenavItems$[index];
-        if (sidenavItem.route) {
+        if ('route' in sidenavItem) {
             if (sidenavItem.queryParams) {
                 this.router.navigate(sidenavItem.route, {
                     queryParams: sidenavItem.queryParams
@@ -292,10 +292,11 @@ export class SidenavComponent implements OnDestroy, OnInit {
      * @param childIndex The index of the child.
      */
     selectChild(index: number, childIndex: number) {
-        const children = this.sidenavItems$[index].children;
-        if (children) {
-            if (children[childIndex].route) {
-                const child = children[childIndex];
+        const sidenavItem = this.sidenavItems$[index];
+        if ('children' in sidenavItem) {
+            const children = sidenavItem.children;
+            const child = children[childIndex];
+            if ('route' in child) {
                 if (child.route && child.queryParams) {
                     this.router.navigate(child.route, {
                         queryParams: child.queryParams
@@ -304,7 +305,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
                     this.router.navigate(child.route);
                 }
             } else {
-                const gChildren = children[childIndex].children;
+                const gChildren = child.children;
                 const toggleChildren = this.toggle[index].children;
                 if (gChildren && toggleChildren) {
                     toggleChildren[childIndex] = !toggleChildren[childIndex];
@@ -325,17 +326,21 @@ export class SidenavComponent implements OnDestroy, OnInit {
         childIndex: number,
         grandChildIndex: number
     ) {
-        const children = this.sidenavItems$[index].children;
-        if (children) {
-            const gChildren = children[childIndex].children;
-            if (gChildren) {
+        const parent = this.sidenavItems$[index];
+        if ('children' in parent) {
+            const children = parent.children;
+            const child = children[childIndex];
+            if ('children' in child) {
+                const gChildren = child.children;
                 const gChild = gChildren[grandChildIndex];
-                if (gChild.route && gChild.queryParams) {
-                    this.router.navigate(gChild.route, {
-                        queryParams: gChild.queryParams
-                    });
-                } else if (gChild.route) {
-                    this.router.navigate(gChild.route);
+                if ('route' in gChild) {
+                    if (gChild.queryParams) {
+                        this.router.navigate(gChild.route, {
+                            queryParams: gChild.queryParams
+                        });
+                    } else {
+                        this.router.navigate(gChild.route);
+                    }
                 }
             }
         }
