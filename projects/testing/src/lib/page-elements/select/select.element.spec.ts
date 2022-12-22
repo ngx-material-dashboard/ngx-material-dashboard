@@ -53,6 +53,10 @@ describe('SelectElement', () => {
         selectElement.initOptions();
     }));
 
+    it('should return undefined for no select value', () => {
+        expect(selectElement.value).toBeUndefined();
+    });
+
     it('should select option by index', fakeAsync(() => {
         // when: an option is selected
         selectElement.select(0);

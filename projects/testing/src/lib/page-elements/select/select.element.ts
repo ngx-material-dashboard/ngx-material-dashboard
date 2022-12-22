@@ -58,12 +58,12 @@ export class SelectElement extends PageElement {
      * Returns the selected value. Note that the ngOnInit() must be called before the correct value can be returned, otherwise
      * the placeholder is returned. See answer in following stackoverflow: https://stackoverflow.com/a/53724641.
      */
-    get value(): any {
+    get value(): string | undefined {
         const matSelectValueDebugElement = this.selectDebugElement.query(
             By.css('.mat-select-trigger .mat-select-value')
         ).nativeElement;
         const value = matSelectValueDebugElement.children[0].children[0];
-        return value?.innerText;
+        return value ? value.innerText : undefined;
     }
 
     /**
