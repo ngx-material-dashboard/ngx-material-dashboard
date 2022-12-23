@@ -7,7 +7,7 @@ export class TypeAlias extends TypedocBase {
     constructor(data: Partial<TypeAlias>) {
         super(data);
 
-        if (data.type && data.type.declaration.signatures[0].comment) {
+        if (data.type && data.type.declaration?.signatures[0]?.comment) {
             // parse out comments which should be in 'Constructor signature'
             this.comment = new Comment(
                 data.type.declaration.signatures[0].comment
