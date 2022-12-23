@@ -14,12 +14,12 @@ interface BaseSidenavItem {
 }
 
 export interface SidenavItemWithChildren extends BaseSidenavItem {
-    /** SidenavItem's to nest under this one. */
+    /** SidenavItem's to nest under this one (route should not be defined if this is). */
     children: SidenavItem[];
 }
 
 export interface SidenavItemWithRoute extends BaseSidenavItem {
-    /** The route to use when the item is clicked. */
+    /** The route to use when the item is clicked (children should not be defined if this is). */
     route: any[];
 }
 
@@ -34,9 +34,9 @@ export interface SidenavItemWithRoute extends BaseSidenavItem {
  * All `SidenavItems` should define `text` and a `selector`. The `text` is the
  * text to render for the item in the `Sidenav`, and the `selector` is a CSS
  * selector for the item mainly used for easy access in unit tests. Other than
- * that you must define either a `route` or `children` for each `SidenavItem`.
- * This is not enforced in the code right now, but included here so you are
- * aware. Any other properties are optional.
+ * that you must define either a `route` or `children` for each `SidenavItem`,
+ * but you should not (and can't) define both. Any other properties are
+ * optional.
  *
  * ### route
  *
@@ -44,6 +44,7 @@ export interface SidenavItemWithRoute extends BaseSidenavItem {
  * to the provided route when they click on it. When you include a `route` you
  * can also include optional `queryParams` to be used with the route. The
  * `queryParams` should be a JSON object literal of params to include in route.
+ * If you include a `route`, then you should not include `children`.
  *
  * ```typescript
  * import {SidenavItem} from '@ngx-material-dashboard/widget`;
@@ -56,7 +57,8 @@ export interface SidenavItemWithRoute extends BaseSidenavItem {
  * A `SidenavItem` with `children` will nest the children under the parent.
  * Currently the `Sidenav` will only render 2 levels of `children`, meaning you
  * can only define a parent, child, and grandchildren `SidenavItems`. The
- * grandchildren `SidenavItems` should all define a `route`.
+ * grandchildren `SidenavItems` should all define a `route`. If you include
+ * children, then you should not include a `route`.
  *
  * ```typescript
  * import {SidenavItem} from '@ngx-material-dashboard/widget`;
