@@ -146,7 +146,12 @@ export function generateMarkdown(modules: Module[]) {
 
         module.typeAliases.forEach((f: TypeAlias) => {
             const outputPath = buildOutputPath(baseOutputPath, f);
-            const output = decoratorTemplate(f);
+            let output;
+            if (f.name === 'SidenavItem') {
+                output = classTemplate(f);
+            } else {
+                output = decoratorTemplate(f);
+            }
             writeFile(outputPath, 'api.md', output);
             f.apiFile = {
                 directory: makeRelative(outputPath),

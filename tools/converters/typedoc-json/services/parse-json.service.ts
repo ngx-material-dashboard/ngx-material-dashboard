@@ -13,6 +13,7 @@ import { Property } from '../models/property.model';
 import { Service } from '../models/service.model';
 import { TypeAlias } from '../models/type-alias.model';
 import { TypedocBase } from '../models/typedoc-base.model';
+import { TypeModel } from '../models/type.model';
 
 const MODULE_SORT_ORDER: string[] = [
     'base-json',
@@ -58,6 +59,7 @@ export class ParseJsonService {
         );
         this.extractModulesData();
         this.extractNgModuleData();
+        this.extractTypeAliasData();
         this.modules.sort((a: Module, b: Module) => {
             return (
                 MODULE_SORT_ORDER.indexOf(a.displayName) -
@@ -156,6 +158,22 @@ export class ParseJsonService {
                 } else if (c.sources[0].fileName.includes('.enum.')) {
                     ngModule.enums.push(c);
                 }
+            });
+        });
+    }
+
+    private extractTypeAliasData() {
+        this.modules.forEach((m: Module) => {
+            m.typeAliases?.forEach((ta: TypeAlias) => {
+                ta.type.types?.forEach((t: TypeModel) => {
+                    const i = m.interfaces.find((it: InterfaceType) => {
+                        return it.name === t.name;
+                    });
+                    if (ta.properties && i && i.properties) {
+                        ta.properties = [...ta.properties, ...i.properties];
+                    }
+                });
+                ta.sortProperties();
             });
         });
     }
