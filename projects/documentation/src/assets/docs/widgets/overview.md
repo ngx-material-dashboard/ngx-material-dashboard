@@ -8,11 +8,27 @@ certain tasks and functionality (i.e. make developing applications easier),
 and to DRY up my client side code bases across all of my projects in the
 seemingly endless struggle to be the best developer I can be.
 
-This library does provide some basic CRUD capabilities, and as a result I do
-need to have a consitent way to manage data. So this library depends on the
-[base-json](./base-json) library for interfacing with JSON API servers.
-I recommend that you take a look at that library to see if that will work for
-your project before you dig too deep into this library.
+## Features
+
+There are currently 8 modules defined in this library. The collection, grid, list, and table modules are for managing collections (paged or not). The dialog, layout, and toolbar modules are define overall layout features. While the form module provides features useful for managing forms, including validation and error messages. You can explore each of the modules and their respective components, directives, etc. using the sidenav to the left. I also include some details on the modules below.
+
+This library does provide some basic CRUD capabilities, and as a result I do need to have a consitent way to manage data. So this library depends on the [base-json](./base-json) library for interfacing with JSON API servers. I recommend that you take a look at that library to see if that will work for your project before you dig too deep into this library.
+
+### Paged Collections
+
+The bulk of the components in this library center around paged collections. There are great examples of working with paged tables in the Angular Material documentation, but in projects that manage lots of different types of table data I used to duplicate a lot of code and functionality creating paged table components for each type of data object I had. Additionally, there are only examples of paging tables of data, but there are other things that can be paged as well. This includes lists and grids, and probably other things I can't think of right now (if I do I will add those and their corresponding components).
+
+The collections module defines the most basic components/directives for managing paged collections. None of the components defined in this module actually include templates. As such you should not be using this module directly, and instead should use either the list, grid, or table modules. These modules extend the basic functionality defined for the collection module and provide templates for rendering their respective type of collection. You can
+
+### Layout Features
+
+The layout module defines most of the components necessary for a basic layout of an application. I have included a [DefaultLayoutComponent](/widgets/layout/components/default-layout) which defines a typical layout with header, footer, sidenav, and main content areas. The documentation actually utilizes the sidenav from this library, so you can see one of the components in action.
+
+The toolbar module defines various toolbars, mostly for use with collections to provide buttons, paging, and sorting capabilities. The dialog module currently only provides a dialog to confirm deleting things from collections.
+
+### Forms Module
+
+The forms module provides things I found useful for all forms I've worked with, and has really helped reduce the amount of repeated validation/error handling and template details in my apps. I also define a generic structure for defining validation messages that I think can be used for just about any form and validation type. See the [ValidationMessages](/widgets/interfaces/validation-messages) for more details.
 
 ## Getting Started
 

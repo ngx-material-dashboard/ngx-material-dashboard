@@ -68,6 +68,10 @@ npm test
 
 This will run unit tests for all libraries/projects in the workspace without watching for changes in the libraries (i.e. no re-runs of tests if you make any code changes). If you are developing for one or more of the libraries and you want to run tests with `--watch` enabled, then I suggest using the `ng test` command with the corresponding library name (i.e. `ng test base-json`).
 
+## Built With
+
+This workspace was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.0.
+
 ## Authors
 
 * **[jphillips]** - (https://github.com/jphillips03)

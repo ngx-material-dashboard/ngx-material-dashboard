@@ -99,8 +99,7 @@ The next thing you need to do is create a datastore service that extends the
 for interfacing with your server side API and includes basic implementations
 for CRUD operations. The only thing it does not include are implementations for
 serializing and deserializing your data, as well as extracting model data from
-HTTP responses. See the [JsonDatastore](/base-json/services/json-datastore) for
-more details on the methods that need to be implemented.
+HTTP responses. See the [documentation](/base-json/services/json-datastore/api) for the JsonDatastore for more details.
 
 I am including the source for the JsonDatastore from the json library so you
 can see an example of how to implement the necessary methods. I also suggest
