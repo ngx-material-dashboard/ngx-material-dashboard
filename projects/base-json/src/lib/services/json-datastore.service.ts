@@ -173,6 +173,8 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
 export abstract class JsonDatastore {
     /** Options included in DatastoreConfig decorator. */
     protected config!: DatastoreConfig;
+    /** Service that performs HTTP requests. */
+    protected httpClient: HttpClient;
     /** An internal data store map of model types to model objects mapped by id. */
     protected internalStore: { [type: string]: { [id: string]: any } } = {};
     private globalHeaders!: HttpHeaders;
@@ -183,7 +185,9 @@ export abstract class JsonDatastore {
             ? this.datastoreConfig.overrides.toQueryString
             : this._toQueryString;
 
-    constructor(protected httpClient: HttpClient) {}
+    constructor(httpClient: HttpClient) {
+        this.httpClient = httpClient;
+    }
 
     //---Getters/Setters-------------------------------------------------------
 
@@ -303,8 +307,8 @@ export abstract class JsonDatastore {
      * single object and returns it as the given modelType.
      *
      * @param res The HTTP response from the server.
-     * @param modelType The type of model the data
-     * @param model
+     * @param modelType The type of model the data should be returned as.
+     * @param model The model to extract.
      */
     protected abstract extractRecordData(
         res: HttpResponse<object>,
@@ -351,6 +355,9 @@ export abstract class JsonDatastore {
      *
      * @param modelType The type of model to return.
      * @param id The id of the model to return.
+     * @param params Optional query parameters to include in request URL.
+     * @param headers Optional custom headers to include in HTTP request.
+     * @param customUrl Optional custom URL to use for HTTP request.
      * @returns The requested model.
      */
     public findRecord<T extends JsonModel>(
@@ -648,6 +655,12 @@ export abstract class JsonDatastore {
         return dirtyData;
     }
 
+    /**
+     * Builds request headers for HTTP requests.
+     *
+     * @param customHeaders Custom values to include in HTTP request.
+     * @returns HttpHeaders to include in HTTP request.
+     */
     protected buildHttpHeaders(customHeaders?: HttpHeaders): HttpHeaders {
         let requestHeaders: HttpHeaders = new HttpHeaders({
             Accept: this.contentType,
@@ -683,6 +696,9 @@ export abstract class JsonDatastore {
      * Returns the URL to connect to based on the given modelType.
      *
      * @param modelType The type of model to use when building the URL.
+     * @param params Any query parameters to include in URL.
+     * @param id Optional id to include in URL.
+     * @param customUrl Custom base URL to use for HTTP request.
      * @returns The URL to connect to.
      */
     protected buildUrl(
@@ -714,6 +730,12 @@ export abstract class JsonDatastore {
         return queryParams ? `${url}?${queryParams}` : url;
     }
 
+    /**
+     * Returns the property names for the given model.
+     *
+     * @param model The model to retrieve the property names of.
+     * @returns The property names for the given model.
+     */
     protected getModelPropertyNames(model: JsonModel) {
         return Reflect.getMetadata('AttributeMapping', model) || [];
     }
@@ -743,6 +765,14 @@ export abstract class JsonDatastore {
         return throwError(() => error);
     }
 
+    /**
+     * Parses meta data from the given body of a HTTP request that should
+     * contain data for given modelType.
+     *
+     * @param body The body of a HTTP request.
+     * @param modelType The type of model included in the body.
+     * @returns Meta data from body.
+     */
     protected parseMeta(body: any, modelType: ModelType<JsonModel>): any {
         const metaModel: any = Reflect.getMetadata(
             'JsonApiModelConfig',
@@ -751,6 +781,14 @@ export abstract class JsonDatastore {
         return new metaModel(body);
     }
 
+    /**
+     * Returns the model of the given modelType with the given id from the
+     * local internal store (if it exists).
+     *
+     * @param modelType The type of model to peek.
+     * @param id The id of the model to peek at.
+     * @returns The model of the given modelType with given id from local store.
+     */
     public peekRecord<T>(modelType: ModelType<T>, id: string): T | null {
         const type: string = Reflect.getMetadata(
             'JsonApiModelConfig',
@@ -761,6 +799,12 @@ export abstract class JsonDatastore {
             : null;
     }
 
+    /**
+     * Returns all models of the given modelType from the local internal store.
+     *
+     * @param modelType The type of models to peek at.
+     * @returns All models of the given modelType from internal store.
+     */
     public peekAll<T>(modelType: ModelType<T>): Array<T> {
         const type = Reflect.getMetadata('JsonApiModelConfig', modelType).type;
         const typeStore = this.internalStore[type];
@@ -769,6 +813,14 @@ export abstract class JsonDatastore {
             : [];
     }
 
+    /**
+     * Transforms the property names of the given modelType from the serialized
+     * representation to the internal representation defined in the modelType.
+     *
+     * @param modelType The type of model to transform property names for.
+     * @param attributes The attributes for the model.
+     * @returns Property names that can be used to fill data for models.
+     */
     public transformSerializedNamesToPropertyNames<T>(
         modelType: ModelType<T>,
         attributes: any
