@@ -3,13 +3,12 @@ import formats from './formats';
 
 /**
  * Code taken from https://github.com/ghidoz/angular2-jsonapi/pull/277 and
- * updated to work with current version of typescript. The utilities is sad to
- * say a part of the library I do not know enough about since I just copied the
- * code and updated it enough to get it to function, and still have all the
- * unit tests pass. I am slowly going through the code to get a better
- * understanding of what exactly it is doing, and adding unit tests and
- * comments in places where I think I have a basic understanding of what is
- * going on.
+ * updated to work with current version of typescript. The utilities is a part
+ * of the library I do not know enough about since I just copied the code and
+ * and updated it enough to get it to function, and still have all the unit
+ * tests pass. I am slowly going through the code to get a better understanding
+ * of what exactly it is doing, and adding unit tests and comments in places
+ * where I think I have a basic understanding of what is going on.
  */
 
 const has = Object.prototype.hasOwnProperty;

@@ -1,12 +1,11 @@
 /**
  * Code taken from https://github.com/ghidoz/angular2-jsonapi/pull/277 and
- * updated to work with current version of typescript. The utilities is sad to
- * say a part of the library I do not know enough about since I just copied the
- * code and updated it enough to get it to function, and still have all the
- * unit tests pass. I am slowly going through the code to get a better
- * understanding of what exactly it is doing, and adding unit tests and
- * comments in places where I think I have a basic understanding of what is
- * going on.
+ * updated to work with current version of typescript. The utilities is a part
+ * of the library I do not know enough about since I just copied the code and
+ * and updated it enough to get it to function, and still have all the unit
+ * tests pass. I am slowly going through the code to get a better understanding
+ * of what exactly it is doing, and adding unit tests and comments in places
+ * where I think I have a basic understanding of what is going on.
  */
 
 /* tslint:disable:no-bitwise */
@@ -44,9 +43,9 @@ const compactQueue = (queue: any) => {
 /**
  * Converts the given source array into an object.
  *
- * @param source
- * @param options
- * @returns
+ * @param source Array to convert into an object.
+ * @param options Options used to convert (plainObjects: true creates plain object).
+ * @returns Given array converted into an object.
  */
 const arrayToObject = (source: any, options: any) => {
     const obj = options && options.plainObjects ? Object.create(null) : {};
@@ -258,9 +257,21 @@ const compact = (value: any) => {
     return value;
 };
 
+/**
+ * Returns true if given obj is a regular expression.
+ *
+ * @param obj Value to test if it is a regular expression.
+ * @returns True if given object is a regular expression.
+ */
 const isRegExp = (obj: any) =>
     Object.prototype.toString.call(obj) === '[object RegExp]';
 
+/**
+ * Returns true if given obj is a buffer.
+ *
+ * @param obj Value to test if it is a buffer.
+ * @returns True if given value is a buffer.
+ */
 const isBuffer = (obj: any) => {
     if (!obj || typeof obj !== 'object') {
         return false;

@@ -15,5 +15,15 @@ describe('stringify', () => {
                 'The charset option must be either utf-8, iso-8859-1, or undefined'
             );
         });
+
+        it('should throw an error when format option unknown', () => {
+            expect(() =>
+                stringify({ id: '1' }, { format: 'some unknown format option' })
+            ).toThrowError('Unknown format option provided.');
+        });
+
+        it('should stringify with defaults even if opts undefined', () => {
+            expect(stringify({ id: '1' }, undefined)).toBe('id=1');
+        });
     });
 });
