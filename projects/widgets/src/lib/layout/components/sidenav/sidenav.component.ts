@@ -125,6 +125,20 @@ export class SidenavComponent implements OnDestroy, OnInit {
     }
 
     /**
+     * Returns array of child SidenavItems if they exist for given item.
+     *
+     * @param item SidenavItem to get children from (if they exist).
+     * @returns Children SidenavItems of given item (if they exist).
+     */
+    getChildrenByItem(item: SidenavItem): SidenavItem[] | undefined {
+        if ('children' in item) {
+            return item.children;
+        } else {
+            return undefined;
+        }
+    }
+
+    /**
      * Initializes sidenav items and toggle state based on current URL.
      */
     private initSidenavItems() {
