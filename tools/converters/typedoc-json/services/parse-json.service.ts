@@ -1,5 +1,7 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
 import { CLAZZ_SPECIFIC_TYPES } from '../../../generators/documentation/helpers';
-import * as data from '../../../../docs.json';
 import { Accessor } from '../models/accessor.model';
 import { Clazz } from '../models/clazz.model';
 import { Component } from '../models/component.model';
@@ -53,7 +55,7 @@ export class ParseJsonService {
      * generated API files for use in documentation.
      */
     constructor() {
-        this.fileData = (data as any).default;
+        this.fileData = this.getFileData('docs.json');
         this.typedocBase = new TypedocBase(
             this.fileData as Partial<TypedocBase>
         );
@@ -69,6 +71,14 @@ export class ParseJsonService {
         this.ngModuleClasses.sort((a: Clazz, b: Clazz) => {
             return a.displayName.localeCompare(b.displayName);
         });
+    }
+
+    private getFileData(fileName: string) {
+        const result = readFileSync(
+            join(__dirname, '..', '..', '..', '..', fileName),
+            'utf-8'
+        );
+        return JSON.parse(result);
     }
 
     /**
