@@ -9,7 +9,7 @@ You can use the JSON service libraries without the `widgets` or `testing` librar
 Click on the corresponding links below to see more details about each library.
 
 1. [base-json](base-json) - base library for interfacing with RESTful JSON API from Angular
-2. [json](json) - customized library using base-json to interface with general JSON API
+2. [json](json) - customized library using base-json to interface with basic JSON API
 3. [json-api](json-api) - customized library using base-json to interface with JSON API that uses [json:api spec](https://jsonapi.org)
 4. [testing](testing) - library with helper classes for testing Angular components
 5. [widgets](widgets) - library built on top of  [Angular Material](https://material.angular.io) with various widgets that can be used in a dashboard layout

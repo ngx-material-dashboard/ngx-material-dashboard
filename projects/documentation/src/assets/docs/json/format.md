@@ -1,8 +1,8 @@
 ## JSON Format
 
-The JSON generated and consumed by this library is pretty generic, and basically
+The JSON generated and consumed by this library basically
 converts objects directly into their JSON representation. So if you had the 
-following simple data model class:
+following data model class:
 
 ```typescript
 @JsonApiModelConfig({
@@ -15,6 +15,7 @@ export class Task extends JsonModel {
     @Attribute({ serializedName: 'due_date' }) dueDate?: Date;
     @Attribute() dateCompleted?: Date;
     @Attribute() isComplete: boolean = false;
+    @NestedAttribute(converter: new JsonModelConverter(Task)) relatedTasks[]: Task[] = [];
 }
 ```
 
@@ -22,11 +23,21 @@ Then it would be converted to and from the following JSON for HTTP requests:
 
 ```json
 {
+    "id": "1",
     "name": "Task Title",
     "description": "Do a thing",
     "due_date": "2022-09-02",
     "dateCompleted": null,
-    "isComplete": false
+    "isComplete": false,
+    "relatedTasks": [
+        {
+            "id": "2",
+            "name": "A related task",
+            "description": "Do something related",
+            ...
+        },
+        ...
+    ]
 }
 ```
 
@@ -39,5 +50,5 @@ these structures, then fear not because you might still be able to utilize the
 base-json library to define your own JSON structure. That is of course if your
 API still follows the basic assumptions I lay out 
 [here](../base-json/README.md#background-how-and-why-this-library-came-to-be).
-There are details in that documentation to show how you can extend the bas-json
+There are details in that documentation to show how you can extend the base-json
 library for your own purposes.

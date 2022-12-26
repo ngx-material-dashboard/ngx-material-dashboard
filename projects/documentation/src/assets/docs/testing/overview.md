@@ -1,13 +1,6 @@
 ## Introduction
 
-The Testing library is meant to make testing components and angular apps easier
-when using components from libraries defined in this workspace. It is NOT a 
-general purpose testing library that will work for every app since it relies on
-the customized structure of components defined in this workspace. There are 
-already general purpose testing libraries available (I leave it up to you to 
-find and determine which one is best for your purposes should you decide to use
-a different library), but I decided to create my own for this workspace since I
-felt it gave me more leeway in how I wanted to structure my tests.
+The Testing library is meant to make testing components and angular apps easier when using components from libraries defined in this workspace. It is NOT a general purpose testing library that will work for every app since it relies on the customized structure of components defined in this workspace, including expected CSS class selectors for HTML elements (although there is some customization available there, more details in the docs...). There are already general purpose testing libraries available (I leave it up to you to find and determine which one is best for your purposes should you decide to use a different library), but I decided to create my own for this workspace since I felt it gave me more leeway in how I wanted to structure my tests.
 
 ### Library Structure
 
@@ -88,11 +81,7 @@ are not utilizing the widgets library for those components.
 
 ### Mock Objects and Fixtures
 
-The library includes several mock classes and fixtures that you may use when
-writing karma tests or creating sandboxes for your angularplayground.it. The
-`dummy-object.mock.ts` class defines a simple model class that extends the
-base-json JsonModel class. While the `dummy-object.fixture.ts` class generates
-some dummy data based on the `DummyObject` class that can be used in your tests.
+The library includes several mock classes and fixtures that you may use when writing karma tests or creating sandboxes for your angularplayground.it. The `task.model.ts` class defines a simple model class that extends the base-json JsonModel class. While the `task.fixture.ts` class generates some dummy data that can be used in your tests.
 
 ### PageElements and PageObjects
 

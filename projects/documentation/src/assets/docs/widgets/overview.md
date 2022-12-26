@@ -46,7 +46,11 @@ this library.
 You may also want to install the [testing](./testing)
 library I created in conjunction with this one. It includes classes you can use that
 will help writing karma tests in your application. Follow the included link to read
-more about that and find installation instructions.
+more about that library. Command to install testing library included below for convenience.
+
+```bash
+npm install @ngx-material-dashboard/testing
+```
 
 ### Configuration
 
