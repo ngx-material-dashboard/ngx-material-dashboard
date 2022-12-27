@@ -88,9 +88,14 @@ export function generateSidenavItems(
         'layout.component.ts'
     );
     const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
+    let sidenavItemsString = JSON.stringify(sidenavItems).replace('{', '');
+    sidenavItemsString = sidenavItemsString.substring(
+        0,
+        sidenavItemsString.lastIndexOf('}')
+    );
     replaceInFile.replace(
-        /const routeSidenavItems: any = {.*};/g,
-        `const routeSidenavItems: any = ${JSON.stringify(sidenavItems)};`
+        /(?<=const routeSidenavItems: any = {)([\s\S]*)(?=};)/g,
+        sidenavItemsString
     );
 }
 

@@ -35,11 +35,18 @@ export function updateMarkdownRoutes(modules: Module[]) {
         'tabbed-document-tab.component.ts'
     );
     const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
+
+    // stringify the URL files map and remove the enclosing brackets since
+    // below regex matches characters between the brackets (so only those
+    // characters are replaced in the file; otherwise we end up with {{}}
+    // as structure of JSON and that doesn't work so well)
+    let urlFilesMap = JSON.stringify(
+        urlMarkdownFileMapGenerator.urlFilesMap
+    ).replace('{', '');
+    urlFilesMap = urlFilesMap.substring(0, urlFilesMap.lastIndexOf('}'));
     replaceInFile.replace(
-        /const URL_DIRECTORY_MAP: UrlDirectoryMap = {.*};/g,
-        `const URL_DIRECTORY_MAP: UrlDirectoryMap = ${JSON.stringify(
-            urlMarkdownFileMapGenerator.urlFilesMap
-        )};`
+        /(?<=const URL_DIRECTORY_MAP: UrlDirectoryMap = {)([\s\S][^};]*)(?=};)/g,
+        urlFilesMap
     );
 
     return urlMarkdownFileMapGenerator.urlFilesMap;

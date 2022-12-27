@@ -1223,25 +1223,6 @@ const routes: Routes = [
                                 ]
                             },
                             {
-                                path: 'collection-button-click',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
                                 path: 'search-filter',
                                 component: TabbedDocumentComponent,
                                 children: [
@@ -1361,7 +1342,26 @@ const routes: Routes = [
                                 ]
                             },
                             {
-                                path: 'sidenav-item',
+                                path: 'sidenav-item-with-children',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'sidenav-item-with-route',
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
@@ -1438,6 +1438,25 @@ const routes: Routes = [
                             },
                             {
                                 path: 'validation-messages',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'sidenav-item',
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
@@ -1643,6 +1662,44 @@ const routes: Routes = [
                                 ]
                             },
                             {
+                                path: 'icon-buttons-with-paginator-bar',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'menu',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'page',
                                 component: TabbedDocumentComponent,
                                 children: [
@@ -1663,6 +1720,25 @@ const routes: Routes = [
                             },
                             {
                                 path: 'paged-collection',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'paged-collection-with-toolbar',
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
@@ -1720,6 +1796,25 @@ const routes: Routes = [
                             },
                             {
                                 path: 'paginator',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'select',
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
@@ -1816,6 +1911,30 @@ const routes: Routes = [
                         ]
                     },
                     {
+                        path: 'models',
+                        children: [
+                            {
+                                path: 'task',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         path: 'pages',
                         children: [
                             {
@@ -1860,25 +1979,6 @@ const routes: Routes = [
                                         redirectTo: 'overview'
                                     }
                                 ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'dummy-object',
-                        component: TabbedDocumentComponent,
-                        children: [
-                            {
-                                path: 'api',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: 'overview',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
-                                redirectTo: 'overview'
                             }
                         ]
                     },

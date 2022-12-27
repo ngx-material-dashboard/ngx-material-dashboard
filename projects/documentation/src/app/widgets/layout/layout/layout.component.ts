@@ -1078,22 +1078,6 @@ const routeSidenavItems: any = {
                     ]
                 },
                 {
-                    text: 'Directives',
-                    selector: 'Directives',
-                    children: [
-                        {
-                            route: [
-                                './',
-                                'widgets',
-                                'directives',
-                                'collection-button-click'
-                            ],
-                            selector: 'collection-button-click',
-                            text: 'CollectionButtonClick'
-                        }
-                    ]
-                },
-                {
                     text: 'Enums',
                     selector: 'Enums',
                     children: [
@@ -1358,10 +1342,20 @@ const routeSidenavItems: any = {
                                 './',
                                 'widgets',
                                 'interfaces',
-                                'sidenav-item'
+                                'sidenav-item-with-children'
                             ],
-                            selector: 'sidenav-item',
-                            text: 'SidenavItem'
+                            selector: 'sidenav-item-with-children',
+                            text: 'SidenavItemWithChildren'
+                        },
+                        {
+                            route: [
+                                './',
+                                'widgets',
+                                'interfaces',
+                                'sidenav-item-with-route'
+                            ],
+                            selector: 'sidenav-item-with-route',
+                            text: 'SidenavItemWithRoute'
                         }
                     ]
                 },
@@ -1601,6 +1595,17 @@ const routeSidenavItems: any = {
                     ]
                 }
             ]
+        },
+        {
+            text: 'Interfaces',
+            selector: 'interfaces',
+            children: [
+                {
+                    route: ['./', 'widgets', 'interfaces', 'sidenav-item'],
+                    selector: 'sidenav-item',
+                    text: 'SidenavItem'
+                }
+            ]
         }
     ],
     testing: [
@@ -1624,6 +1629,21 @@ const routeSidenavItems: any = {
                     text: 'Collection'
                 },
                 {
+                    route: [
+                        './',
+                        'testing',
+                        'elements',
+                        'icon-buttons-with-paginator-bar'
+                    ],
+                    selector: 'icon-buttons-with-paginator-bar',
+                    text: 'IconButtonsWithPaginatorBar'
+                },
+                {
+                    route: ['./', 'testing', 'elements', 'menu'],
+                    selector: 'menu',
+                    text: 'Menu'
+                },
+                {
                     route: ['./', 'testing', 'elements', 'page'],
                     selector: 'page',
                     text: 'Page'
@@ -1632,6 +1652,16 @@ const routeSidenavItems: any = {
                     route: ['./', 'testing', 'elements', 'paged-collection'],
                     selector: 'paged-collection',
                     text: 'PagedCollection'
+                },
+                {
+                    route: [
+                        './',
+                        'testing',
+                        'elements',
+                        'paged-collection-with-toolbar'
+                    ],
+                    selector: 'paged-collection-with-toolbar',
+                    text: 'PagedCollectionWithToolbar'
                 },
                 {
                     route: ['./', 'testing', 'elements', 'paged-table'],
@@ -1654,6 +1684,11 @@ const routeSidenavItems: any = {
                     text: 'Paginator'
                 },
                 {
+                    route: ['./', 'testing', 'elements', 'select'],
+                    selector: 'select',
+                    text: 'Select'
+                },
+                {
                     route: ['./', 'testing', 'elements', 'sidenav'],
                     selector: 'sidenav',
                     text: 'Sidenav'
@@ -1672,6 +1707,17 @@ const routeSidenavItems: any = {
                     route: ['./', 'testing', 'elements', 'toolbar-header'],
                     selector: 'toolbar-header',
                     text: 'ToolbarHeader'
+                }
+            ]
+        },
+        {
+            text: 'Models',
+            selector: 'models',
+            children: [
+                {
+                    route: ['./', 'testing', 'models', 'task'],
+                    selector: 'task',
+                    text: 'Task'
                 }
             ]
         },
@@ -1698,9 +1744,9 @@ const routeSidenavItems: any = {
             ]
         },
         {
-            route: ['./', 'testing', 'dummy-object'],
-            selector: 'dummy-object',
-            text: 'Task'
+            route: ['./', 'testing', 'get-task-data'],
+            selector: 'get-task-data',
+            text: 'GetTaskData'
         }
     ]
 };

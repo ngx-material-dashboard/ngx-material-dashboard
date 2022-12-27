@@ -208,7 +208,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/base-json/interfaces/model-type/overview': [
         ['assets/docs/base-json/interfaces/model-type/overview-0.md'],
         ['assets/docs/base-json/interfaces/model-type/overview-1.md'],
-        ['assets/docs/base-json/interfaces/model-type/overview-2.md']
+        ['assets/docs/base-json/interfaces/model-type/overview-2.md'],
+        ['assets/docs/base-json/interfaces/model-type/overview-3.md'],
+        ['assets/docs/base-json/interfaces/model-type/overview-4.md']
     ],
     '/json': [
         ['assets/docs/json/overview.md'],
@@ -297,12 +299,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/directives/click-stop-propagation/overview-0.md'],
         ['assets/docs/widgets/directives/click-stop-propagation/overview-1.md'],
         ['assets/docs/widgets/directives/click-stop-propagation/overview-2.md']
-    ],
-    '/widgets/directives/collection-button-click/api': [
-        ['assets/docs/widgets/directives/collection-button-click/api.md']
-    ],
-    '/widgets/directives/collection-button-click/overview': [
-        ['assets/docs/widgets/directives/collection-button-click/overview-0.md']
     ],
     '/widgets/components/collection/api': [
         ['assets/docs/widgets/components/collection/api.md']
@@ -733,11 +729,19 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/widgets/interfaces/search-filter-map/overview': [
         ['assets/docs/widgets/interfaces/search-filter-map/overview-0.md']
     ],
-    '/widgets/interfaces/sidenav-item/api': [
-        ['assets/docs/widgets/interfaces/sidenav-item/api.md']
+    '/widgets/interfaces/sidenav-item-with-children/api': [
+        ['assets/docs/widgets/interfaces/sidenav-item-with-children/api.md']
     ],
-    '/widgets/interfaces/sidenav-item/overview': [
-        ['assets/docs/widgets/interfaces/sidenav-item/overview-0.md']
+    '/widgets/interfaces/sidenav-item-with-children/overview': [
+        [
+            'assets/docs/widgets/interfaces/sidenav-item-with-children/overview-0.md'
+        ]
+    ],
+    '/widgets/interfaces/sidenav-item-with-route/api': [
+        ['assets/docs/widgets/interfaces/sidenav-item-with-route/api.md']
+    ],
+    '/widgets/interfaces/sidenav-item-with-route/overview': [
+        ['assets/docs/widgets/interfaces/sidenav-item-with-route/overview-0.md']
     ],
     '/widgets/interfaces/sort-order/api': [
         ['assets/docs/widgets/interfaces/sort-order/api.md']
@@ -765,7 +769,19 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/widgets/interfaces/validation-messages/overview': [
         ['assets/docs/widgets/interfaces/validation-messages/overview-0.md']
     ],
+    '/widgets/interfaces/sidenav-item/api': [
+        ['assets/docs/widgets/interfaces/sidenav-item/api.md']
+    ],
+    '/widgets/interfaces/sidenav-item/overview': [
+        ['assets/docs/widgets/interfaces/sidenav-item/overview-0.md']
+    ],
     '/testing': [['assets/docs/testing/overview.md']],
+    '/testing/get-task-data/api': [
+        ['assets/docs/testing/get-task-data/api.md']
+    ],
+    '/testing/get-task-data/overview': [
+        ['assets/docs/testing/get-task-data/overview-0.md']
+    ],
     '/testing/elements/button/api': [
         ['assets/docs/testing/elements/button/api.md']
     ],
@@ -808,9 +824,19 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/testing/pages/default-layout-page/overview': [
         ['assets/docs/testing/pages/default-layout-page/overview-0.md']
     ],
-    '/testing/dummy-object/api': [['assets/docs/testing/dummy-object/api.md']],
-    '/testing/dummy-object/overview': [
-        ['assets/docs/testing/dummy-object/overview-0.md']
+    '/testing/elements/icon-buttons-with-paginator-bar/api': [
+        ['assets/docs/testing/elements/icon-buttons-with-paginator-bar/api.md']
+    ],
+    '/testing/elements/icon-buttons-with-paginator-bar/overview': [
+        [
+            'assets/docs/testing/elements/icon-buttons-with-paginator-bar/overview-0.md'
+        ]
+    ],
+    '/testing/elements/menu/api': [
+        ['assets/docs/testing/elements/menu/api.md']
+    ],
+    '/testing/elements/menu/overview': [
+        ['assets/docs/testing/elements/menu/overview-0.md']
     ],
     '/testing/elements/page/api': [
         ['assets/docs/testing/elements/page/api.md']
@@ -823,6 +849,14 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/paged-collection/overview': [
         ['assets/docs/testing/elements/paged-collection/overview-0.md']
+    ],
+    '/testing/elements/paged-collection-with-toolbar/api': [
+        ['assets/docs/testing/elements/paged-collection-with-toolbar/api.md']
+    ],
+    '/testing/elements/paged-collection-with-toolbar/overview': [
+        [
+            'assets/docs/testing/elements/paged-collection-with-toolbar/overview-0.md'
+        ]
     ],
     '/testing/elements/paged-table/api': [
         ['assets/docs/testing/elements/paged-table/api.md']
@@ -849,6 +883,12 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/testing/elements/paginator/usage-notes.md'],
         ['assets/docs/testing/elements/paginator/overview-5.md']
     ],
+    '/testing/elements/select/api': [
+        ['assets/docs/testing/elements/select/api.md']
+    ],
+    '/testing/elements/select/overview': [
+        ['assets/docs/testing/elements/select/overview-0.md']
+    ],
     '/testing/elements/sidenav/api': [
         ['assets/docs/testing/elements/sidenav/api.md']
     ],
@@ -863,6 +903,10 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/table/overview': [
         ['assets/docs/testing/elements/table/overview-0.md']
+    ],
+    '/testing/models/task/api': [['assets/docs/testing/models/task/api.md']],
+    '/testing/models/task/overview': [
+        ['assets/docs/testing/models/task/overview-0.md']
     ],
     '/testing/elements/toolbar/api': [
         ['assets/docs/testing/elements/toolbar/api.md']

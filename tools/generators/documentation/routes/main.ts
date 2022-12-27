@@ -26,7 +26,9 @@ const baseDocsSrcDir = path.join(
  * since I initially wrote it, and it has turned out quite a bit better
  * surprisingly (especially from where it started); there is still plenty more
  * that I can do to cut down on the repeated code and hopefully make this code
- * a bit easier to follow, maintain, and use
+ * a bit easier to follow, maintain, and use. Also it seems like things are
+ * getting repeated while code is running even though end result does not contain
+ * duplicate data (because of certain checks), need to track that down as well...
  *
  * @param modules
  * @param urls
@@ -162,9 +164,10 @@ export function generateRoutes(modules: Module[], urls: string[]) {
 
     const file = path.join(baseDocsSrcDir, 'app', 'app-routing.module.ts');
     const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
+
     replaceInFile.replace(
-        /const routes: Routes = \[.*\];/g,
-        `const routes: Routes = [${homeRoute}, ${routes}];`
+        /(?<=const routes: Routes = \[)([\s\S]*)(?=];)/g,
+        `${homeRoute}, ${routes}`
     );
 }
 
