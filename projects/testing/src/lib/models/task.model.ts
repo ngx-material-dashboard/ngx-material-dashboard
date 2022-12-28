@@ -4,6 +4,9 @@ import {
 } from '@ngx-material-dashboard/base-json';
 import { JsonModel } from './json.model';
 
+/**
+ * The `Task` model is a simple object that can be used for testing.
+ */
 @JsonApiModelConfig({
     type: 'tasks'
 })
