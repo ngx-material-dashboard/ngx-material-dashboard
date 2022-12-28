@@ -1,27 +1,5 @@
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-
-interface BaseSidenavItem {
-    /** The icon to display next to the text (optional). */
-    icon?: IconDefinition;
-    /** Optional parameters to include in route (should be JSON object literal). */
-    queryParams?: any;
-    /** The CSS selector for the item. */
-    selector: string;
-    /** The text for the item. */
-    text: string;
-    /** The text to display as a tooltip over the item (optional). */
-    tooltip?: string;
-}
-
-export interface SidenavItemWithChildren extends BaseSidenavItem {
-    /** SidenavItem's to nest under this one (route should not be defined if this is). */
-    children: SidenavItem[];
-}
-
-export interface SidenavItemWithRoute extends BaseSidenavItem {
-    /** The route to use when the item is clicked (children should not be defined if this is). */
-    route: any[];
-}
+import { SidenavItemWithChildren } from './sidenav-with-children.interface';
+import { SidenavItemWithRoute } from './sidenav-with-route.interface';
 
 /**
  * An item to render inside the `Sidenav`. A `Sidenav` can have any number of

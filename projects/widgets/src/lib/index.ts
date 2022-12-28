@@ -30,6 +30,8 @@ export * from './grid/grid.module';
 
 export * from './layout/enums/screen-size.enum';
 export * from './layout/interfaces/sidenav.interface';
+export * from './layout/interfaces/sidenav-with-children.interface';
+export * from './layout/interfaces/sidenav-with-route.interface';
 export * from './layout/services/loading.service';
 export * from './layout/components/loading/loading.component';
 export * from './layout/components/sidenav/sidenav.component';

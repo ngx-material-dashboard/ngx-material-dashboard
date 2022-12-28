@@ -16,6 +16,7 @@ import { Service } from '../models/service.model';
 import { TypeAlias } from '../models/type-alias.model';
 import { TypedocBase } from '../models/typedoc-base.model';
 import { TypeModel } from '../models/type.model';
+import { Interface } from 'readline';
 
 const MODULE_SORT_ORDER: string[] = [
     'base-json',
@@ -60,8 +61,8 @@ export class ParseJsonService {
             this.fileData as Partial<TypedocBase>
         );
         this.extractModulesData();
-        this.extractNgModuleData();
         this.extractTypeAliasData();
+        this.extractNgModuleData();
         this.modules.sort((a: Module, b: Module) => {
             return (
                 MODULE_SORT_ORDER.indexOf(a.displayName) -
@@ -175,15 +176,39 @@ export class ParseJsonService {
     private extractTypeAliasData() {
         this.modules.forEach((m: Module) => {
             m.typeAliases?.forEach((ta: TypeAlias) => {
-                ta.type.types?.forEach((t: TypeModel) => {
-                    const i = m.interfaces.find((it: InterfaceType) => {
-                        return it.name === t.name;
+                if (
+                    ta.type.type !== 'reflection' &&
+                    ta.sources[0].fileName.includes('.interface.')
+                ) {
+                    // because some typealiases are defined by interfaces...
+                    // ahem SidenavItem ahem...
+                    ta.type.types?.forEach((t: TypeModel) => {
+                        const i = m.interfaces.find((it: InterfaceType) => {
+                            return it.name === t.name;
+                        });
+
+                        if (ta.properties && i && i.properties) {
+                            i.properties.forEach((p: Property) => {
+                                if (
+                                    !ta.properties.find(
+                                        (it) => it.name === p.name
+                                    )
+                                ) {
+                                    ta.properties.push(p);
+                                }
+                            });
+                        }
                     });
-                    if (ta.properties && i && i.properties) {
-                        ta.properties = [...ta.properties, ...i.properties];
-                    }
-                });
-                ta.sortProperties();
+
+                    ta.sortProperties();
+                    const c = new InterfaceType(ta);
+                    m.interfaces.push(c);
+
+                    c.module = m;
+                    this.extractClazzData(c);
+                    m.classes.push(c);
+                    this.classes.push(c);
+                }
             });
         });
     }

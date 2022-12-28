@@ -9,10 +9,8 @@ import { MockModule } from 'ng-mocks';
 import { of } from 'rxjs';
 
 import { SidenavComponent } from './sidenav.component';
-import {
-    SidenavItem,
-    SidenavItemWithRoute
-} from '../../interfaces/sidenav.interface';
+import { SidenavItem } from '../../interfaces/sidenav.interface';
+import { SidenavItemWithRoute } from '../../interfaces/sidenav-with-route.interface';
 
 describe('SidenavComponent', () => {
     let component: SidenavComponent;

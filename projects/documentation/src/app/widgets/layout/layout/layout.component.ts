@@ -1342,6 +1342,16 @@ const routeSidenavItems: any = {
                                 './',
                                 'widgets',
                                 'interfaces',
+                                'sidenav-item'
+                            ],
+                            selector: 'sidenav-item',
+                            text: 'SidenavItem'
+                        },
+                        {
+                            route: [
+                                './',
+                                'widgets',
+                                'interfaces',
                                 'sidenav-item-with-children'
                             ],
                             selector: 'sidenav-item-with-children',
@@ -1593,17 +1603,6 @@ const routeSidenavItems: any = {
                             text: 'Filter'
                         }
                     ]
-                }
-            ]
-        },
-        {
-            text: 'Interfaces',
-            selector: 'interfaces',
-            children: [
-                {
-                    route: ['./', 'widgets', 'interfaces', 'sidenav-item'],
-                    selector: 'sidenav-item',
-                    text: 'SidenavItem'
                 }
             ]
         }

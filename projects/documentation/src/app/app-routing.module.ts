@@ -1473,6 +1473,25 @@ const routes: Routes = [
                                         redirectTo: 'overview'
                                     }
                                 ]
+                            },
+                            {
+                                path: 'sidenav-item',
+                                component: TabbedDocumentComponent,
+                                children: [
+                                    {
+                                        path: 'api',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: 'overview',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
+                                    }
+                                ]
                             }
                         ]
                     },
