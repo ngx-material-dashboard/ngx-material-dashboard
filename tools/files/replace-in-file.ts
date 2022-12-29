@@ -19,8 +19,10 @@ export class ReplaceInFile {
         };
 
         try {
-            const results = replace.sync(options);
-            console.log(results);
+            replace.sync(options);
+            // in case you want to see results of replacing content...
+            // const results = replace.sync(options);
+            // console.log(results);
         } catch (err) {
             console.log(err);
         }

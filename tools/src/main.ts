@@ -19,3 +19,7 @@ generateSidenavItems(
     service.ngModuleClasses
 );
 generateRoutes(service.modules, Object.keys(urlFilesMap));
+
+// Give some sort of indication script is complete
+// TODO add better logging...
+console.log('Documentation update completed');
