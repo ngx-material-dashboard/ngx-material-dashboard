@@ -24,7 +24,9 @@ export class Comment {
     usageNotes: UsageNote[] = [];
 
     constructor(data: Partial<Comment>) {
-        Object.assign(this, data);
+        this.shortText = data.shortText;
+        this.text = data.text;
+        this.returns = data.returns;
 
         data.tags?.forEach((t: Partial<Tag>) => {
             const tag: Tag = new Tag(t);
