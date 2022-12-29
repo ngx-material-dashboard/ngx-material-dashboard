@@ -41,8 +41,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/base-json/decorators/attribute/overview': [
         ['assets/docs/base-json/decorators/attribute/overview-0.md'],
-        ['assets/docs/base-json/decorators/attribute/overview-1.md'],
-        ['assets/docs/base-json/decorators/attribute/overview-2.md']
+        ['assets/docs/base-json/decorators/attribute/overview-1.md']
     ],
     '/base-json/decorators/json-api-datastore-config/api': [
         ['assets/docs/base-json/decorators/json-api-datastore-config/api.md']
@@ -53,9 +52,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ],
         [
             'assets/docs/base-json/decorators/json-api-datastore-config/overview-1.md'
-        ],
-        [
-            'assets/docs/base-json/decorators/json-api-datastore-config/overview-2.md'
         ]
     ],
     '/base-json/decorators/json-api-model-config/api': [
@@ -68,13 +64,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         [
             'assets/docs/base-json/decorators/json-api-model-config/overview-1.md'
         ],
-        [
-            'assets/docs/base-json/decorators/json-api-model-config/overview-2.md'
-        ],
-        [
-            'assets/docs/base-json/decorators/json-api-model-config/overview-3.md'
-        ],
-        ['assets/docs/base-json/decorators/json-api-model-config/overview-4.md']
+        ['assets/docs/base-json/decorators/json-api-model-config/overview-2.md']
     ],
     '/base-json/decorators/json-attribute/api': [
         ['assets/docs/base-json/decorators/json-attribute/api.md']
@@ -87,8 +77,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/base-json/decorators/nested-attribute/overview': [
         ['assets/docs/base-json/decorators/nested-attribute/overview-0.md'],
-        ['assets/docs/base-json/decorators/nested-attribute/overview-1.md'],
-        ['assets/docs/base-json/decorators/nested-attribute/overview-2.md']
+        ['assets/docs/base-json/decorators/nested-attribute/overview-1.md']
     ],
     '/base-json/converters/date-converter/api': [
         ['assets/docs/base-json/converters/date-converter/api.md']
@@ -101,32 +90,28 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/base-json/models/error-response/overview': [
         ['assets/docs/base-json/models/error-response/overview-0.md'],
-        ['assets/docs/base-json/models/error-response/overview-1.md'],
-        ['assets/docs/base-json/models/error-response/overview-2.md']
+        ['assets/docs/base-json/models/error-response/overview-1.md']
     ],
     '/base-json/models/json-api-meta-model/api': [
         ['assets/docs/base-json/models/json-api-meta-model/api.md']
     ],
     '/base-json/models/json-api-meta-model/overview': [
         ['assets/docs/base-json/models/json-api-meta-model/overview-0.md'],
-        ['assets/docs/base-json/models/json-api-meta-model/overview-1.md'],
-        ['assets/docs/base-json/models/json-api-meta-model/overview-2.md']
+        ['assets/docs/base-json/models/json-api-meta-model/overview-1.md']
     ],
     '/base-json/models/json-api-nested-model/api': [
         ['assets/docs/base-json/models/json-api-nested-model/api.md']
     ],
     '/base-json/models/json-api-nested-model/overview': [
         ['assets/docs/base-json/models/json-api-nested-model/overview-0.md'],
-        ['assets/docs/base-json/models/json-api-nested-model/overview-1.md'],
-        ['assets/docs/base-json/models/json-api-nested-model/overview-2.md']
+        ['assets/docs/base-json/models/json-api-nested-model/overview-1.md']
     ],
     '/base-json/json-api-query-data/api': [
         ['assets/docs/base-json/json-api-query-data/api.md']
     ],
     '/base-json/json-api-query-data/overview': [
         ['assets/docs/base-json/json-api-query-data/overview-0.md'],
-        ['assets/docs/base-json/json-api-query-data/overview-1.md'],
-        ['assets/docs/base-json/json-api-query-data/overview-2.md']
+        ['assets/docs/base-json/json-api-query-data/overview-1.md']
     ],
     '/base-json/services/json-datastore/api': [
         ['assets/docs/base-json/services/json-datastore/api.md']
@@ -139,8 +124,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/base-json/models/json-model/overview': [
         ['assets/docs/base-json/models/json-model/overview-0.md'],
-        ['assets/docs/base-json/models/json-model/overview-1.md'],
-        ['assets/docs/base-json/models/json-model/overview-2.md']
+        ['assets/docs/base-json/models/json-model/overview-1.md']
     ],
     '/base-json/converters/json-model-converter/api': [
         ['assets/docs/base-json/converters/json-model-converter/api.md']
@@ -193,8 +177,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/base-json/interfaces/property-converter/overview': [
         ['assets/docs/base-json/interfaces/property-converter/overview-0.md'],
-        ['assets/docs/base-json/interfaces/property-converter/overview-1.md'],
-        ['assets/docs/base-json/interfaces/property-converter/overview-2.md']
+        ['assets/docs/base-json/interfaces/property-converter/overview-1.md']
     ],
     '/base-json/models/meta-model-type/api': [
         ['assets/docs/base-json/models/meta-model-type/api.md']
@@ -207,10 +190,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/base-json/interfaces/model-type/overview': [
         ['assets/docs/base-json/interfaces/model-type/overview-0.md'],
-        ['assets/docs/base-json/interfaces/model-type/overview-1.md'],
-        ['assets/docs/base-json/interfaces/model-type/overview-2.md'],
-        ['assets/docs/base-json/interfaces/model-type/overview-3.md'],
-        ['assets/docs/base-json/interfaces/model-type/overview-4.md']
+        ['assets/docs/base-json/interfaces/model-type/overview-1.md']
     ],
     '/json': [
         ['assets/docs/json/overview.md'],
@@ -250,16 +230,14 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/json-api/decorators/belongs-to/overview': [
         ['assets/docs/json-api/decorators/belongs-to/overview-0.md'],
-        ['assets/docs/json-api/decorators/belongs-to/overview-1.md'],
-        ['assets/docs/json-api/decorators/belongs-to/overview-2.md']
+        ['assets/docs/json-api/decorators/belongs-to/overview-1.md']
     ],
     '/json-api/decorators/has-many/api': [
         ['assets/docs/json-api/decorators/has-many/api.md']
     ],
     '/json-api/decorators/has-many/overview': [
         ['assets/docs/json-api/decorators/has-many/overview-0.md'],
-        ['assets/docs/json-api/decorators/has-many/overview-1.md'],
-        ['assets/docs/json-api/decorators/has-many/overview-2.md']
+        ['assets/docs/json-api/decorators/has-many/overview-1.md']
     ],
     '/json-api/services/json-api-datastore/api': [
         ['assets/docs/json-api/services/json-api-datastore/api.md']
@@ -297,31 +275,27 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/directives/click-stop-propagation/overview': [
         ['assets/docs/widgets/directives/click-stop-propagation/overview-0.md'],
-        ['assets/docs/widgets/directives/click-stop-propagation/overview-1.md'],
-        ['assets/docs/widgets/directives/click-stop-propagation/overview-2.md']
+        ['assets/docs/widgets/directives/click-stop-propagation/overview-1.md']
     ],
     '/widgets/components/collection/api': [
         ['assets/docs/widgets/components/collection/api.md']
     ],
     '/widgets/components/collection/overview': [
         ['assets/docs/widgets/components/collection/overview-0.md'],
-        ['assets/docs/widgets/components/collection/overview-1.md'],
-        ['assets/docs/widgets/components/collection/overview-2.md']
+        ['assets/docs/widgets/components/collection/overview-1.md']
     ],
     '/widgets/components/confirm-delete/api': [
         ['assets/docs/widgets/components/confirm-delete/api.md']
     ],
     '/widgets/components/confirm-delete/overview': [
         ['assets/docs/widgets/components/confirm-delete/overview-0.md'],
-        ['assets/docs/widgets/components/confirm-delete/overview-1.md'],
-        ['assets/docs/widgets/components/confirm-delete/overview-2.md']
+        ['assets/docs/widgets/components/confirm-delete/overview-1.md']
     ],
     '/widgets/components/default-layout/api': [
         ['assets/docs/widgets/components/default-layout/api.md']
     ],
     '/widgets/components/default-layout/overview': [
         ['assets/docs/widgets/components/default-layout/overview-0.md'],
-        ['assets/docs/widgets/components/default-layout/overview-1.md'],
         ['assets/docs/widgets/components/default-layout/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/default-layout/usage-notes-html.md',
@@ -333,7 +307,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/field-error/overview': [
         ['assets/docs/widgets/components/field-error/overview-0.md'],
-        ['assets/docs/widgets/components/field-error/overview-1.md'],
         ['assets/docs/widgets/components/field-error/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/field-error/usage-notes-html.md',
@@ -357,15 +330,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/services/form/overview': [
         ['assets/docs/widgets/services/form/overview-0.md'],
-        ['assets/docs/widgets/services/form/overview-1.md'],
-        ['assets/docs/widgets/services/form/overview-2.md']
+        ['assets/docs/widgets/services/form/overview-1.md']
     ],
     '/widgets/components/grid/api': [
         ['assets/docs/widgets/components/grid/api.md']
     ],
     '/widgets/components/grid/overview': [
         ['assets/docs/widgets/components/grid/overview-0.md'],
-        ['assets/docs/widgets/components/grid/overview-1.md'],
         ['assets/docs/widgets/components/grid/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/grid/usage-notes-html.md',
@@ -380,9 +351,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/widgets/components/grid-with-icon-buttons-paginator-bar/overview': [
         [
             'assets/docs/widgets/components/grid-with-icon-buttons-paginator-bar/overview-0.md'
-        ],
-        [
-            'assets/docs/widgets/components/grid-with-icon-buttons-paginator-bar/overview-1.md'
         ],
         [
             'assets/docs/widgets/components/grid-with-icon-buttons-paginator-bar/usage-notes-header.md'
@@ -405,7 +373,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/list/overview': [
         ['assets/docs/widgets/components/list/overview-0.md'],
-        ['assets/docs/widgets/components/list/overview-1.md'],
         ['assets/docs/widgets/components/list/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/list/usage-notes-html.md',
@@ -422,9 +389,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/components/list-with-icon-buttons-paginator-bar/overview-0.md'
         ],
         [
-            'assets/docs/widgets/components/list-with-icon-buttons-paginator-bar/overview-1.md'
-        ],
-        [
             'assets/docs/widgets/components/list-with-icon-buttons-paginator-bar/usage-notes-header.md'
         ],
         [
@@ -437,7 +401,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/loading/overview': [
         ['assets/docs/widgets/components/loading/overview-0.md'],
-        ['assets/docs/widgets/components/loading/overview-1.md'],
         ['assets/docs/widgets/components/loading/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/loading/usage-notes-html.md',
@@ -450,8 +413,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/widgets/services/loading/overview': [
         ['assets/docs/widgets/services/loading/overview-0.md'],
         ['assets/docs/widgets/services/loading/overview-1.md'],
-        ['assets/docs/widgets/services/loading/overview-2.md'],
-        ['assets/docs/widgets/services/loading/overview-3.md'],
         ['assets/docs/widgets/services/loading/usage-notes-header.md'],
         [
             'assets/docs/widgets/services/loading/usage-notes-html.md',
@@ -463,8 +424,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/paged-collection/overview': [
         ['assets/docs/widgets/components/paged-collection/overview-0.md'],
-        ['assets/docs/widgets/components/paged-collection/overview-1.md'],
-        ['assets/docs/widgets/components/paged-collection/overview-2.md']
+        ['assets/docs/widgets/components/paged-collection/overview-1.md']
     ],
     '/widgets/components/paged-collection-with-icon-toolbar/api': [
         [
@@ -496,9 +456,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ],
         [
             'assets/docs/widgets/components/paged-collection-with-toolbar/overview-1.md'
-        ],
-        [
-            'assets/docs/widgets/components/paged-collection-with-toolbar/overview-2.md'
         ]
     ],
     '/widgets/components/paged-grid/api': [
@@ -506,7 +463,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/paged-grid/overview': [
         ['assets/docs/widgets/components/paged-grid/overview-0.md'],
-        ['assets/docs/widgets/components/paged-grid/overview-1.md'],
         ['assets/docs/widgets/components/paged-grid/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/paged-grid/usage-notes-html.md',
@@ -523,9 +479,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/components/paged-grid-with-raised-buttons-bar/overview-0.md'
         ],
         [
-            'assets/docs/widgets/components/paged-grid-with-raised-buttons-bar/overview-1.md'
-        ],
-        [
             'assets/docs/widgets/components/paged-grid-with-raised-buttons-bar/usage-notes-header.md'
         ],
         [
@@ -538,7 +491,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/paged-list/overview': [
         ['assets/docs/widgets/components/paged-list/overview-0.md'],
-        ['assets/docs/widgets/components/paged-list/overview-1.md'],
         ['assets/docs/widgets/components/paged-list/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/paged-list/usage-notes-html.md',
@@ -555,9 +507,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/components/paged-list-with-raised-buttons-bar/overview-0.md'
         ],
         [
-            'assets/docs/widgets/components/paged-list-with-raised-buttons-bar/overview-1.md'
-        ],
-        [
             'assets/docs/widgets/components/paged-list-with-raised-buttons-bar/usage-notes-header.md'
         ],
         [
@@ -570,9 +519,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/paged-table/overview': [
         ['assets/docs/widgets/components/paged-table/overview-0.md'],
-        ['assets/docs/widgets/components/paged-table/overview-1.md'],
-        ['assets/docs/widgets/components/paged-table/overview-2.md'],
-        ['assets/docs/widgets/components/paged-table/overview-3.md'],
         ['assets/docs/widgets/components/paged-table/usage-notes-0-header.md'],
         [
             'assets/docs/widgets/components/paged-table/usage-notes-0-html.md',
@@ -583,7 +529,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/components/paged-table/usage-notes-1-html.md',
             'assets/docs/widgets/components/paged-table/usage-notes-1-typescript.md'
         ],
-        ['assets/docs/widgets/components/paged-table/overview-8.md']
+        ['assets/docs/widgets/components/paged-table/overview-5.md']
     ],
     '/widgets/components/paged-table-with-raised-buttons-bar/api': [
         [
@@ -593,9 +539,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/widgets/components/paged-table-with-raised-buttons-bar/overview': [
         [
             'assets/docs/widgets/components/paged-table-with-raised-buttons-bar/overview-0.md'
-        ],
-        [
-            'assets/docs/widgets/components/paged-table-with-raised-buttons-bar/overview-1.md'
         ],
         [
             'assets/docs/widgets/components/paged-table-with-raised-buttons-bar/usage-notes-header.md'
@@ -610,8 +553,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/raised-button-toolbar/overview': [
         ['assets/docs/widgets/components/raised-button-toolbar/overview-0.md'],
-        ['assets/docs/widgets/components/raised-button-toolbar/overview-1.md'],
-        ['assets/docs/widgets/components/raised-button-toolbar/overview-2.md']
+        ['assets/docs/widgets/components/raised-button-toolbar/overview-1.md']
     ],
     '/widgets/services/remote-data-source/api': [
         ['assets/docs/widgets/services/remote-data-source/api.md']
@@ -630,7 +572,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/services/selection/overview': [
         ['assets/docs/widgets/services/selection/overview-0.md'],
-        ['assets/docs/widgets/services/selection/overview-1.md'],
         ['assets/docs/widgets/services/selection/usage-notes-header.md'],
         [
             'assets/docs/widgets/services/selection/usage-notes-html.md',
@@ -642,14 +583,12 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/components/sidenav/overview': [
         ['assets/docs/widgets/components/sidenav/overview-0.md'],
-        ['assets/docs/widgets/components/sidenav/overview-1.md'],
-        ['assets/docs/widgets/components/sidenav/overview-2.md'],
         ['assets/docs/widgets/components/sidenav/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/sidenav/usage-notes-html.md',
             'assets/docs/widgets/components/sidenav/usage-notes-typescript.md'
         ],
-        ['assets/docs/widgets/components/sidenav/overview-5.md']
+        ['assets/docs/widgets/components/sidenav/overview-3.md']
     ],
     '/widgets/components/sorter/api': [
         ['assets/docs/widgets/components/sorter/api.md']
@@ -662,15 +601,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/directives/tab-stop-propagation/overview': [
         ['assets/docs/widgets/directives/tab-stop-propagation/overview-0.md'],
-        ['assets/docs/widgets/directives/tab-stop-propagation/overview-1.md'],
-        ['assets/docs/widgets/directives/tab-stop-propagation/overview-2.md']
+        ['assets/docs/widgets/directives/tab-stop-propagation/overview-1.md']
     ],
     '/widgets/components/table/api': [
         ['assets/docs/widgets/components/table/api.md']
     ],
     '/widgets/components/table/overview': [
         ['assets/docs/widgets/components/table/overview-0.md'],
-        ['assets/docs/widgets/components/table/overview-1.md'],
         ['assets/docs/widgets/components/table/usage-notes-header.md'],
         [
             'assets/docs/widgets/components/table/usage-notes-html.md',
@@ -687,9 +624,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/components/table-with-icon-buttons-paginator-bar/overview-0.md'
         ],
         [
-            'assets/docs/widgets/components/table-with-icon-buttons-paginator-bar/overview-1.md'
-        ],
-        [
             'assets/docs/widgets/components/table-with-icon-buttons-paginator-bar/usage-notes-header.md'
         ],
         [
@@ -702,15 +636,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/interfaces/button/overview': [
         ['assets/docs/widgets/interfaces/button/overview-0.md'],
-        ['assets/docs/widgets/interfaces/button/overview-1.md'],
-        ['assets/docs/widgets/interfaces/button/overview-2.md']
+        ['assets/docs/widgets/interfaces/button/overview-1.md']
     ],
     '/widgets/interfaces/button-click/api': [
         ['assets/docs/widgets/interfaces/button-click/api.md']
     ],
     '/widgets/interfaces/button-click/overview': [
         ['assets/docs/widgets/interfaces/button-click/overview-0.md'],
-        ['assets/docs/widgets/interfaces/button-click/overview-1.md'],
         ['assets/docs/widgets/interfaces/button-click/usage-notes-header.md'],
         [
             'assets/docs/widgets/interfaces/button-click/usage-notes-html.md',
@@ -754,8 +686,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/interfaces/toolbar-button/overview': [
         ['assets/docs/widgets/interfaces/toolbar-button/overview-0.md'],
-        ['assets/docs/widgets/interfaces/toolbar-button/overview-1.md'],
-        ['assets/docs/widgets/interfaces/toolbar-button/overview-2.md']
+        ['assets/docs/widgets/interfaces/toolbar-button/overview-1.md']
     ],
     '/widgets/interfaces/validation-message/api': [
         ['assets/docs/widgets/interfaces/validation-message/api.md']
@@ -787,34 +718,29 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/button/overview': [
         ['assets/docs/testing/elements/button/overview-0.md'],
-        ['assets/docs/testing/elements/button/overview-1.md'],
-        ['assets/docs/testing/elements/button/overview-2.md']
+        ['assets/docs/testing/elements/button/overview-1.md']
     ],
     '/testing/elements/checkbox/api': [
         ['assets/docs/testing/elements/checkbox/api.md']
     ],
     '/testing/elements/checkbox/overview': [
         ['assets/docs/testing/elements/checkbox/overview-0.md'],
-        ['assets/docs/testing/elements/checkbox/overview-1.md'],
-        ['assets/docs/testing/elements/checkbox/overview-2.md']
+        ['assets/docs/testing/elements/checkbox/overview-1.md']
     ],
     '/testing/elements/collection/api': [
         ['assets/docs/testing/elements/collection/api.md']
     ],
     '/testing/elements/collection/overview': [
         ['assets/docs/testing/elements/collection/overview-0.md'],
-        ['assets/docs/testing/elements/collection/overview-1.md'],
-        ['assets/docs/testing/elements/collection/overview-2.md'],
         ['assets/docs/testing/elements/collection/usage-notes-header.md'],
         ['assets/docs/testing/elements/collection/usage-notes.md'],
-        ['assets/docs/testing/elements/collection/overview-5.md']
+        ['assets/docs/testing/elements/collection/overview-3.md']
     ],
     '/testing/services/datastore/api': [
         ['assets/docs/testing/services/datastore/api.md']
     ],
     '/testing/services/datastore/overview': [
         ['assets/docs/testing/services/datastore/overview-0.md'],
-        ['assets/docs/testing/services/datastore/overview-1.md'],
         ['assets/docs/testing/services/datastore/usage-notes-header.md'],
         ['assets/docs/testing/services/datastore/usage-notes.md']
     ],
@@ -863,8 +789,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/paged-table/overview': [
         ['assets/docs/testing/elements/paged-table/overview-0.md'],
-        ['assets/docs/testing/elements/paged-table/overview-1.md'],
-        ['assets/docs/testing/elements/paged-table/overview-2.md']
+        ['assets/docs/testing/elements/paged-table/overview-1.md']
     ],
     '/testing/elements/paged-table-with-toolbar/api': [
         ['assets/docs/testing/elements/paged-table-with-toolbar/api.md']
@@ -877,11 +802,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/paginator/overview': [
         ['assets/docs/testing/elements/paginator/overview-0.md'],
-        ['assets/docs/testing/elements/paginator/overview-1.md'],
-        ['assets/docs/testing/elements/paginator/overview-2.md'],
         ['assets/docs/testing/elements/paginator/usage-notes-header.md'],
         ['assets/docs/testing/elements/paginator/usage-notes.md'],
-        ['assets/docs/testing/elements/paginator/overview-5.md']
+        ['assets/docs/testing/elements/paginator/overview-3.md']
     ],
     '/testing/elements/select/api': [
         ['assets/docs/testing/elements/select/api.md']
@@ -894,7 +817,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/sidenav/overview': [
         ['assets/docs/testing/elements/sidenav/overview-0.md'],
-        ['assets/docs/testing/elements/sidenav/overview-1.md'],
         ['assets/docs/testing/elements/sidenav/usage-notes-header.md'],
         ['assets/docs/testing/elements/sidenav/usage-notes.md']
     ],
@@ -913,7 +835,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/toolbar/overview': [
         ['assets/docs/testing/elements/toolbar/overview-0.md'],
-        ['assets/docs/testing/elements/toolbar/overview-1.md'],
         ['assets/docs/testing/elements/toolbar/usage-notes-header.md'],
         ['assets/docs/testing/elements/toolbar/usage-notes.md']
     ],
