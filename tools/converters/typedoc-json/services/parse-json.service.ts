@@ -16,7 +16,6 @@ import { Service } from '../models/service.model';
 import { TypeAlias } from '../models/type-alias.model';
 import { TypedocBase } from '../models/typedoc-base.model';
 import { TypeModel } from '../models/type.model';
-import { Interface } from 'readline';
 
 const MODULE_SORT_ORDER: string[] = [
     'base-json',
