@@ -603,9 +603,13 @@ export abstract class JsonDatastore {
     }
 
     /**
-     * Returns the attributes that are dirty.
+     * Returns the function to get dirty attributes based on configuration.
      */
-    protected get getDirtyAttributes() {
+    protected get getDirtyAttributes():
+        | ((attributesMetadata: any) => {
+              string: any;
+          })
+        | ((attributesMetadata: any, model?: any) => object) {
         if (
             this.datastoreConfig.overrides &&
             this.datastoreConfig.overrides.getDirtyAttributes
