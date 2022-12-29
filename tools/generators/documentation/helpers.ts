@@ -95,15 +95,23 @@ export function reformatText(text: string): string {
         // with Dialog at end which can be removed
         text = text.replace('Dialog', '');
     }
-    for (let i = 0; i < text.length; i++) {
-        const character = text.charAt(i);
-        if (character === character.toUpperCase()) {
-            if (i > 0) {
-                reformattedText += '-';
+    if (text === text.toUpperCase()) {
+        // if text is all uppercase then it should be a constant, so make all
+        // lowercase and replace any "_" with "-" since it should be SNAKE_CASE
+        reformattedText = text.toLowerCase();
+        reformattedText = reformattedText.replaceAll('_', '-');
+    } else {
+        // reformat camelCase text to lowercase with hyphens
+        for (let i = 0; i < text.length; i++) {
+            const character = text.charAt(i);
+            if (character === character.toUpperCase()) {
+                if (i > 0) {
+                    reformattedText += '-';
+                }
+                reformattedText += character.toLowerCase();
+            } else {
+                reformattedText += character;
             }
-            reformattedText += character.toLowerCase();
-        } else {
-            reformattedText += character;
         }
     }
 
