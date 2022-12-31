@@ -4,20 +4,9 @@ The Testing library is meant to make testing components and angular apps easier 
 
 ### Library Structure
 
-This library was created based on principles described in the following article
-[https://martinfowler.com/bliki/PageObject.html](https://martinfowler.com/bliki/PageObject.html)
-with some slight modifications. The article describes everything as a "page",
-whereas I define significant elements as PageElements. Siginificant elements
-can be simple things like a button, form field, checkbox, but they can also be
-more complicated things like a form (with form fields), paged table, etc. As 
-such PageElements can be made up of other PageElements (i.e. a paged table 
-consists of a table and paginator elements). Following from this, Pages can be
-made up of multiple PageElements.
+This library was created based on principles described in the following article [https://martinfowler.com/bliki/PageObject.html](https://martinfowler.com/bliki/PageObject.html) with some slight modifications. The article describes everything as a "page", whereas I define significant elements as PageElements. Significant elements can be simple things like a button, form field, checkbox, but they can also be more complicated things like a form (with form fields), paged table, etc. As such PageElements can be made up of other PageElements (i.e. a paged table consists of a table and paginator elements). Following from this, Pages can be made up of multiple PageElements.
 
-Each PageElement contains useful methods and properties for that particular
-element. For example, the ButtonElement contains a `click()` method which
-clicks the button and waits for the fixture to be stable. So you can write the
-following code in your tests:
+Each PageElement contains useful methods and properties for that particular element. For example, the ButtonElement contains a `click()` method which clicks the button and waits for the fixture to be stable. So you can write the following code in your tests:
 
 ```typescript
 await button.click();
@@ -42,13 +31,11 @@ API documentation to see the full list of PageElements and the capabilities I
 have included for each.
 
 > NOTE: I've tried to come up with as many general purpose PageElements as I could. I
-> may add more if/when I come up with any additional PageElements.
+> will add more if/when I come up with any additional PageElements.
 
 ## Getting Started
 
-Since this library was developed for this workspace it does rely on the base-json
-library for it's mocks and features. As such you will need to make sure that you
-install the base-json library when you install this one.
+Since this library was developed for this workspace it does rely on the base-json library for it's mocks and features. As such you will need to make sure that you install the base-json library when you install this one.
 
 ### Install the Library
 
@@ -58,8 +45,7 @@ To install the library run the following command:
 npm install @ngx-material-dashboard/base-json @ngx-material-dashboard/testing
 ```
 
-This will install the base-json library, which is a required dependency and
-this library.
+This will install the base-json library, which is a required dependency and this library.
 
 ## Usage
 
