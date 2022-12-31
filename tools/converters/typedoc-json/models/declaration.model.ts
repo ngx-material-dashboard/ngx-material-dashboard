@@ -15,6 +15,7 @@ import { TypedocBase } from './typedoc-base.model';
  */
 export class Declaration extends TypedocBase {
     indexSignature?: Signature;
+    signatures?: Signature[];
 
     constructor(data: Partial<Declaration>) {
         super(data);
@@ -40,6 +41,15 @@ export class Declaration extends TypedocBase {
                 this.displayName += `${p.name}: ${p.type?.displayType}`;
             });
             this.displayName += '}';
+        } else if (data.signatures) {
+            //console.log(data.signatures.map(it => it.parameters.map(i => i.name)));
+            data.signatures.forEach((s: Signature) => {
+                const signature = new Signature(s);
+                this.signatures?.push(signature);
+                // const parameter: Parameter = signature.parameters[0];
+                // console.log(parameter.name);
+            });
+            this.displayName = '{}';
         } else {
             // default to the empty type
             this.displayName = '{}';

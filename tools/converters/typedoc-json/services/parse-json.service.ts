@@ -62,6 +62,7 @@ export class ParseJsonService {
         this.extractModulesData();
         this.extractTypeAliasData();
         this.extractNgModuleData();
+        this.extractImplementationData();
         this.modules.sort((a: Module, b: Module) => {
             return (
                 MODULE_SORT_ORDER.indexOf(a.displayName) -
@@ -107,6 +108,13 @@ export class ParseJsonService {
                 }
             });
         }
+    }
+
+    private extractImplementationData() : void {
+        const implementationOfClasses = this.classes.filter(
+            (it) => it.implementationOf
+        );
+        console.log(implementationOfClasses.length);
     }
 
     /**
