@@ -178,8 +178,7 @@
             ],
             "styles": [
               "projects/playground/src/assets/scss/theme/theme.scss",
-              "projects/playground/src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "projects/playground/src/styles.scss"
             ],
             "scripts": []
           },

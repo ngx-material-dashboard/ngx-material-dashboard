@@ -10,7 +10,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ToastrModule } from 'ngx-toastr';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 @NgModule({
@@ -34,8 +33,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
                     smartypants: false
                 }
             }
-        }),
-        ToastrModule.forRoot()
+        })
     ],
     exports: [
         // 3rd party exports

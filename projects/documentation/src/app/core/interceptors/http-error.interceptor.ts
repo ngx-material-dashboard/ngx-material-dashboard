@@ -6,7 +6,7 @@ import {
     HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { AlertService } from '@ngx-material-dashboard/widgets';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ import { catchError } from 'rxjs/operators';
  */
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-    constructor(private toastrService: ToastrService) {}
+    constructor(private alertService: AlertService) {}
 
     intercept(
         request: HttpRequest<any>,
@@ -49,7 +49,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
                     console.log(error);
 
-                    this.toastrService.error(errorMessage);
+                    this.alertService.error(errorMessage);
                 }
                 return throwError(() => new Error(errorMessage));
             })

@@ -1,3 +1,9 @@
+export * from './alert/alert.module';
+export * from './alert/enums/alert-type.enum';
+export * from './alert/models/alert.model';
+export * from './alert/pages/alert/alert.component';
+export * from './alert/services/alert.service';
+
 export * from './collection/components/collection/collection.component';
 export * from './collection/components/paged-collection/paged-collection.component';
 export * from './collection/components/paged-collection-with-icon-toolbar/paged-collection-with-icon-toolbar.component';

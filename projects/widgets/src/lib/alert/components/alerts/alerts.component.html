@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}" fxLayout="row">
+        <span [innerHTML]="alert.message"></span>
+        <span fxFlex></span>
+        <span class="close" (click)="removeAlert(alert)">
+            <fa-icon [icon]="faTimes"></fa-icon>
+        </span>
+    </div>
+</div>
