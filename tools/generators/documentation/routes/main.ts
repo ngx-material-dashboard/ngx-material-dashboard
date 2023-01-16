@@ -1,11 +1,11 @@
 import * as path from 'path';
-import { ReplaceInFile } from '../../../files/replace-in-file';
+import { FileUtil } from '../../../util/file.util';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
 import { filterModuleTypeUrls, moduleTypes, reformatText } from '../helpers';
 import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 import { FunctionModel } from '../../../converters/typedoc-json/models/function.model';
 import { TypeAlias } from '../../../converters/typedoc-json/models/type-alias.model';
-import { TypedocBase } from 'tools/converters/typedoc-json/models/typedoc-base.model';
+import { TypedocBase } from '../../../converters/typedoc-json/models/typedoc-base.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -163,9 +163,8 @@ export function generateRoutes(modules: Module[], urls: string[]) {
     )}`;
 
     const file = path.join(baseDocsSrcDir, 'app', 'app-routing.module.ts');
-    const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
-
-    replaceInFile.replace(
+    FileUtil.replaceInFile(
+        file,
         /(?<=const routes: Routes = \[)([\s\S]*)(?=];)/g,
         `${homeRoute}, ${routes}`
     );

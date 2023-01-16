@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { SidenavItem } from '../../../../projects/widgets/src/lib/layout/interfaces/sidenav.interface';
-import { ReplaceInFile } from '../../../files/replace-in-file';
+import { FileUtil } from '../../../util/file.util';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
 import {
     capitalizeFirstLetter,
@@ -9,7 +9,7 @@ import {
     filterModuleTypeUrls,
     moduleTypes
 } from '../helpers';
-import { Clazz } from 'tools/converters/typedoc-json/models/clazz.model';
+import { Clazz } from '../../../converters/typedoc-json/models/clazz.model';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -87,13 +87,14 @@ export function generateSidenavItems(
         'layout',
         'layout.component.ts'
     );
-    const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
+
     let sidenavItemsString = JSON.stringify(sidenavItems).replace('{', '');
     sidenavItemsString = sidenavItemsString.substring(
         0,
         sidenavItemsString.lastIndexOf('}')
     );
-    replaceInFile.replace(
+    FileUtil.replaceInFile(
+        file,
         /(?<=const routeSidenavItems: any = {)([\s\S]*)(?=};)/g,
         sidenavItemsString
     );

@@ -1,3 +1,5 @@
+export * from './base-json.module';
+
 export * from './constants/symbols';
 
 export * from './converters/date/date.converter';

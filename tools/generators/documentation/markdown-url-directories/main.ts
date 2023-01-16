@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { Module } from '../../../converters/typedoc-json/models/module.model';
-import { ReplaceInFile } from '../../../files/replace-in-file';
+import { FileUtil } from '../../../util/file.util';
 import { UrlMarkdownFileMapGenerator } from './url-markdown-file-map.generator';
 
 // define base directory from where to start scanning for documentation
@@ -34,7 +34,6 @@ export function updateMarkdownRoutes(modules: Module[]) {
         'tabbed-document-tab',
         'tabbed-document-tab.component.ts'
     );
-    const replaceInFile: ReplaceInFile = new ReplaceInFile(file);
 
     // stringify the URL files map and remove the enclosing brackets since
     // below regex matches characters between the brackets (so only those
@@ -44,7 +43,8 @@ export function updateMarkdownRoutes(modules: Module[]) {
         urlMarkdownFileMapGenerator.urlFilesMap
     ).replace('{', '');
     urlFilesMap = urlFilesMap.substring(0, urlFilesMap.lastIndexOf('}'));
-    replaceInFile.replace(
+    FileUtil.replaceInFile(
+        file,
         /(?<=const URL_DIRECTORY_MAP: UrlDirectoryMap = {)([\s\S][^};]*)(?=};)/g,
         urlFilesMap
     );

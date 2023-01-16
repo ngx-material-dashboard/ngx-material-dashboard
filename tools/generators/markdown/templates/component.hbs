@@ -1,18 +1,21 @@
 {{! render name of component as header }}
-## {{ name }}
+## {{ component.name }}
 
-`import {{curlyBracket true}}{{ngModule.name}}{{curlyBracket false}} from '@ngx-material-dashboard/widgets';`
+`import {{curlyBracket true}}{{module.name}}{{curlyBracket false}} from '@ngx-material-dashboard/widgets';`
 
 {{#if selector}}
 Selector: &lt;{{selector}}&gt;
 {{/if}}
 <hr/>
 
+{{#with component}}
 {{! render table of properties if component has them }}
 {{#if properties }}
-{{> properties this }}
+    {{> properties this }}
 {{/if}}
 
+{{! render methods if component has them }}
 {{#if methods }}
-{{> methods this }}
+    {{> methods this }}
 {{/if}}
+{{/with}}

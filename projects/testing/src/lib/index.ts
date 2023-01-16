@@ -22,3 +22,5 @@ export * from './page-elements/toolbar-header/toolbar-header.element';
 export * from './page-elements/toolbar/toolbar.element';
 
 export * from './page-objects/default-layout.page';
+
+export * from './testing.module';

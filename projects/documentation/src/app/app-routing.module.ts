@@ -20,1601 +20,37 @@ const routes: Routes = [
             {
                 path: 'base-json',
                 children: [
+                    { path: 'overview', component: TabbedDocumentTabComponent },
+                    { path: 'api', component: TabbedDocumentTabComponent },
                     {
-                        path: 'converters',
-                        children: [
-                            {
-                                path: 'date-converter',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-model-converter',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'decorators',
-                        children: [
-                            {
-                                path: 'attribute',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-api-datastore-config',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-api-model-config',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-attribute',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'nested-attribute',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'interfaces',
-                        children: [
-                            {
-                                path: 'attribute-decorator-options',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'datastore-config',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-api-error',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-model-converter-config',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'model-config',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'overrides',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'property-converter',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'model-type',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'models',
-                        children: [
-                            {
-                                path: 'error-response',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-api-meta-model',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-api-nested-model',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'json-model',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'meta-model-type',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'services',
-                        children: [
-                            {
-                                path: 'json-datastore',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'json-api-query-data',
-                        component: TabbedDocumentComponent,
-                        children: [
-                            {
-                                path: 'api',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: 'overview',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
-                                redirectTo: 'overview'
-                            }
-                        ]
-                    },
-                    { path: '', component: TabbedDocumentTabComponent }
-                ]
-            },
-            {
-                path: 'json',
-                children: [
-                    {
-                        path: 'models',
-                        children: [
-                            {
-                                path: 'json-model',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'services',
-                        children: [
-                            {
-                                path: 'json-datastore',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    { path: '', component: TabbedDocumentTabComponent }
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
                 ]
             },
             {
                 path: 'json-api',
                 children: [
+                    { path: 'overview', component: TabbedDocumentTabComponent },
+                    { path: 'api', component: TabbedDocumentTabComponent },
                     {
-                        path: 'decorators',
-                        children: [
-                            {
-                                path: 'belongs-to',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'has-many',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'models',
-                        children: [
-                            {
-                                path: 'json-api-model',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'services',
-                        children: [
-                            {
-                                path: 'json-api-datastore',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    { path: '', component: TabbedDocumentTabComponent }
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
                 ]
             },
             {
-                path: 'widgets',
+                path: 'json',
                 children: [
+                    { path: 'overview', component: TabbedDocumentTabComponent },
+                    { path: 'api', component: TabbedDocumentTabComponent },
                     {
-                        path: 'components',
-                        children: [
-                            {
-                                path: 'button-toolbar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'collection',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'confirm-delete',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'default-layout',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'field-error',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'filter-drop-down',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'grid',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'grid-with-icon-buttons-paginator-bar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'icon-buttons-with-paginator',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'list',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'list-with-icon-buttons-paginator-bar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'loading',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'loading',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-collection',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-collection-with-icon-toolbar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-collection-with-raised-button-toolbar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-collection-with-toolbar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-grid',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-grid-with-raised-buttons-bar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-list',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-list-with-raised-buttons-bar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-table',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'paged-table-with-raised-buttons-bar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'raised-button-toolbar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sidenav',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sorter',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'table',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'table-with-icon-buttons-paginator-bar',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'enums',
-                        children: [
-                            {
-                                path: 'button-click-action',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'screen-size',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'directives',
-                        children: [
-                            {
-                                path: 'click-stop-propagation',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'search-filter',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'tab-stop-propagation',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'interfaces',
-                        children: [
-                            {
-                                path: 'button',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'button-click',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'data',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'search-filter-map',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sidenav-item-with-children',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sidenav-item-with-route',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sort-order',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'toolbar-button',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'validation-message',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'validation-messages',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sidenav-item',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'sidenav-item',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        path: 'services',
-                        children: [
-                            {
-                                path: 'filter',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'form',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'loading',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'loading',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'remote-data-source',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'selection',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    { path: '', component: TabbedDocumentTabComponent }
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
                 ]
             },
             {
@@ -1628,17 +64,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1647,17 +83,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1666,17 +102,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1685,17 +121,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1704,17 +140,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1723,17 +159,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1742,17 +178,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1761,17 +197,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1780,17 +216,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1799,17 +235,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1818,17 +254,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1837,17 +273,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1856,17 +292,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1875,17 +311,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1894,17 +330,17 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
                             },
@@ -1913,95 +349,179 @@ const routes: Routes = [
                                 component: TabbedDocumentComponent,
                                 children: [
                                     {
-                                        path: 'api',
+                                        path: 'overview',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
-                                        path: 'overview',
+                                        path: 'api',
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
                                         path: '',
                                         pathMatch: 'full',
-                                        redirectTo: 'overview'
+                                        component: TabbedDocumentTabComponent
                                     }
                                 ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                path: 'widgets',
+                children: [
+                    {
+                        path: 'collection',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
                             }
                         ]
                     },
                     {
-                        path: 'models',
+                        path: 'dialog',
+                        component: TabbedDocumentComponent,
                         children: [
                             {
-                                path: 'task',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
                             }
                         ]
                     },
                     {
-                        path: 'pages',
+                        path: 'form',
+                        component: TabbedDocumentComponent,
                         children: [
                             {
-                                path: 'default-layout-page',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
                             }
                         ]
                     },
                     {
-                        path: 'services',
+                        path: 'grid',
+                        component: TabbedDocumentComponent,
                         children: [
                             {
-                                path: 'datastore',
-                                component: TabbedDocumentComponent,
-                                children: [
-                                    {
-                                        path: 'api',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: TabbedDocumentTabComponent
-                                    },
-                                    {
-                                        path: '',
-                                        pathMatch: 'full',
-                                        redirectTo: 'overview'
-                                    }
-                                ]
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
                             }
                         ]
                     },
-                    { path: '', component: TabbedDocumentTabComponent }
+                    {
+                        path: 'layout',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
+                    },
+                    {
+                        path: 'list',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
+                    },
+                    {
+                        path: 'table',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
+                    },
+                    {
+                        path: 'toolbar',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
+                    }
                 ]
             },
             { path: 'json-overview', component: TabbedDocumentTabComponent },
