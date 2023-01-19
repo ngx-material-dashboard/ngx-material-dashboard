@@ -25,7 +25,131 @@ interface UsageNote {
     [note: string]: string[];
 }
 
-const URL_DIRECTORY_MAP: UrlDirectoryMap = {"/base-json":[["assets/docs/base-json/overview.md"]],"/base-json/api":[["assets/docs/base-json/base-json/api-8.md"]],"/json-api":[["assets/docs/json-api/overview.md"]],"/json-api/api":[["assets/docs/json-api/json-api/api-2.md"]],"/json":[["assets/docs/json/overview.md"]],"/json/api":[["assets/docs/json/json/api-2.md"]],"/testing":[["assets/docs/testing/overview.md"]],"/testing/api":[["assets/docs/testing/testing/api-19.md"]],"/widgets":[["assets/docs/widgets/overview.md"]],"/widgets/collection/api":[["assets/docs/widgets/collection/api-6.md"]],"/widgets/dialog/api":[["assets/docs/widgets/dialog/api-0.md"]],"/widgets/form/api":[["assets/docs/widgets/form/api-3.md"]],"/widgets/grid/api":[["assets/docs/widgets/grid/api-3.md"]],"/widgets/layout/api":[["assets/docs/widgets/layout/api-3.md"]],"/widgets/list/api":[["assets/docs/widgets/list/api-3.md"]],"/widgets/table/api":[["assets/docs/widgets/table/api-3.md"]],"/widgets/toolbar/api":[["assets/docs/widgets/toolbar/api-6.md"]],"/overview":[["assets/docs/overview.md"]],"/json-overview":[["/assets/docs/json-overview.md"],["assets/docs/shared/crud-capabilities.md"],["assets/docs/shared/custom-headers.md"],["assets/docs/shared/error-handling.md"],["assets/docs/shared/end-overview.md"]]};
+const URL_DIRECTORY_MAP: UrlDirectoryMap = {
+    '/base-json': [['assets/docs/base-json/overview.md']],
+    '/base-json/api': [
+        ['assets/docs/base-json/api-0.md'],
+        ['assets/docs/base-json/api-1.md'],
+        ['assets/docs/base-json/api-2.md'],
+        ['assets/docs/base-json/api-3.md'],
+        ['assets/docs/base-json/api-4.md'],
+        ['assets/docs/base-json/api-5.md'],
+        ['assets/docs/base-json/api-6.md'],
+        ['assets/docs/base-json/api-7.md'],
+        ['assets/docs/base-json/api-8.md'],
+        ['assets/docs/base-json/api-9.md'],
+        ['assets/docs/base-json/api-10.md'],
+        ['assets/docs/base-json/api-11.md']
+    ],
+    '/json-api': [['assets/docs/json-api/overview.md']],
+    '/json-api/api': [
+        ['assets/docs/json-api/api-0.md'],
+        ['assets/docs/json-api/api-1.md']
+    ],
+    '/json': [['assets/docs/json/overview.md']],
+    '/json/api': [['assets/docs/json/api-0.md'], ['assets/docs/json/api-1.md']],
+    '/testing': [['assets/docs/testing/overview.md']],
+    '/testing/elements/button': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/checkbox': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/collection': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/icon-buttons-with-paginator-bar': [
+        ['assets/docs/testing/elements/api-0.md']
+    ],
+    '/testing/elements/menu': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/page': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/paged-collection': [
+        ['assets/docs/testing/elements/api-0.md']
+    ],
+    '/testing/elements/paged-collection-with-toolbar': [
+        ['assets/docs/testing/elements/api-0.md']
+    ],
+    '/testing/elements/paged-table': [
+        ['assets/docs/testing/elements/api-0.md']
+    ],
+    '/testing/elements/paged-table-with-toolbar': [
+        ['assets/docs/testing/elements/api-0.md']
+    ],
+    '/testing/elements/paginator': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/select': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/sidenav': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/table': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/toolbar': [['assets/docs/testing/elements/api-0.md']],
+    '/testing/elements/toolbar-header': [
+        ['assets/docs/testing/elements/api-0.md']
+    ],
+    '/widgets': [['assets/docs/widgets/overview.md']],
+    '/widgets/collection/api': [
+        ['assets/docs/widgets/collection/api-0.md'],
+        ['assets/docs/widgets/collection/api-1.md'],
+        ['assets/docs/widgets/collection/api-2.md'],
+        ['assets/docs/widgets/collection/api-3.md'],
+        ['assets/docs/widgets/collection/api-4.md'],
+        ['assets/docs/widgets/collection/api-5.md'],
+        ['assets/docs/widgets/collection/api-6.md'],
+        ['assets/docs/widgets/collection/api-7.md'],
+        ['assets/docs/widgets/collection/api-8.md']
+    ],
+    '/widgets/dialog/api': [
+        ['assets/docs/widgets/dialog/api-0.md'],
+        ['assets/docs/widgets/dialog/api-1.md']
+    ],
+    '/widgets/form/api': [
+        ['assets/docs/widgets/form/api-0.md'],
+        ['assets/docs/widgets/form/api-1.md'],
+        ['assets/docs/widgets/form/api-2.md'],
+        ['assets/docs/widgets/form/api-3.md'],
+        ['assets/docs/widgets/form/api-4.md'],
+        ['assets/docs/widgets/form/api-5.md']
+    ],
+    '/widgets/grid/api': [
+        ['assets/docs/widgets/grid/api-0.md'],
+        ['assets/docs/widgets/grid/api-1.md'],
+        ['assets/docs/widgets/grid/api-2.md'],
+        ['assets/docs/widgets/grid/api-3.md']
+    ],
+    '/widgets/layout/api': [
+        ['assets/docs/widgets/layout/api-0.md'],
+        ['assets/docs/widgets/layout/api-1.md'],
+        ['assets/docs/widgets/layout/api-2.md'],
+        ['assets/docs/widgets/layout/api-3.md'],
+        ['assets/docs/widgets/layout/api-4.md'],
+        ['assets/docs/widgets/layout/api-5.md'],
+        ['assets/docs/widgets/layout/api-6.md']
+    ],
+    '/widgets/list/api': [
+        ['assets/docs/widgets/list/api-0.md'],
+        ['assets/docs/widgets/list/api-1.md'],
+        ['assets/docs/widgets/list/api-2.md'],
+        ['assets/docs/widgets/list/api-3.md']
+    ],
+    '/widgets/table/api': [
+        ['assets/docs/widgets/table/api-0.md'],
+        ['assets/docs/widgets/table/api-1.md'],
+        ['assets/docs/widgets/table/api-2.md'],
+        ['assets/docs/widgets/table/api-3.md']
+    ],
+    '/widgets/toolbar/api': [
+        ['assets/docs/widgets/toolbar/api-0.md'],
+        ['assets/docs/widgets/toolbar/api-1.md'],
+        ['assets/docs/widgets/toolbar/api-2.md'],
+        ['assets/docs/widgets/toolbar/api-3.md'],
+        ['assets/docs/widgets/toolbar/api-4.md'],
+        ['assets/docs/widgets/toolbar/api-5.md'],
+        ['assets/docs/widgets/toolbar/api-6.md'],
+        ['assets/docs/widgets/toolbar/api-7.md'],
+        ['assets/docs/widgets/toolbar/api-8.md'],
+        ['assets/docs/widgets/toolbar/api-9.md'],
+        ['assets/docs/widgets/toolbar/api-10.md']
+    ],
+    '/overview': [['assets/docs/overview.md']],
+    '/json-overview': [
+        ['/assets/docs/json-overview.md'],
+        ['assets/docs/shared/crud-capabilities.md'],
+        ['assets/docs/shared/custom-headers.md'],
+        ['assets/docs/shared/error-handling.md'],
+        ['assets/docs/shared/end-overview.md']
+    ]
+};
 
 @Component({
     selector: 'app-tabbed-document-tab',
