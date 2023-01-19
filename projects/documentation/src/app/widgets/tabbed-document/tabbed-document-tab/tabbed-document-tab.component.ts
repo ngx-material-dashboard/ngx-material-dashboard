@@ -96,58 +96,43 @@ export class TabbedDocumentTabComponent implements OnInit {
      * @param el The HTML element to parse to find headings.
      */
     setHeadings(el: ElementRef): void {
-        const headings: Element[] = [];
-        el.nativeElement.querySelectorAll('h2').forEach((x: Element) => {
-            // add any h3 headings that are siblings of this element to
-            // nested headings for this element; any h3 headings that
-            // appear as siblings of this element are considered to be
-            // nested headings
-            const nestedHeadings: Element[] = [];
-            let sibling: ChildNode | null = x.nextSibling;
-            while (sibling && sibling.nodeName != 'H2') {
-                // nested headings stop when there are no more siblings or
-                // a h2 sibling is found
-                if (sibling.nodeName === 'H3') {
-                    // only add h3 headings to nested headings
-                    const child = sibling as Element;
-                    child.id = this.reformatElementTextForId(child);
-                    nestedHeadings.push(child);
-
-                    // add any th nested grand child headings which should
-                    // be names of methods (each method rendered in a table
-                    // to control formatting)
-                    const nestedGrandChildrenHeadings: Element[] = [];
-                    let grandChildSibling: ChildNode | null =
-                        sibling.nextSibling;
-                    while (
-                        grandChildSibling &&
-                        grandChildSibling.nodeName != 'H3'
-                    ) {
-                        // nested grand child headings stop when there are
-                        // no more siblings or a h3 sibling is found
-                        if (grandChildSibling.nodeName === 'TABLE') {
-                            let grandChild = grandChildSibling as Element;
-                            if (grandChild.classList.contains('method-name')) {
-                                grandChild = grandChild.querySelector(
-                                    'th.method-name-cell'
-                                ) as Element;
-                                grandChild.id =
-                                    this.reformatElementTextForId(grandChild);
-                                nestedGrandChildrenHeadings.push(grandChild);
-                            }
-                        }
-                        grandChildSibling = grandChildSibling.nextSibling;
-                    }
-                    this.nestedGrandChildren[child.id] =
-                        nestedGrandChildrenHeadings;
+        const allHeadings: Element[] = [];
+        // find all h2 and h3 elements in each markdown element, which will
+        // result in sorted order of array of headings on page; any h3 headings
+        // will be nested under the closest h2 in the array of all headings
+        // that has index less than h3 index
+        el.nativeElement.querySelectorAll('markdown').forEach((x: Element) => {
+            for (let i = 0; i < x.childNodes.length; i++) {
+                const node = x.childNodes.item(i);
+                if (node.nodeName === 'H2' || node.nodeName === 'H3') {
+                    const el = node as Element;
+                    el.id = this.reformatElementTextForId(el);
+                    allHeadings.push(el);
                 }
-                sibling = sibling.nextSibling;
             }
-
-            x.id = this.reformatElementTextForId(x);
-            this.nestedHeadings[x.id] = nestedHeadings;
-            headings.push(x);
         });
+
+        // find nested headings and set values accordingly
+        const headings: Element[] = [];
+        for (let i = 0; i < allHeadings.length; i++) {
+            const e = allHeadings[i];
+            if (e.nodeName === 'H2') {
+                headings.push(e);
+                i++;
+                const nestedHeadings: Element[] = [];
+                while (
+                    i < allHeadings.length &&
+                    allHeadings[i].nodeName !== 'H2'
+                ) {
+                    nestedHeadings.push(allHeadings[i]);
+                    i++;
+                }
+                this.nestedHeadings[e.id] = nestedHeadings;
+                // reset index back one in case last element was h2; otherwise
+                // we miss some headings
+                i--;
+            }
+        }
         this.headings = headings;
     }
 
