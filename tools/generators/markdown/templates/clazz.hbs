@@ -1,11 +1,6 @@
 {{! render name of class as header }}
-## {{ class.name }}
+### {{ name }}
 
-{{#if module}}
-`import {{curlyBracket true}}{{module.name}}{{curlyBracket false}} from '@ngx-material-dashboard/{{reformatText module.name}}';`
-{{/if}}
-
-{{#with class}}
 {{! render table of properties if class has them }}
 {{#if properties }}
 {{> properties this }}
@@ -14,4 +9,3 @@
 {{#if methods }}
 {{> methods this }}
 {{/if}}
-{{/with}}

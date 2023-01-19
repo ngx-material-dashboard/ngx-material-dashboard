@@ -3,7 +3,7 @@ import * as Handlebars from 'handlebars';
 import * as path from 'path';
 
 import { FileUtil } from '../../util/file.util';
-import { reformatText } from '../../generators/documentation/helpers';
+import { capitalizeFirstLetter, reformatText } from '../../generators/documentation/helpers';
 import { ClassParser, ModuleParser, Parser } from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { TypedocJsonParser } from '../../parsers/typedoc-json/typedoc-json.parser';
@@ -92,53 +92,138 @@ export class MarkdownGenerator {
                 const basePath = this.generateBaseOutputPath(project.name);
                 project.baseMarkdownDirectory = basePath;
 
-                project.modules?.forEach((m: ModuleParser) => {
-                    const reformattedName = reformatText(m.name);
-                    let outputPath;
-                    if (project.name !== reformattedName) {
-                        // append module name to path if different from project
-                        // prevents repeated strings in path
-                        outputPath = path.join(basePath, reformatText(m.name));
-                    } else {
-                        // otherwise set outputPath to basePath
-                        outputPath = basePath;
-                    }
-                    m.baseMarkdownDirectory = outputPath;
+                if (project.name === 'testing' && project.modules) {
+                    const m = project.modules[0];
 
-                    // generate API and overview templates
-                    // console.log(m.converters.map((c) => c.name));
-                    // console.log(m.components.map((c) => c.name));
-                    // console.log(m.decorators.map((d) => d.name));
-                    // console.log(m.directives.map((d) => d.name));
-                    // console.log(m.elements.map((e) => e.name));
-                    // console.log(m.enums.map((e) => e.name));
-                    // console.log(m.interfaces.map((i) => i.name));
-                    // console.log(m.models.map((m) => m.name));
-                    // console.log(m.pages.map((p) => p.name));
-                    // console.log(m.services.map((s) => s.name));
-                    // console.log(m.typeAliases.map((t) => t.name));
-
-                    let apiIndex: number = 0;
-                    // generate components
-                    apiIndex = this.generateMarkdownFiles<ClassParser>(
+                    let outputPath = path.join(basePath, 'elements');
+                    this.generateMarkdownFiles<ClassParser>(
                         outputPath,
-                        apiIndex,
+                        0,
                         m,
-                        m.components,
-                        'component',
-                        this.componentTemplate
-                    );
-
-                    // generate services
-                    apiIndex = this.generateMarkdownFiles<ClassParser>(
-                        outputPath,
-                        apiIndex,
-                        m,
-                        m.services,
-                        'class',
+                        m.elements,
+                        'elements',
                         this.classTemplate
                     );
-                });
+
+                    outputPath = path.join(basePath, 'models');
+                    this.generateMarkdownFiles<ClassParser>(
+                        outputPath,
+                        0,
+                        m,
+                        m.models,
+                        'models',
+                        this.classTemplate
+                    );
+                } else {
+                    project.modules?.forEach((m: ModuleParser) => {
+                        const reformattedName = reformatText(m.name);
+                        let outputPath;
+                        if (project.name !== reformattedName) {
+                            // append module name to path if different from project
+                            // prevents repeated strings in path
+                            outputPath = path.join(
+                                basePath,
+                                reformatText(m.name)
+                            );
+                        } else {
+                            // otherwise set outputPath to basePath
+                            outputPath = basePath;
+                        }
+                        m.baseMarkdownDirectory = outputPath;
+
+                        // generate API and overview templates
+                        // console.log(m.converters.map((c) => c.name));
+                        // console.log(m.components.map((c) => c.name));
+                        // console.log(m.decorators.map((d) => d.name));
+                        // console.log(m.directives.map((d) => d.name));
+                        // console.log(m.elements.map((e) => e.name));
+                        // console.log(m.enums.map((e) => e.name));
+                        // console.log(m.interfaces.map((i) => i.name));
+                        // console.log(m.models.map((m) => m.name));
+                        // console.log(m.pages.map((p) => p.name));
+                        // console.log(m.services.map((s) => s.name));
+                        // console.log(m.typeAliases.map((t) => t.name));
+
+                        let apiIndex: number = 0;
+                        let index: number = 0;
+                        // generate components
+                        this.generateMarkdownFiles<ClassParser>(
+                            outputPath,
+                            apiIndex,
+                            m,
+                            m.components,
+                            'components',
+                            this.componentTemplate
+                        );
+                        apiIndex += m.components.length;
+                        if (m.components.length > 0) {
+                            apiIndex++;
+                        }
+                        index = 0;
+                        this.generateMarkdownFiles<ClassParser>(
+                            outputPath,
+                            apiIndex,
+                            m,
+                            m.converters,
+                            'converters',
+                            this.classTemplate
+                        );
+                        apiIndex += m.converters.length;
+                        if (m.converters.length > 0) {
+                            apiIndex++;
+                        }
+                        index = 0;
+                        this.generateMarkdownFiles<ClassParser>(
+                            outputPath,
+                            apiIndex,
+                            m,
+                            m.decorators,
+                            'decorators',
+                            this.classTemplate
+                        );
+                        apiIndex += m.decorators.length;
+                        if (m.decorators.length > 0) {
+                            apiIndex++;
+                        }
+                        index = 0;
+                        this.generateMarkdownFiles<ClassParser>(
+                            outputPath,
+                            apiIndex,
+                            m,
+                            m.directives,
+                            'directives',
+                            this.classTemplate
+                        );
+                        apiIndex += m.directives.length;
+                        if (m.directives.length > 0) {
+                            apiIndex++;
+                        }
+                        index = 0;
+                        this.generateMarkdownFiles<ClassParser>(
+                            outputPath,
+                            apiIndex,
+                            m,
+                            m.models,
+                            'models',
+                            this.classTemplate
+                        );
+                        apiIndex += m.models.length;
+                        if (m.models.length > 0) {
+                            apiIndex++;
+                        }
+                        index = 0;
+
+                        // generate services
+                        this.generateMarkdownFiles<ClassParser>(
+                            outputPath,
+                            apiIndex,
+                            m,
+                            m.services,
+                            'services',
+                            this.classTemplate
+                        );
+                    });
+                }
             }
         );
     }
@@ -151,25 +236,24 @@ export class MarkdownGenerator {
         symbol: string,
         template: Handlebars.TemplateDelegate
     ) {
-        parsers.forEach((p) => {
-            // create object needed for template that combines module and
-            // component (since can only pass one object to template) see
-            // https://github.com/handlebars-lang/handlebars.js/issues/1611
-            const templateObject: any = { module: module };
-            // add parser object for class being rendered using given symbol
-            // as key
-            templateObject[symbol] = p;
+        if (parsers.length > 0) {
+            // 
+            FileUtil.write(
+                directory,
+                `api-${apiIndex}.md`,
+                `## ${capitalizeFirstLetter(symbol)}`
+            );
+        }
+        parsers.forEach((p: Parser, i: number) => {
             // generate API markdown
             FileUtil.write(
                 directory,
-                `api-${apiIndex++}.md`,
-                template(templateObject)
+                `api-${apiIndex + i + 1}.md`,
+                template(p)
             );
 
             // TODO generate overview and usage-notes details
         });
-
-        return apiIndex;
     }
 
     /**

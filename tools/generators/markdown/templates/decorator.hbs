@@ -1,9 +1,5 @@
 {{! render name of decorator as header }}
-## {{ name }} Decorator
-
-{{#if module}}
-`import {{curlyBracket true}}{{name}}{{curlyBracket false}} from '@ngx-material-dashboard/{{module.displayName}}';`
-{{/if}}
+### {{ name }} Decorator
 
 <table class="decorator-name">
     {{#if parameters}}
