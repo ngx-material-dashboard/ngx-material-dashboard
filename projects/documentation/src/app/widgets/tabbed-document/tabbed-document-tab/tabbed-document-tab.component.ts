@@ -26,7 +26,16 @@ interface UsageNote {
 }
 
 const URL_DIRECTORY_MAP: UrlDirectoryMap = {
-    '/base-json': [['assets/docs/base-json/overview.md']],
+    '/base-json': [
+        ['assets/docs/base-json/overview.md'],
+        ['assets/docs/base-json/install.md'],
+        ['assets/docs/shared/configuration.md'],
+        ['assets/docs/base-json/usage.md'],
+        ['assets/docs/shared/crud-capabilities.md'],
+        ['assets/docs/shared/custom-headers.md'],
+        ['assets/docs/shared/error-handling.md'],
+        ['assets/docs/shared/end-overview.md']
+    ],
     '/base-json/api': [
         ['assets/docs/base-json/api-0.md'],
         ['assets/docs/base-json/api-1.md'],
@@ -41,12 +50,31 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/api-10.md'],
         ['assets/docs/base-json/api-11.md']
     ],
-    '/json-api': [['assets/docs/json-api/overview.md']],
+    '/json-api': [
+        ['assets/docs/json-api/overview.md'],
+        ['assets/docs/json-api/install.md'],
+        ['assets/docs/shared/configuration.md'],
+        ['assets/docs/json-api/usage.md'],
+        ['assets/docs/shared/crud-capabilities.md'],
+        ['assets/docs/shared/custom-headers.md'],
+        ['assets/docs/shared/error-handling.md'],
+        ['assets/docs/shared/end-overview.md']
+    ],
     '/json-api/api': [
         ['assets/docs/json-api/api-0.md'],
         ['assets/docs/json-api/api-1.md']
     ],
-    '/json': [['assets/docs/json/overview.md']],
+    '/json': [
+        ['assets/docs/json/overview.md'],
+        ['assets/docs/json/format.md'],
+        ['assets/docs/json/install.md'],
+        ['assets/docs/shared/configuration.md'],
+        ['assets/docs/json/usage.md'],
+        ['assets/docs/shared/crud-capabilities.md'],
+        ['assets/docs/shared/custom-headers.md'],
+        ['assets/docs/shared/error-handling.md'],
+        ['assets/docs/shared/end-overview.md']
+    ],
     '/json/api': [['assets/docs/json/api-0.md'], ['assets/docs/json/api-1.md']],
     '/testing': [['assets/docs/testing/overview.md']],
     '/testing/elements/button': [['assets/docs/testing/elements/api-0.md']],

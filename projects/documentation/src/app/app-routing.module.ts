@@ -20,36 +20,72 @@ const routes: Routes = [
             {
                 path: 'base-json',
                 children: [
-                    { path: 'overview', component: TabbedDocumentTabComponent },
-                    { path: 'api', component: TabbedDocumentTabComponent },
                     {
                         path: '',
-                        pathMatch: 'full',
-                        component: TabbedDocumentTabComponent
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
                     }
                 ]
             },
             {
                 path: 'json-api',
                 children: [
-                    { path: 'overview', component: TabbedDocumentTabComponent },
-                    { path: 'api', component: TabbedDocumentTabComponent },
                     {
                         path: '',
-                        pathMatch: 'full',
-                        component: TabbedDocumentTabComponent
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
                     }
                 ]
             },
             {
                 path: 'json',
                 children: [
-                    { path: 'overview', component: TabbedDocumentTabComponent },
-                    { path: 'api', component: TabbedDocumentTabComponent },
                     {
                         path: '',
-                        pathMatch: 'full',
-                        component: TabbedDocumentTabComponent
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                component: TabbedDocumentTabComponent
+                            }
+                        ]
                     }
                 ]
             },
