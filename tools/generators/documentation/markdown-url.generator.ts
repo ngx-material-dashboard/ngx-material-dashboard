@@ -74,6 +74,15 @@ export class MarkdownUrlGenerator {
 
             // add overviews for each project library
             urlFilesMap[url] = [[`assets/docs/${p.name}/overview.md`]];
+            // add additional shared files to overview map (if any...)
+            const key = Object.keys(SHARED_FILES).find(
+                (it: string) => p.name === it
+            );
+            if (key) {
+                SHARED_FILES[key].forEach((dir: string) => {
+                    urlFilesMap[url].push([dir]);
+                });
+            }
 
             if (p.name === 'testing' && p.modules) {
                 const apiUrl = `/${p.name}`;
