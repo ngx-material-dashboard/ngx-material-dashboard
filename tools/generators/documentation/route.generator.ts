@@ -233,12 +233,16 @@ export class RouteGenerator {
             );
             projectRoutes = res.routeChildren;
         } else {
-            // otherwise add default routes directly to project routes
-            // since as of now these are projects with single module
-            // that matches project name; it's possible that we would
-            // want to add a module that matches the name of the project
-            // along with other modules... this would not work then...
-            projectRoutes = defaultRoutes;
+            // otherwise add default routes to project routes with empty path
+            // so we don't end up with duplicate text in url i.e. "/json/json/.."
+            const res = this.addChildrenToRoutes(
+                defaultRoutes,
+                '',
+                moduleIndex,
+                projectRoutes,
+                this.createRouteWithChildrenAndComponent
+            );
+            projectRoutes = res.routeChildren;
         }
 
         return projectRoutes;
