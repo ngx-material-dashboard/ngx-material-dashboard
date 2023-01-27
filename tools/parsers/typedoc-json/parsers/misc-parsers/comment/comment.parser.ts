@@ -26,12 +26,18 @@ export class CommentParser {
      */
     public readonly modifierTags: string[];
 
+    public usageNotesTypeMap: { [type: string]: string };
+    public usageNoteTypes: string[] = [];
+
     public constructor(data: CommentParserData) {
         const { description, blockTags, modifierTags } = data;
 
         this.description = description;
         this.blockTags = blockTags;
         this.modifierTags = modifierTags;
+        this.usageNotesTypeMap = {};
+
+        this.initUsageNoteTypes();
     }
 
     /**
@@ -59,7 +65,35 @@ export class CommentParser {
     }
 
     public get overviewDetails(): BlockTag[] {
-        return this.blockTags.filter((tag) => tag.name === 'overviewdetails');
+        return this.blockTags.filter((tag) => tag.name === 'overviewDetails');
+    }
+
+    public get usageNotes(): BlockTag[] {
+        return this.blockTags.filter((tag) => tag.name === 'usageNotes');
+    }
+
+    private initUsageNoteTypes(): void {
+        this.usageNotes.forEach((tag) => {
+            let usageNoteText: string;
+            for (let i = 0; i < tag.text.length; i++) {
+                // find text that starts with ```
+                if (tag.text[i].search(/```[a-z]+/) === 0) {
+                    const note: string[] = tag.text[i].split('\n');
+                    usageNoteText = note[0].replace('```', '').trim();
+                    if (usageNoteText !== '') {
+                        this.usageNoteTypes.push(usageNoteText);
+
+                        // add text for note and header details (if header exists)
+                        this.usageNotesTypeMap[
+                            `${usageNoteText}-${this.usageNoteTypes.length - 1}`
+                        ] = note.join('\n');
+                        // tag.text[i - 1].search(/## [a-zA-Z]+/) === 0
+                        //     ? [tag.text[i - 1], ...note].join('\n')
+                        //     : note.join('\n');
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -98,13 +132,12 @@ export class CommentParser {
                 : null,
             blockTags: blockTags.map((tag) => ({
                 name: tag.name ?? tag.tag.replace(/@/, ''),
-                text: tag.content
-                    .map((content) =>
-                        content.kind === 'inline-tag'
-                            ? `{${content.tag} ${content.text}}`
-                            : content.text
-                    )
-                    .join('')
+                text: tag.content.map((content) =>
+                    content.kind === 'inline-tag'
+                        ? `{${content.tag} ${content.text}}`
+                        : content.text
+                )
+                //.join('')
             })),
             modifierTags
         });

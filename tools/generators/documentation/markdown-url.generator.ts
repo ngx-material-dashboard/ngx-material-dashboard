@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { ModuleParser, Parser } from '../../parsers/typedoc-json';
+import { ClassParser, ModuleParser, Parser } from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { FileUtil } from '../../util/file.util';
 import { reformatText } from './helpers';
@@ -74,6 +74,9 @@ export class MarkdownUrlGenerator {
 
             // add overviews for each project library
             urlFilesMap[url] = [[`assets/docs/${p.name}/overview.md`]];
+            urlFilesMap[`${url}/readme`] = [
+                [`assets/docs/${p.name}/overview.md`]
+            ];
             // add additional shared files to overview map (if any...)
             const key = Object.keys(SHARED_FILES).find(
                 (it: string) => p.name === it
@@ -81,6 +84,7 @@ export class MarkdownUrlGenerator {
             if (key) {
                 SHARED_FILES[key].forEach((dir: string) => {
                     urlFilesMap[url].push([dir]);
+                    urlFilesMap[`${url}/readme`].push([dir]);
                 });
             }
 
@@ -98,7 +102,7 @@ export class MarkdownUrlGenerator {
             } else {
                 p.modules?.forEach((m: ModuleParser) => {
                     const moduleDisplayName = reformatText(m.name);
-                    let basePath;
+                    let basePath: string;
                     if (moduleDisplayName !== p.name) {
                         url = `/${p.name}/${moduleDisplayName}`;
                         basePath = `assets/docs/${p.name}/${moduleDisplayName}`;
@@ -108,24 +112,72 @@ export class MarkdownUrlGenerator {
 
                     // add the api route for API markdown files for classes
                     const urls: string[][] = [];
+                    const exampleUrls: string[][] = [];
                     let i = 0;
                     this.addToRoutes(urls, `${basePath}/api`, m.components, i);
+                    this.addToExampleRoutes(
+                        exampleUrls,
+                        `${basePath}`,
+                        url,
+                        urlFilesMap,
+                        m.components,
+                        0
+                    );
                     i += m.components.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.decorators, i);
+                    this.addToExampleRoutes(
+                        exampleUrls,
+                        `${basePath}`,
+                        url,
+                        urlFilesMap,
+                        m.decorators,
+                        0
+                    );
                     i += m.decorators.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.directives, i);
+                    this.addToExampleRoutes(
+                        exampleUrls,
+                        `${basePath}`,
+                        url,
+                        urlFilesMap,
+                        m.directives,
+                        0
+                    );
                     i += m.directives.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.enums, i);
                     i += m.enums.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.interfaces, i);
                     i += m.interfaces.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.models, i);
+                    this.addToExampleRoutes(
+                        exampleUrls,
+                        `${basePath}`,
+                        url,
+                        urlFilesMap,
+                        m.models,
+                        0
+                    );
                     i += m.models.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.services, i);
-
+                    this.addToExampleRoutes(
+                        exampleUrls,
+                        `${basePath}`,
+                        url,
+                        urlFilesMap,
+                        m.services,
+                        0
+                    );
                     urlFilesMap[`${url}/api`] = urls;
-                    // TODO add routes for examples/overview details or whatever
-                    // you want to call it
+
+                    // add routes for overview details
+                    const overviewUrls: string[][] = [];
+                    for (let i = 0; i < m.overviewDetails; i++) {
+                        overviewUrls.push([`${basePath}/overview-${i}.md`]);
+                    }
+
+                    // add overview URLs to both /overview and / as both
+                    // currently display overview details... only have 1?
+                    urlFilesMap[`${url}/overview`] = overviewUrls;
                 });
             }
         });
@@ -140,14 +192,67 @@ export class MarkdownUrlGenerator {
         return urlFilesMap;
     }
 
-    private addToRoutes(urls: string[][], url: string, parsers: any, i: number = 0) {
+    private addToExampleRoutes(
+        exampleUrls: string[][] = [],
+        basePath: string,
+        url: string,
+        urlFilesMap: any,
+        parsers: ClassParser[],
+        baseIndex: number = 0
+    ) {
+        const res: string[][] = [];
+        let index = 0;
+        parsers.forEach((c) => {
+            const urls: string[] = [];
+            if (c.comment) {
+                // math is weird here because of order in which things are added, urls
+                // before header; so add 1 to URLs
+                c.comment.usageNoteTypes.forEach((t) => {
+                    urls.push(
+                        `${basePath}/example-${t}-${baseIndex + index++ + 1}.md`
+                    );
+                });
+
+                if (urls.length > 0) {
+                    // only add to examples if there are URLs to add; include url for
+                    // header for example; and subtract number of URLs from calculated
+                    // index
+                    res.push([
+                        `${basePath}/example-${
+                            baseIndex + index++ - urls.length
+                        }.md`
+                    ]);
+                    res.push(urls);
+                }
+            }
+        });
+
+        if (res.length > 0) {
+            res.forEach((it) => exampleUrls.push(it));
+            // this is repeated for the same url ending up in overwritting
+            // existing values with potential empty ones; this seems to fix
+            // that, BUT need to track down why this is repeated for same URL
+            urlFilesMap[`${url}/examples`] = exampleUrls;
+        }
+    }
+
+    private addToRoutes(
+        urls: string[][],
+        url: string,
+        parsers: any,
+        i: number = 0
+    ) {
         const res = this.generateRoutesForParsers(url, parsers, i);
         res.forEach((r) => {
             urls.push(r);
         });
     }
 
-    private generateRoutesForParsers(path: string, parsers: any[], baseIndex: number = 0) {
+    private generateRoutesForParsers(
+        path: string,
+        parsers: any[],
+        baseIndex: number = 0
+    ) {
         const urls: string[][] = [];
         for (let i = 0; i < parsers.length; i++) {
             urls.push([`${path}-${i + baseIndex}.md`]);

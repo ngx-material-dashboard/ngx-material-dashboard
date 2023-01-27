@@ -13,5 +13,5 @@ export interface BlockTag {
      * The text of this tag.
      * @since 1.0.0
      */
-    text: string;
+    text: string[];
 }

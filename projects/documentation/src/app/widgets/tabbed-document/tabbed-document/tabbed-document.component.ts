@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Link {
     display: string;
@@ -14,18 +14,33 @@ interface Link {
 export class TabbedDocumentComponent implements OnInit {
     links: Link[] = [
         { display: 'Overview', link: ['overview'] },
-        { display: 'API', link: ['api'] }
+        { display: 'API', link: ['api'] },
+        { display: 'Examples', link: ['examples'] }
     ];
     activeLink: Link = this.links[0];
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.router.events.subscribe(() => {
             this.initActiveLink();
         });
 
-        this.initActiveLink();
+        this.route.parent?.url.subscribe((urlSegment) => {
+            const url = urlSegment.join('/');
+            if (
+                url.includes('base-json') ||
+                url.includes('json') ||
+                url.includes('json-api')
+            ) {
+                this.links = [
+                    { display: 'ReadMe', link: ['readme'] },
+                    ...this.links
+                ];
+            }
+
+            this.initActiveLink();
+        });
     }
 
     initActiveLink(): void {

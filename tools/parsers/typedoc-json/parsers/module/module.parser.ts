@@ -39,6 +39,8 @@ export class ModuleParser extends Parser {
     public readonly typeAliases: TypeAliasParser[];
 
     baseMarkdownDirectory?: string;
+    overviewDetails: number;
+    usageNotes: number;
 
     public constructor(data: ModuleParserData) {
         super(data);
@@ -59,6 +61,9 @@ export class ModuleParser extends Parser {
         this.models = this.filterClasses('.model.ts');
         this.pages = this.filterClasses('.page.ts');
         this.services = this.filterClasses('.service.ts');
+
+        this.overviewDetails = 0;
+        this.usageNotes = 0;
     }
 
     /**

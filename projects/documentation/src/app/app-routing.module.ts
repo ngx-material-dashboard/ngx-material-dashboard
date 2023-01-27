@@ -25,6 +25,10 @@ const routes: Routes = [
                         component: TabbedDocumentComponent,
                         children: [
                             {
+                                path: 'readme',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: 'overview',
                                 component: TabbedDocumentTabComponent
                             },
@@ -33,11 +37,25 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'readme'
                             }
                         ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
                     }
                 ]
             },
@@ -49,6 +67,10 @@ const routes: Routes = [
                         component: TabbedDocumentComponent,
                         children: [
                             {
+                                path: 'readme',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: 'overview',
                                 component: TabbedDocumentTabComponent
                             },
@@ -57,11 +79,25 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'readme'
                             }
                         ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
                     }
                 ]
             },
@@ -73,6 +109,10 @@ const routes: Routes = [
                         component: TabbedDocumentComponent,
                         children: [
                             {
+                                path: 'readme',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: 'overview',
                                 component: TabbedDocumentTabComponent
                             },
@@ -81,11 +121,25 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'readme'
                             }
                         ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
                     }
                 ]
             },
@@ -108,9 +162,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -127,9 +190,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -146,9 +218,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -165,9 +246,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -184,9 +274,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -203,9 +302,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -222,9 +330,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -241,9 +358,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -260,9 +386,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -279,9 +414,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -298,9 +442,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -317,9 +470,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -336,9 +498,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -355,9 +526,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -374,9 +554,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             },
@@ -393,9 +582,18 @@ const routes: Routes = [
                                         component: TabbedDocumentTabComponent
                                     },
                                     {
+                                        path: 'examples',
+                                        component: TabbedDocumentTabComponent
+                                    },
+                                    {
                                         path: '',
                                         pathMatch: 'full',
                                         component: TabbedDocumentTabComponent
+                                    },
+                                    {
+                                        path: '',
+                                        pathMatch: 'full',
+                                        redirectTo: 'overview'
                                     }
                                 ]
                             }
@@ -419,9 +617,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -438,9 +645,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -457,9 +673,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -476,9 +701,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -495,9 +729,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -514,9 +757,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -533,9 +785,18 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
                     },
@@ -552,11 +813,25 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
                                 path: '',
                                 pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
                             }
                         ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
                     }
                 ]
             },

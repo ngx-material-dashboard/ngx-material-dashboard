@@ -35,8 +35,10 @@
         {{/each}}
     </tbody>
     {{/if}}
-    {{#if this.returnType}}
-    {{#with this.returnType}}
+    {{!-- {{#with this.comment}}
+    {{#each this.blockTags}}
+    {{#if this.tag == '@returns' }}
+    {{#each this.content}}
     <thead class="method-returns-header">
         <tr class="method-returns-header-row">
             <th class="method-returns-header-cell" colspan="2">Returns</th>
@@ -44,11 +46,13 @@
     </thead>
     <tbody>
         <tr class="method-returns-row">
-            <td class="method-returns-type-cell">{{this.type}}</td>
-            <td class="method-returns-description-cell">{{this.type}}</td>
+            <td class="method-returns-type-cell">{{this.kind}}</td>
+            <td class="method-returns-description-cell">{{this.text}}</td>
         </tr>
     </tbody>
-    {{/with}}
+    {{#each}}
     {{/if}}
+    {{/each}}
+    {{/with}} --}}
 {{/each}}
 </table>

@@ -80,15 +80,19 @@ export function filterModuleTypeUrls(
     });
 }
 
-export function reformatText(text: string): string {
-    let reformattedText = '';
-    text = text
+export function removeSymbol(text: string): string {
+    return text
         .replace(' ', '')
         .replace('Component', '')
         .replace('Directive', '')
         .replace('Element', '')
         .replace('Module', '')
         .replace('Service', '');
+}
+
+export function reformatText(text: string): string {
+    let reformattedText = '';
+    text = removeSymbol(text);
     if (text !== 'Dialog') {
         // only remove Dialog if it is part of text (not all of it); we have
         // DialogModule which should render as "Dialog", but also components
