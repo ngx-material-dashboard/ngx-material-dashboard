@@ -1,7 +1,7 @@
 import { TypedocJsonParser } from '../parsers/typedoc-json/typedoc-json.parser';
 import { MarkdownGenerator } from '../generators/markdown/markdown.generator';
 import { MarkdownUrlGenerator } from '../generators/documentation/markdown-url.generator';
-import { RouteGenerator } from '../generators/documentation/old-route.generator';
+import { RouteGenerator } from '../generators/documentation/route.generator';
 import { SidenavItemGenerator } from '../generators/documentation/sidenav-item.generator';
 
 // parse typedoc JSON
