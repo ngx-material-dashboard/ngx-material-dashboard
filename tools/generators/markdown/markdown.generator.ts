@@ -141,153 +141,102 @@ export class MarkdownGenerator {
                         }
                         m.baseMarkdownDirectory = outputPath;
 
-                        // generate API markdown files
-                        this.generateApiMarkdownFiles(outputPath, m);
-
-                        // generate overview markdown files
-                        // look at comment -> summary for main overview; should be
-                        // first paragraph (maybe 2?) of class comments; may also
-                        // need to look at blockTags for @overviewDetails for any
-                        // additional text to generate
-
-                        // generate example markdown files
-                        // look at comment -> blockTags; should be @usageNotes
+                        // generate markdown files for entire module
+                        this.generateMarkdownFilesByModule(outputPath, m);
                     });
                 }
             }
         );
     }
 
-    private generateApiMarkdownFiles(outputPath: string, m: ModuleParser) {
-        // generate API templates
-        // console.log(m.converters.map((c) => c.name));
-        // console.log(m.components.map((c) => c.name));
-        // console.log(m.decorators.map((d) => d.name));
-        // console.log(m.directives.map((d) => d.name));
+    // look at comment -> summary for main overview; should be
+    // first paragraph (maybe 2?) of class comments; may also
+    // need to look at blockTags for @overviewDetails for any
+    // additional text to generate
+
+    // generate example markdown files
+    // look at comment -> blockTags; should be @usageNotes
+    private generateMarkdownFilesByModule(outputPath: string, m: ModuleParser) {
+        // generate templates
         // console.log(m.elements.map((e) => e.name));
-        // console.log(m.enums.map((e) => e.name));
-        // console.log(m.interfaces.map((i) => i.name));
-        // console.log(m.models.map((m) => m.name));
         // console.log(m.pages.map((p) => p.name));
-        // console.log(m.services.map((s) => s.name));
-        // console.log(m.typeAliases.map((t) => t.name));
 
         let apiIndex: number = 0;
-        // let index: number = 0;
-        // generate components
-        this.generateMarkdownFiles<ClassParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.components,
-            'components',
-            this.componentTemplate
-        );
-        apiIndex += m.components.length;
-        if (m.components.length > 0) {
-            apiIndex++;
-        }
-        // index = 0;
-        this.generateMarkdownFiles<ClassParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.converters,
-            'converters',
-            this.classTemplate
-        );
-        apiIndex += m.converters.length;
-        if (m.converters.length > 0) {
-            apiIndex++;
-        }
-        // index = 0;
-        this.generateMarkdownFiles<ClassParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.decorators,
-            'decorators',
-            this.classTemplate
-        );
-        apiIndex += m.decorators.length;
-        if (m.decorators.length > 0) {
-            apiIndex++;
-        }
-        // index = 0;
-        this.generateMarkdownFiles<ClassParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.directives,
-            'directives',
-            this.classTemplate
-        );
-        apiIndex += m.directives.length;
-        if (m.directives.length > 0) {
-            apiIndex++;
-        }
-        // index = 0;
-        this.generateMarkdownFiles<InterfaceParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.interfaces,
-            'interfaces',
-            this.classTemplate
-        );
-        if (m.interfaces.length > 0) {
-            apiIndex++;
-        }
-        // index = 0;
-        this.generateMarkdownFiles<EnumParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.enums,
-            'enums',
-            this.classTemplate
-        );
-        apiIndex += m.enums.length;
-        if (m.enums.length > 0) {
-            apiIndex++;
-        }
-
-        // index = 0;
-        this.generateMarkdownFiles<ClassParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.models,
-            'models',
-            this.classTemplate
-        );
-        apiIndex += m.models.length;
-        if (m.models.length > 0) {
-            apiIndex++;
-        }
-
-        // generate services
-        this.generateMarkdownFiles<ClassParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.services,
-            'services',
-            this.classTemplate
-        );
-        apiIndex += m.services.length;
-        if (m.services.length > 0) {
-            apiIndex++;
-        }
-
-        this.generateMarkdownFiles<TypeAliasParser>(
-            outputPath,
-            apiIndex,
-            m,
-            m.typeAliases,
-            'typeAliases',
-            this.classTemplate
-        );
+        const symbols: {
+            modelType: any;
+            parsers: Parser[];
+            symbol: string;
+            template: any;
+        }[] = [
+            {
+                modelType: ClassParser,
+                parsers: m.components,
+                symbol: 'components',
+                template: this.componentTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.converters,
+                symbol: 'converters',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.decorators,
+                symbol: 'decorators',
+                template: this.decoratorTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.directives,
+                symbol: 'directives',
+                template: this.directiveTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.enums,
+                symbol: 'enums',
+                template: this.classTemplate
+            },
+            {
+                modelType: InterfaceParser,
+                parsers: m.interfaces,
+                symbol: 'interfaces',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.models,
+                symbol: 'models',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.services,
+                symbol: 'services',
+                template: this.classTemplate
+            },
+            {
+                modelType: TypeAliasParser,
+                parsers: m.typeAliases,
+                symbol: 'type-aliases',
+                template: this.componentTemplate
+            }
+        ];
+        symbols.forEach((s) => {
+            this.generateMarkdownFiles(
+                outputPath,
+                apiIndex,
+                m,
+                s.parsers,
+                s.symbol,
+                s.template
+            );
+            apiIndex += s.parsers.length;
+            if (s.parsers.length > 0) {
+                apiIndex++; // add 1 for header file
+            }
+        });
     }
 
     private generateMarkdownFiles<T extends Parser>(
