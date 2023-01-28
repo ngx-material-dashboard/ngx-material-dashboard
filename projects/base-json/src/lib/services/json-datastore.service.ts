@@ -27,7 +27,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * created the methods so that they are as generic as possible, meaning they do
  * not care about how the JSON and your client side data models are structured.
  *
- * ## Extending this Service
+ * ### Extending this Service
  *
  * This service must be extended to complete the functionality required for the
  * CRUD methods. The [json](/json) and [json-api](/json-api) libraries contain
@@ -46,7 +46,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * and `extractRecordData`. See below for details on the methods that
  * need to be implemented when extending this class.
  *
- * ### createRecord
+ * ##### createRecord
  *
  * Creates and returns a new instance of the given data as the given model
  * type. This should only create the instance and should not make any HTTP
@@ -64,7 +64,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * }
  * ```
  *
- * ### deserializeModel
+ * ##### deserializeModel
  *
  * Returns the given JSON data as the given model type. The JSON data should
  * be data extracted directly from the body of a JSON API response, and is
@@ -84,7 +84,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * }
  * ```
  *
- * ### serializeModel
+ * ##### serializeModel
  *
  * Returns a JSON literal that can be included in an HTTP request body from
  * the given model.
@@ -109,7 +109,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * }
  * ```
  *
- * ### extractQueryData
+ * ##### extractQueryData
  *
  * Parses and extracts query data from the given HTTP response body for
  * lists of models (used by findAll), and returns it as a
@@ -140,7 +140,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * }
  * ```
  *
- * ### extractRecordData
+ * ##### extractRecordData
  *
  * Parses and extracts record data from the given HTTP response body for a
  * single object and returns it as the given modelType.

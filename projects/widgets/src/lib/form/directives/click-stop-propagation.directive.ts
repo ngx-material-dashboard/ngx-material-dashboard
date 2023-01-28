@@ -8,7 +8,7 @@ import { Directive, HostListener } from '@angular/core';
  * elements.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <div [matMenuTriggerFor]="filterMenu">
  *     <span>Drop Down</span>

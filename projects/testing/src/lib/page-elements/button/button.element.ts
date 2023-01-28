@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * components with buttons.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
@@ -56,11 +56,11 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ## Features
+ * ### Features
  *
  * `ButtonElements` can be clicked and ou can check if the button is disabled.
  *
- * ### Click
+ * ##### Click
  *
  * Once you have defined a `ButtonElement` simply call the `click` function to
  * simulate a user clicking the button in the UI. This function is asynchronous
@@ -79,7 +79,7 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ### Is Disabled
+ * ##### Is Disabled
  *
  * The `isDisabled` function is just a wrapper around the `disabled` property
  * defined for `HTMLButtonElement` since the button element is private and

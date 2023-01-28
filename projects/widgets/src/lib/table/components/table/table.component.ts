@@ -22,7 +22,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  * emitting click events for you to handle response to clicks.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-table
  *     matSort
@@ -54,13 +54,13 @@ import { SelectionService } from '../../../collection/services/selection.service
  * }
  * ```
  *
- * ## Features
+ * ### Features
  *
  * The `Table` automatically wires up sorting, renders and handles select
  * one or more rows, as well as adding one or more buttons to each row and
  * handling click events for those buttons.
  *
- * ### Sorting
+ * ##### Sorting
  *
  * To make sorting work all you need to do is add the `matSort` directive to
  * the `Table` selector and the `mat-sort-header` directive to the header cells
@@ -68,14 +68,14 @@ import { SelectionService } from '../../../collection/services/selection.service
  * include the `MatSortModule` in the module where you define the component
  * that uses `Table`, there is nothing else you need to do.
  *
- * ### Select
+ * ##### Select
  *
  * The `Table` defines a column for selecting one, more, or all rows in the
  * table (select all being in the header). To utilize the select column simply
  * include `'select'` as one of the `displayedColumns` for the `Table`, and
  * it will be rendered along with all other columns included in the property.
  *
- * ### Row Buttons
+ * ##### Row Buttons
  *
  * A column for rendering one or more buttons in each row of the table is
  * also included in the main template. Additionally, `Table` includes

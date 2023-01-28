@@ -15,18 +15,18 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  *
  * @overviewDetails
  *
- * ## Features
+ * ### Features
  *
  * The toolbar allows you to control the alignment of buttons (i.e. left or
  * right). It also includes the ability to render an optional `FilterDropDown`.
  *
- * ### Button Alignment
+ * ##### Button Alignment
  *
  * To align buttons to the left or right simply use the `buttonAlign` input
  * with the desired `left` or `right` value. Buttons default to be `right`
  * aligned.
  *
- * ### Optional Filter Drop Down
+ * ##### Optional Filter Drop Down
  *
  * You may include an optional `FilterDropDown` that renders a detailed formed
  * to filter paged collections. See the following for more details on the

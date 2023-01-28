@@ -17,7 +17,7 @@ import { JsonApiError } from '../interfaces/json-api-error.interface';
  * to handle the logic to parse the error response yourself.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * protected handleError(error: any): Observable<any> {
  *     if (

@@ -9,7 +9,7 @@ import { JsonDatastore } from '../services/json-datastore.service';
  * The `JsonModel` defines how to initialize all your client side data models.
  * All of your client side data models should extend this class.
  *
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {Attribute, JsonApiModelConfig} from "@ngx-material-dashboard/base-json";
  * import {JsonModel} from "@ngx-material-dashboard/json";

@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs';
  * quick you likely will not see the spinner).
  *
  * @overviewDetails
- * ## Configure the Service
+ * ### Configure the Service
  *
  * To configure the service you must have a way to determine when HTTP requests
  * are initiated and when they complete. The best way to handle that is with an
@@ -63,14 +63,14 @@ import { BehaviorSubject } from 'rxjs';
  * is empty. This code was taken directly from below blog.
  * https://medium.com/swlh/angular-loading-spinner-using-http-interceptor-63c1bb76517b
  *
- * ## Loading State
+ * ### Loading State
  *
  * If you want to render your own spinner component when data is loading you
  * need to subscribe to the `loadingSub` `Observable`. This will return `true`
  * if there is anything loading, otherwise it will return `false`.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <div *ngIf="loading">
  *     <!-- some sort of spinner or gif -->

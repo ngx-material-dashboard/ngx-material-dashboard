@@ -10,7 +10,7 @@ import { CollectionComponent } from '../../../collection/components/collection/c
  * should be able to sort the data on.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-list [data]="data" [fields]="fields">
  *     <ng-template #model let-model="model">

@@ -9,7 +9,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * the grid in the template where you intend to include this component.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-paged-grid [data]="tasks" class="marker-paged-grid">
  *     <ng-template #model let-model="model">

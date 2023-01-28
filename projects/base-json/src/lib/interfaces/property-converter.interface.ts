@@ -5,7 +5,7 @@
  * to do that in the `mask` and `unmask` functions.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {parseISO} from 'date-fns';
  * import {PropertyConverter} from '@ngx-material-dashboard/base-json';
@@ -28,7 +28,7 @@
  * }
  * ```
  *
- * ## Mask
+ * ### Mask
  *
  * The `mask` function is used to convert JSON literals to whatever type you
  * want. In the case of a simple property like a Date you would be converting
@@ -36,7 +36,7 @@
  * literals. TODO link to `JsonModelConverter` in `json-api` library for a more
  * interesting example.
  *
- * ## Unmask
+ * ### Unmask
  *
  * The `unmask` function is used to convert objects of a certain type to JSON
  * literals. In the case of a simple property like a Date you would be

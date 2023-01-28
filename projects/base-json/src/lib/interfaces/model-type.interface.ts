@@ -2,7 +2,7 @@
  * An object of the defined type T that can be instantiated.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {JsonDatastore as BaseJsonDatastore, ModelType} from '@ngx-material-dashboard/base-json';
  * import {JsonModel} from './json.model';

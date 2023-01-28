@@ -9,7 +9,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * and use your own toolbar buttons.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  *
  * ```typescript
  * import {ToolbarButton} from '@ngx-material-dashboard/toolbar-button.interface';
@@ -23,7 +23,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * };
  * ```
  *
- * ## Icon Usage Example
+ * ### Icon Usage Example
  *
  * ```typescript
  * import {faPlus} from '@fortawesome/free-solid-svg-icons';
@@ -39,7 +39,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * };
  * ```
  *
- * ## Stacked Icon Usage Example
+ * ### Stacked Icon Usage Example
  *
  * ```typescript
  * import {faBan, faNetworkWired} from '@fortawesome/free-solid-svg-icons';
@@ -57,14 +57,14 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * };
  * ```
  *
- * ## Features
+ * ### Features
  *
  * The `ToolbarButton` interface provides several optional features for
  * your buttons. You can add [Font Awesome](https://fontawesome.com/icons)
  * icons, which includes the use of stacked icons, and you can also configure
  * when the button should be enabled/disabled.
  *
- * ### Icons
+ * ##### Icons
  *
  * Icons can be included with buttons, but are not required. You can include a
  * "primary" icon and a stacked icon. If you want to use a stacked icon, you
@@ -82,7 +82,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * [stacked-icons](https://github.com/FortAwesome/angular-fontawesome/blob/5581dee5fc060ea5383e5a66bc3f3504bf491446/docs/usage/features.md#stacked-icons)
  * for more details on that.
  *
- * ### Enable/Disable Configuration
+ * ##### Enable/Disable Configuration
  *
  * There are several different properties that control when a button is enabled
  * and disabled. They are `disabled`, `canDisable`, and `multiSelectDisabled`.
@@ -114,7 +114,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * a table and delete them with a single button click (as opposed to deleting
  * each item individually).
  *
- * ## Included Buttons
+ * ### Included Buttons
  *
  * I have defined several default buttons that you may use without having to
  * define or configure them yourself. They are the `CREATE_TOOLBAR_BUTTON`,

@@ -9,7 +9,7 @@ import 'reflect-metadata';
  * @returns Custom class decorator for JSON datastore service.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {JsonApiDatastoreConfig} from '@ngx-material-dashboard/base-json';
  * import {JsonDatastore} from '@ngx-material-dashboard/json';

@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * components that utilize a Sidenav.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
@@ -92,26 +92,26 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ## Features
+ * ### Features
  *
  * The main features available for the `SidenavElement` are the ability to get
  * the number of main (top level) sidenav items are in the sidenav, click a
  * sidenav item, check if a sidenav item is active, and check if a sidenav item
  * is expanded.
  *
- * ### Click Sidenav Item
+ * ##### Click Sidenav Item
  *
  * The `clickListItem` method will click the sidenav item with the given
  * selector. This method is asynchronous, so you should use async/await when
  * calling this method in your code.
  *
- * ### Sidenav Item Active
+ * ##### Sidenav Item Active
  *
  * The `isListItemActive` method will return true if the sidenav item with the
  * given selector is active, otherwise it will return false. A sidenav item is
  * active if it contains the `selected-list-item` class.
  *
- * ### Sidenav Item Expanded
+ * ##### Sidenav Item Expanded
  *
  * The `isListItemExanded` method will return true if the sidenav item with the
  * given selector is expanded, otherwise it will return false. A sidenav item

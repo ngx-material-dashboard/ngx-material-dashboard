@@ -32,7 +32,7 @@ import { TableComponent } from '../../components/table/table.component';
  * documentation.
  *
  * @usageNotes
- * ## Basic Local Data Usage
+ * ### Basic Local Data Usage
  * ```html
  * <ngx-material-dashboard-paged-table matSort [data]="data" [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="id">
@@ -74,7 +74,7 @@ import { TableComponent } from '../../components/table/table.component';
  * ```
  *
  * @usageNotes
- * ## Remote Data Usage Example
+ * ### Remote Data Usage Example
  * ```html
  * <ngx-material-dashboard-paged-table
  *     matSort
@@ -131,7 +131,7 @@ import { TableComponent } from '../../components/table/table.component';
  * ```
  *
  * @overviewDetails
- * ## Features
+ * ### Features
  *
  * The `PagedTable` provides some features out of the box that must be manaully
  * added for `MatTable`s. While you can add all of the features provided by
@@ -144,13 +144,13 @@ import { TableComponent } from '../../components/table/table.component';
  * Additionally there is sorting and table selection. See the sections below
  * for specifics on each of the features.
  *
- * ### Pagination
+ * ##### Pagination
  *
  * The `PagedTable` includes the `<mat-paginator>` in the components template,
  * and handles initializing the pagination for both local and remote data. There
  * is no additional configuration necessary to use this feature.
  *
- * ### Sort
+ * ##### Sort
  *
  * The `PagedTable` includes the ability to add sorting just like `MatTable`. To
  * add sorting add the `matSort` directive to the `PagedTable` tag and add
@@ -187,7 +187,7 @@ import { TableComponent } from '../../components/table/table.component';
  * ...
  * ```
  *
- * ### Selection
+ * ##### Selection
  *
  * The `PagedTable` provides all code necessary for handling selecting one or
  * more rows in your tables. The only thing you need to do is add the `select`
@@ -199,7 +199,7 @@ import { TableComponent } from '../../components/table/table.component';
  * enough to work with if you are familiar with the example solution provided
  * for `MatTable` in the Angular Material (documentation)
  *
- * ## No Table Data
+ * ### No Table Data
  *
  * If you want to display any text in the table when there is no data available
  * you should include a "noData" column definition with a colspan set to the

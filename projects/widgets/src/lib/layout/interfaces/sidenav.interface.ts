@@ -7,7 +7,7 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  * route in the application, or contain nested `SidenavItem` `children` which
  * should have the same constraints.
  *
- * ## Features
+ * ### Features
  *
  * All `SidenavItems` should define `text` and a `selector`. The `text` is the
  * text to render for the item in the `Sidenav`, and the `selector` is a CSS
@@ -16,7 +16,7 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  * but you should not (and can't) define both. Any other properties are
  * optional.
  *
- * ### route
+ * ##### route
  *
  * A routed `SidenavItem` should define the `route`, and will redirect the user
  * to the provided route when they click on it. When you include a `route` you
@@ -30,7 +30,7 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  * const sidenavItem = { queryParams: { isComplete: false }, route: ['tasks'], text: 'Pending', selector: 'pending' };
  * ```
  *
- * ### children
+ * ##### children
  *
  * A `SidenavItem` with `children` will nest the children under the parent.
  * Currently the `Sidenav` will only render 2 levels of `children`, meaning you
@@ -45,7 +45,7 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  * const parentSidenavItem = { children: [childSidenavItem], text: 'Tasks', selector: 'tasks'};
  * ```
  *
- * ### icon
+ * ##### icon
  *
  * You may include an optional `icon` to render next to the text for the item.
  * The `icon` must be a `fontawesome` `IconDefintion`.
@@ -57,7 +57,7 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  * const sidenavItem = { icon: faClipboardList, route: ['tasks'], text: 'Pending', selector: 'pending' };
  * ```
  *
- * ### tooltip
+ * ##### tooltip
  *
  * You may include optional text to display as a tooltip when the user hovers
  * over the item.

@@ -12,7 +12,7 @@ import { GridComponent } from '../../components/grid/grid.component';
  * data grid.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-grid-with-icon-buttons-paginator-bar
  *     [fields]="fields"

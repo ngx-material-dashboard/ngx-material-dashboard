@@ -5,7 +5,7 @@
  * validation. The type of validation should match validation types as defined
  * in angular (i.e. required, pattern, etc.) or any custom validation.
  *
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {ValidationMessage} from '@ngx-material-dashboard/widgets';
  *

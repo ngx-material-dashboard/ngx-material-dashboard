@@ -10,7 +10,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * and data list to provide paging capabilities for the data.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-paged-list [data]="tasks" class="marker-paged-grid">
  *     <ng-template #model let-model="model">

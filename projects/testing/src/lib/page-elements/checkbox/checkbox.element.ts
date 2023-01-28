@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * testing components with one or more checkboxes.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
@@ -60,12 +60,12 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ## Features
+ * ### Features
  *
  * `CheckboxElements` can be clicked, and you can check for whether checkbox is
  * checked or disabled.
  *
- * ### Click
+ * ##### Click
  *
  * Once you have defined a `CheckboxElement` simply call the `click` function
  * to simulate a user clicking the checkbox in the UI. This function is
@@ -81,12 +81,12 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ### Checked
+ * ##### Checked
  *
  * The `CheckboxElement` includes a `checked` getter that returns true if the
  * input associated with the checkbox is checked, otherwise it returns false.
  *
- * ### Disabled
+ * ##### Disabled
  *
  * Additionally the `CheckboxElement` includes a `disabled` getter that returns
  * true if the checkbox is disabled.

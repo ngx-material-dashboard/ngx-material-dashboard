@@ -8,7 +8,7 @@ import { TableElement } from '../table/table.element';
  * `Paginator` property.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```typescript
  * // other imports...
  * import { PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing'
@@ -76,7 +76,7 @@ import { TableElement } from '../table/table.element';
  * });
  * ```
  *
- * ## Features
+ * ### Features
  *
  * `PagedTableElements` have multiple features built in, including the ability
  * to get all displayed column header values, get the row displayed when there
@@ -85,19 +85,19 @@ import { TableElement } from '../table/table.element';
  * rows are selected, check if a single row is selected, select all rows, and
  * select individual rows.
  *
- * ### Displayed Columns
+ * ##### Displayed Columns
  *
  * The `displayedColumns` getter will return an array of `HTMLElements` header
  * cells from the table. The contents of the `HTMLElements` should be the
  * column header text.
  *
- * ### No Data Row
+ * ##### No Data Row
  *
  * The `noDataRow` getter returns the `HTMLElement` containing the no data row.
  * If there is data in the table the element's parent should have the `hide`
  * class.
  *
- * ### Get Cell Contents
+ * ##### Get Cell Contents
  *
  * The `getCellByColumnIndex` returns an HTMLElement with the cell contents at
  * the given row and column. Now that I'm writing the documentation the name of

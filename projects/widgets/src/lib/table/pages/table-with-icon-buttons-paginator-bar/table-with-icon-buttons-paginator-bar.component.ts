@@ -13,7 +13,7 @@ import { TableComponent } from '../../components/table/table.component';
  * data paged-table.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * ### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-paged-table-with-icon-buttons-paginator-bar
  *     [fields]="fields"
