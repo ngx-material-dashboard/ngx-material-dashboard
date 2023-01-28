@@ -3,7 +3,7 @@ import * as path from 'path';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { reformatText } from './helpers';
 import { FileUtil } from '../../util/file.util';
-import { Parser } from '@typedoc-json/parsers/parser';
+import { Parser } from '../../parsers/typedoc-json/parsers/parser';
 
 /**
  * Path to the documentation app's src directory relative to this file.
