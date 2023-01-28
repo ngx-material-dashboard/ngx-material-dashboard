@@ -92,13 +92,17 @@ export class MarkdownUrlGenerator {
                 const apiUrl = `/${p.name}`;
                 const basePath = `assets/docs/${p.name}`;
                 const m = p.modules[0];
-                let index = 0;
-                this.generateRoutesForParsersWithName(
-                    `${apiUrl}/elements`,
-                    `${basePath}/elements/api-${index++}.md`,
-                    m.elements,
-                    urlFilesMap
-                );
+                urlFilesMap[`${apiUrl}/elements/api`] = [];
+                urlFilesMap[`${apiUrl}/elements/overview`] = [];
+                m.elements.forEach((e, i) => {
+                    urlFilesMap[`${apiUrl}/elements/api`].push([
+                        `${basePath}/elements/api-${i}.md`
+                    ]);
+                    urlFilesMap[`${apiUrl}/elements/overview`].push([
+                        `${basePath}/elements/overview-${i}.md`,
+                        `${basePath}/elements/overview-${i + 1}.md`
+                    ]);
+                });
             } else {
                 p.modules?.forEach((m: ModuleParser) => {
                     const moduleDisplayName = reformatText(m.name);
@@ -264,10 +268,15 @@ export class MarkdownUrlGenerator {
         url: string,
         path: string,
         parsers: any[],
-        urlFilesMap: { [url: string]: string[][] }
+        urlFilesMap: { [url: string]: string[][] },
+        baseIndex: number = 0
     ) {
-        parsers.forEach((p: Parser) => {
-            urlFilesMap[`${url}/${reformatText(p.name)}`] = [[path]];
+        parsers.forEach((p: Parser, i: number) => {
+            urlFilesMap[`${url}/${reformatText(p.name)}/api`] = [
+                [`${path}-${baseIndex + i}.md`],
+                [`${path}-${baseIndex + i + 1}.md`]
+            ];
+            baseIndex++;
         });
         return urlFilesMap;
     }

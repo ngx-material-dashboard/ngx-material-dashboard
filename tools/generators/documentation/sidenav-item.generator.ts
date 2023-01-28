@@ -50,48 +50,23 @@ export class SidenavItemGenerator {
             if (p.modules && p.name === 'testing') {
                 // testing project has it's own sidenav structure...
                 // elements, fixtures, mocks, models, page-objects, services
-                const m: ModuleParser = p.modules[0];
-                projectSidenavItems = this.generateNestedSidenavItems([
+                projectSidenavItems = [
                     {
-                        p,
-                        parsers: m.classes,
-                        text: 'elements',
+                        route: ['testing', 'elements'],
                         selector: 'elements',
-                        symbolType: '.element.ts',
-                        baseUrl: '/elements'
+                        text: 'elements'
                     },
                     {
-                        p,
-                        parsers: m.classes,
-                        text: 'fixtures',
+                        route: ['testing', 'fixtures'],
                         selector: 'fixtures',
-                        symbolType: '.fixture.ts',
-                        baseUrl: '/fixtures'
+                        text: 'fixtures'
                     },
                     {
-                        p,
-                        parsers: m.classes,
-                        text: 'mocks',
+                        route: ['testing', 'mocks'],
                         selector: 'mocks',
-                        symbolType: '.mock.ts',
-                        baseUrl: '/mocks'
-                    },
-                    {
-                        p,
-                        parsers: m.classes,
-                        text: 'models',
-                        selector: 'models',
-                        symbolType: '.model.ts',
-                        baseUrl: '/models'
-                    },
-                    {
-                        p,
-                        parsers: m.services,
-                        text: 'services',
-                        selector: 'services',
-                        baseUrl: '/services'
+                        text: 'mocks'
                     }
-                ]);
+                ];
             } else if (p.modules && jsonProjects.includes(p.name)) {
                 // json project libs are all rendered together in documentation, so
                 // another special case for these projects

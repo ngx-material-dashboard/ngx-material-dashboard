@@ -68,16 +68,17 @@ export class RouteGenerator {
 
         if (p.modules && p.name === 'testing') {
             // handle testing lib different from rest...
-            const m = p.modules[0];
-            const elementRoutes: any[] = [];
-            m.elements.forEach((e) => {
-                elementRoutes.push(this.generateModuleRoutes(p, e));
-            });
-            const route = this.createRouteWithChildren(
-                'elements',
-                elementRoutes
+            const defaultRoutes = this.createRoutesFromUrls(
+                ['readme', 'overview', 'api', 'examples', ''],
+                'readme'
             );
-            routes.push(route);
+            routes.push(
+                this.createRouteWithChildrenAndComponent(
+                    'elements',
+                    defaultRoutes
+                )
+            );
+            routes.push(this.createBasicRoute('models'));
         } else {
             // add routes for each of modules defined in project
             p.modules?.forEach((m) => {
