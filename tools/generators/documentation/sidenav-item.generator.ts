@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { ModuleParser, Parser } from '../../parsers/typedoc-json';
+import { Parser } from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { SidenavItem } from '../../../projects/widgets/src/lib/layout/interfaces/sidenav.interface';
 import { FileUtil } from '../../util/file.util';

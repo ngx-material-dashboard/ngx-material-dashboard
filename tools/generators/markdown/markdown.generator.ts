@@ -5,8 +5,7 @@ import * as path from 'path';
 import { FileUtil } from '../../util/file.util';
 import {
     capitalizeFirstLetter,
-    reformatText,
-    removeSymbol
+    reformatText
 } from '../../generators/documentation/helpers';
 import {
     ClassParser,
@@ -174,7 +173,7 @@ export class MarkdownGenerator {
         // console.log(m.typeAliases.map((t) => t.name));
 
         let apiIndex: number = 0;
-        let index: number = 0;
+        // let index: number = 0;
         // generate components
         this.generateMarkdownFiles<ClassParser>(
             outputPath,
@@ -188,7 +187,7 @@ export class MarkdownGenerator {
         if (m.components.length > 0) {
             apiIndex++;
         }
-        index = 0;
+        // index = 0;
         this.generateMarkdownFiles<ClassParser>(
             outputPath,
             apiIndex,
@@ -201,7 +200,7 @@ export class MarkdownGenerator {
         if (m.converters.length > 0) {
             apiIndex++;
         }
-        index = 0;
+        // index = 0;
         this.generateMarkdownFiles<ClassParser>(
             outputPath,
             apiIndex,
@@ -214,7 +213,7 @@ export class MarkdownGenerator {
         if (m.decorators.length > 0) {
             apiIndex++;
         }
-        index = 0;
+        // index = 0;
         this.generateMarkdownFiles<ClassParser>(
             outputPath,
             apiIndex,
@@ -227,7 +226,7 @@ export class MarkdownGenerator {
         if (m.directives.length > 0) {
             apiIndex++;
         }
-        index = 0;
+        // index = 0;
         this.generateMarkdownFiles<InterfaceParser>(
             outputPath,
             apiIndex,
@@ -239,7 +238,7 @@ export class MarkdownGenerator {
         if (m.interfaces.length > 0) {
             apiIndex++;
         }
-        index = 0;
+        // index = 0;
         this.generateMarkdownFiles<EnumParser>(
             outputPath,
             apiIndex,
@@ -253,7 +252,7 @@ export class MarkdownGenerator {
             apiIndex++;
         }
 
-        index = 0;
+        // index = 0;
         this.generateMarkdownFiles<ClassParser>(
             outputPath,
             apiIndex,
