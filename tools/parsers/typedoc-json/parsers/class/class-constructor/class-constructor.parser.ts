@@ -1,4 +1,3 @@
-
 import { JSONOutput } from 'typedoc';
 import { ReflectionKind } from '../../../enums';
 import {

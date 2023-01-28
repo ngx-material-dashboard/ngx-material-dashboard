@@ -110,7 +110,7 @@ export class ParseJsonService {
         }
     }
 
-    private extractImplementationData() : void {
+    private extractImplementationData(): void {
         const implementationOfClasses = this.classes.filter(
             (it) => it.implementationOf
         );
