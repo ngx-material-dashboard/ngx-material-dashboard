@@ -125,7 +125,7 @@ export class MarkdownUrlGenerator {
                         url,
                         urlFilesMap,
                         m.components,
-                        0
+                        i
                     );
                     i += m.components.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.decorators, i);
@@ -135,7 +135,7 @@ export class MarkdownUrlGenerator {
                         url,
                         urlFilesMap,
                         m.decorators,
-                        0
+                        i
                     );
                     i += m.decorators.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.directives, i);
@@ -145,7 +145,7 @@ export class MarkdownUrlGenerator {
                         url,
                         urlFilesMap,
                         m.directives,
-                        0
+                        i
                     );
                     i += m.directives.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.enums, i);
@@ -159,7 +159,7 @@ export class MarkdownUrlGenerator {
                         url,
                         urlFilesMap,
                         m.models,
-                        0
+                        i
                     );
                     i += m.models.length;
                     this.addToRoutes(urls, `${basePath}/api`, m.services, i);
@@ -169,8 +169,9 @@ export class MarkdownUrlGenerator {
                         url,
                         urlFilesMap,
                         m.services,
-                        0
+                        i
                     );
+                    // add API URLs to /api
                     urlFilesMap[`${url}/api`] = urls;
 
                     // add routes for overview details
@@ -178,9 +179,7 @@ export class MarkdownUrlGenerator {
                     for (let i = 0; i < m.overviewDetails; i++) {
                         overviewUrls.push([`${basePath}/overview-${i}.md`]);
                     }
-
-                    // add overview URLs to both /overview and / as both
-                    // currently display overview details... only have 1?
+                    // add overview URLs to /overview
                     urlFilesMap[`${url}/overview`] = overviewUrls;
                 });
             }

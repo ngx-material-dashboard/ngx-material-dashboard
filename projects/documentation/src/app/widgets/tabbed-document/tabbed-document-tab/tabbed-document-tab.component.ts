@@ -254,10 +254,10 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     '/widgets': [['assets/docs/widgets/overview.md']],
     '/widgets/readme': [['assets/docs/widgets/overview.md']],
     '/widgets/collection/examples': [
-        ['assets/docs/widgets/collection/example-0.md'],
+        ['assets/docs/widgets/collection/example-7.md'],
         [
-            'assets/docs/widgets/collection/example-html-1.md',
-            'assets/docs/widgets/collection/example-typescript-2.md'
+            'assets/docs/widgets/collection/example-html-8.md',
+            'assets/docs/widgets/collection/example-typescript-9.md'
         ]
     ],
     '/widgets/collection/api': [
@@ -403,10 +403,10 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/layout/example-html-7.md',
             'assets/docs/widgets/layout/example-typescript-8.md'
         ],
-        ['assets/docs/widgets/layout/example-0.md'],
+        ['assets/docs/widgets/layout/example-6.md'],
         [
-            'assets/docs/widgets/layout/example-html-1.md',
-            'assets/docs/widgets/layout/example-typescript-2.md'
+            'assets/docs/widgets/layout/example-html-7.md',
+            'assets/docs/widgets/layout/example-typescript-8.md'
         ]
     ],
     '/widgets/layout/api': [
