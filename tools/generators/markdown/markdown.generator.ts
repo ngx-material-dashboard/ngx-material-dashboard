@@ -131,7 +131,7 @@ export class MarkdownGenerator {
 
     // look at comment -> summary for main overview; should be
     // first paragraph (maybe 2?) of class comments; may also
-    // need to look at blockTags for @overviewDetails for any
+    // need toc look at blockTags for @overviewDetails for any
     // additional text to generate
 
     // generate example markdown files
@@ -139,28 +139,19 @@ export class MarkdownGenerator {
     private generateMarkdownFilesByModule(outputPath: string, m: ModuleParser) {
         const config: MarkdownConfig[] =
             this.generateMarkdownConfigDetailsByModule(m);
-        let apiIndex: number = 0;
         config.forEach((s) => {
             this.generateMarkdownFiles(
                 outputPath,
-                apiIndex,
                 m,
                 s.parsers,
                 s.symbol,
                 s.template
             );
-
-            // update apiIndex based on number of files just added
-            apiIndex += s.parsers.length;
-            if (s.parsers.length > 0) {
-                apiIndex++; // add 1 for header file
-            }
         });
     }
 
     private generateMarkdownFiles<T extends Parser>(
         directory: string,
-        apiIndex: number,
         module: ModuleParser,
         parsers: T[],
         symbol: string,
@@ -171,7 +162,7 @@ export class MarkdownGenerator {
             //
             FileUtil.write(
                 directory,
-                `api-${apiIndex}.md`,
+                `api-${module.apiFiles++}.md`,
                 `## ${capitalizeFirstLetter(symbol)}`
             );
 
@@ -181,11 +172,11 @@ export class MarkdownGenerator {
                 `## ${capitalizeFirstLetter(symbol)}`
             );
         }
-        parsers.forEach((p: Parser, i: number) => {
+        parsers.forEach((p: Parser) => {
             // generate API markdown
             FileUtil.write(
                 directory,
-                `api-${apiIndex + i + 1}.md`,
+                `api-${module.apiFiles++}.md`,
                 template(p)
             );
 

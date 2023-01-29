@@ -114,11 +114,10 @@ export class MarkdownUrlGenerator {
                         basePath = `assets/docs/${p.name}`;
                     }
 
-                    // add the api route for API markdown files for classes
-                    const urls: string[][] = [];
+                    // add routes for example markdown files for classes
                     const exampleUrls: string[][] = [];
                     let i = 0;
-                    this.addToRoutes(urls, `${basePath}/api`, m.components, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.components, i);
                     this.addToExampleRoutes(
                         exampleUrls,
                         `${basePath}`,
@@ -128,7 +127,7 @@ export class MarkdownUrlGenerator {
                         i
                     );
                     i += m.components.length;
-                    this.addToRoutes(urls, `${basePath}/api`, m.decorators, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.decorators, i);
                     this.addToExampleRoutes(
                         exampleUrls,
                         `${basePath}`,
@@ -138,7 +137,7 @@ export class MarkdownUrlGenerator {
                         i
                     );
                     i += m.decorators.length;
-                    this.addToRoutes(urls, `${basePath}/api`, m.directives, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.directives, i);
                     this.addToExampleRoutes(
                         exampleUrls,
                         `${basePath}`,
@@ -148,11 +147,11 @@ export class MarkdownUrlGenerator {
                         i
                     );
                     i += m.directives.length;
-                    this.addToRoutes(urls, `${basePath}/api`, m.enums, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.enums, i);
                     i += m.enums.length;
-                    this.addToRoutes(urls, `${basePath}/api`, m.interfaces, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.interfaces, i);
                     i += m.interfaces.length;
-                    this.addToRoutes(urls, `${basePath}/api`, m.models, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.models, i);
                     this.addToExampleRoutes(
                         exampleUrls,
                         `${basePath}`,
@@ -162,7 +161,7 @@ export class MarkdownUrlGenerator {
                         i
                     );
                     i += m.models.length;
-                    this.addToRoutes(urls, `${basePath}/api`, m.services, i);
+                    // this.addToRoutes(urls, `${basePath}/api`, m.services, i);
                     this.addToExampleRoutes(
                         exampleUrls,
                         `${basePath}`,
@@ -171,8 +170,13 @@ export class MarkdownUrlGenerator {
                         m.services,
                         i
                     );
+
                     // add API URLs to /api
-                    urlFilesMap[`${url}/api`] = urls;
+                    const apiUrls: string[][] = [];
+                    for (let i = 0; i < m.apiFiles; i++) {
+                        apiUrls.push([`${basePath}/api-${i}.md`]);
+                    }
+                    urlFilesMap[`${url}/api`] = apiUrls;
 
                     // add routes for overview details
                     const overviewUrls: string[][] = [];

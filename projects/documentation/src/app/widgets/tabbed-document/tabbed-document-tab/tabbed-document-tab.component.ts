@@ -58,7 +58,16 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/api-8.md'],
         ['assets/docs/base-json/api-9.md'],
         ['assets/docs/base-json/api-10.md'],
-        ['assets/docs/base-json/api-11.md']
+        ['assets/docs/base-json/api-11.md'],
+        ['assets/docs/base-json/api-12.md'],
+        ['assets/docs/base-json/api-13.md'],
+        ['assets/docs/base-json/api-14.md'],
+        ['assets/docs/base-json/api-15.md'],
+        ['assets/docs/base-json/api-16.md'],
+        ['assets/docs/base-json/api-17.md'],
+        ['assets/docs/base-json/api-18.md'],
+        ['assets/docs/base-json/api-19.md'],
+        ['assets/docs/base-json/api-20.md']
     ],
     '/base-json/overview': [
         ['assets/docs/base-json/overview-0.md'],
@@ -124,7 +133,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/json-api/api': [
         ['assets/docs/json-api/api-0.md'],
-        ['assets/docs/json-api/api-1.md']
+        ['assets/docs/json-api/api-1.md'],
+        ['assets/docs/json-api/api-2.md'],
+        ['assets/docs/json-api/api-3.md']
     ],
     '/json-api/overview': [
         ['assets/docs/json-api/overview-0.md'],
@@ -156,7 +167,12 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/shared/error-handling.md'],
         ['assets/docs/shared/end-overview.md']
     ],
-    '/json/api': [['assets/docs/json/api-0.md'], ['assets/docs/json/api-1.md']],
+    '/json/api': [
+        ['assets/docs/json/api-0.md'],
+        ['assets/docs/json/api-1.md'],
+        ['assets/docs/json/api-2.md'],
+        ['assets/docs/json/api-3.md']
+    ],
     '/json/overview': [
         ['assets/docs/json/overview-0.md'],
         ['assets/docs/json/overview-1.md'],
@@ -269,7 +285,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/collection/api-5.md'],
         ['assets/docs/widgets/collection/api-6.md'],
         ['assets/docs/widgets/collection/api-7.md'],
-        ['assets/docs/widgets/collection/api-8.md']
+        ['assets/docs/widgets/collection/api-8.md'],
+        ['assets/docs/widgets/collection/api-9.md'],
+        ['assets/docs/widgets/collection/api-10.md'],
+        ['assets/docs/widgets/collection/api-11.md'],
+        ['assets/docs/widgets/collection/api-12.md']
     ],
     '/widgets/collection/overview': [
         ['assets/docs/widgets/collection/overview-0.md'],
@@ -301,7 +321,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/dialog/api': [
         ['assets/docs/widgets/dialog/api-0.md'],
-        ['assets/docs/widgets/dialog/api-1.md']
+        ['assets/docs/widgets/dialog/api-1.md'],
+        ['assets/docs/widgets/dialog/api-2.md'],
+        ['assets/docs/widgets/dialog/api-3.md']
     ],
     '/widgets/dialog/overview': [
         ['assets/docs/widgets/dialog/overview-0.md'],
@@ -325,7 +347,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/form/api-2.md'],
         ['assets/docs/widgets/form/api-3.md'],
         ['assets/docs/widgets/form/api-4.md'],
-        ['assets/docs/widgets/form/api-5.md']
+        ['assets/docs/widgets/form/api-5.md'],
+        ['assets/docs/widgets/form/api-6.md'],
+        ['assets/docs/widgets/form/api-7.md'],
+        ['assets/docs/widgets/form/api-8.md'],
+        ['assets/docs/widgets/form/api-9.md']
     ],
     '/widgets/form/overview': [
         ['assets/docs/widgets/form/overview-0.md'],
@@ -374,7 +400,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/grid/api-0.md'],
         ['assets/docs/widgets/grid/api-1.md'],
         ['assets/docs/widgets/grid/api-2.md'],
-        ['assets/docs/widgets/grid/api-3.md']
+        ['assets/docs/widgets/grid/api-3.md'],
+        ['assets/docs/widgets/grid/api-4.md']
     ],
     '/widgets/grid/overview': [
         ['assets/docs/widgets/grid/overview-0.md'],
@@ -416,7 +443,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/layout/api-3.md'],
         ['assets/docs/widgets/layout/api-4.md'],
         ['assets/docs/widgets/layout/api-5.md'],
-        ['assets/docs/widgets/layout/api-6.md']
+        ['assets/docs/widgets/layout/api-6.md'],
+        ['assets/docs/widgets/layout/api-7.md'],
+        ['assets/docs/widgets/layout/api-8.md'],
+        ['assets/docs/widgets/layout/api-9.md'],
+        ['assets/docs/widgets/layout/api-10.md'],
+        ['assets/docs/widgets/layout/api-11.md'],
+        ['assets/docs/widgets/layout/api-12.md']
     ],
     '/widgets/layout/overview': [
         ['assets/docs/widgets/layout/overview-0.md'],
@@ -469,7 +502,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/list/api-0.md'],
         ['assets/docs/widgets/list/api-1.md'],
         ['assets/docs/widgets/list/api-2.md'],
-        ['assets/docs/widgets/list/api-3.md']
+        ['assets/docs/widgets/list/api-3.md'],
+        ['assets/docs/widgets/list/api-4.md']
     ],
     '/widgets/list/overview': [
         ['assets/docs/widgets/list/overview-0.md'],
@@ -510,7 +544,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/table/api-0.md'],
         ['assets/docs/widgets/table/api-1.md'],
         ['assets/docs/widgets/table/api-2.md'],
-        ['assets/docs/widgets/table/api-3.md']
+        ['assets/docs/widgets/table/api-3.md'],
+        ['assets/docs/widgets/table/api-4.md']
     ],
     '/widgets/table/overview': [
         ['assets/docs/widgets/table/overview-0.md'],
@@ -535,7 +570,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/toolbar/api-7.md'],
         ['assets/docs/widgets/toolbar/api-8.md'],
         ['assets/docs/widgets/toolbar/api-9.md'],
-        ['assets/docs/widgets/toolbar/api-10.md']
+        ['assets/docs/widgets/toolbar/api-10.md'],
+        ['assets/docs/widgets/toolbar/api-11.md'],
+        ['assets/docs/widgets/toolbar/api-12.md'],
+        ['assets/docs/widgets/toolbar/api-13.md'],
+        ['assets/docs/widgets/toolbar/api-14.md']
     ],
     '/widgets/toolbar/overview': [
         ['assets/docs/widgets/toolbar/overview-0.md'],

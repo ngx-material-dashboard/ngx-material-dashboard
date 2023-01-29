@@ -38,6 +38,7 @@ export class ModuleParser extends Parser {
     /** The list of type aliases associated with the module. */
     public readonly typeAliases: TypeAliasParser[];
 
+    apiFiles: number;
     baseMarkdownDirectory?: string;
     overviewDetails: number;
     usageNotes: number;
@@ -62,6 +63,7 @@ export class ModuleParser extends Parser {
         this.pages = this.filterClasses('.page.ts');
         this.services = this.filterClasses('.service.ts');
 
+        this.apiFiles = 0;
         this.overviewDetails = 0;
         this.usageNotes = 0;
     }
