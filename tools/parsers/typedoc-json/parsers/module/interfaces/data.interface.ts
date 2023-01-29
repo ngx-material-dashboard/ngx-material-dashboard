@@ -1,3 +1,4 @@
+import { FunctionParser } from '@typedoc-json/parsers/function';
 import { ClassParser } from '../../../parsers/class';
 import { EnumParser } from '../../../parsers/enum';
 import { InterfaceParser } from '../../../parsers/interface';
@@ -7,6 +8,7 @@ import { TypeAliasParser } from '../../../parsers/type-alias';
 export interface ModuleParserData extends ParserData {
     classes: ClassParser[];
     enums: EnumParser[];
+    functions: FunctionParser[];
     interfaces: InterfaceParser[];
     typeAliases: TypeAliasParser[];
 }

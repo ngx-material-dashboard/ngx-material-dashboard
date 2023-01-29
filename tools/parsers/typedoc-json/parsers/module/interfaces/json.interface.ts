@@ -1,3 +1,4 @@
+import { FunctionParserJson } from '../../../parsers/function';
 import { ClassParserJson } from '../../../parsers/class';
 import { EnumParserJson } from '../../../parsers/enum';
 import { InterfaceParserJson } from '../../../parsers/interface';
@@ -8,7 +9,7 @@ export interface ModuleParserJson extends ParserJson {
     classes: ClassParserJson[];
     components: ClassParserJson[];
     converters: ClassParserJson[];
-    decorators: ClassParserJson[];
+    decorators: FunctionParserJson[];
     directives: ClassParserJson[];
     elements: ClassParserJson[];
     enums: EnumParserJson[];

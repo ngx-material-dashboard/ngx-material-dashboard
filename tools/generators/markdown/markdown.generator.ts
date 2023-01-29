@@ -10,6 +10,7 @@ import {
 import {
     ClassParser,
     EnumParser,
+    FunctionParser,
     InterfaceParser,
     ModuleParser,
     Parser,
@@ -184,6 +185,7 @@ export class MarkdownGenerator {
             if (
                 p instanceof ClassParser ||
                 p instanceof EnumParser ||
+                p instanceof FunctionParser ||
                 p instanceof InterfaceParser ||
                 p instanceof TypeAliasParser
             ) {
@@ -271,7 +273,7 @@ export class MarkdownGenerator {
                 template: this.classTemplate
             },
             {
-                modelType: ClassParser,
+                modelType: FunctionParser,
                 parsers: m.decorators,
                 symbol: 'decorators',
                 template: this.decoratorTemplate

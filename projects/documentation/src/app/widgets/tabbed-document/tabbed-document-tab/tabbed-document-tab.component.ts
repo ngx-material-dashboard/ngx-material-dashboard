@@ -67,7 +67,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/api-17.md'],
         ['assets/docs/base-json/api-18.md'],
         ['assets/docs/base-json/api-19.md'],
-        ['assets/docs/base-json/api-20.md']
+        ['assets/docs/base-json/api-20.md'],
+        ['assets/docs/base-json/api-21.md'],
+        ['assets/docs/base-json/api-22.md'],
+        ['assets/docs/base-json/api-23.md'],
+        ['assets/docs/base-json/api-24.md'],
+        ['assets/docs/base-json/api-25.md'],
+        ['assets/docs/base-json/api-26.md']
     ],
     '/base-json/overview': [
         ['assets/docs/base-json/overview-0.md'],
@@ -109,7 +115,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/overview-36.md'],
         ['assets/docs/base-json/overview-37.md'],
         ['assets/docs/base-json/overview-38.md'],
-        ['assets/docs/base-json/overview-39.md']
+        ['assets/docs/base-json/overview-39.md'],
+        ['assets/docs/base-json/overview-40.md'],
+        ['assets/docs/base-json/overview-41.md'],
+        ['assets/docs/base-json/overview-42.md'],
+        ['assets/docs/base-json/overview-43.md'],
+        ['assets/docs/base-json/overview-44.md'],
+        ['assets/docs/base-json/overview-45.md']
     ],
     '/json-api': [
         ['assets/docs/json-api/overview.md'],
@@ -135,7 +147,10 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/json-api/api-0.md'],
         ['assets/docs/json-api/api-1.md'],
         ['assets/docs/json-api/api-2.md'],
-        ['assets/docs/json-api/api-3.md']
+        ['assets/docs/json-api/api-3.md'],
+        ['assets/docs/json-api/api-4.md'],
+        ['assets/docs/json-api/api-5.md'],
+        ['assets/docs/json-api/api-6.md']
     ],
     '/json-api/overview': [
         ['assets/docs/json-api/overview-0.md'],
@@ -143,7 +158,10 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/json-api/overview-2.md'],
         ['assets/docs/json-api/overview-3.md'],
         ['assets/docs/json-api/overview-4.md'],
-        ['assets/docs/json-api/overview-5.md']
+        ['assets/docs/json-api/overview-5.md'],
+        ['assets/docs/json-api/overview-6.md'],
+        ['assets/docs/json-api/overview-7.md'],
+        ['assets/docs/json-api/overview-8.md']
     ],
     '/json': [
         ['assets/docs/json/overview.md'],

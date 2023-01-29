@@ -252,6 +252,9 @@ export class ProjectParser {
             const enums = this.enums.filter((e: EnumParser) => {
                 return e.source?.path.includes(path);
             });
+            const functions = this.functions.filter((f: FunctionParser) => {
+                return f.source?.path.includes(path);
+            });
             const interfaces = this.interfaces.filter((i: InterfaceParser) => {
                 return i.source?.path.includes(path);
             });
@@ -267,6 +270,7 @@ export class ProjectParser {
                     source: m.source,
                     classes: classes,
                     enums: enums,
+                    functions: functions,
                     interfaces: interfaces,
                     typeAliases: typeAliases
                 })

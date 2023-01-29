@@ -1,5 +1,10 @@
 import * as path from 'path';
-import { ClassParser, ModuleParser, Parser } from '../../parsers/typedoc-json';
+import {
+    ClassParser,
+    FunctionParser,
+    ModuleParser,
+    Parser
+} from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { FileUtil } from '../../util/file.util';
 import { reformatText } from './helpers';
@@ -204,7 +209,7 @@ export class MarkdownUrlGenerator {
         basePath: string,
         url: string,
         urlFilesMap: any,
-        parsers: ClassParser[],
+        parsers: ClassParser[] | FunctionParser[],
         baseIndex: number = 0
     ) {
         const res: string[][] = [];

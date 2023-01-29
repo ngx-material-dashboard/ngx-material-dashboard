@@ -1,5 +1,6 @@
 import { ClassParser } from '../class';
 import { EnumParser } from '../enum';
+import { FunctionParser } from '../function';
 import { InterfaceParser } from '../interface';
 import { Parser } from '../parser';
 import { TypeAliasParser } from '../type-alias';
@@ -20,13 +21,14 @@ export class ModuleParser extends Parser {
     /** The list of converter classes associated with the module. */
     public readonly converters: ClassParser[];
     /** The list of decorators associated with the module. */
-    public readonly decorators: ClassParser[];
+    public readonly decorators: FunctionParser[];
     /** The list of decorators associated with the module. */
     public readonly directives: ClassParser[];
     /** The list of elements associated with the module. */
     public readonly elements: ClassParser[];
     /** The list of enum classes associated with the module. */
     public readonly enums: EnumParser[];
+    public readonly functions: FunctionParser[];
     /** The list of interfaces associated with the module. */
     public readonly interfaces: InterfaceParser[];
     /** The list of models associated with the module. */
@@ -46,17 +48,18 @@ export class ModuleParser extends Parser {
     public constructor(data: ModuleParserData) {
         super(data);
 
-        const { classes, enums, interfaces, typeAliases } = data;
+        const { classes, enums, functions, interfaces, typeAliases } = data;
 
         this.classes = classes;
         this.enums = enums;
+        this.functions = functions;
         this.interfaces = interfaces;
         this.typeAliases = typeAliases;
 
         // find all types of classes associated with module
         this.converters = this.filterClasses('.converter.ts');
         this.components = this.filterClasses('.component.ts');
-        this.decorators = this.filterClasses('.decorator.ts');
+        this.decorators = this.filterFunctions('.decorator.ts');
         this.directives = this.filterClasses('.directive.ts');
         this.elements = this.filterClasses('.element.ts');
         this.models = this.filterClasses('.model.ts');
@@ -81,6 +84,12 @@ export class ModuleParser extends Parser {
      */
     private filterClasses(endsWith: string) {
         return this.classes.filter((c: ClassParser) => {
+            return c.source?.file.endsWith(endsWith);
+        });
+    }
+
+    private filterFunctions(endsWith: string) {
+        return this.functions.filter((c: FunctionParser) => {
             return c.source?.file.endsWith(endsWith);
         });
     }
