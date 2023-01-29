@@ -3,7 +3,7 @@
  * side data models when querying the server side API for lists of models.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {JsonApiQueryData} from '@ngx-material-dashboard/base-json';
  * import {JsonModel} from './json.model';

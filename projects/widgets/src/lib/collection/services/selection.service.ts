@@ -12,7 +12,7 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
  * changes manually if you want to use this anywhere else right now.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <div *ngFor="let thing of things">
  *     <mat-checkbox (click)="$event.stopPropagation()"

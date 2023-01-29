@@ -9,7 +9,7 @@
  * @returns A custom property decorator for to-many JSON relationships.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {JsonModel} from '@ngx-material-dashboard/base-json';
  * import {HasMany}  from '@ngx-material-dashboard/json-api';

@@ -70,7 +70,7 @@ import { BehaviorSubject } from 'rxjs';
  * if there is anything loading, otherwise it will return `false`.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <div *ngIf="loading">
  *     <!-- some sort of spinner or gif -->

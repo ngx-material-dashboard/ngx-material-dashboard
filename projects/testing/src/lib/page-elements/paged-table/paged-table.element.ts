@@ -8,7 +8,7 @@ import { TableElement } from '../table/table.element';
  * `Paginator` property.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * // other imports...
  * import { PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing'
@@ -76,7 +76,7 @@ import { TableElement } from '../table/table.element';
  * });
  * ```
  *
- * ### Features
+ * #### Features
  *
  * `PagedTableElements` have multiple features built in, including the ability
  * to get all displayed column header values, get the row displayed when there

@@ -32,7 +32,7 @@ import { TableComponent } from '../../components/table/table.component';
  * documentation.
  *
  * @usageNotes
- * ### Basic Local Data Usage
+ * #### Basic Local Data Usage
  * ```html
  * <ngx-material-dashboard-paged-table matSort [data]="data" [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="id">
@@ -131,7 +131,7 @@ import { TableComponent } from '../../components/table/table.component';
  * ```
  *
  * @overviewDetails
- * ### Features
+ * #### Features
  *
  * The `PagedTable` provides some features out of the box that must be manaully
  * added for `MatTable`s. While you can add all of the features provided by

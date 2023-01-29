@@ -20,7 +20,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * own layout.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <div fxLayout="column">
  *     <mat-sidenav-container class="content" fxLayout="row">
@@ -52,7 +52,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * ```
  *
  * @overviewDetails
- * ### Features
+ * #### Features
  *
  * The `Sidenav` has several features including the ability to render nested
  * `SidenavItems`, icons with each `SidenavItem`, and custom `tooltips` to

@@ -22,7 +22,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  * emitting click events for you to handle response to clicks.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-table
  *     matSort
@@ -54,7 +54,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  * }
  * ```
  *
- * ### Features
+ * #### Features
  *
  * The `Table` automatically wires up sorting, renders and handles select
  * one or more rows, as well as adding one or more buttons to each row and

@@ -7,7 +7,7 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  * route in the application, or contain nested `SidenavItem` `children` which
  * should have the same constraints.
  *
- * ### Features
+ * #### Features
  *
  * All `SidenavItems` should define `text` and a `selector`. The `text` is the
  * text to render for the item in the `Sidenav`, and the `selector` is a CSS

@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * testing components with one or more checkboxes.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
@@ -60,7 +60,7 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ### Features
+ * #### Features
  *
  * `CheckboxElements` can be clicked, and you can check for whether checkbox is
  * checked or disabled.

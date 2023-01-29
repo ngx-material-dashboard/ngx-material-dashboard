@@ -20,6 +20,13 @@ import { TypedocJsonParser } from '../../parsers/typedoc-json/typedoc-json.parse
 import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 
+interface MarkdownConfig {
+    modelType: any;
+    parsers: Parser[];
+    symbol: string;
+    template: any;
+}
+
 /**
  * The `MarkdownGenerator` generates the markdown files from the parsed typedoc
  * JSON data needed for workspace documentation. It uses a custom parser based
@@ -102,49 +109,22 @@ export class MarkdownGenerator {
                 const basePath = this.generateBaseOutputPath(project.name);
                 project.baseMarkdownDirectory = basePath;
 
-                if (project.name === 'testing' && project.modules) {
-                    const m = project.modules[0];
+                project.modules?.forEach((m: ModuleParser) => {
+                    const reformattedName = reformatText(m.name);
+                    let outputPath;
+                    if (project.name !== reformattedName) {
+                        // append module name to path if different from project
+                        // prevents repeated strings in path
+                        outputPath = path.join(basePath, reformatText(m.name));
+                    } else {
+                        // otherwise set outputPath to basePath
+                        outputPath = basePath;
+                    }
+                    m.baseMarkdownDirectory = outputPath;
 
-                    let outputPath = path.join(basePath, 'elements');
-                    this.generateMarkdownFiles<ClassParser>(
-                        outputPath,
-                        0,
-                        m,
-                        m.elements,
-                        'elements',
-                        this.classTemplate
-                    );
-
-                    outputPath = path.join(basePath, 'models');
-                    this.generateMarkdownFiles<ClassParser>(
-                        outputPath,
-                        0,
-                        m,
-                        m.models,
-                        'models',
-                        this.classTemplate
-                    );
-                } else {
-                    project.modules?.forEach((m: ModuleParser) => {
-                        const reformattedName = reformatText(m.name);
-                        let outputPath;
-                        if (project.name !== reformattedName) {
-                            // append module name to path if different from project
-                            // prevents repeated strings in path
-                            outputPath = path.join(
-                                basePath,
-                                reformatText(m.name)
-                            );
-                        } else {
-                            // otherwise set outputPath to basePath
-                            outputPath = basePath;
-                        }
-                        m.baseMarkdownDirectory = outputPath;
-
-                        // generate markdown files for entire module
-                        this.generateMarkdownFilesByModule(outputPath, m);
-                    });
-                }
+                    // generate markdown files for entire module
+                    this.generateMarkdownFilesByModule(outputPath, m);
+                });
             }
         );
     }
@@ -157,73 +137,10 @@ export class MarkdownGenerator {
     // generate example markdown files
     // look at comment -> blockTags; should be @usageNotes
     private generateMarkdownFilesByModule(outputPath: string, m: ModuleParser) {
-        // generate templates
-        // console.log(m.elements.map((e) => e.name));
-        // console.log(m.pages.map((p) => p.name));
-
+        const config: MarkdownConfig[] =
+            this.generateMarkdownConfigDetailsByModule(m);
         let apiIndex: number = 0;
-        const symbols: {
-            modelType: any;
-            parsers: Parser[];
-            symbol: string;
-            template: any;
-        }[] = [
-            {
-                modelType: ClassParser,
-                parsers: m.components,
-                symbol: 'components',
-                template: this.componentTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.converters,
-                symbol: 'converters',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.decorators,
-                symbol: 'decorators',
-                template: this.decoratorTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.directives,
-                symbol: 'directives',
-                template: this.directiveTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.enums,
-                symbol: 'enums',
-                template: this.classTemplate
-            },
-            {
-                modelType: InterfaceParser,
-                parsers: m.interfaces,
-                symbol: 'interfaces',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.models,
-                symbol: 'models',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.services,
-                symbol: 'services',
-                template: this.classTemplate
-            },
-            {
-                modelType: TypeAliasParser,
-                parsers: m.typeAliases,
-                symbol: 'type-aliases',
-                template: this.componentTemplate
-            }
-        ];
-        symbols.forEach((s) => {
+        config.forEach((s) => {
             this.generateMarkdownFiles(
                 outputPath,
                 apiIndex,
@@ -232,6 +149,8 @@ export class MarkdownGenerator {
                 s.symbol,
                 s.template
             );
+
+            // update apiIndex based on number of files just added
             apiIndex += s.parsers.length;
             if (s.parsers.length > 0) {
                 apiIndex++; // add 1 for header file
@@ -255,6 +174,12 @@ export class MarkdownGenerator {
                 `api-${apiIndex}.md`,
                 `## ${capitalizeFirstLetter(symbol)}`
             );
+
+            FileUtil.write(
+                directory,
+                `overview-${module.overviewDetails++}.md`,
+                `## ${capitalizeFirstLetter(symbol)}`
+            );
         }
         parsers.forEach((p: Parser, i: number) => {
             // generate API markdown
@@ -264,7 +189,7 @@ export class MarkdownGenerator {
                 template(p)
             );
 
-            // TODO generate overview and usage-notes details
+            // generate overview and example markdown
             if (
                 p instanceof ClassParser ||
                 p instanceof EnumParser ||
@@ -274,7 +199,7 @@ export class MarkdownGenerator {
                 FileUtil.write(
                     directory,
                     `overview-${module.overviewDetails++}.md`,
-                    `## ${p.name}`
+                    `### ${p.name}`
                 );
 
                 if (p.comment.description) {
@@ -298,7 +223,7 @@ export class MarkdownGenerator {
                     FileUtil.write(
                         directory,
                         `example-${module.usageNotes++}.md`,
-                        `## ${p.name}`
+                        `### ${p.name}`
                     );
                 }
                 p.comment.usageNoteTypes.forEach((t, i) => {
@@ -334,5 +259,74 @@ export class MarkdownGenerator {
             'docs',
             basePath
         );
+    }
+
+    // console.log(m.elements.map((e) => e.name));
+    // console.log(m.pages.map((p) => p.name));
+    private generateMarkdownConfigDetailsByModule(
+        m: ModuleParser
+    ): MarkdownConfig[] {
+        return [
+            {
+                modelType: ClassParser,
+                parsers: m.components,
+                symbol: 'components',
+                template: this.componentTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.converters,
+                symbol: 'converters',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.decorators,
+                symbol: 'decorators',
+                template: this.decoratorTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.directives,
+                symbol: 'directives',
+                template: this.directiveTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.elements,
+                symbol: 'elements',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.enums,
+                symbol: 'enums',
+                template: this.classTemplate
+            },
+            {
+                modelType: InterfaceParser,
+                parsers: m.interfaces,
+                symbol: 'interfaces',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.models,
+                symbol: 'models',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.services,
+                symbol: 'services',
+                template: this.classTemplate
+            },
+            {
+                modelType: TypeAliasParser,
+                parsers: m.typeAliases,
+                symbol: 'type-aliases',
+                template: this.componentTemplate
+            }
+        ];
     }
 }

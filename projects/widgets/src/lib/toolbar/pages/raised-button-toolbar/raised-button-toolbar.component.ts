@@ -15,7 +15,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  *
  * @overviewDetails
  *
- * ### Features
+ * #### Features
  *
  * The toolbar allows you to control the alignment of buttons (i.e. left or
  * right). It also includes the ability to render an optional `FilterDropDown`.

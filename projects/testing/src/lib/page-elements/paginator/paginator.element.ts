@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * testing components with a paginator.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
  * import {MatButtonModule} from '@angular/material/button';
@@ -84,7 +84,7 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ### Features
+ * #### Features
  *
  * The `PaginatorElement` provides the ability to read the range label (i.e.
  * the text that reads "x - y of z" in the paginator), and click next and

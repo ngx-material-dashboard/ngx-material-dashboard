@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * components with buttons.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
@@ -56,7 +56,7 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ### Features
+ * #### Features
  *
  * `ButtonElements` can be clicked and ou can check if the button is disabled.
  *

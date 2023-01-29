@@ -62,7 +62,7 @@ graph TD
  * for the [Grid](/widgets/components/grid), [List](/widgets/components/list),
  * and [Table](/widgets/components/table) at the included links.
  *
- * ### Features
+ * #### Features
  *
  * The `Collection` handles dataSource management, including connecting to the
  * data source, disconnecting when the component is destoryed, as well as

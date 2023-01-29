@@ -9,7 +9,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * and use your own toolbar buttons.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  *
  * ```typescript
  * import {ToolbarButton} from '@ngx-material-dashboard/toolbar-button.interface';
@@ -57,7 +57,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * };
  * ```
  *
- * ### Features
+ * #### Features
  *
  * The `ToolbarButton` interface provides several optional features for
  * your buttons. You can add [Font Awesome](https://fontawesome.com/icons)

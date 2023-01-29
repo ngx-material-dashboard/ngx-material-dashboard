@@ -13,7 +13,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * @returns A custom property decorator for JSON attributes.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
  *

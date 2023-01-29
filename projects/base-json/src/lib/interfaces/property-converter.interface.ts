@@ -5,7 +5,7 @@
  * to do that in the `mask` and `unmask` functions.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {parseISO} from 'date-fns';
  * import {PropertyConverter} from '@ngx-material-dashboard/base-json';

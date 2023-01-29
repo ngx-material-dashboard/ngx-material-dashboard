@@ -21,7 +21,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * side APIs through this library should extend this class.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {JsonModel as BasJsonModel} from "@ngx-material-dashboard/base-json";
  *

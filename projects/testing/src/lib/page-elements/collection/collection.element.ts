@@ -26,7 +26,7 @@ import { SelectElement } from '../select/select.element';
  * > should result in failures in your tests.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * // other imports...
  * import { PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing'
@@ -95,7 +95,7 @@ import { SelectElement } from '../select/select.element';
  * ```
  *
  * @overviewDetails
- * ### Features
+ * #### Features
  *
  * `CollectionElements` have multiple features built in, including the ability
  * to click buttons in any element of the collection, check if all items are

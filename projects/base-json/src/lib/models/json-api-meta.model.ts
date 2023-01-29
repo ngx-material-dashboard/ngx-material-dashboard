@@ -11,7 +11,7 @@ export type MetaModelType<T> = new (response: any) => T;
  * contains an array of links and meta property.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * @JsonApiModelConfig({
  *     type: 'tasks',

@@ -8,7 +8,7 @@
  * @returns A custom property decorator for to-one JSON relationships.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {JsonModel} from "@ngx-material-dashboard/base-json";
  * import {User} from './user';

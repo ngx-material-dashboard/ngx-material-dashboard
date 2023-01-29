@@ -6,7 +6,7 @@ import { PageElement } from '../page/page.element';
  * components that utilize a Sidenav.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
@@ -92,7 +92,7 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ### Features
+ * #### Features
  *
  * The main features available for the `SidenavElement` are the ability to get
  * the number of main (top level) sidenav items are in the sidenav, click a

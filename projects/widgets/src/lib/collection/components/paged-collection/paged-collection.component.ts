@@ -39,7 +39,7 @@ import { CollectionComponent } from '../collection/collection.component';
  * [PagedList](/widgets/components/paged-list),
  * and [PagedTable](/widgets/components/paged-table) at the included links.
  *
- * ### Features
+ * #### Features
  *
  * The `PagedCollection` provides paging capabilities for collections.
  *

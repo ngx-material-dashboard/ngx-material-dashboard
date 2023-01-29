@@ -18,7 +18,7 @@ import { JsonApiMetaModel } from '../models/json-api-meta.model';
  * @returns Custom class decorator for JSON models.
  *
  * @overviewDetails
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {JsonApiModelConfig} from "@ngx-material-dashboard/base-json";
  * import {JsonModel} from "@ngx-material-dashboard/json";

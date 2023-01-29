@@ -24,7 +24,7 @@ import { SorterComponent } from '../sorter/sorter.component';
  * checkbox, and the paginator is aligned to the right side of the page, after
  * the optional `Sorter`.
  *
- * ### Features
+ * #### Features
  *
  * You may optional exclude a select checkbox and `Sorter`. These default to
  * automatically be included. Simply set the corresponding `display` input

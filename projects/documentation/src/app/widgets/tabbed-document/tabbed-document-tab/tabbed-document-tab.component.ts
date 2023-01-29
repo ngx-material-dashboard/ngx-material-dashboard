@@ -95,7 +95,12 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/overview-31.md'],
         ['assets/docs/base-json/overview-32.md'],
         ['assets/docs/base-json/overview-33.md'],
-        ['assets/docs/base-json/overview-34.md']
+        ['assets/docs/base-json/overview-34.md'],
+        ['assets/docs/base-json/overview-35.md'],
+        ['assets/docs/base-json/overview-36.md'],
+        ['assets/docs/base-json/overview-37.md'],
+        ['assets/docs/base-json/overview-38.md'],
+        ['assets/docs/base-json/overview-39.md']
     ],
     '/json-api': [
         ['assets/docs/json-api/overview.md'],
@@ -125,7 +130,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/json-api/overview-0.md'],
         ['assets/docs/json-api/overview-1.md'],
         ['assets/docs/json-api/overview-2.md'],
-        ['assets/docs/json-api/overview-3.md']
+        ['assets/docs/json-api/overview-3.md'],
+        ['assets/docs/json-api/overview-4.md'],
+        ['assets/docs/json-api/overview-5.md']
     ],
     '/json': [
         ['assets/docs/json/overview.md'],
@@ -154,7 +161,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/json/overview-0.md'],
         ['assets/docs/json/overview-1.md'],
         ['assets/docs/json/overview-2.md'],
-        ['assets/docs/json/overview-3.md']
+        ['assets/docs/json/overview-3.md'],
+        ['assets/docs/json/overview-4.md'],
+        ['assets/docs/json/overview-5.md']
     ],
     '/testing': [['assets/docs/testing/overview.md']],
     '/testing/readme': [['assets/docs/testing/overview.md']],
@@ -284,7 +293,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/collection/overview-18.md'],
         ['assets/docs/widgets/collection/overview-19.md'],
         ['assets/docs/widgets/collection/overview-20.md'],
-        ['assets/docs/widgets/collection/overview-21.md']
+        ['assets/docs/widgets/collection/overview-21.md'],
+        ['assets/docs/widgets/collection/overview-22.md'],
+        ['assets/docs/widgets/collection/overview-23.md'],
+        ['assets/docs/widgets/collection/overview-24.md'],
+        ['assets/docs/widgets/collection/overview-25.md']
     ],
     '/widgets/dialog/api': [
         ['assets/docs/widgets/dialog/api-0.md'],
@@ -295,7 +308,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/dialog/overview-1.md'],
         ['assets/docs/widgets/dialog/overview-2.md'],
         ['assets/docs/widgets/dialog/overview-3.md'],
-        ['assets/docs/widgets/dialog/overview-4.md']
+        ['assets/docs/widgets/dialog/overview-4.md'],
+        ['assets/docs/widgets/dialog/overview-5.md'],
+        ['assets/docs/widgets/dialog/overview-6.md']
     ],
     '/widgets/form/examples': [
         ['assets/docs/widgets/form/example-0.md'],
@@ -327,7 +342,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/form/overview-11.md'],
         ['assets/docs/widgets/form/overview-12.md'],
         ['assets/docs/widgets/form/overview-13.md'],
-        ['assets/docs/widgets/form/overview-14.md']
+        ['assets/docs/widgets/form/overview-14.md'],
+        ['assets/docs/widgets/form/overview-15.md'],
+        ['assets/docs/widgets/form/overview-16.md'],
+        ['assets/docs/widgets/form/overview-17.md'],
+        ['assets/docs/widgets/form/overview-18.md']
     ],
     '/widgets/grid/examples': [
         ['assets/docs/widgets/grid/example-0.md'],
@@ -365,7 +384,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/grid/overview-4.md'],
         ['assets/docs/widgets/grid/overview-5.md'],
         ['assets/docs/widgets/grid/overview-6.md'],
-        ['assets/docs/widgets/grid/overview-7.md']
+        ['assets/docs/widgets/grid/overview-7.md'],
+        ['assets/docs/widgets/grid/overview-8.md']
     ],
     '/widgets/layout/examples': [
         ['assets/docs/widgets/layout/example-0.md'],
@@ -416,7 +436,12 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/layout/overview-14.md'],
         ['assets/docs/widgets/layout/overview-15.md'],
         ['assets/docs/widgets/layout/overview-16.md'],
-        ['assets/docs/widgets/layout/overview-17.md']
+        ['assets/docs/widgets/layout/overview-17.md'],
+        ['assets/docs/widgets/layout/overview-18.md'],
+        ['assets/docs/widgets/layout/overview-19.md'],
+        ['assets/docs/widgets/layout/overview-20.md'],
+        ['assets/docs/widgets/layout/overview-21.md'],
+        ['assets/docs/widgets/layout/overview-22.md']
     ],
     '/widgets/list/examples': [
         ['assets/docs/widgets/list/example-0.md'],
@@ -454,7 +479,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/list/overview-4.md'],
         ['assets/docs/widgets/list/overview-5.md'],
         ['assets/docs/widgets/list/overview-6.md'],
-        ['assets/docs/widgets/list/overview-7.md']
+        ['assets/docs/widgets/list/overview-7.md'],
+        ['assets/docs/widgets/list/overview-8.md']
     ],
     '/widgets/table/examples': [
         ['assets/docs/widgets/table/example-0.md'],
@@ -495,7 +521,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/table/overview-5.md'],
         ['assets/docs/widgets/table/overview-6.md'],
         ['assets/docs/widgets/table/overview-7.md'],
-        ['assets/docs/widgets/table/overview-8.md']
+        ['assets/docs/widgets/table/overview-8.md'],
+        ['assets/docs/widgets/table/overview-9.md']
     ],
     '/widgets/toolbar/api': [
         ['assets/docs/widgets/toolbar/api-0.md'],
@@ -533,7 +560,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/toolbar/overview-19.md'],
         ['assets/docs/widgets/toolbar/overview-20.md'],
         ['assets/docs/widgets/toolbar/overview-21.md'],
-        ['assets/docs/widgets/toolbar/overview-22.md']
+        ['assets/docs/widgets/toolbar/overview-22.md'],
+        ['assets/docs/widgets/toolbar/overview-23.md'],
+        ['assets/docs/widgets/toolbar/overview-24.md'],
+        ['assets/docs/widgets/toolbar/overview-25.md'],
+        ['assets/docs/widgets/toolbar/overview-26.md']
     ],
     '/overview': [['assets/docs/overview.md']],
     '/json-overview': [

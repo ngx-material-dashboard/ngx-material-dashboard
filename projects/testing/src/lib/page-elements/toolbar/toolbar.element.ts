@@ -9,7 +9,7 @@ import { PageElement } from '../page/page.element';
  * `ButtonElements`) defined in the toolbar.
  *
  * @usageNotes
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import { Component } from '@angular/core';
  * import { TestBed } from '@angular/core/testing';

@@ -10,7 +10,7 @@ import { JsonApiDatastore } from '../services/json-api-datastore.service';
  * as defined in the json:api specification. All of your client side data models
  * should extend this class.
  *
- * ### Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Attribute, JsonApiModelConfig} from '@ngx-material-dashboard/base-json';
  * import {BelongsTo, JsonApiModel} from '@ngx-material-dashboard/json-api';
