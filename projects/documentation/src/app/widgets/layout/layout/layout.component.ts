@@ -11,19 +11,31 @@ import { SidenavItem } from '@ngx-material-dashboard/widgets';
 
 const routeSidenavItems: any = {
     'base-json': [
-        { route: ['./', 'base-json'], selector: 'base-json', text: 'BaseJson' },
-        { route: ['./', 'json-api'], selector: 'json-api', text: 'JsonApi' },
-        { route: ['./', 'json'], selector: 'json', text: 'Json' }
+        {
+            route: ['./', 'base-json'],
+            selector: 'base-json',
+            text: 'base-json'
+        },
+        { route: ['./', 'json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['./', 'json'], selector: 'json', text: 'json' }
     ],
     'json-api': [
-        { route: ['./', 'base-json'], selector: 'base-json', text: 'BaseJson' },
-        { route: ['./', 'json-api'], selector: 'json-api', text: 'JsonApi' },
-        { route: ['./', 'json'], selector: 'json', text: 'Json' }
+        {
+            route: ['./', 'base-json'],
+            selector: 'base-json',
+            text: 'base-json'
+        },
+        { route: ['./', 'json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['./', 'json'], selector: 'json', text: 'json' }
     ],
     json: [
-        { route: ['./', 'base-json'], selector: 'base-json', text: 'BaseJson' },
-        { route: ['./', 'json-api'], selector: 'json-api', text: 'JsonApi' },
-        { route: ['./', 'json'], selector: 'json', text: 'Json' }
+        {
+            route: ['./', 'base-json'],
+            selector: 'base-json',
+            text: 'base-json'
+        },
+        { route: ['./', 'json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['./', 'json'], selector: 'json', text: 'json' }
     ],
     testing: [
         {

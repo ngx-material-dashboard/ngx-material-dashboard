@@ -226,8 +226,14 @@ export class SidenavItemGenerator {
             route = convertUrlToRoute(url);
             // get the last value in the route which should match a selector format
             selector = route[route.length - 1];
-            // convert the selector format to camel case text for pretty display
-            text = convertSelectorToText(selector);
+
+            if (!['base-json', 'json', 'json-api'].includes(selector)) {
+                // convert selector format to camel case for anything other than json
+                text = convertSelectorToText(selector);
+            } else {
+                // set text to selector if json so it matches library name
+                text = selector;
+            }
         } else {
             // special case for when displayName and URL match, just include
             // the url for the route
