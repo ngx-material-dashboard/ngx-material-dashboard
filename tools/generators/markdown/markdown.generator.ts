@@ -324,7 +324,7 @@ export class MarkdownGenerator {
             {
                 modelType: TypeAliasParser,
                 parsers: m.typeAliases,
-                symbol: 'type-aliases',
+                symbol: 'typeAliases',
                 template: this.componentTemplate
             }
         ];
