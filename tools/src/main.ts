@@ -5,7 +5,9 @@ import { RouteGenerator } from '../generators/documentation/route.generator';
 import { SidenavItemGenerator } from '../generators/documentation/sidenav-item.generator';
 
 // parse typedoc JSON
-const typedocJson: TypedocJsonParser = new TypedocJsonParser('docs.json');
+const typedocJson: TypedocJsonParser = new TypedocJsonParser(
+    './docs/docs.json'
+);
 
 // generate API markdown using parsed results
 const markdownGenerator: MarkdownGenerator = new MarkdownGenerator();

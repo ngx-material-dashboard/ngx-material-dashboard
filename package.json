@@ -11,7 +11,7 @@
     "test:coverage": "ng test --no-watch --code-coverage",
     "playground": "angular-playground",
     "documentation:start": "ng serve documentation",
-    "documentation:api": "typedoc --json docs.json",
+    "documentation:api": "typedoc --json ./docs/docs.json",
     "documentation:parse-api-json": "npx ts-node ./tools/src/main.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
