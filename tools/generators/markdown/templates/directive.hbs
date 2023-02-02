@@ -1,9 +1,9 @@
 {{! render name of component as header }}
-### API Reference for {{ name }}
+### {{ name }}
 
-Selector: [{{selector}}]
-
-## {{name}}
+{{#if decorator.selector}}
+Selector: [{{decorator.selector}}]
+{{/if}}
 <hr/>
 
 {{! render shortText if component has comment }}

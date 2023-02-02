@@ -1,3 +1,6 @@
+import { ComponentDecoratorParser } from '../../../../parsers/decorators/parsers/component-decorator.parser';
+import { DecoratorParser } from '../../../../parsers/decorators/parsers/decorator.parser';
+import { DirectiveDecoratorParser } from '../../../../parsers/decorators/parsers/directive-decorator.parser';
 import { JSONOutput, ReflectionKind } from 'typedoc';
 import {
     CommentParser,
@@ -75,6 +78,8 @@ export class ClassParser extends Parser {
      */
     public readonly methods: ClassMethodParser[];
 
+    public readonly decorator?: DecoratorParser;
+
     public constructor(data: ClassParserData) {
         super(data);
 
@@ -99,6 +104,17 @@ export class ClassParser extends Parser {
         this.construct = construct;
         this.properties = properties;
         this.methods = methods;
+
+        // manually parse and add decorator data since TypeDoc doesn't contain
+        // this info anymore...
+        if (this.source) {
+            const path: string = `${this.source.path}/${this.source.file}`;
+            if (this.name.includes('Component')) {
+                this.decorator = new ComponentDecoratorParser(path);
+            } else if (this.name.includes('Directive')) {
+                this.decorator = new DirectiveDecoratorParser(path);
+            }
+        }
     }
 
     /**
