@@ -1,4 +1,4 @@
-import { FunctionParser } from '@typedoc-json/parsers/function';
+import { FunctionParser } from '../../../parsers/function';
 import { ClassParser } from '../../../parsers/class';
 import { EnumParser } from '../../../parsers/enum';
 import { InterfaceParser } from '../../../parsers/interface';
