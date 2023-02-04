@@ -131,7 +131,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/overview-52.md'],
         ['assets/docs/base-json/overview-53.md'],
         ['assets/docs/base-json/overview-54.md'],
-        ['assets/docs/base-json/overview-55.md']
+        ['assets/docs/base-json/overview-55.md'],
+        ['assets/docs/base-json/overview-56.md'],
+        ['assets/docs/base-json/overview-57.md']
     ],
     '/json-api': [
         ['assets/docs/json-api/overview.md'],

@@ -15,12 +15,14 @@ import {
     InterfaceParser,
     ModuleParser,
     Parser,
+    ReflectionTypeParser,
     TypeAliasParser
 } from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { TypedocJsonParser } from '../../parsers/typedoc-json/typedoc-json.parser';
 import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
+import { Kind } from '../../parsers/typedoc-json/enums';
 
 interface MarkdownConfig {
     modelType: any;
@@ -194,7 +196,34 @@ export class MarkdownGenerator {
                 if (p instanceof FunctionParser) {
                     comment = p.signatures[0].comment;
                 } else {
-                    comment = p.comment;
+                    if (
+                        p instanceof TypeAliasParser &&
+                        p.type.kind === Kind.Reflection
+                    ) {
+                        const type: ReflectionTypeParser =
+                            p.type as ReflectionTypeParser;
+                        if (
+                            type.reflection &&
+                            type.reflection.signatures &&
+                            type.reflection.signatures[0].comment &&
+                            type.reflection.signatures[0].comment.summary
+                        ) {
+                            // this is a special case to be able to render docs
+                            // for ModelType and MetaModelType; only overview
+                            // details rendered, TODO remove API md files?
+                            comment = new CommentParser({
+                                blockTags: [],
+                                modifierTags: [],
+                                description:
+                                    type.reflection.signatures[0].comment
+                                        .summary[0].text
+                            });
+                        } else {
+                            comment = p.comment;
+                        }
+                    } else {
+                        comment = p.comment;
+                    }
                 }
                 FileUtil.write(
                     directory,
