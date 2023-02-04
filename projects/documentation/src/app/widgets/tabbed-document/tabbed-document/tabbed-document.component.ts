@@ -31,12 +31,20 @@ export class TabbedDocumentComponent implements OnInit {
             if (
                 url.includes('base-json') ||
                 url.includes('json') ||
-                url.includes('json-api')
+                (url.includes('json-api') &&
+                    !this.links.includes({
+                        display: 'ReadMe',
+                        link: ['readme']
+                    }))
             ) {
+                // add readme tab if not already included
                 this.links = [
                     { display: 'ReadMe', link: ['readme'] },
                     ...this.links
                 ];
+
+                // and update active link
+                this.activeLink = this.links[0];
             }
 
             this.initActiveLink();
@@ -45,7 +53,7 @@ export class TabbedDocumentComponent implements OnInit {
 
     initActiveLink(): void {
         const activeLink = this.links.find((link: Link) => {
-            return this.router.url.endsWith(link.link[0]);
+            return this.router.url.endsWith(`/${link.link[0]}`);
         });
         if (activeLink) {
             this.activeLink = activeLink;

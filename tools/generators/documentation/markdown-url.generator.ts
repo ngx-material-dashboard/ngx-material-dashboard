@@ -77,12 +77,15 @@ export class MarkdownUrlGenerator {
         this.projects.forEach((p: ProjectParser) => {
             let url = `/${p.name}`;
 
-            // add overviews for each project library
+            // add readme overviews for each project library
+            // TODO probably rename files to readme instead of overview to
+            // prevent confusion with generated overview files which should
+            // contain comments parsed by typedoc from source
             urlFilesMap[url] = [[`assets/docs/${p.name}/overview.md`]];
             urlFilesMap[`${url}/readme`] = [
                 [`assets/docs/${p.name}/overview.md`]
             ];
-            // add additional shared files to overview map (if any...)
+            // add additional shared files to readme map (if any...)
             const key = Object.keys(SHARED_FILES).find(
                 (it: string) => p.name === it
             );
