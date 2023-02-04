@@ -107,8 +107,7 @@ export class MarkdownUrlGenerator {
                         `${basePath}/elements/api-${i}.md`
                     ]);
                     urlFilesMap[`${apiUrl}/elements/overview`].push([
-                        `${basePath}/elements/overview-${i}.md`,
-                        `${basePath}/elements/overview-${i + 1}.md`
+                        `${basePath}/elements/overview-${i}.md`
                     ]);
                 });
             } else {

@@ -162,6 +162,9 @@ export class MarkdownGenerator {
         template: Handlebars.TemplateDelegate,
         includeSymbol: boolean = true
     ) {
+        if (symbol === 'elements') {
+            directory = `${directory}/elements`;
+        }
         if (parsers.length > 0 && includeSymbol) {
             //
             FileUtil.write(
