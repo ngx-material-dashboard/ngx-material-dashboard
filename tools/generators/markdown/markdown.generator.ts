@@ -9,6 +9,7 @@ import {
 } from '../../generators/documentation/helpers';
 import {
     ClassParser,
+    CommentParser,
     EnumParser,
     FunctionParser,
     InterfaceParser,
@@ -189,22 +190,28 @@ export class MarkdownGenerator {
                 p instanceof InterfaceParser ||
                 p instanceof TypeAliasParser
             ) {
+                let comment: CommentParser;
+                if (p instanceof FunctionParser) {
+                    comment = p.signatures[0].comment;
+                } else {
+                    comment = p.comment;
+                }
                 FileUtil.write(
                     directory,
                     `overview-${module.overviewDetails++}.md`,
                     `### ${p.name}`
                 );
 
-                if (p.comment.description) {
+                if (comment.description) {
                     FileUtil.write(
                         directory,
                         `overview-${module.overviewDetails++}.md`,
                         // match the expected object structure for template
-                        this.overviewTemplate({ text: p.comment.description })
+                        this.overviewTemplate({ text: comment.description })
                     );
                 }
 
-                p.comment.overviewDetails.forEach((t) => {
+                comment.overviewDetails.forEach((t) => {
                     FileUtil.write(
                         directory,
                         `overview-${module.overviewDetails++}.md`,
@@ -212,14 +219,14 @@ export class MarkdownGenerator {
                     );
                 });
 
-                if (p.comment.usageNotes.length > 0) {
+                if (comment.usageNotes.length > 0) {
                     FileUtil.write(
                         directory,
                         `example-${module.usageNotes++}.md`,
                         `### ${p.name}`
                     );
                 }
-                p.comment.usageNoteTypes.forEach((t, i) => {
+                comment.usageNoteTypes.forEach((t, i) => {
                     FileUtil.write(
                         directory,
                         `example-${t}-${module.usageNotes++}.md`,

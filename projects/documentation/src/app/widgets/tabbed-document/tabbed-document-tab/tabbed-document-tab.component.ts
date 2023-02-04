@@ -121,7 +121,17 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/base-json/overview-42.md'],
         ['assets/docs/base-json/overview-43.md'],
         ['assets/docs/base-json/overview-44.md'],
-        ['assets/docs/base-json/overview-45.md']
+        ['assets/docs/base-json/overview-45.md'],
+        ['assets/docs/base-json/overview-46.md'],
+        ['assets/docs/base-json/overview-47.md'],
+        ['assets/docs/base-json/overview-48.md'],
+        ['assets/docs/base-json/overview-49.md'],
+        ['assets/docs/base-json/overview-50.md'],
+        ['assets/docs/base-json/overview-51.md'],
+        ['assets/docs/base-json/overview-52.md'],
+        ['assets/docs/base-json/overview-53.md'],
+        ['assets/docs/base-json/overview-54.md'],
+        ['assets/docs/base-json/overview-55.md']
     ],
     '/json-api': [
         ['assets/docs/json-api/overview.md'],
@@ -161,7 +171,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/json-api/overview-5.md'],
         ['assets/docs/json-api/overview-6.md'],
         ['assets/docs/json-api/overview-7.md'],
-        ['assets/docs/json-api/overview-8.md']
+        ['assets/docs/json-api/overview-8.md'],
+        ['assets/docs/json-api/overview-9.md'],
+        ['assets/docs/json-api/overview-10.md'],
+        ['assets/docs/json-api/overview-11.md'],
+        ['assets/docs/json-api/overview-12.md']
     ],
     '/json': [
         ['assets/docs/json/overview.md'],
