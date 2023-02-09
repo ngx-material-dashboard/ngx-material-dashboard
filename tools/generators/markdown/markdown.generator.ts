@@ -23,6 +23,7 @@ import { TypedocJsonParser } from '../../parsers/typedoc-json/typedoc-json.parse
 import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 import { Kind } from '../../parsers/typedoc-json/enums';
+import { PathUtil } from './utils/path.util';
 
 interface MarkdownConfig {
     modelType: any;
@@ -116,18 +117,21 @@ export class MarkdownGenerator {
                 project.modules?.forEach((m: ModuleParser) => {
                     const reformattedName = reformatText(m.name);
                     let outputPath;
+                    let url;
                     if (project.name !== reformattedName) {
                         // append module name to path if different from project
                         // prevents repeated strings in path
                         outputPath = path.join(basePath, reformatText(m.name));
+                        url = `/${project.name}/${reformattedName}`;
                     } else {
                         // otherwise set outputPath to basePath
                         outputPath = basePath;
+                        url = `/${project.name}`;
                     }
                     m.baseMarkdownDirectory = outputPath;
 
                     // generate markdown files for entire module
-                    this.generateMarkdownFilesByModule(outputPath, m);
+                    this.generateMarkdownFilesByModule(outputPath, m, url);
                 });
             }
         );
@@ -140,7 +144,11 @@ export class MarkdownGenerator {
 
     // generate example markdown files
     // look at comment -> blockTags; should be @usageNotes
-    private generateMarkdownFilesByModule(outputPath: string, m: ModuleParser) {
+    private generateMarkdownFilesByModule(
+        outputPath: string,
+        m: ModuleParser,
+        url: string
+    ) {
         const config: MarkdownConfig[] =
             this.generateMarkdownConfigDetailsByModule(m);
         config.forEach((s) => {
@@ -149,7 +157,8 @@ export class MarkdownGenerator {
                 m,
                 s.parsers,
                 s.symbol,
-                s.template
+                s.template,
+                url
             );
         });
     }
@@ -160,26 +169,66 @@ export class MarkdownGenerator {
         parsers: T[],
         symbol: string,
         template: Handlebars.TemplateDelegate,
+        url: string,
         includeSymbol: boolean = true
     ) {
         if (symbol === 'elements') {
             directory = `${directory}/elements`;
+            url = `${url}/elements`;
         }
         if (parsers.length > 0 && includeSymbol) {
             //
+            this.addToUrlFilesMap(
+                module,
+                url,
+                directory,
+                'api',
+                'api',
+                module.apiFiles
+            );
             FileUtil.write(
                 directory,
                 `api-${module.apiFiles++}.md`,
                 `## ${capitalizeFirstLetter(symbol)}`
             );
 
+            this.addToUrlFilesMap(
+                module,
+                url,
+                directory,
+                'overview',
+                'overview',
+                module.overviewDetails
+            );
             FileUtil.write(
                 directory,
                 `overview-${module.overviewDetails++}.md`,
                 `## ${capitalizeFirstLetter(symbol)}`
             );
+
+            // this.addToUrlFilesMap(
+            //     module,
+            //     url,
+            //     directory,
+            //     'examples',
+            //     'example',
+            //     module.usageNotes
+            // );
+            // FileUtil.write(
+            //     directory,
+            //     `example-${module.usageNotes++}.md`,
+            //     `## ${capitalizeFirstLetter(symbol)}`
+            // );
         }
         parsers.forEach((p: Parser) => {
+            this.addToUrlFilesMap(
+                module,
+                url,
+                directory,
+                'api',
+                'api',
+                module.apiFiles
+            );
             // generate API markdown
             FileUtil.write(
                 directory,
@@ -228,6 +277,14 @@ export class MarkdownGenerator {
                         comment = p.comment;
                     }
                 }
+                this.addToUrlFilesMap(
+                    module,
+                    url,
+                    directory,
+                    'overview',
+                    'overview',
+                    module.overviewDetails
+                );
                 FileUtil.write(
                     directory,
                     `overview-${module.overviewDetails++}.md`,
@@ -235,6 +292,14 @@ export class MarkdownGenerator {
                 );
 
                 if (comment.description) {
+                    this.addToUrlFilesMap(
+                        module,
+                        url,
+                        directory,
+                        'overview',
+                        'overview',
+                        module.overviewDetails
+                    );
                     FileUtil.write(
                         directory,
                         `overview-${module.overviewDetails++}.md`,
@@ -244,6 +309,14 @@ export class MarkdownGenerator {
                 }
 
                 comment.overviewDetails.forEach((t) => {
+                    this.addToUrlFilesMap(
+                        module,
+                        url,
+                        directory,
+                        'overview',
+                        'overview',
+                        module.overviewDetails
+                    );
                     FileUtil.write(
                         directory,
                         `overview-${module.overviewDetails++}.md`,
@@ -251,24 +324,72 @@ export class MarkdownGenerator {
                     );
                 });
 
-                if (comment.usageNotes.length > 0) {
+                if (comment.usageNotes.length > 1) {
+                    this.addToUrlFilesMap(
+                        module,
+                        url,
+                        directory,
+                        'examples',
+                        'example',
+                        module.usageNotes
+                    );
+                    // first usageNote should be a header
+                    FileUtil.write(
+                        directory,
+                        `example-${module.usageNotes++}.md`,
+                        comment.usageNotes[0].text[0]
+                    );
+                } else if (comment.usageNotes.length > 0) {
+                    this.addToUrlFilesMap(
+                        module,
+                        url,
+                        directory,
+                        'examples',
+                        'example',
+                        module.usageNotes
+                    );
                     FileUtil.write(
                         directory,
                         `example-${module.usageNotes++}.md`,
                         `### ${p.name}`
                     );
                 }
+                const paths: string[] = [];
+                const basePath = PathUtil.makeRelativeTo(directory, 'assets');
                 comment.usageNoteTypes.forEach((t, i) => {
+                    paths.push(
+                        `${basePath}/example-${t}-${module.usageNotes}.md`
+                    );
                     FileUtil.write(
                         directory,
                         `example-${t}-${module.usageNotes++}.md`,
                         this.overviewTemplate({
-                            text: p.comment.usageNotesTypeMap[`${t}-${i}`]
+                            text: comment.usageNotesTypeMap[`${t}-${i}`]
                         })
                     );
                 });
+                if (paths.length > 0) {
+                    module.urlFilesMap[`${url}/examples`].push(paths);
+                }
             }
         });
+    }
+
+    private addToUrlFilesMap(
+        module: ModuleParser,
+        url: string,
+        directory: string,
+        type: string,
+        symbol: string,
+        index: number
+    ) {
+        if (!module.urlFilesMap[`${url}/${type}`]) {
+            module.urlFilesMap[`${url}/${type}`] = [];
+        }
+        const basePath = PathUtil.makeRelativeTo(directory, 'assets');
+        module.urlFilesMap[`${url}/${type}`].push([
+            `${basePath}/${symbol}-${index}.md`
+        ]);
     }
 
     /**
@@ -293,7 +414,6 @@ export class MarkdownGenerator {
         );
     }
 
-    // console.log(m.elements.map((e) => e.name));
     // console.log(m.pages.map((p) => p.name));
     private generateMarkdownConfigDetailsByModule(
         m: ModuleParser

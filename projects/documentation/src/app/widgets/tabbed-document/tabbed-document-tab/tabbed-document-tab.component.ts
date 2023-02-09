@@ -233,7 +233,8 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/testing/elements/api-12.md'],
         ['assets/docs/testing/elements/api-13.md'],
         ['assets/docs/testing/elements/api-14.md'],
-        ['assets/docs/testing/elements/api-15.md']
+        ['assets/docs/testing/elements/api-15.md'],
+        ['assets/docs/testing/elements/api-16.md']
     ],
     '/testing/elements/overview': [
         ['assets/docs/testing/elements/overview-0.md'],
@@ -251,17 +252,60 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/testing/elements/overview-12.md'],
         ['assets/docs/testing/elements/overview-13.md'],
         ['assets/docs/testing/elements/overview-14.md'],
-        ['assets/docs/testing/elements/overview-15.md']
+        ['assets/docs/testing/elements/overview-15.md'],
+        ['assets/docs/testing/elements/overview-16.md'],
+        ['assets/docs/testing/elements/overview-17.md'],
+        ['assets/docs/testing/elements/overview-18.md'],
+        ['assets/docs/testing/elements/overview-19.md'],
+        ['assets/docs/testing/elements/overview-20.md'],
+        ['assets/docs/testing/elements/overview-21.md'],
+        ['assets/docs/testing/elements/overview-22.md'],
+        ['assets/docs/testing/elements/overview-23.md'],
+        ['assets/docs/testing/elements/overview-24.md'],
+        ['assets/docs/testing/elements/overview-25.md'],
+        ['assets/docs/testing/elements/overview-26.md'],
+        ['assets/docs/testing/elements/overview-27.md'],
+        ['assets/docs/testing/elements/overview-28.md'],
+        ['assets/docs/testing/elements/overview-29.md'],
+        ['assets/docs/testing/elements/overview-30.md'],
+        ['assets/docs/testing/elements/overview-31.md'],
+        ['assets/docs/testing/elements/overview-32.md'],
+        ['assets/docs/testing/elements/overview-33.md'],
+        ['assets/docs/testing/elements/overview-34.md'],
+        ['assets/docs/testing/elements/overview-35.md']
+    ],
+    '/testing/elements/examples': [
+        ['assets/docs/testing/elements/example-0.md'],
+        ['assets/docs/testing/elements/example-typescript-1.md'],
+        ['assets/docs/testing/elements/example-2.md'],
+        ['assets/docs/testing/elements/example-typescript-3.md'],
+        ['assets/docs/testing/elements/example-4.md'],
+        ['assets/docs/testing/elements/example-typescript-5.md'],
+        ['assets/docs/testing/elements/example-6.md'],
+        ['assets/docs/testing/elements/example-typescript-7.md'],
+        ['assets/docs/testing/elements/example-8.md'],
+        ['assets/docs/testing/elements/example-typescript-9.md']
+    ],
+    '/testing/api': [
+        ['assets/docs/testing/api-17.md'],
+        ['assets/docs/testing/api-18.md'],
+        ['assets/docs/testing/api-19.md'],
+        ['assets/docs/testing/api-20.md']
+    ],
+    '/testing/overview': [
+        ['assets/docs/testing/overview-36.md'],
+        ['assets/docs/testing/overview-37.md'],
+        ['assets/docs/testing/overview-38.md'],
+        ['assets/docs/testing/overview-39.md'],
+        ['assets/docs/testing/overview-40.md'],
+        ['assets/docs/testing/overview-41.md']
+    ],
+    '/testing/examples': [
+        ['assets/docs/testing/example-10.md'],
+        ['assets/docs/testing/example-typescript-11.md']
     ],
     '/widgets': [['assets/docs/widgets/overview.md']],
     '/widgets/readme': [['assets/docs/widgets/overview.md']],
-    '/widgets/collection/examples': [
-        ['assets/docs/widgets/collection/example-7.md'],
-        [
-            'assets/docs/widgets/collection/example-html-8.md',
-            'assets/docs/widgets/collection/example-typescript-9.md'
-        ]
-    ],
     '/widgets/collection/api': [
         ['assets/docs/widgets/collection/api-0.md'],
         ['assets/docs/widgets/collection/api-1.md'],
@@ -305,6 +349,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/collection/overview-24.md'],
         ['assets/docs/widgets/collection/overview-25.md']
     ],
+    '/widgets/collection/examples': [
+        ['assets/docs/widgets/collection/example-0.md'],
+        [
+            'assets/docs/widgets/collection/example-html-1.md',
+            'assets/docs/widgets/collection/example-typescript-2.md'
+        ]
+    ],
     '/widgets/dialog/api': [
         ['assets/docs/widgets/dialog/api-0.md'],
         ['assets/docs/widgets/dialog/api-1.md'],
@@ -319,13 +370,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/dialog/overview-4.md'],
         ['assets/docs/widgets/dialog/overview-5.md'],
         ['assets/docs/widgets/dialog/overview-6.md']
-    ],
-    '/widgets/form/examples': [
-        ['assets/docs/widgets/form/example-0.md'],
-        [
-            'assets/docs/widgets/form/example-html-1.md',
-            'assets/docs/widgets/form/example-typescript-2.md'
-        ]
     ],
     '/widgets/form/api': [
         ['assets/docs/widgets/form/api-0.md'],
@@ -360,26 +404,11 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/form/overview-17.md'],
         ['assets/docs/widgets/form/overview-18.md']
     ],
-    '/widgets/grid/examples': [
-        ['assets/docs/widgets/grid/example-0.md'],
+    '/widgets/form/examples': [
+        ['assets/docs/widgets/form/example-0.md'],
         [
-            'assets/docs/widgets/grid/example-html-1.md',
-            'assets/docs/widgets/grid/example-typescript-2.md'
-        ],
-        ['assets/docs/widgets/grid/example-3.md'],
-        [
-            'assets/docs/widgets/grid/example-html-4.md',
-            'assets/docs/widgets/grid/example-typescript-5.md'
-        ],
-        ['assets/docs/widgets/grid/example-6.md'],
-        [
-            'assets/docs/widgets/grid/example-html-7.md',
-            'assets/docs/widgets/grid/example-typescript-8.md'
-        ],
-        ['assets/docs/widgets/grid/example-9.md'],
-        [
-            'assets/docs/widgets/grid/example-html-10.md',
-            'assets/docs/widgets/grid/example-typescript-11.md'
+            'assets/docs/widgets/form/example-html-1.md',
+            'assets/docs/widgets/form/example-typescript-2.md'
         ]
     ],
     '/widgets/grid/api': [
@@ -400,26 +429,26 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/grid/overview-7.md'],
         ['assets/docs/widgets/grid/overview-8.md']
     ],
-    '/widgets/layout/examples': [
-        ['assets/docs/widgets/layout/example-0.md'],
+    '/widgets/grid/examples': [
+        ['assets/docs/widgets/grid/example-0.md'],
         [
-            'assets/docs/widgets/layout/example-html-1.md',
-            'assets/docs/widgets/layout/example-typescript-2.md'
+            'assets/docs/widgets/grid/example-html-1.md',
+            'assets/docs/widgets/grid/example-typescript-2.md'
         ],
-        ['assets/docs/widgets/layout/example-3.md'],
+        ['assets/docs/widgets/grid/example-3.md'],
         [
-            'assets/docs/widgets/layout/example-html-4.md',
-            'assets/docs/widgets/layout/example-typescript-5.md'
+            'assets/docs/widgets/grid/example-html-4.md',
+            'assets/docs/widgets/grid/example-typescript-5.md'
         ],
-        ['assets/docs/widgets/layout/example-6.md'],
+        ['assets/docs/widgets/grid/example-6.md'],
         [
-            'assets/docs/widgets/layout/example-html-7.md',
-            'assets/docs/widgets/layout/example-typescript-8.md'
+            'assets/docs/widgets/grid/example-html-7.md',
+            'assets/docs/widgets/grid/example-typescript-8.md'
         ],
-        ['assets/docs/widgets/layout/example-6.md'],
+        ['assets/docs/widgets/grid/example-9.md'],
         [
-            'assets/docs/widgets/layout/example-html-7.md',
-            'assets/docs/widgets/layout/example-typescript-8.md'
+            'assets/docs/widgets/grid/example-html-10.md',
+            'assets/docs/widgets/grid/example-typescript-11.md'
         ]
     ],
     '/widgets/layout/api': [
@@ -462,6 +491,46 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/layout/overview-21.md'],
         ['assets/docs/widgets/layout/overview-22.md']
     ],
+    '/widgets/layout/examples': [
+        ['assets/docs/widgets/layout/example-0.md'],
+        [
+            'assets/docs/widgets/layout/example-html-1.md',
+            'assets/docs/widgets/layout/example-typescript-2.md'
+        ],
+        ['assets/docs/widgets/layout/example-3.md'],
+        [
+            'assets/docs/widgets/layout/example-html-4.md',
+            'assets/docs/widgets/layout/example-typescript-5.md'
+        ],
+        ['assets/docs/widgets/layout/example-6.md'],
+        [
+            'assets/docs/widgets/layout/example-html-7.md',
+            'assets/docs/widgets/layout/example-typescript-8.md'
+        ],
+        ['assets/docs/widgets/layout/example-9.md'],
+        [
+            'assets/docs/widgets/layout/example-html-10.md',
+            'assets/docs/widgets/layout/example-typescript-11.md'
+        ]
+    ],
+    '/widgets/list/api': [
+        ['assets/docs/widgets/list/api-0.md'],
+        ['assets/docs/widgets/list/api-1.md'],
+        ['assets/docs/widgets/list/api-2.md'],
+        ['assets/docs/widgets/list/api-3.md'],
+        ['assets/docs/widgets/list/api-4.md']
+    ],
+    '/widgets/list/overview': [
+        ['assets/docs/widgets/list/overview-0.md'],
+        ['assets/docs/widgets/list/overview-1.md'],
+        ['assets/docs/widgets/list/overview-2.md'],
+        ['assets/docs/widgets/list/overview-3.md'],
+        ['assets/docs/widgets/list/overview-4.md'],
+        ['assets/docs/widgets/list/overview-5.md'],
+        ['assets/docs/widgets/list/overview-6.md'],
+        ['assets/docs/widgets/list/overview-7.md'],
+        ['assets/docs/widgets/list/overview-8.md']
+    ],
     '/widgets/list/examples': [
         ['assets/docs/widgets/list/example-0.md'],
         [
@@ -484,23 +553,24 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/list/example-typescript-11.md'
         ]
     ],
-    '/widgets/list/api': [
-        ['assets/docs/widgets/list/api-0.md'],
-        ['assets/docs/widgets/list/api-1.md'],
-        ['assets/docs/widgets/list/api-2.md'],
-        ['assets/docs/widgets/list/api-3.md'],
-        ['assets/docs/widgets/list/api-4.md']
+    '/widgets/table/api': [
+        ['assets/docs/widgets/table/api-0.md'],
+        ['assets/docs/widgets/table/api-1.md'],
+        ['assets/docs/widgets/table/api-2.md'],
+        ['assets/docs/widgets/table/api-3.md'],
+        ['assets/docs/widgets/table/api-4.md']
     ],
-    '/widgets/list/overview': [
-        ['assets/docs/widgets/list/overview-0.md'],
-        ['assets/docs/widgets/list/overview-1.md'],
-        ['assets/docs/widgets/list/overview-2.md'],
-        ['assets/docs/widgets/list/overview-3.md'],
-        ['assets/docs/widgets/list/overview-4.md'],
-        ['assets/docs/widgets/list/overview-5.md'],
-        ['assets/docs/widgets/list/overview-6.md'],
-        ['assets/docs/widgets/list/overview-7.md'],
-        ['assets/docs/widgets/list/overview-8.md']
+    '/widgets/table/overview': [
+        ['assets/docs/widgets/table/overview-0.md'],
+        ['assets/docs/widgets/table/overview-1.md'],
+        ['assets/docs/widgets/table/overview-2.md'],
+        ['assets/docs/widgets/table/overview-3.md'],
+        ['assets/docs/widgets/table/overview-4.md'],
+        ['assets/docs/widgets/table/overview-5.md'],
+        ['assets/docs/widgets/table/overview-6.md'],
+        ['assets/docs/widgets/table/overview-7.md'],
+        ['assets/docs/widgets/table/overview-8.md'],
+        ['assets/docs/widgets/table/overview-9.md']
     ],
     '/widgets/table/examples': [
         ['assets/docs/widgets/table/example-0.md'],
@@ -525,25 +595,6 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
             'assets/docs/widgets/table/example-html-12.md',
             'assets/docs/widgets/table/example-typescript-13.md'
         ]
-    ],
-    '/widgets/table/api': [
-        ['assets/docs/widgets/table/api-0.md'],
-        ['assets/docs/widgets/table/api-1.md'],
-        ['assets/docs/widgets/table/api-2.md'],
-        ['assets/docs/widgets/table/api-3.md'],
-        ['assets/docs/widgets/table/api-4.md']
-    ],
-    '/widgets/table/overview': [
-        ['assets/docs/widgets/table/overview-0.md'],
-        ['assets/docs/widgets/table/overview-1.md'],
-        ['assets/docs/widgets/table/overview-2.md'],
-        ['assets/docs/widgets/table/overview-3.md'],
-        ['assets/docs/widgets/table/overview-4.md'],
-        ['assets/docs/widgets/table/overview-5.md'],
-        ['assets/docs/widgets/table/overview-6.md'],
-        ['assets/docs/widgets/table/overview-7.md'],
-        ['assets/docs/widgets/table/overview-8.md'],
-        ['assets/docs/widgets/table/overview-9.md']
     ],
     '/widgets/toolbar/api': [
         ['assets/docs/widgets/toolbar/api-0.md'],
@@ -590,6 +641,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/toolbar/overview-24.md'],
         ['assets/docs/widgets/toolbar/overview-25.md'],
         ['assets/docs/widgets/toolbar/overview-26.md']
+    ],
+    '/widgets/toolbar/examples': [
+        ['assets/docs/widgets/toolbar/example-0.md'],
+        [
+            'assets/docs/widgets/toolbar/example-html-1.md',
+            'assets/docs/widgets/toolbar/example-typescript-2.md'
+        ]
     ],
     '/overview': [['assets/docs/overview.md']],
     '/json-overview': [

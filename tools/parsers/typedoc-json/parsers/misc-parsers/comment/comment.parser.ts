@@ -76,9 +76,10 @@ export class CommentParser {
         this.usageNotes.forEach((tag) => {
             let usageNoteText: string;
             for (let i = 0; i < tag.text.length; i++) {
-                // find text that starts with ```
+                // find text that starts with ```, which should be code
                 if (tag.text[i].search(/```[a-z]+/) === 0) {
-                    const note: string[] = tag.text[i].split('\n');
+                    // separate code and get type of code
+                    const note = tag.text[i].split('\n');
                     usageNoteText = note[0].replace('```', '').trim();
                     if (usageNoteText !== '') {
                         this.usageNoteTypes.push(usageNoteText);

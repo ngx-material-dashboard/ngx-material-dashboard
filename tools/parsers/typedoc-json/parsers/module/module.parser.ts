@@ -40,6 +40,7 @@ export class ModuleParser extends Parser {
     /** The list of type aliases associated with the module. */
     public readonly typeAliases: TypeAliasParser[];
 
+    urlFilesMap: { [url: string]: string[][] } = {};
     apiFiles: number;
     baseMarkdownDirectory?: string;
     overviewDetails: number;

@@ -1,13 +1,7 @@
 import * as path from 'path';
-import {
-    ClassParser,
-    FunctionParser,
-    ModuleParser,
-    Parser
-} from '../../parsers/typedoc-json';
+import { ModuleParser } from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
 import { FileUtil } from '../../util/file.util';
-import { reformatText } from './helpers';
 
 const baseDocsSrcDir = path.join(
     __dirname,
@@ -73,9 +67,9 @@ export class MarkdownUrlGenerator {
      * (with path from documentation assets directory)
      */
     getUrlFilesMap(): { [url: string]: string[][] } {
-        const urlFilesMap: { [url: string]: string[][] } = {};
+        let urlFilesMap: { [url: string]: string[][] } = {};
         this.projects.forEach((p: ProjectParser) => {
-            let url = `/${p.name}`;
+            const url = `/${p.name}`;
 
             // add readme overviews for each project library
             // TODO probably rename files to readme instead of overview to
@@ -96,104 +90,10 @@ export class MarkdownUrlGenerator {
                 });
             }
 
-            if (p.name === 'testing' && p.modules) {
-                const apiUrl = `/${p.name}`;
-                const basePath = `assets/docs/${p.name}`;
-                const m = p.modules[0];
-                urlFilesMap[`${apiUrl}/elements/api`] = [];
-                urlFilesMap[`${apiUrl}/elements/overview`] = [];
-                m.elements.forEach((e, i) => {
-                    urlFilesMap[`${apiUrl}/elements/api`].push([
-                        `${basePath}/elements/api-${i}.md`
-                    ]);
-                    urlFilesMap[`${apiUrl}/elements/overview`].push([
-                        `${basePath}/elements/overview-${i}.md`
-                    ]);
-                });
-            } else {
-                p.modules?.forEach((m: ModuleParser) => {
-                    const moduleDisplayName = reformatText(m.name);
-                    let basePath: string;
-                    if (moduleDisplayName !== p.name) {
-                        url = `/${p.name}/${moduleDisplayName}`;
-                        basePath = `assets/docs/${p.name}/${moduleDisplayName}`;
-                    } else {
-                        basePath = `assets/docs/${p.name}`;
-                    }
-
-                    // add routes for example markdown files for classes
-                    const exampleUrls: string[][] = [];
-                    let i = 0;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.components, i);
-                    this.addToExampleRoutes(
-                        exampleUrls,
-                        `${basePath}`,
-                        url,
-                        urlFilesMap,
-                        m.components,
-                        i
-                    );
-                    i += m.components.length;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.decorators, i);
-                    this.addToExampleRoutes(
-                        exampleUrls,
-                        `${basePath}`,
-                        url,
-                        urlFilesMap,
-                        m.decorators,
-                        i
-                    );
-                    i += m.decorators.length;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.directives, i);
-                    this.addToExampleRoutes(
-                        exampleUrls,
-                        `${basePath}`,
-                        url,
-                        urlFilesMap,
-                        m.directives,
-                        i
-                    );
-                    i += m.directives.length;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.enums, i);
-                    i += m.enums.length;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.interfaces, i);
-                    i += m.interfaces.length;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.models, i);
-                    this.addToExampleRoutes(
-                        exampleUrls,
-                        `${basePath}`,
-                        url,
-                        urlFilesMap,
-                        m.models,
-                        i
-                    );
-                    i += m.models.length;
-                    // this.addToRoutes(urls, `${basePath}/api`, m.services, i);
-                    this.addToExampleRoutes(
-                        exampleUrls,
-                        `${basePath}`,
-                        url,
-                        urlFilesMap,
-                        m.services,
-                        i
-                    );
-
-                    // add API URLs to /api
-                    const apiUrls: string[][] = [];
-                    for (let i = 0; i < m.apiFiles; i++) {
-                        apiUrls.push([`${basePath}/api-${i}.md`]);
-                    }
-                    urlFilesMap[`${url}/api`] = apiUrls;
-
-                    // add routes for overview details
-                    const overviewUrls: string[][] = [];
-                    for (let i = 0; i < m.overviewDetails; i++) {
-                        overviewUrls.push([`${basePath}/overview-${i}.md`]);
-                    }
-                    // add overview URLs to /overview
-                    urlFilesMap[`${url}/overview`] = overviewUrls;
-                });
-            }
+            // add urlFilesMap for each module to urlFilesMap
+            p.modules?.forEach((m: ModuleParser) => {
+                urlFilesMap = { ...urlFilesMap, ...m.urlFilesMap };
+            });
         });
 
         // add special case for root overview URL
@@ -202,91 +102,6 @@ export class MarkdownUrlGenerator {
         urlFilesMap['/json-overview'] = [['/assets/docs/json-overview.md']];
         SHARED_FILES['json-overview'].forEach((file: string) => {
             urlFilesMap['/json-overview'].push([file]);
-        });
-        return urlFilesMap;
-    }
-
-    private addToExampleRoutes(
-        exampleUrls: string[][] = [],
-        basePath: string,
-        url: string,
-        urlFilesMap: any,
-        parsers: ClassParser[] | FunctionParser[],
-        baseIndex: number = 0
-    ) {
-        const res: string[][] = [];
-        let index = 0;
-        parsers.forEach((c) => {
-            const urls: string[] = [];
-            if (c.comment) {
-                // math is weird here because of order in which things are added, urls
-                // before header; so add 1 to URLs
-                c.comment.usageNoteTypes.forEach((t) => {
-                    urls.push(
-                        `${basePath}/example-${t}-${baseIndex + index++ + 1}.md`
-                    );
-                });
-
-                if (urls.length > 0) {
-                    // only add to examples if there are URLs to add; include url for
-                    // header for example; and subtract number of URLs from calculated
-                    // index
-                    res.push([
-                        `${basePath}/example-${
-                            baseIndex + index++ - urls.length
-                        }.md`
-                    ]);
-                    res.push(urls);
-                }
-            }
-        });
-
-        if (res.length > 0) {
-            res.forEach((it) => exampleUrls.push(it));
-            // this is repeated for the same url ending up in overwritting
-            // existing values with potential empty ones; this seems to fix
-            // that, BUT need to track down why this is repeated for same URL
-            urlFilesMap[`${url}/examples`] = exampleUrls;
-        }
-    }
-
-    private addToRoutes(
-        urls: string[][],
-        url: string,
-        parsers: any,
-        i: number = 0
-    ) {
-        const res = this.generateRoutesForParsers(url, parsers, i);
-        res.forEach((r) => {
-            urls.push(r);
-        });
-    }
-
-    private generateRoutesForParsers(
-        path: string,
-        parsers: any[],
-        baseIndex: number = 0
-    ) {
-        const urls: string[][] = [];
-        for (let i = 0; i < parsers.length; i++) {
-            urls.push([`${path}-${i + baseIndex}.md`]);
-        }
-        return urls;
-    }
-
-    private generateRoutesForParsersWithName(
-        url: string,
-        path: string,
-        parsers: any[],
-        urlFilesMap: { [url: string]: string[][] },
-        baseIndex: number = 0
-    ) {
-        parsers.forEach((p: Parser, i: number) => {
-            urlFilesMap[`${url}/${reformatText(p.name)}/api`] = [
-                [`${path}-${baseIndex + i}.md`],
-                [`${path}-${baseIndex + i + 1}.md`]
-            ];
-            baseIndex++;
         });
         return urlFilesMap;
     }
