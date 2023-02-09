@@ -7,6 +7,7 @@ import { PageElement } from '../page/page.element';
  *
  * @usageNotes
  * #### Basic Usage Example
+ * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
  * import {MatButtonModule} from '@angular/material/button';
