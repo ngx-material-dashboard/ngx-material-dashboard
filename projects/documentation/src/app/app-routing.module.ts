@@ -43,11 +43,6 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 redirectTo: 'readme'
                             }
                         ]
@@ -80,11 +75,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
                             },
                             {
@@ -127,11 +117,6 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 redirectTo: 'readme'
                             }
                         ]
@@ -164,11 +149,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
                             },
                             {
@@ -208,11 +188,6 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 redirectTo: 'overview'
                             }
                         ]
@@ -231,11 +206,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
                             },
                             {
@@ -264,11 +234,6 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 redirectTo: 'overview'
                             }
                         ]
@@ -287,11 +252,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
                             },
                             {
@@ -320,11 +280,6 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 redirectTo: 'overview'
                             }
                         ]
@@ -343,11 +298,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
                             },
                             {
@@ -376,11 +326,6 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 redirectTo: 'overview'
                             }
                         ]
@@ -399,11 +344,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: '',
-                                pathMatch: 'full',
                                 component: TabbedDocumentTabComponent
                             },
                             {

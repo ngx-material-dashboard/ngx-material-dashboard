@@ -69,7 +69,7 @@ export class RouteGenerator {
         if (p.modules && p.name === 'testing') {
             // handle testing lib different from rest...
             const defaultRoutes = this.createRoutesFromUrls(
-                ['readme', 'overview', 'api', 'examples', ''],
+                ['readme', 'overview', 'api', 'examples'],
                 'readme'
             );
             routes.push(
@@ -96,12 +96,12 @@ export class RouteGenerator {
         let defaultRoutes: any;
         if (['base-json', 'json', 'json-api'].includes(p.name)) {
             defaultRoutes = this.createRoutesFromUrls(
-                ['readme', 'overview', 'api', 'examples', ''],
+                ['readme', 'overview', 'api', 'examples'],
                 'readme'
             );
         } else {
             defaultRoutes = this.createRoutesFromUrls(
-                ['overview', 'api', 'examples', ''],
+                ['overview', 'api', 'examples'],
                 'overview'
             );
         }
