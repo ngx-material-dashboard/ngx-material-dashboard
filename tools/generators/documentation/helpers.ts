@@ -47,8 +47,10 @@ export const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
 
 export function convertUrlToRoute(url: string) {
     const route = url.split('/');
-    route[0] = `./${route[0]}`;
-    return route.filter((it: string) => it !== 'api' && it !== 'overview');
+    return route.filter(
+        (it: string) =>
+            it !== 'api' && it !== 'overview' && it !== 'readme' && it !== ''
+    );
 }
 
 export function convertSelectorToText(selector: string) {

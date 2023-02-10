@@ -11,31 +11,19 @@ import { SidenavItem } from '@ngx-material-dashboard/widgets';
 
 const routeSidenavItems: any = {
     'base-json': [
-        {
-            route: ['./', 'base-json'],
-            selector: 'base-json',
-            text: 'base-json'
-        },
-        { route: ['./', 'json-api'], selector: 'json-api', text: 'json-api' },
-        { route: ['./', 'json'], selector: 'json', text: 'json' }
+        { route: ['base-json'], selector: 'base-json', text: 'base-json' },
+        { route: ['json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['json'], selector: 'json', text: 'json' }
     ],
     'json-api': [
-        {
-            route: ['./', 'base-json'],
-            selector: 'base-json',
-            text: 'base-json'
-        },
-        { route: ['./', 'json-api'], selector: 'json-api', text: 'json-api' },
-        { route: ['./', 'json'], selector: 'json', text: 'json' }
+        { route: ['base-json'], selector: 'base-json', text: 'base-json' },
+        { route: ['json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['json'], selector: 'json', text: 'json' }
     ],
     json: [
-        {
-            route: ['./', 'base-json'],
-            selector: 'base-json',
-            text: 'base-json'
-        },
-        { route: ['./', 'json-api'], selector: 'json-api', text: 'json-api' },
-        { route: ['./', 'json'], selector: 'json', text: 'json' }
+        { route: ['base-json'], selector: 'base-json', text: 'base-json' },
+        { route: ['json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['json'], selector: 'json', text: 'json' }
     ],
     testing: [
         {
@@ -52,21 +40,17 @@ const routeSidenavItems: any = {
     ],
     widgets: [
         {
-            route: ['./widgets', 'collection'],
+            route: ['widgets', 'collection'],
             selector: 'collection',
             text: 'Collection'
         },
-        { route: ['./widgets', 'dialog'], selector: 'dialog', text: 'Dialog' },
-        { route: ['./widgets', 'form'], selector: 'form', text: 'Form' },
-        { route: ['./widgets', 'grid'], selector: 'grid', text: 'Grid' },
-        { route: ['./widgets', 'layout'], selector: 'layout', text: 'Layout' },
-        { route: ['./widgets', 'list'], selector: 'list', text: 'List' },
-        { route: ['./widgets', 'table'], selector: 'table', text: 'Table' },
-        {
-            route: ['./widgets', 'toolbar'],
-            selector: 'toolbar',
-            text: 'Toolbar'
-        }
+        { route: ['widgets', 'dialog'], selector: 'dialog', text: 'Dialog' },
+        { route: ['widgets', 'form'], selector: 'form', text: 'Form' },
+        { route: ['widgets', 'grid'], selector: 'grid', text: 'Grid' },
+        { route: ['widgets', 'layout'], selector: 'layout', text: 'Layout' },
+        { route: ['widgets', 'list'], selector: 'list', text: 'List' },
+        { route: ['widgets', 'table'], selector: 'table', text: 'Table' },
+        { route: ['widgets', 'toolbar'], selector: 'toolbar', text: 'Toolbar' }
     ]
 };
 

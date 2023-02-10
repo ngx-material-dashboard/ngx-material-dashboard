@@ -237,7 +237,7 @@ export class SidenavItemGenerator {
         } else {
             // special case for when displayName and URL match, just include
             // the url for the route
-            route = [`./${url}`];
+            route = [`${url}`];
             selector = url;
             text = url;
         }
