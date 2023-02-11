@@ -1,14 +1,11 @@
 <div fxLayout="row" fxLayoutGap="10px">
     <div fxFlex="1 1 calc(100% - {{contentWidth}}px)">
         <ng-content></ng-content>
-        <button class="scrollup-button--fixed" mat-fab color="accent" fxHide.gt-sm (click)="onScrollUp()" *ngIf="showScrollUpButton" [@zoomAnimation]>
-            <fa-icon [icon]="faChevronUp"></fa-icon>
-        </button>
     </div>
     <div class="sticky" fxLayout="column" fxFlex="1 0 {{scrollspyNavWidth}}px" fxFlexAlign="flex-start" fxHide.lt-md>
         <app-scrollspy-nav [headings]="headings" [nestedHeadings]="nestedHeadings" [nestedGrandChildren]="nestedGrandChildren"></app-scrollspy-nav>
-        <button class="scrollup-button" mat-mini-fab color="primary" (click)="onScrollUp()" *ngIf="showScrollUpButton" [@zoomAnimation]>
-            <fa-icon [icon]="faChevronUp"></fa-icon>
-        </button>
     </div>
 </div>
+<button class="scrollup-button--fixed" mat-mini-fab color="primary" (click)="onScrollUp()" *ngIf="showScrollUpButton" [@zoomAnimation]>
+    <fa-icon [icon]="faChevronUp"></fa-icon>
+</button>

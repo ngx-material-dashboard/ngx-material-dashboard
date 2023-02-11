@@ -21,7 +21,7 @@ export class ScrollspyNavLayoutComponent {
         if (this.headings && this.headings.length > 0) {
             return '230';
         } else {
-            return '0';
+            return '30';
         }
     }
 
@@ -29,7 +29,7 @@ export class ScrollspyNavLayoutComponent {
         if (this.headings && this.headings.length > 0) {
             return '220';
         } else {
-            return '0';
+            return '20';
         }
     }
 
