@@ -93,8 +93,10 @@ export class ReferenceTypeParser implements TypeParser {
                       .join(', ')}>`
                 : '';
 
-        return `${parser.packageName ? `${parser.packageName}.` : ''}${
-            parser.name
-        }${typeArguments}`;
+        // return `${parser.packageName ? `${parser.packageName}.` : ''}${
+        //     parser.name
+        // }${typeArguments}`;
+        // don't render package name with type parser
+        return `${parser.name}${typeArguments}`;
     }
 }
