@@ -136,10 +136,6 @@ const routes: Routes = [
                         component: TabbedDocumentComponent,
                         children: [
                             {
-                                path: 'readme',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
                                 path: 'overview',
                                 component: TabbedDocumentTabComponent
                             },
@@ -154,7 +150,7 @@ const routes: Routes = [
                             {
                                 path: '',
                                 pathMatch: 'full',
-                                redirectTo: 'readme'
+                                redirectTo: 'overview'
                             }
                         ]
                     },

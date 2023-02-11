@@ -69,8 +69,8 @@ export class RouteGenerator {
         if (p.modules && p.name === 'testing') {
             // handle testing lib different from rest...
             const defaultRoutes = this.createRoutesFromUrls(
-                ['readme', 'overview', 'api', 'examples'],
-                'readme'
+                ['overview', 'api', 'examples'],
+                'overview'
             );
             routes.push(
                 this.createRouteWithChildrenAndComponent(
