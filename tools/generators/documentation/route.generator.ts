@@ -78,7 +78,21 @@ export class RouteGenerator {
                     defaultRoutes
                 )
             );
-            routes.push(this.createBasicRoute('models'));
+            routes.push(
+                this.createRouteWithChildrenAndComponent(
+                    'fixtures',
+                    defaultRoutes
+                )
+            );
+            routes.push(
+                this.createRouteWithChildrenAndComponent('mocks', defaultRoutes)
+            );
+            routes.push(
+                this.createRouteWithChildrenAndComponent(
+                    'models',
+                    defaultRoutes
+                )
+            );
         } else {
             // add routes for each of modules defined in project
             p.modules?.forEach((m) => {

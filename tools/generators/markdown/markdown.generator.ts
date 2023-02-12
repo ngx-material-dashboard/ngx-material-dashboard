@@ -28,6 +28,7 @@ import { PathUtil } from './utils/path.util';
 interface MarkdownConfig {
     modelType: any;
     parsers: Parser[];
+    subDirectory?: string;
     symbol: string;
     template: any;
 }
@@ -158,7 +159,8 @@ export class MarkdownGenerator {
                 s.parsers,
                 s.symbol,
                 s.template,
-                url
+                url,
+                s.subDirectory
             );
         });
     }
@@ -170,13 +172,13 @@ export class MarkdownGenerator {
         symbol: string,
         template: Handlebars.TemplateDelegate,
         url: string,
-        includeSymbol: boolean = true
+        subDirectory?: string
     ) {
-        if (symbol === 'elements') {
-            directory = `${directory}/elements`;
-            url = `${url}/elements`;
+        if (subDirectory) {
+            directory = `${directory}/${subDirectory}`;
+            url = `${url}/${subDirectory}`;
         }
-        if (parsers.length > 0 && includeSymbol) {
+        if (parsers.length > 0) {
             //
             this.addToUrlFilesMap(
                 module,
@@ -446,6 +448,7 @@ export class MarkdownGenerator {
             {
                 modelType: ClassParser,
                 parsers: m.elements,
+                subDirectory: 'elements',
                 symbol: 'elements',
                 template: this.classTemplate
             },
@@ -453,6 +456,13 @@ export class MarkdownGenerator {
                 modelType: ClassParser,
                 parsers: m.enums,
                 symbol: 'enums',
+                template: this.classTemplate
+            },
+            {
+                modelType: FunctionParser,
+                parsers: m.fixtures,
+                subDirectory: 'fixtures',
+                symbol: 'fixtures',
                 template: this.classTemplate
             },
             {
@@ -464,7 +474,15 @@ export class MarkdownGenerator {
             {
                 modelType: ClassParser,
                 parsers: m.models,
+                subDirectory: m.name === 'TestingModule' ? 'models' : '',
                 symbol: 'models',
+                template: this.classTemplate
+            },
+            {
+                modelType: ClassParser,
+                parsers: m.mocks,
+                subDirectory: 'mocks',
+                symbol: 'mocks',
                 template: this.classTemplate
             },
             {

@@ -154,7 +154,75 @@ const routes: Routes = [
                             }
                         ]
                     },
-                    { path: 'models', component: TabbedDocumentTabComponent },
+                    {
+                        path: 'fixtures',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'mocks',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'models',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
                     {
                         path: '',
                         pathMatch: 'full',

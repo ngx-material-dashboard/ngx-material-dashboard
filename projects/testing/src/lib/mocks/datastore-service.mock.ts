@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
     DatastoreConfig,
@@ -40,7 +40,6 @@ const BASE_URL = 'http://localhost:8080/api';
  * })
  * ```
  */
-
 @Injectable()
 @JsonApiDatastoreConfig({
     baseUrl: BASE_URL,

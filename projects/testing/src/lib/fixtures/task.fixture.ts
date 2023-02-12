@@ -4,6 +4,13 @@ export const TASK_DUE_DATE = '2022-05-04';
 export const TASK_DATE_COMPLETED = null;
 export const TASK_IS_COMPLETE = false;
 
+/**
+ * Returns an array of Tasks that can be used for tests. The number of Tasks in
+ * the array is configurable with the total parameter, and defaults to 1.
+ *
+ * @param total The number of Tasks to add to the results.
+ * @returns An array of Tasks.
+ */
 export function getTaskData(total: number = 1): any[] {
     const response: any[] = [];
 

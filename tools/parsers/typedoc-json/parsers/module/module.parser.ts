@@ -28,9 +28,11 @@ export class ModuleParser extends Parser {
     public readonly elements: ClassParser[];
     /** The list of enum classes associated with the module. */
     public readonly enums: EnumParser[];
+    public readonly fixtures: FunctionParser[];
     public readonly functions: FunctionParser[];
     /** The list of interfaces associated with the module. */
     public readonly interfaces: InterfaceParser[];
+    public readonly mocks: ClassParser[];
     /** The list of models associated with the module. */
     public readonly models: ClassParser[];
     /** The list of pages associated with the module. */
@@ -63,6 +65,8 @@ export class ModuleParser extends Parser {
         this.decorators = this.filterFunctions('.decorator.ts');
         this.directives = this.filterClasses('.directive.ts');
         this.elements = this.filterClasses('.element.ts');
+        this.fixtures = this.filterFunctions('.fixture.ts');
+        this.mocks = this.filterClasses('.mock.ts');
         this.models = this.filterClasses('.model.ts');
         this.pages = this.filterClasses('.page.ts');
         this.services = this.filterClasses('.service.ts');

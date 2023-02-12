@@ -286,23 +286,36 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/testing/elements/example-8.md'],
         ['assets/docs/testing/elements/example-typescript-9.md']
     ],
-    '/testing/api': [
-        ['assets/docs/testing/api-17.md'],
-        ['assets/docs/testing/api-18.md'],
-        ['assets/docs/testing/api-19.md'],
-        ['assets/docs/testing/api-20.md']
+    '/testing/fixtures/api': [
+        ['assets/docs/testing/fixtures/api-17.md'],
+        ['assets/docs/testing/fixtures/api-18.md']
     ],
-    '/testing/overview': [
-        ['assets/docs/testing/overview-36.md'],
-        ['assets/docs/testing/overview-37.md'],
-        ['assets/docs/testing/overview-38.md'],
-        ['assets/docs/testing/overview-39.md'],
-        ['assets/docs/testing/overview-40.md'],
-        ['assets/docs/testing/overview-41.md']
+    '/testing/fixtures/overview': [
+        ['assets/docs/testing/fixtures/overview-36.md'],
+        ['assets/docs/testing/fixtures/overview-37.md'],
+        ['assets/docs/testing/fixtures/overview-38.md']
     ],
-    '/testing/examples': [
-        ['assets/docs/testing/example-10.md'],
-        ['assets/docs/testing/example-typescript-11.md']
+    '/testing/models/api': [
+        ['assets/docs/testing/models/api-19.md'],
+        ['assets/docs/testing/models/api-20.md']
+    ],
+    '/testing/models/overview': [
+        ['assets/docs/testing/models/overview-39.md'],
+        ['assets/docs/testing/models/overview-40.md'],
+        ['assets/docs/testing/models/overview-41.md']
+    ],
+    '/testing/mocks/api': [
+        ['assets/docs/testing/mocks/api-21.md'],
+        ['assets/docs/testing/mocks/api-22.md']
+    ],
+    '/testing/mocks/overview': [
+        ['assets/docs/testing/mocks/overview-42.md'],
+        ['assets/docs/testing/mocks/overview-43.md'],
+        ['assets/docs/testing/mocks/overview-44.md']
+    ],
+    '/testing/mocks/examples': [
+        ['assets/docs/testing/mocks/example-10.md'],
+        ['assets/docs/testing/mocks/example-typescript-11.md']
     ],
     '/widgets': [['assets/docs/widgets/overview.md']],
     '/widgets/readme': [['assets/docs/widgets/overview.md']],

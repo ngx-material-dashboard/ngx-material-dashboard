@@ -65,6 +65,11 @@ export class SidenavItemGenerator {
                         route: ['testing', 'mocks'],
                         selector: 'mocks',
                         text: 'mocks'
+                    },
+                    {
+                        route: ['testing', 'models'],
+                        selector: 'models',
+                        text: 'models'
                     }
                 ];
             } else if (p.modules && jsonProjects.includes(p.name)) {

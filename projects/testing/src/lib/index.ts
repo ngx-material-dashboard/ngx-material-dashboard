@@ -1,6 +1,6 @@
 export * from './fixtures/task.fixture';
 
-export * from './mocks/datastore.service';
+export * from './mocks/datastore-service.mock';
 
 export * from './models/task.model';
 

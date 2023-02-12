@@ -36,7 +36,8 @@ const routeSidenavItems: any = {
             selector: 'fixtures',
             text: 'fixtures'
         },
-        { route: ['testing', 'mocks'], selector: 'mocks', text: 'mocks' }
+        { route: ['testing', 'mocks'], selector: 'mocks', text: 'mocks' },
+        { route: ['testing', 'models'], selector: 'models', text: 'models' }
     ],
     widgets: [
         {
