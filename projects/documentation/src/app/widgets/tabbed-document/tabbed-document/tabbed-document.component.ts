@@ -29,13 +29,10 @@ export class TabbedDocumentComponent implements OnInit {
         this.route.parent?.url.subscribe((urlSegment) => {
             const url = urlSegment.join('/');
             if (
-                url.includes('base-json') ||
-                url.includes('json') ||
-                (url.includes('json-api') &&
-                    !this.links.includes({
-                        display: 'ReadMe',
-                        link: ['readme']
-                    }))
+                !this.links.find((it) => it.display === 'ReadMe') &&
+                (url.includes('base-json') ||
+                    url.includes('json') ||
+                    url.includes('json-api'))
             ) {
                 // add readme tab if not already included
                 this.links = [
