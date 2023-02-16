@@ -1,37 +1,35 @@
 import { JSONOutput } from 'typedoc';
-import { ReflectionKind } from '../../enums';
-import { CommentParser, SignatureParser, SourceParser } from '../misc-parsers';
-import { Parser } from '../parser';
+import {
+    FunctionParser as TypedocFunctionParser,
+    ReflectionKind,
+    SourceParser
+} from 'typedoc-json-parser';
+
+import { CommentParser } from '../misc-parsers';
+import { SignatureParser } from '../misc-parsers/signature';
 import { FunctionParserData } from './interfaces/data.interface';
 import { FunctionParserJson } from './interfaces/json.interface';
 
 /**
  * Parses data from a function reflection.
  */
-export class FunctionParser extends Parser {
+export class FunctionParser extends TypedocFunctionParser {
     /**
      * The comment parser of this function.
      */
-    public readonly comment: CommentParser;
-
-    /**
-     * Whether this function is external.
-     */
-    public readonly external: boolean;
-
-    /**
-     * The signature parsers of this function.
-     */
-    public readonly signatures: SignatureParser[];
+    public override readonly comment: CommentParser;
+    public override readonly signatures: SignatureParser[];
 
     public constructor(data: FunctionParserData) {
         super(data);
 
-        const { comment, external, signatures } = data;
+        const { comment, signatures } = data;
 
-        this.comment = comment;
-        this.external = external;
-        this.signatures = signatures;
+        this.comment = new CommentParser(comment);
+        this.signatures = [];
+        signatures.forEach((s) => {
+            this.signatures.push(new SignatureParser(s));
+        });
     }
 
     /**
@@ -54,7 +52,7 @@ export class FunctionParser extends Parser {
      * @param reflection The reflection to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromTypeDoc(
+    public static override generateFromTypeDoc(
         reflection: JSONOutput.DeclarationReflection
     ): FunctionParser {
         const {
@@ -93,7 +91,9 @@ export class FunctionParser extends Parser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: FunctionParserJson): FunctionParser {
+    public static override generateFromJson(
+        json: TypedocFunctionParser.Json
+    ): FunctionParser {
         const { id, name, comment, source, external, signatures } = json;
 
         return new FunctionParser({

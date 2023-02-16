@@ -1,15 +1,17 @@
 import { bold, red, yellow } from 'colorette';
+import {
+    NamespaceParser,
+    ReflectionKind,
+    SearchResult,
+    VariableParser
+} from 'typedoc-json-parser';
 import { reformatText } from '../../../../generators/documentation/helpers';
-import { ReflectionKind } from '../../enums';
-import { SearchResult } from '../../types/search-result.type';
 import { ClassParser } from '../class';
 import { EnumParser } from '../enum';
 import { FunctionParser } from '../function';
 import { InterfaceParser } from '../interface';
 import { ModuleParser } from '../module';
-import { NamespaceParser } from '../namespace';
 import { TypeAliasParser } from '../type-alias';
-import { VariableParser } from '../variable';
 import { ProjectParserJson } from './interfaces/json.interface';
 import { Options } from './interfaces/options.interface';
 
@@ -60,7 +62,7 @@ export class ProjectParser {
      */
     public readonly classes: ClassParser[];
 
-    public readonly modules?: ModuleParser[];
+    public readonly modules: ModuleParser[];
 
     /**
      * An array of enum parsers for this project.
@@ -263,7 +265,7 @@ export class ProjectParser {
                     return t.source?.path.includes(path);
                 }
             );
-            this.modules?.push(
+            this.modules.push(
                 new ModuleParser({
                     id: m.id,
                     name: m.name,
@@ -479,7 +481,8 @@ export class ProjectParser {
             interfaces: this.interfaces.map((parser) => parser.toJSON()),
             namespaces: this.namespaces.map((parser) => parser.toJSON()),
             typeAliases: this.typeAliases.map((parser) => parser.toJSON()),
-            variables: this.variables.map((parser) => parser.toJSON())
+            variables: this.variables.map((parser) => parser.toJSON()),
+            modules: this.modules.map((parser) => parser.toJSON())
         };
     }
 

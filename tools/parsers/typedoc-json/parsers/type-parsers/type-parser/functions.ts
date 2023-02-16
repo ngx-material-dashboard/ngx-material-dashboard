@@ -1,51 +1,33 @@
 import { NamedTupleMemberType } from 'typedoc/dist/lib/serialization/schema';
 import { JSONOutput } from 'typedoc';
 import { Kind } from '../../../enums';
-import { Json, TypeParser } from './interfaces';
+// import { Json, TypeParser } from './interfaces';
 import {
     ArrayTypeParser,
-    ArrayTypeParserJson,
     ConditionalTypeParser,
-    ConditionalTypeParserJson,
     IndexedAccessTypeParser,
-    IndexedAccessTypeParserJson,
     InferredTypeParser,
-    InferredTypeParserJson,
     IntersectionTypeParser,
-    IntersectionTypeParserJson,
     IntrinsicTypeParser,
-    IntrinsicTypeParserJson,
     LiteralTypeParser,
-    LiteralTypeParserJson,
     MappedTypeParser,
-    MappedTypeParserJson,
-    Modifier,
     NamedTupleMemberTypeParser,
-    NamedTupleMemberTypeParserJson,
-    Operator,
     OptionalTypeParser,
-    OptionalTypeParserJson,
     PredicateTypeParser,
-    PredicateTypeParserJson,
     QueryTypeParser,
-    QueryTypeParserJson,
     ReferenceTypeParser,
-    ReferenceTypeParserJson,
     ReflectionTypeParser,
-    ReflectionTypeParserJson,
     RestTypeParser,
-    RestTypeParserJson,
     TemplateLiteralTypeParser,
-    TemplateLiteralTypeParserJson,
     TupleTypeParser,
-    TupleTypeParserJson,
     TypeOperatorTypeParser,
-    TypeOperatorTypeParserJson,
+    TypeParser,
     UnionTypeParser,
-    UnionTypeParserJson,
-    UnknownTypeParser,
-    UnknownTypeParserJson
-} from '..';
+    UnknownTypeParser
+} from 'typedoc-json-parser';
+import { Json } from './interfaces/json.interface';
+import { Operator } from '../type-operator/enums/operator.enum';
+import { Modifier } from '../mapped/enums/modifier.enum';
 
 function generateFromTypeDoc(
     type:
@@ -282,14 +264,14 @@ function generateFromTypeDoc(
 function generateFromJson(json: Json): TypeParser {
     switch (json.kind) {
         case Kind.Array: {
-            const { type } = json as ArrayTypeParserJson;
+            const { type } = json as ArrayTypeParser.Json;
 
             return new ArrayTypeParser({ type: generateFromJson(type) });
         }
 
         case Kind.Conditional: {
             const { checkType, extendsType, trueType, falseType } =
-                json as ConditionalTypeParserJson;
+                json as ConditionalTypeParser.Json;
 
             return new ConditionalTypeParser({
                 checkType: generateFromJson(checkType),
@@ -301,7 +283,7 @@ function generateFromJson(json: Json): TypeParser {
 
         case Kind.IndexedAccess: {
             const { objectType, indexType } =
-                json as IndexedAccessTypeParserJson;
+                json as IndexedAccessTypeParser.Json;
 
             return new IndexedAccessTypeParser({
                 objectType: generateFromJson(objectType),
@@ -310,13 +292,13 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Inferred: {
-            const { type } = json as InferredTypeParserJson;
+            const { type } = json as InferredTypeParser.Json;
 
             return new InferredTypeParser({ type });
         }
 
         case Kind.Intersection: {
-            const { types } = json as IntersectionTypeParserJson;
+            const { types } = json as IntersectionTypeParser.Json;
 
             return new IntersectionTypeParser({
                 types: types.map((type) => generateFromJson(type))
@@ -324,13 +306,13 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Intrinsic: {
-            const { type } = json as IntrinsicTypeParserJson;
+            const { type } = json as IntrinsicTypeParser.Json;
 
             return new IntrinsicTypeParser({ type });
         }
 
         case Kind.Literal: {
-            const { value } = json as LiteralTypeParserJson;
+            const { value } = json as LiteralTypeParser.Json;
 
             return new LiteralTypeParser({ value });
         }
@@ -343,7 +325,7 @@ function generateFromJson(json: Json): TypeParser {
                 templateType,
                 optional,
                 readonly
-            } = json as MappedTypeParserJson;
+            } = json as MappedTypeParser.Json;
 
             return new MappedTypeParser({
                 parameter,
@@ -357,7 +339,7 @@ function generateFromJson(json: Json): TypeParser {
 
         case Kind.NamedTupleMember: {
             const { type, optional, name } =
-                json as NamedTupleMemberTypeParserJson;
+                json as NamedTupleMemberTypeParser.Json;
 
             return new NamedTupleMemberTypeParser({
                 name,
@@ -367,13 +349,13 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Optional: {
-            const { type } = json as OptionalTypeParserJson;
+            const { type } = json as OptionalTypeParser.Json;
 
             return new OptionalTypeParser({ type: generateFromJson(type) });
         }
 
         case Kind.Predicate: {
-            const { asserts, name, type } = json as PredicateTypeParserJson;
+            const { asserts, name, type } = json as PredicateTypeParser.Json;
 
             return new PredicateTypeParser({
                 asserts,
@@ -383,7 +365,7 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Query: {
-            const { query } = json as QueryTypeParserJson;
+            const { query } = json as QueryTypeParser.Json;
 
             return new QueryTypeParser({
                 query: generateFromJson(query) as ReferenceTypeParser
@@ -392,7 +374,7 @@ function generateFromJson(json: Json): TypeParser {
 
         case Kind.Reference: {
             const { id, name, packageName, typeArguments } =
-                json as ReferenceTypeParserJson;
+                json as ReferenceTypeParser.Json;
 
             return new ReferenceTypeParser({
                 id,
@@ -405,19 +387,19 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Reflection: {
-            const { reflection } = json as ReflectionTypeParserJson;
+            const { reflection } = json as ReflectionTypeParser.Json;
 
             return new ReflectionTypeParser({ reflection });
         }
 
         case Kind.Rest: {
-            const { type } = json as RestTypeParserJson;
+            const { type } = json as RestTypeParser.Json;
 
             return new RestTypeParser({ type: generateFromJson(type) });
         }
 
         case Kind.TemplateLiteral: {
-            const { head, tail } = json as TemplateLiteralTypeParserJson;
+            const { head, tail } = json as TemplateLiteralTypeParser.Json;
 
             return new TemplateLiteralTypeParser({
                 head,
@@ -429,7 +411,7 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Tuple: {
-            const { types } = json as TupleTypeParserJson;
+            const { types } = json as TupleTypeParser.Json;
 
             return new TupleTypeParser({
                 types: types.map((type) => generateFromJson(type))
@@ -437,7 +419,7 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.TypeOperator: {
-            const { operator, type } = json as TypeOperatorTypeParserJson;
+            const { operator, type } = json as TypeOperatorTypeParser.Json;
 
             return new TypeOperatorTypeParser({
                 operator,
@@ -446,7 +428,7 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Union: {
-            const { types } = json as UnionTypeParserJson;
+            const { types } = json as UnionTypeParser.Json;
 
             return new UnionTypeParser({
                 types: types.map((type) => generateFromJson(type))
@@ -454,7 +436,7 @@ function generateFromJson(json: Json): TypeParser {
         }
 
         case Kind.Unknown: {
-            const { name } = json as UnknownTypeParserJson;
+            const { name } = json as UnknownTypeParser.Json;
 
             return new UnknownTypeParser({ name });
         }

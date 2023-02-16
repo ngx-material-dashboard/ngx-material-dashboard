@@ -1,109 +1,33 @@
+import { JSONOutput } from 'typedoc';
+import {
+    ClassConstructorParser,
+    ClassMethodParser,
+    ClassParser as TypedocClassParser,
+    ClassPropertyParser,
+    ReflectionKind,
+    SourceParser,
+    TypeParameterParser
+} from 'typedoc-json-parser';
 import { ComponentDecoratorParser } from '../../../../parsers/decorators/parsers/component-decorator.parser';
 import { DecoratorParser } from '../../../../parsers/decorators/parsers/decorator.parser';
 import { DirectiveDecoratorParser } from '../../../../parsers/decorators/parsers/directive-decorator.parser';
-import { JSONOutput, ReflectionKind } from 'typedoc';
-import {
-    CommentParser,
-    TypeParameterParser,
-    SourceParser
-} from '../misc-parsers';
-import { Parser } from '../parser';
-import {
-    generateFromJson,
-    generateFromTypeDoc,
-    TypeParser
-} from '../type-parsers';
-import { ClassConstructorParser } from './class-constructor';
-import { ClassMethodParser } from './class-method';
-import { ClassPropertyParser } from './class-property';
-import { ClassParserData } from './interfaces/data.interface';
+import { CommentParser } from '../misc-parsers';
+import { generateFromJson, generateFromTypeDoc } from '../type-parsers';
 import { ClassParserJson } from './interfaces/json.interface';
 
 /**
  * Parses data from a class reflection.
  * @since 1.0.0
  */
-export class ClassParser extends Parser {
-    /**
-     * The comment parser of this class.
-     * @since 1.0.0
-     */
-    public readonly comment: CommentParser;
-
-    /**
-     * Whether this class is external.
-     * @since 1.0.0
-     */
-    public readonly external: boolean;
-
-    /**
-     * Whether this class is abstract.
-     * @since 1.0.0
-     */
-    public readonly abstract: boolean;
-
-    /**
-     * The `extends` type of this class.
-     * @since 1.0.0
-     */
-    public readonly extendsType: TypeParser | null;
-
-    /**
-     * The `implements` type of this class.
-     * @since 1.0.0
-     */
-    public readonly implementsType: TypeParser[];
-
-    /**
-     * The type parameter parsers of this class.
-     * @since 6.0.0
-     */
-    public readonly typeParameters: TypeParameterParser[];
-
-    /**
-     * The constructor parser of this class.
-     * @since 1.0.0
-     */
-    public readonly construct: ClassConstructorParser;
-
-    /**
-     * The property parsers of this class.
-     * @since 1.0.0
-     */
-    public readonly properties: ClassPropertyParser[];
-
-    /**
-     * The method parsers of this class.
-     * @since 1.0.0
-     */
-    public readonly methods: ClassMethodParser[];
-
+export class ClassParser extends TypedocClassParser {
+    public override readonly comment: CommentParser;
     public readonly decorator?: DecoratorParser;
 
-    public constructor(data: ClassParserData) {
+    public constructor(data: TypedocClassParser.Data) {
         super(data);
 
-        const {
-            comment,
-            external,
-            abstract,
-            extendsType,
-            implementsType,
-            typeParameters,
-            construct,
-            properties,
-            methods
-        } = data;
-
-        this.comment = comment;
-        this.external = external;
-        this.abstract = abstract;
-        this.extendsType = extendsType;
-        this.implementsType = implementsType;
-        this.typeParameters = typeParameters;
-        this.construct = construct;
-        this.properties = properties;
-        this.methods = methods;
+        const { comment } = data;
+        this.comment = new CommentParser(comment);
 
         // manually parse and add decorator data since TypeDoc doesn't contain
         // this info anymore...
@@ -137,7 +61,8 @@ export class ClassParser extends Parser {
             ),
             construct: this.construct.toJSON(),
             properties: this.properties,
-            methods: this.methods
+            methods: this.methods,
+            decorator: this.decorator
         };
     }
 
@@ -147,7 +72,7 @@ export class ClassParser extends Parser {
      * @param reflection The reflection to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromTypeDoc(
+    public static override generateFromTypeDoc(
         reflection: JSONOutput.DeclarationReflection
     ): ClassParser {
         const {
@@ -223,7 +148,9 @@ export class ClassParser extends Parser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: ClassParserJson): ClassParser {
+    public static override generateFromJson(
+        json: TypedocClassParser.Json
+    ): ClassParser {
         const {
             id,
             name,

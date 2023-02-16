@@ -1,31 +1,10 @@
-import { CommentParser, TypeParameterParser } from '../../misc-parsers';
-import { ParserData } from '../../parser';
-import { InterfaceMethodParser } from '../interface-method';
-import { InterfacePropertyParser } from '../interface-property';
+import { InterfaceParser as TypedocInterfaceParser } from 'typedoc-json-parser';
 
-export interface InterfaceParserData extends ParserData {
+import { CommentParser } from '../../misc-parsers';
+
+export interface InterfaceParserData extends TypedocInterfaceParser.Data {
     /**
      * The comment parser of this interface.
      */
     comment: CommentParser;
-
-    /**
-     * Whether this interface is external.
-     */
-    external: boolean;
-
-    /**
-     * The type parameters of this interface.
-     */
-    typeParameters: TypeParameterParser[];
-
-    /**
-     * The property parsers of this interface.
-     */
-    properties: InterfacePropertyParser[];
-
-    /**
-     * The method parsers of this interface.
-     */
-    methods: InterfaceMethodParser[];
 }

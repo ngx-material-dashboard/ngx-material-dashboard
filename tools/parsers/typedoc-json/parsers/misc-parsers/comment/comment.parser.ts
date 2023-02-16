@@ -1,97 +1,65 @@
 import { JSONOutput } from 'typedoc';
-import { BlockTag } from './interfaces/block-tag.interface';
-import { CommentParserData } from './interfaces/data.interface';
+import { CommentParser as TypedocCommentParser } from 'typedoc-json-parser';
 import { CommentParserJson } from './interfaces/json.interface';
 
 /**
  * Parses data from a comment reflection.
  * @since 1.0.0
  */
-export class CommentParser {
-    /**
-     * The description of this comment.
-     * @since 1.0.0
-     */
-    public readonly description: string | null;
-
-    /**
-     * The block tags of this comment.
-     * @since 1.0.0
-     */
-    public readonly blockTags: BlockTag[];
-
-    /**
-     * The modifier tags of this comment.
-     * @since 1.0.0
-     */
-    public readonly modifierTags: string[];
-
+export class CommentParser extends TypedocCommentParser {
+    public usageNoteHeaders: string[] = [];
     public usageNotesTypeMap: { [type: string]: string };
     public usageNoteTypes: string[] = [];
 
-    public constructor(data: CommentParserData) {
-        const { description, blockTags, modifierTags } = data;
+    public constructor(data: TypedocCommentParser.Data) {
+        super({
+            blockTags: data.blockTags,
+            description: data.description,
+            modifierTags: data.modifierTags
+        });
 
-        this.description = description;
-        this.blockTags = blockTags;
-        this.modifierTags = modifierTags;
         this.usageNotesTypeMap = {};
-
         this.initUsageNoteTypes();
     }
 
-    /**
-     * The filtered `@see` tags of this comment.
-     * @since 1.0.0
-     */
-    public get see(): BlockTag[] {
-        return this.blockTags.filter((tag) => tag.name === 'see');
-    }
-
-    /**
-     * The filtered `@example` tags of this comment.
-     * @since 1.0.0
-     */
-    public get example(): BlockTag[] {
-        return this.blockTags.filter((tag) => tag.name === 'example');
-    }
-
-    /**
-     * Whether the comment has an `@deprecated` tag.
-     * @since 1.0.0
-     */
-    public get deprecated(): boolean {
-        return this.modifierTags.some((tag) => tag === 'deprecated');
-    }
-
-    public get overviewDetails(): BlockTag[] {
+    public get overviewDetails(): TypedocCommentParser.BlockTag[] {
         return this.blockTags.filter((tag) => tag.name === 'overviewDetails');
     }
 
-    public get usageNotes(): BlockTag[] {
+    public get usageNotes(): TypedocCommentParser.BlockTag[] {
         return this.blockTags.filter((tag) => tag.name === 'usageNotes');
     }
 
     private initUsageNoteTypes(): void {
         this.usageNotes.forEach((tag) => {
             let usageNoteText: string;
-            for (let i = 0; i < tag.text.length; i++) {
+            const text = tag.text.split('\n');
+            for (let i = 0; i < text.length; i++) {
+                const note = [];
+                if (text[i].search(/#+/) >= 0) {
+                    // add header text if it exists
+                    note.push(text[i]);
+                    i++;
+                }
                 // find text that starts with ```, which should be code
-                if (tag.text[i].search(/```[a-z]+/) === 0) {
-                    // separate code and get type of code
-                    const note = tag.text[i].split('\n');
-                    usageNoteText = note[0].replace('```', '').trim();
+                if (text[i].search(/```[a-z]+/) >= 0) {
+                    usageNoteText = text[i].replace('```', '').trim();
                     if (usageNoteText !== '') {
                         this.usageNoteTypes.push(usageNoteText);
-
+                        while (i < text.length && text[i] != '```') {
+                            note.push(text[i++]);
+                        }
+                        note.push('```');
                         // add text for note and header details (if header exists)
                         this.usageNotesTypeMap[
                             `${usageNoteText}-${this.usageNoteTypes.length - 1}`
                         ] = note.join('\n');
+                        //console.log(note);
                         // tag.text[i - 1].search(/## [a-zA-Z]+/) === 0
                         //     ? [tag.text[i - 1], ...note].join('\n')
                         //     : note.join('\n');
                     }
+                    //}
                 }
             }
         });
@@ -102,11 +70,13 @@ export class CommentParser {
      * @since 1.0.0
      * @returns The Json compatible format of this parser.
      */
-    public toJSON(): CommentParserJson {
+    public override toJSON(): CommentParserJson {
         return {
             description: this.description,
             blockTags: this.blockTags,
-            modifierTags: this.modifierTags
+            modifierTags: this.modifierTags,
+            overviewDetails: this.overviewDetails,
+            usageNotes: this.usageNotes
         };
     }
 
@@ -116,7 +86,7 @@ export class CommentParser {
      * @param comment The comment to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromTypeDoc(
+    public static override generateFromTypeDoc(
         comment: JSONOutput.Comment
     ): CommentParser {
         const { summary, blockTags = [], modifierTags = [] } = comment;
@@ -133,12 +103,13 @@ export class CommentParser {
                 : null,
             blockTags: blockTags.map((tag) => ({
                 name: tag.name ?? tag.tag.replace(/@/, ''),
-                text: tag.content.map((content) =>
-                    content.kind === 'inline-tag'
-                        ? `{${content.tag} ${content.text}}`
-                        : content.text
-                )
-                //.join('')
+                text: tag.content
+                    .map((content) =>
+                        content.kind === 'inline-tag'
+                            ? `{${content.tag} ${content.text}}`
+                            : content.text
+                    )
+                    .join('')
             })),
             modifierTags
         });
@@ -149,12 +120,21 @@ export class CommentParser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: CommentParserJson): CommentParser {
+    public static override generateFromJson(
+        json: TypedocCommentParser.Json
+    ): CommentParser {
         const { description, blockTags, modifierTags } = json;
 
+        const customBlockTags = blockTags.map((it) => {
+            return {
+                name: it.name,
+                text: it.text,
+                textArray: it.text.split('\n')
+            };
+        });
         return new CommentParser({
             description,
-            blockTags,
+            blockTags: customBlockTags,
             modifierTags
         });
     }

@@ -1,4 +1,4 @@
-import { SourceParser } from '..';
+import { SourceParser } from 'typedoc-json-parser';
 import { ParserData } from './interfaces/data.interface';
 import { ParserJson } from './interfaces/json.interface';
 

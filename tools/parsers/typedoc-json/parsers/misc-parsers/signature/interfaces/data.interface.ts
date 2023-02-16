@@ -1,7 +1,9 @@
-import { TypeParser } from '../../../type-parsers';
+import {
+    TypeParameterParser,
+    ParameterParser,
+    TypeParser
+} from 'typedoc-json-parser';
 import { CommentParser } from '../../comment';
-import { ParameterParser } from '../../parameter';
-import { TypeParameterParser } from '../../type-parameter';
 
 export interface SignatureParserData {
     /**

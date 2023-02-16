@@ -1,8 +1,12 @@
 import { JSONOutput } from 'typedoc';
-import { ReflectionKind } from '../../enums';
-import { CommentParser, SourceParser } from '../misc-parsers';
-import { Parser } from '../parser';
-import { EnumMemberParser } from './enum-member';
+import {
+    EnumMemberParser,
+    EnumParser as TypedocEnumParser,
+    ReflectionKind,
+    SourceParser
+} from 'typedoc-json-parser';
+
+import { CommentParser } from '../misc-parsers';
 import { EnumParserData } from './interfaces/data.interface';
 import { EnumParserJson } from './interfaces/json.interface';
 
@@ -10,33 +14,19 @@ import { EnumParserJson } from './interfaces/json.interface';
  * Parses data from an enum reflection.
  * @since 1.0.0
  */
-export class EnumParser extends Parser {
+export class EnumParser extends TypedocEnumParser {
     /**
      * The comment parser of this enum.
      * @since 1.0.0
      */
-    public readonly comment: CommentParser;
-
-    /**
-     * Whether this enum is external.
-     * @since 1.0.0
-     */
-    public readonly external: boolean;
-
-    /**
-     * The property parsers of this enum.
-     * @since 1.0.0
-     */
-    public readonly members: EnumMemberParser[];
+    public override readonly comment: CommentParser;
 
     public constructor(data: EnumParserData) {
         super(data);
 
-        const { comment, external, members } = data;
+        const { comment } = data;
 
-        this.comment = comment;
-        this.external = external;
-        this.members = members;
+        this.comment = new CommentParser(comment);
     }
 
     /**
@@ -47,9 +37,7 @@ export class EnumParser extends Parser {
     public override toJSON(): EnumParserJson {
         return {
             ...super.toJSON(),
-            comment: this.comment.toJSON(),
-            external: this.external,
-            members: this.members
+            comment: this.comment.toJSON()
         };
     }
 
@@ -59,7 +47,7 @@ export class EnumParser extends Parser {
      * @param reflection The reflection to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromTypeDoc(
+    public static override generateFromTypeDoc(
         reflection: JSONOutput.DeclarationReflection
     ): EnumParser {
         const {
@@ -99,7 +87,9 @@ export class EnumParser extends Parser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: EnumParserJson): EnumParser {
+    public static override generateFromJson(
+        json: TypedocEnumParser.Json
+    ): EnumParser {
         const { id, name, comment, source, external, members } = json;
 
         return new EnumParser({

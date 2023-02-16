@@ -54,6 +54,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  * }
  * ```
  *
+ * @overviewDetails
  * #### Features
  *
  * The `Table` automatically wires up sorting, renders and handles select

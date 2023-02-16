@@ -1,12 +1,12 @@
 import { JSONOutput, ReflectionKind } from 'typedoc';
 import {
-    generateFromJson,
-    generateFromTypeDoc,
+    ParameterParser,
+    SignatureParser as TypedocSignatureParser,
+    TypeParameterParser,
     TypeParser
-} from '../../type-parsers';
+} from 'typedoc-json-parser';
+import { generateFromJson, generateFromTypeDoc } from '../../type-parsers';
 import { CommentParser } from '../comment';
-import { ParameterParser } from '../parameter';
-import { TypeParameterParser } from '../type-parameter';
 import { SignatureParserData } from './interfaces/data.interface';
 import { SignatureParserJson } from './interfaces/json.interface';
 
@@ -126,7 +126,9 @@ export class SignatureParser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: SignatureParserJson): SignatureParser {
+    public static generateFromJson(
+        json: TypedocSignatureParser.Json
+    ): SignatureParser {
         const { id, name, comment, typeParameters, parameters, returnType } =
             json;
 

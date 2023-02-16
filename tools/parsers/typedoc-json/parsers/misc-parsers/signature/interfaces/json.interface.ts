@@ -1,7 +1,6 @@
+import { TypeParameterParser, ParameterParser } from 'typedoc-json-parser';
 import { Json } from '../../../type-parsers';
 import { CommentParserJson } from '../../comment';
-import { ParameterParserJson } from '../../parameter';
-import { TypeParameterParserJson } from '../../type-parameter';
 
 export interface SignatureParserJson {
     /**
@@ -26,13 +25,13 @@ export interface SignatureParserJson {
      * The type parameters of this signature in a Json compatible format.
      * @since 1.0.0
      */
-    typeParameters: TypeParameterParserJson[];
+    typeParameters: TypeParameterParser.Json[];
 
     /**
      * The parameters of this signature in a Json compatible format.
      * @since 1.0.0
      */
-    parameters: ParameterParserJson[];
+    parameters: ParameterParser.Json[];
 
     /**
      * The return type of this signature in a Json compatible format.

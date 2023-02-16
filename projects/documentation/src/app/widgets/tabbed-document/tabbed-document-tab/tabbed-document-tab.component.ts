@@ -276,15 +276,20 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/testing/elements/examples': [
         ['assets/docs/testing/elements/example-0.md'],
-        ['assets/docs/testing/elements/example-typescript-1.md'],
         ['assets/docs/testing/elements/example-2.md'],
-        ['assets/docs/testing/elements/example-typescript-3.md'],
-        ['assets/docs/testing/elements/example-4.md'],
-        ['assets/docs/testing/elements/example-typescript-5.md'],
+        ['assets/docs/testing/elements/example-typescript-1.md'],
+        ['assets/docs/testing/elements/example-3.md'],
+        ['assets/docs/testing/elements/example-5.md'],
+        ['assets/docs/testing/elements/example-typescript-4.md'],
         ['assets/docs/testing/elements/example-6.md'],
-        ['assets/docs/testing/elements/example-typescript-7.md'],
         ['assets/docs/testing/elements/example-8.md'],
-        ['assets/docs/testing/elements/example-typescript-9.md']
+        ['assets/docs/testing/elements/example-typescript-7.md'],
+        ['assets/docs/testing/elements/example-9.md'],
+        ['assets/docs/testing/elements/example-11.md'],
+        ['assets/docs/testing/elements/example-typescript-10.md'],
+        ['assets/docs/testing/elements/example-12.md'],
+        ['assets/docs/testing/elements/example-14.md'],
+        ['assets/docs/testing/elements/example-typescript-13.md']
     ],
     '/testing/fixtures/api': [
         ['assets/docs/testing/fixtures/api-17.md'],
@@ -314,8 +319,9 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/testing/mocks/overview-44.md']
     ],
     '/testing/mocks/examples': [
-        ['assets/docs/testing/mocks/example-10.md'],
-        ['assets/docs/testing/mocks/example-typescript-11.md']
+        ['assets/docs/testing/mocks/example-15.md'],
+        ['assets/docs/testing/mocks/example-17.md'],
+        ['assets/docs/testing/mocks/example-typescript-16.md']
     ],
     '/widgets': [['assets/docs/widgets/overview.md']],
     '/widgets/readme': [['assets/docs/widgets/overview.md']],
@@ -364,6 +370,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/collection/examples': [
         ['assets/docs/widgets/collection/example-0.md'],
+        ['assets/docs/widgets/collection/example-3.md'],
         [
             'assets/docs/widgets/collection/example-html-1.md',
             'assets/docs/widgets/collection/example-typescript-2.md'
@@ -419,6 +426,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/form/examples': [
         ['assets/docs/widgets/form/example-0.md'],
+        ['assets/docs/widgets/form/example-3.md'],
         [
             'assets/docs/widgets/form/example-html-1.md',
             'assets/docs/widgets/form/example-typescript-2.md'
@@ -444,24 +452,28 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/grid/examples': [
         ['assets/docs/widgets/grid/example-0.md'],
+        ['assets/docs/widgets/grid/example-3.md'],
         [
             'assets/docs/widgets/grid/example-html-1.md',
             'assets/docs/widgets/grid/example-typescript-2.md'
         ],
-        ['assets/docs/widgets/grid/example-3.md'],
+        ['assets/docs/widgets/grid/example-4.md'],
+        ['assets/docs/widgets/grid/example-7.md'],
         [
-            'assets/docs/widgets/grid/example-html-4.md',
-            'assets/docs/widgets/grid/example-typescript-5.md'
+            'assets/docs/widgets/grid/example-html-5.md',
+            'assets/docs/widgets/grid/example-typescript-6.md'
         ],
-        ['assets/docs/widgets/grid/example-6.md'],
+        ['assets/docs/widgets/grid/example-8.md'],
+        ['assets/docs/widgets/grid/example-11.md'],
         [
-            'assets/docs/widgets/grid/example-html-7.md',
-            'assets/docs/widgets/grid/example-typescript-8.md'
+            'assets/docs/widgets/grid/example-html-9.md',
+            'assets/docs/widgets/grid/example-typescript-10.md'
         ],
-        ['assets/docs/widgets/grid/example-9.md'],
+        ['assets/docs/widgets/grid/example-12.md'],
+        ['assets/docs/widgets/grid/example-15.md'],
         [
-            'assets/docs/widgets/grid/example-html-10.md',
-            'assets/docs/widgets/grid/example-typescript-11.md'
+            'assets/docs/widgets/grid/example-html-13.md',
+            'assets/docs/widgets/grid/example-typescript-14.md'
         ]
     ],
     '/widgets/layout/api': [
@@ -506,24 +518,28 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/layout/examples': [
         ['assets/docs/widgets/layout/example-0.md'],
+        ['assets/docs/widgets/layout/example-3.md'],
         [
             'assets/docs/widgets/layout/example-html-1.md',
             'assets/docs/widgets/layout/example-typescript-2.md'
         ],
-        ['assets/docs/widgets/layout/example-3.md'],
+        ['assets/docs/widgets/layout/example-4.md'],
+        ['assets/docs/widgets/layout/example-7.md'],
         [
-            'assets/docs/widgets/layout/example-html-4.md',
-            'assets/docs/widgets/layout/example-typescript-5.md'
+            'assets/docs/widgets/layout/example-html-5.md',
+            'assets/docs/widgets/layout/example-typescript-6.md'
         ],
-        ['assets/docs/widgets/layout/example-6.md'],
+        ['assets/docs/widgets/layout/example-8.md'],
+        ['assets/docs/widgets/layout/example-11.md'],
         [
-            'assets/docs/widgets/layout/example-html-7.md',
-            'assets/docs/widgets/layout/example-typescript-8.md'
+            'assets/docs/widgets/layout/example-html-9.md',
+            'assets/docs/widgets/layout/example-typescript-10.md'
         ],
-        ['assets/docs/widgets/layout/example-9.md'],
+        ['assets/docs/widgets/layout/example-12.md'],
+        ['assets/docs/widgets/layout/example-15.md'],
         [
-            'assets/docs/widgets/layout/example-html-10.md',
-            'assets/docs/widgets/layout/example-typescript-11.md'
+            'assets/docs/widgets/layout/example-html-13.md',
+            'assets/docs/widgets/layout/example-typescript-14.md'
         ]
     ],
     '/widgets/list/api': [
@@ -546,24 +562,28 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/list/examples': [
         ['assets/docs/widgets/list/example-0.md'],
+        ['assets/docs/widgets/list/example-3.md'],
         [
             'assets/docs/widgets/list/example-html-1.md',
             'assets/docs/widgets/list/example-typescript-2.md'
         ],
-        ['assets/docs/widgets/list/example-3.md'],
+        ['assets/docs/widgets/list/example-4.md'],
+        ['assets/docs/widgets/list/example-7.md'],
         [
-            'assets/docs/widgets/list/example-html-4.md',
-            'assets/docs/widgets/list/example-typescript-5.md'
+            'assets/docs/widgets/list/example-html-5.md',
+            'assets/docs/widgets/list/example-typescript-6.md'
         ],
-        ['assets/docs/widgets/list/example-6.md'],
+        ['assets/docs/widgets/list/example-8.md'],
+        ['assets/docs/widgets/list/example-11.md'],
         [
-            'assets/docs/widgets/list/example-html-7.md',
-            'assets/docs/widgets/list/example-typescript-8.md'
+            'assets/docs/widgets/list/example-html-9.md',
+            'assets/docs/widgets/list/example-typescript-10.md'
         ],
-        ['assets/docs/widgets/list/example-9.md'],
+        ['assets/docs/widgets/list/example-12.md'],
+        ['assets/docs/widgets/list/example-15.md'],
         [
-            'assets/docs/widgets/list/example-html-10.md',
-            'assets/docs/widgets/list/example-typescript-11.md'
+            'assets/docs/widgets/list/example-html-13.md',
+            'assets/docs/widgets/list/example-typescript-14.md'
         ]
     ],
     '/widgets/table/api': [
@@ -583,30 +603,38 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/table/overview-6.md'],
         ['assets/docs/widgets/table/overview-7.md'],
         ['assets/docs/widgets/table/overview-8.md'],
-        ['assets/docs/widgets/table/overview-9.md']
+        ['assets/docs/widgets/table/overview-9.md'],
+        ['assets/docs/widgets/table/overview-10.md']
     ],
     '/widgets/table/examples': [
         ['assets/docs/widgets/table/example-0.md'],
+        ['assets/docs/widgets/table/example-3.md'],
         [
             'assets/docs/widgets/table/example-html-1.md',
-            'assets/docs/widgets/table/example-typescript-2.md',
-            'assets/docs/widgets/table/example-html-3.md',
-            'assets/docs/widgets/table/example-typescript-4.md'
+            'assets/docs/widgets/table/example-typescript-2.md'
         ],
-        ['assets/docs/widgets/table/example-5.md'],
+        ['assets/docs/widgets/table/example-6.md'],
         [
-            'assets/docs/widgets/table/example-html-6.md',
-            'assets/docs/widgets/table/example-typescript-7.md'
+            'assets/docs/widgets/table/example-html-4.md',
+            'assets/docs/widgets/table/example-typescript-5.md'
         ],
-        ['assets/docs/widgets/table/example-8.md'],
+        ['assets/docs/widgets/table/example-7.md'],
+        ['assets/docs/widgets/table/example-10.md'],
         [
-            'assets/docs/widgets/table/example-html-9.md',
-            'assets/docs/widgets/table/example-typescript-10.md'
+            'assets/docs/widgets/table/example-html-8.md',
+            'assets/docs/widgets/table/example-typescript-9.md'
         ],
         ['assets/docs/widgets/table/example-11.md'],
+        ['assets/docs/widgets/table/example-14.md'],
         [
             'assets/docs/widgets/table/example-html-12.md',
             'assets/docs/widgets/table/example-typescript-13.md'
+        ],
+        ['assets/docs/widgets/table/example-15.md'],
+        ['assets/docs/widgets/table/example-18.md'],
+        [
+            'assets/docs/widgets/table/example-html-16.md',
+            'assets/docs/widgets/table/example-typescript-17.md'
         ]
     ],
     '/widgets/toolbar/api': [
@@ -657,6 +685,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/widgets/toolbar/examples': [
         ['assets/docs/widgets/toolbar/example-0.md'],
+        ['assets/docs/widgets/toolbar/example-3.md'],
         [
             'assets/docs/widgets/toolbar/example-html-1.md',
             'assets/docs/widgets/toolbar/example-typescript-2.md'

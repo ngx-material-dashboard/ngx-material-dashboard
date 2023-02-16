@@ -15,7 +15,6 @@ import {
     InterfaceParser,
     ModuleParser,
     Parser,
-    ReflectionTypeParser,
     TypeAliasParser
 } from '../../parsers/typedoc-json';
 import { ProjectParser } from '../../parsers/typedoc-json/parsers/project';
@@ -24,6 +23,7 @@ import { registerHelpers } from './utils/register-helpers';
 import { registerPartials } from './utils/register-partials';
 import { Kind } from '../../parsers/typedoc-json/enums';
 import { PathUtil } from './utils/path.util';
+import { ReflectionTypeParser } from 'typedoc-json-parser';
 
 interface MarkdownConfig {
     modelType: any;
@@ -322,26 +322,12 @@ export class MarkdownGenerator {
                     FileUtil.write(
                         directory,
                         `overview-${module.overviewDetails++}.md`,
-                        this.overviewTemplate({ text: t.text.join('') })
+                        this.overviewTemplate({ text: t.text })
                     );
                 });
 
-                if (comment.usageNotes.length > 1) {
-                    this.addToUrlFilesMap(
-                        module,
-                        url,
-                        directory,
-                        'examples',
-                        'example',
-                        module.usageNotes
-                    );
-                    // first usageNote should be a header
-                    FileUtil.write(
-                        directory,
-                        `example-${module.usageNotes++}.md`,
-                        comment.usageNotes[0].text[0]
-                    );
-                } else if (comment.usageNotes.length > 0) {
+                // add usageNote/example details
+                if (comment.usageNotes.length > 0) {
                     this.addToUrlFilesMap(
                         module,
                         url,
@@ -356,9 +342,41 @@ export class MarkdownGenerator {
                         `### ${p.name}`
                     );
                 }
-                const paths: string[] = [];
+                const headers: string[] = [];
+                let paths: string[] = [];
                 const basePath = PathUtil.makeRelativeTo(directory, 'assets');
                 comment.usageNoteTypes.forEach((t, i) => {
+                    let text = comment.usageNotesTypeMap[`${t}-${i}`];
+                    if (text.search(/#+/) === 0) {
+                        // add header as separate markdown file if it exists
+                        // ...but create the file and add it before we add paths
+                        headers.push(text.split('\n')[0]);
+                        text = text.split('\n').slice(1).join('\n');
+                    }
+                    const existingIndex = paths.findIndex(
+                        (it) => it.indexOf(`-${t}-`) > 0
+                    );
+                    if (existingIndex >= 0) {
+                        // if paths already contains an example of given type,
+                        // then add existing paths to urlFilesMap and re-initialize
+                        // paths so we don't end up with more than 1 example in
+                        // given set of tabbed results; I HATE that I have to do this...
+                        this.addToUrlFilesMap(
+                            module,
+                            url,
+                            directory,
+                            'examples',
+                            'example',
+                            module.usageNotes
+                        );
+                        FileUtil.write(
+                            directory,
+                            `example-${module.usageNotes++}.md`,
+                            headers[existingIndex] // should correspond with existingIndex
+                        );
+                        module.urlFilesMap[`${url}/examples`].push(paths);
+                        paths = [];
+                    }
                     paths.push(
                         `${basePath}/example-${t}-${module.usageNotes}.md`
                     );
@@ -366,11 +384,24 @@ export class MarkdownGenerator {
                         directory,
                         `example-${t}-${module.usageNotes++}.md`,
                         this.overviewTemplate({
-                            text: comment.usageNotesTypeMap[`${t}-${i}`]
+                            text: text
                         })
                     );
                 });
                 if (paths.length > 0) {
+                    this.addToUrlFilesMap(
+                        module,
+                        url,
+                        directory,
+                        'examples',
+                        'example',
+                        module.usageNotes
+                    );
+                    FileUtil.write(
+                        directory,
+                        `example-${module.usageNotes++}.md`,
+                        headers[headers.length - 1] // should be the last one.. god this sucks...
+                    );
                     module.urlFilesMap[`${url}/examples`].push(paths);
                 }
             }

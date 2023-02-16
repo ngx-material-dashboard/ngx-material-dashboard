@@ -1,55 +1,32 @@
 import { JSONOutput } from 'typedoc';
-import { ReflectionKind } from '../../enums';
 import {
-    CommentParser,
+    InterfaceMethodParser,
+    InterfaceParser as TypedocInterfaceParser,
+    InterfacePropertyParser,
+    ReflectionKind,
     SourceParser,
     TypeParameterParser
-} from '../misc-parsers';
-import { Parser } from '../parser';
-import { InterfaceMethodParser } from './interface-method';
-import { InterfacePropertyParser } from './interface-property';
+} from 'typedoc-json-parser';
+
+import { CommentParser } from '../misc-parsers';
 import { InterfaceParserData } from './interfaces/data.interface';
 import { InterfaceParserJson } from './interfaces/json.interface';
 
 /**
  * Parses data from an interface reflection.
  */
-export class InterfaceParser extends Parser {
+export class InterfaceParser extends TypedocInterfaceParser {
     /**
      * The comment parser of this interface.
      */
-    public readonly comment: CommentParser;
-
-    /**
-     * Whether this interface is external.
-     */
-    public readonly external: boolean;
-
-    /**
-     * The type parameters of this interface.
-     */
-    public readonly typeParameters: TypeParameterParser[];
-
-    /**
-     * The property parsers of this interface.
-     */
-    public readonly properties: InterfacePropertyParser[];
-
-    /**
-     * The method parsers of this interface.
-     */
-    public readonly methods: InterfaceMethodParser[];
+    public override readonly comment: CommentParser;
 
     public constructor(data: InterfaceParserData) {
         super(data);
 
-        const { comment, external, typeParameters, properties, methods } = data;
+        const { comment } = data;
 
-        this.comment = comment;
-        this.external = external;
-        this.typeParameters = typeParameters;
-        this.properties = properties;
-        this.methods = methods;
+        this.comment = new CommentParser(comment);
     }
 
     /**
@@ -76,7 +53,7 @@ export class InterfaceParser extends Parser {
      * @param reflection The reflection to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromTypeDoc(
+    public static override generateFromTypeDoc(
         reflection: JSONOutput.DeclarationReflection
     ): InterfaceParser {
         const {
@@ -129,7 +106,9 @@ export class InterfaceParser extends Parser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: InterfaceParserJson): InterfaceParser {
+    public static override generateFromJson(
+        json: TypedocInterfaceParser.Json
+    ): InterfaceParser {
         const {
             id,
             name,

@@ -1,16 +1,13 @@
 import { JSONOutput } from 'typedoc';
-import { ReflectionKind } from '../../enums';
 import {
-    CommentParser,
+    ReflectionKind,
     SourceParser,
+    TypeAliasParser as TypedocTypeAliasParser,
     TypeParameterParser
-} from '../misc-parsers';
+} from 'typedoc-json-parser';
+import { CommentParser } from '../misc-parsers';
 import { Parser } from '../parser';
-import {
-    generateFromJson,
-    generateFromTypeDoc,
-    TypeParser
-} from '../type-parsers';
+import { generateFromJson, generateFromTypeDoc } from '../type-parsers';
 import { TypeAliasParserData } from './interfaces/data.interface';
 import { TypeAliasParserJson } from './interfaces/json.interface';
 
@@ -18,40 +15,19 @@ import { TypeAliasParserJson } from './interfaces/json.interface';
  * Parses data from a type alias reflection.
  * @since 1.0.0
  */
-export class TypeAliasParser extends Parser {
+export class TypeAliasParser extends TypedocTypeAliasParser {
     /**
      * The comment parser of this type alias.
      * @since 1.0.0
      */
-    public readonly comment: CommentParser;
-
-    /**
-     * Whether this type alias is external.
-     * @since 1.0.0
-     */
-    public readonly external: boolean;
-
-    /**
-     * The type parameters of this type alias.
-     * @since 1.0.0
-     */
-    public readonly typeParameters: TypeParameterParser[];
-
-    /**
-     * The type of this type alias.
-     * @since 1.0.0
-     */
-    public readonly type: TypeParser;
+    public override readonly comment: CommentParser;
 
     public constructor(data: TypeAliasParserData) {
         super(data);
 
-        const { comment, external, typeParameters, type } = data;
+        const { comment } = data;
 
-        this.comment = comment;
-        this.external = external;
-        this.typeParameters = typeParameters;
-        this.type = type;
+        this.comment = new CommentParser(comment);
     }
 
     /**
@@ -77,7 +53,7 @@ export class TypeAliasParser extends Parser {
      * @param reflection The reflection to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromTypeDoc(
+    public static override generateFromTypeDoc(
         reflection: JSONOutput.DeclarationReflection
     ): TypeAliasParser {
         const {
@@ -118,7 +94,9 @@ export class TypeAliasParser extends Parser {
      * @param json The json to generate the parser from.
      * @returns The generated parser.
      */
-    public static generateFromJson(json: TypeAliasParserJson): TypeAliasParser {
+    public static override generateFromJson(
+        json: TypedocTypeAliasParser.Json
+    ): TypeAliasParser {
         const { id, name, comment, source, external, typeParameters, type } =
             json;
 

@@ -74,7 +74,7 @@ import { TableComponent } from '../../components/table/table.component';
  * ```
  *
  * @usageNotes
- * ### Remote Data Usage Example
+ * #### Remote Data Usage Example
  * ```html
  * <ngx-material-dashboard-paged-table
  *     matSort

@@ -1,4 +1,4 @@
-import { SourceParserJson } from '../..';
+import { SourceParser } from 'typedoc-json-parser';
 
 export interface ParserJson {
     /**
@@ -17,5 +17,5 @@ export interface ParserJson {
      * The source parser for this parser in a Json compatible format.
      * @since 1.0.0
      */
-    source: SourceParserJson | null;
+    source: SourceParser.Json | null;
 }

@@ -1,9 +1,10 @@
+import * as path from 'path';
+import { SearchResult } from 'typedoc-json-parser';
+
 import {
     MODULE_TYPE_DIRECTORY_MAP,
     reformatText
 } from '../../../generators/documentation/helpers';
-import * as path from 'path';
-import { SearchResult } from '../../../parsers/typedoc-json/types/search-result.type';
 
 export class PathUtil {
     // add module type to output path hierarchy if it exists

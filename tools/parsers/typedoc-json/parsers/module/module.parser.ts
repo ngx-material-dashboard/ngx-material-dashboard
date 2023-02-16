@@ -1,9 +1,15 @@
+import {
+    EnumParser,
+    FunctionParser,
+    InterfaceParser,
+    TypeAliasParser
+} from 'typedoc-json-parser';
 import { ClassParser } from '../class';
-import { EnumParser } from '../enum';
-import { FunctionParser } from '../function';
-import { InterfaceParser } from '../interface';
+// import { EnumParser } from '../enum';
+// import { FunctionParser } from '../function';
+// import { InterfaceParser } from '../interface';
 import { Parser } from '../parser';
-import { TypeAliasParser } from '../type-alias';
+// import { TypeAliasParser } from '../type-alias';
 import { ModuleParserData } from './interfaces/data.interface';
 import { ModuleParserJson } from './interfaces/json.interface';
 
