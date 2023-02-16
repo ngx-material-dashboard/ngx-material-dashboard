@@ -73,7 +73,11 @@ export class ScrollspyNavComponent
 
     destroyScrollSpy(): void {
         if (this.scrollSpy) {
-            this.scrollSpy.destroy();
+            try {
+                this.scrollSpy.destroy();
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 
