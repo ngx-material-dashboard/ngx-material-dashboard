@@ -18,6 +18,15 @@ const baseDocsSrcDir = path.join(
     'src'
 );
 
+/** Map of project names to URLs associated with them. */
+export const projectUrlMap: { [project: string]: string[] } = {
+    'base-json': ['readme', 'overview', 'api'],
+    json: ['readme', 'overview', 'api'],
+    'json-api': ['readme', 'overview', 'api'],
+    testing: ['overview', 'api', 'examples'],
+    widgets: ['overview', 'api', 'examples']
+};
+
 /**
  * Generates an object that can be inserted into an angular routing module as
  * routes.
@@ -69,8 +78,8 @@ export class RouteGenerator {
         if (p.modules && p.name === 'testing') {
             // handle testing lib different from rest...
             const defaultRoutes = this.createRoutesFromUrls(
-                ['overview', 'api', 'examples'],
-                'overview'
+                projectUrlMap['testing'],
+                projectUrlMap['testing'][0]
             );
             routes.push(
                 this.createRouteWithChildrenAndComponent(
@@ -107,18 +116,10 @@ export class RouteGenerator {
     }
 
     private generateModuleRoutes(p: ProjectParser, parser: Parser): any {
-        let defaultRoutes: any;
-        if (['base-json', 'json', 'json-api'].includes(p.name)) {
-            defaultRoutes = this.createRoutesFromUrls(
-                ['readme', 'overview', 'api'],
-                'readme'
-            );
-        } else {
-            defaultRoutes = this.createRoutesFromUrls(
-                ['overview', 'api', 'examples'],
-                'overview'
-            );
-        }
+        const defaultRoutes: any = this.createRoutesFromUrls(
+            projectUrlMap[p.name],
+            projectUrlMap[p.name][0]
+        );
 
         // add the module routes to the project routes
         const displayName = reformatText(parser.name);

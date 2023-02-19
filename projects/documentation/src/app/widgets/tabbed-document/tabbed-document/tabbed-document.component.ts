@@ -6,16 +6,45 @@ interface Link {
     link: any[];
 }
 
+interface Links {
+    [project: string]: Link[];
+}
+
+const tabs: Links = {
+    'base-json': [
+        { display: 'ReadMe', link: ['readme'] },
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] }
+    ],
+    'json-api': [
+        { display: 'ReadMe', link: ['readme'] },
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] }
+    ],
+    json: [
+        { display: 'ReadMe', link: ['readme'] },
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] }
+    ],
+    testing: [
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] },
+        { display: 'Examples', link: ['examples'] }
+    ],
+    widgets: [
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] },
+        { display: 'Examples', link: ['examples'] }
+    ]
+};
+
 @Component({
     selector: 'app-tabbed-document',
     templateUrl: './tabbed-document.component.html',
     styleUrls: ['./tabbed-document.component.scss']
 })
 export class TabbedDocumentComponent implements OnInit {
-    links: Link[] = [
-        { display: 'Overview', link: ['overview'] },
-        { display: 'API', link: ['api'] }
-    ];
+    links: Link[] = [];
     activeLink: Link = this.links[0];
 
     constructor(private router: Router, private route: ActivatedRoute) {}
@@ -26,33 +55,7 @@ export class TabbedDocumentComponent implements OnInit {
         });
 
         this.route.parent?.url.subscribe((urlSegment) => {
-            const url = urlSegment.join('/');
-            if (
-                !this.links.find((it) => it.display === 'ReadMe') &&
-                (url.includes('base-json') ||
-                    url.includes('json') ||
-                    url.includes('json-api'))
-            ) {
-                // add readme tab if not already included
-                this.links = [
-                    { display: 'ReadMe', link: ['readme'] },
-                    ...this.links
-                ];
-
-                // and update active link
-                this.activeLink = this.links[0];
-            }
-
-            if (
-                !this.links.find((it) => it.display === 'Examples') &&
-                !url.includes('json')
-            ) {
-                this.links = [
-                    ...this.links,
-                    { display: 'Examples', link: ['examples'] }
-                ];
-            }
-
+            this.links = tabs[urlSegment[0].toString()];
             this.initActiveLink();
         });
     }

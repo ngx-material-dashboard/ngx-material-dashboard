@@ -3,6 +3,7 @@ import { MarkdownGenerator } from '../generators/markdown/markdown.generator';
 import { MarkdownUrlGenerator } from '../generators/documentation/markdown-url.generator';
 import { RouteGenerator } from '../generators/documentation/route.generator';
 import { SidenavItemGenerator } from '../generators/documentation/sidenav-item.generator';
+import { TabGenerator } from '../generators/documentation/tab.generator';
 
 // parse typedoc JSON
 const typedocJson: TypedocJsonParser = new TypedocJsonParser(
@@ -36,6 +37,12 @@ const sidenavGenerator: SidenavItemGenerator = new SidenavItemGenerator(
 );
 sidenavGenerator.generateSidenavItems();
 sidenavGenerator.updateSidenavItems();
+
+// generate tabs in documentation app
+const tabGenerator: TabGenerator = new TabGenerator(
+    typedocJson.workspaceParser.projects
+);
+tabGenerator.generateTabs();
 
 // Give some sort of indication script is complete
 // TODO add better logging...
