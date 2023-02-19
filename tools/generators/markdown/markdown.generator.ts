@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
 
@@ -24,14 +23,9 @@ import { registerPartials } from './utils/register-partials';
 import { Kind } from '../../parsers/typedoc-json/enums';
 import { PathUtil } from './utils/path.util';
 import { ReflectionTypeParser } from 'typedoc-json-parser';
-
-interface MarkdownConfig {
-    modelType: any;
-    parsers: Parser[];
-    subDirectory?: string;
-    symbol: string;
-    template: any;
-}
+import { MarkdownConfig } from './interfaces/markdown-config.interface';
+import { generateMarkdownConfigDetailsByModule } from '../../config/processed/markdown.config';
+import { TemplateConfig } from 'config/processed/template.config';
 
 /**
  * The `MarkdownGenerator` generates the markdown files from the parsed typedoc
@@ -40,15 +34,10 @@ interface MarkdownConfig {
  * typedoc data, and handlebars render data into markdown.
  */
 export class MarkdownGenerator {
-    private moduleTemplate!: HandlebarsTemplateDelegate<any>;
-    private classTemplate!: HandlebarsTemplateDelegate<any>;
-    private componentTemplate!: HandlebarsTemplateDelegate<any>;
-    private decoratorTemplate!: HandlebarsTemplateDelegate<any>;
-    private directiveTemplate!: HandlebarsTemplateDelegate<any>;
-    private overviewTemplate!: HandlebarsTemplateDelegate<any>;
-    private usageNotesTemplate!: HandlebarsTemplateDelegate<any>;
+    templateConfig: TemplateConfig;
 
-    constructor() {
+    constructor(templateConfig: TemplateConfig) {
+        this.templateConfig = templateConfig;
         this.init();
     }
 
@@ -58,49 +47,6 @@ export class MarkdownGenerator {
     private init() {
         registerHelpers();
         registerPartials();
-        this.compileTemplates();
-    }
-
-    /**
-     * Compiles the templates needed to render markdown files.
-     */
-    private compileTemplates() {
-        const TEMPLATE_PATH = path.join(__dirname, 'templates');
-        this.moduleTemplate = Handlebars.compile(
-            fs.readFileSync(path.join(TEMPLATE_PATH, 'module.hbs')).toString()
-        );
-
-        this.classTemplate = Handlebars.compile(
-            fs.readFileSync(path.join(TEMPLATE_PATH, 'clazz.hbs')).toString()
-        );
-
-        this.componentTemplate = Handlebars.compile(
-            fs
-                .readFileSync(path.join(TEMPLATE_PATH, 'component.hbs'))
-                .toString()
-        );
-
-        this.decoratorTemplate = Handlebars.compile(
-            fs
-                .readFileSync(path.join(TEMPLATE_PATH, 'decorator.hbs'))
-                .toString()
-        );
-
-        this.directiveTemplate = Handlebars.compile(
-            fs
-                .readFileSync(path.join(TEMPLATE_PATH, 'directive.hbs'))
-                .toString()
-        );
-
-        this.overviewTemplate = Handlebars.compile(
-            fs.readFileSync(path.join(TEMPLATE_PATH, 'overview.hbs')).toString()
-        );
-
-        this.usageNotesTemplate = Handlebars.compile(
-            fs
-                .readFileSync(path.join(TEMPLATE_PATH, 'usage-notes.hbs'))
-                .toString()
-        );
     }
 
     /**
@@ -150,8 +96,10 @@ export class MarkdownGenerator {
         m: ModuleParser,
         url: string
     ) {
-        const config: MarkdownConfig[] =
-            this.generateMarkdownConfigDetailsByModule(m);
+        const config: MarkdownConfig[] = generateMarkdownConfigDetailsByModule(
+            m,
+            this.templateConfig
+        );
         config.forEach((s) => {
             this.generateMarkdownFiles(
                 outputPath,
@@ -306,7 +254,9 @@ export class MarkdownGenerator {
                         directory,
                         `overview-${module.overviewDetails++}.md`,
                         // match the expected object structure for template
-                        this.overviewTemplate({ text: comment.description })
+                        this.templateConfig.overviewTemplate({
+                            text: comment.description
+                        })
                     );
                 }
 
@@ -322,7 +272,7 @@ export class MarkdownGenerator {
                     FileUtil.write(
                         directory,
                         `overview-${module.overviewDetails++}.md`,
-                        this.overviewTemplate({ text: t.text })
+                        this.templateConfig.overviewTemplate({ text: t.text })
                     );
                 });
 
@@ -383,7 +333,7 @@ export class MarkdownGenerator {
                     FileUtil.write(
                         directory,
                         `example-${t}-${module.usageNotes++}.md`,
-                        this.overviewTemplate({
+                        this.templateConfig.overviewTemplate({
                             text: text
                         })
                     );
@@ -448,86 +398,4 @@ export class MarkdownGenerator {
     }
 
     // console.log(m.pages.map((p) => p.name));
-    private generateMarkdownConfigDetailsByModule(
-        m: ModuleParser
-    ): MarkdownConfig[] {
-        return [
-            {
-                modelType: ClassParser,
-                parsers: m.components,
-                symbol: 'components',
-                template: this.componentTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.converters,
-                symbol: 'converters',
-                template: this.classTemplate
-            },
-            {
-                modelType: FunctionParser,
-                parsers: m.decorators,
-                symbol: 'decorators',
-                template: this.decoratorTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.directives,
-                symbol: 'directives',
-                template: this.directiveTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.elements,
-                subDirectory: 'elements',
-                symbol: 'elements',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.enums,
-                symbol: 'enums',
-                template: this.classTemplate
-            },
-            {
-                modelType: FunctionParser,
-                parsers: m.fixtures,
-                subDirectory: 'fixtures',
-                symbol: 'fixtures',
-                template: this.classTemplate
-            },
-            {
-                modelType: InterfaceParser,
-                parsers: m.interfaces,
-                symbol: 'interfaces',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.models,
-                subDirectory: m.name === 'TestingModule' ? 'models' : '',
-                symbol: 'models',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.mocks,
-                subDirectory: 'mocks',
-                symbol: 'mocks',
-                template: this.classTemplate
-            },
-            {
-                modelType: ClassParser,
-                parsers: m.services,
-                symbol: 'services',
-                template: this.classTemplate
-            },
-            {
-                modelType: TypeAliasParser,
-                parsers: m.typeAliases,
-                symbol: 'typeAliases',
-                template: this.componentTemplate
-            }
-        ];
-    }
 }
