@@ -37,10 +37,6 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
-                                path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
                                 path: '',
                                 pathMatch: 'full',
                                 redirectTo: 'readme'
@@ -74,10 +70,6 @@ const routes: Routes = [
                                 component: TabbedDocumentTabComponent
                             },
                             {
-                                path: 'examples',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
                                 path: '',
                                 pathMatch: 'full',
                                 redirectTo: 'readme'
@@ -108,10 +100,6 @@ const routes: Routes = [
                             },
                             {
                                 path: 'api',
-                                component: TabbedDocumentTabComponent
-                            },
-                            {
-                                path: 'examples',
                                 component: TabbedDocumentTabComponent
                             },
                             {

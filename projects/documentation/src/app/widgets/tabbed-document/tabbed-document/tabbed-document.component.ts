@@ -14,8 +14,7 @@ interface Link {
 export class TabbedDocumentComponent implements OnInit {
     links: Link[] = [
         { display: 'Overview', link: ['overview'] },
-        { display: 'API', link: ['api'] },
-        { display: 'Examples', link: ['examples'] }
+        { display: 'API', link: ['api'] }
     ];
     activeLink: Link = this.links[0];
 
@@ -42,6 +41,16 @@ export class TabbedDocumentComponent implements OnInit {
 
                 // and update active link
                 this.activeLink = this.links[0];
+            }
+
+            if (
+                !this.links.find((it) => it.display === 'Examples') &&
+                !url.includes('json')
+            ) {
+                this.links = [
+                    ...this.links,
+                    { display: 'Examples', link: ['examples'] }
+                ];
             }
 
             this.initActiveLink();

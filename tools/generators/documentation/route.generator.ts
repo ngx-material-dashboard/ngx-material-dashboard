@@ -110,7 +110,7 @@ export class RouteGenerator {
         let defaultRoutes: any;
         if (['base-json', 'json', 'json-api'].includes(p.name)) {
             defaultRoutes = this.createRoutesFromUrls(
-                ['readme', 'overview', 'api', 'examples'],
+                ['readme', 'overview', 'api'],
                 'readme'
             );
         } else {
