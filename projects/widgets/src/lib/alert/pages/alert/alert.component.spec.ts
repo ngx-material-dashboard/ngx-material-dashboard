@@ -1,6 +1,12 @@
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import {
+    ComponentFixture,
+    fakeAsync,
+    inject,
+    TestBed,
+    tick
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PageElement } from '@ngx-material-dashboard/testing';
@@ -65,7 +71,7 @@ describe('AlertComponent', () => {
         fixture.detectChanges();
 
         // when: more time than auto close timeout passes
-        tick(5000); 
+        tick(5000);
         fixture.detectChanges();
 
         // then: the overlay should be destroyed and the alert should be removed
