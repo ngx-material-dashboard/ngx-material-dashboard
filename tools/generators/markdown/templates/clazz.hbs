@@ -1,9 +1,5 @@
 {{! render name of class as header }}
-## {{ name }}
-
-{{#if module}}
-`import {{curlyBracket true}}{{name}}{{curlyBracket false}} from '@ngx-material-dashboard/{{module.displayName}}';`
-{{/if}}
+### {{ name }}
 
 {{! render table of properties if class has them }}
 {{#if properties }}

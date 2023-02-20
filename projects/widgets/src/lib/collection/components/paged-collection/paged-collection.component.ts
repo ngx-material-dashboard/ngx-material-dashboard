@@ -39,11 +39,11 @@ import { CollectionComponent } from '../collection/collection.component';
  * [PagedList](/widgets/components/paged-list),
  * and [PagedTable](/widgets/components/paged-table) at the included links.
  *
- * ## Features
+ * #### Features
  *
  * The `PagedCollection` provides paging capabilities for collections.
  *
- * ### Paginator
+ * ##### Paginator
  *
  * The `paginator$` is a ViewChild property defined for the `PagedCollection`,
  * and is treated as an internal value specifically for this component. The

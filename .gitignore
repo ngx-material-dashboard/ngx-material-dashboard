@@ -8,6 +8,8 @@
 docs.json
 # generated api markdown files
 **/docs/**/api.md
+**/docs/**/api*.md
+**/docs/**/example-*.md
 **/docs/**/overview-*.md
 **/docs/**/usage-notes*.md
 # Only exists if Bazel was run

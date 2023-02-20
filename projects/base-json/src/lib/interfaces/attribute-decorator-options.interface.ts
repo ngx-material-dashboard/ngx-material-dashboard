@@ -11,7 +11,7 @@ import { PropertyConverter } from './property-converter.interface';
  * See [Attribute](/base-json/decorators/attribute) for more details on using
  * this interface.
  *
- * ## Converter
+ * ### Converter
  *
  * The `converter` property defines how to convert your property between a JSON
  * literal and whatever object type you want to convert to/from. The property
@@ -20,7 +20,7 @@ import { PropertyConverter } from './property-converter.interface';
  * [PropertyConverter](/base-json/interfaces/property-converter) docs for more
  * details.
  *
- * ## Serialized Name
+ * ### Serialized Name
  *
  * The `serializedName` property defines a custom name to use for the property
  * key in JSON. This is really meant for converting property keys that do not

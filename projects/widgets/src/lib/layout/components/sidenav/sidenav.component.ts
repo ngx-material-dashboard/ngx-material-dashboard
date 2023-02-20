@@ -20,7 +20,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * own layout.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <div fxLayout="column">
  *     <mat-sidenav-container class="content" fxLayout="row">
@@ -52,13 +52,13 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * ```
  *
  * @overviewDetails
- * ## Features
+ * #### Features
  *
  * The `Sidenav` has several features including the ability to render nested
  * `SidenavItems`, icons with each `SidenavItem`, and custom `tooltips` to
  * render when the user hovers over a `SidenavItem`.
  *
- * ### Nested SidenavItems
+ * ##### Nested SidenavItems
  *
  * The `Sidenav` allows you to define basic or nested `SidenavItems`. A basic
  * `Sidenav` item should have a route defined, while a nested `SidenavItem`
@@ -67,13 +67,13 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * `children`, meaning you can only define a parent, child, and grandchildren
  * `SidenavItems`. The grandchildren `SidenavItems` should all define a `route`.
  *
- * ### Icons
+ * ##### Icons
  *
  * You may define a fontawesome icon for each of the items rendered in the
  * `Sidenav`. The icons will be rendered to the left of the text you include
  * for the `SidenavItem`.
  *
- * ### Tooltip
+ * ##### Tooltip
  *
  * You may define text to render as a `tooltip` for when the user hovers over
  * a `SidenavItem`. The text displayed with the `SidenavItem` itself should be

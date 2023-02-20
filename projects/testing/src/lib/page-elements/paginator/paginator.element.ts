@@ -6,7 +6,8 @@ import { PageElement } from '../page/page.element';
  * testing components with a paginator.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
+ * ```typescript
  * import {Component} from '@angular/core';
  * import {TestBed} from '@angular/core/testing';
  * import {MatButtonModule} from '@angular/material/button';
@@ -84,17 +85,17 @@ import { PageElement } from '../page/page.element';
  * });
  * ```
  *
- * ## Features
+ * #### Features
  *
  * The `PaginatorElement` provides the ability to read the range label (i.e.
  * the text that reads "x - y of z" in the paginator), and click next and
  * previous buttons.
  *
- * ### Range Label
+ * ##### Range Label
  *
  * The `paginatorRange` getter returns an `HTMLElement` with the range label.
  *
- * ### Next/Previous
+ * ##### Next/Previous
  *
  * The `clickNextButton` and `clickPreviousButton` methods click the next and
  * previous buttons respectively. Both of these methods are asynchronous, so

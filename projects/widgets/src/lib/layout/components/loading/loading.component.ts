@@ -14,7 +14,7 @@ import { LoadingService } from '../../services/loading.service';
  * the [LoadingService](/widgets/services/loading) documentation for more info.
  *
  *  @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-loading></ngx-material-dashboard-default-loading>
  * <!-- any additional tags -->

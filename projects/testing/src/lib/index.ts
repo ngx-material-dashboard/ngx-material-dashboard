@@ -1,6 +1,6 @@
 export * from './fixtures/task.fixture';
 
-export * from './mocks/datastore.service';
+export * from './mocks/datastore-service.mock';
 
 export * from './models/task.model';
 
@@ -22,3 +22,5 @@ export * from './page-elements/toolbar-header/toolbar-header.element';
 export * from './page-elements/toolbar/toolbar.element';
 
 export * from './page-objects/default-layout.page';
+
+export * from './testing.module';

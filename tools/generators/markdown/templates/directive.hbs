@@ -1,11 +1,9 @@
 {{! render name of component as header }}
-# API Reference for {{ name }}
+### {{ name }}
 
-`import {{curlyBracket true}}{{ngModule.name}}{{curlyBracket false}} from '@ngx-material-dashboard/widgets';`
-
-Selector: [{{selector}}]
-
-## {{name}}
+{{#if decorator.selector}}
+Selector: [{{decorator.selector}}]
+{{/if}}
 <hr/>
 
 {{! render shortText if component has comment }}

@@ -20,7 +20,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * info about the `ValidationMessages` type.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
  *     <mat-form-field fxFlex>

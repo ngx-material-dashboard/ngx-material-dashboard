@@ -1,4 +1,5 @@
-### Properties
+#### Properties
+
 <table>
     <thead>
         <tr>
@@ -7,21 +8,17 @@
         </tr>
     </thead>
     <tbody>
-        {{#each sortedProperties}}
-            <tr>
-                <td>
-                    <p>
-                        {{#if this.propertyDecoratorDisplay}}
-                            {{this.propertyDecoratorDisplay}} {{this.name}}: {{this.displayType}}
-                        {{else}}
-                            {{this.name}}: {{this.displayType}}
-                        {{/if}}
-                    </p>
-                </td>
-                <td>
-                    <p>{{this.description}}</p>
-                </td>
-            </tr>
-        {{/each}}
+    {{#each properties}}
+        <tr>
+            <td>
+                <p>
+                    {{this.name}}: {{this.type}}
+                </p>
+            </td>
+            <td>
+                <p>{{this.comment.description}}</p>
+            </td>
+        </tr>
+    {{/each}}
     </tbody>
 </table>

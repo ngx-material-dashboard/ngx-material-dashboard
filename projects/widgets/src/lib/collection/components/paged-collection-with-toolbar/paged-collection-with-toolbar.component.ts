@@ -40,7 +40,7 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
  * `IconButtonWithPaginator` or the `RaisedButtonToolbar` respectively).
  *
  * @overviewDetails
- * ## Features
+ * #### Features
  *
  * A toolbar associated with a paged collection may have buttons that are
  * enabled/disabled based on selections in the collection. As such this

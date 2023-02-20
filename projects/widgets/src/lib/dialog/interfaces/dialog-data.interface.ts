@@ -3,7 +3,7 @@
  * allows title and text content to be set dynamically in `component` where the
  * dialog is called from.
  *
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {MatDialog} from '@angular/material/dialog';

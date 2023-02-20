@@ -18,7 +18,7 @@ import { ModelConfig } from '../interfaces/model-config.interface';
  * ```
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {JsonApiNestedModel} from '@ngx-material-dashboard/base-json';
  *

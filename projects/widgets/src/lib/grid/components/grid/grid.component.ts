@@ -26,7 +26,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
  * the data on.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-grid [data]="data" [fields]="fields">
  *     <ng-template #model let-model="model">

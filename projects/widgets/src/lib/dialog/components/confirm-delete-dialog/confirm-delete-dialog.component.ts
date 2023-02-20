@@ -11,7 +11,7 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
  * the user wants to delete.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Component} from '@angular/core';
  * import {MatDialog} from '@angular/material/dialog';

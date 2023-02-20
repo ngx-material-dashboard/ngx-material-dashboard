@@ -1,4 +1,5 @@
 import { Comment } from './comment.model';
+import { ImplementationOf } from './implementationOf.model';
 import { Module } from './module.model';
 import { OverviewDetail } from './overview-detail.model';
 import { Parameter } from './parameter.model';
@@ -25,6 +26,7 @@ export class TypedocBase {
     decorators?: any[];
     description?: string;
     displayName!: string;
+    implementationOf?: ImplementationOf;
     module?: Module;
     parameters: Parameter[] = [];
     services: TypedocBase[] = [];
@@ -56,6 +58,10 @@ export class TypedocBase {
             data.sources.forEach((source: Partial<Source>) => {
                 this.sources.push(new Source(source));
             });
+        }
+
+        if (data.implementationOf) {
+            this.implementationOf = new ImplementationOf(data.implementationOf);
         }
     }
 

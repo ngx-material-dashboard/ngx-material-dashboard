@@ -17,7 +17,7 @@ import { AttributeMetadata } from '../constants/symbols';
  * @returns A custom property decorator for JSON attributes.
  *
  * @overviewDetails
- * ## Basic Usage Examples
+ * #### Basic Usage Examples
  * ```typescript
  * //Array of simple typed values (string, number....)
  * @NestedAttribute({converter: new JsonModelConverter(Array,{hasMany:true})}

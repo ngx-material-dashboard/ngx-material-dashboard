@@ -1,10 +1,8 @@
 {{! render name of component as header }}
-## {{ name }}
+### {{ name }}
 
-`import {{curlyBracket true}}{{ngModule.name}}{{curlyBracket false}} from '@ngx-material-dashboard/widgets';`
-
-{{#if selector}}
-Selector: &lt;{{selector}}&gt;
+{{#if decorator.selector}}
+Selector: &lt;{{decorator.selector}}&gt;
 {{/if}}
 <hr/>
 
@@ -13,6 +11,7 @@ Selector: &lt;{{selector}}&gt;
 {{> properties this }}
 {{/if}}
 
+{{! render methods if component has them }}
 {{#if methods }}
 {{> methods this }}
 {{/if}}

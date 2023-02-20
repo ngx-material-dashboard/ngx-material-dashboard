@@ -1,41 +1,8 @@
 {{! render name of decorator as header }}
-## {{ name }} Decorator
+### {{ name }} Decorator
 
-{{#if module}}
-`import {{curlyBracket true}}{{name}}{{curlyBracket false}} from '@ngx-material-dashboard/{{module.displayName}}';`
+{{#each signatures}}
+{{#if this.parameters}}
+{{> parameters this }}
 {{/if}}
-
-<table class="decorator-name">
-    {{#if parameters}}
-    <thead class="decorator-parameters-header">
-        <tr class="decorator-parameters-header-row">
-            <th class="decorator-parameters-header-cell" colspan="2">Parameters</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each parameters}}
-            <tr class="decorator-parameter-row">
-                <td class="decorator-parameter-name-cell">
-                    <p>{{this.name}}: {{this.displayType}}</p>
-                </td>
-                <td class="decorator-parameter-description-cell">
-                    <p>{{this.description}}</p>
-                </td>
-            </tr>
-        {{/each}}
-    </tbody>
-    {{/if}}
-    {{#if returns}}
-    <thead class="method-returns-header">
-        <tr class="method-returns-header-row">
-            <th class="method-returns-header-cell" colspan="2">Returns</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="method-returns-row">
-            <td class="method-returns-type-cell">{{returnType}}</td>
-            <td class="method-returns-description-cell">{{returns}}</td>
-        </tr>
-    </tbody>
-    {{/if}}
-</table>
+{{/each}}

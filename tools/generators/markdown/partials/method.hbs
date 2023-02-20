@@ -8,6 +8,8 @@
             <th class="method-name-cell" colspan="2">{{name}}</th>
         </tr>
     </thead>
+{{#each signatures}}
+    {{#with this.comment}}
     {{#if description}}
     <tbody>
         <tr class="method-description-row">
@@ -15,6 +17,7 @@
         </tr>
     </tbody>
     {{/if}}
+    {{/with}}
     {{#if parameters}}
     <thead class="method-parameters-header">
         <tr class="method-parameters-header-row">
@@ -22,15 +25,20 @@
         </tr>
     </thead>
     <tbody>
-        {{#each parameters}}
-            <tr class="method-parameter-row">
-                <td class="method-parameter-name-cell"><p>{{this.name}}: {{this.displayType}}</p></td>
-                <td class="method-parameter-description-cell"><p>{{this.description}}</p></td>
-            </tr>
+        {{#each this.parameters}}
+        <tr class="method-parameter-row">
+            <td class="method-parameter-name-cell"><p>{{this.name}}: {{this.type}}</p></td>
+            {{#with this.comment}}
+            <td class="method-parameter-description-cell"><p>{{this.description}}</p></td>
+            {{/with}}
+        </tr>
         {{/each}}
     </tbody>
     {{/if}}
-    {{#if returns}}
+    {{!-- {{#with this.comment}}
+    {{#each this.blockTags}}
+    {{#if this.tag == '@returns' }}
+    {{#each this.content}}
     <thead class="method-returns-header">
         <tr class="method-returns-header-row">
             <th class="method-returns-header-cell" colspan="2">Returns</th>
@@ -38,9 +46,13 @@
     </thead>
     <tbody>
         <tr class="method-returns-row">
-            <td class="method-returns-type-cell">{{this.returnType}}</td>
-            <td class="method-returns-description-cell">{{this.returns}}</td>
+            <td class="method-returns-type-cell">{{this.kind}}</td>
+            <td class="method-returns-description-cell">{{this.text}}</td>
         </tr>
     </tbody>
+    {{#each}}
     {{/if}}
+    {{/each}}
+    {{/with}} --}}
+{{/each}}
 </table>

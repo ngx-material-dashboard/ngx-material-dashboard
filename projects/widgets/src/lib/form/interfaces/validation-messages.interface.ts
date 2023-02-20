@@ -8,7 +8,7 @@ import { ValidationMessage } from './validation-message.interface';
  * [FieldError](/widgets/components/field-error) for more details on where you
  * can use objects of this type.
  *
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {ValidationMessages} from '@ngx-material-dashboard/widgets';
  *

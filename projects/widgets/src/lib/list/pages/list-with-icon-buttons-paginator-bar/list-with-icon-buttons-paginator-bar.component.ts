@@ -12,7 +12,7 @@ import { ListComponent } from '../../components/list/list.component';
  * data list.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-list-with-icon-buttons-paginator-bar
  *     [fields]="fields"

@@ -12,7 +12,7 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
  * data list, and the `MatPaginator` is rendered below the data list.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-paged-list-with-raised-buttons-bar
  *     [fields]="fields"

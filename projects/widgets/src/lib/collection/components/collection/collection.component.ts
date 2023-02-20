@@ -62,7 +62,7 @@ graph TD
  * for the [Grid](/widgets/components/grid), [List](/widgets/components/list),
  * and [Table](/widgets/components/table) at the included links.
  *
- * ## Features
+ * #### Features
  *
  * The `Collection` handles dataSource management, including connecting to the
  * data source, disconnecting when the component is destoryed, as well as
@@ -72,7 +72,7 @@ graph TD
  * components to handle when users click buttons assoicated with each model in
  * the collection.
  *
- * ### DataSource Management
+ * ##### DataSource Management
  *
  * While you may initialize your own dataSource and pass it in to the
  * `Collection`, you can also pass in an array which will be initialized as a
@@ -83,7 +83,7 @@ graph TD
  * to use your own dataSource, then it must extend the cdk collections
  * `Datasource` and implement connect and disconnect functions.
  *
- * ### Sort
+ * ##### Sort
  *
  * The `sort$` property is defined as a `MatSort` or a custom `SorterComponent`
  * defined in the `Toolbar` module, which just extends `MatSort`. If you intend
@@ -92,14 +92,14 @@ graph TD
  * The `sort` getter is defined to be a more `public` facing property, and use
  * when initializing the sort for the dataSource.
  *
- * ### Selection Model
+ * ##### Selection Model
  *
  * The component allows you to control whether you can select 1 or more models
  * in the collection using the `multiple` input property. This defaults to true
  * meaning the default behaviour is to allow more than 1 model to be selected
  * in the collection.
  *
- * ### Collection Button Events
+ * ##### Collection Button Events
  *
  * The component includes a `buttonClick` output that you can use in your parent
  * components to listed for and handle click events for buttons in the

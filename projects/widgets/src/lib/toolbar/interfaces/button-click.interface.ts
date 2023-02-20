@@ -15,7 +15,7 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * multi-select.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-paged-table-with-toolbar [buttons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
  *   <!-- column templates -->

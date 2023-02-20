@@ -13,7 +13,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * @returns A custom property decorator for JSON attributes.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
  *
@@ -34,7 +34,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * be converted should either be a primitive, date, or other data model
  * defined in your client side code.
  *
- * ## AttributeDecoratorOptions Usage Example
+ * ### AttributeDecoratorOptions Usage Example
  * ```typescript
  * import {Attribute, JsonModel} from '@ngx-material-dashboard/base-json';
  * import {CustomDateConverter} from './custom-date-converter';

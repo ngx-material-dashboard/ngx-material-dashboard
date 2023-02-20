@@ -1,0 +1,24 @@
+#### Parameters
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each parameters}}
+        <tr>
+            <td>
+                <p>
+                    {{this.name}}: {{this.type}}
+                </p>
+            </td>
+            <td>
+                <p>{{this.comment.description}}</p>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

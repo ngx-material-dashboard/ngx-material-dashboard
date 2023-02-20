@@ -8,7 +8,7 @@ import { Directive, HostListener } from '@angular/core';
  * from propagating to parent elements.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * <div [matMenuTriggerFor]="menu">
  *     <span>Drop Down</span>

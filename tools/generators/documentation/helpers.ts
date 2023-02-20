@@ -47,8 +47,10 @@ export const MODULE_TYPE_DIRECTORY_MAP: { [moduleType: string]: string } = {
 
 export function convertUrlToRoute(url: string) {
     const route = url.split('/');
-    route[0] = `./${route[0]}`;
-    return route.filter((it: string) => it !== 'api' && it !== 'overview');
+    return route.filter(
+        (it: string) =>
+            it !== 'api' && it !== 'overview' && it !== 'readme' && it !== ''
+    );
 }
 
 export function convertSelectorToText(selector: string) {
@@ -80,15 +82,19 @@ export function filterModuleTypeUrls(
     });
 }
 
-export function reformatText(text: string): string {
-    let reformattedText = '';
-    text = text
+export function removeSymbol(text: string): string {
+    return text
         .replace(' ', '')
         .replace('Component', '')
         .replace('Directive', '')
         .replace('Element', '')
         .replace('Module', '')
         .replace('Service', '');
+}
+
+export function reformatText(text: string): string {
+    let reformattedText = '';
+    text = removeSymbol(text);
     if (text !== 'Dialog') {
         // only remove Dialog if it is part of text (not all of it); we have
         // DialogModule which should render as "Dialog", but also components

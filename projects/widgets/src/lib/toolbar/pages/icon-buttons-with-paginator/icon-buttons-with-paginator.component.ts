@@ -24,13 +24,13 @@ import { SorterComponent } from '../sorter/sorter.component';
  * checkbox, and the paginator is aligned to the right side of the page, after
  * the optional `Sorter`.
  *
- * ## Features
+ * #### Features
  *
  * You may optional exclude a select checkbox and `Sorter`. These default to
  * automatically be included. Simply set the corresponding `display` input
  * value to `false` if you want to exclude either feature.
  *
- * ### Optional Select Checkbox
+ * ##### Optional Select Checkbox
  *
  * The optional select checkbox is meant to act as a master toggle for
  * collections, similar to the master toggle rendered in the header row above
@@ -47,7 +47,7 @@ import { SorterComponent } from '../sorter/sorter.component';
  * To handle when the user (de)selects the checkbox you can use the
  * `masterToggle` output event emitter in the parent component.
  *
- * ### Sorter
+ * ##### Sorter
  *
  * The optional `Sorter` is rendered before the `MatPaginator` and is meant
  * to sort contents of the collection. Like the masterToggle, this is optional

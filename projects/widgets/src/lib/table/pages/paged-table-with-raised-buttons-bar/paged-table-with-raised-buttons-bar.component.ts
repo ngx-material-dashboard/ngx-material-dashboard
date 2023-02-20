@@ -13,7 +13,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  * collection. The toolbar is rendered above the data paged-table.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```html
  * <ngx-material-dashboard-paged-table-with-icon-buttons-paginator-bar
  *     [fields]="fields"

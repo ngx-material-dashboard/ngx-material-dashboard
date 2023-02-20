@@ -26,7 +26,7 @@ import { SelectElement } from '../select/select.element';
  * > should result in failures in your tests.
  *
  * @usageNotes
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * // other imports...
  * import { PagedTableElement, TEST_DATA } from '@ngx-material-dashboard/testing'
@@ -95,37 +95,37 @@ import { SelectElement } from '../select/select.element';
  * ```
  *
  * @overviewDetails
- * ## Features
+ * #### Features
  *
  * `CollectionElements` have multiple features built in, including the ability
  * to click buttons in any element of the collection, check if all items are
  * selected, check if a single item is selected, select all items, and
  * select individual items.
  *
- * ### Click Collection Button
+ * ##### Click Collection Button
  *
  * The `clickItemButton` method clicks the button with the given text in the
  * given item and column. If your actions column is defined last you can omit
  * the column as this defaults to the last column in the collection.
  *
- * ### All Rows Selected
+ * ##### All Rows Selected
  *
  * The `isAllSelected` method returns true if all rows in the collection are
  * selected. Otherwise returns false.
  *
- * ### Is Item Selected
+ * ##### Is Item Selected
  *
  * The `isItemSelected` method returns true if the item at the given index is
  * selected.
  *
- * ### Select All Rows
+ * ##### Select All Rows
  *
  * The `selectAll` function clicks the checkbox in the header which should
  * select all rows in the collection (or deselect all rows if all selected). This
  * method is asynchronous, so you should use async/await when calling this
  * in your code.
  *
- * ### Select Item
+ * ##### Select Item
  *
  * The `selectItem` function clicks the checkbox at the given item. This method
  * is asynchronouse, sou you should use async/await when calling this in your

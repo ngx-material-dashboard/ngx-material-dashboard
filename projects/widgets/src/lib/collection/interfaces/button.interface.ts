@@ -6,7 +6,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * contain any text.
  *
  * @overviewDetails
- * ## Basic Usage Example
+ * #### Basic Usage Example
  *
  * ```typescript
  * import {Button} from '@ngx-material-dashboard/button.interface';

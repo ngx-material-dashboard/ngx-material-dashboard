@@ -25,7 +25,7 @@ import { MatSort, Sort, SortDirection } from '@angular/material/sort';
  * number of 25 results. The other function is `refresh()` which just calls
  * `load` using the last parameter values used.
  *
- * ## Basic Usage Example
+ * #### Basic Usage Example
  * ```typescript
  * class RemoteDataSourceUsageExample<T extends JsonModel> {
  *

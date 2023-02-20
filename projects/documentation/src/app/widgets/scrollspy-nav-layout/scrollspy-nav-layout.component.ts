@@ -17,6 +17,22 @@ export class ScrollspyNavLayoutComponent {
 
     showScrollUpButton = false;
 
+    get contentWidth(): string {
+        if (this.headings && this.headings.length > 0) {
+            return '230';
+        } else {
+            return '30';
+        }
+    }
+
+    get scrollspyNavWidth(): string {
+        if (this.headings && this.headings.length > 0) {
+            return '220';
+        } else {
+            return '20';
+        }
+    }
+
     @HostListener('window:scroll')
     onWindowScroll(): void {
         this.showScrollUpButton = Math.ceil(window.pageYOffset) > 10;
