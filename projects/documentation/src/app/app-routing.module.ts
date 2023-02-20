@@ -4,7 +4,442 @@ import { LayoutComponent } from './widgets/layout/layout/layout.component';
 import { TabbedDocumentTabComponent } from './widgets/tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
 import { TabbedDocumentComponent } from './widgets/tabbed-document/tabbed-document/tabbed-document.component';
 
-const routes: Routes = [{path:'',pathMatch:'full',loadChildren:() => import('./routed-modules/home/home.module').then((m) => m.HomeModule)}, {path:'',component:LayoutComponent,children:[{path:'base-json',children:[{path:'',component:TabbedDocumentComponent,children:[{path:'readme',component:TabbedDocumentTabComponent},{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'readme'}]},{path:'',pathMatch:'full',component:TabbedDocumentTabComponent}]},{path:'json-api',children:[{path:'',component:TabbedDocumentComponent,children:[{path:'readme',component:TabbedDocumentTabComponent},{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'readme'}]},{path:'',pathMatch:'full',component:TabbedDocumentTabComponent}]},{path:'json',children:[{path:'',component:TabbedDocumentComponent,children:[{path:'readme',component:TabbedDocumentTabComponent},{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'readme'}]},{path:'',pathMatch:'full',component:TabbedDocumentTabComponent}]},{path:'testing',children:[{path:'elements',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'fixtures',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'mocks',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'models',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'',pathMatch:'full',component:TabbedDocumentTabComponent}]},{path:'widgets',children:[{path:'alert',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'collection',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'dialog',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'form',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'grid',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'layout',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'list',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'table',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'toolbar',component:TabbedDocumentComponent,children:[{path:'overview',component:TabbedDocumentTabComponent},{path:'api',component:TabbedDocumentTabComponent},{path:'examples',component:TabbedDocumentTabComponent},{path:'',pathMatch:'full','redirectTo':'overview'}]},{path:'',pathMatch:'full',component:TabbedDocumentTabComponent}]},{path:'json-overview',component:TabbedDocumentTabComponent},{path:'overview',component:TabbedDocumentTabComponent}]}];
+const routes: Routes = [
+    {
+        path: '',
+        pathMatch: 'full',
+        loadChildren: () =>
+            import('./routed-modules/home/home.module').then(
+                (m) => m.HomeModule
+            )
+    },
+    {
+        path: '',
+        component: LayoutComponent,
+        children: [
+            {
+                path: 'base-json',
+                children: [
+                    {
+                        path: '',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'readme',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'readme'
+                            }
+                        ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
+                ]
+            },
+            {
+                path: 'json-api',
+                children: [
+                    {
+                        path: '',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'readme',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'readme'
+                            }
+                        ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
+                ]
+            },
+            {
+                path: 'json',
+                children: [
+                    {
+                        path: '',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'readme',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'readme'
+                            }
+                        ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
+                ]
+            },
+            {
+                path: 'testing',
+                children: [
+                    {
+                        path: 'elements',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'fixtures',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'mocks',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'models',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
+                ]
+            },
+            {
+                path: 'widgets',
+                children: [
+                    {
+                        path: 'alert',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'collection',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'dialog',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'form',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'grid',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'layout',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'list',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'table',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'toolbar',
+                        component: TabbedDocumentComponent,
+                        children: [
+                            {
+                                path: 'overview',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'api',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: 'examples',
+                                component: TabbedDocumentTabComponent
+                            },
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            }
+                        ]
+                    },
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        component: TabbedDocumentTabComponent
+                    }
+                ]
+            },
+            { path: 'json-overview', component: TabbedDocumentTabComponent },
+            { path: 'overview', component: TabbedDocumentTabComponent }
+        ]
+    }
+];
 
 @NgModule({
     imports: [

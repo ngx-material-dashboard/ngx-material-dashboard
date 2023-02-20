@@ -221,7 +221,7 @@ export class MarkdownGenerator {
                         this.templateConfig.overviewTemplate({
                             text: comment.description
                         })
-                    )
+                    );
                 }
 
                 comment.overviewDetails.forEach((t) => {
@@ -233,7 +233,7 @@ export class MarkdownGenerator {
                         url,
                         module.overviewDetails++,
                         this.templateConfig.overviewTemplate({ text: t.text })
-                    )
+                    );
                 });
 
                 // add usageNote/example details
@@ -275,7 +275,7 @@ export class MarkdownGenerator {
                             url,
                             module.usageNotes++,
                             headers[existingIndex]
-                        )
+                        );
                         module.urlFilesMap[`${url}/examples`].push(paths);
                         paths = [];
                     }
@@ -297,9 +297,10 @@ export class MarkdownGenerator {
                         module,
                         'examples',
                         'example',
-                        url, module.usageNotes++,
+                        url,
+                        module.usageNotes++,
                         headers[headers.length - 1]
-                    )
+                    );
                     module.urlFilesMap[`${url}/examples`].push(paths);
                 }
             }

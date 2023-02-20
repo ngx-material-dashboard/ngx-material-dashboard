@@ -9,7 +9,52 @@ import { MatSidenavContainer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { SidenavItem } from '@ngx-material-dashboard/widgets';
 
-const routeSidenavItems: any = {"base-json":[{"route":["base-json"],"selector":"base-json","text":"base-json"},{"route":["json-api"],"selector":"json-api","text":"json-api"},{"route":["json"],"selector":"json","text":"json"}],"json-api":[{"route":["base-json"],"selector":"base-json","text":"base-json"},{"route":["json-api"],"selector":"json-api","text":"json-api"},{"route":["json"],"selector":"json","text":"json"}],"json":[{"route":["base-json"],"selector":"base-json","text":"base-json"},{"route":["json-api"],"selector":"json-api","text":"json-api"},{"route":["json"],"selector":"json","text":"json"}],"testing":[{"route":["testing","elements"],"selector":"elements","text":"elements"},{"route":["testing","fixtures"],"selector":"fixtures","text":"fixtures"},{"route":["testing","mocks"],"selector":"mocks","text":"mocks"},{"route":["testing","models"],"selector":"models","text":"models"}],"widgets":[{"route":["widgets","alert"],"selector":"alert","text":"Alert"},{"route":["widgets","collection"],"selector":"collection","text":"Collection"},{"route":["widgets","dialog"],"selector":"dialog","text":"Dialog"},{"route":["widgets","form"],"selector":"form","text":"Form"},{"route":["widgets","grid"],"selector":"grid","text":"Grid"},{"route":["widgets","layout"],"selector":"layout","text":"Layout"},{"route":["widgets","list"],"selector":"list","text":"List"},{"route":["widgets","table"],"selector":"table","text":"Table"},{"route":["widgets","toolbar"],"selector":"toolbar","text":"Toolbar"}]};
+const routeSidenavItems: any = {
+    'base-json': [
+        { route: ['base-json'], selector: 'base-json', text: 'base-json' },
+        { route: ['json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['json'], selector: 'json', text: 'json' }
+    ],
+    'json-api': [
+        { route: ['base-json'], selector: 'base-json', text: 'base-json' },
+        { route: ['json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['json'], selector: 'json', text: 'json' }
+    ],
+    json: [
+        { route: ['base-json'], selector: 'base-json', text: 'base-json' },
+        { route: ['json-api'], selector: 'json-api', text: 'json-api' },
+        { route: ['json'], selector: 'json', text: 'json' }
+    ],
+    testing: [
+        {
+            route: ['testing', 'elements'],
+            selector: 'elements',
+            text: 'elements'
+        },
+        {
+            route: ['testing', 'fixtures'],
+            selector: 'fixtures',
+            text: 'fixtures'
+        },
+        { route: ['testing', 'mocks'], selector: 'mocks', text: 'mocks' },
+        { route: ['testing', 'models'], selector: 'models', text: 'models' }
+    ],
+    widgets: [
+        { route: ['widgets', 'alert'], selector: 'alert', text: 'Alert' },
+        {
+            route: ['widgets', 'collection'],
+            selector: 'collection',
+            text: 'Collection'
+        },
+        { route: ['widgets', 'dialog'], selector: 'dialog', text: 'Dialog' },
+        { route: ['widgets', 'form'], selector: 'form', text: 'Form' },
+        { route: ['widgets', 'grid'], selector: 'grid', text: 'Grid' },
+        { route: ['widgets', 'layout'], selector: 'layout', text: 'Layout' },
+        { route: ['widgets', 'list'], selector: 'list', text: 'List' },
+        { route: ['widgets', 'table'], selector: 'table', text: 'Table' },
+        { route: ['widgets', 'toolbar'], selector: 'toolbar', text: 'Toolbar' }
+    ]
+};
 
 @Component({
     selector: 'app-layout',

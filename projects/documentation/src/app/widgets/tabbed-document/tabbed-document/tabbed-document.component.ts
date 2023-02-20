@@ -10,7 +10,33 @@ interface Links {
     [project: string]: Link[];
 }
 
-const tabs: Links = {"base-json":[{"display":"ReadMe","link":["readme"]},{"display":"Overview","link":["overview"]},{"display":"API","link":["api"]}],"json-api":[{"display":"ReadMe","link":["readme"]},{"display":"Overview","link":["overview"]},{"display":"API","link":["api"]}],"json":[{"display":"ReadMe","link":["readme"]},{"display":"Overview","link":["overview"]},{"display":"API","link":["api"]}],"testing":[{"display":"Overview","link":["overview"]},{"display":"API","link":["api"]},{"display":"Examples","link":["examples"]}],"widgets":[{"display":"Overview","link":["overview"]},{"display":"API","link":["api"]},{"display":"Examples","link":["examples"]}]};
+const tabs: Links = {
+    'base-json': [
+        { display: 'ReadMe', link: ['readme'] },
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] }
+    ],
+    'json-api': [
+        { display: 'ReadMe', link: ['readme'] },
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] }
+    ],
+    json: [
+        { display: 'ReadMe', link: ['readme'] },
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] }
+    ],
+    testing: [
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] },
+        { display: 'Examples', link: ['examples'] }
+    ],
+    widgets: [
+        { display: 'Overview', link: ['overview'] },
+        { display: 'API', link: ['api'] },
+        { display: 'Examples', link: ['examples'] }
+    ]
+};
 
 @Component({
     selector: 'app-tabbed-document',
