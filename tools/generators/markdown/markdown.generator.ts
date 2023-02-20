@@ -127,62 +127,34 @@ export class MarkdownGenerator {
             url = `${url}/${subDirectory}`;
         }
         if (parsers.length > 0) {
-            //
-            this.addToUrlFilesMap(
+            this.generateMarkdownFile(
+                directory,
                 module,
+                'api',
+                'api',
                 url,
-                directory,
-                'api',
-                'api',
-                module.apiFiles
-            );
-            FileUtil.write(
-                directory,
-                `api-${module.apiFiles++}.md`,
+                module.apiFiles++,
                 `## ${capitalizeFirstLetter(symbol)}`
             );
 
-            this.addToUrlFilesMap(
+            this.generateMarkdownFile(
+                directory,
                 module,
+                'overview',
+                'overview',
                 url,
-                directory,
-                'overview',
-                'overview',
-                module.overviewDetails
-            );
-            FileUtil.write(
-                directory,
-                `overview-${module.overviewDetails++}.md`,
+                module.overviewDetails++,
                 `## ${capitalizeFirstLetter(symbol)}`
             );
-
-            // this.addToUrlFilesMap(
-            //     module,
-            //     url,
-            //     directory,
-            //     'examples',
-            //     'example',
-            //     module.usageNotes
-            // );
-            // FileUtil.write(
-            //     directory,
-            //     `example-${module.usageNotes++}.md`,
-            //     `## ${capitalizeFirstLetter(symbol)}`
-            // );
         }
         parsers.forEach((p: Parser) => {
-            this.addToUrlFilesMap(
+            this.generateMarkdownFile(
+                directory,
                 module,
+                'api',
+                'api',
                 url,
-                directory,
-                'api',
-                'api',
-                module.apiFiles
-            );
-            // generate API markdown
-            FileUtil.write(
-                directory,
-                `api-${module.apiFiles++}.md`,
+                module.apiFiles++,
                 template(p)
             );
 
@@ -227,68 +199,52 @@ export class MarkdownGenerator {
                         comment = p.comment;
                     }
                 }
-                this.addToUrlFilesMap(
+                this.generateMarkdownFile(
+                    directory,
                     module,
+                    'overview',
+                    'overview',
                     url,
-                    directory,
-                    'overview',
-                    'overview',
-                    module.overviewDetails
-                );
-                FileUtil.write(
-                    directory,
-                    `overview-${module.overviewDetails++}.md`,
+                    module.overviewDetails++,
                     `### ${p.name}`
                 );
 
                 if (comment.description) {
-                    this.addToUrlFilesMap(
+                    this.generateMarkdownFile(
+                        directory,
                         module,
+                        'overview',
+                        'overview',
                         url,
-                        directory,
-                        'overview',
-                        'overview',
-                        module.overviewDetails
-                    );
-                    FileUtil.write(
-                        directory,
-                        `overview-${module.overviewDetails++}.md`,
+                        module.overviewDetails++,
                         // match the expected object structure for template
                         this.templateConfig.overviewTemplate({
                             text: comment.description
                         })
-                    );
+                    )
                 }
 
                 comment.overviewDetails.forEach((t) => {
-                    this.addToUrlFilesMap(
+                    this.generateMarkdownFile(
+                        directory,
                         module,
+                        'overview',
+                        'overview',
                         url,
-                        directory,
-                        'overview',
-                        'overview',
-                        module.overviewDetails
-                    );
-                    FileUtil.write(
-                        directory,
-                        `overview-${module.overviewDetails++}.md`,
+                        module.overviewDetails++,
                         this.templateConfig.overviewTemplate({ text: t.text })
-                    );
+                    )
                 });
 
                 // add usageNote/example details
                 if (comment.usageNotes.length > 0) {
-                    this.addToUrlFilesMap(
-                        module,
-                        url,
+                    this.generateMarkdownFile(
                         directory,
+                        module,
                         'examples',
                         'example',
-                        module.usageNotes
-                    );
-                    FileUtil.write(
-                        directory,
-                        `example-${module.usageNotes++}.md`,
+                        url,
+                        module.usageNotes++,
                         `### ${p.name}`
                     );
                 }
@@ -311,19 +267,15 @@ export class MarkdownGenerator {
                         // then add existing paths to urlFilesMap and re-initialize
                         // paths so we don't end up with more than 1 example in
                         // given set of tabbed results; I HATE that I have to do this...
-                        this.addToUrlFilesMap(
-                            module,
-                            url,
+                        this.generateMarkdownFile(
                             directory,
+                            module,
                             'examples',
                             'example',
-                            module.usageNotes
-                        );
-                        FileUtil.write(
-                            directory,
-                            `example-${module.usageNotes++}.md`,
-                            headers[existingIndex] // should correspond with existingIndex
-                        );
+                            url,
+                            module.usageNotes++,
+                            headers[existingIndex]
+                        )
                         module.urlFilesMap[`${url}/examples`].push(paths);
                         paths = [];
                     }
@@ -339,23 +291,32 @@ export class MarkdownGenerator {
                     );
                 });
                 if (paths.length > 0) {
-                    this.addToUrlFilesMap(
-                        module,
-                        url,
+                    // should be the last one.. god this sucks...
+                    this.generateMarkdownFile(
                         directory,
+                        module,
                         'examples',
                         'example',
-                        module.usageNotes
-                    );
-                    FileUtil.write(
-                        directory,
-                        `example-${module.usageNotes++}.md`,
-                        headers[headers.length - 1] // should be the last one.. god this sucks...
-                    );
+                        url, module.usageNotes++,
+                        headers[headers.length - 1]
+                    )
                     module.urlFilesMap[`${url}/examples`].push(paths);
                 }
             }
         });
+    }
+
+    private generateMarkdownFile(
+        directory: string,
+        module: ModuleParser,
+        type: string,
+        symbol: string,
+        url: string,
+        index: number,
+        data: any
+    ) {
+        this.addToUrlFilesMap(module, url, directory, type, symbol, index);
+        FileUtil.write(directory, `${symbol}-${index}.md`, data);
     }
 
     private addToUrlFilesMap(
@@ -396,6 +357,4 @@ export class MarkdownGenerator {
             basePath
         );
     }
-
-    // console.log(m.pages.map((p) => p.name));
 }
