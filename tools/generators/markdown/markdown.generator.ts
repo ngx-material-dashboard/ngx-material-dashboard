@@ -122,41 +122,21 @@ export class MarkdownGenerator {
         url: string,
         subDirectory?: string
     ) {
+        let apiText: string = '';
+        let overviewText: string = '';
+
         if (subDirectory) {
             directory = `${directory}/${subDirectory}`;
             url = `${url}/${subDirectory}`;
         }
         if (parsers.length > 0) {
-            this.generateMarkdownFile(
-                directory,
-                module,
-                'api',
-                'api',
-                url,
-                module.apiFiles++,
-                `## ${capitalizeFirstLetter(symbol)}`
-            );
-
-            this.generateMarkdownFile(
-                directory,
-                module,
-                'overview',
-                'overview',
-                url,
-                module.overviewDetails++,
-                `## ${capitalizeFirstLetter(symbol)}`
-            );
+            // add headers detail if there are parsers defined
+            apiText = `## ${capitalizeFirstLetter(symbol)}\n`;
+            overviewText = `## ${capitalizeFirstLetter(symbol)}\n`;
         }
+
         parsers.forEach((p: Parser) => {
-            this.generateMarkdownFile(
-                directory,
-                module,
-                'api',
-                'api',
-                url,
-                module.apiFiles++,
-                template(p)
-            );
+            apiText += template(p) + '\n';
 
             // generate overview and example markdown
             if (
@@ -199,41 +179,21 @@ export class MarkdownGenerator {
                         comment = p.comment;
                     }
                 }
-                this.generateMarkdownFile(
-                    directory,
-                    module,
-                    'overview',
-                    'overview',
-                    url,
-                    module.overviewDetails++,
-                    `### ${p.name}`
-                );
+                overviewText += `### ${p.name}\n`;
 
                 if (comment.description) {
-                    this.generateMarkdownFile(
-                        directory,
-                        module,
-                        'overview',
-                        'overview',
-                        url,
-                        module.overviewDetails++,
-                        // match the expected object structure for template
+                    // match the expected object structure for template
+                    overviewText +=
                         this.templateConfig.overviewTemplate({
                             text: comment.description
-                        })
-                    );
+                        }) + '\n';
                 }
 
+                // add overview details
                 comment.overviewDetails.forEach((t) => {
-                    this.generateMarkdownFile(
-                        directory,
-                        module,
-                        'overview',
-                        'overview',
-                        url,
-                        module.overviewDetails++,
-                        this.templateConfig.overviewTemplate({ text: t.text })
-                    );
+                    overviewText +=
+                        this.templateConfig.overviewTemplate({ text: t.text }) +
+                        '\n';
                 });
 
                 // add usageNote/example details
@@ -305,6 +265,30 @@ export class MarkdownGenerator {
                 }
             }
         });
+
+        if (apiText !== '') {
+            this.generateMarkdownFile(
+                directory,
+                module,
+                'api',
+                'api',
+                url,
+                module.apiFiles++,
+                apiText
+            );
+        }
+
+        if (overviewText !== '') {
+            this.generateMarkdownFile(
+                directory,
+                module,
+                'overview',
+                'overview',
+                url,
+                module.overviewDetails++,
+                overviewText
+            );
+        }
     }
 
     private generateMarkdownFile(
