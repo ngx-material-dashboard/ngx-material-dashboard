@@ -36,6 +36,8 @@ const NG_MODULE_VALS: string[] = [
 ];
 
 /**
+ * @Deprecated Use ../parsers/typedoc-json/typedoc-json.parser.ts instead...
+ *
  * The ParseJsonService parses the JSON output produced by typedoc.
  * Currently this relies on docs.json being output file and for it to be
  * located at root of workspace.

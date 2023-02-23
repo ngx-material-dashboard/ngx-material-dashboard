@@ -28,10 +28,15 @@ import { generateMarkdownConfigDetailsByModule } from '../../config/processed/ma
 import { TemplateConfig } from '../../config/processed/template.config';
 
 /**
- * The `MarkdownGenerator` generates the markdown files from the parsed typedoc
- * JSON data needed for workspace documentation. It uses a custom parser based
- * off of typedoc-json-parser (?... make sure thats correct name) to parse
- * typedoc data, and handlebars render data into markdown.
+ * The `MarkdownGenerator` generates markdown files from parsed typedoc JSON
+ * data needed for workspace documentation. It uses a custom parser built on
+ * top of typedoc-json-parser to parse typedoc data, and handlebars render data
+ * into markdown.
+ *
+ * TODO refactor to reduce number of markdown files generated... Should be able
+ * to re-use most code, just add results to single string instead of arrays;
+ * will still need to break out examples into separate markdown files due to way
+ * those are rendered in docs
  */
 export class MarkdownGenerator {
     templateConfig: TemplateConfig;
@@ -52,7 +57,7 @@ export class MarkdownGenerator {
     /**
      * Generates all markdown files from given TypedocJsonParser data.
      *
-     * @param typedocJsonParser
+     * @param typedocJsonParser Top level parser with workspace and project data.
      */
     generateMarkdown(typedocJsonParser: TypedocJsonParser): void {
         typedocJsonParser.workspaceParser.projects.forEach(
@@ -84,13 +89,13 @@ export class MarkdownGenerator {
         );
     }
 
-    // look at comment -> summary for main overview; should be
-    // first paragraph (maybe 2?) of class comments; may also
-    // need toc look at blockTags for @overviewDetails for any
-    // additional text to generate
-
-    // generate example markdown files
-    // look at comment -> blockTags; should be @usageNotes
+    /**
+     * Generates all markdown files for parsers defined in given module parser.
+     *
+     * @param outputPath
+     * @param m
+     * @param url
+     */
     private generateMarkdownFilesByModule(
         outputPath: string,
         m: ModuleParser,
