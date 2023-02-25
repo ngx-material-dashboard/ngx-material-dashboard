@@ -1,6 +1,6 @@
 import { ReferenceTypeParser, TypeParser } from 'typedoc-json-parser';
+
 import { FileUtil } from '../../util/file.util';
-import { ProjectParser } from './parsers';
 import { WorkspaceParser } from './parsers/workspace/workspace.parser';
 
 /**
@@ -18,6 +18,9 @@ export class TypedocJsonParser {
         this.workspaceParser = new WorkspaceParser({ data });
     }
 
+    /**
+     * Initialize all overridden methods needed for custom parser.
+     */
     private initOverrides() {
         ReferenceTypeParser.formatToString = (
             options: TypeParser.FormatToStringOptions<ReferenceTypeParser>
