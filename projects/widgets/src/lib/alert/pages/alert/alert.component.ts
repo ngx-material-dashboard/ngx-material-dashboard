@@ -43,18 +43,6 @@ export class AlertComponent implements OnDestroy, OnInit {
                     // render portal in overlay
                     const compRef = this.overlayRef.attach(componentPortal);
 
-                    // create subscription for clear overlay event emitter and
-                    // dispose of the overlay so components behind are availabe
-                    const sub = compRef.instance.clearOverlay.subscribe(
-                        (res) => {
-                            if (res) {
-                                overlayRef.dispose();
-                                this.overlayRef = undefined;
-                            }
-                        }
-                    );
-                    this.sub.add(sub);
-
                     // set alerts on AlertsComponent since subscription for
                     // onAlert there won't work for this one as its already
                     // been fired
@@ -71,5 +59,15 @@ export class AlertComponent implements OnDestroy, OnInit {
             }
         });
         this.sub.add(sub);
+
+        // create subscription for clear overlay event emitter and
+        // dispose of the overlay so components behind are availabe
+        const subArray = this.alertService.alerts.subscribe((res) => {
+            if (res.length === 0) {
+                this.overlayRef?.dispose();
+                this.overlayRef = undefined;
+            }
+        });
+        this.sub.add(subArray);
     }
 }

@@ -1,7 +1,5 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
-import { Subject, Observable, filter } from 'rxjs';
+import { Subject, Observable, filter, BehaviorSubject } from 'rxjs';
 import { AlertType } from '../enums/alert-type.enum';
 import { Alert } from '../models/alert.model';
 
@@ -13,6 +11,8 @@ import { Alert } from '../models/alert.model';
     providedIn: 'root'
 })
 export class AlertService {
+    alertsSubject: BehaviorSubject<Alert[]> = new BehaviorSubject<Alert[]>([]);
+    alerts: Observable<Alert[]> = this.alertsSubject.asObservable();
     private subject = new Subject<Alert>();
     /** Default id to set for alerts. */
     private defaultId = 'default-alert';
@@ -80,6 +80,7 @@ export class AlertService {
     alert(alert: Alert) {
         alert.id = alert.id || this.defaultId;
         this.subject.next(alert);
+        this.alertsSubject.next([...this.alertsSubject.value, alert]);
     }
 
     /**

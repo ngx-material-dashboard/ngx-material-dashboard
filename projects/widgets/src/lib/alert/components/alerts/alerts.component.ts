@@ -1,11 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -22,14 +15,12 @@ import { AlertService } from '../../services/alert.service';
 export class AlertsComponent implements OnDestroy, OnInit {
     @Input() id = 'default-alert';
     @Input() fade = true;
-    @Output() clearOverlay: EventEmitter<boolean>;
 
     alerts: Alert[] = [];
     faTimes: IconDefinition = faTimes;
     sub: Subscription;
 
     constructor(private router: Router, private alertService: AlertService) {
-        this.clearOverlay = new EventEmitter<boolean>();
         this.sub = new Subscription();
     }
 
@@ -52,11 +43,13 @@ export class AlertsComponent implements OnDestroy, OnInit {
                     // remove 'keepAfterRouteChange' flag on the rest
                     // ...why? so they can be cleared if cleared again?
                     this.alerts.forEach((x) => delete x.keepAfterRouteChange);
+                    this.alertService.alertsSubject.next(this.alerts);
                     return;
                 }
 
                 // add alert to array
                 this.alerts.push(alert);
+                this.alertService.alertsSubject.next(this.alerts);
 
                 // auto close alert if required
                 if (alert.autoClose) {
@@ -88,20 +81,12 @@ export class AlertsComponent implements OnDestroy, OnInit {
             // remove alert after faded out
             setTimeout(() => {
                 this.alerts = this.alerts.filter((x) => x !== alert);
-                this.emitClearOverlay();
+                this.alertService.alertsSubject.next(this.alerts);
             }, 250);
         } else {
             // remove alert
             this.alerts = this.alerts.filter((x) => x !== alert);
-            this.emitClearOverlay();
-        }
-    }
-
-    emitClearOverlay() {
-        if (this.alerts.length === 0) {
-            // if there are no more alerts, then emit event to clear overlay
-            // where alerts rendered
-            this.clearOverlay.emit(true);
+            this.alertService.alertsSubject.next(this.alerts);
         }
     }
 
