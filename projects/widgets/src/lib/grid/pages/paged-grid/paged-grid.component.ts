@@ -11,7 +11,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-grid [data]="tasks" class="marker-paged-grid">
+ * <ngx-mat-paged-grid [data]="tasks" class="marker-paged-grid">
  *     <ng-template #model let-model="model">
  *         <mat-card>
  *             <mat-card-title>
@@ -22,7 +22,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  *             </mat-card-content>
  *         </mat-card>
  *     </ng-template>
- * </ngx-material-dashboard-paged-grid>
+ * </ngx-mat-paged-grid>
  * ```
  * ```typescript
  * import {Component} from '@angular/core';
@@ -37,7 +37,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-paged-grid',
+    selector: 'ngx-mat-paged-grid',
     templateUrl: './paged-grid.component.html',
     styleUrls: ['./paged-grid.component.css']
 })

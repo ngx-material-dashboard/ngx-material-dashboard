@@ -15,12 +15,12 @@ import { TableComponent } from '../../components/table/table.component';
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table-with-icon-buttons-paginator-bar
+ * <ngx-mat-paged-table-with-icon-buttons-paginator-bar
  *     [fields]="fields"
  *     [toolbarButtons]="toolbarButtons"
  *     (buttonClick)="onButtonClick($event)"
  *     class="marker-paged-paged-table">
- *     <ngx-material-dashboard-paged-table [collectionButtons]="collectionButtons" [data]="data" #collection>
+ *     <ngx-mat-paged-table [collectionButtons]="collectionButtons" [data]="data" #collection>
  *         <ng-container matColumnDef="id">
  *             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *             <mat-cell class="col1-cell" *matCellDef="let obj">{{obj.id}}</mat-cell>
@@ -30,8 +30,8 @@ import { TableComponent } from '../../components/table/table.component';
  *                 No data found
  *             </mat-footer-cell>
  *         </ng-container>
- *     </ngx-material-dashboard-paged-table>
- * </ngx-material-dashboard-paged-table-with-icon-buttons-paginator-bar>
+ *     </ngx-mat-paged-table>
+ * </ngx-mat-paged-table-with-icon-buttons-paginator-bar>
  * ```
  * ```typescript
  * @Component({
@@ -65,7 +65,7 @@ import { TableComponent } from '../../components/table/table.component';
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-table-with-icon-buttons-paginator-bar',
+    selector: 'ngx-mat-table-with-icon-buttons-paginator-bar',
     templateUrl: './table-with-icon-buttons-paginator-bar.component.html',
     styleUrls: ['./table-with-icon-buttons-paginator-bar.component.css']
 })

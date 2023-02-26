@@ -31,8 +31,8 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
 
 @Component({
     template: `
-        <ngx-material-dashboard-default-layout>
-            <ngx-material-dashboard-filter-drop-down filter>
+        <ngx-mat-default-layout>
+            <ngx-mat-filter-drop-down filter>
                 <form [formGroup]="formGroup">
                     <mat-form-field>
                         <mat-label>Task Name</mat-label>
@@ -44,8 +44,8 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
                         />
                     </mat-form-field>
                 </form>
-            </ngx-material-dashboard-filter-drop-down>
-        </ngx-material-dashboard-default-layout>
+            </ngx-mat-filter-drop-down>
+        </ngx-mat-default-layout>
     `
 })
 class LayoutWithFilterTest {
@@ -100,7 +100,7 @@ describe('DefaultLayoutComponent', () => {
         });
 
         it('should render ngx-material-dashboard-header', () => {
-            expect(page.query('ngx-material-dashboard-header')).toBeDefined();
+            expect(page.query('ngx-mat-header')).toBeDefined();
         });
 
         it('should render "My App" logo by default', () => {
@@ -108,11 +108,11 @@ describe('DefaultLayoutComponent', () => {
         });
 
         it('should render ngx-material-dashboard-footer', () => {
-            expect(page.query('ngx-material-dashboard-footer')).toBeDefined();
+            expect(page.query('ngx-mat-footer')).toBeDefined();
         });
 
         it('should render ngx-material-dashboard-sidenav', () => {
-            expect(page.query('ngx-material-dashboard-sidenav')).toBeDefined();
+            expect(page.query('ngx-mat-sidenav')).toBeDefined();
         });
 
         it('should not render any sidenav items by default', () => {

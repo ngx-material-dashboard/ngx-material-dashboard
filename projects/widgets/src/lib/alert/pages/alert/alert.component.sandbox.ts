@@ -18,7 +18,7 @@ import { AlertComponent } from './alert.component';
         '.warn{ color: #856404; background-color: #fff3cd; }'
     ],
     template: `
-        <ngx-material-dashboard-alert></ngx-material-dashboard-alert>
+        <ngx-mat-alert></ngx-mat-alert>
         <div fxFlexFill fxLayout="column" fxLayoutAlign="center center">
             <div fxLayout="row" fxLayoutGap="10px">
                 <button mat-raised-button (click)="error()" class="error">

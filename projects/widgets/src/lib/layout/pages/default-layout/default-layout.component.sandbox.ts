@@ -59,10 +59,10 @@ export default sandboxOf(DefaultLayoutComponent, {
     providers: [LoadingService]
 })
     .add('default sidenav (no input values)', {
-        template: `<ngx-material-dashboard-default-layout></ngx-material-dashboard-default-layout>`
+        template: `<ngx-mat-default-layout></ngx-mat-default-layout>`
     })
     .add('side sidenav mode', {
-        template: `<ngx-material-dashboard-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-material-dashboard-default-layout>`,
+        template: `<ngx-mat-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-mat-default-layout>`,
         context: {
             logo: 'My Tasks',
             mode: 'side',
@@ -106,7 +106,7 @@ export default sandboxOf(DefaultLayoutComponent, {
         }
     })
     .add('rail sidenav mode', {
-        template: `<ngx-material-dashboard-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-material-dashboard-default-layout>`,
+        template: `<ngx-mat-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-mat-default-layout>`,
         context: {
             logo: 'My Tasks',
             mode: 'rail',
@@ -151,7 +151,7 @@ export default sandboxOf(DefaultLayoutComponent, {
     })
     .add('header with filter', {
         template: `
-    <ngx-material-dashboard-default-layout>
-        <ngx-material-dashboard-filter-drop-down filter></ngx-material-dashboard-filter-drop-down>
-    </ngx-material-dashboard-default-layout>`
+    <ngx-mat-default-layout>
+        <ngx-mat-filter-drop-down filter></ngx-mat-filter-drop-down>
+    </ngx-mat-default-layout>`
     });

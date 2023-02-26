@@ -30,11 +30,11 @@ import { TableWithIconButtonsPaginatorBarComponent } from './table-with-icon-but
 
 @Component({
     template: `
-        <ngx-material-dashboard-table-with-icon-buttons-paginator-bar
+        <ngx-mat-table-with-icon-buttons-paginator-bar
             [toolbarButtons]="toolbarButtons"
             class="marker-paged-table"
         >
-            <ngx-material-dashboard-table
+            <ngx-mat-table
                 matSort
                 [collectionButtons]="collectionButtons"
                 [dataSource]="data"
@@ -59,8 +59,8 @@ import { TableWithIconButtonsPaginatorBarComponent } from './table-with-icon-but
                         No data found
                     </mat-footer-cell>
                 </ng-container>
-            </ngx-material-dashboard-table>
-        </ngx-material-dashboard-table-with-icon-buttons-paginator-bar>
+            </ngx-mat-table>
+        </ngx-mat-table-with-icon-buttons-paginator-bar>
     `
 })
 class TestTableWithIconButtonsPaginatorBarComponent {

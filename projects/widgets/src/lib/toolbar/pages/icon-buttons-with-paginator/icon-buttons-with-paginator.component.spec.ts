@@ -63,7 +63,7 @@ describe('IconButtonsWithPaginatorComponent', () => {
     });
 
     it('should render sorter by default', () => {
-        expect(page.query('ngx-material-dashboard-sorter')).toBeDefined();
+        expect(page.query('ngx-mat-sorter')).toBeDefined();
     });
 
     it('should emit master toggle value when select all checkbox checked', async () => {

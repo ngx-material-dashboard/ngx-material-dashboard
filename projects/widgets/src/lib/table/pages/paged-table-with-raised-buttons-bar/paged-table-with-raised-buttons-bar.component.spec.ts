@@ -38,15 +38,15 @@ const testData = getTaskData(20);
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-table-with-raised-buttons-bar
+        <ngx-mat-paged-table-with-raised-buttons-bar
             matSort
             [toolbarButtons]="toolbarButtons"
             (buttonClick)="onButtonClick($event)"
         >
-            <ngx-material-dashboard-filter-drop-down filter>
+            <ngx-mat-filter-drop-down filter>
                 <!-- filter form goes here -->
-            </ngx-material-dashboard-filter-drop-down>
-            <ngx-material-dashboard-paged-table
+            </ngx-mat-filter-drop-down>
+            <ngx-mat-paged-table
                 class="marker-paged-table"
                 [collectionButtons]="collectionButtons"
                 [dataSource]="data"
@@ -71,8 +71,8 @@ const testData = getTaskData(20);
                         No data found
                     </mat-footer-cell>
                 </ng-container>
-            </ngx-material-dashboard-paged-table>
-        </ngx-material-dashboard-paged-table-with-raised-buttons-bar>
+            </ngx-mat-paged-table>
+        </ngx-mat-paged-table-with-raised-buttons-bar>
     `
 })
 class TestPagedTableWithRaisedButtonsBarComponent {

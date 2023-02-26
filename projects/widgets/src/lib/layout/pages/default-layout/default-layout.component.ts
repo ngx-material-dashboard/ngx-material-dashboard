@@ -19,8 +19,8 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-default-layout [logo]="logo" [sidenavItems]="sidenavItems">
- *  </ngx-material-dashboard-default-layout>
+ * <ngx-mat-default-layout [logo]="logo" [sidenavItems]="sidenavItems">
+ *  </ngx-mat-default-layout>
  * ```
  * ```typescript
  * import {Component} from '@angular/core';
@@ -41,7 +41,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-default-layout',
+    selector: 'ngx-mat-default-layout',
     templateUrl: './default-layout.component.html',
     styleUrls: ['./default-layout.component.scss']
 })

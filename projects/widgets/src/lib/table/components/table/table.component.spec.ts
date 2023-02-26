@@ -8,7 +8,7 @@ import { TableComponent } from './table.component';
 
 @Component({
     template: `
-        <ngx-material-dashboard-table
+        <ngx-mat-table
             matSort
             [data]="data"
             [displayedColumns]="displayedColumns"
@@ -30,7 +30,7 @@ import { TableComponent } from './table.component';
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </ngx-material-dashboard-table>
+        </ngx-mat-table>
     `
 })
 class TestTableComponent {

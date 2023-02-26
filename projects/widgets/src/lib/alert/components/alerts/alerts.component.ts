@@ -13,7 +13,7 @@ import { AlertService } from '../../services/alert.service';
  * alerts are displayed (i.e. color/class based on type of alert).
  */
 @Component({
-    selector: 'ngx-material-dashboard-alerts',
+    selector: 'ngx-mat-alerts',
     templateUrl: './alerts.component.html',
     styleUrls: ['./alerts.component.css']
 })

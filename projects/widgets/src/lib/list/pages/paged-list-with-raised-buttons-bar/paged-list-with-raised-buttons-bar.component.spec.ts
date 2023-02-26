@@ -17,14 +17,14 @@ import { PagedListWithRaisedButtonsBarComponent } from './paged-list-with-raised
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-list-with-raised-button-toolbar>
-            <ngx-material-dashboard-paged-list [data]="data" [fields]="fields">
+        <ngx-mat-paged-list-with-raised-button-toolbar>
+            <ngx-mat-paged-list [data]="data" [fields]="fields">
                 <ng-template #model let-model="model">
                     <h2>Dummy Model</h2>
                     <span>{{ model.id }}</span>
                 </ng-template>
-            </ngx-material-dashboard-paged-list>
-        </ngx-material-dashboard-paged-list-with-raised-button-toolbar>
+            </ngx-mat-paged-list>
+        </ngx-mat-paged-list-with-raised-button-toolbar>
     `
 })
 class TestPagedListWithRaisedButtonsBarComponent {

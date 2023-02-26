@@ -44,7 +44,7 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-confirm-delete-dialog',
+    selector: 'ngx-mat-confirm-delete-dialog',
     templateUrl: './confirm-delete-dialog.component.html',
     styleUrls: ['./confirm-delete-dialog.component.scss']
 })

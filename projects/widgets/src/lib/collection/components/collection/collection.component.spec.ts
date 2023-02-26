@@ -28,7 +28,7 @@ import { CollectionComponent } from './collection.component';
 /** Component to test with. */
 @Component({
     template: `
-        <ngx-material-dashboard-list
+        <ngx-mat-list
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
             [fields]="fields"
@@ -38,7 +38,7 @@ import { CollectionComponent } from './collection.component';
                 <h2>Dummy Model</h2>
                 <span>{{ model.id }}</span>
             </ng-template>
-        </ngx-material-dashboard-list>
+        </ngx-mat-list>
     `
 })
 class TestCollectionComponent {

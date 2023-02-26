@@ -14,12 +14,12 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-list-with-raised-buttons-bar
+ * <ngx-mat-paged-list-with-raised-buttons-bar
  *     [fields]="fields"
  *     [toolbarButtons]="toolbarButtons"
  *     (buttonClick)="onButtonClick($event)"
  *     class="marker-paged-list">
- *     <ngx-material-dashboard-list [collectionButtons]="collectionButtons" [data]="data" #collection>
+ *     <ngx-mat-list [collectionButtons]="collectionButtons" [data]="data" #collection>
  *         <ng-template #model let-model="model">
  *             <mat-card>
  *                 <mat-card-title>
@@ -30,8 +30,8 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
  *                 </mat-card-content>
  *             </mat-card>
  *         </ng-template>
- *     </ngx-material-dashboard-list>
- * </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+ *     </ngx-mat-list>
+ * </ngx-mat-paged-list-with-raised-buttons-bar>
  * ```
  * ```typescript
  * @Component({
@@ -65,7 +65,7 @@ import { PagedCollectionWithRaisedButtonToolbarComponent } from '../../../collec
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-paged-list-with-raised-buttons-bar',
+    selector: 'ngx-mat-paged-list-with-raised-buttons-bar',
     templateUrl: './paged-list-with-raised-buttons-bar.component.html',
     styleUrls: ['./paged-list-with-raised-buttons-bar.component.css']
 })

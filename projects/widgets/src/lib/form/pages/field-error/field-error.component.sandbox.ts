@@ -20,7 +20,7 @@ const validationMessages: ValidationMessage[] = [
 export default sandboxOf(FieldErrorComponent, {
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule]
 }).add('default', {
-    template: `<ngx-material-dashboard-field-error [field]="field" [form]="form" [validationMessages]="validationMessages"></ngx-material-dashboard-field-error>`,
+    template: `<ngx-mat-field-error [field]="field" [form]="form" [validationMessages]="validationMessages"></ngx-mat-field-error>`,
     context: {
         field: 'field',
         form: form,

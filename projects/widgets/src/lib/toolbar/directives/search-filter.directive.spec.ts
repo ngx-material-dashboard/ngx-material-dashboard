@@ -38,7 +38,7 @@ import { SearchFilterDirective } from './search-filter.directive';
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-list-with-raised-buttons-bar
+        <ngx-mat-paged-list-with-raised-buttons-bar
             ngxMaterialDashboardSearchFilter
             [collection]="collectionCmp"
             [filter]="filterCmp"
@@ -46,7 +46,7 @@ import { SearchFilterDirective } from './search-filter.directive';
             (searchClick)="onSearchClick($event)"
             #pagedCollectionWithToolbar
         >
-            <ngx-material-dashboard-filter-drop-down filter>
+            <ngx-mat-filter-drop-down filter>
                 <form [formGroup]="formGroup">
                     <mat-form-field>
                         <mat-label>Task Name</mat-label>
@@ -58,8 +58,8 @@ import { SearchFilterDirective } from './search-filter.directive';
                         />
                     </mat-form-field>
                 </form>
-            </ngx-material-dashboard-filter-drop-down>
-            <ngx-material-dashboard-paged-list
+            </ngx-mat-filter-drop-down>
+            <ngx-mat-paged-list
                 [dataSource]="data"
                 collection
                 #collection
@@ -68,8 +68,8 @@ import { SearchFilterDirective } from './search-filter.directive';
                     <span>{{ model.id }} Title</span>
                     <span>Content for dummy object {{ model.id }}</span>
                 </ng-template>
-            </ngx-material-dashboard-paged-list>
-        </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+            </ngx-mat-paged-list>
+        </ngx-mat-paged-list-with-raised-buttons-bar>
     `
 })
 class SearchFilterDirectiveTestComponent implements OnInit {

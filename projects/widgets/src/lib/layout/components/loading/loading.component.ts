@@ -16,7 +16,7 @@ import { LoadingService } from '../../services/loading.service';
  *  @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-loading></ngx-material-dashboard-default-loading>
+ * <ngx-mat-loading></ngx-mat-default-loading>
  * <!-- any additional tags -->
  * ```
  * ```typescript
@@ -30,7 +30,7 @@ import { LoadingService } from '../../services/loading.service';
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-loading',
+    selector: 'ngx-mat-loading',
     templateUrl: './loading.component.html',
     styleUrls: ['./loading.component.scss']
 })

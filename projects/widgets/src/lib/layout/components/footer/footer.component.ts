@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
  * date and an optional company name.
  */
 @Component({
-    selector: 'ngx-material-dashboard-footer',
+    selector: 'ngx-mat-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss']
 })

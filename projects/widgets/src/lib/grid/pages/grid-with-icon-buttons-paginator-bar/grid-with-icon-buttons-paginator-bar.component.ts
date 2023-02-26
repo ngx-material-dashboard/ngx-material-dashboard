@@ -14,12 +14,12 @@ import { GridComponent } from '../../components/grid/grid.component';
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-grid-with-icon-buttons-paginator-bar
+ * <ngx-mat-grid-with-icon-buttons-paginator-bar
  *     [fields]="fields"
  *     [toolbarButtons]="toolbarButtons"
  *     (buttonClick)="onButtonClick($event)"
  *     class="marker-paged-list">
- *     <ngx-material-dashboard-grid [collectionButtons]="collectionButtons" [data]="data" #collection>
+ *     <ngx-mat-grid [collectionButtons]="collectionButtons" [data]="data" #collection>
  *         <ng-template #model let-model="model">
  *             <mat-card>
  *                 <mat-card-title>
@@ -30,8 +30,8 @@ import { GridComponent } from '../../components/grid/grid.component';
  *                 </mat-card-content>
  *             </mat-card>
  *         </ng-template>
- *     </ngx-material-dashboard-grid>
- * </ngx-material-dashboard-grid-with-icon-buttons-paginator-bar>
+ *     </ngx-mat-grid>
+ * </ngx-mat-grid-with-icon-buttons-paginator-bar>
  * ```
  * ```typescript
  * @Component({
@@ -65,7 +65,7 @@ import { GridComponent } from '../../components/grid/grid.component';
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-grid-with-icon-buttons-paginator-bar',
+    selector: 'ngx-mat-grid-with-icon-buttons-paginator-bar',
     templateUrl: './grid-with-icon-buttons-paginator-bar.component.html',
     styleUrls: ['./grid-with-icon-buttons-paginator-bar.component.css']
 })

@@ -6,11 +6,11 @@
             [checked]="selection.hasValue() && isAllSelected"
             [indeterminate]="selection.hasValue() && !isAllSelected">
         </mat-checkbox>
-        <ngx-material-dashboard-icon-buttons [buttons]="buttons"
-            (buttonClick)="emitButtonClick($event)"></ngx-material-dashboard-icon-buttons>
+        <ngx-mat-icon-buttons [buttons]="buttons"
+            (buttonClick)="emitButtonClick($event)"></ngx-mat-icon-buttons>
     </div>
     <div fxFlex></div>
-    <ngx-material-dashboard-sorter *ngIf="displaySort" [options]="fields"></ngx-material-dashboard-sorter>
+    <ngx-mat-sorter *ngIf="displaySort" [options]="fields"></ngx-mat-sorter>
     <mat-paginator [length]="length"
         [pageSize]="pageSize"
         [pageSizeOptions]="[15, 25, 50, 75, 100]"

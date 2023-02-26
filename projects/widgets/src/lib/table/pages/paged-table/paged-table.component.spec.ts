@@ -35,7 +35,7 @@ const testData: Task[] = getTaskData(20);
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-table
+        <ngx-mat-paged-table
             matSort
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
@@ -60,7 +60,7 @@ const testData: Task[] = getTaskData(20);
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </ngx-material-dashboard-paged-table>
+        </ngx-mat-paged-table>
     `
 })
 class TestPagedTableComponent {
@@ -73,7 +73,7 @@ class TestPagedTableComponent {
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-table
+        <ngx-mat-paged-table
             matSort
             [collectionButtons]="collectionButtons"
             [dataSource]="dataSource"
@@ -98,7 +98,7 @@ class TestPagedTableComponent {
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </ngx-material-dashboard-paged-table>
+        </ngx-mat-paged-table>
     `
 })
 class TestRemotePagedTableComponent {

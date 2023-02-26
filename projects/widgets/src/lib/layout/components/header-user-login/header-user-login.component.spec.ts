@@ -52,7 +52,7 @@ describe('HeaderUserLoginComponent', () => {
 
         it('should render user header menu component by default', () => {
             expect(
-                page.query('ngx-material-dashboard-user-header-menu')
+                page.query('ngx-mat-user-header-menu')
             ).toBeDefined();
         });
 
@@ -64,7 +64,7 @@ describe('HeaderUserLoginComponent', () => {
     describe('User not logged in', () => {
         it('should not render user header menu component by default', () => {
             expect(
-                page.query('ngx-material-dashboard-user-header-menu')
+                page.query('ngx-mat-user-header-menu')
             ).toBeNull();
         });
 

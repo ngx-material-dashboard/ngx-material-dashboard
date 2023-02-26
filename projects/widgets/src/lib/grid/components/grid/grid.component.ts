@@ -28,7 +28,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-grid [data]="data" [fields]="fields">
+ * <ngx-mat-grid [data]="data" [fields]="fields">
  *     <ng-template #model let-model="model">
  *        <mat-card>
  *            <mat-card-title>
@@ -39,7 +39,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
  *            </mat-card-content>
  *       </mat-card>
  *     </ng-template>
- * </ngx-material-dashboard-grid>
+ * </ngx-mat-grid>
  * ```
  * ```typescript
  * @Component({
@@ -52,7 +52,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-grid',
+    selector: 'ngx-mat-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.css']
 })

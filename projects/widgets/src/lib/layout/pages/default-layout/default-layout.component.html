@@ -1,24 +1,24 @@
-<ngx-material-dashboard-loading></ngx-material-dashboard-loading>
+<ngx-mat-loading></ngx-mat-loading>
 <div class="box" fxLayout="column">
-    <ngx-material-dashboard-header
+    <ngx-mat-header
         [logo]="logo"
         (searchFilterClick)="onSearchFilterClick($event)"
         (toggleSidenav)="toggleSidenav()"
         class="mat-elevation-z6">
         <ng-content select="[filter]"></ng-content>
-    </ngx-material-dashboard-header>
+    </ngx-mat-header>
     <mat-sidenav-container class="content" fxLayout="row">
         <mat-sidenav *ngIf="mode === 'rail'; else defaultSidenav" rail-mode [opened]="opened" #sidenav>
-            <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+            <ngx-mat-sidenav [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
         </mat-sidenav>
         <ng-template #defaultSidenav>
             <mat-sidenav [mode]="mode" #sidenav>
-                <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+                <ngx-mat-sidenav [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
             </mat-sidenav>
         </ng-template>
         <mat-sidenav-content fxFlex>
             <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
-    <ngx-material-dashboard-footer [company]="company"></ngx-material-dashboard-footer>
+    <ngx-mat-footer [company]="company"></ngx-mat-footer>
 </div>

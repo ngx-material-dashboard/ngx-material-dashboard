@@ -12,7 +12,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  * `PagedCollectionWithToolbar`.
  */
 @Component({
-    selector: 'ngx-material-dashboard-button-toolbar',
+    selector: 'ngx-mat-button-toolbar',
     templateUrl: './button-toolbar.component.html',
     styleUrls: ['./button-toolbar.component.css']
 })

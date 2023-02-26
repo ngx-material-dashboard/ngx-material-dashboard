@@ -1,8 +1,8 @@
-<ngx-material-dashboard-button-toolbar 
+<ngx-mat-button-toolbar 
     [buttons]="toolbarButtons"
     (buttonClick)="onToolbarButtonClick($event)"
     #toolbar>
     <ng-content select="[filter]"></ng-content>
-</ngx-material-dashboard-button-toolbar>
+</ngx-mat-button-toolbar>
 <!-- paged grid -->
 <ng-content select="[collection]"></ng-content>

@@ -24,7 +24,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-table
+ * <ngx-mat-table
  *     matSort
  *     [collectionButtons]="collectionButtons"
  *     [data]="data"
@@ -38,7 +38,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  *             No data found
  *         </mat-footer-cell>
  *     </ng-container>
- * </ngx-material-dashboard-table>
+ * </ngx-mat-table>
  * ```
  * ```typescript
  * @Component({
@@ -88,7 +88,7 @@ import { SelectionService } from '../../../collection/services/selection.service
  * emitter.
  */
 @Component({
-    selector: 'ngx-material-dashboard-table',
+    selector: 'ngx-mat-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.css']
 })

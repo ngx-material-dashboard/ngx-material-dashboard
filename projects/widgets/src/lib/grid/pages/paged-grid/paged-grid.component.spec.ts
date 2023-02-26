@@ -16,7 +16,7 @@ import { PagedGridComponent } from './paged-grid.component';
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-grid
+        <ngx-mat-paged-grid
             [dataSource]="data"
             [fields]="fields"
         >
@@ -24,7 +24,7 @@ import { PagedGridComponent } from './paged-grid.component';
                 <h2>Dummy Model</h2>
                 <span>{{ model.id }}</span>
             </ng-template>
-        </ngx-material-dashboard-paged-grid>
+        </ngx-mat-paged-grid>
     `
 })
 class TestPagedGridComponent {

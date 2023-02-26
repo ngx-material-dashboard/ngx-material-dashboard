@@ -55,7 +55,7 @@ import { SorterComponent } from '../sorter/sorter.component';
  * sorting in the header row.
  */
 @Component({
-    selector: 'ngx-material-dashboard-icon-buttons-with-paginator',
+    selector: 'ngx-mat-icon-buttons-with-paginator',
     templateUrl: './icon-buttons-with-paginator.component.html',
     styleUrls: ['./icon-buttons-with-paginator.component.css']
 })

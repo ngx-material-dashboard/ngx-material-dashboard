@@ -17,9 +17,9 @@ import { JsonModel } from '@ngx-material-dashboard/base-json';
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table-with-toolbar [buttons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
+ * <ngx-mat-paged-table-with-toolbar [buttons]="toolbarButtons" (buttonClick)="onButtonClick($event)">
  *   <!-- column templates -->
- * </ngx-material-dashboard-paged-table-with-toolbar>
+ * </ngx-mat-paged-table-with-toolbar>
  * ```
  * ```typescript
  * @Component({

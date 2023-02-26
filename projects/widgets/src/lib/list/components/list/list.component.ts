@@ -12,7 +12,7 @@ import { CollectionComponent } from '../../../collection/components/collection/c
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-list [data]="data" [fields]="fields">
+ * <ngx-mat-list [data]="data" [fields]="fields">
  *     <ng-template #model let-model="model">
  *        <mat-card>
  *            <mat-card-title>
@@ -23,7 +23,7 @@ import { CollectionComponent } from '../../../collection/components/collection/c
  *            </mat-card-content>
  *       </mat-card>
  *     </ng-template>
- * </ngx-material-dashboard-list>
+ * </ngx-mat-list>
  * ```
  * ```typescript
  * @Component({
@@ -36,7 +36,7 @@ import { CollectionComponent } from '../../../collection/components/collection/c
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-list',
+    selector: 'ngx-mat-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css']
 })

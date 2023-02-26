@@ -57,10 +57,10 @@ export default sandboxOf(ListWithIconButtonsPaginatorBarComponent, {
     ]
 }).add('list with icon buttons paginator bar with multi-select', {
     template: `
-    <ngx-material-dashboard-list-with-icon-buttons-paginator-bar
+    <ngx-mat-list-with-icon-buttons-paginator-bar
         [toolbarButtons]="toolbarButtons"
         class="marker-paged-list">
-        <ngx-material-dashboard-list
+        <ngx-mat-list
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
             [fields]="fields"
@@ -77,8 +77,8 @@ export default sandboxOf(ListWithIconButtonsPaginatorBarComponent, {
                     </mat-card-content>
                 </mat-card>
             </ng-template>
-        </ngx-material-dashboard-list>
-    </ngx-material-dashboard-list-with-icon-buttons-paginator-bar>`,
+        </ngx-mat-list>
+    </ngx-mat-list-with-icon-buttons-paginator-bar>`,
     context: {
         collectionButtons: [EDIT_BUTTON, DELETE_BUTTON],
         toolbarButtons: [

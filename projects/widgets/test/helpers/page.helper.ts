@@ -12,7 +12,7 @@ import { ComponentFixture } from '@angular/core/testing';
  *     constructor(fixture: ComponentFixture<AppComponent>) {}
  *
  *     get header(): HTMLElement {
- *         return this.query<HTMLElement>('ngx-material-dashboard-header');
+ *         return this.query<HTMLElement>('ngx-mat-header');
  *     }
  * }
  * ```

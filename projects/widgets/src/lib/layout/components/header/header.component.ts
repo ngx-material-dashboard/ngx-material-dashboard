@@ -13,7 +13,7 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
  * The header for the app.
  */
 @Component({
-    selector: 'ngx-material-dashboard-header',
+    selector: 'ngx-mat-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })

@@ -36,7 +36,7 @@ export default sandboxOf(PagedTableComponent, {
 })
     .add('table with multi-select', {
         template: `
-    <ngx-material-dashboard-paged-table 
+    <ngx-mat-paged-table 
         matSort 
         [collectionButtons]="buttons"
         [dataSource]="data"
@@ -52,7 +52,7 @@ export default sandboxOf(PagedTableComponent, {
                 No data found
             </mat-footer-cell>
         </ng-container>
-    </ngx-material-dashboard-paged-table>`,
+    </ngx-mat-paged-table>`,
         context: {
             buttons: [EDIT_BUTTON, DELETE_BUTTON],
             data: getTaskData(20),
@@ -62,7 +62,7 @@ export default sandboxOf(PagedTableComponent, {
     })
     .add('table without multi-select', {
         template: `
-    <ngx-material-dashboard-paged-table
+    <ngx-mat-paged-table
         matSort
         [collectionButtons]="buttons"
         [dataSource]="data"
@@ -78,7 +78,7 @@ export default sandboxOf(PagedTableComponent, {
                 No data found
             </mat-footer-cell>
         </ng-container>
-    </ngx-material-dashboard-paged-table>`,
+    </ngx-mat-paged-table>`,
         context: {
             buttons: [EDIT_BUTTON, DELETE_BUTTON],
             data: getTaskData(20),

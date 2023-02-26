@@ -27,22 +27,22 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  *         <mat-label>Username</mat-label>
  *         <input matInput type="text" formControlName="username">
  *         <mat-error>
- *             <ngx-material-dashboard-field-error
+ *             <ngx-mat-field-error
  *                 field='username'
  *                 [form]="form"
  *                 [validationMessages]="validationMessages.username">
- *             </ngx-material-dashboard-field-error>
+ *             </ngx-mat-field-error>
  *         </mat-error>
  *     </mat-form-field>
  *     <mat-form-field fxFlex>
  *         <mat-label>Password</mat-label>
  *         <input matInput type="password" formControlName="password">
  *         <mat-error>
- *             <ngx-material-dashboard-field-error
+ *             <ngx-mat-field-error
  *                 field='password'
  *                 [form]="form"
  *                 [validationMessages]="validationMessages.password">
- *             </ngx-material-dashboard-field-error>
+ *             </ngx-mat-field-error>
  *         </mat-error>
  *     </mat-form-field>
  * </form>
@@ -72,7 +72,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-field-error',
+    selector: 'ngx-mat-field-error',
     templateUrl: './field-error.component.html',
     styleUrls: ['./field-error.component.scss']
 })

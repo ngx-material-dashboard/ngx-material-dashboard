@@ -12,12 +12,12 @@ import { PagedListComponent } from './paged-list.component';
 
 @Component({
     template: `
-        <ngx-material-dashboard-paged-list [data]="data" [fields]="fields">
+        <ngx-mat-paged-list [data]="data" [fields]="fields">
             <ng-template #model let-model="model">
                 <h2>Dummy Model</h2>
                 <span>{{ model.id }}</span>
             </ng-template>
-        </ngx-material-dashboard-paged-list>
+        </ngx-mat-paged-list>
     `
 })
 class TestPagedListComponent {

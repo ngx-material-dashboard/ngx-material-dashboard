@@ -34,7 +34,7 @@ import { TableComponent } from '../../components/table/table.component';
  * @usageNotes
  * #### Basic Local Data Usage
  * ```html
- * <ngx-material-dashboard-paged-table matSort [data]="data" [displayedColumns]="displayedColumns">
+ * <ngx-mat-paged-table matSort [data]="data" [displayedColumns]="displayedColumns">
  *     <ng-container matColumnDef="id">
  *         <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
  *         <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
@@ -48,7 +48,7 @@ import { TableComponent } from '../../components/table/table.component';
  *             No data to display
  *         </mat-footer-cell>
  *     </ng-container>
- * </ngx-material-dashboard-paged-table>
+ * </ngx-mat-paged-table>
  * ```
  * ```typescript
  * import {AfterViewInit, Component, ViewChild} from '@angular/core';
@@ -76,7 +76,7 @@ import { TableComponent } from '../../components/table/table.component';
  * @usageNotes
  * #### Remote Data Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table
+ * <ngx-mat-paged-table
  *     matSort
  *     [buttons]="collectionButtons"
  *     [dataSource]="dataSource"
@@ -94,7 +94,7 @@ import { TableComponent } from '../../components/table/table.component';
  *             No data to display
  *         </mat-footer-cell>
  *     </ng-container>
- * </ngx-material-dashboard-paged-table>
+ * </ngx-mat-paged-table>
  * ```
  * ```typescript
  * import {AfterViewInit, Component, ViewChild} from '@angular/core';
@@ -163,12 +163,12 @@ import { TableComponent } from '../../components/table/table.component';
  * a `MatTable`).
  *
  * ```html
- * <ngx-material-dashboard-paged-table matSort [data]="data">
+ * <ngx-mat-paged-table matSort [data]="data">
  *     <ng-container matColumnDef="name">
  *         <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
  *         <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
  *     </ng-container>
- * </ngx-material-dashboard-paged-table>
+ * </ngx-mat-paged-table>
  * ```
  *
  * And your component should implement `AfterViewInit` and contain the following
@@ -218,7 +218,7 @@ import { TableComponent } from '../../components/table/table.component';
  *
  */
 @Component({
-    selector: 'ngx-material-dashboard-paged-table',
+    selector: 'ngx-mat-paged-table',
     templateUrl: './paged-table.component.html',
     styleUrls: ['./paged-table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

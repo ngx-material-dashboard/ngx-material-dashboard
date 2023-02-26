@@ -23,7 +23,7 @@ const pageSize = 5;
 /** Component to test with. */
 @Component({
     template: `
-        <ngx-material-dashboard-paged-list
+        <ngx-mat-paged-list
             [dataSource]="data"
             [fields]="fields"
             [pageSize]="pageSize"
@@ -35,7 +35,7 @@ const pageSize = 5;
                     <span>{{ model.id }}</span>
                 </div>
             </ng-template>
-        </ngx-material-dashboard-paged-list>
+        </ngx-mat-paged-list>
     `
 })
 class TestPagedCollectionComponent {

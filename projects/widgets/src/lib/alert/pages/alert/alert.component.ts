@@ -11,7 +11,7 @@ import { AlertService } from '../../services/alert.service';
  * alerts on screen (on top of main content).
  */
 @Component({
-    selector: 'ngx-material-dashboard-alert',
+    selector: 'ngx-mat-alert',
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.scss']
 })

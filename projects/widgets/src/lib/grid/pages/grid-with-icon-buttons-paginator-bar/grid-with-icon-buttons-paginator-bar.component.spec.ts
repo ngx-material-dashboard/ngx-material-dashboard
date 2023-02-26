@@ -15,16 +15,16 @@ import { GridWithIconButtonsPaginatorBarComponent } from './grid-with-icon-butto
 
 @Component({
     template: `
-        <ngx-material-dashboard-grid-with-icon-buttons-paginator-bar
+        <ngx-mat-grid-with-icon-buttons-paginator-bar
             [fields]="fields"
         >
-            <ngx-material-dashboard-grid [data]="data" #collection>
+            <ngx-mat-grid [data]="data" #collection>
                 <ng-template #model let-model="model">
                     <h2>Dummy Model</h2>
                     <span>{{ model.id }}</span>
                 </ng-template>
-            </ngx-material-dashboard-grid>
-        </ngx-material-dashboard-grid-with-icon-buttons-paginator-bar>
+            </ngx-mat-grid>
+        </ngx-mat-grid-with-icon-buttons-paginator-bar>
     `
 })
 class TestGridWithIconButtonsPaginatorBarComponent {

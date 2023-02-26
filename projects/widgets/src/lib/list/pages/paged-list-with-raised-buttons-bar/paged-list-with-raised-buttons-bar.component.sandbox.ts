@@ -52,12 +52,12 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
     ]
 }).add('default', {
     template: `
-    <ngx-material-dashboard-paged-list-with-raised-buttons-bar
+    <ngx-mat-paged-list-with-raised-buttons-bar
         [toolbarButtons]="toolbarButtons">
-        <ngx-material-dashboard-filter-drop-down filter>
+        <ngx-mat-filter-drop-down filter>
             <!-- filter form goes here -->
-        </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-list
+        </ngx-mat-filter-drop-down>
+        <ngx-mat-paged-list
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
             [fields]="fields"
@@ -74,8 +74,8 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
                     </mat-card-content>
                 </mat-card>
             </ng-template>
-        </ngx-material-dashboard-paged-list>
-    </ngx-material-dashboard-paged-list-with-raised-buttons-bar>`,
+        </ngx-mat-paged-list>
+    </ngx-mat-paged-list-with-raised-buttons-bar>`,
     context: {
         collectionButtons: DEFAULT_COLLECTION_BUTTONS,
         toolbarButtons: [

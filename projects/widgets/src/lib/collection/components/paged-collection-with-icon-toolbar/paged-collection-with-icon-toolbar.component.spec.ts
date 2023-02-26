@@ -35,14 +35,14 @@ const testData = getTaskData(20);
 /** Component to test with. */
 @Component({
     template: `
-        <ngx-material-dashboard-list-with-icon-buttons-paginator-bar
+        <ngx-mat-list-with-icon-buttons-paginator-bar
             [displaySorterInToolbar]="displaySorterInToolbar"
             [toolbarButtons]="toolbarButtons"
             (buttonClick)="onButtonClick($event)"
             class="marker-paged-list"
             #pagedListWithToolbar
         >
-            <ngx-material-dashboard-list
+            <ngx-mat-list
                 [collectionButtons]="collectionButtons"
                 [dataSource]="data"
                 [fields]="fields"
@@ -55,8 +55,8 @@ const testData = getTaskData(20);
                         <span>{{ model.id }}</span>
                     </div>
                 </ng-template>
-            </ngx-material-dashboard-list>
-        </ngx-material-dashboard-list-with-icon-buttons-paginator-bar>
+            </ngx-mat-list>
+        </ngx-mat-list-with-icon-buttons-paginator-bar>
     `
 })
 class TestPagedCollectionWithIconToolbarComponent {

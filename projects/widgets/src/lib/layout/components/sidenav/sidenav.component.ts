@@ -25,7 +25,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * <div fxLayout="column">
  *     <mat-sidenav-container class="content" fxLayout="row">
  *         <mat-sidenav [mode]="mode">
- *             <ngx-material-dashboard-sidenav [sidenavItems]="sidenavItems"></ngx-material-dashboard-sidenav>
+ *             <ngx-mat-sidenav [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
  *         </mat-sidenav>
  *         <mat-sidenav-content fxFlex>
  *             <router-outlet></router-outlet>
@@ -84,7 +84,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * more details on the values to include when defining your `SidenavItems`.
  */
 @Component({
-    selector: 'ngx-material-dashboard-sidenav',
+    selector: 'ngx-mat-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss']
 })

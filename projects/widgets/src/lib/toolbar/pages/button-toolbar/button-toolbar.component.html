@@ -1,7 +1,7 @@
 <mat-toolbar>
     <div fxFlex="0 0 25">
         <div *ngIf="buttonAlign === 'left'" fxLayoutAlign="row" class="marker-align-left">
-            <ngx-material-dashboard-buttons [buttons]="buttons" (buttonClick)="emitButtonClick($event)"></ngx-material-dashboard-buttons>
+            <ngx-mat-buttons [buttons]="buttons" (buttonClick)="emitButtonClick($event)"></ngx-mat-buttons>
         </div>
     </div>
     <div fxFlex="0 0 50">
@@ -10,7 +10,7 @@
     <div fxFlex="0 0 25">
         <div fxFlex></div>
         <div *ngIf="buttonAlign === 'right'" fxLayoutAlign="row" class="marker-align-right">
-            <ngx-material-dashboard-buttons [buttons]="buttons" (buttonClick)="emitButtonClick($event)"></ngx-material-dashboard-buttons>
+            <ngx-mat-buttons [buttons]="buttons" (buttonClick)="emitButtonClick($event)"></ngx-mat-buttons>
         </div>
     </div>
 </mat-toolbar>

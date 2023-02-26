@@ -33,7 +33,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  * [FilterDropDown](/widgets/components/filter-drop-down).
  */
 @Component({
-    selector: 'ngx-material-dashboard-raised-button-toolbar',
+    selector: 'ngx-mat-raised-button-toolbar',
     templateUrl: './raised-button-toolbar.component.html',
     styleUrls: ['./raised-button-toolbar.component.css']
 })

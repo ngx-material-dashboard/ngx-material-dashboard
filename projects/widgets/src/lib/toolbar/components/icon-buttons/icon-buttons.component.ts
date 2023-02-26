@@ -4,7 +4,7 @@ import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
 
 @Component({
-    selector: 'ngx-material-dashboard-icon-buttons',
+    selector: 'ngx-mat-icon-buttons',
     templateUrl: './icon-buttons.component.html',
     styleUrls: ['./icon-buttons.component.css']
 })

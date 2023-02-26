@@ -40,10 +40,10 @@ export default sandboxOf(PagedGridWithRaisedButtonsBarComponent, {
     ]
 }).add('default', {
     template: `
-    <ngx-material-dashboard-paged-grid-with-raised-buttons-bar
+    <ngx-mat-paged-grid-with-raised-buttons-bar
         [toolbarButtons]="toolbarButtons"
         class="marker-paged-grid">
-        <ngx-material-dashboard-paged-grid
+        <ngx-mat-paged-grid
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
             [fields]="fields"
@@ -59,8 +59,8 @@ export default sandboxOf(PagedGridWithRaisedButtonsBarComponent, {
                     </mat-card-content>
                 </mat-card>
             </ng-template>
-        </ngx-material-dashboard-paged-grid>
-    </ngx-material-dashboard-paged-grid-with-raised-buttons-bar>`,
+        </ngx-mat-paged-grid>
+    </ngx-mat-paged-grid-with-raised-buttons-bar>`,
     context: {
         collectionButtons: DEFAULT_COLLECTION_BUTTONS,
         data: getTaskData(20),

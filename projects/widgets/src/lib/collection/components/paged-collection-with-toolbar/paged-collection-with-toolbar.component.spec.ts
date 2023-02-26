@@ -31,12 +31,12 @@ const testData = getTaskData(20);
 /** Component to test with. */
 @Component({
     template: `
-        <ngx-material-dashboard-paged-list-with-raised-buttons-bar
+        <ngx-mat-paged-list-with-raised-buttons-bar
             [toolbarButtons]="toolbarButtons"
             (buttonClick)="onButtonClick($event)"
             #pagedListWithToolbar
         >
-            <ngx-material-dashboard-paged-list
+            <ngx-mat-paged-list
                 [collectionButtons]="collectionButtons"
                 [dataSource]="data"
                 [fields]="fields"
@@ -50,8 +50,8 @@ const testData = getTaskData(20);
                         <span>{{ model.id }}</span>
                     </div>
                 </ng-template>
-            </ngx-material-dashboard-paged-list>
-        </ngx-material-dashboard-paged-list-with-raised-buttons-bar>
+            </ngx-mat-paged-list>
+        </ngx-mat-paged-list-with-raised-buttons-bar>
     `
 })
 class TestPagedCollectionWithToolbarComponent {

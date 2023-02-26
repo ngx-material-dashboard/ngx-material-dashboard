@@ -7,7 +7,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  * Displays a list of `ToolbarButtons`.
  */
 @Component({
-    selector: 'ngx-material-dashboard-buttons',
+    selector: 'ngx-mat-buttons',
     templateUrl: './buttons.component.html',
     styleUrls: ['./buttons.component.css']
 })

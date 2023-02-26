@@ -22,9 +22,9 @@ export default sandboxOf(FilterDropDownComponent, {
     template: `
     <mat-toolbar>
         <div fxFlex></div>
-        <ngx-material-dashboard-filter-drop-down fxFlex="0 0 50">
+        <ngx-mat-filter-drop-down fxFlex="0 0 50">
             <!-- filter form goes here -->
-        </ngx-material-dashboard-filter-drop-down>
+        </ngx-mat-filter-drop-down>
         <div fxFlex></div>
     </mat-toolbar>`
 });

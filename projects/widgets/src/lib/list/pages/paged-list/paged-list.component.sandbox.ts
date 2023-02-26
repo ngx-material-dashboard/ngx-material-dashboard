@@ -40,7 +40,7 @@ export default sandboxOf(PagedListComponent, {
     ]
 }).add('default', {
     template: `
-    <ngx-material-dashboard-paged-list
+    <ngx-mat-paged-list
         [collectionButtons]="collectionButtons"
         [dataSource]="data"
         [fields]="fields"
@@ -55,7 +55,7 @@ export default sandboxOf(PagedListComponent, {
                 </mat-card-content>
             </mat-card>
         </ng-template>
-    </ngx-material-dashboard-paged-list>`,
+    </ngx-mat-paged-list>`,
     context: {
         collectionButtons: DEFAULT_COLLECTION_BUTTONS,
         data: getTaskData(20),

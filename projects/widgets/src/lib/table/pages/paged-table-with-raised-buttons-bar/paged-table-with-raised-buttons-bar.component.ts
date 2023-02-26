@@ -15,12 +15,12 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-material-dashboard-paged-table-with-icon-buttons-paginator-bar
+ * <ngx-mat-paged-table-with-icon-buttons-paginator-bar
  *     [fields]="fields"
  *     [toolbarButtons]="toolbarButtons"
  *     (buttonClick)="onButtonClick($event)"
  *     class="marker-paged-list">
- *     <ngx-material-dashboard-paged-table
+ *     <ngx-mat-paged-table
  *          [collectionButtons]="collectionButtons"
  *          [data]="data"
  *          [displayedColumns]="displayedColumns"
@@ -43,8 +43,8 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  *                 No data found
  *             </mat-footer-cell>
  *         </ng-container>
- *     </ngx-material-dashboard-paged-table>
- * </ngx-material-dashboard-paged-table-with-icon-buttons-paginator-bar>
+ *     </ngx-mat-paged-table>
+ * </ngx-mat-paged-table-with-icon-buttons-paginator-bar>
  * ```
  * ```typescript
  * @Component({
@@ -78,7 +78,7 @@ import { PagedTableComponent } from '../paged-table/paged-table.component';
  * ```
  */
 @Component({
-    selector: 'ngx-material-dashboard-paged-table-with-raised-buttons-bar',
+    selector: 'ngx-mat-paged-table-with-raised-buttons-bar',
     templateUrl: './paged-table-with-raised-buttons-bar.component.html',
     styleUrls: ['./paged-table-with-raised-buttons-bar.component.scss']
 })

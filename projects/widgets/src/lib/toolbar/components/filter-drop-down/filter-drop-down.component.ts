@@ -28,7 +28,7 @@ import {
  * > repetative).
  */
 @Component({
-    selector: 'ngx-material-dashboard-filter-drop-down',
+    selector: 'ngx-mat-filter-drop-down',
     templateUrl: './filter-drop-down.component.html',
     styleUrls: ['./filter-drop-down.component.scss']
 })

@@ -15,7 +15,7 @@ import {
  * sort change for the collection.
  */
 @Component({
-    selector: 'ngx-material-dashboard-sorter',
+    selector: 'ngx-mat-sorter',
     templateUrl: './sorter.component.html',
     styleUrls: ['./sorter.component.css']
 })

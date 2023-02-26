@@ -25,12 +25,12 @@ import { HeaderComponent } from './header.component';
 
 @Component({
     template: `
-        <ngx-material-dashboard-header
+        <ngx-mat-header
             [logo]="logo"
             (clickSearchFilter)="onSearchFilter($event)"
             (toggleSidenav)="toggleSidenav()"
         >
-            <ngx-material-dashboard-filter-drop-down>
+            <ngx-mat-filter-drop-down>
                 <form [formGroup]="formGroup">
                     <mat-form-field>
                         <mat-label>Task Name</mat-label>
@@ -42,8 +42,8 @@ import { HeaderComponent } from './header.component';
                         />
                     </mat-form-field>
                 </form>
-            </ngx-material-dashboard-filter-drop-down>
-        </ngx-material-dashboard-header>
+            </ngx-mat-filter-drop-down>
+        </ngx-mat-header>
     `
 })
 class TestHeaderComponent implements OnInit {

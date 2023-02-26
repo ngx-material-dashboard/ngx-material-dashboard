@@ -4,7 +4,7 @@
         [checked]="selection.hasValue() && isAllSelected()"
         [indeterminate]="selection.hasValue() && !isAllSelected()">
     </mat-checkbox>
-    <ngx-material-dashboard-sorter [options]="fields"></ngx-material-dashboard-sorter>
+    <ngx-mat-sorter [options]="fields"></ngx-mat-sorter>
     <div fxFlex></div>
 </div>
 <mat-grid-list *ngIf="models.length > 0; else noModels" [cols]="cols" gutterSize="2">

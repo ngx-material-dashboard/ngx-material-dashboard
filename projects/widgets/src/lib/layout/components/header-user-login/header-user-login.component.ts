@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 // import { User } from '@ngx-material-dashboard/json-api/src/lib/models/user.model';
 
 @Component({
-    selector: 'ngx-material-dashboard-header-user-login',
+    selector: 'ngx-mat-header-user-login',
     templateUrl: './header-user-login.component.html',
     styleUrls: ['./header-user-login.component.scss']
 })

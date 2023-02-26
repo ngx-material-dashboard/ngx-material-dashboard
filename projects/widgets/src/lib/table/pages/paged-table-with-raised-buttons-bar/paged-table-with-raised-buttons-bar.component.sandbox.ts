@@ -55,12 +55,12 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
 })
     .add('table with toolbar with multi-select', {
         template: `
-    <ngx-material-dashboard-paged-table-with-raised-buttons-bar
+    <ngx-mat-paged-table-with-raised-buttons-bar
         [toolbarButtons]="toolbarButtons">
-        <ngx-material-dashboard-filter-drop-down filter>
+        <ngx-mat-filter-drop-down filter>
             <!-- filter form goes here -->
-        </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-table
+        </ngx-mat-filter-drop-down>
+        <ngx-mat-paged-table
             matSort 
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
@@ -78,8 +78,8 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </ngx-material-dashboard-paged-table>
-    </ngx-material-dashboard-paged-table-with-raised-buttons-bar>`,
+        </ngx-mat-paged-table>
+    </ngx-mat-paged-table-with-raised-buttons-bar>`,
         context: {
             collectionButtons: [EDIT_BUTTON, DELETE_BUTTON],
             toolbarButtons: [
@@ -94,11 +94,11 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
     })
     .add('table with toolbar without multi-select', {
         template: `
-    <ngx-material-dashboard-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
-        <ngx-material-dashboard-filter-drop-down filter>
+    <ngx-mat-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
+        <ngx-mat-filter-drop-down filter>
             <!-- filter form goes here -->
-        </ngx-material-dashboard-filter-drop-down>
-        <ngx-material-dashboard-paged-table
+        </ngx-mat-filter-drop-down>
+        <ngx-mat-paged-table
             matSort
             [collectionButtons]="collectionButtons"
             [dataSource]="data"
@@ -116,8 +116,8 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
                     No data found
                 </mat-footer-cell>
             </ng-container>
-        </ngx-material-dashboard-paged-table>
-    </ngx-material-dashboard-paged-table-with-toolbar>`,
+        </ngx-mat-paged-table>
+    </ngx-mat-paged-table-with-toolbar>`,
         context: {
             collectionButtons: [EDIT_BUTTON, DELETE_BUTTON],
             toolbarButtons: [
