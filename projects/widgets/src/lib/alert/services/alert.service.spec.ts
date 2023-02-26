@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Alert } from '../models/alert.model';
 
 import { AlertService } from './alert.service';
 
@@ -19,6 +20,7 @@ describe('AlertService', () => {
         // then: call an alert method with default id to trigger above sub
         service.info('Info');
     });
+
     it('should emit alerts with id other than default-alert', () => {
         // setup: a subscription on the onAlert method with custom-alert
         service.onAlert('custom-alert').subscribe((alert) => {
@@ -27,5 +29,18 @@ describe('AlertService', () => {
 
         // then: call an alert method with custom id to trigger above sub
         service.info('Info', { id: 'custom-alert' });
+    });
+
+    it('should remove alerts when empty message alert received', () => {
+        // given: an existing alert
+        service.error('Error', { autoClose: false });
+
+        // when: an empty alert is passed into alert method
+        service.alert(new Alert());
+
+        // then: the services alerts should be empty
+        service.alerts$.subscribe((alerts) => {
+            expect(alerts.length).toEqual(0);
+        });
     });
 });
