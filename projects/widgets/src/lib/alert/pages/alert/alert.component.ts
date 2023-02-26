@@ -62,7 +62,7 @@ export class AlertComponent implements OnDestroy, OnInit {
 
         // create subscription for clear overlay event emitter and
         // dispose of the overlay so components behind are availabe
-        const subArray = this.alertService.alerts.subscribe((res) => {
+        const subArray = this.alertService.alerts$.subscribe((res) => {
             if (res.length === 0) {
                 this.overlayRef?.dispose();
                 this.overlayRef = undefined;

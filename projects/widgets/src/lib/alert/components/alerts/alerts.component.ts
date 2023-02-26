@@ -14,7 +14,6 @@ import { AlertService } from '../../services/alert.service';
 })
 export class AlertsComponent implements OnDestroy, OnInit {
     @Input() id = 'default-alert';
-    @Input() fade = true;
 
     alerts: Alert[] = [];
     faTimes: IconDefinition = faTimes;
@@ -29,34 +28,10 @@ export class AlertsComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
-        // subscribe to new alert notifications
-        const alertSub = this.alertService
-            .onAlert(this.id)
-            .subscribe((alert) => {
-                // clear alerts when an empty alert is received
-                if (!alert.message) {
-                    // filter out alerts without 'keepAfterRouteChange' flag
-                    this.alerts = this.alerts.filter(
-                        (x) => x.keepAfterRouteChange
-                    );
-
-                    // remove 'keepAfterRouteChange' flag on the rest
-                    // ...why? so they can be cleared if cleared again?
-                    this.alerts.forEach((x) => delete x.keepAfterRouteChange);
-                    this.alertService.alertsSubject.next(this.alerts);
-                    return;
-                }
-
-                // add alert to array
-                this.alerts.push(alert);
-                this.alertService.alertsSubject.next(this.alerts);
-
-                // auto close alert if required
-                if (alert.autoClose) {
-                    setTimeout(() => this.removeAlert(alert), 3000);
-                }
-            });
-        this.sub.add(alertSub);
+        const sub = this.alertService.alerts$.subscribe((res) => {
+            this.alerts = res;
+        });
+        this.sub.add(sub);
 
         // clear alerts on location change
         const routeSub = this.router.events.subscribe((event) => {
@@ -68,26 +43,7 @@ export class AlertsComponent implements OnDestroy, OnInit {
     }
 
     removeAlert(alert: Alert) {
-        // check if already removed to prevent error on auto close
-        if (!this.alerts.includes(alert)) return;
-
-        if (this.fade) {
-            const a = this.alerts.find((x) => x === alert);
-            // fade out alert
-            if (a) {
-                a.fade = true;
-            }
-
-            // remove alert after faded out
-            setTimeout(() => {
-                this.alerts = this.alerts.filter((x) => x !== alert);
-                this.alertService.alertsSubject.next(this.alerts);
-            }, 250);
-        } else {
-            // remove alert
-            this.alerts = this.alerts.filter((x) => x !== alert);
-            this.alertService.alertsSubject.next(this.alerts);
-        }
+        this.alertService.removeAlert(alert);
     }
 
     cssClass(alert: Alert): string {

@@ -11,8 +11,12 @@ import { Alert } from '../models/alert.model';
     providedIn: 'root'
 })
 export class AlertService {
-    alertsSubject: BehaviorSubject<Alert[]> = new BehaviorSubject<Alert[]>([]);
-    alerts: Observable<Alert[]> = this.alertsSubject.asObservable();
+    private alerts: Alert[] = [];
+    private alertsSubject: BehaviorSubject<Alert[]> = new BehaviorSubject<
+        Alert[]
+    >(this.alerts);
+    alerts$: Observable<Alert[]> = this.alertsSubject.asObservable();
+
     private subject = new Subject<Alert>();
     /** Default id to set for alerts. */
     private defaultId = 'default-alert';
@@ -78,9 +82,23 @@ export class AlertService {
      * @param alert The alert to render.
      */
     alert(alert: Alert) {
-        alert.id = alert.id || this.defaultId;
-        this.subject.next(alert);
-        this.alertsSubject.next([...this.alertsSubject.value, alert]);
+        if (!alert.message) {
+            this.alerts = [];
+            this.alertsSubject.next(this.alerts);
+        } else {
+            // set id for alert if not already set and update subject for onAlert
+            alert.id = alert.id || this.defaultId;
+            this.subject.next(alert);
+
+            // add alert to array of alerts currently rendered and update subj
+            this.alerts.push(alert);
+            this.alertsSubject.next(this.alerts);
+
+            // auto close alert if required
+            if (alert.autoClose) {
+                setTimeout(() => this.removeAlert(alert), 3000);
+            }
+        }
     }
 
     /**
@@ -91,5 +109,28 @@ export class AlertService {
      */
     clear(id = this.defaultId) {
         this.subject.next(new Alert({ id }));
+    }
+
+    removeAlert(alert: Alert) {
+        // check if already removed to prevent error on auto close
+        if (!this.alerts.includes(alert)) return;
+
+        if (alert.fade) {
+            const a = this.alerts.find((x) => x === alert);
+            // fade out alert
+            if (a) {
+                a.fade = true;
+            }
+
+            // remove alert after faded out
+            setTimeout(() => {
+                this.alerts = this.alerts.filter((x) => x !== alert);
+                this.alertsSubject.next(this.alerts);
+            }, 250);
+        } else {
+            // remove alert
+            this.alerts = this.alerts.filter((x) => x !== alert);
+            this.alertsSubject.next(this.alerts);
+        }
     }
 }

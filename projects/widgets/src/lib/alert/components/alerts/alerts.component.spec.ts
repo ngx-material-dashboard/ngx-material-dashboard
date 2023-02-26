@@ -164,12 +164,8 @@ describe('AlertsComponent', () => {
     });
 
     it('should remove alert without timeout when fade is false', () => {
-        // given: fade set to false
-        component.fade = false;
-        fixture.detectChanges();
-
-        // and: an existing alert
-        alertService.error('Error', { autoClose: false });
+        // given: an existing alert
+        alertService.error('Error', { autoClose: false, fade: false });
         fixture.detectChanges();
 
         // when: clear is called
@@ -203,8 +199,7 @@ describe('AlertsComponent', () => {
 
     it('should remove alert when close button clicked', async () => {
         // given: an existing alert
-        component.fade = false;
-        alertService.error('Error');
+        alertService.error('Error', { fade: false });
         fixture.detectChanges();
 
         // and: the close button for the alert
