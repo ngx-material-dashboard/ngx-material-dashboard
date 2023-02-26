@@ -1,6 +1,17 @@
 {
   "name": "@ngx-material-dashboard/ngx-material-dashboard",
   "version": "0.0.0",
+  "author": "Jonathan Phillips (https://github.com/jphillips03)",
+  "keywords": [
+    "angular",
+    "angular material dashboard",
+    "dashboard",
+    "json",
+    "json api",
+    "ngx",
+    "testing"
+  ],
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

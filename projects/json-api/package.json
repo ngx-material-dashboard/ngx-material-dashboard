@@ -1,6 +1,12 @@
 {
     "name": "@ngx-material-dashboard/json-api",
     "version": "0.0.1",
+    "author": "Jonathan Phillips (https://github.com/jphillips03)",
+    "license": "MIT","keywords": [
+        "angular",
+        "json api",
+        "ngx"
+      ],
     "peerDependencies": {
         "@angular/common": "^13.1.0",
         "@angular/core": "^13.1.0",

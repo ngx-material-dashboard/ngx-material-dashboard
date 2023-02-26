@@ -1,6 +1,13 @@
 {
   "name": "@ngx-material-dashboard/base-json",
   "version": "0.0.1",
+  "author": "Jonathan Phillips (https://github.com/jphillips03)",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "json",
+    "ngx"
+  ],
   "peerDependencies": {
     "@angular/common": "^13.1.0",
     "@angular/core": "^13.1.0",

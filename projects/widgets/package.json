@@ -1,6 +1,13 @@
 {
     "name": "@ngx-material-dashboard/widgets",
     "version": "0.0.1",
+    "author": "Jonathan Phillips (https://github.com/jphillips03)",
+    "license": "MIT",
+    "keywords": [
+        "angular",
+        "angular material dashboard",
+        "ngx"
+      ],
     "scripts": {
         "ng": "ng",
         "test": "ng test widgets"
