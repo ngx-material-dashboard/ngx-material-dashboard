@@ -3,10 +3,15 @@ import { Router, NavigationStart } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+
 import { AlertType } from '../../enums/alert-type.enum';
 import { Alert } from '../../models/alert.model';
 import { AlertService } from '../../services/alert.service';
 
+/**
+ * `Alerts` handles rendering array of alerts to screen, and controls how
+ * alerts are displayed (i.e. color/class based on type of alert).
+ */
 @Component({
     selector: 'ngx-material-dashboard-alerts',
     templateUrl: './alerts.component.html',
@@ -42,6 +47,12 @@ export class AlertsComponent implements OnDestroy, OnInit {
         this.sub.add(routeSub);
     }
 
+    /**
+     * Removes the given alert from array of alerts and therefore the screen,
+     * as long as the alert is still on the screen.
+     *
+     * @param alert The alert to remove.
+     */
     removeAlert(alert: Alert) {
         this.alertService.removeAlert(alert);
     }

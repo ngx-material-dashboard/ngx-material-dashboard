@@ -2,12 +2,13 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { AlertService } from '../../services/alert.service';
 
 /**
- * The `AlertComponent` handles rendering and managing alert messages, which
- * includes logic to automatically and manually clear messages.
+ * `Alert` handles rendering and managing the OverlayRef needed to render
+ * alerts on screen (on top of main content).
  */
 @Component({
     selector: 'ngx-material-dashboard-alert',

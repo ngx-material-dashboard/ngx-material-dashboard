@@ -161,13 +161,15 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/alert/api-0.md'],
         ['assets/docs/widgets/alert/api-1.md'],
         ['assets/docs/widgets/alert/api-2.md'],
-        ['assets/docs/widgets/alert/api-3.md']
+        ['assets/docs/widgets/alert/api-3.md'],
+        ['assets/docs/widgets/alert/api-4.md']
     ],
     '/widgets/alert/overview': [
         ['assets/docs/widgets/alert/overview-0.md'],
         ['assets/docs/widgets/alert/overview-1.md'],
         ['assets/docs/widgets/alert/overview-2.md'],
-        ['assets/docs/widgets/alert/overview-3.md']
+        ['assets/docs/widgets/alert/overview-3.md'],
+        ['assets/docs/widgets/alert/overview-4.md']
     ],
     '/widgets/collection/api': [
         ['assets/docs/widgets/collection/api-0.md'],

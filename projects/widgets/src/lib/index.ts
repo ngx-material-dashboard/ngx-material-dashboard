@@ -1,5 +1,6 @@
 export * from './alert/alert.module';
 export * from './alert/enums/alert-type.enum';
+export * from './alert/interfaces/alert.interface';
 export * from './alert/models/alert.model';
 export * from './alert/pages/alert/alert.component';
 export * from './alert/services/alert.service';

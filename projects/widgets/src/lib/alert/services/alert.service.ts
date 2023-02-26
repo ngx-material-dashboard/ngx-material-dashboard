@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, filter, BehaviorSubject } from 'rxjs';
 import { AlertType } from '../enums/alert-type.enum';
+import { AlertInterface } from '../interfaces/alert.interface';
 import { Alert } from '../models/alert.model';
 
 /**
@@ -11,12 +12,16 @@ import { Alert } from '../models/alert.model';
     providedIn: 'root'
 })
 export class AlertService {
+    /** List of alerts that should be rendered on screen. */
     private alerts: Alert[] = [];
+    /** Subject used to emit latest list of alerts. */
     private alertsSubject: BehaviorSubject<Alert[]> = new BehaviorSubject<
         Alert[]
     >(this.alerts);
+    /** Observable of list of alerts. */
     alerts$: Observable<Alert[]> = this.alertsSubject.asObservable();
 
+    /** Subject used to emit latest alert added to array of alerts. */
     private subject = new Subject<Alert>();
     /** Default id to set for alerts. */
     private defaultId = 'default-alert';
@@ -40,7 +45,7 @@ export class AlertService {
      * @param message The message to render in the alert.
      * @param options Optional options to include for alert.
      */
-    error(message: string, options?: any) {
+    error(message: string, options?: AlertInterface): void {
         this.alert(new Alert({ ...options, type: AlertType.Error, message }));
     }
 
@@ -50,7 +55,7 @@ export class AlertService {
      * @param message The message to render in the alert.
      * @param options Optional options to include for alert.
      */
-    info(message: string, options?: any) {
+    info(message: string, options?: AlertInterface): void {
         this.alert(new Alert({ ...options, type: AlertType.Info, message }));
     }
 
@@ -60,7 +65,7 @@ export class AlertService {
      * @param message The message to render in the alert.
      * @param options Optional options to include for alert.
      */
-    success(message: string, options?: any) {
+    success(message: string, options?: AlertInterface): void {
         this.alert(new Alert({ ...options, type: AlertType.Success, message }));
     }
 
@@ -70,7 +75,7 @@ export class AlertService {
      * @param message The message to render in the alert.
      * @param options Optional options to include for alert.
      */
-    warn(message: string, options?: any) {
+    warn(message: string, options?: AlertInterface): void {
         this.alert(new Alert({ ...options, type: AlertType.Warning, message }));
     }
 
@@ -81,7 +86,7 @@ export class AlertService {
      *
      * @param alert The alert to render.
      */
-    alert(alert: Alert) {
+    alert(alert: Alert): void {
         if (!alert.message) {
             this.alerts = [];
             this.alertsSubject.next(this.alerts);
@@ -107,11 +112,16 @@ export class AlertService {
      *
      * @param id Optional id to set for the alert.
      */
-    clear(id = this.defaultId) {
+    clear(id = this.defaultId): void {
         this.subject.next(new Alert({ id }));
     }
 
-    removeAlert(alert: Alert) {
+    /**
+     * Removes the given alert from array of alerts (if it is still in array).
+     *
+     * @param alert The alert to remove;
+     */
+    removeAlert(alert: Alert): void {
         // check if already removed to prevent error on auto close
         if (!this.alerts.includes(alert)) return;
 
