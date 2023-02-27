@@ -15,9 +15,7 @@ import { GridWithIconButtonsPaginatorBarComponent } from './grid-with-icon-butto
 
 @Component({
     template: `
-        <ngx-mat-grid-with-icon-buttons-paginator-bar
-            [fields]="fields"
-        >
+        <ngx-mat-grid-with-icon-buttons-paginator-bar [fields]="fields">
             <ngx-mat-grid [data]="data" #collection>
                 <ng-template #model let-model="model">
                     <h2>Dummy Model</h2>

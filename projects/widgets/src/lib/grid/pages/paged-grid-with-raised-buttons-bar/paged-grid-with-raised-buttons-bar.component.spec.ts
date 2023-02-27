@@ -15,9 +15,7 @@ import { PagedGridWithRaisedButtonsBarComponent } from './paged-grid-with-raised
 
 @Component({
     template: `
-        <ngx-mat-paged-grid-with-raised-buttons-bar
-            [fields]="fields"
-        >
+        <ngx-mat-paged-grid-with-raised-buttons-bar [fields]="fields">
             <ngx-mat-paged-grid [data]="data" #collection>
                 <ng-template #model let-model="model">
                     <h2>Dummy Model</h2>

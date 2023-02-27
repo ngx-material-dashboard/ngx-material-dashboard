@@ -16,9 +16,7 @@ import { ListWithIconButtonsPaginatorBarComponent } from './list-with-icon-butto
 
 @Component({
     template: `
-        <ngx-mat-list-with-icons-buttons-paginator-bar
-            [fields]="fields"
-        >
+        <ngx-mat-list-with-icons-buttons-paginator-bar [fields]="fields">
             <ngx-mat-list [data]="data">
                 <ng-template #model let-model="model">
                     <h2>Dummy Model</h2>

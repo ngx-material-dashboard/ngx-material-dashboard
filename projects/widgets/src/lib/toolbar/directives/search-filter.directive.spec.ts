@@ -59,11 +59,7 @@ import { SearchFilterDirective } from './search-filter.directive';
                     </mat-form-field>
                 </form>
             </ngx-mat-filter-drop-down>
-            <ngx-mat-paged-list
-                [dataSource]="data"
-                collection
-                #collection
-            >
+            <ngx-mat-paged-list [dataSource]="data" collection #collection>
                 <ng-template #model let-model="model">
                     <span>{{ model.id }} Title</span>
                     <span>Content for dummy object {{ model.id }}</span>
