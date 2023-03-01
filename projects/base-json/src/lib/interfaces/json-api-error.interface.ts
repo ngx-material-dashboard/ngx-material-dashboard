@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
+/**
  * An error object that provides information about problems encountered while
  * performing an operation. Based on the error object as defined in the
  * [JSON:API](https://jsonapi.org/format/#error-objects) Spec. The JSON:API

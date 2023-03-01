@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
+/**
  * The JsonApiQueryData defines how the library maps JSON results to client
  * side data models when querying the server side API for lists of models.
  *

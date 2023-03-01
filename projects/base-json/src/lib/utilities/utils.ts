@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
+/**
  * Code taken from https://github.com/ghidoz/angular2-jsonapi/pull/277 and
  * updated to work with current version of typescript. The utilities is a part
  * of the library I do not know enough about since I just copied the code and

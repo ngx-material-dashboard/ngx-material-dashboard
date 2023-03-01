@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
+/**
  * HasMany is a custom property decorator that should be added to any property
  * that is a to-many relationship. Marking a property with this decorator will
  * automatically convert included relationship data associated with the property

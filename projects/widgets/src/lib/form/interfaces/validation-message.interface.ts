@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
+/**
  * A simple object that is used to render validation messages for field errors
  * used by the `FieldError` component. A `ValidationMessage` is defined by the
  * type of validation, and the error message associated with that type of

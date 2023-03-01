@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
+/**
  * PropertyConverter provides methods needed to define a converter for JSON
  * properties. Classes that implement this interface can be used to convert
  * between JSON literals and any object type, but you must provide the logic

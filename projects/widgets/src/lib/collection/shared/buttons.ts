@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '../interfaces/button.interface';
 

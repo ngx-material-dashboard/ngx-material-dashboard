@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
 import { JsonModel, ModelType } from '@ngx-material-dashboard/base-json';
 import { find, includes } from 'lodash-es';
 import * as _ from 'lodash-es';

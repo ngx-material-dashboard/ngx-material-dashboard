@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright Jonathan Phillips (https://github.com/jphillips03) All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at
+ * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
+ */
+
 export const TASK_NAME = 'Create Task Test Fixture';
 export const TASK_DESCRIPTION = 'Add Task data for unit tests';
 export const TASK_DUE_DATE = '2022-05-04';
