@@ -16,7 +16,7 @@ import { Overrides } from './overrides.interface';
  * to your server side API as well as the models you want to include with those
  * requests.
  *
- * See [JsonApiDatastoreConfig](/base-json/decorators/json-api-datastore-config)
+ * See [JsonApiDatastoreConfig](/base-json/overview#json-api-datastore-config)
  * for more details on using this interface.
  */
 export interface DatastoreConfig {

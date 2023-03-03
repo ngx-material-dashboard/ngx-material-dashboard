@@ -44,9 +44,9 @@ import { CollectionComponent } from '../collection/collection.component';
  * or `PagedTable` do not provide the capabilities you need). If you do define
  * your own paged collection, you must define a template for it. You can find
  * more details in the documentation for the
- * [PagedGrid](/widgets/components/paged-grid),
- * [PagedList](/widgets/components/paged-list),
- * and [PagedTable](/widgets/components/paged-table) at the included links.
+ * [PagedGrid](/widgets/grid/overview#paged-grid-component),
+ * [PagedList](/widgets/list/overview#paged-list-component),
+ * and [PagedTable](/widgets/table/overview#paged-table-component) at the included links.
  *
  * #### Features
  *

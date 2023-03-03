@@ -12,7 +12,7 @@ import { SidenavItem } from './sidenav.interface';
 
 /**
  * A `SidenavItemWithChildren` defines a
- * [SidenavItem](/widgets/interfaces/sidenav-item) that has sidenavItem
+ * [SidenavItem](/widgets/layout/overview#sidenav-item) that has sidenavItem
  * children nested underneath it. This keeps SidenavItems with children
  * separate from SidenavItems with routes, since right now these are
  * treated as distinct (i.e. a SidenavItem that has children should not

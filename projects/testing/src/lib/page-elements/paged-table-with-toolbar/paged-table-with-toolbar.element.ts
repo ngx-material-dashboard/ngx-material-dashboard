@@ -21,8 +21,8 @@ import { PagedTableElement } from '../paged-table/paged-table.element';
  *
  * If you define a `PagedTableWithToolbarElement`, the element will
  * automatically configure the `PagedTableElement` and `ToolbarElement` needed.
- * See the [PagedTableElement](/testing/page-elements/paged-table) and
- * [ToolbarElement](/testing/page-elements/toolbar) for more details.
+ * See the [PagedTableElement](/testing/elements/overview#paged-table-element) and
+ * [ToolbarElement](/testing/elements/overview#toolbar-element) for more details.
  */
 export class PagedTableWithToolbarElement extends PagedCollectionWithToolbarElement {
     /** The paged table element. */

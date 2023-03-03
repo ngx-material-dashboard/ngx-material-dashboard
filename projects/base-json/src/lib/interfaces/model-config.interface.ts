@@ -22,7 +22,7 @@ import { MetaModelType } from '../models/json-api-meta.model';
  * `modelEndpointUrl` property, which if included will take precedent over the
  * `type` value.
  *
- * See [JsonApiModelConfig](/base-json/decorators/json-api-model-config) for
+ * See [JsonApiModelConfig](/base-json/overview#json-api-model-config) for
  * more details on using this interface.
  */
 export interface ModelConfig<T = any> {

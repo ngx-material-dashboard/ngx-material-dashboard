@@ -58,7 +58,7 @@ import { AttributeDecoratorOptions } from '../interfaces/attribute-decorator-opt
  * ```
  *
  * See the docs for
- * [AttributeDecoratorOptions](/base-json/interfaces/attribute-decorator-options)
+ * [AttributeDecoratorOptions](/base-json/api#attribute-decorator-options)
  * for more details.
  */
 export function Attribute(

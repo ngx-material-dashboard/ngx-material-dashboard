@@ -89,7 +89,7 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
  * mostly self explanatory, but this allows you to include some additional
  * details to the user when they hover over a `SidenavItem`.
  *
- * See the [Sidenav](/widgets/interfaces/sidenav) interface documentation for
+ * See the [Sidenav](/widgets/layout/overview#sidenav) interface documentation for
  * more details on the values to include when defining your `SidenavItems`.
  */
 @Component({

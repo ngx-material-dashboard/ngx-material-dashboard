@@ -11,7 +11,7 @@ import { BaseSidenavItem } from './base-sidenav.interface';
 
 /**
  * A `SidenavItemWithRoute` defines a
- * [SidenavItem](/widgets/interfaces/sidenav-item) that has a route
+ * [SidenavItem](/widgets/layout/overview#sidenav-item) that has a route
  * defined. This keeps SidenavItems with routes separate from SidenavItems
  * with routes, since right now these are treated as distinct (i.e. a
  * SidenavItem that has routes should not have children, and vice-versa).

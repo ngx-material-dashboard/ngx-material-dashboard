@@ -27,7 +27,7 @@ import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-to
  * template to be of type `Collection` since paging is rendered and managed
  * from the toolbar. See the documentation for the `IconButtonsWithPaginator`
  * for more details
- * [here](/widgets/components/icon-buttons-with-paginator).
+ * [here](/widgets/toolbar/overview#icon-buttons-with-paginator-component).
  */
 @Component({
     template: '',

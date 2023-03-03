@@ -15,10 +15,10 @@
  * in the top level of a JSON:API document, which means the `HttpErrorResponse`
  * returned from the API should contain an array of these types of objects.
  *
- * The [JsonDatastore](/base-json/services/json-datastore) handles parsing
+ * The [JsonDatastore](/base-json/overview#json-datastore) handles parsing
  * `HttpErrorResponse`s into an `ErrorResponse` object, which contains an
  * array of `JsonApiError`s. See the documentation for the
- * [ErrorResponse](/base-json/models/error-response) model for more details.
+ * [ErrorResponse](/base-json/overview#error-response) model for more details.
  */
 export interface JsonApiError {
     /** A unique identifier for this particular occurrance of the problem. */

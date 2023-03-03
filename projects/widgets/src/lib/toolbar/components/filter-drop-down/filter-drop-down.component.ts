@@ -27,7 +27,7 @@ import {
  * included with the `PagedTableWithToolbar`, and all logic is included to
  * handle filtering your data when the user clicks the `Search` button. The only
  * thing you must provide is a form with one or more fields to filter your data.
- * See the [PagedTableWithToolbar](/widgets/components/paged-table-with-toolbar)
+ * See the [PagedTableWithToolbar](/widgets/table/overview#paged-table-with-toolbar-component)
  * for more details.
  *
  * > NOTE: The key for each control included in the form should match up with

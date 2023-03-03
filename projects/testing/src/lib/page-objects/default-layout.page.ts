@@ -16,8 +16,8 @@ import { ToolbarHeaderElement } from '../page-elements/toolbar-header/toolbar-he
  * The `DefaultLayoutPage` class defines properties and functions for testing
  * components that utilize the default layout. It is mostly a wrapper around
  * the `ToolbarHeaderElement` and `SidenavElement`. See the
- * [ToolbarHeaderElement](/testing/element/toolbar-header) and
- * [SidenavElement](/testing/element/sidenav) documentation for more details.
+ * [ToolbarHeaderElement](/testing/element/overview#toolbar-header-element) and
+ * [SidenavElement](/testing/element/overview#sidenav-element) documentation for more details.
  */
 export class DefaultLayoutPage extends PageElement {
     /** The header toolbar for the page. */

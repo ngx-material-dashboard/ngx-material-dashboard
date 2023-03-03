@@ -68,8 +68,8 @@ graph TD
  * collection type component (if the existing `Grid`, `List`, or `Table` do not
  * provide the capabilities you need). If you do define your own collection, you
  * must define a template for it. You can find more details in the documentation
- * for the [Grid](/widgets/components/grid), [List](/widgets/components/list),
- * and [Table](/widgets/components/table) at the included links.
+ * for the [Grid](/widgets/grid/overview), [List](/widgets/list/overview),
+ * and [Table](/widgets/table/overview) at the included links.
  *
  * #### Features
  *

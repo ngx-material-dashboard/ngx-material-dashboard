@@ -15,8 +15,8 @@ import { PaginatorElement } from '../paginator/paginator.element';
 /**
  * The `PagedCollection` adds paging capabilities to the `CollectionElement`
  * by adding a `Paginator` property. See the documentation for the
- * [Collection](/testing/elements/collection) and the
- * [Paginator](/testing/elements/paginator).
+ * [Collection](/testing/elements/overview#collection-element) and the
+ * [Paginator](/testing/elements/overview#paginator-element).
  */
 export class PagedCollectionElement extends CollectionElement {
     /** The paginator element included with the collection. */

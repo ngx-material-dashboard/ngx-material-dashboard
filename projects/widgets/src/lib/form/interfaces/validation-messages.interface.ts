@@ -14,7 +14,7 @@ import { ValidationMessage } from './validation-message.interface';
  * name (i.e. the name of the field on the form where validation should occur)
  * to an array of each ValidationMessage for the field. This can be used any
  * place you define forms that require validation. See
- * [FieldError](/widgets/components/field-error) for more details on where you
+ * [FieldError](/widgets/form/overview#field-error-component) for more details on where you
  * can use objects of this type.
  *
  * #### Basic Usage Example

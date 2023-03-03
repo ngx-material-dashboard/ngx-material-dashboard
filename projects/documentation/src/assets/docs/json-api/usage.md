@@ -49,7 +49,7 @@ configuration if your JSON attribute(s) have different names from the ones you
 define for your model classes (i.e. if you JSON uses snake_case, but your 
 classes use camelCase).
 
-The `BelongsTo` decorator defines a belongs-to relationship, and the `HasMany` decorator defines a has-many relationship. See the [JsonApiModelConfig](/base-json/decorators/json-api-model-config), [Attribute](/base-json/decorators/attribute), [BelongsTo](/json-api/decorators/belongs-to), and [HasMany](/json-api/decorators/has-many) decorators documentation for more details.
+The `BelongsTo` decorator defines a belongs-to relationship, and the `HasMany` decorator defines a has-many relationship. See the [JsonApiModelConfig](/base-json/overview#json-api-model-config), [Attribute](/base-json/overview#attribute), [BelongsTo](/json-api/overview#belongs-to), and [HasMany](/json-api/overview#has-many) decorators documentation for more details.
 
 ### Datastore
 

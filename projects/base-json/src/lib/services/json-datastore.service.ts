@@ -46,7 +46,7 @@ const AttributeMetadataIndex: string = AttributeMetadata as any;
  * include some details on what you need to do to extend this class below.
  *
  * > NOTE: All examples provided below are taken from the
- * > [JsonDatastore](/json/services/json-datastore) in the `json` library.
+ * > [JsonDatastore](/json/overview#json-datastore) in the `json` library.
  *
  * To make the service as generic as possible I had to define several abstract
  * method calls that need to be implemented to handle parsing and generating

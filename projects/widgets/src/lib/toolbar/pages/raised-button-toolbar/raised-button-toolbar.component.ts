@@ -19,7 +19,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  * aligned buttons in a row in your application. It is used internally by
  * components that utilize the `PagedCollectionWithRaisedButtonToolbar`. You
  * can take a look at
- * [PagedCollectionWithRaisedButtonToolbar](/widgets/components/paged-collection-with-raised-button-toolbar)
+ * [PagedCollectionWithRaisedButtonToolbar](/widgets/collection/overview#paged-collection-with-raised-button-toolbar-component)
  * for an example of how you can use this component.
  *
  * @overviewDetails
@@ -39,7 +39,7 @@ import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
  *
  * You may include an optional `FilterDropDown` that renders a detailed formed
  * to filter paged collections. See the following for more details on the
- * [FilterDropDown](/widgets/components/filter-drop-down).
+ * [FilterDropDown](/widgets/toolbar/overview#filter-drop-down-component).
  */
 @Component({
     selector: 'ngx-mat-raised-button-toolbar',

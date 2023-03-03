@@ -83,14 +83,14 @@ export class Task extends JsonModel {
 
 There are multiple attribute decorators included for you to use on the properties in your models that you want to include in the JSON serialization/deserialization. The `Attribute` decorator is the most basic decorator, and should be used for primitives (`string`, `number`, or `boolean`) or date values. The `NestedAttribute` decorator can be used for more complex types including arrays of simply typed values `[1,2,3]`, arrays of complex values `[{name: 'Create Docs', ...}, ...]`, or complex objects `{name: 'Create Docs', ...}`.
 
-Only properties that have decorators will be included in the JSON serialization/deserialization. Methods (if you include any) will be ignored when converting these objects to/from JSON. See the [Attribute](/base-json/decorators/attribute) and [NestedAttribute](/base-json/decorators/nested-attribute) documentation for more details.
+Only properties that have decorators will be included in the JSON serialization/deserialization. Methods (if you include any) will be ignored when converting these objects to/from JSON. See the [Attribute](/base-json/overview#attribute) and [NestedAttribute](/base-json/overview#nested-attribute) documentation for more details.
 
 #### JsonApiModelConfig Decorator
 
 The `JsonApiModelConfig` decorator provides configuration options the
 library needs to interface with the server side API. The only required option
 is the `type` option. When this is the only option included it is used to
-define the endpoint used to interface with your server side API. See the [JsonApiModelConfig](/base-json/decorators/json-api-model-config) decorator documentation for more details on the options available.
+define the endpoint used to interface with your server side API. See the [JsonApiModelConfig](/base-json/overview#json-api-model-config) decorator documentation for more details on the options available.
 
 ### Datastore
 
@@ -99,11 +99,11 @@ The next thing you need to do is create a datastore service that extends the
 for interfacing with your server side API and includes basic implementations
 for CRUD operations. The only thing it does not include are implementations for
 serializing and deserializing your data, as well as extracting model data from
-HTTP responses. See the [documentation](/base-json/services/json-datastore/api) for the JsonDatastore for more details.
+HTTP responses. See the [documentation](/base-json/api#json-datastore) for the JsonDatastore for more details.
 
 I am including the source for the JsonDatastore from the json library so you
 can see an example of how to implement the necessary methods. I also suggest
-taking a look at the [JsonApiDatastore](/json-api/services/json-api-datastore)
+taking a look at the [JsonApiDatastore](/json-api/overview#json-api-datastore)
 defined in the `json-api` library to see a different implementation for a more
 well defined JSON structure (especially if you plan to write your own extension
 of this library).

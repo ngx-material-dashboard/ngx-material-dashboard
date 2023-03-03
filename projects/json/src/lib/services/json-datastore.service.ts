@@ -18,9 +18,9 @@ import { JsonModel } from '../models/json.model';
 
 /**
  * Implements methods necessary to perform all CRUD operations as defined in
- * base-json [JsonDatastore](/base-json/services/json-datastore). See the `json`
- * [usage](/json#usage) documentation for more details on configuring and the
- * [Datastore](/json#datastore) for more details on using this datastore.
+ * base-json [JsonDatastore](/base-json/overview#json-datastore). See the `json`
+ * [usage](/json/readme#usage) documentation for more details on configuring and the
+ * [Datastore](/json/readme#datastore) for more details on using this datastore.
  */
 @Injectable()
 export class JsonDatastore extends BaseJsonDatastore {

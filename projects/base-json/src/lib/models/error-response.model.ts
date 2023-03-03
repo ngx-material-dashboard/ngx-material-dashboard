@@ -12,7 +12,7 @@ import { JsonApiError } from '../interfaces/json-api-error.interface';
 /**
  * An array of error objects that provide information about problems encountered
  * while performing an operation. This is used by the
- * [JsonDatastore](/base-json/services/json-datastore) to handle errors that
+ * [JsonDatastore](/base-json/overview#json-datastore) to handle errors that
  * occur on the server.
  *
  * If the server returns a `HttpErrorResponse` that follows the

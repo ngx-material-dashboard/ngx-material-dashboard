@@ -20,7 +20,7 @@ import { LoadingService } from '../../services/loading.service';
  *
  * You may use this component if you are not using the `DefaultLayout`. The
  * `LoadingService` must be conigured for this component to work correctly. See
- * the [LoadingService](/widgets/services/loading) documentation for more info.
+ * the [LoadingService](/widgets/layout/overview#loading-service) documentation for more info.
  *
  *  @usageNotes
  * #### Basic Usage Example

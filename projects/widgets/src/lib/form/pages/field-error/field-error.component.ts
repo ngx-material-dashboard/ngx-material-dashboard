@@ -25,7 +25,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  * validator type. You should use the `ValidationMessages` type to define your
  * validation messages in your typescript, which is a map of field names to
  * arrays of `ValidationMessage`s. See
- * [ValidationMessages](/widgets/interfaces/validation-messages) for more
+ * [ValidationMessages](/widgets/form/overview#validation-messages) for more
  * info about the `ValidationMessages` type.
  *
  * @usageNotes

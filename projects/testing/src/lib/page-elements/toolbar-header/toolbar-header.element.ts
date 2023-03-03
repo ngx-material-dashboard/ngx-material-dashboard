@@ -18,7 +18,7 @@ import { ToolbarElement } from '../toolbar/toolbar.element';
  * have access to functions defined there in addition to the `logo` getter
  * that returns the text for the logo that should be in the header.
  *
- * See [ToolbarElement](/testing/elements/toolbar) for more details.
+ * See [ToolbarElement](/testing/elements/overview#toolbar-element) for more details.
  *
  * TODO probably add property and method to click bars button to toggle sidenav
  */

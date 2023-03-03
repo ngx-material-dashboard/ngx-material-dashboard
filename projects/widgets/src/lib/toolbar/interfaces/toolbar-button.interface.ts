@@ -96,7 +96,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  * There are several different properties that control when a button is enabled
  * and disabled. They are `disabled`, `canDisable`, and `multiSelectDisabled`.
  * The `SelectionService` controls how the buttons are enabled/disabled based on
- * properties defined. See the [docs](/widgets/services/selection/overview)
+ * properties defined. See the [docs](/widgets/collection/overview#selection-service)
  * there for more details.
  *
  * The `disabled` property represents the current state of the button and it

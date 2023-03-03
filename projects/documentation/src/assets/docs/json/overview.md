@@ -9,6 +9,6 @@ with your JSON API. This means you don't have to work with bare JSON, or work
 directly with HTTP requests to your API.
 
 There are a few assumptions I had to make about your server side API in order
-to make this library work. Check the [Background](./json-overview#background)
+to make this library work. Check the [Background](./json-overview/readme#background)
 section in the base-json library for more information on the assumptions I made.
 You can skip to the 3rd paragraph if you want to get right into the assumptions.

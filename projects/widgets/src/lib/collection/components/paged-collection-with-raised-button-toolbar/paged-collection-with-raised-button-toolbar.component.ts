@@ -28,7 +28,7 @@ import { PagedCollectionWithToolbarComponent } from '../paged-collection-with-to
  * template to be of type `PagedCollection` since it expects paging to be
  * managed by the collection itself. See the documentation for the
  * `RaisedButtonToolbar` for more details
- * [here](/widgets/components/raised-button-toolbar).
+ * [here](/widgets/toolbar/overview#raised-button-toolbar-component).
  */
 @Component({
     template: '',

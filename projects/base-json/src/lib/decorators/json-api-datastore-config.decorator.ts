@@ -37,7 +37,7 @@ import 'reflect-metadata';
  *
  * The example above shows the minimum properties you should include with the
  * `JsonApiDatastoreConfig` `decorator`. Additional properties can be
- * included. See the [API](/base-json/interfaces/datastore-config/api) docs
+ * included. See the [API](/base-json/api#datastore-config) docs
  * for a list of all options available.
  */
 export function JsonApiDatastoreConfig(config: any = {}): ClassDecorator {

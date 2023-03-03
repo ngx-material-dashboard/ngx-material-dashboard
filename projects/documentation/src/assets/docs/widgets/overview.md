@@ -22,13 +22,13 @@ The collections module defines the most basic components/directives for managing
 
 ### Layout Features
 
-The layout module defines most of the components necessary for a basic layout of an application. I have included a [DefaultLayoutComponent](/widgets/layout/components/default-layout) which defines a typical layout with header, footer, sidenav, and main content areas. The documentation actually utilizes the sidenav from this library, so you can see one of the components in action.
+The layout module defines most of the components necessary for a basic layout of an application. I have included a [DefaultLayoutComponent](/widgets/layout/overview#default-layout-component) which defines a typical layout with header, footer, sidenav, and main content areas. The documentation actually utilizes the sidenav from this library, so you can see one of the components in action.
 
 The toolbar module defines various toolbars, mostly for use with collections to provide buttons, paging, and sorting capabilities. The dialog module currently only provides a dialog to confirm deleting things from collections.
 
 ### Forms Module
 
-The forms module provides things I found useful for all forms I've worked with, and has really helped reduce the amount of repeated validation/error handling and template details in my apps. I also define a generic structure for defining validation messages that I think can be used for just about any form and validation type. See the [ValidationMessages](/widgets/interfaces/validation-messages) for more details.
+The forms module provides things I found useful for all forms I've worked with, and has really helped reduce the amount of repeated validation/error handling and template details in my apps. I also define a generic structure for defining validation messages that I think can be used for just about any form and validation type. See the [ValidationMessages](/widgets/form/overview#validation-messages) for more details.
 
 ## Getting Started
 

@@ -17,7 +17,7 @@ import { PropertyConverter } from './property-converter.interface';
  * converter function in case the attribute cannot be converted as a primitive,
  * date, or defined data model in your client side code.
  *
- * See [Attribute](/base-json/decorators/attribute) for more details on using
+ * See [Attribute](/base-json/overview#attribute) for more details on using
  * this interface.
  *
  * ### Converter
@@ -26,7 +26,7 @@ import { PropertyConverter } from './property-converter.interface';
  * literal and whatever object type you want to convert to/from. The property
  * takes a class that implements `PropertyConverter` interface, which must
  * implement 2 methods, `mask` and `unmask`. See the
- * [PropertyConverter](/base-json/interfaces/property-converter) docs for more
+ * [PropertyConverter](/base-json/overview#property-converter) docs for more
  * details.
  *
  * ### Serialized Name

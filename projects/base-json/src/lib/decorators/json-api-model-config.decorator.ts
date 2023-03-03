@@ -19,7 +19,7 @@ import { JsonApiMetaModel } from '../models/json-api-meta.model';
  * this value when generating the URL for creating HTTP requests for CRUD
  * operations.
  *
- * See [ModelConfig](/base-json/interfaces/model-config) for more details on
+ * See [ModelConfig](/base-json/api#model-config) for more details on
  * the options available for the decorator. You can also see below for usage
  * examples with options available.
  *

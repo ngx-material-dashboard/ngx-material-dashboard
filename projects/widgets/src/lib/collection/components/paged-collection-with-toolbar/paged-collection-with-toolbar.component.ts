@@ -56,7 +56,7 @@ import { PagedCollectionComponent } from '../paged-collection/paged-collection.c
  * component provides built in capabilities to enable/disable those buttons
  * based on configuration parameters provided for the toolbar buttons. See
  * documentation for the `ToolbarButton` interface for more details:
- * [ToolbarButton](/widgets/interfaces/toolbar-button).
+ * [ToolbarButton](/widgets/toolbar/overview#toolbar-button).
  *
  * Additionally, the component utilizes the `buttonClick` output event emitter
  * for emitting button click events from buttons in the toolbar. This way
