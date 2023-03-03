@@ -39,7 +39,7 @@ import { SearchFilterDirective } from './search-filter.directive';
 @Component({
     template: `
         <ngx-mat-paged-list-with-raised-buttons-bar
-            ngxMaterialDashboardSearchFilter
+            ngxMatSearchFilter
             [collection]="collectionCmp"
             [filter]="filterCmp"
             [form]="parentForm"

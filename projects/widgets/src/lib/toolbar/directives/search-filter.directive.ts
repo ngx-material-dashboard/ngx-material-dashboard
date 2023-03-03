@@ -25,7 +25,7 @@ import { SearchFilterMap } from '../interfaces/search-filter-map.interface';
 import { FilterDropDownComponent } from '../../toolbar/components/filter-drop-down/filter-drop-down.component';
 
 @Directive({
-    selector: '[ngxMaterialDashboardSearchFilter]'
+    selector: '[ngxMatSearchFilter]'
 })
 export class SearchFilterDirective<T extends JsonModel> implements OnDestroy {
     /** The filter drop down. */

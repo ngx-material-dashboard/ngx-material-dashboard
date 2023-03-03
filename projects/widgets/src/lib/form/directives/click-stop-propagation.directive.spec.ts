@@ -19,11 +19,7 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
             <span class="marker-menu-trigger">Drop Down</span>
         </div>
         <mat-menu #filterMenu="matMenu">
-            <form
-                ngxMaterialDashboardClickStopPropagation
-                [formGroup]="formGroup"
-                #form
-            >
+            <form ngxMatClickStopPropagation [formGroup]="formGroup" #form>
                 <mat-form-field>
                     <mat-label>Task Name</mat-label>
                     <input
