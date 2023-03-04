@@ -84,7 +84,9 @@ export class SearchFilterDirective<T extends JsonModel> implements OnDestroy {
      * @param searchFilterData FormGroup defined for filter drop down.
      * @returns A map of search filters to send to server API.
      */
-    private buildSearchFilter(searchFilterData: UntypedFormGroup): SearchFilterMap {
+    private buildSearchFilter(
+        searchFilterData: UntypedFormGroup
+    ): SearchFilterMap {
         const searchFilter: SearchFilterMap = {};
         Object.keys(searchFilterData.controls).forEach((key: string) => {
             searchFilter[key] = searchFilterData.controls[key].value;

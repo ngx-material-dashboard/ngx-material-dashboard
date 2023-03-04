@@ -1,5 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    ReactiveFormsModule
+} from '@angular/forms';
 
 import { FormService } from './form.service';
 

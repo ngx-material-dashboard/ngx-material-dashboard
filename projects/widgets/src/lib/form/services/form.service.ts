@@ -49,7 +49,10 @@ export class FormService {
     markAsTouched(form: UntypedFormGroup | UntypedFormArray): void {
         Object.keys(form.controls).forEach((controlName) => {
             const control = form.get(controlName);
-            if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
+            if (
+                control instanceof UntypedFormGroup ||
+                control instanceof UntypedFormArray
+            ) {
                 // recurse and handle nested FormGroups/FormArrays
                 this.markAsTouched(control);
             } else if (control) {
