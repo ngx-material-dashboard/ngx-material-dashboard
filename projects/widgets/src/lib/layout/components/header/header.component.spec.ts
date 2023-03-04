@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    FormBuilder,
-    FormGroup,
+    UntypedFormBuilder,
+    UntypedFormGroup,
     FormsModule,
     ReactiveFormsModule
 } from '@angular/forms';
@@ -48,10 +48,10 @@ import { HeaderComponent } from './header.component';
 })
 class TestHeaderComponent implements OnInit {
     @ViewChild(HeaderComponent) header!: HeaderComponent;
-    formGroup!: FormGroup;
+    formGroup!: UntypedFormGroup;
     logo: string = 'My App';
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: UntypedFormBuilder) {}
 
     ngOnInit(): void {
         this.formGroup = this.formBuilder.group({

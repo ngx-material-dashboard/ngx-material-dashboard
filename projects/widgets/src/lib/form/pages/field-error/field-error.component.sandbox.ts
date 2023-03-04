@@ -8,7 +8,7 @@
  */
 
 import {
-    FormBuilder,
+    UntypedFormBuilder,
     FormsModule,
     ReactiveFormsModule,
     Validators
@@ -18,7 +18,7 @@ import { sandboxOf } from 'angular-playground';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { FieldErrorComponent } from './field-error.component';
 
-const formBuilder = new FormBuilder();
+const formBuilder = new UntypedFormBuilder();
 const form = formBuilder.group({
     field: [null, Validators.required]
 });

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-    FormBuilder,
+    UntypedFormBuilder,
     Validators,
     FormsModule,
     ReactiveFormsModule
@@ -45,7 +45,7 @@ describe('FieldErrorComponent', () => {
             });
 
             // define a form and field with Validators to use for the component
-            const formBuilder = new FormBuilder();
+            const formBuilder = new UntypedFormBuilder();
             const form = formBuilder.group({});
             const validationMessages: ValidationMessage[] = [
                 { type: 'required', message: 'Field is required' }
@@ -81,7 +81,7 @@ function init(): FieldErrorPage {
     });
 
     // define a form and field with Validators to use for the component
-    const formBuilder = new FormBuilder();
+    const formBuilder = new UntypedFormBuilder();
     const form = formBuilder.group({
         field: [null, Validators.required]
     });

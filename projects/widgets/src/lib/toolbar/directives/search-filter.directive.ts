@@ -15,7 +15,7 @@ import {
     OnDestroy,
     Output
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
 
@@ -35,7 +35,7 @@ export class SearchFilterDirective<T extends JsonModel> implements OnDestroy {
                 // set dataSource filter based on values entered on searchFilter
                 const searchFilterData = this.form.get(
                     'searchFilter'
-                ) as FormGroup;
+                ) as UntypedFormGroup;
                 this.collection.dataSource.filter =
                     this.buildSearchFilter(searchFilterData);
 
@@ -56,7 +56,7 @@ export class SearchFilterDirective<T extends JsonModel> implements OnDestroy {
         }
     }
     /** The form to render in the filter drop down. */
-    @Input() form!: FormGroup;
+    @Input() form!: UntypedFormGroup;
     /**
      * A reference to the PageCollection that should be included inside the
      * selector for this component.
@@ -84,7 +84,7 @@ export class SearchFilterDirective<T extends JsonModel> implements OnDestroy {
      * @param searchFilterData FormGroup defined for filter drop down.
      * @returns A map of search filters to send to server API.
      */
-    private buildSearchFilter(searchFilterData: FormGroup): SearchFilterMap {
+    private buildSearchFilter(searchFilterData: UntypedFormGroup): SearchFilterMap {
         const searchFilter: SearchFilterMap = {};
         Object.keys(searchFilterData.controls).forEach((key: string) => {
             searchFilter[key] = searchFilterData.controls[key].value;

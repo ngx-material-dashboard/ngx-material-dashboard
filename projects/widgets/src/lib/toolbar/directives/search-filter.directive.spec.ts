@@ -3,8 +3,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-    FormBuilder,
-    FormGroup,
+    UntypedFormBuilder,
+    UntypedFormGroup,
     FormsModule,
     ReactiveFormsModule
 } from '@angular/forms';
@@ -77,10 +77,10 @@ class SearchFilterDirectiveTestComponent implements OnInit {
     collectionCmp!: PagedListComponent<Task> | CollectionComponent<Task>;
     data: Task[] | RemoteDataSource<Task> = [];
     fields: string[] = ['id'];
-    formGroup!: FormGroup;
-    parentForm!: FormGroup;
+    formGroup!: UntypedFormGroup;
+    parentForm!: UntypedFormGroup;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: UntypedFormBuilder) {}
 
     ngOnInit(): void {
         this.formGroup = this.formBuilder.group({

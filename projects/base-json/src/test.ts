@@ -8,6 +8,7 @@ import * as Buffer from '../../../node_modules/buffer/index';
 (window as any).process.versions = { node: false };
 (window as any).global.Buffer = Buffer.Buffer;
 
+import 'reflect-metadata';
 import 'zone.js';
 import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';

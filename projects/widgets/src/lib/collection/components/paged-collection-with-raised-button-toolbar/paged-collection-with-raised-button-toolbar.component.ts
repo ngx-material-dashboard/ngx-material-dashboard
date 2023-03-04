@@ -14,7 +14,7 @@ import {
     ContentChild,
     Input
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
@@ -43,5 +43,5 @@ export class PagedCollectionWithRaisedButtonToolbarComponent<
     /** A reference to the filter drop down included in the toolbar above the collection. */
     @ContentChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
 
-    @Input() form!: FormGroup;
+    @Input() form!: UntypedFormGroup;
 }

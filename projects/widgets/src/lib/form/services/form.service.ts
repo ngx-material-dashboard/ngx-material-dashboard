@@ -8,7 +8,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray } from '@angular/forms';
 
 /**
  * A simple service that provides convenience methods for forms.
@@ -46,10 +46,10 @@ export class FormService {
      *
      * @param form The form group or array to mark as touched.
      */
-    markAsTouched(form: FormGroup | FormArray): void {
+    markAsTouched(form: UntypedFormGroup | UntypedFormArray): void {
         Object.keys(form.controls).forEach((controlName) => {
             const control = form.get(controlName);
-            if (control instanceof FormGroup || control instanceof FormArray) {
+            if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
                 // recurse and handle nested FormGroups/FormArrays
                 this.markAsTouched(control);
             } else if (control) {

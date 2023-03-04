@@ -15,8 +15,8 @@ import { DefaultLayoutComponent } from './default-layout.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Component, ViewChild } from '@angular/core';
 import {
-    FormBuilder,
-    FormGroup,
+    UntypedFormBuilder,
+    UntypedFormGroup,
     FormsModule,
     ReactiveFormsModule
 } from '@angular/forms';
@@ -51,9 +51,9 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
 class LayoutWithFilterTest {
     @ViewChild(DefaultLayoutComponent) layout!: DefaultLayoutComponent;
     @ViewChild(FilterDropDownComponent) filter!: FilterDropDownComponent;
-    formGroup!: FormGroup;
+    formGroup!: UntypedFormGroup;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: UntypedFormBuilder) {}
 
     ngOnInit(): void {
         this.formGroup = this.formBuilder.group({

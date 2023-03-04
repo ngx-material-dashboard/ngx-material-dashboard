@@ -8,7 +8,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 
@@ -92,11 +92,11 @@ export class FieldErrorComponent {
      * The form that contains the field (defaults to new formGroup to prevent
      * errors and having to define field as nullable).
      */
-    @Input() form: FormGroup = this.formBuilder.group({});
+    @Input() form: UntypedFormGroup = this.formBuilder.group({});
     /** The array of validation messages that correspond with the field. */
     @Input() validationMessages: ValidationMessage[] = [];
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: UntypedFormBuilder) {}
 
     /**
      * Returns true if the given field on the form has an error of the

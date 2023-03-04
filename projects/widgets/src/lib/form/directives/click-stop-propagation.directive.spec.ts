@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-    FormGroup,
-    FormBuilder,
+    UntypedFormGroup,
+    UntypedFormBuilder,
     FormsModule,
     ReactiveFormsModule
 } from '@angular/forms';
@@ -35,9 +35,9 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
 })
 class ClickStopPropagationDirectiveTest implements OnInit {
     @ViewChild('form') form: any;
-    formGroup!: FormGroup;
+    formGroup!: UntypedFormGroup;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: UntypedFormBuilder) {}
 
     ngOnInit(): void {
         this.formGroup = this.formBuilder.group({

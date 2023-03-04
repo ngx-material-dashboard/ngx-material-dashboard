@@ -1,22 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { FormService } from './form.service';
 
 describe('FormService', () => {
     let service: FormService;
-    const formBuilder: FormBuilder = new FormBuilder();
+    const formBuilder: UntypedFormBuilder = new UntypedFormBuilder();
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ReactiveFormsModule],
-            providers: [{ provide: FormBuilder, useValue: formBuilder }]
+            providers: [{ provide: UntypedFormBuilder, useValue: formBuilder }]
         });
         service = TestBed.inject(FormService);
     });
 
     describe('Simple form', () => {
-        let form: FormGroup;
+        let form: UntypedFormGroup;
 
         beforeEach(() => {
             form = formBuilder.group({
@@ -36,7 +36,7 @@ describe('FormService', () => {
     });
 
     describe('Advanced form', () => {
-        let form: FormGroup;
+        let form: UntypedFormGroup;
 
         beforeEach(() => {
             form = formBuilder.group({
