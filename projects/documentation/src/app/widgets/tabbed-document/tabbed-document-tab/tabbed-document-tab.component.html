@@ -2,13 +2,13 @@
     <!-- <div *ngIf="markdownSrcs.length > 0; else todo"> -->
         <div *ngFor="let markdownSrcs of markdownSrcsList">
             <div *ngIf="markdownSrcs.length === 1; else tabs">
-                <markdown [src]="markdownSrcs[0]" (load)="onLoad()"></markdown>
+                <markdown clipboard [src]="markdownSrcs[0]" (load)="onLoad()"></markdown>
             </div>
             <ng-template #tabs>
                 <div class="border">
                     <mat-tab-group>
                         <mat-tab *ngFor="let markdownSrc of markdownSrcs" [label]="getUsageTabLabel(markdownSrc)">
-                            <markdown [src]="markdownSrc" (load)="onLoad()"></markdown>
+                            <markdown clipboard [src]="markdownSrc" (load)="onLoad()"></markdown>
                         </mat-tab>
                     </mat-tab-group>
                 </div>
