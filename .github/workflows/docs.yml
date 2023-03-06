@@ -43,4 +43,4 @@ jobs:
           npm install -g @angular/cli@13.3.6
           npm run build
           ng add angular-cli-ghpages
-          ng deploy --base-href=/ngx-material-dashboard/
+          ng deploy documentation --base-href=/ngx-material-dashboard/
