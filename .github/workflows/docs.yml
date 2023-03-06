@@ -42,7 +42,7 @@ jobs:
           npm ci
           npm install -g @angular/cli@13.3.6
           npm run build
-          ng build documentation --base-href /ngx-material-dashboard --deploy-url /ngx-material-dashboard
+          ng build documentation --base-href /ngx-material-dashboard/ --deploy-url /ngx-material-dashboard/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
