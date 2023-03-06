@@ -1,6 +1,7 @@
-# This is a basic workflow to help you get started with Actions
+# This workflow will run scripts to generate typedoc JSON, parse the JSON and generate markdown needed for
+# documentation app; and build and deploy the documentation app to github pages
 
-name: DOCS
+name: Documentation
 
 # Controls when the workflow will run
 on:
