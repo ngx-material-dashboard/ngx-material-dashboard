@@ -43,9 +43,6 @@ jobs:
           npm install -g @angular/cli@13.3.6
           npm run build
           ng build documentation
-        with:
-          source: ./docs
-          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
   
@@ -60,3 +57,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          source: ./docs
