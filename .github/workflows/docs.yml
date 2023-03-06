@@ -42,5 +42,20 @@ jobs:
           npm ci
           npm install -g @angular/cli@13.3.6
           npm run build
-          ng add angular-cli-ghpages
-          ng deploy documentation --base-href=/ngx-material-dashboard/
+          ng build --prod documentation --base-href /ngx-material-dashboard
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './docs'
+  
+  # deploy job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
