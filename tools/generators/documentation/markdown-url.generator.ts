@@ -68,7 +68,7 @@ export class MarkdownUrlGenerator {
         // add special case for root overview URL
         urlFilesMap['/overview'] = [['assets/docs/overview.md']];
         // special case for main json overview (for all JSON libraries)
-        urlFilesMap['/json-overview'] = [['/assets/docs/overview-json.md']];
+        urlFilesMap['/json-overview'] = [['assets/docs/overview-json.md']];
         SHARED_FILES['json-overview'].forEach((file: string) => {
             urlFilesMap['/json-overview'].push([file]);
         });
