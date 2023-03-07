@@ -46,6 +46,9 @@ jobs:
           npm run documentation:api
           npm run documentation:parse-api-json
           ng build documentation --base-href /ngx-material-dashboard/ --deploy-url /ngx-material-dashboard/
+      - name: Copy docs/index.html and rename it docs/404.html
+        working-directory: ./docs
+        run: cp index.html 404.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
