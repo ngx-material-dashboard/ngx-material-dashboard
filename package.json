@@ -19,7 +19,7 @@
     "build": "ng build base-json && ng build testing && ng build json-api && ng build json && ng build widgets",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
-    "test:coverage": "ng test --no-watch --code-coverage",
+    "test:coverage": "ng test --browsers=ChromeHeadlessNoSandbox --no-watch --code-coverage",
     "playground": "angular-playground",
     "documentation:start": "ng serve documentation",
     "documentation:api": "typedoc --json ./docs/docs.json",
