@@ -38,24 +38,24 @@ jobs:
         working-directory: ./dist/base-json
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish json
         working-directory: ./dist/json
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish json-api
         working-directory: ./dist/json-api
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish testing
         working-directory: ./dist/testing
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish widgets
         working-directory: ./dist/widgets
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
