@@ -1,7 +1,7 @@
 /* tslint:disable:variable-name */
-import { Chapter } from './chapter.model';
-import { Author } from './author.model';
-import { Category } from './category.model';
+import type { Chapter } from './chapter.model';
+import type { Author } from './author.model';
+import type { Category } from './category.model';
 import {
     Attribute,
     JsonApiModelConfig

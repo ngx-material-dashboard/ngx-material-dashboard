@@ -1,0 +1,66 @@
+name: Running Code Coverage
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies and build libraries
+      run: |
+        npm ci
+        npm install -g @angular/cli@13.3.6
+        npm run build
+
+    - name: Run tests
+      run: npm run test:coverage
+
+    - name: Upload base-json coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage/base-json/coverage-final.json
+        flags: base-json
+
+    - name: Upload json coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage/json/coverage-final.json
+        flags: json
+    
+    - name: Upload json-api coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage/json-api/coverage-final.json
+        flags: json-api
+    
+    - name: Upload testing coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage/testing/coverage-final.json
+        flags: testing
+    
+    - name: Upload widgets coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage/widgets/coverage-final.json
+        flags: widgets

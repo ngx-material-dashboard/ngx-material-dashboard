@@ -1,4 +1,4 @@
-import { ThingCategory } from './thingCategory';
+import type { ThingCategory } from './thingCategory';
 import {
     Attribute,
     JsonApiModelConfig

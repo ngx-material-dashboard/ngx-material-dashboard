@@ -1,5 +1,5 @@
 /* tslint:disable:variable-name */
-import { Book } from './book.model';
+import type { Book } from './book.model';
 import {
     Attribute,
     JsonApiModelConfig
