@@ -20,7 +20,7 @@ jobs:
           npm ci
           npm install -g @angular/cli@13.3.6
           npm run build
-      - run: npm test
+      - run: npm run test:headless
 
   publish-npm:
     needs: build
