@@ -36,26 +36,26 @@ jobs:
       - run: npm run build
       - name: Publish base-json
         working-directory: ./dist/base-json
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish json
         working-directory: ./dist/json
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish json-api
         working-directory: ./dist/json-api
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish testing
         working-directory: ./dist/testing
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish widgets
         working-directory: ./dist/widgets
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
