@@ -33,6 +33,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm whoami
       - run: npm run build
       - name: Publish base-json
         working-directory: ./dist/base-json
