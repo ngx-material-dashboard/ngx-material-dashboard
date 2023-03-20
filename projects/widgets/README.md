@@ -1,6 +1,6 @@
 # widgets
 
-The widgets library is a library built on top of [Angular Material](https://material.angular.io/) with various widgets that can be used in a dashboard layout. See the documentation for more details on how to use this library, along with examples [here](/widgets).
+The widgets library is a library built on top of [Angular Material](https://material.angular.io/) with various widgets that can be used in a dashboard layout. See the documentation for more details on how to use this library, along with examples [here](https://ngx-material-dashboard.github.io/ngx-material-dashboard/widgets).
 
 ## Usage
 
@@ -11,7 +11,7 @@ other examples for each of the components in the library below.
 
 ## Contributing
 
-See [Contributing](../../CONTRIBUTING.md)
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/blob/main/CONTRIBUTING.md)
 
 ## Running unit tests
 

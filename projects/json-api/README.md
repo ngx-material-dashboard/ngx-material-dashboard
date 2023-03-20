@@ -1,11 +1,11 @@
 # json-api
 
-The json-api library is a customized library that uses the [base-json](/base-json) library to
-interface with JSON API that use the [json:api spec](https://jsonapi.org/). See the documentation for more details on how to use this library, along with examples [here](/json-api).
+The json-api library is a customized library that uses the [base-json](https://ngx-material-dashboard.github.io/ngx-material-dashboard/base-json) library to
+interface with JSON API that use the [json:api spec](https://jsonapi.org/). See the documentation for more details on how to use this library, along with examples [here](https://ngx-material-dashboard.github.io/ngx-material-dashboard/json-api).
 
 ## Contributing
 
-See [Contributing](../../CONTRIBUTING.md)
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/blob/main/CONTRIBUTING.md)
 
 ## Running unit tests
 

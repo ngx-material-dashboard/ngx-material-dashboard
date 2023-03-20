@@ -1,10 +1,10 @@
 # Testing
 
-The testing library is a library with helper classes for testing components, services, etc. defined in this workspace. You can check out tests I've written for components in the widgets library for more in depth examples of how to use the PageElements defined in this library. See the documentation for more details on how to use this library, along with examples [here](/testing).
+The testing library is a library with helper classes for testing components, services, etc. defined in this workspace. You can check out tests I've written for components in the widgets library for more in depth examples of how to use the PageElements defined in this library. See the documentation for more details on how to use this library, along with examples [here](https://ngx-material-dashboard.github.io/ngx-material-dashboard/testing).
 
 ## Contributing
 
-See [Contributing](../../CONTRIBUTING.md)
+See [Contributing](https://github.com/ngx-material-dashboard/ngx-material-dashboard/blob/main/CONTRIBUTING.md)
 
 ## Running unit tests
 
