@@ -24,12 +24,17 @@ import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-
 
 @NgModule({
     declarations: [
-        PagedListComponent,
         ListComponent,
         ListWithIconButtonsPaginatorBarComponent,
+        PagedListComponent,
         PagedListWithRaisedButtonsBarComponent
     ],
-    exports: [PagedListComponent],
+    exports: [
+        ListComponent,
+        ListWithIconButtonsPaginatorBarComponent,
+        PagedListComponent,
+        PagedListWithRaisedButtonsBarComponent
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,
