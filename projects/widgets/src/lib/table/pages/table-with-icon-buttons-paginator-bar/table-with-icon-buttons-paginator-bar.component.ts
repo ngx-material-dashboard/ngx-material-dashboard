@@ -24,7 +24,7 @@ import { TableComponent } from '../../components/table/table.component';
  * @usageNotes
  * #### Basic Usage Example
  * ```html
- * <ngx-mat-paged-table-with-icon-buttons-paginator-bar
+ * <ngx-mat-table-with-icon-buttons-paginator-bar
  *     [fields]="fields"
  *     [toolbarButtons]="toolbarButtons"
  *     (buttonClick)="onButtonClick($event)"
@@ -40,7 +40,7 @@ import { TableComponent } from '../../components/table/table.component';
  *             </mat-footer-cell>
  *         </ng-container>
  *     </ngx-mat-paged-table>
- * </ngx-mat-paged-table-with-icon-buttons-paginator-bar>
+ * </ngx-mat-table-with-icon-buttons-paginator-bar>
  * ```
  * ```typescript
  * @Component({

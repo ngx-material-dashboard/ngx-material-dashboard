@@ -10,15 +10,21 @@ seemingly endless struggle to be the best developer I can be.
 
 ## Features
 
-There are currently 8 modules defined in this library. The collection, grid, list, and table modules are for managing collections (paged or not). The dialog, layout, and toolbar modules are define overall layout features. While the form module provides features useful for managing forms, including validation and error messages. You can explore each of the modules and their respective components, directives, etc. using the sidenav to the left. I also include some details on the modules below.
+There are currently 9 modules defined in this library. The alert module provides a bootstrap style alert message. The collection, grid, list, and table modules are for managing collections (paged or not). The dialog, layout, and toolbar modules define overall layout features. While the form module provides features useful for managing forms, including validation and error messages. You can explore each of the modules and their respective components, directives, etc. using the sidenav to the left. I also include some details on the modules below.
 
 This library does provide some basic CRUD capabilities, and as a result I do need to have a consitent way to manage data. So this library depends on the [base-json](./base-json) library for interfacing with JSON API servers. I recommend that you take a look at that library to see if that will work for your project before you dig too deep into this library.
 
-### Paged Collections
+### Alerts
 
-The bulk of the components in this library center around paged collections. There are great examples of working with paged tables in the Angular Material documentation, but in projects that manage lots of different types of table data I used to duplicate a lot of code and functionality creating paged table components for each type of data object I had. Additionally, there are only examples of paging tables of data, but there are other things that can be paged as well. This includes lists and grids, and probably other things I can't think of right now (if I do I will add those and their corresponding components).
+The alerts module provides Bootstrap style alerts, allowing for multiple alerts to be rendered at a time. I thought you said this was an Angular Material library? It is... for the most part. I know this goes against material design principles allowing multiple alerts on the page, and using something other than the snack-bar notifications, BUT... there have been times where I've needed to render multiple messages to a user, and the snack-bar just doesn't cut it. So I created my own Bootstrap style alert messages.
 
-The collections module defines the most basic components/directives for managing paged collections. None of the components defined in this module actually include templates. As such you should not be using this module directly, and instead should use either the list, grid, or table modules. These modules extend the basic functionality defined for the collection module and provide templates for rendering their respective type of collection. You can
+### Collections
+
+The bulk of the components in this library center around collections (mainly paged collections, but they don't have to be). There are great examples of working with paged tables in the Angular Material documentation, but tables aren't the only things that can be paged. Things like grids and lists can be paged as well. While I do provide paged grids, lists, and tables, I use basic (i.e. not paged) collections as the base for these collections; and make these available for consumption in the public library.
+
+> NOTE: There are probably other things that can be paged that I can't think of right now (if I do I will add those and their corresponding components as well).
+
+The collections module defines the most basic components/directives for managing collections. None of the components defined in this module actually include templates. As such you should not be using this module directly, and instead should use either the grid, list, or table modules. These modules extend the basic functionality defined for the collection module and provide templates for rendering their respective type of collection. Check out the [grid](/widgets/grid), [list](/widgets/list), and [table](/widgets/table) modules for more details.
 
 ### Layout Features
 
