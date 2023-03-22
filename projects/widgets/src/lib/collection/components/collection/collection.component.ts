@@ -48,9 +48,12 @@ graph TD
  * with both local and remote data. This manages things like initialize
  * and connect/disconnect to/from the dataSource, along with tracking models
  * rendered in the collection based on changes to the state (i.e. sort
- * changes). Additionally it provides the ability to select one or more items
- * in the collection along with the ability to track the current selection, and
- * an output observable for parent components to be able to manage button click
+ * changes). It does this using a data source which at its base is the
+ * @angular/cdk/collections
+ * [DataSource](https://material.angular.io/cdk/collections/api#DataSource).
+ * Additionally it provides the ability to select one or more items in the
+ * collection along with the ability to track the current selection, and an
+ * output observable for parent components to be able to manage button click
  * events coming from buttons associated with each item in the collection.
  * NOTE: any sorting included should be of type `MatSort` or the `Sorter`
  * defined in the `toolbar` module for this library, which actually just

@@ -24,7 +24,7 @@ The bulk of the components in this library center around collections (mainly pag
 
 > NOTE: There are probably other things that can be paged that I can't think of right now (if I do I will add those and their corresponding components as well).
 
-The collections module defines the most basic components/directives for managing collections. None of the components defined in this module actually include templates. As such you should not be using this module directly, and instead should use either the grid, list, or table modules. These modules extend the basic functionality defined for the collection module and provide templates for rendering their respective type of collection. Check out the [grid](/widgets/grid), [list](/widgets/list), and [table](/widgets/table) modules for more details.
+The [collections](/widgets/collection) module defines the most basic components/directives for managing collections. None of the components defined in this module actually include templates. As such you should not be using this module directly, and instead should use either the grid, list, or table modules. These modules extend the basic functionality defined for the collection module and provide templates for rendering their respective type of collection. Check out the [grid](/widgets/grid), [list](/widgets/list), and [table](/widgets/table) modules for more details.
 
 ### Layout Features
 
