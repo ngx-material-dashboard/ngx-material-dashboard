@@ -8,6 +8,10 @@
     "testing",
     "ngx"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngx-material-dashboard/ngx-material-dashboard"
+  },
   "peerDependencies": {
     "@angular/common": "^13.1.0",
     "@angular/core": "^13.1.0"
