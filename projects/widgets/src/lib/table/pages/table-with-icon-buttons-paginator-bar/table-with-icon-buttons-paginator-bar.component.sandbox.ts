@@ -61,7 +61,7 @@ export default sandboxOf(TableWithIconButtonsPaginatorBarComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-}).add('table with toolbar with multi-select', {
+}).add('multi-select', {
     template: `
     <ngx-mat-table-with-icon-buttons-paginator-bar
         [toolbarButtons]="toolbarButtons"

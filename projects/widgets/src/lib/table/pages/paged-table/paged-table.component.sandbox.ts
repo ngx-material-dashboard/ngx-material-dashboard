@@ -43,7 +43,7 @@ export default sandboxOf(PagedTableComponent, {
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
 })
-    .add('table with multi-select', {
+    .add('multi-select', {
         template: `
     <ngx-mat-paged-table 
         matSort 
@@ -69,7 +69,7 @@ export default sandboxOf(PagedTableComponent, {
             multiple: true
         }
     })
-    .add('table without multi-select', {
+    .add('without multi-select', {
         template: `
     <ngx-mat-paged-table
         matSort

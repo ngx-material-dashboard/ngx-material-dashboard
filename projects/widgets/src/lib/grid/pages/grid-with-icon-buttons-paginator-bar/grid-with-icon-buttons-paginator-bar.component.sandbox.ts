@@ -65,7 +65,7 @@ export default sandboxOf(GridWithIconButtonsPaginatorBarComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-}).add('list with icon buttons paginator bar with multi-select', {
+}).add('multi-select', {
     template: `
     <ngx-mat-grid-with-icon-buttons-paginator-bar
         [toolbarButtons]="toolbarButtons"

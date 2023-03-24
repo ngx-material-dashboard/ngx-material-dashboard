@@ -62,7 +62,7 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
 })
-    .add('table with toolbar with multi-select', {
+    .add('multi-select', {
         template: `
     <ngx-mat-paged-table-with-raised-buttons-bar
         [toolbarButtons]="toolbarButtons">
@@ -101,7 +101,7 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
             multiple: true
         }
     })
-    .add('table with toolbar without multi-select', {
+    .add('without multi-select', {
         template: `
     <ngx-mat-paged-table-with-toolbar [toolbarButtons]="toolbarButtons">
         <ngx-mat-filter-drop-down filter>

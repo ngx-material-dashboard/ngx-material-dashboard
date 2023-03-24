@@ -71,10 +71,10 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
  *     });
  *     validationMessages: ValidationMessages = {
  *         username: [
- *             { type: 'username', message: 'Username is required' }
+ *             { type: 'required', message: 'Username is required' }
  *         ],
  *         password: [
- *             { type: 'password', message: 'Password is required' }
+ *             { type: required', message: 'Password is required' }
  *         ]
  *     };
  * }
