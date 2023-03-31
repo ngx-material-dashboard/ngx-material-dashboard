@@ -7,7 +7,7 @@
         class="mat-elevation-z6">
         <ng-content select="[filter]"></ng-content>
     </ngx-mat-header>
-    <mat-sidenav-container class="content" fxLayout="row">
+    <mat-sidenav-container autosize="true" class="content" fxLayout="row">
         <mat-sidenav *ngIf="mode === 'rail'; else defaultSidenav" rail-mode [opened]="opened" #sidenav>
             <ngx-mat-sidenav [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
         </mat-sidenav>

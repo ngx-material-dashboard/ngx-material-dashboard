@@ -75,7 +75,8 @@ export class DefaultLayoutComponent {
      * Returns true if sidenav is opened.
      */
     get opened(): boolean {
-        return this.sidenav.opened;
+        // sidenav may not be defined when component intially loads...
+        return this.sidenav?.opened;
     }
 
     /**
@@ -92,6 +93,6 @@ export class DefaultLayoutComponent {
      */
     toggleSidenav(): void {
         this.sidenav.opened = !this.sidenav.opened;
-        this.sidenav.toggle();
+        this.sidenav.toggle(this.sidenav.opened);
     }
 }
