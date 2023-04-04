@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: ./.github/workflows/build.yml
+    - uses: ./.github/actions/build.yml
     - name: Run tests
       run: npm run test:coverage
 

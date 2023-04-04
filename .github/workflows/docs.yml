@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup_pages
     steps:
-    - uses: ./.github/workflows/build.yml
+    - uses: ./.github/actions/build.yml
     - name: Generate JSON needed from typedoc
       run: npm run documentation:api
 
