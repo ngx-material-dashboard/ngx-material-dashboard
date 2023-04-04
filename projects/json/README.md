@@ -1,5 +1,7 @@
 # json
 
+[![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg?flag=json)](https://app.codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/json)
+
 The json library is a customized library that uses the [base-json](https://ngx-material-dashboard.github.io/ngx-material-dashboard/base-json) library to interface with general JSON API. See the documentation for more details on how to use this library, along with examples [here](https://ngx-material-dashboard.github.io/ngx-material-dashboard/json).
 
 ## Contributing

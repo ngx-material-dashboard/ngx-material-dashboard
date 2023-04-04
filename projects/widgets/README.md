@@ -1,5 +1,7 @@
 # widgets
 
+[![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg?flag=widgets)](https://app.codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/widgets)
+
 The widgets library is a library built on top of [Angular Material](https://material.angular.io/) with various widgets that can be used in a dashboard layout. See the documentation for more details on how to use this library, along with examples [here](https://ngx-material-dashboard.github.io/ngx-material-dashboard/widgets).
 
 ## Usage
