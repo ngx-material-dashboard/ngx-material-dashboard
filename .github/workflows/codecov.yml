@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
-    - uses: ./.github/actions/build
+    - uses: ./.github/actions
     - name: Run tests
       run: npm run test:coverage
 
