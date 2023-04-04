@@ -1,0 +1,31 @@
+# This workflow will build everything needed for all other actions, including
+# checking out repo, setting up node, npm, and building the libs in the repo.
+
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies and build libraries
+        run: |
+          npm ci
+          npm install -g @angular/cli@13.3.6
+          npm run build

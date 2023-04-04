@@ -1,5 +1,6 @@
-# This workflow will run scripts to generate typedoc JSON, parse the JSON and generate markdown needed for
-# documentation app; and build and deploy the documentation app to github pages
+# This workflow will run scripts to generate typedoc JSON, parse the JSON and
+# generate markdown needed for documentation app; as well as build and deploy
+# documentation app to github pages
 
 name: Documentation
 
@@ -27,29 +28,32 @@ concurrency:
 jobs:
   #  build job
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/build.yml
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  # setup 
+  generate_documentation_project:
+    needs: build
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          npm ci
-          npm install -g @angular/cli@13.3.6
-          npm run build
-          npm run documentation:api
-          npm run documentation:parse-api-json
-          ng build documentation --base-href /ngx-material-dashboard/ --deploy-url /ngx-material-dashboard/
+      - name: Generate JSON needed from typedoc
+        run: npm run documentation:api
+
+      - name: Parse JSON and update documentation project
+        run: npm run documentation:parse-api-json
+
+      - name: Build documentation project
+        run: ng build documentation --base-href /ngx-material-dashboard/ --deploy-url /ngx-material-dashboard/
+
       - name: Copy docs/index.html and rename it docs/404.html
         working-directory: ./docs
         run: cp index.html 404.html
-      - name: Upload artifact
+
+  setup_pages:
+    needs: [build, generate_documentation_project]
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload documentation project
         uses: actions/upload-pages-artifact@v1
         with:
           path: './docs'
@@ -60,7 +64,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, generate_documentation_project, setup_pages]
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
