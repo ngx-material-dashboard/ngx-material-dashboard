@@ -1,5 +1,6 @@
 # json-api
 
+[![build](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml/badge.svg)](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg?flag=json-api)](https://app.codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/json-api)
 
 The json-api library is a customized library that uses the [base-json](https://ngx-material-dashboard.github.io/ngx-material-dashboard/base-json) library to
