@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup_pages
     steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
     - uses: ./.github/actions/build
     - name: Generate JSON needed from typedoc
       run: npm run documentation:api
