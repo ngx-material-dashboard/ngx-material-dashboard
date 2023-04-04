@@ -1,6 +1,6 @@
 # NgxMaterialDashboard
 
-![build](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml/badge.svg)
+[![build](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml/badge.svg)](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg)](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard)
 
 The NgxMaterialDashboard is an Angular workspace that contains several libraries and an example project that demonstrates how to use those libraries (example project to be added...). I have also included [angularplayground.it](https://angularplayground.it/) with sandboxes so you can see some examples for how to use components in the widgets library.
