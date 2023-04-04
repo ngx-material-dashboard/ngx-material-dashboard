@@ -21,3 +21,4 @@ runs:
         npm ci
         npm install -g @angular/cli@13.3.6
         npm run build
+      shell: bash
