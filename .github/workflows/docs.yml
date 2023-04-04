@@ -26,37 +26,35 @@ concurrency:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  #  build job
-  build:
-    uses: ./.github/workflows/build.yml
-
-  # setup 
-  generate_documentation_project:
-    needs: build
-    steps:
-      - name: Generate JSON needed from typedoc
-        run: npm run documentation:api
-
-      - name: Parse JSON and update documentation project
-        run: npm run documentation:parse-api-json
-
-      - name: Build documentation project
-        run: ng build documentation --base-href /ngx-material-dashboard/ --deploy-url /ngx-material-dashboard/
-
-      - name: Copy docs/index.html and rename it docs/404.html
-        working-directory: ./docs
-        run: cp index.html 404.html
-
   setup_pages:
-    needs: [build, generate_documentation_project]
+    runs-on: ubuntu-latest
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
-      - name: Upload documentation project
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './docs'
+  # build and upload documentation project
+  build_and_upload:
+    runs-on: ubuntu-latest
+    needs: setup_pages
+    steps:
+    - uses: ./.github/workflows/build.yml
+    - name: Generate JSON needed from typedoc
+      run: npm run documentation:api
+
+    - name: Parse JSON and update documentation project
+      run: npm run documentation:parse-api-json
+
+    - name: Build documentation project
+      run: ng build documentation --base-href /ngx-material-dashboard/ --deploy-url /ngx-material-dashboard/
+
+    - name: Copy docs/index.html and rename it docs/404.html
+      working-directory: ./docs
+      run: cp index.html 404.html
+
+    - name: Upload documentation project
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: './docs'
   
   # deploy job
   deploy:
@@ -64,7 +62,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: [build, generate_documentation_project, setup_pages]
+    needs: [setup_pages, build_and_upload]
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

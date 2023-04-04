@@ -8,15 +8,12 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build.yml
-
-  test:
+    runs-on: ubuntu-latest
     steps:
+    - uses: ./.github/workflows/build.yml
     - name: Run tests
       run: npm run test:coverage
 
-  upload_codecov:
-    steps:
     - name: Upload base-json coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
