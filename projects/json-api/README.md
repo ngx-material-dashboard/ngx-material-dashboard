@@ -3,6 +3,7 @@
 [![npm version](https://badge.fury.io/js/@ngx-material-dashboard%2Fjson-api.svg)](https://badge.fury.io/js/@ngx-material-dashboard%2Fjson-api)
 [![build](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml/badge.svg)](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg?flag=json-api)](https://app.codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/json-api)
+![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@ngx-material-dashboard/json-api)
 
 The json-api library is a customized library that uses the [base-json](https://ngx-material-dashboard.github.io/ngx-material-dashboard/base-json) library to
 interface with JSON API that use the [json:api spec](https://jsonapi.org/). See the documentation for more details on how to use this library, along with examples [here](https://ngx-material-dashboard.github.io/ngx-material-dashboard/json-api).
