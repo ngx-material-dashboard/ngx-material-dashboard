@@ -83,6 +83,7 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
     @Input() fields: string[] = [];
     /** Boolean value to indicate whether multiple rows can be selected. */
     @Input() multiple: boolean = true;
+    /** The number of items on each page. */
     @Input() pageSize: number = 25;
     /** The buttons to render in the toolbar. */
     @Input() toolbarButtons: ToolbarButton[] = [];
