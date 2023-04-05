@@ -71,13 +71,8 @@ export class DefaultLayoutComponent {
     /** The sidenav defined in the template. */
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
-    /**
-     * Returns true if sidenav is opened.
-     */
-    get opened(): boolean {
-        // sidenav may not be defined when component intially loads...
-        return this.sidenav?.opened;
-    }
+    /** Boolean indicating  */
+    opened: boolean = true;
 
     /**
      * Handler for when the user clicks the search button in the filter.
@@ -94,5 +89,6 @@ export class DefaultLayoutComponent {
     toggleSidenav(): void {
         this.sidenav.opened = !this.sidenav.opened;
         this.sidenav.toggle(this.sidenav.opened);
+        this.opened = this.sidenav.opened;
     }
 }
