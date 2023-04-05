@@ -1,5 +1,6 @@
 # base-json
 
+[![npm version](https://badge.fury.io/js/@ngx-material-dashboard%2Fbase-json.svg)](https://badge.fury.io/js/@ngx-material-dashboard%2Fbase-json)
 [![build](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml/badge.svg)](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg?flag=base-json)](https://app.codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/base-json)
 

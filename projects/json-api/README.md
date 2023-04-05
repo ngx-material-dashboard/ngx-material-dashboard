@@ -1,5 +1,6 @@
 # json-api
 
+[![npm version](https://badge.fury.io/js/@ngx-material-dashboard%2Fjson-api.svg)](https://badge.fury.io/js/@ngx-material-dashboard%2Fjson-api)
 [![build](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml/badge.svg)](https://github.com/ngx-material-dashboard/ngx-material-dashboard/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/branch/main/graph/badge.svg?flag=json-api)](https://app.codecov.io/gh/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/json-api)
 
