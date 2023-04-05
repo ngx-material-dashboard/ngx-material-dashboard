@@ -39,7 +39,8 @@ describe('IconButtonsWithPaginatorComponent', () => {
                 MatTooltipModule,
                 NoopAnimationsModule,
                 MockModule(FontAwesomeModule)
-            ]
+            ],
+            teardown: { destroyAfterEach: false }
         });
 
         fixture = TestBed.createComponent(IconButtonsWithPaginatorComponent);
@@ -72,5 +73,36 @@ describe('IconButtonsWithPaginatorComponent', () => {
         await page.selectAllCheckbox?.click();
 
         expect(spy).toHaveBeenCalledWith(true);
+    });
+
+    it('should render "1 – 5 of 25" when pageSize is 5', () => {
+        component.length = 25;
+        component.pageSize = 5;
+        fixture.detectChanges();
+
+        expect(page.paginator.pagingatorRange.innerHTML.trim()).toEqual(
+            '1 – 5 of 25'
+        );
+    });
+
+    it('should render "1 of 25" when pageSize is 1', () => {
+        component.length = 25;
+        component.pageSize = 1;
+        fixture.detectChanges();
+
+        expect(page.paginator.pagingatorRange.innerHTML.trim()).toEqual(
+            '1 of 25'
+        );
+    });
+
+    it('should render "Page 1 of 25" when pageSize is 1 and rangeLabelPrefix is "Page"', () => {
+        component.length = 25;
+        component.pageSize = 1;
+        component.rangeLabelPrefix = 'Page';
+        fixture.detectChanges();
+
+        expect(page.paginator.pagingatorRange.innerHTML.trim()).toEqual(
+            'Page 1 of 25'
+        );
     });
 });

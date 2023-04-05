@@ -9,6 +9,7 @@
 
 import { SelectionModel } from '@angular/cdk/collections';
 import {
+    AfterViewInit,
     Component,
     EventEmitter,
     Input,
@@ -68,7 +69,9 @@ import { SorterComponent } from '../sorter/sorter.component';
     templateUrl: './icon-buttons-with-paginator.component.html',
     styleUrls: ['./icon-buttons-with-paginator.component.css']
 })
-export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
+export class IconButtonsWithPaginatorComponent<T extends JsonModel>
+    implements AfterViewInit
+{
     /** The management buttons to display in the toolbar. */
     @Input() buttons: ToolbarButton[] = [];
     /** Boolean to indicate whether to render the select all checkbox. */
@@ -77,6 +80,8 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
     @Input() displaySort: boolean = true;
     /** The fields to render in the sort drop down. */
     @Input() fields: string[] = [];
+    /** Boolean to indicate if page size should be hidden. */
+    @Input() hidePageSize: boolean = false;
     /** Boolean to indicate whether all items are selected. */
     @Input() isAllSelected: boolean = false;
     /** The total number of items in the collection. */
@@ -85,11 +90,16 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
     @Input() multiple: boolean = true;
     /** The number of items to render in the page. */
     @Input() pageSize: number = 25;
+    /** Page size options. */
+    @Input() pageSizeOptions: number[] = [15, 25, 50, 75, 100];
+    /** Prefix to render with range label (defaults to "Page"). */
+    @Input() rangeLabelPrefix: string = '';
     /** The model to track items selected in the table. */
     @Input() selection: SelectionModel<T> = new SelectionModel<T>(
         this.multiple,
         []
     );
+    @Input() showFirstLastButtons: boolean = true;
     /** Event emitted when user clicks button in toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** Event emitted when user clicks the select all checkbox. */
@@ -105,6 +115,29 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel> {
         this.buttonClick = new EventEmitter<ButtonClick>();
         this.masterToggle = new EventEmitter<boolean>();
         this.sub = new Subscription();
+    }
+
+    ngAfterViewInit(): void {
+        this.paginator._intl.getRangeLabel = (
+            page: number,
+            pageSize: number,
+            length: number
+        ) => {
+            const start = page * pageSize + 1;
+            const end = (page + 1) * pageSize;
+            const prefix = this.rangeLabelPrefix
+                ? `${this.rangeLabelPrefix} `
+                : '';
+            if (length === 0) {
+                return '0 of 0';
+            } else if (start === end) {
+                // only render start value if start === end (i.e. if pageSize=1)
+                return `${prefix}${start} of ${length}`;
+            } else {
+                // render range if start and end are different
+                return `${prefix}${start} – ${end} of ${length}`;
+            }
+        };
     }
 
     /**

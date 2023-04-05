@@ -12,8 +12,10 @@
     <div fxFlex></div>
     <ngx-mat-sorter *ngIf="displaySort" [options]="fields"></ngx-mat-sorter>
     <mat-paginator [length]="length"
+        [hidePageSize]="hidePageSize"
         [pageSize]="pageSize"
-        [pageSizeOptions]="[15, 25, 50, 75, 100]"
+        [pageSizeOptions]="pageSizeOptions"
+        [showFirstLastButtons]="showFirstLastButtons"
         #paginator>
     </mat-paginator>
 </div>
