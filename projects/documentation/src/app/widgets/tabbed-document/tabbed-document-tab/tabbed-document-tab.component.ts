@@ -379,7 +379,7 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
     ],
     '/overview': [['assets/docs/overview.md']],
     '/json-overview': [
-        ['/assets/docs/overview-json.md'],
+        ['assets/docs/overview-json.md'],
         ['assets/docs/shared/crud-capabilities.md'],
         ['assets/docs/shared/custom-headers.md'],
         ['assets/docs/shared/error-handling.md'],
