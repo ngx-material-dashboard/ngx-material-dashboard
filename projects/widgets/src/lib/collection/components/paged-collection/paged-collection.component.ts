@@ -54,6 +54,14 @@ import { CollectionComponent } from '../collection/collection.component';
  *
  * ##### Paginator
  *
+ * The paginator used is the `mat-paginator` provided by Angular Material, and
+ * you can use the same properties you would use to control the component as if
+ * you were using `mat-paginator` directly. This means you can hide the page
+ * size options as well as configure the list of avaialable options if not
+ * hidden, set the current page size, and control if the first/last buttons
+ * should be rendered. See the [API](/widgets/collection/api#paged-collection-component),
+ * for more details.
+ *
  * The `paginator$` is a ViewChild property defined for the `PagedCollection`,
  * and is treated as an internal value specifically for this component. The
  * `paginator` getter is defined to be a more `public` facing property, and used
@@ -87,6 +95,8 @@ export class PagedCollectionComponent<T extends JsonModel>
     }
     /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: string[] = [];
+    /** Boolean to indicate if page size should be hidden. */
+    @Input() hidePageSize: boolean = false;
     /**
      * The max number of pages to display in the paginator. Defaults to 10
      * (does not include 'First', 'Prev', 'Next', 'Last').
@@ -96,6 +106,13 @@ export class PagedCollectionComponent<T extends JsonModel>
     @Input() multiple: boolean = true;
     /** Number of items to display on a page. Defaults to 25. */
     @Input() pageSize: number = 25;
+    /** Page size options. */
+    @Input() pageSizeOptions: number[] = [15, 25, 50, 75, 100];
+    /**
+     * Boolean to indicate whether first/last buttons should be included in
+     * paginator.
+     */
+    @Input() showFirstLastButtons: boolean = true;
     /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** A reference to the paginator in the template. */

@@ -36,9 +36,10 @@ import { SorterComponent } from '../sorter/sorter.component';
  *
  * #### Features
  *
- * You may optional exclude a select checkbox and `Sorter`. These default to
+ * You may optionally exclude a select checkbox and `Sorter`. These default to
  * automatically be included. Simply set the corresponding `display` input
- * value to `false` if you want to exclude either feature.
+ * value to `false` if you want to exclude either feature. You can also
+ * customize the paginator using the same paramters as `mat-paginator`.
  *
  * ##### Optional Select Checkbox
  *
@@ -56,6 +57,20 @@ import { SorterComponent } from '../sorter/sorter.component';
  *
  * To handle when the user (de)selects the checkbox you can use the
  * `masterToggle` output event emitter in the parent component.
+ *
+ * ##### Paginator
+ *
+ * The paginator used is the `mat-paginator` provided by Angular Material, and
+ * you can use the same properties you would use to control the component as if
+ * you were using `mat-paginator` directly. This means you can hide the page
+ * size options as well as configure the list of avaialable options if not
+ * hidden, set the current page size, and control if the first/last buttons
+ * should be rendered. You may also control the prefix for the page label
+ * when the range is included which defaults to the empty string resulting in
+ * "x - y of z". Setting the `rangeLabelPrefix` to 'Page' will result in
+ * "Page x - y of z". See the
+ * [API](/widgets/toolbar/api#icon-buttons-with-paginator-component), for more
+ * details.
  *
  * ##### Sorter
  *
@@ -92,13 +107,23 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel>
     @Input() pageSize: number = 25;
     /** Page size options. */
     @Input() pageSizeOptions: number[] = [15, 25, 50, 75, 100];
-    /** Prefix to render with range label (defaults to "Page"). */
-    @Input() rangeLabelPrefix: string = '';
+    /** Prefix to render with range label (defaults to empty string). */
+    @Input() set rangeLabelPrefix(val: string) {
+        if (val && val != '') {
+            // automatically add a space at the end (after trimming input)
+            // in case user adds space at the end...
+            this.rangeLabelPrefix$ = `${val.trim()} `;
+        }
+    }
     /** The model to track items selected in the table. */
     @Input() selection: SelectionModel<T> = new SelectionModel<T>(
         this.multiple,
         []
     );
+    /**
+     * Boolean to indicate whether first/last buttons should be included in
+     * paginator.
+     */
     @Input() showFirstLastButtons: boolean = true;
     /** Event emitted when user clicks button in toolbar. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
@@ -110,6 +135,8 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel>
     @ViewChild(SorterComponent) sort!: SorterComponent;
     /** The subscriptions for the component. */
     sub: Subscription;
+
+    private rangeLabelPrefix$: string = '';
 
     constructor() {
         this.buttonClick = new EventEmitter<ButtonClick>();
@@ -125,17 +152,14 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel>
         ) => {
             const start = page * pageSize + 1;
             const end = (page + 1) * pageSize;
-            const prefix = this.rangeLabelPrefix
-                ? `${this.rangeLabelPrefix} `
-                : '';
             if (length === 0) {
-                return '0 of 0';
+                return `${this.rangeLabelPrefix$}0 of 0`;
             } else if (start === end) {
                 // only render start value if start === end (i.e. if pageSize=1)
-                return `${prefix}${start} of ${length}`;
+                return `${this.rangeLabelPrefix$}${start} of ${length}`;
             } else {
                 // render range if start and end are different
-                return `${prefix}${start} – ${end} of ${length}`;
+                return `${this.rangeLabelPrefix$}${start} – ${end} of ${length}`;
             }
         };
     }

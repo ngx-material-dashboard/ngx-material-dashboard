@@ -19,7 +19,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CREATE_TOOLBAR_BUTTON, DELETE_TOOLBAR_BUTTON, EDIT_TOOLBAR_BUTTON } from '../../shared/toolbar-buttons';
+import {
+    CREATE_TOOLBAR_BUTTON,
+    DELETE_TOOLBAR_BUTTON,
+    EDIT_TOOLBAR_BUTTON
+} from '../../shared/toolbar-buttons';
 
 export default sandboxOf(IconButtonsWithPaginatorComponent, {
     declarations: [IconButtonsComponent, SorterComponent],
@@ -44,12 +48,14 @@ export default sandboxOf(IconButtonsWithPaginatorComponent, {
         context: {
             length: 25
         }
-    }).add('hide all the things...', {
+    })
+    .add('hide all the things...', {
         template: `<ngx-mat-icon-buttons-with-paginator
             [displaySelectAll]="displaySelectAll"
             [displaySort]="displaySort"
             [hidePageSize]="hidePageSize"
             [length]="length"
+            [rangeLabelPrefix]="rangeLabelPrefix"
             [showFirstLastButtons]="showFirstLastButtons"
             [buttons]="buttons">
         </ngx-mat-icon-buttons-with-paginator>`,
