@@ -44,7 +44,15 @@
 }
 
 .docs-main-content {
+    display: flex;
+    flex-direction: row;
     margin: 50px 0;
+}
+
+.docs-main-content > span {
+    display: flex;
+    flex-direction: column;
+    width: 32%;
 }
 
 .main {
