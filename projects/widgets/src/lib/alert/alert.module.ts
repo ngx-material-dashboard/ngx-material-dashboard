@@ -17,6 +17,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
 
 @NgModule({
     declarations: [AlertComponent, AlertsComponent],
+    exports: [AlertComponent],
     imports: [CommonModule, MatButtonModule, OverlayModule, FontAwesomeModule]
 })
 export class AlertModule {}
