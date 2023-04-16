@@ -95,6 +95,17 @@ describe('IconButtonsWithPaginatorComponent', () => {
         );
     });
 
+    it('should only render number of items left when length < end', () => {
+        component.length = 20;
+        component.pageSize = 25;
+        fixture.detectChanges();
+
+        // end value in range should not exceed total length
+        expect(page.paginator.pagingatorRange.innerHTML.trim()).toEqual(
+            '1 – 20 of 20'
+        );
+    });
+
     it('should render "Page 1 of 25" when pageSize is 1 and rangeLabelPrefix is "Page"', () => {
         component.length = 25;
         component.pageSize = 1;

@@ -151,7 +151,7 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel>
             length: number
         ) => {
             const start = page * pageSize + 1;
-            const end = (page + 1) * pageSize;
+            let end = (page + 1) * pageSize;
             if (length === 0) {
                 return `${this.rangeLabelPrefix$}0 of 0`;
             } else if (start === end) {
@@ -159,6 +159,10 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel>
                 return `${this.rangeLabelPrefix$}${start} of ${length}`;
             } else {
                 // render range if start and end are different
+                if (end > length) {
+                    // ensure end value of range is not greater than length
+                    end = length;
+                }
                 return `${this.rangeLabelPrefix$}${start} – ${end} of ${length}`;
             }
         };
