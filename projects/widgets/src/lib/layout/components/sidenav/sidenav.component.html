@@ -11,7 +11,7 @@
             </div>        
             <span fxFlex="0 0 auto" class="marker-list-item">
                 <fa-icon *ngIf="item.icon" [icon]="item.icon" [ngClass]="{ 'pl-2': getChildrenByItem(item) && item.icon }"></fa-icon>
-                <span class="pl-2 marker-list-item-text">{{item.text}}</span>
+                <span *ngIf="renderText" class="pl-2 marker-list-item-text">{{item.text}}</span>
             </span>
         </mat-list-item>
         <div *ngIf="isToggled(i)">

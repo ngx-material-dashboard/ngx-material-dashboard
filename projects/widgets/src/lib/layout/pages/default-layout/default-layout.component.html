@@ -9,7 +9,7 @@
     </ngx-mat-header>
     <mat-sidenav-container autosize="true" class="content" fxLayout="row">
         <mat-sidenav *ngIf="mode === 'rail'; else defaultSidenav" rail-mode [opened]="opened" #sidenav>
-            <ngx-mat-sidenav [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
+            <ngx-mat-sidenav [isExpanded]="true" [sidenavItems]="sidenavItems" [mode]="mode"></ngx-mat-sidenav>
         </mat-sidenav>
         <ng-template #defaultSidenav>
             <mat-sidenav [mode]="mode" #sidenav>

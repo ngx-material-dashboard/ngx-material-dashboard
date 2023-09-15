@@ -18,6 +18,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { HeaderComponent } from '../../components/header/header.component';
 
 import { SidenavItem } from '../../interfaces/sidenav.interface';
+import { SidenavUtilService } from '../../services/sidenav-util.service';
 
 /**
  * Defines the default layout for the app, which consists of the header, footer,
@@ -74,6 +75,8 @@ export class DefaultLayoutComponent {
     /** Boolean indicating  */
     opened: boolean = true;
 
+    constructor(private sidenavUtilService: SidenavUtilService) {}
+
     /**
      * Handler for when the user clicks the search button in the filter.
      *
@@ -90,5 +93,6 @@ export class DefaultLayoutComponent {
         this.sidenav.opened = !this.sidenav.opened;
         this.sidenav.toggle(this.sidenav.opened);
         this.opened = this.sidenav.opened;
+        this.sidenavUtilService.toggleSidenavMenu(this.opened);
     }
 }

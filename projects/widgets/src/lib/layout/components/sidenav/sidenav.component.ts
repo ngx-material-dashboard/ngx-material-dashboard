@@ -14,6 +14,7 @@ import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 
 import { SidenavItem } from '../../interfaces/sidenav.interface';
+import { SidenavUtilService } from '../../services/sidenav-util.service';
 
 /**
  * A wrapper component for the `MatNavList` to be used to render in a
@@ -98,6 +99,8 @@ import { SidenavItem } from '../../interfaces/sidenav.interface';
     styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnDestroy, OnInit {
+    @Input() isExpanded: boolean = false;
+    @Input() mode: any = 'side';
     /** The array of items to display in the sidenav. */
     @Input() set sidenavItems(sidenavItems: SidenavItem[]) {
         this.sidenavItems$ = sidenavItems;
@@ -116,7 +119,25 @@ export class SidenavComponent implements OnDestroy, OnInit {
     /** Tracks the toggle status for items in sidenav. */
     toggle: { toggle: boolean; children: boolean[] }[] = [];
 
-    constructor(private route: ActivatedRoute, private router: Router) {
+    /**
+     * Returns true if the text should be rendered with each SidenavItem. Text
+     * should be rendered with each SidenavItem by default or if the mode is
+     * rail (i.e. mini) and the sidenav is expanded. If the sidenav is not
+     * expanded and the mode is rail, then text should not be rendered. This
+     * makes the sidenav "responsive" to when it collapses for mini mode so
+     * only the icon is rendered (since that is all that should show anyway).
+     */
+    get renderText() {
+        return (
+            this.mode !== 'rail' || (this.mode === 'rail' && this.isExpanded)
+        );
+    }
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private sidenavUtilService: SidenavUtilService
+    ) {
         this.sub = new Subscription();
     }
 
@@ -131,6 +152,13 @@ export class SidenavComponent implements OnDestroy, OnInit {
             this.initSidenavItems();
         });
         this.sub.add(queryParamsSub);
+
+        const sidenavSub = this.sidenavUtilService.sidenavMenuChanges.subscribe(
+            (next) => {
+                this.isExpanded = next;
+            }
+        );
+        this.sub.add(sidenavSub);
     }
 
     /**
@@ -258,14 +286,22 @@ export class SidenavComponent implements OnDestroy, OnInit {
 
     /**
      * Returns true if the sidenav item associated with the given index in the
-     * toggle property is toggled.
+     * toggle property is toggled. NOTE: toggling is disabled for rail sidenav
+     * when it is collapsed; there is not enough space to render children in
+     * this case, so prevent children from being rendered here (probably
+     * shouldn't have children with rail sidenav, but nothing preventing that
+     * for now...).
      *
      * @param i The index of the sidenav item in the toggle property.
      * @returns True if the sidenav item is toggled.
      */
     isToggled(i: number): boolean {
         if (this.toggle && this.toggle[i]) {
-            return this.toggle[i].toggle;
+            return (
+                (this.mode !== 'rail' ||
+                    (this.mode === 'rail' && this.isExpanded)) &&
+                this.toggle[i].toggle
+            );
         } else {
             return false;
         }

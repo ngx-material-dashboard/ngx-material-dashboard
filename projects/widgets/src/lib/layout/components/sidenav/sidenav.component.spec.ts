@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { SidenavComponent } from './sidenav.component';
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 import { SidenavItemWithRoute } from '../../interfaces/sidenav-with-route.interface';
+import { SidenavUtilService } from '../../services/sidenav-util.service';
 
 describe('SidenavComponent', () => {
     let component: SidenavComponent;
@@ -379,6 +380,41 @@ describe('SidenavComponent', () => {
                 expect(pageElement.isListItemExpanded('results')).toBeTrue();
             });
         });
+
+        describe('Rail sidenav', () => {
+            let sidenavUtilService: SidenavUtilService;
+
+            beforeEach(() => {
+                mockRouter = {
+                    events: of({}),
+                    navigate(): void {},
+                    url: '/requests'
+                };
+                init(mockRouter);
+
+                sidenavUtilService = TestBed.inject(SidenavUtilService);
+                fixture = TestBed.createComponent(SidenavComponent);
+                component = fixture.componentInstance;
+                component.mode = 'rail';
+                component.sidenavItems = sidenavItems;
+                fixture.detectChanges();
+
+                pageElement = new SidenavElement(
+                    fixture,
+                    ['requests', 'results'],
+                    ['1', '2', '3', '4']
+                );
+            });
+
+            it('should not render children when sidenav collapsed', () => {
+                // when: the sidenav menu is collapsed
+                sidenavUtilService.toggleSidenavMenu(false);
+                fixture.detectChanges();
+
+                // expect: the sidenavItem with children should not be toggled
+                expect(pageElement.isListItemExpanded('results')).toBeFalse();
+            });
+        });
     });
 
     describe('Sidenavitems with grand children', () => {
@@ -546,7 +582,8 @@ function init(mockRouter: any, queryParams: any = {}): void {
         {
             provide: Router,
             useValue: mockRouter
-        }
+        },
+        SidenavUtilService
     ];
 
     TestBed.configureTestingModule({
