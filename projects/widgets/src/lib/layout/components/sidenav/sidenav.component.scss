@@ -35,3 +35,11 @@
     /* Remove space between top of list and top of sidenav content. */
     padding-top: 0px;
 }
+
+/* allows badge to stretch so it can render '99+', otherwise you get '9...'*/
+.stretch-badge > .mat-badge-content {
+    min-width: 22px;
+    width: auto;
+    border-radius: 13px;
+    right: unset !important;
+}

@@ -162,6 +162,21 @@ export class SidenavComponent implements OnDestroy, OnInit {
     }
 
     /**
+     * Returns item's badge text if it exists, truncating any number greater
+     * than 100 to "99+".
+     *
+     * @param item The item to render the badge for.
+     * @returns The text to render for the badge if it exists.
+     */
+    getBadge(item: SidenavItem): string | null {
+        if (item.badge) {
+            return item.badge < 100 ? item.badge.toString() : '99+';
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Returns array of child SidenavItems if they exist for given item.
      *
      * @param item SidenavItem to get children from (if they exist).

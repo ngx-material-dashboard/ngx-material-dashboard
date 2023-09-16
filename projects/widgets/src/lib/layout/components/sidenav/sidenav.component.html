@@ -8,10 +8,26 @@
                 <ng-template #angleDown>
                     <fa-icon [icon]="faAngleDown" class="marker-angle-down"></fa-icon>
                 </ng-template>
-            </div>        
-            <span fxFlex="0 0 auto" class="marker-list-item">
-                <fa-icon *ngIf="item.icon" [icon]="item.icon" [ngClass]="{ 'pl-2': getChildrenByItem(item) && item.icon }"></fa-icon>
-                <span *ngIf="renderText" class="pl-2 marker-list-item-text">{{item.text}}</span>
+            </div>
+            <span fxFlex="0 0 auto" fxLayout="row" fxLayoutGap="10px" class="marker-list-item">
+                <div
+                    [matBadge]="!renderText && mode === 'rail' ? getBadge(item) : null"
+                    matBadgeOverlap="false"
+                    class="stretch-badge">
+                    <fa-icon
+                        *ngIf="item.icon"
+                        [icon]="item.icon"
+                        [ngClass]="{ 'pl-2': getChildrenByItem(item) && item.icon }">
+                    </fa-icon>
+                </div>
+                <span
+                    *ngIf="renderText"
+                    class="pl-2 marker-list-item-text"
+                    [matBadge]="getBadge(item)"
+                    class="stretch-badge"
+                    matBadgeOverlap="false">
+                        {{item.text}}
+                </span>
             </span>
         </mat-list-item>
         <div *ngIf="isToggled(i)">

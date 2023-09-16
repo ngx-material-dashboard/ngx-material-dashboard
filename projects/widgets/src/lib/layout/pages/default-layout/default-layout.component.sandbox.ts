@@ -36,6 +36,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { LoadingService } from '../../services/loading.service';
 import { DefaultLayoutComponent } from './default-layout.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 export default sandboxOf(DefaultLayoutComponent, {
     declarations: [
@@ -53,6 +54,7 @@ export default sandboxOf(DefaultLayoutComponent, {
         FormsModule,
         ReactiveFormsModule,
         FlexLayoutModule,
+        MatBadgeModule,
         MatButtonModule,
         MatListModule,
         MatMenuModule,
@@ -149,6 +151,53 @@ export default sandboxOf(DefaultLayoutComponent, {
                     selector: 'due-tomorrow'
                 },
                 {
+                    icon: faClipboardCheck,
+                    queryParams: { isComplete: true },
+                    route: ['tasks'],
+                    text: 'Complete',
+                    selector: 'complete'
+                }
+            ]
+        }
+    })
+    .add('rail sidenav mode with badges', {
+        template: `<ngx-mat-default-layout [logo]="logo" [mode]="mode" [sidenavItems]="sidenavItems"></ngx-mat-default-layout>`,
+        context: {
+            logo: 'My Tasks',
+            mode: 'rail',
+            sidenavItems: [
+                {
+                    badge: 5,
+                    icon: faClipboardList,
+                    queryParams: { isComplete: false },
+                    route: ['tasks'],
+                    text: 'Pending',
+                    selector: 'pending'
+                },
+                {
+                    badge: 10,
+                    icon: faHourglassEnd,
+                    queryParams: { isComplete: false, filter: 'overdue' },
+                    route: ['tasks'],
+                    text: 'Over Due',
+                    selector: 'over-due'
+                },
+                {
+                    icon: faHourglassHalf,
+                    queryParams: { isComplete: false, filter: 'today' },
+                    route: ['tasks'],
+                    text: 'Due Today',
+                    selector: 'due-today'
+                },
+                {
+                    icon: faHourglassStart,
+                    queryParams: { isComplete: false, filter: 'tomorrow' },
+                    route: ['tasks'],
+                    text: 'Due Tomorrow',
+                    selector: 'due-tomorrow'
+                },
+                {
+                    badge: 100,
                     icon: faClipboardCheck,
                     queryParams: { isComplete: true },
                     route: ['tasks'],
