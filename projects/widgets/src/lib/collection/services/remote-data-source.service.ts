@@ -75,6 +75,8 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     active?: string;
     /** The data to display in the collection. */
     data: T[];
+    /** Observable for data in source. */
+    data$: Observable<T[]>;
     /** The direction of the sort (asc or desc). */
     direction?: SortDirection;
     /** The filter to apply when loading data. */
@@ -146,6 +148,7 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
         this.loadingSubject = new BehaviorSubject<boolean>(false);
         this.loading = this.loadingSubject.asObservable();
         this.dataSubject = new BehaviorSubject<T[]>([]);
+        this.data$ = this.dataSubject.asObservable();
         this.total = 0;
     }
 
