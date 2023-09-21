@@ -1,6 +1,6 @@
 {
     "name": "@ngx-material-dashboard/json-api",
-    "version": "0.0.3-beta.1",
+    "version": "0.0.3-beta.2",
     "author": "Jonathan Phillips (https://github.com/jphillips03)",
     "license": "MIT","keywords": [
         "angular",
@@ -14,7 +14,7 @@
     "peerDependencies": {
         "@angular/common": "^13.1.0",
         "@angular/core": "^13.1.0",
-        "@ngx-material-dashboard/base-json": "^0.0.3-beta.1",
+        "@ngx-material-dashboard/base-json": "^0.0.3-beta.2",
         "date-fns": "^2.28.0",
         "lodash-es": "^4.17.21"
     },

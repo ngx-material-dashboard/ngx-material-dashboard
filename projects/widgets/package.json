@@ -1,6 +1,6 @@
 {
     "name": "@ngx-material-dashboard/widgets",
-    "version": "0.0.3-beta.1",
+    "version": "0.0.3-beta.2",
     "author": "Jonathan Phillips (https://github.com/jphillips03)",
     "license": "MIT",
     "keywords": [
@@ -26,7 +26,7 @@
         "@fortawesome/angular-fontawesome": "^0.10.2",
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
-        "@ngx-material-dashboard/base-json": "^0.0.3-beta.1",
+        "@ngx-material-dashboard/base-json": "^0.0.3-beta.2",
         "angular-material-rail-drawer": "~1.0.0"
     },
     "dependencies": {
