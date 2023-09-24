@@ -9,7 +9,7 @@
                     <fa-icon [icon]="faAngleDown" class="marker-angle-down"></fa-icon>
                 </ng-template>
             </div>
-            <span fxFlex="0 0 auto" fxLayout="row" fxLayoutGap="10px" class="marker-list-item">
+            <span fxFlex fxLayout="row" fxLayoutGap="10px" class="marker-list-item">
                 <div
                     [matBadge]="!renderText && mode === 'rail' ? getBadge(item) : null"
                     matBadgeOverlap="false"
@@ -20,14 +20,14 @@
                         [ngClass]="{ 'pl-2': getChildrenByItem(item) && item.icon }">
                     </fa-icon>
                 </div>
-                <span
-                    *ngIf="renderText"
-                    class="pl-2 marker-list-item-text"
-                    [matBadge]="getBadge(item)"
-                    class="stretch-badge"
-                    matBadgeOverlap="false">
-                        {{item.text}}
-                </span>
+                <div *ngIf="renderText" fxFlex fxLayout="row" fxLayoutGap="20px">
+                    <span
+                        class="pl-2 mat-list-item-text marker-list-item-text"
+                        fxFlex>
+                            {{item.text}}
+                    </span>
+                    <b>{{getBadge(item)}}</b>
+                </div>
             </span>
         </mat-list-item>
         <div *ngIf="isToggled(i)">
