@@ -8,7 +8,10 @@
  */
 
 import {
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
+    ElementRef,
     EventEmitter,
     Input,
     Output,
@@ -19,6 +22,15 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 import { SidenavItem } from '../../interfaces/sidenav.interface';
 import { SidenavUtilService } from '../../services/sidenav-util.service';
+import { SidenavComponent } from '../../components/sidenav/sidenav.component';
+import {
+    AnimationGroupMetadata,
+    animate,
+    animateChild,
+    group,
+    query
+} from '@angular/animations';
+import { sidebarOpen } from 'angular-material-rail-drawer';
 
 /**
  * Defines the default layout for the app, which consists of the header, footer,
@@ -55,7 +67,7 @@ import { SidenavUtilService } from '../../services/sidenav-util.service';
     templateUrl: './default-layout.component.html',
     styleUrls: ['./default-layout.component.scss']
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements AfterViewInit {
     /** Text to display next to copyright date. */
     @Input() company = '';
     /** The main "logo" text for the app to display in the header. */
@@ -69,13 +81,26 @@ export class DefaultLayoutComponent {
     /** Event emitted when user clicks search button in filter. */
     @Output() clickSearch: EventEmitter<boolean> = new EventEmitter<boolean>();
     @ViewChild(HeaderComponent) header!: HeaderComponent;
+    @ViewChild(SidenavComponent, { read: ElementRef })
+    sidenavElement!: ElementRef;
     /** The sidenav defined in the template. */
     @ViewChild('sidenav') sidenav!: MatSidenav;
-
+    defaultDuration: string = '100ms';
     /** Boolean indicating  */
     opened: boolean = true;
+    sidenavWidth: number = 200;
+    width: string = `${this.sidenavWidth}px`;
 
-    constructor(private sidenavUtilService: SidenavUtilService) {}
+    constructor(
+        private sidenavUtilService: SidenavUtilService,
+        private changeDetector: ChangeDetectorRef
+    ) {}
+
+    ngAfterViewInit(): void {
+        this.sidenavWidth = this.sidenavElement.nativeElement.offsetWidth + 20;
+        this.width = `${this.sidenavWidth}px`;
+        this.changeDetector.detectChanges();
+    }
 
     /**
      * Handler for when the user clicks the search button in the filter.
@@ -84,6 +109,25 @@ export class DefaultLayoutComponent {
      */
     onSearchFilterClick(res: boolean) {
         this.clickSearch.emit(res);
+    }
+
+    /**
+     * This is taken directly from angular-material-rail-drawer and is a
+     * workaround to issue with sidenav not expanding to fit content.
+     *
+     * @param animationDuration Duration in ms to use for animation.
+     * @param maxWidth The maximum expanded width for the sidenav.
+     * @returns 
+     */
+    sidebarAnimationOpenGroup(
+        animationDuration: string = this.defaultDuration,
+        maxWidth: string = this.width
+    ): AnimationGroupMetadata {
+        return group([
+            query('@iconAnimation', animateChild(), { optional: true }),
+            query('@labelAnimation', animateChild(), { optional: true }),
+            animate(`${animationDuration} ease-in-out`, sidebarOpen(maxWidth))
+        ]);
     }
 
     /**
