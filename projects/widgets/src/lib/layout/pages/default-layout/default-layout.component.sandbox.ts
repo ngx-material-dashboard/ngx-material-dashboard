@@ -100,6 +100,7 @@ export default sandboxOf(DefaultLayoutComponent, {
                     selector: 'due-today'
                 },
                 {
+                    badge: 1000,
                     icon: faHourglassStart,
                     queryParams: { isComplete: false, filter: 'tomorrow' },
                     route: ['tasks'],
@@ -190,6 +191,7 @@ export default sandboxOf(DefaultLayoutComponent, {
                     selector: 'due-today'
                 },
                 {
+                    badge: 1000,
                     icon: faHourglassStart,
                     queryParams: { isComplete: false, filter: 'tomorrow' },
                     route: ['tasks'],
