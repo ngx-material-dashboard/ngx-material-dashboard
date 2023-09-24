@@ -1,3 +1,9 @@
 ngx-material-dashboard-header {
     z-index: 2;
 }
+
+.box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
