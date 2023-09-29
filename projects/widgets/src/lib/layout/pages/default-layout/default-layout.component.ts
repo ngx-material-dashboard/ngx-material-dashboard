@@ -117,7 +117,7 @@ export class DefaultLayoutComponent implements AfterViewInit {
      *
      * @param animationDuration Duration in ms to use for animation.
      * @param maxWidth The maximum expanded width for the sidenav.
-     * @returns 
+     * @returns
      */
     sidebarAnimationOpenGroup(
         animationDuration: string = this.defaultDuration,

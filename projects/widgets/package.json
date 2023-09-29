@@ -35,6 +35,9 @@
     "exports": {
         "./sidenav-theming": {
             "sass": "./src/lib/layout/components/sidenav/sidenav.component.scss"
+        },
+        "./theme-switcher": {
+            "sass": "./src/lib/layout/components/theme-switcher/theme-switcher.component.scss"
         }
     }
 }

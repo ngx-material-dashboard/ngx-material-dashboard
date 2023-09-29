@@ -1,7 +1,7 @@
 @import "~@angular/material/theming";
 // for some reason virtual access path defined in widgets package.json doesn't
 // work in same workspace so we need to use full path relative to this file
-@import '../../../../../widgets/src/lib/layout/components/sidenav/sidenav.component.scss';
+@import '../../../../../widgets/src/lib/layout/components/theme-switcher/theme-switcher.component.scss';
 
 @import "utils";
 @import "light-theme";
@@ -69,15 +69,13 @@
     }
 }
 
-@mixin theme($theme, $name) {
+@mixin app-theme($theme, $name) {
     .#{$name}-theme {
-        @include angular-material-theme($theme);
         @include native-element-theme($theme, $name);
         @include app-component-theme($theme);
         @include scrollspy-nav-component-theme($theme);
         @include tabbed-document-tab-component-theme($theme);
         @include home-component-theme($theme);
-        @include sidenav-theme($theme);
     }
 }
 
@@ -89,5 +87,7 @@
 }
 
 @include material-core();
+@include app-theme($light-theme, 'light');
+@include app-theme($dark-theme, 'dark');
 @include theme($light-theme, 'light');
 @include theme($dark-theme, 'dark');

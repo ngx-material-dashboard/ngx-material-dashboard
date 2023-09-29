@@ -30,6 +30,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { DrawerRailModule } from 'angular-material-rail-drawer';
 import { ToolbarModule } from '../toolbar/toolbar.module';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
 @NgModule({
     declarations: [
@@ -39,9 +40,15 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
         FooterComponent,
         DefaultLayoutComponent,
         SidenavComponent,
-        LoadingComponent
+        LoadingComponent,
+        ThemeSwitcherComponent
     ],
-    exports: [DefaultLayoutComponent, LoadingComponent, SidenavComponent],
+    exports: [
+        DefaultLayoutComponent,
+        LoadingComponent,
+        SidenavComponent,
+        ThemeSwitcherComponent
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,

@@ -1,0 +1,9 @@
+<div mat-icon-button
+        class="mat-button mat-marker-theme-button pr-2"
+        (click)="setTheme(nextTheme)"
+        matTooltip="Switch between light and dark theme">
+    <fa-layers>
+        <fa-icon [icon]="faFillDrip"></fa-icon>
+        <fa-icon [icon]="faMinus" transform="down-12 grow-12"></fa-icon>
+    </fa-layers>
+</div>

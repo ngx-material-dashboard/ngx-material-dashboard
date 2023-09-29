@@ -29,6 +29,7 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
 export class HeaderComponent implements AfterContentInit {
     /** A reference to the optional filter drop down to include. */
     @ContentChild(FilterDropDownComponent) filter?: FilterDropDownComponent;
+    @Input() displayThemeSwitcher: boolean = true;
     /** The main "logo" text for the app. */
     @Input() logo = 'My App';
     /** Event emitted when user clicks search button in drop down filter. */

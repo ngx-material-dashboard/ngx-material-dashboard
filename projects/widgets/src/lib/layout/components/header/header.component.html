@@ -18,10 +18,8 @@
             <ng-content></ng-content>
         </div>
         <div fxFlex="0 0 25">
-<!--
-        <span fxFlex></span>
-        <ngx-mat-header-user-login></ngx-mat-header-user-login>
--->
+            <span fxFlex></span>
+            <ngx-mat-theme-switcher *ngIf="displayThemeSwitcher"></ngx-mat-theme-switcher>
         </div>
     </mat-toolbar>
 </header>

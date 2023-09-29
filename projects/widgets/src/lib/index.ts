@@ -51,6 +51,7 @@ export * from './layout/interfaces/sidenav-with-route.interface';
 export * from './layout/services/loading.service';
 export * from './layout/components/loading/loading.component';
 export * from './layout/components/sidenav/sidenav.component';
+export * from './layout/components/theme-switcher/theme-switcher.component';
 export * from './layout/pages/default-layout/default-layout.component';
 export * from './layout/layout.module';
 

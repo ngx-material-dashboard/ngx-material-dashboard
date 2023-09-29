@@ -37,6 +37,7 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { LoadingService } from '../../services/loading.service';
 import { DefaultLayoutComponent } from './default-layout.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ThemeSwitcherComponent } from '../../components/theme-switcher/theme-switcher.component';
 
 export default sandboxOf(DefaultLayoutComponent, {
     declarations: [
@@ -46,7 +47,8 @@ export default sandboxOf(DefaultLayoutComponent, {
         HeaderUserLoginComponent,
         HeaderUserMenuComponent,
         LoadingComponent,
-        SidenavComponent
+        SidenavComponent,
+        ThemeSwitcherComponent
     ],
     imports: [
         RouterTestingModule,

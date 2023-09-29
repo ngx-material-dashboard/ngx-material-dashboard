@@ -13,16 +13,11 @@ import {
     ElementRef,
     HostListener,
     Inject,
-    OnInit,
     ViewChild
 } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import {
-    faCaretDown,
-    faFillDrip,
-    faMinus
-} from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { AnchorService } from './shared/anchor/anchor.service';
 
 @Component({
@@ -30,16 +25,12 @@ import { AnchorService } from './shared/anchor/anchor.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     private readonly stickyClassName = 'mat-tab-nav-bar--sticky';
     faCaretDown: IconDefinition = faCaretDown;
-    faDash: IconDefinition = faMinus;
     faGitHub: IconDefinition = faGithub;
-    faFillDrip: IconDefinition = faFillDrip;
     date: Date = new Date();
     githubLink: string = 'https://github.com/ngx-material-dashboard';
-    theme = 'light';
-    nextTheme = 'dark';
 
     @ViewChild('header', { read: ElementRef, static: true })
     header: ElementRef | undefined;
@@ -73,25 +64,7 @@ export class AppComponent implements OnInit {
         private anchorService: AnchorService
     ) {}
 
-    ngOnInit(): void {
-        this.setTheme(localStorage.getItem('theme') || 'light');
-    }
-
     redirectToGitHub(): void {
         this.document.location.href = this.githubLink;
-    }
-
-    setTheme(theme: string): void {
-        this.nextTheme = theme === 'light' ? 'dark' : 'light';
-        this.theme = theme;
-        const bodyClassList = this.document.querySelector('body')?.classList;
-        if (bodyClassList) {
-            const removeClassList = /\w*-theme\b/.exec(bodyClassList.value);
-            if (removeClassList) {
-                bodyClassList.remove(...removeClassList);
-            }
-            bodyClassList.add(`${this.theme}-theme`);
-            localStorage.setItem('theme', this.theme);
-        }
     }
 }
