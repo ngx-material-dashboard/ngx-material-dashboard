@@ -279,7 +279,13 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/widgets/layout/example-15.md'],
         [
             'assets/docs/widgets/layout/example-html-13.md',
-            'assets/docs/widgets/layout/example-typescript-14.md'
+            'assets/docs/widgets/layout/example-scss-14.md'
+        ],
+        ['assets/docs/widgets/layout/example-16.md'],
+        ['assets/docs/widgets/layout/example-19.md'],
+        [
+            'assets/docs/widgets/layout/example-html-17.md',
+            'assets/docs/widgets/layout/example-typescript-18.md'
         ]
     ],
     '/widgets/layout/api': [
@@ -437,14 +443,19 @@ export class TabbedDocumentTabComponent implements OnInit {
     /**
      * Returns the tab label based on the given src value.
      *
-     * @param src Either 'html' or 'typescript'.
+     * @param src The src type for document.
      * @returns The tab label based on the given src value.
      */
     getUsageTabLabel(src: string) {
-        if (src.includes('html')) {
-            return 'HTML';
-        } else {
+        // src is long string value and only need content between dashes (there
+        // should only be 2 in the string)
+        const start = src.indexOf('-') + 1;
+        const end = src.lastIndexOf('-');
+        src = src.substring(start, end);
+        if (src === 'typescript') {
             return 'Typescript';
+        } else {
+            return src.toUpperCase();
         }
     }
 
