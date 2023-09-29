@@ -1,6 +1,9 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "assets": ["./src/lib/layout/components/sidenav/sidenav.component.scss"],
+  "assets": [
+    "./src/lib/layout/components/sidenav/sidenav.component.scss",
+    "./src/lib/layout/components/theme-switcher/theme-switcher.component.scss"
+  ],
   "dest": "../../dist/widgets",
   "lib": {
     "entryFile": "src/public-api.ts"
