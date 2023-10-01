@@ -1,33 +1,21 @@
 @import '@angular/material/theming';
 // for some reason virtual access path defined in widgets package.json doesn't
 // work in same workspace so we need to use full path relative to this file
-@import '../../../../../../dist/widgets/src/lib/layout/components/sidenav/sidenav.component.scss';
+@import '../../../../../widgets/src/lib/layout/components/theme-switcher/theme-switcher.component.scss';
 
 // import the custom color palettes defined for theme
-@import './color-palettes.scss';
+// @import './color-palettes.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat-palette($app-black);
-$app-accent:  mat-palette($mat-grey);
+// these are just custom palettes with primary, accent, etc., but you
+// could use pre-defined ones
+@import "light-theme";
+@import "dark-theme";
 
-// The warn palette is optional (defaults to red).
-// $app-warn:    mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-light-theme($app-primary, $app-accent);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($app-theme);
-
-// call sidenav-theme mixin in widgets library to set sidenav color based on
-// primary theme color defined above (see https://stackoverflow.com/a/70205541)
-@include sidenav-theme($app-theme);
+// call the theme mixin provided by component with 'light' and 'dark' themes
+@include theme($light-theme, 'light');
+@include theme($dark-theme, 'dark');
