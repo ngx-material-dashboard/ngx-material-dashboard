@@ -94,7 +94,7 @@ export class IconButtonsWithPaginatorComponent<T extends JsonModel>
     /** Boolean to indicate whether to render the sort drop down. */
     @Input() displaySort: boolean = true;
     /** The fields to render in the sort drop down. */
-    @Input() fields: string[] = [];
+    @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Boolean to indicate if page size should be hidden. */
     @Input() hidePageSize: boolean = false;
     /** Boolean to indicate whether all items are selected. */

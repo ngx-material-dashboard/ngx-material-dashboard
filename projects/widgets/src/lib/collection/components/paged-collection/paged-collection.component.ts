@@ -94,7 +94,7 @@ export class PagedCollectionComponent<T extends JsonModel>
         this.dataSource$ = val;
     }
     /** List of fields included in each element of collection that can be sorted on. */
-    @Input() fields: string[] = [];
+    @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Boolean to indicate if page size should be hidden. */
     @Input() hidePageSize: boolean = false;
     /**

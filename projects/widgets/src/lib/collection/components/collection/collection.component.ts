@@ -159,7 +159,7 @@ export class CollectionComponent<T extends JsonModel>
      */
     @Input() displaySorter: boolean = true;
     /** List of fields included in each element of list that can be sorted on. */
-    @Input() fields: string[] = [];
+    @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Any values that should be selected when collection initially renders. */
     @Input() initiallySelectedValues: T[] = [];
     /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */

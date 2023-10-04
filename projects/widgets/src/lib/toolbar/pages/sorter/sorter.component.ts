@@ -32,10 +32,14 @@ export class SorterComponent extends MatSort implements OnInit {
     /** The icon used for displaying current sort order. */
     faSort: IconDefinition = faArrowUpWideShort;
     /** The options to display in the select drop down. */
-    selectOptions: { field: string; icon: IconDefinition; order: string }[] =
-        [];
+    selectOptions: {
+        field: string;
+        icon: IconDefinition;
+        order: string;
+        text: string;
+    }[] = [];
     /** The list of fields to include in the sort. */
-    @Input() options: string[] = [];
+    @Input() options: { field: string; text: string }[] | string[] = [];
 
     constructor() {
         super();
@@ -49,20 +53,25 @@ export class SorterComponent extends MatSort implements OnInit {
         super.ngOnInit();
         for (const option of this.options) {
             this.selectOptions.push({
-                field: option,
+                field: typeof option === 'string' ? option : option.field,
                 icon: faArrowUpWideShort,
-                order: 'asc'
+                order: 'asc',
+                text: typeof option === 'string' ? option : option.text
             });
             this.selectOptions.push({
-                field: option,
+                field: typeof option === 'string' ? option : option.field,
                 icon: faArrowDownShortWide,
-                order: 'desc'
+                order: 'desc',
+                text: typeof option === 'string' ? option : option.text
             });
-            this.sortables.set(option, {
-                id: option,
-                start: 'asc',
-                disableClear: true
-            });
+            this.sortables.set(
+                typeof option === 'string' ? option : option.text,
+                {
+                    id: typeof option === 'string' ? option : option.text,
+                    start: 'asc',
+                    disableClear: true
+                }
+            );
         }
     }
 
@@ -74,11 +83,11 @@ export class SorterComponent extends MatSort implements OnInit {
      * @param event The event containing the value selected in the drop down.
      */
     onSelectionChange(event: MatSelectChange): void {
-        this.active = event.value.field;
+        this.active = event.value.text;
         this.faSort = event.value.icon;
         this.direction = event.value.order;
         this.sortChange.emit({
-            active: this.active,
+            active: event.value.field,
             direction: this.direction
         });
     }

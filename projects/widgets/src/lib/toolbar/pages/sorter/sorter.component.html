@@ -6,7 +6,11 @@
             <fa-icon [icon]="faSort"></fa-icon>
         </mat-select-trigger>
         <mat-option *ngFor="let option of selectOptions" [value]="option">
-            <span>{{option.field}} - {{option.order}}</span>
+            <div fxLayout="row" fxLayoutGap="5px">
+                <span>{{option.text}}</span>
+                <span>-</span>
+                <fa-icon [icon]="option.icon"></fa-icon>
+            </div>
         </mat-option>
     </mat-select>
 </mat-form-field>
