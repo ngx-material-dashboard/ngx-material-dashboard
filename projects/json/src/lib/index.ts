@@ -9,6 +9,8 @@
 
 export * from './json.module';
 
+export * from './converters/json-nested-model/json-nested-model.converter';
+
 export * from './models/json.model';
 
 export * from './services/json-datastore.service';
