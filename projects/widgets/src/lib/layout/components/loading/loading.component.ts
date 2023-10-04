@@ -7,7 +7,7 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { LoadingService } from '../../services/loading.service';
@@ -43,7 +43,7 @@ import { LoadingService } from '../../services/loading.service';
     templateUrl: './loading.component.html',
     styleUrls: ['./loading.component.scss']
 })
-export class LoadingComponent implements OnInit {
+export class LoadingComponent implements OnInit, OnDestroy {
     /** Boolean indicating whether or not to display loading spinner. */
     loading: boolean;
     /** The subscriptions for the component. */

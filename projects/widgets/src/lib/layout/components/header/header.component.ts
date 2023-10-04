@@ -13,10 +13,12 @@ import {
     ContentChild,
     EventEmitter,
     Input,
+    OnDestroy,
     Output
 } from '@angular/core';
 import { faBars, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop-down/filter-drop-down.component';
+import { Subscription } from 'rxjs';
 
 /**
  * The header for the app.
@@ -26,7 +28,7 @@ import { FilterDropDownComponent } from '../../../toolbar/components/filter-drop
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements AfterContentInit {
+export class HeaderComponent implements AfterContentInit, OnDestroy {
     /** A reference to the optional filter drop down to include. */
     @ContentChild(FilterDropDownComponent) filter?: FilterDropDownComponent;
     @Input() displayThemeSwitcher: boolean = true;
@@ -42,13 +44,20 @@ export class HeaderComponent implements AfterContentInit {
      * The bars icon to display in the header.
      */
     faBars: IconDefinition = faBars;
+    /** The subscriptions in the component. */
+    sub: Subscription = new Subscription();
 
     ngAfterContentInit(): void {
         if (this.filter) {
-            this.filter.searchClick.subscribe((val: boolean) => {
+            const sub = this.filter.searchClick.subscribe((val: boolean) => {
                 this.searchFilterClick.emit(val);
             });
+            this.sub.add(sub);
         }
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     /**

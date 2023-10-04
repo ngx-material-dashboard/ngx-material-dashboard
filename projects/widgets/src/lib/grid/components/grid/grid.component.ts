@@ -12,6 +12,7 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
+    OnDestroy,
     QueryList,
     ViewChild,
     ViewChildren
@@ -67,7 +68,7 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
 })
 export class GridComponent<T extends JsonModel>
     extends CollectionComponent<T>
-    implements AfterViewChecked
+    implements AfterViewChecked, OnDestroy
 {
     /** A reference to the grid list in the component. */
     @ViewChild(MatGridList, { read: ElementRef }) grid!: ElementRef;
@@ -92,7 +93,7 @@ export class GridComponent<T extends JsonModel>
         // content have rendered; this seems really hackish since this lifecycle
         // hook is run quite a bit, the way tileWidth is determined, and need
         // for detectChanges to fix ExpressionChangedAfterItHasBeenCheckedError
-        this.screenSizeService.screenSize.subscribe(() => {
+        const sub = this.screenSizeService.screenSize.subscribe(() => {
             if (this.tiles.first) {
                 // get the width of the grid element
                 const width = this.grid.nativeElement.offsetWidth;
@@ -107,5 +108,6 @@ export class GridComponent<T extends JsonModel>
                 this.changeDetectorRef.detectChanges();
             }
         });
+        this.sub.add(sub);
     }
 }
