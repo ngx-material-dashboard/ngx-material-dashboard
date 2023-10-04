@@ -1,6 +1,6 @@
 import { parseISO } from 'date-fns';
 
-import { School } from '@ngx-material-dashboard/json-api/test/models/school.model';
+import { School } from '@ngx-material-dashboard/base-json/test/models/school.model';
 import { JsonModelConverter } from './json-model.converter';
 
 describe('JsonModel converter', () => {
