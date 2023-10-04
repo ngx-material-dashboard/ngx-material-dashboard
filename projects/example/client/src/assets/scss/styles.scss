@@ -1,0 +1,84 @@
+/* Import any global styles and define basic HTML tag styles. */
+@import 'box.scss';
+@import 'color.scss';
+@import 'spacing.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+    padding: 10px 10px 10px 10px
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.mat-card {
+    background-color:#eee;
+}
+
+.mat-card .plyr__controls {
+    background-color: #eee;
+}
+
+.search-menu {
+    // removes max-width constraint so menu can expand to fill space below
+    // search field
+    max-width: none !important;
+}
+
+/* 
+styles for each list item added to global SCSS, otherwise can't style using
+class from @ngx-material-dashboard/widgets library; and just adding style in
+ng-template doesn't work since select and buttons are not included in style
+as they are rendered separately from main list item template
+*/
+// this is a hack to make the list itself scrollable and not go beyond height
+// of screen (below header and toolbar); uses the last-child because the
+// actual list is last child of .marker-list class after toolbar
+.marker-list > div:last-child {
+    display: block;
+    height: calc(100vh - 236px);
+    overflow-y: auto;
+}
+
+.marker-list .marker-list-item {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.marker-list .marker-list-item:nth-child(odd){
+    border-bottom: none;
+}
+.marker-list .marker-list-item:nth-last-child(even),
+.marker-list .marker-list-item:nth-last-child(even) ~ .marker-list-item{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+}
+
+.low {
+    background-color: green;
+}
+
+.medium {
+    background-color: yellow;
+}
+
+.high {
+    background-color: orange;
+}
+
+.urgent {
+    background-color: red;
+}

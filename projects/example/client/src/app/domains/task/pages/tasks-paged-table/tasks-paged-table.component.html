@@ -1,0 +1,30 @@
+<ngx-mat-table-with-icon-buttons-paginator-bar
+      [fields]="fields"
+      [toolbarButtons]="toolbarButtons"
+      (buttonClick)="onButtonClick($event)"
+      class="marker-paged-paged-table">
+      <ngx-mat-table matSort [collectionButtons]="collectionButtons" [dataSource]="dataSource" [displayedColumns]="displayedColumns" #collection
+    class="marker-table">
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{task.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="priority">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{task.priority}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{task.description}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dueDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{task.dueDate | date: 'shortDate' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="displayedColumns.length" fxLayoutAlign="center center">
+            No tasks found
+        </mat-footer-cell>
+    </ng-container>
+</ngx-mat-table>
+</ngx-mat-table-with-icon-buttons-paginator-bar>

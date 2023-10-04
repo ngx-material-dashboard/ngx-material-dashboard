@@ -1,0 +1,85 @@
+<form [formGroup]="form" class="container" fxLayout="column">
+    <mat-form-field appearance="standard" fxFlex>
+        <mat-label>Task Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter a name for your task" 
+            class="marker-input-name">
+    </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex>
+        <mat-label>Priority</mat-label>
+        <mat-select placeholder="Priority" formControlName="priority" class="marker-select-priority">
+            <mat-select-trigger>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <div [ngSwitch]="form.get('priority')?.value">
+                        <fa-icon *ngSwitchCase="'Urgent'"
+                            class="red"
+                            [icon]="faTag"
+                        ></fa-icon>
+                        <fa-icon *ngSwitchCase="'High'"
+                            class="orange"
+                            [icon]="faTag"
+                        ></fa-icon>
+                        <fa-icon *ngSwitchCase="'Medium'"
+                            class="yellow"
+                            [icon]="faTag"
+                        ></fa-icon>
+                        <fa-icon *ngSwitchDefault
+                            class="green"
+                            [icon]="faTag"
+                        ></fa-icon>
+                    </div>
+                    <span>{{form.get('priority')?.value}}</span>
+                </div>
+            </mat-select-trigger>
+            <mat-option value="Low" class="marker-option-priority">
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <fa-icon 
+                        class="green"
+                        [icon]="faTag"
+                    ></fa-icon>
+                    <span>Low</span>
+                </div>
+            </mat-option>
+            <mat-option value="Medium" class="marker-option-priority">
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <fa-icon 
+                        class="yellow"
+                        [icon]="faTag"
+                    ></fa-icon>
+                    <span>Medium</span>
+                </div>
+            </mat-option>
+            <mat-option value="High" class="marker-option-priority">
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <fa-icon 
+                        class="orange"
+                        [icon]="faTag"
+                    ></fa-icon>
+                    <span>High</span>
+                </div>
+            </mat-option>
+            <mat-option value="Urgent" class="marker-option-priority">
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <fa-icon 
+                        class="red"
+                        [icon]="faTag"
+                    ></fa-icon>
+                    <span>Urgent</span>
+                </div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Enter a description for your task" 
+            class="marker-input-description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex>
+        <mat-label>Due Date</mat-label>
+        <input matInput formControlName="due" placeholder="Enter the date your task is due" 
+            [matDatepicker]="due" 
+            class="marker-input-due-date">
+        <mat-datepicker-toggle matSuffix [for]="due"></mat-datepicker-toggle>
+        <mat-hint align="start">The date the task is due</mat-hint>
+    </mat-form-field>
+    <mat-datepicker #due></mat-datepicker>
+</form>

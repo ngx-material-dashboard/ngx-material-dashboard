@@ -12,11 +12,13 @@ docs.json
 **/docs/**/example-*.md
 **/docs/**/overview-*.md
 **/docs/**/usage-notes*.md
+# generated example data
+**/example/data/*.sq3
 # Only exists if Bazel was run
 /bazel-out
 
 # dependencies
-/node_modules
+**/node_modules
 
 # profiling files
 chrome-profiler-events*.json

@@ -1,0 +1,30 @@
+<ngx-mat-list-with-icon-buttons-paginator-bar
+    [toolbarButtons]="toolbarButtons"
+    (buttonClick)="onButtonClick($event)">
+    
+    <ngx-mat-list
+        class="list"
+        [collectionButtons]="collectionButtons"
+        [dataSource]="dataSource"
+        [fields]="fields"
+        (buttonClick)="onButtonClick($event)"
+        #collection>
+        <ng-template #model let-model="model">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <fa-icon 
+                    class="{{model.priorityColor}}"
+                    [icon]="faTag"
+                    [matTooltip]="model.priority"
+                ></fa-icon>
+                <span fxFlex="0 0 25">{{ model.name }}</span>
+                <span fxFlex>{{ model.description }}</span>
+                <span>{{ model.dueDate | date: 'MM/dd/yyyy' }}</span>
+            </div>
+        </ng-template>
+        <ng-template #noData>
+            <div fxFlex fxLayoutAlign="center start">
+                No data to display
+            </div>
+        </ng-template>
+    </ngx-mat-list>
+</ngx-mat-list-with-icon-buttons-paginator-bar>

@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+    <span>
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Create Task
+    </span>
+</div>
+<mat-dialog-content>
+    <app-task-form [parentForm]="form"></app-task-form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button (click)="cancel()" class="marker-action-cancel">Cancel</button>
+    <button mat-raised-button 
+            color="primary" 
+            type="submit" 
+            (click)="save()"
+            class="marker-action-create">
+        <span>Create</span>
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,11 @@
+<ngx-mat-alert></ngx-mat-alert>
+<ngx-mat-default-layout
+    [logo]="logo"
+    [mode]="'rail'"
+    [sidenavItems]="sidenavItems">
+    <ngx-mat-filter-drop-down 
+        (searchClick)="onSearchClick($event)"
+        filter>
+        <app-task-search-form [parentForm]="form"></app-task-search-form>
+    </ngx-mat-filter-drop-down>
+</ngx-mat-default-layout>

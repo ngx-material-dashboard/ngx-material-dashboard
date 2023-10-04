@@ -158,6 +158,52 @@
         }
       }
     },
+    "example-client": {
+      "projectType": "application",
+      "root": "projects/example/client",
+      "sourceRoot": "projects/example/client/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/example/client",
+            "index": "projects/example/client/src/index.html",
+            "main": "projects/example/client/src/main.ts",
+            "polyfills": "projects/example/client/src/polyfills.ts",
+            "tsConfig": "projects/example/client/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/example/client/src/favicon.ico",
+              "projects/example/client/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/cdk/overlay-prebuilt.css",
+              "projects/example/client/src/assets/scss/theme/theme.scss",
+              "projects/example/client/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "example-client:build",
+            "port": 4200
+          }
+        }
+      }
+    },
     "playground": {
       "projectType": "application",
       "root": "projects/playground",

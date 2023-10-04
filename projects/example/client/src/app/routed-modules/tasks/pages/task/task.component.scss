@@ -1,0 +1,25 @@
+.notice {
+    margin-left: 1em;
+}
+
+.red,
+.mat-icon-button.red:hover {
+    background-color: red;
+
+}
+
+.orange,
+.mat-icon-button.orange:hover {
+    background-color: orange;
+}
+
+.yellow,
+.mat-icon-button.yellow:hover {
+    background-color: yellow;
+}
+
+.toolbar {
+    // same height as toolbar on paged tasks list; makes it look like toolbar
+    // at top of page just updates with new buttons
+    height: 56px;
+}

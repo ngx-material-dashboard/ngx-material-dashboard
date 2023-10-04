@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+// in your app you would just do @import '@ngx-material-dashboard/widgets/theme-switcher';
+@import '../../../../../../widgets/src/lib/layout/components/theme-switcher/theme-switcher.component.scss';
+
+// these are just custom palettes with primary, accent, etc., but you
+// could use pre-defined ones
+@import "light-theme";
+@import "dark-theme";
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// call the theme mixin provided by component with 'light' and 'dark' themes
+@include theme($light-theme, 'light');
+@include theme($dark-theme, 'dark');

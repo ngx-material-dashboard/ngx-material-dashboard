@@ -1,0 +1,101 @@
+<form [formGroup]="mainPropertiesForm" class="container" fxLayout="row wrap" fxLayoutGap="10px" fxLayout.xs="column">
+    <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
+        <mat-label>Task Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter a name for your task" 
+            (change)="update('name')" class="marker-input-name">
+        <mat-error *ngIf="checkError('name')">You must enter a name</mat-error>   
+    </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
+        <mat-label>Priority</mat-label>
+        <mat-select placeholder="Priority" formControlName="priority" (selectionChange)="update('priority')" class="marker-select-priority">
+            <mat-select-trigger>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <div [ngSwitch]="mainPropertiesForm.get('priority')?.value?.value">
+                        <fa-icon *ngSwitchCase="'Urgent'"
+                            class="red"
+                            [icon]="faTag"
+                        ></fa-icon>
+                        <fa-icon *ngSwitchCase="'High'"
+                            class="orange"
+                            [icon]="faTag"
+                        ></fa-icon>
+                        <fa-icon *ngSwitchCase="'Medium'"
+                            class="yellow"
+                            [icon]="faTag"
+                        ></fa-icon>
+                        <fa-icon *ngSwitchDefault
+                            class="green"
+                            [icon]="faTag"
+                        ></fa-icon>
+                    </div>
+                    <span>{{mainPropertiesForm.get('priority')?.value?.value}}</span>
+                </div>
+            </mat-select-trigger>
+            <mat-option *ngFor="let option of priorityOptions" [value]="option" class="marker-option-priority">
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <fa-icon 
+                        class="{{option.priorityColor}}"
+                        [icon]="faTag"
+                    ></fa-icon>
+                    <span>{{option.value}}</span>
+                </div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex="100%" [class.full-width]="isMediumScreen">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Enter a description for your task" 
+            (change)="update('description')" class="marker-input-description" [class.full-width]="isMediumScreen"></textarea>
+        <mat-error *ngIf="checkError('description')">You must enter a description</mat-error>   
+    </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
+        <mat-label>Due Date</mat-label>
+        <input matInput formControlName="due" placeholder="Enter the date your task is due" 
+            [matDatepicker]="due" 
+            [min]="minDueDate" 
+            (dateChange)="update('due')"
+            class="marker-input-due-date">
+        <mat-datepicker-toggle matSuffix [for]="due"></mat-datepicker-toggle>
+        <mat-error *ngIf="checkError('due')">You must enter a due date</mat-error>
+        <mat-hint align="start">The date the task is due</mat-hint>
+        <mat-datepicker #due></mat-datepicker>
+    </mat-form-field>
+
+    <!-- if the task is complete then render the date completed -->
+    <div *ngIf="task && task.isComplete; else pending" [class.full-width]="isMediumScreen" [formGroup]="dateCompletedForm" fxFlex [style.display]="task != null ? 'inherit':'none'">
+        <!-- fill the entire area in the row with the date completed field -->
+        <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
+            <mat-label>Date Completed</mat-label>
+            <input matInput formControlName="dateCompleted"
+                   placeholder="Enter the date you completed the task"
+                   class="marker-input-date-completed"
+                   [matDatepicker]="dateCompleted">
+            <mat-datepicker-toggle matSuffix [for]="dateCompleted"></mat-datepicker-toggle>
+            <mat-hint align="start">The date the task is completed</mat-hint>
+        </mat-form-field>
+        <mat-datepicker #dateCompleted></mat-datepicker>
+    </div>
+
+    <!-- else render the repeat properties form -->
+    <ng-template #pending>
+        <!-- render the repeat properties form if the Task is new or if it already exists and is repeating -->
+        <div *ngIf="!task?.id || (task?.repeats != null && task?.repeats != 'noRepeat')" [class.full-width]="isMediumScreen" [formGroup]="repeatPropertiesForm" fxFlex fxLayoutGap="10px" fxLayout.xs="column">
+            <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
+                <mat-label>Repeat</mat-label>
+                <mat-select placeholder="Repeats" formControlName="repeats" (selectionChange)="update('repeats')" class="marker-select-repeats">
+                    <mat-option value="noRepeat" class="marker-option-repeats">Does not repeat</mat-option>
+                    <mat-option value="daily" class="marker-option-repeats">Daily</mat-option>
+                    <mat-option value="weekly" class="marker-option-repeats">Weekly</mat-option>
+                    <mat-option value="monthly" class="marker-option-repeats">Monthly</mat-option>
+                    <mat-option value="yearly" class="marker-option-repeats">Yearly</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
+                <mat-label>End After</mat-label>
+                <input matInput formControlName="after" type="number" (input)="update('after')" class="marker-input-after">
+                <mat-hint align="start">Number of occurrences</mat-hint>
+                <mat-error *ngIf="checkError('after')">You must enter a number</mat-error>
+            </mat-form-field>
+        </div>
+    </ng-template>
+</form>
