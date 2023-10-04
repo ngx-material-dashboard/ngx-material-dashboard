@@ -125,6 +125,7 @@ export class CollectionComponent<T extends JsonModel>
     implements AfterViewInit, OnDestroy
 {
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
+    @ContentChild('noData') noDataTemplate!: TemplateRef<any>;
     /** The buttons to render with each element in the collection. */
     @Input() collectionButtons: Button[] = [];
     /**

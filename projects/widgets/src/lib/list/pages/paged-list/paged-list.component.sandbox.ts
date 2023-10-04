@@ -47,8 +47,9 @@ export default sandboxOf(PagedListComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-}).add('default', {
-    template: `
+})
+    .add('default', {
+        template: `
     <ngx-mat-paged-list
         [collectionButtons]="collectionButtons"
         [dataSource]="data"
@@ -65,9 +66,34 @@ export default sandboxOf(PagedListComponent, {
             </mat-card>
         </ng-template>
     </ngx-mat-paged-list>`,
-    context: {
-        collectionButtons: DEFAULT_COLLECTION_BUTTONS,
-        data: getTaskData(20),
-        fields: ['id']
-    }
-});
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
+    })
+    .add('no data', {
+        template: `
+    <ngx-mat-paged-list
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [fields]="fields"
+        class="marker-paged-list">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+        <ng-template #noData>No data to display</ng-template>
+    </ngx-mat-paged-list>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: [],
+            fields: ['id']
+        }
+    });

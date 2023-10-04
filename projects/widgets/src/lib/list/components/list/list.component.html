@@ -33,5 +33,8 @@
                 </div>
             </div>
         </div>
+        <ng-container *ngIf="length === 0">
+            <ng-container *ngTemplateOutlet="noDataTemplate"></ng-container>
+        </ng-container>
     </div>
 </div>

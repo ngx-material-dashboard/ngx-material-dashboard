@@ -10,6 +10,9 @@
             </ng-container>
         </div>
     </ng-template>
+    <ng-template #noData>
+        <ng-container *ngTemplateOutlet="noDataTemplate"></ng-container>
+    </ng-template>
 </ngx-mat-list>
 <mat-paginator
     [hidePageSize]="hidePageSize"

@@ -85,6 +85,7 @@ export class PagedCollectionComponent<T extends JsonModel>
      * This is mainly used for any collection other than a table.
      */
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
+    @ContentChild('noData') noDataTemplate!: TemplateRef<any>;
     /** The buttons to render with each item in collection. */
     @Input() collectionButtons: Button[] = [];
     /** The dataSource for the collection. */
