@@ -7,8 +7,9 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface Link {
     display: string;
@@ -52,21 +53,28 @@ const tabs: Links = {
     templateUrl: './tabbed-document.component.html',
     styleUrls: ['./tabbed-document.component.scss']
 })
-export class TabbedDocumentComponent implements OnInit {
+export class TabbedDocumentComponent implements OnDestroy, OnInit {
     links: Link[] = [];
     activeLink: Link = this.links[0];
+    private sub: Subscription = new Subscription();
 
     constructor(private router: Router, private route: ActivatedRoute) {}
 
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+    }
+
     ngOnInit(): void {
-        this.router.events.subscribe(() => {
+        const routerSub = this.router.events.subscribe(() => {
             this.initActiveLink();
         });
+        this.sub.add(routerSub);
 
-        this.route.parent?.url.subscribe((urlSegment) => {
+        const parentSub = this.route.parent?.url.subscribe((urlSegment) => {
             this.links = tabs[urlSegment[0].toString()];
             this.initActiveLink();
         });
+        this.sub.add(parentSub);
     }
 
     initActiveLink(): void {

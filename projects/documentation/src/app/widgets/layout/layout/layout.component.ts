@@ -11,12 +11,14 @@ import {
     AfterViewInit,
     Component,
     ElementRef,
+    OnDestroy,
     OnInit,
     ViewChild
 } from '@angular/core';
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { SidenavItem } from '@ngx-material-dashboard/widgets';
+import { Subscription } from 'rxjs';
 
 const routeSidenavItems: any = {
     'base-json': [
@@ -70,9 +72,10 @@ const routeSidenavItems: any = {
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements AfterViewInit, OnInit {
+export class LayoutComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(MatSidenavContainer) sidenav!: MatSidenavContainer;
     sidenavItems: SidenavItem[] = [];
+    sub: Subscription = new Subscription();
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
@@ -84,11 +87,17 @@ export class LayoutComponent implements AfterViewInit, OnInit {
             this.elementRef.nativeElement.parentElement?.parentElement
         );
     }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+    }
+
     ngOnInit(): void {
         this.setSidenavItems();
-        this.router.events.subscribe(() => {
+        const sub = this.router.events.subscribe(() => {
             this.setSidenavItems();
         });
+        this.sub.add(sub);
     }
 
     setSidenavItems() {

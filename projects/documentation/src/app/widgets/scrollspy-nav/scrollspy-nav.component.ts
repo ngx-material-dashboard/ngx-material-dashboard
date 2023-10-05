@@ -19,6 +19,7 @@ import {
 } from '@angular/core';
 import * as Gumshoe from 'gumshoejs';
 import { NestedHeading } from '../tabbed-document/tabbed-document-tab/tabbed-document-tab.component';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-scrollspy-nav',
@@ -32,6 +33,7 @@ export class ScrollspyNavComponent
     @Input() nestedHeadings: NestedHeading | undefined;
     @Input() nestedGrandChildren: NestedHeading | undefined;
     private scrollSpy: Gumshoe | undefined;
+    private sub: Subscription = new Subscription();
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
@@ -42,7 +44,7 @@ export class ScrollspyNavComponent
         this.removeHidden(
             this.elementRef.nativeElement.parentElement?.parentElement
         );
-        this.zone.onStable
+        const sub = this.zone.onStable
             // .pipe(first())
             // by continously listening for this we take a performance hit, but
             // links may not be defined when zone is initially stable since they
@@ -66,6 +68,7 @@ export class ScrollspyNavComponent
                     // console.log(error);
                 }
             });
+        this.sub.add(sub);
 
         this.setScrollSpy();
     }
@@ -78,6 +81,7 @@ export class ScrollspyNavComponent
 
     ngOnDestroy(): void {
         this.destroyScrollSpy();
+        this.sub.unsubscribe();
     }
 
     destroyScrollSpy(): void {
