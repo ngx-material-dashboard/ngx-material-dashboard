@@ -49,7 +49,7 @@ describe('JsonNestedModelConverter', () => {
                     converter.mask(VALUE);
                 }).toThrow(
                     new Error(
-                        `ERROR: JsonModelConverter: Expected array but got ${typeof VALUE}.`
+                        `ERROR: JsonNestedModelConverter: Expected array but got ${typeof VALUE}.`
                     )
                 );
             });
