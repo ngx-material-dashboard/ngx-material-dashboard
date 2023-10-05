@@ -75,7 +75,7 @@ const routeSidenavItems: any = {
 export class LayoutComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(MatSidenavContainer) sidenav!: MatSidenavContainer;
     sidenavItems: SidenavItem[] = [];
-    sub: Subscription = new Subscription();
+    private sub: Subscription = new Subscription();
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,

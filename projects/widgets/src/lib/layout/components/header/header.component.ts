@@ -45,7 +45,7 @@ export class HeaderComponent implements AfterContentInit, OnDestroy {
      */
     faBars: IconDefinition = faBars;
     /** The subscriptions in the component. */
-    sub: Subscription = new Subscription();
+    private sub: Subscription = new Subscription();
 
     ngAfterContentInit(): void {
         if (this.filter) {
