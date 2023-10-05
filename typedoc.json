@@ -12,5 +12,6 @@
         "tools"
     ],
     "excludePrivate": true,
-    "out": "docs"
+    "out": "docs",
+    "skipErrorChecking": true
 }
