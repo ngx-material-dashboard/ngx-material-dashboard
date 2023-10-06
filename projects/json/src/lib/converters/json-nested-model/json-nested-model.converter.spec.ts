@@ -9,7 +9,9 @@ describe('JsonNestedModelConverter', () => {
     describe('mask method', () => {
         describe('ArrayModel - simple values', () => {
             beforeEach(() => {
-                converter = new JsonNestedModelConverter(Array, { hasMany: true });
+                converter = new JsonNestedModelConverter(Array, {
+                    hasMany: true
+                });
             });
 
             it('should return empty array when empty input', () => {
@@ -57,7 +59,9 @@ describe('JsonNestedModelConverter', () => {
 
         describe('Array model -> object values', () => {
             beforeEach(() => {
-                converter = new JsonNestedModelConverter(School, { hasMany: true });
+                converter = new JsonNestedModelConverter(School, {
+                    hasMany: true
+                });
             });
 
             it('should return array of Schools from provided data', () => {
@@ -130,7 +134,9 @@ describe('JsonNestedModelConverter', () => {
     describe('unmask method', () => {
         describe('ArrayModel - simple values', () => {
             beforeEach(() => {
-                converter = new JsonNestedModelConverter(Array, { hasMany: true });
+                converter = new JsonNestedModelConverter(Array, {
+                    hasMany: true
+                });
             });
 
             it('should return serialized output when provided null', () => {
@@ -153,7 +159,9 @@ describe('JsonNestedModelConverter', () => {
 
         describe('Array model -> object values', () => {
             beforeEach(() => {
-                converter = new JsonNestedModelConverter(School, { hasMany: true });
+                converter = new JsonNestedModelConverter(School, {
+                    hasMany: true
+                });
             });
 
             it('should return serialized Schools from provided Array of Schools', () => {

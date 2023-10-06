@@ -123,10 +123,15 @@ const URL_DIRECTORY_MAP: UrlDirectoryMap = {
         ['assets/docs/shared/error-handling.md'],
         ['assets/docs/shared/end-overview.md']
     ],
-    '/json/api': [['assets/docs/json/api-0.md'], ['assets/docs/json/api-1.md']],
+    '/json/api': [
+        ['assets/docs/json/api-0.md'],
+        ['assets/docs/json/api-1.md'],
+        ['assets/docs/json/api-2.md']
+    ],
     '/json/overview': [
         ['assets/docs/json/overview-0.md'],
-        ['assets/docs/json/overview-1.md']
+        ['assets/docs/json/overview-1.md'],
+        ['assets/docs/json/overview-2.md']
     ],
     '/testing': [['assets/docs/testing/overview.md']],
     '/testing/readme': [['assets/docs/testing/overview.md']],
