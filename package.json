@@ -19,6 +19,8 @@
     "start:example": "concurrently --kill-others --raw \"ng serve example-client\" \"npm run start:example-server\"",
     "start:example-server": "cd projects && cd example && cd server && npm start",
     "build": "ng build base-json && ng build testing && ng build json-api && ng build json && ng build widgets",
+    "build:example": "concurrently \"npm run build\" \"npm run install:example-server\"",
+    "install:example-server": "cd projects && cd example && cd server && npm install",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "test:headless": "ng test --browsers=ChromeHeadlessNoSandbox --no-watch",
