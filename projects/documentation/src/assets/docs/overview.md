@@ -52,7 +52,35 @@ Additionally I came up with a way to share markdown files between routes, reduci
 
 ## Sample Project
 
-I intend to add a sample project that shows how to utilize the json and widgets libraries. Stay tuned...
+There is an example project included in the workspace [here](https://github.com/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/example). It is a full stack TypeScript application to create and manage basic Tasks. The server side API is really only included to provide a complete example, you will find all of the interesting details with regard to using the `base-json`, `json`, and `widgets` libraries in the [client](https://github.com/ngx-material-dashboard/ngx-material-dashboard/tree/main/projects/example/client/src) application. Because the server app is not angular I did include it's own package.json, which means it needs to install it's own set of node_modules separate from the workspace. These node_modules are kept relative to the server app, so they don't clutter up the workspace. The example also requires the libraries to be built locally in order to work. I have included a script to do all of that in an attempt to simplify the setup. See below for the script to run.
+
+```bash
+npm run build:example
+```
+
+### Running the Sample
+
+Make sure you have run the `build:example` script as noted above. Once you have done that, the easiest way to start the example is to run the following
+
+```bash
+npm run start:example
+```
+
+This will start both the client and server side applications. The server does utilize a sqlite DB, so a data directory is created the first time you start the app (or if the directory doesn't exist i.e. you deleted it), along with a file named tasks.sq3. It will also add some seed data needed for creating tasks (tasks have a priority which is represented as it's own object to give an example with some relational data). Once it is up and running you should be able to access the example at the usual `http://localhost:4200`.
+
+I will admit, I'm not sure if it is the best idea to have a full stack application like this sitting inside an angular workspace, especially since I have to include and use separate configuration from the workspace for running the server code. But it still is Node, and I can still utilize the workspace package.json to run the server side at least.
+
+### Client Side Code
+
+The client side application is structured how I like to structure my applications. It mainly consists of an `app-core`, `domains`, `routed-modules`, and `shared` directories. The `app-core` contains things like application level interceptors, guards, and maybe shared services that could be used across the application (e.g. an Auth service). The `shared` directory contains things like shared interfaces, models, and services. This is where I define the models that extend the `JsonModel` defined in the `json` library as well as the `JsonDatastore` that defines configuration for models interfacing with the server side API. The `domains` and `routed-modules` directories are discussed in more detail below.
+
+#### Domains
+
+The `domains` directory is meant for defining domain specific (i.e. model/table or feature related) modules along with components, directives, etc. that can be shared across your app. Any modules defined here should not have any routing associated with them, and should only export components/directives for other modules to consume. 
+
+#### Routed-Modules
+
+The `routed-modules` directory is meant for defining modules with routes. These modules should only be included in route definitions and should not be imported anywhere else, especially if you want them to lazy load.
 
 ## Contributing
 
