@@ -7,4 +7,5 @@ export class Priority {
     @PrimaryGeneratedColumn() id: number;
     /* The priority: 'Urgent', 'High', 'Medium', 'Low'. */
     @Column({ length: 6 }) value: string;
+    @Column() color: string;
 }

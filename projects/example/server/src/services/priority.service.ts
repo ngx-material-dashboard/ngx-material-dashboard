@@ -11,6 +11,7 @@ export class PriorityService {
     public static async save(properties: Partial<Priority>): Promise<Priority> {
         let priority: Priority = new Priority();
         priority.value = properties.value;
+        priority.color = properties.color;
         priority = await this.db().save(priority);
 
         return priority;

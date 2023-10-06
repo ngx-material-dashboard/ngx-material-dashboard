@@ -53,23 +53,24 @@ export class Server {
     private static async seed(): Promise<void> {
         console.log('Seed data...');
         const res: any[] = await PriorityService.findAll();
-        console.log(res);
         let priorities = res[0];
         console.log(priorities);
         if (priorities.length === 0) {
             // if there aren't any priorities, then add some
-            const priorityStrings: string[] = [
-                'Low',
-                'Medium',
-                'High',
-                'Urgent'
+            const priorityStrings: { value: string; color: string }[] = [
+                { value: 'Low', color: 'green' },
+                { value: 'Medium', color: 'yellow' },
+                { value: 'High', color: 'orange' },
+                { value: 'Urgent', color: 'red' }
             ];
             for (let i = 0; i < priorityStrings.length; i++) {
-                await PriorityService.save({ value: priorityStrings[i] });
+                await PriorityService.save({
+                    value: priorityStrings[i].value,
+                    color: priorityStrings[i].color
+                });
             }
 
             priorities = (await PriorityService.findAll()).map((res) => res[1]);
-            console.log(priorities);
             console.log('Priorities seeded');
         } else {
             console.log('Priorities exist, skipping seed');

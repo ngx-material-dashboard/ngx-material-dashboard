@@ -1,6 +1,7 @@
 import {
     Attribute,
-    JsonApiModelConfig
+    JsonApiModelConfig,
+    NestedAttribute
 } from '@ngx-material-dashboard/base-json';
 import {
     JsonModel,
@@ -32,14 +33,6 @@ export class Task extends JsonModel {
     @Attribute() repeats?: string;
     /** The number of times the Task will repeat (if it repeats). */
     @Attribute() endsAfter?: number;
-
-    get priorityColor(): string {
-        if (this.priority) {
-            return this.priority.priorityColor;
-        } else {
-            return 'green';
-        }
-    }
 
     get status(): string {
         let status = '';

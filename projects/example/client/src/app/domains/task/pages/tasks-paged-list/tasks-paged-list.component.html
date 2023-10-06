@@ -12,9 +12,9 @@
         <ng-template #model let-model="model">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                 <fa-icon 
-                    class="{{model.priorityColor}}"
+                    class="{{model.priority.color}}"
                     [icon]="faTag"
-                    [matTooltip]="model.priority"
+                    [matTooltip]="model.priority.value"
                 ></fa-icon>
                 <span fxFlex="0 0 25">{{ model.name }}</span>
                 <span fxFlex>{{ model.description }}</span>

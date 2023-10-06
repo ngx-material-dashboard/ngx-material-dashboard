@@ -8,17 +8,6 @@ import { JsonModel } from '@ngx-material-dashboard/json';
     type: 'priorities'
 })
 export class Priority extends JsonModel {
+    @Attribute() color?: string;
     @Attribute() value?: string;
-
-    get priorityColor(): string {
-        if (this.value === 'Urgent') {
-            return 'red';
-        } else if (this.value === 'High') {
-            return 'orange';
-        } else if (this.value === 'Medium') {
-            return 'yellow';
-        } else {
-            return 'green';
-        }
-    }
 }

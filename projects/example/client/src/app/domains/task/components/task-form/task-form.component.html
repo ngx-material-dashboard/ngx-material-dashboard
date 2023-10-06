@@ -34,7 +34,7 @@
             <mat-option *ngFor="let option of priorityOptions" [value]="option" class="marker-option-priority">
                 <div fxLayout="row" fxLayoutGap="10px">
                     <fa-icon 
-                        class="{{option.priorityColor}}"
+                        class="{{option.color}}"
                         [icon]="faTag"
                     ></fa-icon>
                     <span>{{option.value}}</span>
