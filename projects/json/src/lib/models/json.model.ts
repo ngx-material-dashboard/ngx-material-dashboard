@@ -52,4 +52,32 @@ export class JsonModel extends BaseJsonModel {
             this.modelInitialization = false;
         }
     }
+
+    /**
+     * Returns the serialized representation for the model that can be used as
+     * JSON in HTTP request body. Without this everything from the object would
+     * be included in JSON resulting in `TypeError: cyclic object value` if you
+     * try to define an @Attribute with type that extends JsonModel. Should
+     * only be used by JsonNestedModelConverter, and shouldn't really be called
+     * directly.
+     *
+     * @returns Serialized representation for the model.
+     */
+    serialize(): any {
+        const serializedNameToPropertyName =
+            Reflect.getMetadata('AttributeMapping', this) || [];
+        const properties: any = {};
+        Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
+            if (
+                this &&
+                this[serializedName] !== null &&
+                this[serializedName] !== undefined &&
+                serializedName !== 'nestedDataSerialization'
+            ) {
+                properties[serializedNameToPropertyName[serializedName]] =
+                    this[serializedName];
+            }
+        });
+        return properties;
+    }
 }

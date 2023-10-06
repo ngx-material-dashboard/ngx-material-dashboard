@@ -95,45 +95,18 @@ export class JsonNestedModelConverter<T> implements PropertyConverter {
                     continue;
                 }
                 if (item instanceof JsonModel) {
-                    result.push(this.serialize(this.modelType, item));
+                    result.push(item.serialize());
                 } else {
                     result.push(item);
                 }
             }
         } else {
             if (value instanceof JsonModel) {
-                result = this.serialize(this.modelType, value);
+                result = value.serialize();
             } else {
                 result = value;
             }
         }
         return result;
-    }
-
-    /**
-     * Returns the serialized representation for the model that can be used as
-     * JSON in HTTP request body. Without this everything from the object would
-     * be included in JSON resulting in `TypeError: cyclic object value` if you
-     * try to define an @Attribute with type that extends JsonModel.
-     *
-     * @returns Serialized representation for the model.
-     */
-    serialize(model: ModelType<T>, attributes: any): any {
-        const serializedNameToPropertyName =
-            Reflect.getMetadata('AttributeMapping', model) || [];
-        const properties: any = {};
-        Object.keys(serializedNameToPropertyName).forEach((serializedName) => {
-            if (
-                this &&
-                attributes[serializedName] !== null &&
-                attributes[serializedName] !== undefined &&
-                serializedName !== 'nestedDataSerialization'
-            ) {
-                properties[serializedNameToPropertyName[serializedName]] =
-                    attributes[serializedName];
-            }
-        });
-
-        return properties;
     }
 }
