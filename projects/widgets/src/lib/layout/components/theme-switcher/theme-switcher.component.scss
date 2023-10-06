@@ -1,5 +1,3 @@
-@use '@angular/material' as mat;
-@import '@angular/material/theming';
 @import '../sidenav/sidenav.component.scss';
 
 @mixin theme($theme, $name) {

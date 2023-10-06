@@ -177,7 +177,6 @@
               "projects/example/client/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/cdk/overlay-prebuilt.css",
               "projects/example/client/src/assets/scss/theme/theme.scss",
               "projects/example/client/src/styles.scss"
             ],
