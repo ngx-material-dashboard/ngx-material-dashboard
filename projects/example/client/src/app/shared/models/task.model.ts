@@ -34,7 +34,6 @@ export class Task extends JsonModel {
     @Attribute() endsAfter?: number;
 
     get priorityColor(): string {
-        console.log(this.priority);
         if (this.priority) {
             return this.priority.priorityColor;
         } else {
