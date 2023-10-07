@@ -8,7 +8,7 @@
  */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 
 import { LoadingService } from '../../services/loading.service';
 
@@ -55,9 +55,11 @@ export class LoadingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        const sub = this.loadingService.loadingSub.subscribe((loadingState) => {
-            this.loading = loadingState;
-        });
+        const sub = this.loadingService.loading
+            .pipe(debounceTime(10))
+            .subscribe((loadingState) => {
+                this.loading = loadingState;
+            });
         sub.add(sub);
     }
 
