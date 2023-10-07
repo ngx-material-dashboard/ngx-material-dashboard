@@ -2,6 +2,7 @@ import { TypedocBase } from './typedoc-base.model';
 import { Decorator } from './decorator.model';
 import { TypeModel } from './type.model';
 import { Parameter } from './parameter.model';
+
 export class Property extends TypedocBase {
     propertyDecorator?: Decorator;
     propertyDecoratorDisplay: string = '';
