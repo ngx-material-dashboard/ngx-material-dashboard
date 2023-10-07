@@ -16,6 +16,7 @@ import { CommentParserJson } from './interfaces/json.interface';
  * @since 1.0.0
  */
 export class CommentParser extends TypedocCommentParser {
+    public deprecatedNotes?: string;
     public usageNoteHeaders: string[] = [];
     public usageNotesTypeMap: { [type: string]: string };
     public usageNoteTypes: string[] = [];
@@ -29,6 +30,16 @@ export class CommentParser extends TypedocCommentParser {
 
         this.usageNotesTypeMap = {};
         this.initUsageNoteTypes();
+
+        const deprecatedBlock = this.blockTags.filter(
+            (tag) => tag.name === 'deprecated'
+        );
+        if (deprecatedBlock.length > 0) {
+            this.deprecatedNotes = deprecatedBlock[0].text.replaceAll(
+                '\n',
+                ' '
+            );
+        }
     }
 
     public get overviewDetails(): TypedocCommentParser.BlockTag[] {
@@ -81,6 +92,7 @@ export class CommentParser extends TypedocCommentParser {
      */
     public override toJSON(): CommentParserJson {
         return {
+            deprecatedNotes: this.deprecatedNotes,
             description: this.description,
             blockTags: this.blockTags,
             modifierTags: this.modifierTags,

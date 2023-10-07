@@ -11,6 +11,12 @@
     {{#each properties}}
         <tr>
             <td>
+                {{#if this.comment.deprecatedNotes}}
+                <b class="tooltip">
+                    Deprecated
+                    <span class="tooltiptext">{{this.comment.deprecatedNotes}}</span>
+                </b>
+                {{/if}}
                 <p>
                     {{this.name}}: {{this.type}}
                 </p>

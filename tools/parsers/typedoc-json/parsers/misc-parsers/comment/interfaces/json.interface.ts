@@ -10,6 +10,8 @@
 import { CommentParser } from 'typedoc-json-parser';
 
 export interface CommentParserJson extends CommentParser.Json {
+    /** List of deprecated notes included in comment. */
+    deprecatedNotes?: string;
     /** The list of overviewDetails included in the comment. */
     overviewDetails: CommentParser.BlockTag[];
     /** The type of return value defined in comment. */

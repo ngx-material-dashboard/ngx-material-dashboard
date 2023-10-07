@@ -23,6 +23,7 @@ import { DirectiveDecoratorParser } from '../../../../parsers/decorators/parsers
 import { CommentParser } from '../misc-parsers';
 import { generateFromJson, generateFromTypeDoc } from '../type-parsers';
 import { ClassParserJson } from './interfaces/json.interface';
+import { PropertyParser } from './property/property.parser';
 
 /**
  * Parses data from a class reflection.
@@ -119,7 +120,7 @@ export class ClassParser extends TypedocClassParser {
                     (child.kind === ReflectionKind.Accessor &&
                         child.getSignature)
             )
-            .map((child) => ClassPropertyParser.generateFromTypeDoc(child, id));
+            .map((child) => PropertyParser.generateFromTypeDoc(child, id));
 
         const methods = children
             .filter((child) => child.kind === ReflectionKind.Method)
