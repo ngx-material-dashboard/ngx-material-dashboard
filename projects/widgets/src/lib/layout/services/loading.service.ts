@@ -8,7 +8,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 /**
  * The LoadingService handles tracking active requests so any subscribers can
@@ -120,13 +120,28 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class LoadingService {
     /**
+     * The private source for whether there is an active request. TODO replace
+     * with loadingSub once that is marked private. All this to avoid a
+     * deprecation warning in the service...
+     */
+    private loadingSubPriv = new BehaviorSubject<boolean>(false);
+    /**
+     * Source for whether there is an active request.
+     *
+     * @deprecated Use loading Observable instead. Property will still exist,
+     * but it will be set to private in a future release. Left public for now
+     * because the loading Observable wasn't added until recently and I didn't
+     * want to introduce any breaking changes right now.
+     */
+    loadingSub: BehaviorSubject<boolean> = this.loadingSubPriv;
+    /** Contains in-progress loading requests. */
+    loadingMap: Map<string, boolean> = new Map<string, boolean>();
+    /**
      * Observable for emitting whether there is an active request. When true
      * there is at least one active request, when false there are no active
      * requests. Defaults to false (i.e. no active requests).
      */
-    loadingSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    /** Contains in-progress loading requests. */
-    loadingMap: Map<string, boolean> = new Map<string, boolean>();
+    readonly loading: Observable<boolean> = this.loadingSubPriv.asObservable();
 
     /**
      * Sets the loadingSub property value based on the following:
