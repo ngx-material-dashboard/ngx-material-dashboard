@@ -7,8 +7,7 @@ import {
     HttpResponse
 } from '@angular/common/http';
 import { LoadingService } from '@ngx-material-dashboard/widgets';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 /**
  * Interceptor for updating state of HTTP requests in LoadingService to manage
@@ -29,23 +28,18 @@ export class LoadingInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         // mark the requests URL as loading
         this.loadingService.setLoading(true, request.url);
-        return next
-            .handle(request)
-            .pipe(
-                catchError((err) => {
-                    //
+        return next.handle(request).pipe(
+            map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
+                if (evt instanceof HttpResponse) {
                     this.loadingService.setLoading(false, request.url);
-                    // throw error so HttpErrorInterceptor can handle accordingly
-                    return throwError(() => err);
-                })
-            )
-            .pipe(
-                map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
-                    if (evt instanceof HttpResponse) {
-                        this.loadingService.setLoading(false, request.url);
-                    }
-                    return evt;
-                })
-            );
+                }
+                return evt;
+            }),
+            catchError((err) => {
+                this.loadingService.setLoading(false, request.url);
+                // throw error so HttpErrorInterceptor can handle accordingly
+                return throwError(() => err);
+            })
+        );
     }
 }
