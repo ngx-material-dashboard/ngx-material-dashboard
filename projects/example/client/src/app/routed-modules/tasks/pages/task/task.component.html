@@ -7,10 +7,10 @@
     </button>
     <div fxFlex></div>
     <span [style.padding-right.px]="10" fxLayoutAlign="start center">{{index + 1}} of {{tasks.length}}</span>
-    <button *ngIf="index > 0" mat-icon-button (click)="onPageButtonClick(index - 1)">
+    <button mat-icon-button (click)="onPageButtonClick(index - 1)" [disabled]="index < 0 || index === 0">
         <fa-icon [icon]="faPrev"></fa-icon>
     </button>
-    <button *ngIf="index < tasks.length" mat-icon-button (click)="onPageButtonClick(index + 1)">
+    <button mat-icon-button (click)="onPageButtonClick(index + 1)" [disabled]="index < 0 || index === tasks.length - 1">
         <fa-icon [icon]="faNext"></fa-icon>
     </button>
 </div>
