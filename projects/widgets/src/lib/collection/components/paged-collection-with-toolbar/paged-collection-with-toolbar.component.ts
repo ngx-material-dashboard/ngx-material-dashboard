@@ -29,7 +29,6 @@ import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface'
 import { ToolbarButton } from '../../../toolbar/interfaces/toolbar-button.interface';
 import { ButtonToolbarComponent } from '../../../toolbar/pages/button-toolbar/button-toolbar.component';
 import { IconButtonsWithPaginatorComponent } from '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
-import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { SelectionService } from '../../services/selection.service';
 import { CollectionComponent } from '../collection/collection.component';
 import { PagedCollectionComponent } from '../paged-collection/paged-collection.component';
