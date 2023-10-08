@@ -1,9 +1,11 @@
 @import '../sidenav/sidenav.component.scss';
+@import '../../../toolbar/pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component.scss';
 
 @mixin theme($theme, $name) {
     .#{$name}-theme {
         @include angular-material-theme($theme);
         @include sidenav-theme($theme);
+        @include toolbar-paginator-theme($theme);
     }
 
     // add very basic styling for non-material elements; this allows you to add

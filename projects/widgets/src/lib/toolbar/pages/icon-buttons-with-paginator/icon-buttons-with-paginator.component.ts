@@ -82,7 +82,7 @@ import { SorterComponent } from '../sorter/sorter.component';
 @Component({
     selector: 'ngx-mat-icon-buttons-with-paginator',
     templateUrl: './icon-buttons-with-paginator.component.html',
-    styleUrls: ['./icon-buttons-with-paginator.component.css']
+    styleUrls: ['./icon-buttons-with-paginator.component.scss']
 })
 export class IconButtonsWithPaginatorComponent<T extends JsonModel>
     implements AfterViewInit
