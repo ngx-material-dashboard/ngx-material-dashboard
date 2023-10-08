@@ -5,4 +5,26 @@
         @include angular-material-theme($theme);
         @include sidenav-theme($theme);
     }
+
+    // add very basic styling for non-material elements; this allows you to add
+    // "primary", "accent", and "warn" to class list to any element to get the
+    // desired material color; NOTE: only sets the background and text color
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .#{$name}-theme .primary {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+    }
+
+    .#{$name}-theme .accent {
+        background-color: mat-color($accent);
+        color: mat-color($accent, default-contrast);
+    }
+
+    .#{$name}-theme .warn {
+        background-color: mat-color($warn);
+        color: mat-color($warn, default-contrast);
+    }
 }
