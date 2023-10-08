@@ -114,6 +114,7 @@ export class TasksPagedListComponent {
                 const val: Task = this.jsonApiService.createRecord(Task, data);
                 val.save().subscribe(() => {
                     this.dataSource.refresh();
+                    this.taskService.initNumTasks();
                     this.alertService.success('Task created successfully');
                 });
             });
@@ -136,6 +137,8 @@ export class TasksPagedListComponent {
                     this.jsonApiService
                         .deleteRecord(Task, val.id)
                         .subscribe(() => {
+                            this.dataSource.refresh();
+                            this.taskService.initNumTasks();
                             this.alertService.success(
                                 `Task (${val.name}) deleted successfully`
                             );
@@ -204,6 +207,7 @@ export class TasksPagedListComponent {
                     .updateRecord(data, transition)
                     .subscribe(() => {
                         this.dataSource.refresh();
+                        this.taskService.initNumTasks();
                         this.alertService.success(successMessage);
                     });
             });

@@ -114,6 +114,7 @@ export class TaskComponent implements OnInit {
                     .updateRecord(this.task, 'update')
                     .subscribe((t: Task) => {
                         this.task = t;
+                        this.taskService.initNumTasks();
                         this.alertService.success('Task updated successfully');
                     });
             }
@@ -135,6 +136,7 @@ export class TaskComponent implements OnInit {
                     .updateRecord(this.task, 'complete')
                     .subscribe((t: Task) => {
                         this.task = t;
+                        this.taskService.initNumTasks();
                         this.alertService.success(
                             'Task completed successfully'
                         );
