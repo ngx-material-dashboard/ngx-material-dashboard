@@ -171,21 +171,6 @@ export class TasksPagedListComponent {
         this.saveTask(dialogRef, 'complete', 'Task Completed Successfully');
     }
 
-    openEditDialog(val: Task): void {
-        const dialogConfig = {
-            data: {
-                tasks: [val]
-            }
-        };
-
-        // open the dialog
-        const dialogRef = this.dialog.open(
-            EditTaskDialogComponent,
-            dialogConfig
-        );
-        this.saveTask(dialogRef, 'update', 'Task Updated Successfully');
-    }
-
     private saveTask(
         dialogRef: MatDialogRef<
             CompleteTaskDialogComponent | EditTaskDialogComponent

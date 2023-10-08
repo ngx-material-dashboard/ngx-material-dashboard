@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,8 +10,6 @@ import {
     faChevronRight,
     faClipboardCheck,
     faClipboardList,
-    faHourglass,
-    faHourglassEmpty,
     faHourglassEnd,
     faHourglassHalf,
     faHourglassStart,
@@ -26,7 +23,6 @@ import {
 
 import { Task } from '../../../../shared/models/task.model';
 import { JsonApiService } from '../../../../shared/services/json-api.service';
-import { catchError, forkJoin } from 'rxjs';
 import { CompleteTaskDialogComponent } from '../../../../domains/task/pages/complete-task-dialog/complete-task-dialog.component';
 import { TaskService } from '../../../../domains/task/services/task.service';
 
