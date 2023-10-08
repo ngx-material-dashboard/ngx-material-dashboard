@@ -273,6 +273,10 @@ export class CollectionComponent<T extends JsonModel>
                 this.length = this.dataSource$.data.length;
             }
             this.lengthChange.emit(this.length);
+
+            // clear any selections
+            this.selection.clear();
+            this.selectionService.selectionChangeSubject.next(true);
         });
         this.sub.add(sub);
 
