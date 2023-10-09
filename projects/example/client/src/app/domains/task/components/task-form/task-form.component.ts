@@ -84,7 +84,7 @@ export class TaskFormComponent implements OnInit {
     ngOnInit() {
         if (!this.task$) {
             // if the @Input task is not defined then create a dummy task to initialize the form data
-            this.task$ = new Task(this.jsonApiService, {});
+            this.task$ = this.jsonApiService.createRecord(Task, {});
             // and set the minDueDate to todays date (not sure it makes sense to allow due dates in past)
             this.minDueDate = new Date();
         } else if (this.task$.dueDate) {
