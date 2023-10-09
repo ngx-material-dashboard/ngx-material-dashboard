@@ -22,8 +22,13 @@
             </div>
         </ng-template>
         <ng-template #noData>
-            <div fxFlex fxLayoutAlign="center start">
-                No data to display
+            <div fxFlex fxLayoutAlign="center center">
+                <span class="no-data" fxLayout="row" fxLayoutGap="10px">
+                    <fa-icon [icon]="faHourglass"></fa-icon>
+                    <span fxLayoutAlign="start center">
+                        Nothing to do! Woo-Hoo!
+                    </span>
+                </span>
             </div>
         </ng-template>
     </ngx-mat-list>

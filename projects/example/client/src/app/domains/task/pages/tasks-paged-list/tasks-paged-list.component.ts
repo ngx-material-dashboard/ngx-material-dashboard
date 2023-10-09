@@ -29,7 +29,7 @@ import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-ta
 import { CreateTaskDialogComponent } from '../create-task-dialog/create-task-dialog.component';
 import { EditTaskDialogComponent } from '../edit-task-dialog/edit-task-dialog.component';
 import { TaskService } from '../../services/task.service';
-import { faTag } from '@fortawesome/free-solid-svg-icons';
+import { faHourglass, faPlus, faTag } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
@@ -48,6 +48,8 @@ export class TasksPagedListComponent {
         DELETE_TOOLBAR_BUTTON
     ];
     dataSource: RemoteDataSource<Task>;
+    faHourglass: IconProp = faHourglass;
+    faPlus: IconProp = faPlus;
     faTag: IconProp = faTag;
     fields: { field: string; text: string }[] = [
         { field: 'task.name', text: 'Name' },
