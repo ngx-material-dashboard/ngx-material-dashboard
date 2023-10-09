@@ -14,6 +14,7 @@ import { JsonApiService } from '../../../../shared/services/json-api.service';
 import { Subscription } from 'rxjs';
 import { Priority } from '../../../../shared/models/priority.model';
 import { JsonApiQueryData } from '@ngx-material-dashboard/base-json';
+import { ValidationMessages } from '@ngx-material-dashboard/widgets';
 
 @Component({
     selector: 'app-task-form',
@@ -37,8 +38,23 @@ export class TaskFormComponent implements OnInit {
     faTag: IconProp = faTag;
     /** The form for the main properties (name, priority, description, and dueDate). */
     mainPropertiesForm!: FormGroup;
+    mainPropertiesValidationMessages: ValidationMessages = {
+        name: [{ type: 'required', message: 'Name is required' }],
+        description: [{ type: 'required', message: 'Description is required' }],
+        due: [{ type: 'required', message: 'Due date is required' }],
+        priority: [{ type: 'required', message: 'Priority is required' }]
+    };
     /** The form for the repeat properties (repeats, after). */
     repeatPropertiesForm!: FormGroup;
+    repeatPropertiesValidationMessages: ValidationMessages = {
+        repeats: [
+            {
+                type: 'required',
+                message: "Must select an option (even if task doesn't repeat)"
+            }
+        ],
+        after: [{ type: 'required', message: 'You must enter a number' }]
+    };
     // /** Boolean to indicate if the screen size is medium or smaller (true if screen is medium or smaller). */
     isMediumScreen: boolean = false;
     /** The minimum date the Task can be marked due (defaults to todays date if Task creating Task). */
@@ -53,38 +69,6 @@ export class TaskFormComponent implements OnInit {
         private jsonApiService: JsonApiService
     ) {
         this.sub = new Subscription();
-    }
-
-    /**
-     * Checks the form for errors based on the given property when the property is updated on the
-     * form.
-     *
-     * @param property The property to check for error.
-     */
-    checkError(property: string) {
-        if (property == 'repeats' || property == 'after') {
-            // if the given property is "repeats" or "after" then check the repeatPropertiesForm
-            return this.checkFormError(this.repeatPropertiesForm, property);
-        } else {
-            // else check the mainPropertiesForm
-            return this.checkFormError(this.mainPropertiesForm, property);
-        }
-    }
-
-    /**
-     * Returns true if the form is invalid and the property of the given form is dirty or it has
-     * been touched.
-     *
-     * @param form The form to validate.
-     * @param property The property that was updated.
-     */
-    private checkFormError(form: FormGroup, property: string): boolean {
-        const control = form.get(property);
-        if (control) {
-            return control.invalid && (control.dirty || form.touched);
-        } else {
-            return false;
-        }
     }
 
     /**

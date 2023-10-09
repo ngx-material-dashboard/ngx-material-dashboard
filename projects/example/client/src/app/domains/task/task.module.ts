@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
     CollectionModule,
     DialogModule,
+    FormModule,
     ListModule,
     TableModule,
     ToolbarModule
@@ -64,6 +65,7 @@ import { MatDividerModule } from '@angular/material/divider';
         FontAwesomeModule,
         CollectionModule,
         DialogModule,
+        FormModule,
         ListModule,
         TableModule,
         ToolbarModule

@@ -3,7 +3,13 @@
         <mat-label>Task Name</mat-label>
         <input matInput formControlName="name" placeholder="Enter a name for your task" 
             (change)="update('name')" class="marker-input-name">
-        <mat-error *ngIf="checkError('name')">You must enter a name</mat-error>   
+        <mat-error>
+            <ngx-mat-field-error
+                field='name'
+                [form]="mainPropertiesForm"
+                [validationMessages]="mainPropertiesValidationMessages['name']">
+            </ngx-mat-field-error>
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
         <mat-label>Priority</mat-label>
@@ -41,12 +47,25 @@
                 </div>
             </mat-option>
         </mat-select>
+        <mat-error>
+            <ngx-mat-field-error
+                field='priority'
+                [form]="mainPropertiesForm"
+                [validationMessages]="mainPropertiesValidationMessages['priority']">
+            </ngx-mat-field-error>
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard" fxFlex="100%" [class.full-width]="isMediumScreen">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description" placeholder="Enter a description for your task" 
             (change)="update('description')" class="marker-input-description" [class.full-width]="isMediumScreen"></textarea>
-        <mat-error *ngIf="checkError('description')">You must enter a description</mat-error>   
+        <mat-error>
+            <ngx-mat-field-error
+                field='description'
+                [form]="mainPropertiesForm"
+                [validationMessages]="mainPropertiesValidationMessages['description']">
+            </ngx-mat-field-error>
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard" fxFlex [class.full-width]="isMediumScreen">
         <mat-label>Due Date</mat-label>
@@ -56,7 +75,13 @@
             (dateChange)="update('due')"
             class="marker-input-due-date">
         <mat-datepicker-toggle matSuffix [for]="due"></mat-datepicker-toggle>
-        <mat-error *ngIf="checkError('due')">You must enter a due date</mat-error>
+        <mat-error>
+            <ngx-mat-field-error
+                field='due'
+                [form]="mainPropertiesForm"
+                [validationMessages]="mainPropertiesValidationMessages['due']">
+            </ngx-mat-field-error>
+        </mat-error>
         <mat-hint align="start">The date the task is due</mat-hint>
         <mat-datepicker #due></mat-datepicker>
     </mat-form-field>
@@ -94,7 +119,13 @@
                 <mat-label>End After</mat-label>
                 <input matInput formControlName="after" type="number" (input)="update('after')" class="marker-input-after">
                 <mat-hint align="start">Number of occurrences</mat-hint>
-                <mat-error *ngIf="checkError('after')">You must enter a number</mat-error>
+                <mat-error>
+                    <ngx-mat-field-error
+                        field='after'
+                        [form]="repeatPropertiesForm"
+                        [validationMessages]="repeatPropertiesValidationMessages['after']">
+                    </ngx-mat-field-error>
+                </mat-error>
             </mat-form-field>
         </div>
     </ng-template>
