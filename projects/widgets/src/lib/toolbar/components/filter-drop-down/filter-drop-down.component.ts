@@ -55,6 +55,7 @@ export class FilterDropDownComponent implements AfterViewInit {
     /** A reference to the search field in the component. */
     @ViewChild('searchField', { static: true, read: ElementRef })
     field!: ElementRef<HTMLElement>;
+    /** Reference to template used for dialog, where projected content rendered. */
     @ViewChild('filter') filterTemplate!: TemplateRef<any>;
 
     /** The icon used to open the drop down. */
