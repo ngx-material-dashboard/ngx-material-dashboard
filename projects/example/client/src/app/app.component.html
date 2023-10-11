@@ -3,8 +3,9 @@
     [logo]="logo"
     [mode]="'rail'"
     [sidenavItems]="sidenavItems">
-    <ngx-mat-filter-drop-down 
-        (searchClick)="onSearchClick($event)"
+    <ngx-mat-filter-drop-down
+        (clearSearchForm)="clearSearchForm()"
+        (searchClick)="onSearchClick()"
         filter>
         <app-task-search-form [parentForm]="form"></app-task-search-form>
     </ngx-mat-filter-drop-down>

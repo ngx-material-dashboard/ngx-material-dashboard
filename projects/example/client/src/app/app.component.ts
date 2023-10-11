@@ -10,7 +10,7 @@ import {
 import { FilterService, SidenavItem } from '@ngx-material-dashboard/widgets';
 import { TaskService } from './domains/task/services/task.service';
 import { Observable, filter } from 'rxjs';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -65,7 +65,8 @@ export class AppComponent implements OnInit {
         private formBuilder: FormBuilder,
         private filterService: FilterService,
         private taskService: TaskService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.numTaskObservables = [
             this.taskService.numPendingTasks,
@@ -94,13 +95,30 @@ export class AppComponent implements OnInit {
         });
     }
 
-    onSearchClick(click: boolean): void {
-        const searchFilterForm = this.form.get('searchFilter');
+    clearSearchForm(): void {
+        this.form.get('searchFilter')?.reset();
+        this.updateFilter();
+    }
+
+    onSearchClick(): void {
+        this.updateFilter();
+
+        // re-route to search results if needed (if we are on task page); we
+        // are on task page if URL ends with a number...
+        const url = this.router.routerState.snapshot.url;
+        if (Number(url[url.length - 1].toString())) {
+            this.router.navigate(['tasks'], {
+                queryParams: { isComplete: this.isComplete }
+            });
+        }
+    }
+
+    private updateFilter(): void {
         const searchFilter = {
             isComplete: this.isComplete,
-            name: searchFilterForm?.get('name')?.value,
-            description: searchFilterForm?.get('description')?.value,
-            priority: searchFilterForm?.get('priority')?.value
+            name: this.form.get('searchFilter')?.get('name')?.value,
+            description: this.form.get('searchFilter')?.get('description')?.value,
+            priority: this.form.get('searchFilter')?.get('priority')?.value
         };
         this.filterService.filterSub.next(searchFilter);
     }
