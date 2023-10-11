@@ -11,7 +11,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -38,6 +37,8 @@ import { LoadingService } from '../../services/loading.service';
 import { DefaultLayoutComponent } from './default-layout.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ThemeSwitcherComponent } from '../../components/theme-switcher/theme-switcher.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 export default sandboxOf(DefaultLayoutComponent, {
     declarations: [
@@ -58,11 +59,10 @@ export default sandboxOf(DefaultLayoutComponent, {
         FlexLayoutModule,
         MatBadgeModule,
         MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
         MatListModule,
-        MatMenuModule,
         MatProgressSpinnerModule,
-        MatSidenavModule,
-        MatToolbarModule,
         MatSidenavModule,
         MatToolbarModule,
         FontAwesomeModule,
@@ -213,7 +213,14 @@ export default sandboxOf(DefaultLayoutComponent, {
     })
     .add('header with filter', {
         template: `
-    <ngx-mat-default-layout>
-        <ngx-mat-filter-drop-down filter></ngx-mat-filter-drop-down>
-    </ngx-mat-default-layout>`
+        <ngx-mat-default-layout>
+            <ngx-mat-filter-drop-down filter>
+                <form fxFlex>
+                    <mat-form-field fxFlex>
+                        <mat-label>Filter Something</mat-label>
+                        <input matInput placeholder="Placeholder">
+                    </mat-form-field>
+                </form>
+            </ngx-mat-filter-drop-down>
+        </ngx-mat-default-layout>`
     });
