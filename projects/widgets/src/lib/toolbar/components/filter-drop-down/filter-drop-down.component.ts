@@ -13,8 +13,10 @@ import {
     ElementRef,
     EventEmitter,
     Output,
+    TemplateRef,
     ViewChild
 } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
     faCaretDown,
     faSearch,
@@ -42,13 +44,19 @@ import {
     styleUrls: ['./filter-drop-down.component.scss']
 })
 export class FilterDropDownComponent implements AfterViewInit {
+    /** Reference to the dialog where filter form rendered. */
+    private dialogRef?: MatDialogRef<TemplateRef<any>>;
+
     @Output() clearSearchForm: EventEmitter<boolean> =
         new EventEmitter<boolean>();
     /** The event emitted when the user clicks the search button. */
     @Output() searchClick: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     /** A reference to the search field in the component. */
     @ViewChild('searchField', { static: true, read: ElementRef })
     field!: ElementRef<HTMLElement>;
+    @ViewChild('filter') filterTemplate!: TemplateRef<any>;
+
     /** The icon used to open the drop down. */
     faCaretDown: IconDefinition = faCaretDown;
     /** The icon to display next to search text. */
@@ -56,22 +64,43 @@ export class FilterDropDownComponent implements AfterViewInit {
     /** The width of the menu. */
     menuWidth: any;
 
-    constructor() {}
+    constructor(private dialog: MatDialog) {}
 
     ngAfterViewInit(): void {
-        // wait a tick to avoid expressionchangedafterithasbeencheckederror;
-        // then set menuWidth to width of search field where drop down is
-        // rendered from
-        setTimeout(
-            () => (this.menuWidth = this.field.nativeElement.clientWidth)
-        );
+        this.menuWidth = this.field.nativeElement.clientWidth;
     }
 
+    /**
+     * Opens the filter dialog relative to the search field element, and makes
+     * it appear as a menu (using custom backdropClass to remove darkened
+     * background).
+     */
+    openFilter(): void {
+        this.dialogRef = this.dialog.open(this.filterTemplate, {
+            backdropClass: 'overlay-transparent-backdrop',
+            position: {
+                top: `${
+                    this.field.nativeElement.offsetTop +
+                    this.field.nativeElement.offsetHeight
+                }px`
+            },
+            width: `${this.menuWidth}px`
+        });
+    }
+
+    /**
+     * Emits event for parent component to handle clearing the search form.
+     */
     clear(): void {
         this.clearSearchForm.emit(true);
     }
 
+    /**
+     * Emits event for parent component to handle filtering data based on form
+     * value.
+     */
     search(): void {
         this.searchClick.emit(true);
+        this.dialogRef?.close();
     }
 }

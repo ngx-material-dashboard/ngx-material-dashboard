@@ -1,7 +1,4 @@
-<div floatLabel="never" fxFlex fxLayout="column" #searchField [matMenuTriggerFor]="filterMenu">
-    <!-- <input placeholder="Search..."
-            matInput
-            formControlName="search"> -->
+<div floatLabel="never" fxFlex fxLayout="column" #searchField (click)="openFilter()">
     <div fxFlex fxLayout="row">
         <fa-icon class="pr-2" matPrefix [icon]="faSearch"></fa-icon>
         <span fxFlex>Search...</span>
@@ -9,17 +6,17 @@
     </div>
     <mat-divider fxFlex></mat-divider>
 </div>
-<mat-menu class="container search-menu" xPosition="before" yPosition="below" #filterMenu="matMenu">
-    <div [style.width.px]="menuWidth" fxLayout="column" fxLayoutGap="10px" matMenuContent #filterMenuContent>
-        <span>Filter results</span>
-        <form ngxMatClickStopPropagation ngxMatTabStopPropagation> <!-- (keydown.tab)="$event.stopPropagation()" -->
+
+<!-- template for dialog which will contain search filters and action buttons -->
+<ng-template #filter>
+    <mat-dialog-content>
+        <div ngxMatClickStopPropagation ngxMatTabStopPropagation> <!-- (keydown.tab)="$event.stopPropagation()" -->
             <!-- include search filters defined in tag where this component is used -->
             <ng-content></ng-content>
-        </form>
-        <div fxLayout="row">
-            <div fxFlex></div>
-            <button mat-flat-button (click)="clear()" class="marker-button-clear">Clear</button>
-            <button mat-raised-button color="primary" (click)="search()" class="marker-button-search">Search</button>
         </div>
-    </div>
-</mat-menu>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-flat-button (click)="clear()" class="marker-button-clear">Clear</button>
+            <button mat-raised-button color="primary" (click)="search()" class="marker-button-search">Search</button>
+    </mat-dialog-actions>
+</ng-template>

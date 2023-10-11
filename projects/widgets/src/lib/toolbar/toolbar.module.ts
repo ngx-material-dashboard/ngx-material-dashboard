@@ -11,7 +11,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -29,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { RaisedButtonToolbarComponent } from './pages/raised-button-toolbar/raised-button-toolbar.component';
 import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -53,12 +54,13 @@ import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-pag
         CommonModule,
         MatButtonModule,
         MatCheckboxModule,
-        MatMenuModule,
+        MatDialogModule,
         MatPaginatorModule,
         MatSelectModule,
         MatSortModule,
         MatToolbarModule,
         MatTooltipModule,
+        OverlayModule,
         FlexLayoutModule,
         FontAwesomeModule,
         FormModule

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatMenuModule } from '@angular/material/menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MenuElement } from '@ngx-material-dashboard/testing';
@@ -20,8 +20,8 @@ describe('FilterDropDownComponent', () => {
             imports: [
                 ReactiveFormsModule,
                 MatButtonModule,
+                MatDialogModule,
                 MatDividerModule,
-                MatMenuModule,
                 NoopAnimationsModule,
                 FontAwesomeModule
             ]

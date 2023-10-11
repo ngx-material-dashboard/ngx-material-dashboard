@@ -13,11 +13,14 @@ import { ButtonElement } from '../button/button.element';
 import { PageElement } from '../page/page.element';
 
 /**
- * The `Select` class defines properties and functions useful for testing
- * components with one or more select fields. NOTE: you must use fakeAsync in
- * your tests when calling `initOptions` and `select` methods. Mostly based on
- * code provided at following gist:
- * https://gist.github.com/glendaviesnz/fc8e99b41f0dda8b1c0dc4d397e0d152
+ * The MenuElement class defines properties and functions useful for testing
+ * components that are rendered in an overlay. This was initially just intended
+ * for MatMenu components, but apparently this works with dialogs as well (at
+ * least the dialog used in updated FilterDropDownComponent).
+ *
+ * TODO refactor, ensure this works with any dialog, and rename element to
+ * OverlayElement (or something similar) to indicate it is a generic element
+ * that can be used for more than just MatMenu.
  */
 export class MenuElement extends PageElement {
     private buttonElements: ButtonElement[] = [];

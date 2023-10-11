@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -112,7 +112,7 @@ describe('PagedTableWithRaisedButtonsBarComponent', () => {
                 NoopAnimationsModule,
                 MatButtonModule,
                 MatCheckboxModule,
-                MatMenuModule,
+                MatDialogModule,
                 MatPaginatorModule,
                 MatSortModule,
                 MatTableModule,
