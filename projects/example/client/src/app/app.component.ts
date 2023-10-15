@@ -117,7 +117,8 @@ export class AppComponent implements OnInit {
         const searchFilter = {
             isComplete: this.isComplete,
             name: this.form.get('searchFilter')?.get('name')?.value,
-            description: this.form.get('searchFilter')?.get('description')?.value,
+            description: this.form.get('searchFilter')?.get('description')
+                ?.value,
             priority: this.form.get('searchFilter')?.get('priority')?.value
         };
         this.filterService.filterSub.next(searchFilter);

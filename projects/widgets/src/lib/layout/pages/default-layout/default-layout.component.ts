@@ -150,7 +150,7 @@ export class DefaultLayoutComponent {
     ): AnimationGroupMetadata {
         return group([
             query('@iconAnimation', animateChild(), { optional: true }),
-            query('@labelAnimation', animateChild(), { optional: true }),
+            query('@labelAnimation', animateChild(), { optional: true })
             // animate(`${animationDuration} ease-in-out`, sidebarOpen(maxWidth))
         ]);
     }
