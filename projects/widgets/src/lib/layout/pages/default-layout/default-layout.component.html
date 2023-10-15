@@ -8,10 +8,10 @@
         <ng-content select="[filter]"></ng-content>
     </ngx-mat-header>
     <mat-sidenav-container autosize="true" class="content" fxLayout="row">
-        <mat-sidenav [mode]="matSidenavMode" [opened]="opened" #sidenav>
+        <mat-sidenav [mode]="matSidenavMode" [opened]="opened" role="region" #sidenav>
             <ngx-mat-sidenav [mode]="mode" [isExpanded]="opened" [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
         </mat-sidenav>
-        <mat-sidenav-content fxFlex>
+        <mat-sidenav-content role="main" fxFlex>
             <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
