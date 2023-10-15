@@ -123,6 +123,9 @@ describe('DefaultLayoutComponent', () => {
             // given: a spy on the sidenav toggle method
             const spy = spyOn(component.sidenav, 'toggle');
 
+            // and: current opened state
+            const opened = component.opened;
+
             // when: the bars button is clicked in the header
             await page.header.clickButton('.marker-bars-button');
 
@@ -130,7 +133,7 @@ describe('DefaultLayoutComponent', () => {
             expect(spy).toHaveBeenCalled();
 
             // and: the opened getter should return true
-            expect(component.opened).toBeTrue();
+            expect(component.opened).toBe(!opened);
         });
     });
 

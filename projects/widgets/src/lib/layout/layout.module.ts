@@ -28,7 +28,6 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DefaultLayoutComponent } from './pages/default-layout/default-layout.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingService } from './services/loading.service';
-import { DrawerRailModule } from 'angular-material-rail-drawer';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
@@ -60,7 +59,6 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
         MatProgressSpinnerModule,
         MatSidenavModule,
         MatToolbarModule,
-        DrawerRailModule,
         FontAwesomeModule,
         ToolbarModule
     ],

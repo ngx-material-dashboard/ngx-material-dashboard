@@ -26,8 +26,7 @@
         "@fortawesome/angular-fontawesome": "^0.10.2",
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
-        "@ngx-material-dashboard/base-json": "^0.2.3-beta.0",
-        "angular-material-rail-drawer": "~1.0.0"
+        "@ngx-material-dashboard/base-json": "^0.2.3-beta.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"

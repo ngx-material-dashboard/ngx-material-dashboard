@@ -8,14 +8,9 @@
         <ng-content select="[filter]"></ng-content>
     </ngx-mat-header>
     <mat-sidenav-container autosize="true" class="content" fxLayout="row">
-        <mat-sidenav *ngIf="mode === 'rail'; else defaultSidenav" rail-mode [opened]="opened" [expandedWidth]="width" [openAnimation]="sidebarAnimationOpenGroup()" #sidenav>
-            <ngx-mat-sidenav [isExpanded]="true" [sidenavItems]="sidenavItems" [mode]="mode"></ngx-mat-sidenav>
+        <mat-sidenav [mode]="matSidenavMode" [opened]="opened" #sidenav>
+            <ngx-mat-sidenav [mode]="mode" [isExpanded]="opened" [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
         </mat-sidenav>
-        <ng-template #defaultSidenav>
-            <mat-sidenav [mode]="mode" #sidenav>
-                <ngx-mat-sidenav [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
-            </mat-sidenav>
-        </ng-template>
         <mat-sidenav-content fxFlex>
             <router-outlet></router-outlet>
         </mat-sidenav-content>

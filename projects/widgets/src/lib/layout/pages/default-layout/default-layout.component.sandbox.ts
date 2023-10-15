@@ -24,7 +24,6 @@ import {
     faHourglassHalf,
     faHourglassStart
 } from '@fortawesome/free-solid-svg-icons';
-import { DrawerRailModule } from 'angular-material-rail-drawer';
 import { sandboxOf } from 'angular-playground';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -66,7 +65,6 @@ export default sandboxOf(DefaultLayoutComponent, {
         MatSidenavModule,
         MatToolbarModule,
         FontAwesomeModule,
-        DrawerRailModule,
         ToolbarModule
     ],
     providers: [LoadingService]
