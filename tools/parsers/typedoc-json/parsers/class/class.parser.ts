@@ -193,7 +193,7 @@ export class ClassParser extends TypedocClassParser {
             ),
             construct: ClassConstructorParser.generateFromJson(construct),
             properties: properties.map((property) =>
-                ClassPropertyParser.generateFromJson(property)
+                PropertyParser.generateFromJson(property)
             ),
             methods: methods.map((method) =>
                 MethodParser.generateFromJson(method)
