@@ -24,6 +24,7 @@ import { CommentParser } from '../misc-parsers';
 import { generateFromJson, generateFromTypeDoc } from '../type-parsers';
 import { ClassParserJson } from './interfaces/json.interface';
 import { PropertyParser } from './property/property.parser';
+import { MethodParser } from './method/method.parser';
 
 /**
  * Parses data from a class reflection.
@@ -124,7 +125,7 @@ export class ClassParser extends TypedocClassParser {
 
         const methods = children
             .filter((child) => child.kind === ReflectionKind.Method)
-            .map((child) => ClassMethodParser.generateFromTypeDoc(child, id));
+            .map((child) => MethodParser.generateFromTypeDoc(child, id));
 
         return new ClassParser({
             id,
@@ -195,7 +196,7 @@ export class ClassParser extends TypedocClassParser {
                 ClassPropertyParser.generateFromJson(property)
             ),
             methods: methods.map((method) =>
-                ClassMethodParser.generateFromJson(method)
+                MethodParser.generateFromJson(method)
             )
         });
     }

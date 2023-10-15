@@ -5,7 +5,13 @@
 <table class="method-name">
     <thead class="method-name-header">
         <tr class="method-name-row">
-            <th class="method-name-cell" colspan="2">{{name}}</th>
+            <th class="method-name-cell" colspan="2">
+                {{#if signatures.[0].comment.deprecatedNotes}}
+                <s>{{name}}</s>
+                {{else}}
+                <p>{{name}}</p>
+                {{/if}}
+            </th>
         </tr>
     </thead>
 {{#each signatures}}
@@ -13,7 +19,12 @@
     {{#if description}}
     <tbody>
         <tr class="method-description-row">
-            <td class="method-description-cell" colspan="2"><p>{{description}}</p></td>
+            <td class="method-description-cell" colspan="2">
+                {{#if deprecatedNotes}}
+                <p><b>Deprecated:</b> {{deprecatedNotes}}</p>
+                {{/if}}
+                <p>{{description}}</p>
+            </td>
         </tr>
     </tbody>
     {{/if}}
