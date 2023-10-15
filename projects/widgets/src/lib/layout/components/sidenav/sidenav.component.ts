@@ -7,7 +7,14 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -65,8 +72,9 @@ import { SidenavUtilService } from '../../services/sidenav-util.service';
  * #### Features
  *
  * The `Sidenav` has several features including the ability to render nested
- * `SidenavItems`, icons with each `SidenavItem`, and custom `tooltips` to
- * render when the user hovers over a `SidenavItem`.
+ * `SidenavItems`, icons with each `SidenavItem`, custom `tooltips` to render
+ * when the user hovers over a `SidenavItem`, a "mini" mode, and the ability
+ * to render badges with integer values.
  *
  * ##### Nested SidenavItems
  *
@@ -92,6 +100,29 @@ import { SidenavUtilService } from '../../services/sidenav-util.service';
  *
  * See the [Sidenav](/widgets/layout/overview#sidenav) interface documentation for
  * more details on the values to include when defining your `SidenavItems`.
+ *
+ * ##### Badges
+ *
+ * If you define badge numbers for any `SidenavItem`, then by default it will
+ * render to the right of the text for it's respective `SidenavItem`. This is
+ * similar to how you might see the number of unread messages in your inbox. If
+ * the sidenav is set with mini mode (i.e. `mode`='rail'), and the sidenav is
+ * collapsed, then a MatBadge is used with the number over the icon.
+ *
+ * ##### Mini
+ *
+ * A "mini" sidenav that just renders icons. If the input value for mode
+ * provided is `rail`, and the sidenav is collapsed, then text is hidden, and
+ * only icons are rendered. This mimics the look of a mini sidenav you might
+ * see on smaller devices.
+ *
+ * > NOTE: This requires icons to be defined in each of your sidenavs. Otherwise
+ * nothing will render when collapsed.
+ *
+ * > ANOTHER ONE: This has not been tested with nested sidenavItems, but you
+ * will most likely not get a compact sidenav due to nested spacing added
+ * Probably best to only use `rail` with flat sidenavs (i.e. sidenavs that
+ * don't have children).
  */
 @Component({
     selector: 'ngx-mat-sidenav',
@@ -106,6 +137,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
         this.sidenavItems$ = sidenavItems;
         this.initSidenavItems();
     }
+    @ViewChild('navList', { read: ElementRef }) navList!: ElementRef;
     /** Angle down icon displayed for expanded sidenav items. */
     faAngleDown: IconDefinition = faAngleDown;
     /** Angle right icon displayed for collapsed sidenav items. */

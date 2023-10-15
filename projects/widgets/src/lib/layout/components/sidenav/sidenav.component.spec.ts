@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -590,8 +590,8 @@ function init(mockRouter: any, queryParams: any = {}): void {
         declarations: [SidenavComponent],
         imports: [
             RouterTestingModule,
+            MockModule(MatBadgeModule),
             MockModule(MatListModule),
-            MockModule(MatSidenavModule),
             MockModule(FontAwesomeModule)
         ],
         providers
