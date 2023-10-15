@@ -10,7 +10,7 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 export interface BaseSidenavItem {
-    /** Number to include as badge with */
+    /** Number to include as badge with the item (optional). */
     badge?: number;
     /** The icon to display next to the text (optional). */
     icon?: IconDefinition;

@@ -76,5 +76,12 @@ import { SidenavItemWithRoute } from './sidenav-with-route.interface';
  *
  * const sidenavItem = { route: ['tasks'], text: 'Pending', selector: 'pending', tooltip: 'Manage Pending Tasks' };
  * ```
+ *
+ * ##### badge
+ *
+ * You may include an optional number to display to the right of a SidenavItem.
+ * Similar to how your email may display number of unread messages for your
+ * inbox. If the SidenavItem is rendered with mode `rail`, then the number is
+ * included in a MatBadge next to the icon.
  */
 export type SidenavItem = SidenavItemWithChildren | SidenavItemWithRoute;
