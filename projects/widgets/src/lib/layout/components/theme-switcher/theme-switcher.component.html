@@ -1,10 +1,10 @@
 <button aria-label="Switch Themes"
         mat-icon-button
-        class="mat-button mat-marker-theme-button pr-2"
+        class="mat-button mat-marker-theme-button"
         (click)="setTheme(nextTheme)"
         matTooltip="Switch between light and dark theme">
-    <fa-layers>
-        <fa-icon [icon]="faFillDrip"></fa-icon>
-        <fa-icon [icon]="faMinus" transform="down-12 grow-12"></fa-icon>
+    <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="faFillDrip" [styles]="{'padding-bottom': '6px'}"></fa-icon>
+        <fa-icon [icon]="faMinus" transform="down-12 grow-12" [styles]="{'padding-bottom': '6px'}"></fa-icon>
     </fa-layers>
 </button>
