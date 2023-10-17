@@ -1,7 +1,13 @@
 <header>
     <mat-toolbar color="primary">
         <div fxFlex="0 0 25">
-            <button aria-label="Toggle Side Bar" mat-icon-button (click)="onToggleSidenav()" class="marker-bars-button">
+            <button 
+                aria-label="Toggle Side Bar"
+                mat-icon-button
+                class="marker-bars-button"
+                style="font-size: 0.8em;"
+                (click)="onToggleSidenav()"
+            >
                 <fa-icon [icon]="faBars"></fa-icon>
                 <div class="mat-button-focus-overlay"></div>
                 <div class="mat-button-ripple mat-ripple"></div>
@@ -9,7 +15,9 @@
             <button aria-label="Home"
                     mat-button
                     class="mat-button marker-home-button"
-                    [routerLink]="['/']">
+                    [routerLink]="['/']"
+                    style="font-size: 0.8em;"
+                >
                 <span class="marker-header-logo">{{logo}}</span>
                 <div class="mat-button-focus-overlay"></div>
                 <div class="mat-button-ripple mat-ripple"></div>
