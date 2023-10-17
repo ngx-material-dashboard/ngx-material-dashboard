@@ -16,7 +16,11 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+    MatDialog,
+    MatDialogRef,
+    MatDialogState
+} from '@angular/material/dialog';
 import {
     faCaretDown,
     faSearch,
@@ -74,19 +78,24 @@ export class FilterDropDownComponent implements AfterViewInit {
     /**
      * Opens the filter dialog relative to the search field element, and makes
      * it appear as a menu (using custom backdropClass to remove darkened
-     * background).
+     * background) as long as dialogRef doesn't exist or it isn't already open.
      */
     openFilter(): void {
-        this.dialogRef = this.dialog.open(this.filterTemplate, {
-            backdropClass: 'overlay-transparent-backdrop',
-            position: {
-                top: `${
-                    this.field.nativeElement.offsetTop +
-                    this.field.nativeElement.offsetHeight
-                }px`
-            },
-            width: `${this.menuWidth}px`
-        });
+        if (
+            !this.dialogRef ||
+            this.dialogRef.getState() !== MatDialogState.OPEN
+        ) {
+            this.dialogRef = this.dialog.open(this.filterTemplate, {
+                backdropClass: 'overlay-transparent-backdrop',
+                position: {
+                    top: `${
+                        this.field.nativeElement.offsetTop +
+                        this.field.nativeElement.offsetHeight
+                    }px`
+                },
+                width: `${this.menuWidth}px`
+            });
+        }
     }
 
     /**
