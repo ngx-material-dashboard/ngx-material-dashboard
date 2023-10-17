@@ -30,6 +30,7 @@ import { RaisedButtonToolbarComponent } from './pages/raised-button-toolbar/rais
 import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-paginator/icon-buttons-with-paginator.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [
@@ -55,6 +56,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatButtonModule,
         MatCheckboxModule,
         MatDialogModule,
+        MatDividerModule,
         MatPaginatorModule,
         MatSelectModule,
         MatSortModule,
