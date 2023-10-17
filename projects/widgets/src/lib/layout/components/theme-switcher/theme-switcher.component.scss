@@ -20,6 +20,12 @@
         color: mat-color($primary, default-contrast);
     }
 
+    // highly specific class for styling divider in filter drop down to match
+    // font color in rest of button
+    .#{$name}-theme .border-top-color-primary-default-contrast {
+        border-top-color: mat-color($primary, default-contrast);
+    }
+
     .#{$name}-theme .accent {
         background-color: mat-color($accent);
         color: mat-color($accent, default-contrast);
