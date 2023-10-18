@@ -1,6 +1,7 @@
 <div fxLayout="row" class="marker-icon-buttons-bar">
     <div *ngFor="let button of buttons">
         <button *ngIf="button.click; else hyperlink"
+            [attr.aria-label]="button.text"
             class="mat-button marker-button-{{button.click}}"
             (click)="emitButtonClick(button.click)"
             [disabled]="button.disabled"
@@ -18,6 +19,7 @@
         </button>
         <ng-template #hyperlink>
             <a class="mat-button marker-button-{{button.click}}"
+                [attr.aria-label]="button.text"
                 [attr.disabled]="button.disabled"
                 [href]="button.href"
                 [matTooltip]="button.text"

@@ -1,6 +1,7 @@
 <div class="marker-list">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-checkbox class="marker-checkbox-select-all"
+            [aria-label]="'Select All'"
             (change)="masterToggle()"
             [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -12,6 +13,7 @@
         <div *ngFor="let model of models">
             <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
                 <mat-checkbox class="marker-checkbox-item-select"
+                    [aria-label]="'Select Row'"
                     (click)="$event.stopPropagation()"
                     (change)="onRowSelected(model);"
                     [checked]="selection.isSelected(model)">
@@ -23,6 +25,7 @@
                 </div>
                 <div class="marker-list-item-buttons" fxLayout="row" fxLayoutGap="5px">
                     <button *ngFor="let button of collectionButtons"
+                        [attr.aria-label] = "button.click"
                         class="marker-button-{{button.click}}"
                         (click)="onActionButtonClick(button.click, model)"
                         mat-icon-button>
