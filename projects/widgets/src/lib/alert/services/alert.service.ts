@@ -134,22 +134,7 @@ export class AlertService {
         // check if already removed to prevent error on auto close
         if (!this.alerts.includes(alert)) return;
 
-        if (alert.fade) {
-            const a = this.alerts.find((x) => x === alert);
-            // fade out alert
-            if (a) {
-                a.fade = true;
-            }
-
-            // remove alert after faded out
-            setTimeout(() => {
-                this.alerts = this.alerts.filter((x) => x !== alert);
-                this.alertsSubject.next(this.alerts);
-            }, 250);
-        } else {
-            // remove alert
-            this.alerts = this.alerts.filter((x) => x !== alert);
-            this.alertsSubject.next(this.alerts);
-        }
+        this.alerts = this.alerts.filter((x) => x !== alert);
+        this.alertsSubject.next(this.alerts);
     }
 }

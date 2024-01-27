@@ -17,6 +17,7 @@ import { sandboxOf } from 'angular-playground';
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { AlertService } from '../../services/alert.service';
 import { AlertComponent } from './alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'alert-sandbox',
@@ -72,6 +73,7 @@ export default sandboxOf(AlertComponent, {
     declarations: [AlertSandboxComponent, AlertsComponent],
     imports: [
         RouterTestingModule,
+        BrowserAnimationsModule,
         MatButtonModule,
         OverlayModule,
         FlexLayoutModule,

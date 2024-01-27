@@ -14,6 +14,7 @@ import { ReplaySubject } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 
 import { AlertsComponent } from './alerts.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const eventSubject = new ReplaySubject<RouterEvent>(1);
 
@@ -56,9 +57,10 @@ describe('AlertsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [AlertsComponent],
             imports: [
-                RouterTestingModule,
-                MatButtonModule,
                 FlexLayoutModule,
+                MatButtonModule,
+                NoopAnimationsModule,
+                RouterTestingModule,
                 FontAwesomeModule
             ],
             providers: [

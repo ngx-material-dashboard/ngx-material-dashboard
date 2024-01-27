@@ -7,7 +7,6 @@
 .alert {
     position: relative;
     padding: .75rem 1.25rem;
-    margin: 1rem;
     border: 1px solid transparent;
     border-top-color: transparent;
     border-right-color: transparent;
@@ -38,6 +37,10 @@
     color: #856404;
     background-color: #fff3cd;
     border-color: #ffeeba;
+}
+
+.alerts-wrapper {
+    margin: 1em;
 }
 
 .close:hover {

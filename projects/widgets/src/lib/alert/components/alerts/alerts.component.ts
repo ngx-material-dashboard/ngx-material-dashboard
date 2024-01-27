@@ -7,12 +7,14 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
+import { AnimationEvent } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 
+import { fadeAnimation } from '../../animations/fade.animation';
 import { AlertType } from '../../enums/alert-type.enum';
 import { Alert } from '../../models/alert.model';
 import { AlertService } from '../../services/alert.service';
@@ -24,7 +26,8 @@ import { AlertService } from '../../services/alert.service';
 @Component({
     selector: 'ngx-mat-alerts',
     templateUrl: './alerts.component.html',
-    styleUrls: ['./alerts.component.css']
+    styleUrls: ['./alerts.component.css'],
+    animations: [fadeAnimation]
 })
 export class AlertsComponent implements OnDestroy, OnInit {
     @Input() id = 'default-alert';
@@ -62,8 +65,10 @@ export class AlertsComponent implements OnDestroy, OnInit {
      *
      * @param alert The alert to remove.
      */
-    removeAlert(alert: Alert) {
-        this.alertService.removeAlert(alert);
+    removeAlert(alert: Alert, event?: AnimationEvent) {
+        if ((event && event.toState === 'void') || !event) {
+            this.alertService.removeAlert(alert);
+        }
     }
 
     cssClass(alert: Alert): string {

@@ -14,6 +14,7 @@ import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { AlertService } from '../../services/alert.service';
 
 import { AlertComponent } from './alert.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 class Page extends PageElement {
     private container!: OverlayContainer;
@@ -30,7 +31,6 @@ class Page extends PageElement {
 
 describe('AlertComponent', () => {
     let service: AlertService;
-    let component: AlertComponent;
     let fixture: ComponentFixture<AlertComponent>;
     let page: Page;
 
@@ -39,8 +39,9 @@ describe('AlertComponent', () => {
             declarations: [AlertComponent, AlertsComponent],
             imports: [
                 CommonModule,
-                RouterTestingModule,
+                NoopAnimationsModule,
                 OverlayModule,
+                RouterTestingModule,
                 FontAwesomeModule
             ],
             providers: [AlertService]
@@ -50,7 +51,6 @@ describe('AlertComponent', () => {
     beforeEach(() => {
         service = TestBed.inject(AlertService);
         fixture = TestBed.createComponent(AlertComponent);
-        component = fixture.componentInstance;
         fixture.detectChanges();
 
         page = new Page(fixture);

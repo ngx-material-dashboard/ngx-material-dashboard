@@ -10,7 +10,7 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { AlertService } from '../../services/alert.service';
@@ -41,8 +41,7 @@ export class AlertComponent implements OnDestroy, OnInit {
             if (alert.message) {
                 // create overlay if overlayRef not defined
                 if (!this.overlayRef) {
-                    const overlayRef = this.overlay.create();
-                    this.overlayRef = overlayRef;
+                    this.overlayRef = this.overlay.create();
                     this.overlayRef.updateSize({ width: '100%' });
 
                     //create portal to render component
@@ -57,27 +56,23 @@ export class AlertComponent implements OnDestroy, OnInit {
                     // onAlert there won't work for this one as its already
                     // been fired
                     compRef.instance.alerts = [alert];
-
-                    // auto close alert if required
-                    if (alert.autoClose) {
-                        setTimeout(
-                            () => compRef.instance.removeAlert(alert),
-                            3000
-                        );
-                    }
                 }
             }
         });
         this.sub.add(sub);
 
-        // create subscription for clear overlay event emitter and
-        // dispose of the overlay so components behind are availabe
-        const subArray = this.alertService.alerts$.subscribe((res) => {
-            if (res.length === 0) {
-                this.overlayRef?.dispose();
-                this.overlayRef = undefined;
-            }
-        });
+        // create subscription to check for alert array length, if there aren't
+        // any alerts, then clear the overlay so components below can be
+        // clicked; include debounceTime in case additional alerts fire so the
+        // overlay is kept and we don't miss rendering any alerts...
+        const subArray = this.alertService.alerts$
+            .pipe(debounceTime(500))
+            .subscribe((res) => {
+                if (res.length === 0) {
+                    this.overlayRef?.dispose();
+                    this.overlayRef = undefined;
+                }
+            });
         this.sub.add(subArray);
     }
 }
