@@ -30,6 +30,12 @@ import { GridWithIconButtonsPaginatorBarComponent } from './pages/grid-with-icon
         PagedGridWithRaisedButtonsBarComponent,
         GridWithIconButtonsPaginatorBarComponent
     ],
+    exports: [
+        GridComponent,
+        PagedGridComponent,
+        PagedGridWithRaisedButtonsBarComponent,
+        GridWithIconButtonsPaginatorBarComponent
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,
