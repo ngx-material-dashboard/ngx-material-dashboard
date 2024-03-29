@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+    faCartFlatbed,
     faClipboardCheck,
     faClipboardList,
     faHourglassEnd,
@@ -113,6 +114,13 @@ export default sandboxOf(DefaultLayoutComponent, {
                     route: ['tasks'],
                     text: 'Complete',
                     selector: 'complete'
+                },
+                {
+                    icon: faCartFlatbed,
+                    queryParams: {},
+                    route: ['wide-icon'],
+                    text: 'Wide Icon',
+                    selector: 'wide-icon'
                 }
             ]
         }
@@ -157,6 +165,13 @@ export default sandboxOf(DefaultLayoutComponent, {
                     route: ['tasks'],
                     text: 'Complete',
                     selector: 'complete'
+                },
+                {
+                    icon: faCartFlatbed,
+                    queryParams: {},
+                    route: ['wide-icon'],
+                    text: 'Wide Icon',
+                    selector: 'wide-icon'
                 }
             ]
         }
@@ -205,6 +220,13 @@ export default sandboxOf(DefaultLayoutComponent, {
                     route: ['tasks'],
                     text: 'Complete',
                     selector: 'complete'
+                },
+                {
+                    icon: faCartFlatbed,
+                    queryParams: {},
+                    route: ['wide-icon'],
+                    text: 'Wide Icon',
+                    selector: 'wide-icon'
                 }
             ]
         }
