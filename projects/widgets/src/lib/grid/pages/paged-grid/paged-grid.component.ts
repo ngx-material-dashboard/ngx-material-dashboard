@@ -7,7 +7,7 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { PagedCollectionComponent } from '../../../collection/components/paged-collection/paged-collection.component';
@@ -52,4 +52,9 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
 })
 export class PagedGridComponent<
     T extends JsonModel
-> extends PagedCollectionComponent<T> {}
+> extends PagedCollectionComponent<T> {
+    /** The number of cols to render in the grid. */
+    @Input() defaultCols?: number;
+    /** Size of grid lists gutter in pixels (same as mat-grid-list). */
+    @Input() gutterSize?: number = 2;
+}

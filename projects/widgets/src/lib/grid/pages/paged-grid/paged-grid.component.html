@@ -1,7 +1,9 @@
 <ngx-mat-grid 
     [collectionButtons]="collectionButtons"
     [dataSource]="dataSource$"
+    [defaultCols]="defaultCols"
     [fields]="fields"
+    [gutterSize]="gutterSize"
     #collection>
     <ng-template #model let-model="model">
         <ng-container 

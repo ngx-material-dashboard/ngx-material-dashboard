@@ -45,8 +45,9 @@ export default sandboxOf(PagedGridComponent, {
         { provide: Datastore, deps: [HttpClient] },
         { provide: JsonDatastore, useClass: Datastore, deps: [HttpClient] }
     ]
-}).add('default', {
-    template: `
+})
+    .add('default', {
+        template: `
     <ngx-mat-paged-grid
         [collectionButtons]="collectionButtons"
         [dataSource]="data"
@@ -63,9 +64,35 @@ export default sandboxOf(PagedGridComponent, {
             </mat-card>
         </ng-template>
     </ngx-mat-paged-grid>`,
-    context: {
-        collectionButtons: DEFAULT_COLLECTION_BUTTONS,
-        data: getTaskData(20),
-        fields: ['id']
-    }
-});
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
+    })
+    .add('set default number of columns', {
+        template: `
+    <ngx-mat-paged-grid
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [defaultCols]="defaultCols"
+        [fields]="fields"
+        class="marker-paged-grid">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-grid>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            defaultCols: 2,
+            fields: ['id']
+        }
+    });

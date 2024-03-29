@@ -12,7 +12,9 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
+    Input,
     OnDestroy,
+    OnInit,
     QueryList,
     ViewChild,
     ViewChildren
@@ -68,8 +70,12 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
 })
 export class GridComponent<T extends JsonModel>
     extends CollectionComponent<T>
-    implements AfterViewChecked, OnDestroy
+    implements AfterViewChecked, OnDestroy, OnInit
 {
+    /** The number of cols to render in the grid. */
+    @Input() defaultCols?: number;
+    /** Size of grid lists gutter in pixels (same as mat-grid-list). */
+    @Input() gutterSize?: number = 2;
     /** A reference to the grid list in the component. */
     @ViewChild(MatGridList, { read: ElementRef }) grid!: ElementRef;
     @ViewChild(SorterComponent) override sort$?: SorterComponent;
@@ -88,26 +94,35 @@ export class GridComponent<T extends JsonModel>
     }
 
     ngAfterViewChecked(): void {
-        // calculate the number of columns that can fit comfortably in the grid
-        // using the width of the grid and each grid tile once all children and
-        // content have rendered; this seems really hackish since this lifecycle
-        // hook is run quite a bit, the way tileWidth is determined, and need
-        // for detectChanges to fix ExpressionChangedAfterItHasBeenCheckedError
-        const sub = this.screenSizeService.screenSize.subscribe(() => {
-            if (this.tiles.first) {
-                // get the width of the grid element
-                const width = this.grid.nativeElement.offsetWidth;
-                // first child of MatGridTile is figure, then it is component passed
-                // in in template (i.e. the component we are looking for when calculating
-                // number of columns)
-                const tileWidth =
-                    this.tiles.first.nativeElement.children[0].children[0]
-                        .offsetWidth;
+        // only calculate number of columns if defaultCols not defined...
+        if (!this.defaultCols) {
+            // calculate the number of columns that can fit comfortably in the grid
+            // using the width of the grid and each grid tile once all children and
+            // content have rendered; this seems really hackish since this lifecycle
+            // hook is run quite a bit, the way tileWidth is determined, and need
+            // for detectChanges to fix ExpressionChangedAfterItHasBeenCheckedError
+            const sub = this.screenSizeService.screenSize.subscribe(() => {
+                if (this.tiles.first) {
+                    // get the width of the grid element
+                    const width = this.grid.nativeElement.offsetWidth;
+                    // first child of MatGridTile is figure, then it is component passed
+                    // in in template (i.e. the component we are looking for when calculating
+                    // number of columns)
+                    const tileWidth =
+                        this.tiles.first.nativeElement.children[0].children[0]
+                            .offsetWidth;
 
-                this.cols = Math.floor(width / (tileWidth + 2));
-                this.changeDetectorRef.detectChanges();
-            }
-        });
-        this.sub.add(sub);
+                    this.cols = Math.floor(width / (tileWidth + 2));
+                    this.changeDetectorRef.detectChanges();
+                }
+            });
+            this.sub.add(sub);
+        }
+    }
+
+    ngOnInit(): void {
+        if (this.defaultCols) {
+            this.cols = this.defaultCols;
+        }
     }
 }
