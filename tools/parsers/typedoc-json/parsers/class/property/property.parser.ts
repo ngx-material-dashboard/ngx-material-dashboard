@@ -6,19 +6,30 @@ import {
     TypeParser
 } from 'typedoc-json-parser';
 
-import { DecoratorParser } from '../../../../../parsers/decorators/parsers/decorator.parser';
+import { PropertyDecoratorParser } from '../../../../../parsers/decorators/parsers/property-decorator.parser';
 import { CommentParser } from '../../misc-parsers';
 import { JSONOutput } from 'typedoc';
 
 export class PropertyParser extends ClassPropertyParser {
     public override readonly comment: CommentParser;
-    public readonly decorator?: DecoratorParser;
+    public readonly decorator?: PropertyDecoratorParser;
 
     public constructor(data: ClassPropertyParser.Data) {
         super(data);
 
         const { comment } = data;
         this.comment = new CommentParser(comment);
+
+        if (this.source) {
+            const path: string = `${this.source.path}/${this.source.file}`;
+            // source line is not 0 based, so subtract 1 since file contents
+            // parsed into array of strings (each element a line in the file)
+            const decorator: PropertyDecoratorParser =
+                new PropertyDecoratorParser(path, this.source.line - 1);
+            if (decorator.type) {
+                this.decorator = decorator;
+            }
+        }
     }
 
     /**

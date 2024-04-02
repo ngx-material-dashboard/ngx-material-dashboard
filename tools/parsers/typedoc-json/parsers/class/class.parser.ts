@@ -10,7 +10,6 @@
 import { JSONOutput } from 'typedoc';
 import {
     ClassConstructorParser,
-    ClassMethodParser,
     ClassParser as TypedocClassParser,
     ClassPropertyParser,
     ReflectionKind,
@@ -20,6 +19,7 @@ import {
 import { ComponentDecoratorParser } from '../../../../parsers/decorators/parsers/component-decorator.parser';
 import { DecoratorParser } from '../../../../parsers/decorators/parsers/decorator.parser';
 import { DirectiveDecoratorParser } from '../../../../parsers/decorators/parsers/directive-decorator.parser';
+import { PropertyDecoratorParser } from '../../../../parsers/decorators/parsers/property-decorator.parser';
 import { CommentParser } from '../misc-parsers';
 import { generateFromJson, generateFromTypeDoc } from '../type-parsers';
 import { ClassParserJson } from './interfaces/json.interface';
@@ -33,6 +33,7 @@ import { MethodParser } from './method/method.parser';
 export class ClassParser extends TypedocClassParser {
     public override readonly comment: CommentParser;
     public readonly decorator?: DecoratorParser;
+    public readonly sortedProperties: ClassPropertyParser[] = [];
 
     public constructor(data: TypedocClassParser.Data) {
         super(data);
@@ -49,6 +50,32 @@ export class ClassParser extends TypedocClassParser {
             } else if (this.name.includes('Directive')) {
                 this.decorator = new DirectiveDecoratorParser(path);
             }
+        }
+
+        const properties = this.properties as PropertyParser[];
+        this.sortedProperties = properties.sort(ClassParser.sortProperties);
+    }
+
+    static sortProperties(a: PropertyParser, b: PropertyParser): number {
+        if (a.decorator?.type && b.decorator?.type) {
+            if (a.decorator.type === b.decorator.type) {
+                return a.name.localeCompare(b.name);
+            } else {
+                return (
+                    PropertyDecoratorParser.decoratorTypes.indexOf(
+                        a.decorator.type
+                    ) -
+                    PropertyDecoratorParser.decoratorTypes.indexOf(
+                        b.decorator.type
+                    )
+                );
+            }
+        } else if (!a.decorator && !b.decorator) {
+            return a.name.localeCompare(b.name);
+        } else if (a.decorator) {
+            return -1;
+        } else {
+            return 1;
         }
     }
 

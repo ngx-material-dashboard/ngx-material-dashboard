@@ -17,13 +17,19 @@ import { FileUtil } from '../../../util/file.util';
  * well with those currently...
  */
 export class DecoratorParser {
+    fileData: string;
+    lines: string[];
     /** A map used to define any property needed from decorator. */
     [key: string]: any;
 
-    constructor(pathString: string, type: string) {
-        const fileData = this.getFileContents(pathString);
-        const decoratorString = this.parseDecoratorString(fileData, type);
-        this.parseDecoratorProperties(decoratorString);
+    constructor(pathString: string, type?: string) {
+        this.fileData = this.getFileContents(pathString);
+        this.lines = this.fileData.split('\n');
+        this.lines.map((value) => value.trim());
+        if (type) {
+            const decoratorString = this.parseDecoratorString(this.lines, type);
+            this.parseDecoratorProperties(decoratorString);
+        }
     }
 
     /**
@@ -53,12 +59,11 @@ export class DecoratorParser {
      * line until it reaches what should be closing bracket and parentheses
      * of decorator i.e. '})'; should probably be done with RegExp.
      *
-     * @param fileData The full contents of a class with a decorator.
+     * @param lines An array of each line of code in class.
      * @param type The type of decorator to look for (Component, Directive).
      * @returns A string of the decorator from the given fileData.
      */
-    private parseDecoratorString(fileData: string, type: string): string {
-        const lines = fileData.split('\n');
+    private parseDecoratorString(lines: string[], type: string): string {
         let decoratorString = '';
         for (let i = 0; i < lines.length; i++) {
             // when we find starting point of decorator i.e. '@Component({'
