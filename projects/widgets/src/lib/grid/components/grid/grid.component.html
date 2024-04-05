@@ -1,10 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
     <mat-checkbox class="marker-checkbox-select-all"
+        *ngIf="displaySelectAll && selectable"
         (change)="masterToggle()"
         [checked]="selection.hasValue() && isAllSelected()"
         [indeterminate]="selection.hasValue() && !isAllSelected()">
     </mat-checkbox>
-    <ngx-mat-sorter [options]="fields"></ngx-mat-sorter>
+    <ngx-mat-sorter *ngIf="displaySorter" [options]="fields"></ngx-mat-sorter>
     <div fxFlex></div>
 </div>
 <mat-grid-list *ngIf="models.length > 0; else noModels" [cols]="cols" gutterSize="2">
@@ -16,6 +17,7 @@
                 </ng-container>
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
                     <mat-checkbox class="marker-checkbox-row-select"
+                        *ngIf="selectable"
                         (click)="$event.stopPropagation()"
                         (change)="onRowSelected(model);"
                         [checked]="selection.isSelected(model)">

@@ -94,6 +94,13 @@ export class PagedCollectionComponent<T extends JsonModel>
     ) {
         this.dataSource$ = val;
     }
+    /**
+     * Boolean to indicate whether select all checkbox should be included.
+     * There may be times where a checkbox should be included for each row in
+     * the collection, but we don't want to display the select all checkbox
+     * because reasons...
+     */
+    @Input() displaySelectAll: boolean = true;
     /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Boolean to indicate if page size should be hidden. */
@@ -109,6 +116,14 @@ export class PagedCollectionComponent<T extends JsonModel>
     @Input() pageSize: number = 25;
     /** Page size options. */
     @Input() pageSizeOptions: number[] = [15, 25, 50, 75, 100];
+    /**
+     * Boolean value to indicate if the collection is selectable. If set to
+     * false, no checkboxes will be rendered with the collection (defaults to
+     * true). This is mainly for lists and grids. If you are using a table you
+     * should just not include 'select' in the displayedColumns. Selection
+     * functionality still exists, this just hides it from the user.
+     */
+    @Input() selectable: boolean = true;
     /**
      * Boolean to indicate whether first/last buttons should be included in
      * paginator.

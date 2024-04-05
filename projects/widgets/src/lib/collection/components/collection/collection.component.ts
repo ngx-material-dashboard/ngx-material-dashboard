@@ -154,6 +154,13 @@ export class CollectionComponent<T extends JsonModel>
         }
     }
     /**
+     * Boolean to indicate whether select all checkbox should be included.
+     * There may be times where a checkbox should be included for each row in
+     * the collection, but we don't want to display the select all checkbox
+     * because reasons...
+     */
+    @Input() displaySelectAll: boolean = true;
+    /**
      * Boolean to indicate whether SorterComponent associated with collection
      * should be included (defaults to false). If using a toolbar you probably
      * want to use the sorter there, so this is configurable to be turned off.
@@ -172,6 +179,14 @@ export class CollectionComponent<T extends JsonModel>
         );
         this.selectionService.selectionSubject.next(this.selection);
     }
+    /**
+     * Boolean value to indicate if the collection is selectable. If set to
+     * false, no checkboxes will be rendered with the collection (defaults to
+     * true). This is mainly for lists and grids. If you are using a table you
+     * should just not include 'select' in the displayedColumns. Selection
+     * functionality still exists, this just hides it from the user.
+     */
+    @Input() selectable: boolean = true;
     /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** The event to emit when the collection data length changes. */

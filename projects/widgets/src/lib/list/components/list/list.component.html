@@ -1,6 +1,7 @@
 <div class="marker-list">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-checkbox class="marker-checkbox-select-all"
+            *ngIf="displaySelectAll && selectable"
             [aria-label]="'Select All'"
             (change)="masterToggle()"
             [checked]="selection.hasValue() && isAllSelected()"
@@ -13,6 +14,7 @@
         <div *ngFor="let model of models">
             <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
                 <mat-checkbox class="marker-checkbox-item-select"
+                    *ngIf="selectable"
                     [aria-label]="'Select Row'"
                     (click)="$event.stopPropagation()"
                     (change)="onRowSelected(model);"

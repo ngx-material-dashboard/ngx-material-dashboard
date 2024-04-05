@@ -1,9 +1,11 @@
 <ngx-mat-grid 
     [collectionButtons]="collectionButtons"
     [dataSource]="dataSource$"
+    [displaySelectAll]="displaySelectAll"
     [defaultCols]="defaultCols"
     [fields]="fields"
     [gutterSize]="gutterSize"
+    [selectable]="selectable"
     #collection>
     <ng-template #model let-model="model">
         <ng-container 

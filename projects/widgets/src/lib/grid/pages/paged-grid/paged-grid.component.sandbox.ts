@@ -95,4 +95,58 @@ export default sandboxOf(PagedGridComponent, {
             defaultCols: 2,
             fields: ['id']
         }
+    })
+    .add('no select all in grid', {
+        template: `
+    <ngx-mat-paged-grid
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [defaultCols]="defaultCols"
+        [displaySelectAll]="false"
+        [fields]="fields"
+        class="marker-paged-grid">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-grid>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            defaultCols: 2,
+            fields: ['id']
+        }
+    })
+    .add('not selectable', {
+        template: `
+    <ngx-mat-paged-grid
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [defaultCols]="defaultCols"
+        [fields]="fields"
+        [selectable]="false"
+        class="marker-paged-grid">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-grid>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            defaultCols: 2,
+            fields: ['id']
+        }
     });

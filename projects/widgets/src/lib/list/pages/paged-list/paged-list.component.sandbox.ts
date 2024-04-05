@@ -96,4 +96,54 @@ export default sandboxOf(PagedListComponent, {
             data: [],
             fields: ['id']
         }
+    })
+    .add('no select all in list', {
+        template: `
+    <ngx-mat-paged-list
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [displaySelectAll]="false"
+        [fields]="fields"
+        class="marker-paged-list">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-list>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
+    })
+    .add('not selectable', {
+        template: `
+    <ngx-mat-paged-list
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [fields]="fields"
+        [selectable]="false"
+        class="marker-paged-list">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-list>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
     });

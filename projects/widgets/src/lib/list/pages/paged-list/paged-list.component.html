@@ -1,7 +1,9 @@
 <ngx-mat-list
     [collectionButtons]="collectionButtons"
     [dataSource]="dataSource$"
+    [displaySelectAll]="displaySelectAll"
     [fields]="fields"
+    [selectable]="selectable"
     #collection>
     <ng-template #model let-model="model">
         <div fxFlex>
