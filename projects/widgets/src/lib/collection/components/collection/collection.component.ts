@@ -169,13 +169,18 @@ export class CollectionComponent<T extends JsonModel>
     /** List of fields included in each element of list that can be sorted on. */
     @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Any values that should be selected when collection initially renders. */
-    @Input() initiallySelectedValues: T[] = [];
+    @Input() set initiallySelectedValues(vals: T[]) {
+        vals.forEach((val: T) => {
+            this.selection.select(val);
+        });
+        this.selectionService.selectionSubject.next(this.selection);
+    }
     /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */
     @Input() set multiple(multiple: boolean) {
         this.multiple$ = multiple;
         this.selection = new SelectionModel<T>(
             multiple,
-            this.initiallySelectedValues
+            this.selection.selected
         );
         this.selectionService.selectionSubject.next(this.selection);
     }

@@ -105,6 +105,8 @@ export class PagedCollectionComponent<T extends JsonModel>
     @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Boolean to indicate if page size should be hidden. */
     @Input() hidePageSize: boolean = false;
+    /** Any values that should be selected when collection initially renders. */
+    @Input() initiallySelectedValues: T[] = [];
     /**
      * The max number of pages to display in the paginator. Defaults to 10
      * (does not include 'First', 'Prev', 'Next', 'Last').
