@@ -101,6 +101,12 @@ export class PagedCollectionComponent<T extends JsonModel>
      * because reasons...
      */
     @Input() displaySelectAll: boolean = true;
+    /**
+     * Boolean to indicate whether SorterComponent associated with collection
+     * should be included (defaults to true). If using a toolbar you probably
+     * want to use the sorter there, so this is configurable to be turned off.
+     */
+    @Input() displaySorter: boolean = true;
     /** List of fields included in each element of collection that can be sorted on. */
     @Input() fields: { field: string; text: string }[] | string[] = [];
     /** Boolean to indicate if page size should be hidden. */

@@ -146,4 +146,30 @@ export default sandboxOf(PagedListComponent, {
             data: getTaskData(20),
             fields: ['id']
         }
+    })
+    .add('hide select all and sorter', {
+        template: `
+    <ngx-mat-paged-list
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [displaySelectAll]="false"
+        [displaySorter]="false"
+        [fields]="fields"
+        class="marker-paged-list">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-list>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
     });
