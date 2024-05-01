@@ -71,6 +71,7 @@ export * from './toolbar/components/filter-drop-down/filter-drop-down.component'
 export * from './toolbar/directives/search-filter.directive';
 export * from './toolbar/interfaces/button-click.interface';
 export * from './toolbar/interfaces/search-filter-map.interface';
+export * from './toolbar/interfaces/sort-option.interface';
 export * from './toolbar/interfaces/sort-order.interface';
 export * from './toolbar/interfaces/toolbar-button.interface';
 export * from './toolbar/pages/button-toolbar/button-toolbar.component';

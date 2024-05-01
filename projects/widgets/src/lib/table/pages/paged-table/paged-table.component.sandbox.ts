@@ -15,7 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
@@ -34,7 +34,7 @@ export default sandboxOf(PagedTableComponent, {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
-        NoopAnimationsModule,
+        BrowserAnimationsModule,
         FlexLayoutModule,
         FontAwesomeModule
     ],

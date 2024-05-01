@@ -1,16 +1,17 @@
-<mat-form-field>
-    <mat-label>Sort By</mat-label>
-    <mat-select (selectionChange)="onSelectionChange($event)">
-        <mat-select-trigger fxLayout="row" fxLayoutGap="5px">
-            <span>{{active}}</span>
-            <fa-icon [icon]="faSort"></fa-icon>
-        </mat-select-trigger>
-        <mat-option *ngFor="let option of selectOptions" [value]="option">
-            <div fxLayout="row" fxLayoutGap="5px">
-                <span>{{option.text}}</span>
-                <span>-</span>
-                <fa-icon [icon]="option.icon"></fa-icon>
-            </div>
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Sort By</mat-label>
+        <mat-select [formControl]="sortControl" name="sort">
+            <mat-select-trigger fxLayout="row" fxLayoutGap="5px">
+                <span>{{active}}</span>
+                <fa-icon [icon]="faSort"></fa-icon>
+            </mat-select-trigger>
+            <mat-option *ngFor="let option of selectOptions; index as i" [value]="i">
+                <div fxLayout="row" fxLayoutGap="5px">
+                    <span>{{option.text}}</span>
+                    <fa-icon [icon]="option.icon"></fa-icon>
+                </div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

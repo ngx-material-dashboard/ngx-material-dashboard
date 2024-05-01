@@ -20,7 +20,7 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 import { Subscription } from 'rxjs';
@@ -175,6 +175,10 @@ export class CollectionComponent<T extends JsonModel>
         });
         this.selectionService.selectionSubject.next(this.selection);
     }
+    /** The id of the most recently sorted MatSortable. */
+    @Input() matSortActive: string = 'id';
+    /** The sort direction of the currently active MatSortable. */
+    @Input() matSortDirection: SortDirection = 'asc';
     /** Boolean value to indicate whether multiple rows can be selected (defaults to true i.e. multiple can be selected). */
     @Input() set multiple(multiple: boolean) {
         this.multiple$ = multiple;

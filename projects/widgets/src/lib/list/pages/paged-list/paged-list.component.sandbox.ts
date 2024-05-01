@@ -172,4 +172,29 @@ export default sandboxOf(PagedListComponent, {
             data: getTaskData(20),
             fields: ['id']
         }
+    })
+    .add('initial sort default order', {
+        template: `
+    <ngx-mat-paged-list
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [fields]="fields"
+        [matSortActive]="'id'"
+        class="marker-paged-list">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ngx-mat-paged-list>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
     });

@@ -28,6 +28,7 @@ import { Button } from '../../interfaces/button.interface';
 import { RemoteDataSource } from '../../services/remote-data-source.service';
 
 import { CollectionComponent } from '../collection/collection.component';
+import { SortDirection } from '@angular/material/sort';
 
 /**
  * The `PagedCollection` is a wrapper component for the `Collection` which adds
@@ -113,6 +114,10 @@ export class PagedCollectionComponent<T extends JsonModel>
     @Input() hidePageSize: boolean = false;
     /** Any values that should be selected when collection initially renders. */
     @Input() initiallySelectedValues: T[] = [];
+    /** The id of the most recently sorted MatSortable. */
+    @Input() matSortActive: string = 'id';
+    /** The sort direction of the currently active MatSortable. */
+    @Input() matSortDirection: SortDirection = 'asc';
     /**
      * The max number of pages to display in the paginator. Defaults to 10
      * (does not include 'First', 'Prev', 'Next', 'Last').

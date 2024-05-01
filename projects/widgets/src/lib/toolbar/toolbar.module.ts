@@ -31,6 +31,8 @@ import { IconButtonsWithPaginatorComponent } from './pages/icon-buttons-with-pag
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -53,10 +55,13 @@ import { MatDividerModule } from '@angular/material/divider';
     ],
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatButtonModule,
         MatCheckboxModule,
         MatDialogModule,
         MatDividerModule,
+        MatFormFieldModule,
         MatPaginatorModule,
         MatSelectModule,
         MatSortModule,

@@ -5,7 +5,7 @@
         [checked]="selection.hasValue() && isAllSelected()"
         [indeterminate]="selection.hasValue() && !isAllSelected()">
     </mat-checkbox>
-    <ngx-mat-sorter *ngIf="displaySorter" [options]="fields"></ngx-mat-sorter>
+    <ngx-mat-sorter *ngIf="displaySorter" [options]="fields" [matSortActive]="matSortActive" [matSortDirection]="matSortDirection"></ngx-mat-sorter>
     <div fxFlex></div>
 </div>
 <mat-grid-list *ngIf="models.length > 0; else noModels" [cols]="cols" gutterSize="2">

@@ -8,13 +8,14 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, SortDirection } from '@angular/material/sort';
 import {
     faArrowDownShortWide,
     faArrowUpWideShort,
     IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
+import { SortOption } from '../../interfaces/sort-option.interface';
+import { FormControl, FormGroup } from '@angular/forms';
 
 /**
  * A custom component meant to allow user to change sort order for paged
@@ -31,18 +32,25 @@ import {
 export class SorterComponent extends MatSort implements OnInit {
     /** The icon used for displaying current sort order. */
     faSort: IconDefinition = faArrowUpWideShort;
+    /** The form with the sort select drop down. */
+    form!: FormGroup;
     /** The options to display in the select drop down. */
     selectOptions: {
         field: string;
         icon: IconDefinition;
-        order: string;
+        order: SortDirection;
         text: string;
     }[] = [];
+    /** The control for the sort select drop down. */
+    sortControl: FormControl = new FormControl();
     /** The list of fields to include in the sort. */
-    @Input() options: { field: string; text: string }[] | string[] = [];
+    @Input() options: SortOption[] | string[] = [];
 
     constructor() {
         super();
+        this.form = new FormGroup({
+            sort: this.sortControl
+        });
     }
 
     /**
@@ -73,6 +81,20 @@ export class SorterComponent extends MatSort implements OnInit {
                 }
             );
         }
+
+        if (this.active) {
+            const sortValue = this.selectOptions.findIndex((it) => {
+                return it.field === this.active && it.order === this.direction;
+            });
+            this.form.get('sort')?.setValue(sortValue);
+            const option = this.selectOptions[sortValue];
+            this.active = option.text;
+            this.faSort = option.icon;
+        }
+
+        this.form.get('sort')?.valueChanges.subscribe((val) => {
+            this.onSelectionChange(val);
+        });
     }
 
     /**
@@ -80,14 +102,15 @@ export class SorterComponent extends MatSort implements OnInit {
      * needed sort event to the parent so it can handle changing the sort
      * order for the data in the collection.
      *
-     * @param event The event containing the value selected in the drop down.
+     * @param event The value selected in the drop down.
      */
-    onSelectionChange(event: MatSelectChange): void {
-        this.active = event.value.text;
-        this.faSort = event.value.icon;
-        this.direction = event.value.order;
+    onSelectionChange(val: number): void {
+        const option = this.selectOptions[val];
+        this.active = option.text;
+        this.faSort = option.icon;
+        this.direction = option.order;
         this.sortChange.emit({
-            active: event.value.field,
+            active: option.field,
             direction: this.direction
         });
     }

@@ -7,6 +7,8 @@
         [collectionButtons]="collectionButtons"
         [dataSource]="dataSource"
         [fields]="fields"
+        [matSortActive]="'task.dueDate'"
+        [matSortDirection]="'desc'"
         (buttonClick)="onButtonClick($event)"
         #collection>
         <ng-template #model let-model="model">
