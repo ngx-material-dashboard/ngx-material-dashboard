@@ -86,10 +86,14 @@ export class SorterComponent extends MatSort implements OnInit {
             const sortValue = this.selectOptions.findIndex((it) => {
                 return it.field === this.active && it.order === this.direction;
             });
-            this.form.get('sort')?.setValue(sortValue);
-            const option = this.selectOptions[sortValue];
-            this.active = option.text;
-            this.faSort = option.icon;
+
+            if (sortValue >= 0) {
+                // ensure sortValue is defined (i.e. >= 0)
+                this.form.get('sort')?.setValue(sortValue);
+                const option = this.selectOptions[sortValue];
+                this.active = option.text;
+                this.faSort = option.icon;
+            }
         }
 
         this.form.get('sort')?.valueChanges.subscribe((val) => {

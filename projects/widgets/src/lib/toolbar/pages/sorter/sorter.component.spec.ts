@@ -7,6 +7,7 @@ import { SelectElement } from '@ngx-material-dashboard/testing';
 import { MockModule } from 'ng-mocks';
 
 import { SorterComponent } from './sorter.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('SorterComponent', () => {
     let component: SorterComponent;
@@ -17,6 +18,8 @@ describe('SorterComponent', () => {
         TestBed.configureTestingModule({
             declarations: [SorterComponent],
             imports: [
+                FormsModule,
+                ReactiveFormsModule,
                 MatFormFieldModule,
                 MatSelectModule,
                 NoopAnimationsModule,

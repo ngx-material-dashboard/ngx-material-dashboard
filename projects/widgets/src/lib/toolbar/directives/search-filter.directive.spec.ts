@@ -41,6 +41,7 @@ import { SearchFilterDirective } from './search-filter.directive';
         <ngx-mat-paged-list-with-raised-buttons-bar
             ngxMatSearchFilter
             [collection]="collectionCmp"
+            [fields]="fields"
             [filter]="filterCmp"
             [form]="parentForm"
             (searchClick)="onSearchClick($event)"
