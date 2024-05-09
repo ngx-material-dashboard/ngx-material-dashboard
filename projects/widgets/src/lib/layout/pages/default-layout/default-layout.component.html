@@ -12,7 +12,7 @@
             <ngx-mat-sidenav [mode]="mode" [isExpanded]="opened" [sidenavItems]="sidenavItems"></ngx-mat-sidenav>
         </mat-sidenav>
         <mat-sidenav-content role="main" fxFlex>
-            <router-outlet></router-outlet>
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
     <ngx-mat-footer [company]="company"></ngx-mat-footer>

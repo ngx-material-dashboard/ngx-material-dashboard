@@ -76,6 +76,7 @@ export class DefaultLayoutComponent {
     @Input() sidenavItems: SidenavItem[] = [];
     /** Boolean indicating whether the screen size is small (defaults to false). */
     @Input() isSmallScreen = false;
+    @Output() routeActivate: EventEmitter<any> = new EventEmitter<any>();
     /** Event emitted when user clicks search button in filter. */
     @Output() clickSearch: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
@@ -124,6 +125,10 @@ export class DefaultLayoutComponent {
     }
 
     constructor(private sidenavUtilService: SidenavUtilService) {}
+
+    onActivate(cmp: any) {
+        this.routeActivate.emit(cmp);
+    }
 
     /**
      * Handler for when the user clicks the search button in the filter.
