@@ -1,0 +1,12 @@
+<fa-icon 
+    *ngIf="faIcon; else materialIcon" 
+    [icon]="faIcon"
+    [fixedWidth]="fixedWidth"
+    [styles]="styles"
+></fa-icon>
+<ng-template #materialIcon>
+    <mat-icon
+        aria-hidden="false"
+        [attr.aria-label]="'{{icon}} icon'"
+    >{{ icon }}</mat-icon>
+</ng-template>

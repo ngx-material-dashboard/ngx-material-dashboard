@@ -30,6 +30,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
+import { IconModule } from '../icon/icon.module';
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
         MatSidenavModule,
         MatToolbarModule,
         FontAwesomeModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [LoadingService]

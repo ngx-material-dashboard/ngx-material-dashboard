@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IconModule } from '../icon/icon.module';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         OverlayModule,
         FlexLayoutModule,
         FontAwesomeModule,
-        FormModule
+        FormModule,
+        IconModule
     ]
 })
 export class ToolbarModule {}

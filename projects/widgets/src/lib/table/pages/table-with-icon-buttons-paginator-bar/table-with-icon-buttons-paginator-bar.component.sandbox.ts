@@ -20,7 +20,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore } from '@ngx-material-dashboard/base-json/test/services/datastore.service';
 import { getTaskData } from '@ngx-material-dashboard/testing';
@@ -35,6 +34,7 @@ import {
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { TableComponent } from '../../components/table/table.component';
 import { TableWithIconButtonsPaginatorBarComponent } from './table-with-icon-buttons-paginator-bar.component';
+import { IconModule } from '../../../icon/icon.module';
 
 const pageSize = 5;
 
@@ -53,8 +53,8 @@ export default sandboxOf(TableWithIconButtonsPaginatorBarComponent, {
         MatToolbarModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        FontAwesomeModule,
         CollectionModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [

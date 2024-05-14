@@ -20,7 +20,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
@@ -35,6 +34,7 @@ import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from '../paged-list/paged-list.component';
 import { PagedListWithRaisedButtonsBarComponent } from './paged-list-with-raised-buttons-bar.component';
+import { IconModule } from '../../../icon/icon.module';
 
 export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
     declarations: [ListComponent, PagedListComponent],
@@ -51,8 +51,8 @@ export default sandboxOf(PagedListWithRaisedButtonsBarComponent, {
         MatToolbarModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        FontAwesomeModule,
         CollectionModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [

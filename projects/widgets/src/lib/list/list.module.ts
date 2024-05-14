@@ -17,10 +17,10 @@ import { ListComponent } from './components/list/list.component';
 import { PagedListComponent } from './pages/paged-list/paged-list.component';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
 import { ListWithIconButtonsPaginatorBarComponent } from './pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
 import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
+import { IconModule } from '../icon/icon.module';
 
 @NgModule({
     declarations: [
@@ -38,11 +38,11 @@ import { PagedListWithRaisedButtonsBarComponent } from './pages/paged-list-with-
     imports: [
         CommonModule,
         FlexLayoutModule,
-        FontAwesomeModule,
         MatButtonModule,
         MatCheckboxModule,
         MatPaginatorModule,
         CollectionModule,
+        IconModule,
         ToolbarModule
     ]
 })

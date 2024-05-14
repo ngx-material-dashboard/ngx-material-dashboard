@@ -35,6 +35,7 @@ import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from '../paged-table/paged-table.component';
 import { PagedTableWithRaisedButtonsBarComponent } from './paged-table-with-raised-buttons-bar.component';
+import { IconModule } from '../../../icon/icon.module';
 
 // const pageSize = 5;
 
@@ -53,8 +54,8 @@ export default sandboxOf(PagedTableWithRaisedButtonsBarComponent, {
         MatToolbarModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        FontAwesomeModule,
         CollectionModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [

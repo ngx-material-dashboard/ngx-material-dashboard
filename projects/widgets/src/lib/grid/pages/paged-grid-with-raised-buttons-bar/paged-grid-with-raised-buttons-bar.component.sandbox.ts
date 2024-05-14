@@ -16,7 +16,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { DEFAULT_TOOLBAR_BUTTONS } from '@ngx-material-dashboard/widgets';
@@ -27,6 +26,7 @@ import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { GridComponent } from '../../components/grid/grid.component';
 import { PagedGridComponent } from '../paged-grid/paged-grid.component';
 import { PagedGridWithRaisedButtonsBarComponent } from './paged-grid-with-raised-buttons-bar.component';
+import { IconModule } from '../../../icon/icon.module';
 
 export default sandboxOf(PagedGridWithRaisedButtonsBarComponent, {
     declarations: [GridComponent, PagedGridComponent],
@@ -38,9 +38,9 @@ export default sandboxOf(PagedGridWithRaisedButtonsBarComponent, {
         MatGridListModule,
         MatPaginatorModule,
         BrowserAnimationsModule,
-        FontAwesomeModule,
         FlexLayoutModule,
         CollectionModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [

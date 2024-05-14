@@ -8,12 +8,12 @@
             [matTooltip]="button.text"
             mat-icon-button>
             <div *ngIf="button.icon && !button.stackedIcon; else stackedIcon">
-                <fa-icon [icon]="button.icon"></fa-icon>
+                <ngx-mat-icon [icon]="button.icon"></ngx-mat-icon>
             </div>
             <ng-template #stackedIcon>
                 <fa-layers *ngIf="button.icon && button.stackedIcon" [fixedWidth]="true">
-                    <fa-icon [icon]="button.icon"></fa-icon>
-                    <fa-icon [icon]="button.stackedIcon" [styles]="button.stackedIconStyles"></fa-icon>
+                    <ngx-mat-icon [icon]="button.icon"></ngx-mat-icon>
+                    <ngx-mat-icon [icon]="button.stackedIcon" [styles]="button.stackedIconStyles"></ngx-mat-icon>
                 </fa-layers>
             </ng-template>
         </button>
@@ -26,12 +26,12 @@
                 target="_blank"
                 mat-icon-button>
                 <div *ngIf="button.icon && !button.stackedIcon; else stackedIcon">
-                    <fa-icon [icon]="button.icon"></fa-icon>
+                    <ngx-mat-icon [icon]="button.icon"></ngx-mat-icon>
                 </div>
                 <ng-template #stackedIcon>
                     <fa-layers *ngIf="button.icon && button.stackedIcon" [fixedWidth]="true">
-                        <fa-icon [icon]="button.icon"></fa-icon>
-                        <fa-icon [icon]="button.stackedIcon" [styles]="button.stackedIconStyles"></fa-icon>
+                        <ngx-mat-icon [icon]="button.icon"></ngx-mat-icon>
+                        <ngx-mat-icon [icon]="button.stackedIcon" [styles]="button.stackedIconStyles"></ngx-mat-icon>
                     </fa-layers>
                 </ng-template>
             </a>

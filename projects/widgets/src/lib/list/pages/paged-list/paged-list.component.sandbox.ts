@@ -17,7 +17,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
@@ -26,6 +25,7 @@ import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
 import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { ListComponent } from '../../components/list/list.component';
 import { PagedListComponent } from './paged-list.component';
+import { IconModule } from '../../../icon/icon.module';
 
 export default sandboxOf(PagedListComponent, {
     declarations: [ListComponent],
@@ -38,9 +38,9 @@ export default sandboxOf(PagedListComponent, {
         MatPaginatorModule,
         MatSortModule,
         BrowserAnimationsModule,
-        FontAwesomeModule,
         FlexLayoutModule,
         CollectionModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [

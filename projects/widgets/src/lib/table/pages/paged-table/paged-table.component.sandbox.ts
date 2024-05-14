@@ -15,8 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
 import { sandboxOf } from 'angular-playground';
@@ -24,6 +23,7 @@ import { sandboxOf } from 'angular-playground';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../../collection/shared/buttons';
 import { TableComponent } from '../../components/table/table.component';
 import { PagedTableComponent } from './paged-table.component';
+import { IconModule } from '../../../icon/icon.module';
 
 export default sandboxOf(PagedTableComponent, {
     declarations: [TableComponent],
@@ -36,7 +36,7 @@ export default sandboxOf(PagedTableComponent, {
         MatTableModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        FontAwesomeModule
+        IconModule
     ],
     providers: [
         { provide: Datastore, deps: [HttpClient] },

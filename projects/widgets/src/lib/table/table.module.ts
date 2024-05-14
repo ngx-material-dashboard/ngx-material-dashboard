@@ -22,7 +22,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FormModule } from '../form/form.module';
 import { PagedTableComponent } from './pages/paged-table/paged-table.component';
@@ -31,6 +30,7 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
 import { PagedTableWithRaisedButtonsBarComponent } from './pages/paged-table-with-raised-buttons-bar/paged-table-with-raised-buttons-bar.component';
 import { TableWithIconButtonsPaginatorBarComponent } from './pages/table-with-icon-buttons-paginator-bar/table-with-icon-buttons-paginator-bar.component';
 import { TableComponent } from './components/table/table.component';
+import { IconModule } from '../icon/icon.module';
 
 @NgModule({
     declarations: [
@@ -50,7 +50,6 @@ import { TableComponent } from './components/table/table.component';
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
-        FontAwesomeModule,
         MatButtonModule,
         MatCheckboxModule,
         MatDividerModule,
@@ -64,6 +63,7 @@ import { TableComponent } from './components/table/table.component';
         MatToolbarModule,
         CollectionModule,
         FormModule,
+        IconModule,
         ToolbarModule
     ]
 })

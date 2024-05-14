@@ -39,6 +39,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { ThemeSwitcherComponent } from '../../components/theme-switcher/theme-switcher.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { IconModule } from '../../../icon/icon.module';
 
 export default sandboxOf(DefaultLayoutComponent, {
     declarations: [
@@ -66,6 +67,7 @@ export default sandboxOf(DefaultLayoutComponent, {
         MatSidenavModule,
         MatToolbarModule,
         FontAwesomeModule,
+        IconModule,
         ToolbarModule
     ],
     providers: [LoadingService]

@@ -148,9 +148,14 @@ export interface ToolbarButton {
     disabled: boolean;
     /** The link to use when the button is clicked (should be a link to directly download file; at least for now). */
     href?: string;
-    /** The icon to display next to the text. */
-    icon?: IconDefinition;
-    /** A stacked icon. */
+    /**
+     * The icon to display next to the text. Use an object of type
+     * IconDefinition for a fontawesome icon. Otherwise use the string value of
+     * mat-icon you want to; the same as if you were using mat-icon in your
+     * HTML template.
+     */
+    icon?: IconDefinition | string;
+    /** A stacked icon (only for FontAwesome icons). */
     stackedIcon?: IconDefinition;
     /** Styles specific to stacked icon. */
     stackedIconStyles?: any;

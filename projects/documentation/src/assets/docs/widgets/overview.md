@@ -104,23 +104,9 @@ the `primary` color from your theme.
 
 ## Icons
 
-Some components in this library utilize icons from the
-[angular-fontawesome](https://www.npmjs.com/package/@fortawesome/angular-fontawesome)
-library. There are some icons that are included, for things like create, edit,
-and delete buttons that appear in the table and table with toolbar components.
-You can create your own buttons and configure those buttons with any icon you
-want from the angular-fontawesome library, but it must be an icon from the
-angular-fontawesome library.
+Some components (i.e. Sidenav, Toolbar) have optional icons you can define for their respective SidenavItem or ToolbarButton. You may use [angular-fontawesome](https://www.npmjs.com/package/@fortawesome/angular-fontawesome) or mat-icons for the icon property when defining each of these. If you want to render a fontawesome icon, then you should use a value of type IconDefinition from the angular-fontawesome library. Otherwise you may use the name of the icon in string format for rendering a mat-icon (the same string you would use if you were rendering a mat-icon directly in your component).
 
-I've been working with fontawesome icons long before I started working with
-Angular, so when I made the move to Angular I kept using fontawesome since the
-angular-fontawesome library was available. As I write this and think about it I
-suppose I could update the components to allow for a choice between Angular
-Material icons (since I am already utilizing that library) and
-angular-fontawesome icons. But that would be a low priority for me unless there
-was a lot of interest in this feature. At this time there is no issue created
-for this, but if one is created then people can chime in and I could potentially
-be convinced to add this capability in if there is enough support for it.
+Some components in this library utilize icons from the [angular-fontawesome](https://www.npmjs.com/package/@fortawesome/angular-fontawesome) library, so this is a peer dependency you'll need to include in your project.
 
 ## Contributing
 
