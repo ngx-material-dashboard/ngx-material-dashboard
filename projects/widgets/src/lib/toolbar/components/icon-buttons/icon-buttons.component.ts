@@ -7,15 +7,26 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewEncapsulation
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ButtonClick } from '../../interfaces/button-click.interface';
 import { ToolbarButton } from '../../interfaces/toolbar-button.interface';
 
+/**
+ * A component for rendering a list of buttons.
+ */
 @Component({
     selector: 'ngx-mat-icon-buttons',
     templateUrl: './icon-buttons.component.html',
-    styleUrls: ['./icon-buttons.component.css']
+    styleUrls: ['./icon-buttons.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class IconButtonsComponent implements OnInit {
     /** The management buttons to display in the toolbar. */

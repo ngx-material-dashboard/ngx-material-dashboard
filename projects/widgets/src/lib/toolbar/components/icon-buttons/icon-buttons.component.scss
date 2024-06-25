@@ -1,0 +1,10 @@
+// reduce font-size for icons; otherwise icon fills most of button
+// 18px seems to get icon close to same size as faIcons...
+.marker-icon-buttons-bar .material-icons {
+    font-size: 18px;    
+}
+
+// ensure mat-icon is aligned vertically inside button
+.marker-icon-buttons-bar .mat-icon {
+    vertical-align: middle;
+}
