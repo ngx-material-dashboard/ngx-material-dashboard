@@ -28,7 +28,7 @@
                     <span
                         class="pl-2 mat-list-item-text marker-list-item-text"
                         [class.pr-5]="item.badge"
-                        fxFlex>
+                        fxLayoutAlign="start center">
                             {{item.text}}
                     </span>
                     <b>{{getBadge(item)}}</b>
@@ -50,7 +50,7 @@
                     </div>     
                     <span fxFlex="0 0 auto" class="pl-2 marker-list-item">
                         <ngx-mat-icon *ngIf="item.icon" [fixedWidth]="true" [icon]="item.icon" [ngClass]="{ 'pl-2': getChildrenByItem(item) && item.icon }"></ngx-mat-icon>
-                        <span class="marker-list-item-text">{{child.text}}</span>
+                        <span class="marker-list-item-text" fxLayoutAlign="start center">{{child.text}}</span>
                     </span>
                 </button>
                 <ng-container *ngIf="isChildToggled(i, iChild)">
