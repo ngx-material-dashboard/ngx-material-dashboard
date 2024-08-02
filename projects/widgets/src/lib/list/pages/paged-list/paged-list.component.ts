@@ -53,4 +53,7 @@ import { PagedCollectionComponent } from '../../../collection/components/paged-c
 })
 export class PagedListComponent<
     T extends JsonModel
-> extends PagedCollectionComponent<T> {}
+> extends PagedCollectionComponent<T> {
+    /** Space to include between list items in pixels (defaults to 5px). */
+    @Input() spaceBetween: string = '5px';
+}

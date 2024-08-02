@@ -10,7 +10,7 @@
         <ngx-mat-sorter *ngIf="displaySorter" [options]="fields" [matSortActive]="matSortActive" [matSortDirection]="matSortDirection"></ngx-mat-sorter>
         <div fxFlex></div>
     </div>
-    <div fxLayout="column" fxLayoutGap="5px">
+    <div fxLayout="column" [fxLayoutGap]="spaceBetween">
         <div *ngFor="let model of models">
             <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
                 <mat-checkbox class="marker-checkbox-item-select"

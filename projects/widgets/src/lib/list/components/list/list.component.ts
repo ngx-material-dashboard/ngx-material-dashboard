@@ -7,7 +7,7 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
@@ -49,6 +49,7 @@ import { CollectionComponent } from '../../../collection/components/collection/c
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css']
 })
-export class ListComponent<
-    T extends JsonModel
-> extends CollectionComponent<T> {}
+export class ListComponent<T extends JsonModel> extends CollectionComponent<T> {
+    /** Space to include between list items in pixels (defaults to 5px). */
+    @Input() spaceBetween: string = '5px';
+}
