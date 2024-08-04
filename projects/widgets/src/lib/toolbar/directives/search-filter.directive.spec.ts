@@ -35,6 +35,7 @@ import { FilterDropDownComponent } from '../components/filter-drop-down/filter-d
 import { SearchFilterMap } from '../interfaces/search-filter-map.interface';
 import { ToolbarModule } from '../toolbar.module';
 import { SearchFilterDirective } from './search-filter.directive';
+import { PagedCollectionComponent } from '../../collection/components/paged-collection/paged-collection.component';
 
 @Component({
     template: `
@@ -75,7 +76,10 @@ class SearchFilterDirectiveTestComponent implements OnInit {
     @ViewChild(SearchFilterDirective)
     directive!: SearchFilterDirective<Task>;
     filterCmp!: FilterDropDownComponent;
-    collectionCmp!: PagedListComponent<Task> | CollectionComponent<Task>;
+    collectionCmp!:
+        | PagedListComponent<Task>
+        | PagedCollectionComponent<Task>
+        | CollectionComponent<Task>;
     data: Task[] | RemoteDataSource<Task> = [];
     fields: string[] = ['id'];
     formGroup!: FormGroup;
