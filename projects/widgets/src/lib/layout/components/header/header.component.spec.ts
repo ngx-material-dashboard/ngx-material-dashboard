@@ -30,7 +30,7 @@ import { HeaderComponent } from './header.component';
             (clickSearchFilter)="onSearchFilter($event)"
             (toggleSidenav)="toggleSidenav()"
         >
-            <ngx-mat-filter-drop-down>
+            <ngx-mat-filter-drop-down headerFilter>
                 <form [formGroup]="formGroup">
                     <mat-form-field>
                         <mat-label>Task Name</mat-label>

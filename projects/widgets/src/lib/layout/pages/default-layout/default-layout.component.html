@@ -5,7 +5,8 @@
         (searchFilterClick)="onSearchFilterClick($event)"
         (toggleSidenav)="toggleSidenav()"
         class="mat-elevation-z6">
-        <ng-content select="[filter]"></ng-content>
+        <ng-content headerFilter select="[filter]"></ng-content>
+        <ng-content headerRightToggle select="[rightToggle]"></ng-content>
     </ngx-mat-header>
     <mat-sidenav-container autosize="true" class="content" fxLayout="row">
         <mat-sidenav [mode]="matSidenavMode" [opened]="opened" role="region" #sidenav>

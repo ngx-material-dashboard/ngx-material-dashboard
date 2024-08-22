@@ -24,11 +24,15 @@
             </button>
         </div>
         <div fxFlex="0 0 50">
-            <ng-content></ng-content>
+            <ng-content select="[headerFilter]"></ng-content>
         </div>
         <div fxFlex="0 0 25">
             <span fxFlex></span>
-            <ngx-mat-theme-switcher *ngIf="displayThemeSwitcher"></ngx-mat-theme-switcher>
+            <!-- render right side toggle if defined; otherwise render theme switcher (if it should be)-->
+            <div #rightToggleContent>
+                <ng-content select="[headerRightToggle]"></ng-content>
+            </div>
+            <ngx-mat-theme-switcher *ngIf="!rightToggleContent.childElementCount && displayThemeSwitcher"></ngx-mat-theme-switcher>
         </div>
     </mat-toolbar>
 </header>

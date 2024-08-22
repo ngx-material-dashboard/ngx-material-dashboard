@@ -40,6 +40,7 @@ import { ThemeSwitcherComponent } from '../../components/theme-switcher/theme-sw
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { IconModule } from '../../../icon/icon.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 export default sandboxOf(DefaultLayoutComponent, {
     declarations: [
@@ -63,6 +64,7 @@ export default sandboxOf(DefaultLayoutComponent, {
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
+        MatMenuModule,
         MatProgressSpinnerModule,
         MatSidenavModule,
         MatToolbarModule,
@@ -295,5 +297,24 @@ export default sandboxOf(DefaultLayoutComponent, {
                     </mat-form-field>
                 </form>
             </ngx-mat-filter-drop-down>
+        </ngx-mat-default-layout>`
+    }).add('header with filter and right toggle', {
+        template: `
+        <ngx-mat-default-layout>
+            <ngx-mat-filter-drop-down filter>
+                <form fxFlex>
+                    <mat-form-field fxFlex>
+                        <mat-label>Filter Something</mat-label>
+                        <input matInput placeholder="Placeholder">
+                    </mat-form-field>
+                </form>
+            </ngx-mat-filter-drop-down>
+            <div rightToggle>
+                <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Item 1</button>
+                    <button mat-menu-item>Item 2</button>
+                </mat-menu>
+            </div>
         </ngx-mat-default-layout>`
     });
