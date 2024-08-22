@@ -7,11 +7,14 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
+import { DOCUMENT } from '@angular/common';
 import {
     Component,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
+    OnInit,
     Output,
     ViewChild
 } from '@angular/core';
@@ -25,6 +28,7 @@ import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { HeaderComponent } from '../../components/header/header.component';
 
 import { SidenavItem } from '../../interfaces/sidenav.interface';
+import { setTheme } from '../../lib/set-theme';
 import { SidenavUtilService } from '../../services/sidenav-util.service';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 
@@ -65,7 +69,7 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
     templateUrl: './default-layout.component.html',
     styleUrls: ['./default-layout.component.scss']
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements OnInit {
     /** Text to display next to copyright date. */
     @Input() company = '';
     /** The main "logo" text for the app to display in the header. */
@@ -124,7 +128,14 @@ export class DefaultLayoutComponent {
         }
     }
 
-    constructor(private sidenavUtilService: SidenavUtilService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private sidenavUtilService: SidenavUtilService
+    ) {}
+
+    ngOnInit(): void {
+        setTheme(localStorage.getItem('theme') || 'light', this.document);
+    }
 
     onActivate(cmp: any) {
         this.routeActivate.emit(cmp);

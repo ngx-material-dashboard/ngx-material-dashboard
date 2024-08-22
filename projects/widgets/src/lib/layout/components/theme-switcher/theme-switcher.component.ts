@@ -3,6 +3,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faFillDrip, faMinus } from '@fortawesome/free-solid-svg-icons';
 
+import { setTheme as setThemeUtil } from '../../lib/set-theme';
+
 /**
  * A button for switching themes, currently only switches between 2 themes
  * 'light' and 'dark'. For this component to work you must either use existing
@@ -54,14 +56,6 @@ export class ThemeSwitcherComponent implements OnInit {
     setTheme(theme: string): void {
         this.nextTheme = theme === 'light' ? 'dark' : 'light';
         this.theme = theme;
-        const bodyClassList = this.document.querySelector('body')?.classList;
-        if (bodyClassList) {
-            const removeClassList = /\w*-theme\b/.exec(bodyClassList.value);
-            if (removeClassList) {
-                bodyClassList.remove(...removeClassList);
-            }
-            bodyClassList.add(`${this.theme}-theme`);
-            localStorage.setItem('theme', this.theme);
-        }
+        setThemeUtil(this.theme, this.document);
     }
 }
