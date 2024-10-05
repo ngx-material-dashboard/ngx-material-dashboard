@@ -15,27 +15,33 @@ import { ToolbarElement } from '../toolbar/toolbar.element';
 
 export class IconButtonsWithPaginatorBarElement extends ToolbarElement {
     paginator: PaginatorElement;
+    /** Boolean value indicating whether collection has items that are sortable (defaults to true). */
+    sortable: boolean;
+    /** Optional sorter element found in fixture (if collection is sortable). */
     sorter?: SelectElement;
 
     constructor(
         fixture: ComponentFixture<any>,
         buttonSelectors?: string[],
-        toolbarSelector: string = '.marker-collection-toolbar'
+        toolbarSelector: string = '.marker-collection-toolbar',
+        sortable = true
     ) {
         super(fixture, buttonSelectors, toolbarSelector);
-
+        this.sortable = sortable;
         this.paginator = new PaginatorElement(
             fixture,
             this.fixture.nativeElement
         );
 
-        try {
-            this.sorter = new SelectElement(
-                fixture,
-                this.query<HTMLElement>('.mat-sort', this.toolbar)
-            );
-        } catch (error) {
-            console.log('.mat-sort not found in paginator bar element');
+        if (this.sortable) {
+            try {
+                this.sorter = new SelectElement(
+                    fixture,
+                    this.query<HTMLElement>('.mat-sort', this.toolbar)
+                );
+            } catch (error) {
+                console.error('.mat-sort not found in paginator bar element');
+            }
         }
     }
 

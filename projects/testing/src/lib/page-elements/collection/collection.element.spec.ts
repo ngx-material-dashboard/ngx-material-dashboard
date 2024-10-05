@@ -164,6 +164,36 @@ describe('CollectionElement', () => {
         });
     });
 
+    describe('Not sortable Collection', () => {
+        let fixture: ComponentFixture<TestNotSelectableCollectionComponent>;
+        let component: TestNotSelectableCollectionComponent;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestNotSelectableCollectionComponent]
+            });
+
+            fixture = TestBed.createComponent(
+                TestNotSelectableCollectionComponent
+            );
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            element = new CollectionElement(
+                fixture,
+                '.marker-collection',
+                '.marker-list-item',
+                undefined,
+                false,
+                false
+            );
+        });
+
+        it('should return undefined for sorter element', () => {
+            expect(element.sorter).toBeUndefined();
+        });
+    });
+
     describe('Not Selectable Collection', () => {
         let fixture: ComponentFixture<TestNotSelectableCollectionComponent>;
         let component: TestNotSelectableCollectionComponent;

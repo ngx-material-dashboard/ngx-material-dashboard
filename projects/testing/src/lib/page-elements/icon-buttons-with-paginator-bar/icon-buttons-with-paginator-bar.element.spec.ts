@@ -97,7 +97,7 @@ describe('IconButtonsWithPaginatorBarElement', () => {
         });
     });
 
-    describe('Bar without checkbox', () => {
+    describe('Bar without checkbox or sorter', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [BarWithoutCheckbox],
@@ -112,14 +112,21 @@ describe('IconButtonsWithPaginatorBarElement', () => {
             component = fixture.componentInstance;
             fixture.detectChanges();
 
-            bar = new IconButtonsWithPaginatorBarElement(fixture, [
-                '.marker-button-click-me'
-            ]);
+            bar = new IconButtonsWithPaginatorBarElement(
+                fixture,
+                ['.marker-button-click-me'],
+                undefined,
+                false
+            );
         });
 
         it('should return undefined for select all checkbox', () => {
             expect(bar.selectAllCheckbox).toBeUndefined();
         });
+
+        it('should return undefined for sorter element', () => {
+            expect(bar.sorter).toBeUndefined();
+        })
 
         it('should throw an error when isAllSelected method called', () => {
             try {

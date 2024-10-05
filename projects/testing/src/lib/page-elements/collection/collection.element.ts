@@ -153,6 +153,11 @@ export class CollectionElement extends PageElement {
     itemCheckboxes!: CheckboxElement[];
     /** CSS selector for each item in collection. */
     itemSelector: string;
+    /** Boolean value indicating whether collection has items that are selectable (defaults to true).  */
+    selectable: boolean;
+    /** Boolean value indicating whether collection has items that are sortable (defaults to true). */
+    sortable: boolean;
+    /** Optional sorter element found in fixture (if collection is sortable). */
     sorter?: SelectElement;
 
     /**
@@ -171,6 +176,7 @@ export class CollectionElement extends PageElement {
      * @param itemSelector CSS selector for each item in collection.
      * @param checkboxItemSelector CSS selector for checkboxes associated with each item.
      * @param selectable Boolean value indicating whether collection has items that are selectable (defaults to true).
+     * @param sortable Boolean value indicating whether collection has items that are sortable (defaults to true).
      * @param noDataColumnSelector Optional CSS selector for no data column definition (defaults to 'noData').
      */
     constructor(
@@ -178,7 +184,8 @@ export class CollectionElement extends PageElement {
         selector: string,
         itemSelector: string,
         checkboxItemSelector: string = '.marker-checkbox-item-select',
-        private selectable = true
+        selectable = true,
+        sortable = true
     ) {
         super(fixture);
 
@@ -186,18 +193,24 @@ export class CollectionElement extends PageElement {
         this.collectionElement = this.query<HTMLElement>(selector);
         this.itemSelector = itemSelector;
         this.checkboxItemSelector = checkboxItemSelector;
+        this.selectable = selectable;
+        this.sortable = sortable;
         this.initItemsAndCheckboxes(
             this.itemSelector,
             this.checkboxItemSelector
         );
 
-        try {
-            this.sorter = new SelectElement(
-                this.fixture,
-                this.collectionElement
-            );
-        } catch (error) {
-            console.log('.mat-sort not found in collection element');
+        if (this.sortable) {
+            // if collection is sortable, then set expected sortable element
+            try {
+                this.sorter = new SelectElement(
+                    this.fixture,
+                    this.collectionElement
+                );
+            } catch (error) {
+                // just log the error if sortable element not found (for now...)
+                console.error('.mat-sort not found in collection element');
+            }
         }
     }
 
