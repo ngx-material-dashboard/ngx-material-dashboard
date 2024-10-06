@@ -185,11 +185,14 @@ export class CollectionElement extends PageElement {
         itemSelector: string,
         checkboxItemSelector: string = '.marker-checkbox-item-select',
         selectable = true,
-        sortable = true
+        sortable = true,
+        componentInstance?: any
     ) {
         super(fixture);
 
-        this.component = fixture.componentInstance;
+        this.component = componentInstance
+            ? componentInstance
+            : fixture.componentInstance;
         this.collectionElement = this.query<HTMLElement>(selector);
         this.itemSelector = itemSelector;
         this.checkboxItemSelector = checkboxItemSelector;

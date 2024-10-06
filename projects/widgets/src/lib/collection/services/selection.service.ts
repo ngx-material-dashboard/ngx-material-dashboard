@@ -58,9 +58,7 @@ import { ToolbarButton } from '../../toolbar/interfaces/toolbar-button.interface
  * }
  * ```
  */
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class SelectionService<T> {
     /** The observable that tracks the model that tracks items selected in table. */
     selection: Observable<SelectionModel<T>>;

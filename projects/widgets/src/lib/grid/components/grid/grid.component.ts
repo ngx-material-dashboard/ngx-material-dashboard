@@ -66,7 +66,8 @@ import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component'
 @Component({
     selector: 'ngx-mat-grid',
     templateUrl: './grid.component.html',
-    styleUrls: ['./grid.component.css']
+    styleUrls: ['./grid.component.css'],
+    providers: [SelectionService]
 })
 export class GridComponent<T extends JsonModel>
     extends CollectionComponent<T>

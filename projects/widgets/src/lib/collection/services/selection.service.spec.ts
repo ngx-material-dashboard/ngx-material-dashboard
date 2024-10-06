@@ -24,7 +24,10 @@ describe('SelectionService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [{ provide: JsonDatastore, useValue: Datastore }]
+            providers: [
+                { provide: JsonDatastore, useValue: Datastore },
+                SelectionService
+            ]
         });
         service = TestBed.inject(SelectionService);
         jsonApiDatastore = TestBed.inject(JsonDatastore);

@@ -11,6 +11,7 @@ import { Component, Input } from '@angular/core';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
 
 import { CollectionComponent } from '../../../collection/components/collection/collection.component';
+import { SelectionService } from '../../../collection/services/selection.service';
 
 /**
  * The `List` extends `Collection` and is meant for rendering items in a list.
@@ -47,7 +48,8 @@ import { CollectionComponent } from '../../../collection/components/collection/c
 @Component({
     selector: 'ngx-mat-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css']
+    styleUrls: ['./list.component.css'],
+    providers: [SelectionService]
 })
 export class ListComponent<T extends JsonModel> extends CollectionComponent<T> {
     /** Space to include between list items in pixels (defaults to 5px). */

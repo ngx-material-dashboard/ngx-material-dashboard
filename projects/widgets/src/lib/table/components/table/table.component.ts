@@ -99,7 +99,8 @@ import { SelectionService } from '../../../collection/services/selection.service
 @Component({
     selector: 'ngx-mat-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.css']
+    styleUrls: ['./table.component.css'],
+    providers: [SelectionService]
 })
 export class TableComponent<T extends JsonModel>
     extends CollectionComponent<T>
