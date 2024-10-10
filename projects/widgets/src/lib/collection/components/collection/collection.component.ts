@@ -30,6 +30,7 @@ import { RemoteDataSource } from '../../services/remote-data-source.service';
 import { SelectionService } from '../../services/selection.service';
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
+import { SortOption } from '../../../toolbar/interfaces/sort-option.interface';
 
 /* 
 mermaid.js inheritance graph
@@ -167,7 +168,7 @@ export class CollectionComponent<T extends JsonModel>
      */
     @Input() displaySorter: boolean = true;
     /** List of fields included in each element of list that can be sorted on. */
-    @Input() fields: { field: string; text: string }[] | string[] = [];
+    @Input() fields: SortOption[] | string[] = [];
     /** Any values that should be selected when collection initially renders. */
     @Input() set initiallySelectedValues(vals: T[]) {
         vals.forEach((val: T) => {
