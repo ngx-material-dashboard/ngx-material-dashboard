@@ -30,6 +30,8 @@ import { FormControl, FormGroup } from '@angular/forms';
     styleUrls: ['./sorter.component.css']
 })
 export class SorterComponent extends MatSort implements OnInit {
+    /** Text displayed for active selection in select drop down. */
+    activeDisplay?: string;
     /** The icon used for displaying current sort order. */
     faSort: IconDefinition = faArrowUpWideShort;
     /** The form with the sort select drop down. */
@@ -72,14 +74,11 @@ export class SorterComponent extends MatSort implements OnInit {
                 order: 'desc',
                 text: typeof option === 'string' ? option : option.text
             });
-            this.sortables.set(
-                typeof option === 'string' ? option : option.text,
-                {
-                    id: typeof option === 'string' ? option : option.text,
-                    start: 'asc',
-                    disableClear: true
-                }
-            );
+            this.register({
+                id: typeof option === 'string' ? option : option.field,
+                start: 'asc',
+                disableClear: true
+            });
         }
 
         if (this.active) {
@@ -89,14 +88,15 @@ export class SorterComponent extends MatSort implements OnInit {
 
             if (sortValue >= 0) {
                 // ensure sortValue is defined (i.e. >= 0)
-                this.form.get('sort')?.setValue(sortValue);
+                this.sortControl.setValue(sortValue);
                 const option = this.selectOptions[sortValue];
-                this.active = option.text;
+                this.active = option.field;
+                this.activeDisplay = option.text;
                 this.faSort = option.icon;
             }
         }
 
-        this.form.get('sort')?.valueChanges.subscribe((val) => {
+        this.sortControl.valueChanges.subscribe((val) => {
             this.onSelectionChange(val);
         });
     }
@@ -110,11 +110,12 @@ export class SorterComponent extends MatSort implements OnInit {
      */
     onSelectionChange(val: number): void {
         const option = this.selectOptions[val];
-        this.active = option.text;
+        this.active = option.field;
+        this.activeDisplay = option.text;
         this.faSort = option.icon;
         this.direction = option.order;
         this.sortChange.emit({
-            active: option.field,
+            active: this.active,
             direction: this.direction
         });
     }
