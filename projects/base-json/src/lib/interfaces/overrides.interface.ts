@@ -23,4 +23,8 @@ export interface Overrides {
      * HTTP requests.
      */
     toQueryString?: (params: any) => string;
+    /**
+     * Format for array query parameters (one of brackets, comma, indices, repeat).
+     */
+    toQueryStringArrayFormat?: 'brackets' | 'comma' | 'indices' | 'repeat';
 }

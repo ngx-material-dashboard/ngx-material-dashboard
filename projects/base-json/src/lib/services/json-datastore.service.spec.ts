@@ -11,6 +11,7 @@ import {
     BASE_URL,
     Datastore
 } from '../../../test/services/datastore.service';
+import { DatastoreCustomConfig } from '../../../test/services/datastore-custom-config.service';
 import {
     API_VERSION_FROM_CONFIG,
     BASE_URL_FROM_CONFIG,
@@ -34,6 +35,7 @@ import { ErrorResponse, JsonApiQueryData } from '../models';
 
 describe('JsonDatastoreService', () => {
     let datastore: Datastore;
+    let datastoreCustomConfig: DatastoreCustomConfig;
     let datastoreWithConfig: DatastoreWithConfig;
     let httpMock: HttpTestingController;
 
@@ -53,6 +55,14 @@ describe('JsonDatastoreService', () => {
         });
 
         datastore = TestBed.inject(Datastore);
+        datastoreCustomConfig = new DatastoreCustomConfig(
+            TestBed.inject(HttpClient),
+            {
+                overrides: {
+                    toQueryStringArrayFormat: 'comma'
+                }
+            }
+        );
         datastoreWithConfig = TestBed.inject(DatastoreWithConfig);
         httpMock = TestBed.inject(HttpTestingController);
     });
@@ -299,7 +309,7 @@ describe('JsonDatastoreService', () => {
             httpMock.verify();
         });
 
-        it('should generate correct query string for array params with findAll', () => {
+        it('should generate correct query string for array params with findAll by default', () => {
             const expectedQueryString =
                 'arrayParam[]=4&arrayParam[]=5&arrayParam[]=6';
             const expectedUrl = encodeURI(
@@ -307,6 +317,22 @@ describe('JsonDatastoreService', () => {
             );
 
             datastore.findAll(Task, { arrayParam: [4, 5, 6] }).subscribe();
+
+            const findAllRequest = httpMock.expectOne(expectedUrl);
+            findAllRequest.flush({ data: [] });
+            expect(findAllRequest.request.url).toBe(expectedUrl);
+            httpMock.verify();
+        });
+
+        it('should generate correct query string for array params with findAll with custom config', () => {
+            const expectedQueryString = '4,5,6';
+            const expectedUrl =
+                encodeURI(`${BASE_URL}/${API_VERSION}/tasks?arrayParam=`) +
+                encodeURIComponent(expectedQueryString);
+
+            datastoreCustomConfig
+                .findAll(Task, { arrayParam: [4, 5, 6] })
+                .subscribe();
 
             const findAllRequest = httpMock.expectOne(expectedUrl);
             findAllRequest.flush({ data: [] });

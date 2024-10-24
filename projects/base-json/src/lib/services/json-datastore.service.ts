@@ -24,6 +24,7 @@ import { ErrorResponse } from '../models/error-response.model';
 import stringify from '../utilities/stringify';
 import { Injectable } from '@angular/core';
 import { AttributeMetadata } from '../constants/symbols';
+import utils from '../utilities/utils';
 
 const AttributeMetadataIndex: string = AttributeMetadata as any;
 
@@ -858,6 +859,18 @@ export abstract class JsonDatastore {
     }
 
     private _toQueryString(params: any): string {
-        return stringify(params, { arrayFormat: 'brackets' });
+        return stringify(params, {
+            arrayFormat: this.toQueryStringArrayFormat
+        });
+    }
+
+    private get toQueryStringArrayFormat(): string {
+        if (
+            this.datastoreConfig.overrides &&
+            this.datastoreConfig.overrides.toQueryStringArrayFormat
+        ) {
+            return this.datastoreConfig.overrides.toQueryStringArrayFormat;
+        }
+        return 'brackets';
     }
 }
