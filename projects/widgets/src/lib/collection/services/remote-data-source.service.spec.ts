@@ -1,14 +1,18 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+    HttpClientTestingModule,
+    HttpTestingController
+} from '@angular/common/http/testing';
 import { ChangeDetectorRef } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import {
     JsonApiQueryData,
     JsonDatastore,
-    JsonModel
+    JsonModel,
+    ModelConfig
 } from '@ngx-material-dashboard/base-json';
-import { Datastore, getTaskData } from '@ngx-material-dashboard/testing';
+import { Datastore, getTaskData, Task } from '@ngx-material-dashboard/testing';
 import { JsonModelMock } from '@ngx-material-dashboard/widgets/test/mocks/json-model.mock';
 import { of } from 'rxjs';
 
@@ -17,6 +21,7 @@ import { RemoteDataSource } from './remote-data-source.service';
 describe('RemoteDataSourceService', () => {
     let datastore: JsonDatastore;
     let service: RemoteDataSource<JsonModelMock>;
+    let httpMock: HttpTestingController;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -27,6 +32,7 @@ describe('RemoteDataSourceService', () => {
                 { provide: ChangeDetectorRef, useClass: ChangeDetectorRef }
             ]
         });
+        httpMock = TestBed.inject(HttpTestingController);
         datastore = TestBed.inject(JsonDatastore);
         service = new RemoteDataSource(JsonModelMock, datastore);
     });
@@ -105,10 +111,61 @@ describe('RemoteDataSourceService', () => {
             )
         );
 
+        // and: expected params
+        const params: any = {
+            page_size: '20',
+            page: '0',
+            filter: {},
+            sort: 'id',
+            order: 'asc',
+            include: ''
+        };
+
         // when: load method is called without any params
         service.load();
 
         // expect: the findAll method should have been called
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(JsonModelMock, params);
+
+        // when: the refresh function is called
+        service.refresh();
+
+        // expect: the findAll method should have been called again
+        expect(spy).toHaveBeenCalledWith(JsonModelMock, params);
+    });
+
+    it('should call load with param map', () => {
+        // given: a spy on the datastore findAll method
+        const TEST_DATA = getTaskData(20);
+        const spy = spyOn(datastore, 'findAll').and.returnValue(
+            of(
+                new JsonApiQueryData(TEST_DATA, {
+                    meta: { total: TEST_DATA.length }
+                })
+            )
+        );
+
+        // and: expected params
+        const params: any = {
+            page: {
+                limit: 10,
+                offset: 0
+            },
+            filter: { name: 'Stark' },
+            sort: 'name',
+            include: 'relationships'
+        };
+
+        // when: the loadParamMap is called with given params
+        service.loadParamMap(params);
+
+        // expect: the findAll method should have been called
+        expect(spy).toHaveBeenCalledWith(JsonModelMock, params);
+
+        // when: the refresh function is called
+        service.refresh();
+
+        // expect: the findAll method should have been called again
+        expect(spy).toHaveBeenCalledWith(JsonModelMock, params);
     });
 });

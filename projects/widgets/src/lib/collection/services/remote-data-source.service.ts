@@ -91,6 +91,8 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     pageIndex?: number;
     /** The number of results to get. */
     pageSize?: number;
+    /** A custom map of params to use for query, set using loadParamMap. */
+    params: any;
     /** The total number of items in the table. */
     total: number;
     /** The total number of pages. */
@@ -164,7 +166,23 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
     }
 
     /**
-     * Loads the data for the collection.
+     * Loads the data for the collection. This does make a lot of assumptions
+     * in the paged-based and sort/order strategies, and creates query
+     * parameters like the following:
+     *
+     * {
+     *      page_size: 20
+     *      page: 0
+     *      filter: { name: 'Stark' },
+     *      sort: 'id',
+     *      order: 'asc',
+     *      include: 'relationship1,relationship2'
+     * }
+     *
+     * If you want more control over the format of the query parameters, but
+     * don't want to re-implement this entire class, then use loadParamMap.
+     * You should use this method or the loadParamMap, but not both. Otherwise
+     * refresh will not work as expected.
      *
      * @param filter The filter to apply when loading the data.
      * @param sort The column to sort the data.
@@ -191,16 +209,47 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
         this.include = include;
         this.headers = headers;
 
+        const params = {
+            page_size: pageSize.toString(),
+            page: pageIndex.toString(),
+            filter,
+            sort: active,
+            order: direction,
+            include
+        };
+
         // paged query for models that match the given filter and order results
+        this.loadUtil(params);
+    }
+
+    /**
+     * Loads the data for the collection using custom map of params. This
+     * provides more control over the format of the parameters to include in
+     * query requests without having to implement your own remote data source.
+     * For example, if your server uses a different page-based strategy from
+     * the one defined in the original load method.
+     *
+     * **NOTE: refresh will still work and be called using the given params.
+     * You should use this method or the load, but not both. Otherwise refresh
+     * will not work as expected.
+     *
+     * @param params Parameters to include in query (filter, paging, sorting).
+     * @param headers Custom header values.
+     */
+    loadParamMap(params: any, headers: HttpHeaders = new HttpHeaders()) {
+        this.headers = headers;
+        this.params = params;
+        this.loadUtil(params);
+    }
+
+    /**
+     * Sends the HTTP request to load data for the collection.
+     *
+     * @param params Parameters to include in query (filter, paging, sorting).
+     */
+    private loadUtil(params: any) {
         this.baseModelService
-            .findAll(this.modelType, {
-                page_size: pageSize.toString(),
-                page: pageIndex.toString(),
-                filter,
-                sort: active,
-                order: direction,
-                include
-            })
+            .findAll(this.modelType, params)
             .subscribe((res: JsonApiQueryData<T>) => {
                 // update meta data (totalPages based on total results and pageSize)
                 this.total = res.getMeta().meta.total;
@@ -218,14 +267,18 @@ export class RemoteDataSource<T extends JsonModel> extends DataSource<T> {
      * Reload the data using current paging and query parameters.
      */
     refresh(): void {
-        this.load(
-            this.filter,
-            this.active,
-            this.direction,
-            this.pageIndex,
-            this.pageSize,
-            this.include,
-            this.headers
-        );
+        if (this.params) {
+            this.loadParamMap(this.params, this.headers);
+        } else {
+            this.load(
+                this.filter,
+                this.active,
+                this.direction,
+                this.pageIndex,
+                this.pageSize,
+                this.include,
+                this.headers
+            );
+        }
     }
 }
