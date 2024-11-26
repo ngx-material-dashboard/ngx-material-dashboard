@@ -122,7 +122,7 @@ export class JsonApiModel extends JsonModel {
                                 }
                             } else {
                                 throw {
-                                    message: `parseHasMany - Model type for relationship ${typeName} not found.`
+                                    message: `parseHasMany - Model type for relationship ${typeName} not found. You probably need to add this relationship to the models in your DatastoreConfig.`
                                 };
                             }
                         }
