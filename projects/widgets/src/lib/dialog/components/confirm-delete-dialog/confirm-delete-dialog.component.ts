@@ -39,7 +39,7 @@ import { DialogData } from '../../interfaces/dialog-data.interface';
  *         // open the dialog
  *         const dialogRef = this.dialog.open(
  *             ConfirmDeleteDialogComponent,
- *             {data: {context:'Are you sure you want to delete value?', title:'Delete value?'}}
+ *             {data: {content:'Are you sure you want to delete value?', title:'Delete value?'}}
  *         );
  *
  *         // handle when dialog closed
