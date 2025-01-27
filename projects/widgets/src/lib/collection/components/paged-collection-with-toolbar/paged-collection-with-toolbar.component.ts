@@ -155,13 +155,12 @@ export class PagedCollectionWithToolbarComponent<T extends JsonModel>
         } else {
             selectionService = this.collectionCmp.collection$.selectionService;
         }
-        const sub = selectionService.selectionChange.subscribe(
-            (disabled: boolean) => {
+        const sub = this.collectionCmp.selectionChange.subscribe(
+            (selChange) => {
                 selectionService.toggleButtons(
-                    disabled,
+                    selChange.source.isEmpty(),
                     this.disableableToolbarButtons
                 );
-                this.changeDetectorRef.detectChanges();
             }
         );
         this.sub.add(sub);

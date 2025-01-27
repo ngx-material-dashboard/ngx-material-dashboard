@@ -24,6 +24,7 @@ import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
 import { Button } from '../../interfaces/button.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { CollectionComponent } from './collection.component';
+import { SelectionChange } from '@angular/cdk/collections';
 
 /** Component to test with. */
 @Component({
@@ -133,6 +134,9 @@ describe('CollectionComponent', () => {
         });
 
         it('should select all rows in collection1 but not collection2 when checkbox in collection1 header checked', () => {
+            // given: a spy on selection change
+            const spy = spyOn(collection1.component.selectionChange, 'emit');
+
             // when: the select all checkbox is checked
             collection1.selectAll();
 
@@ -148,6 +152,13 @@ describe('CollectionComponent', () => {
             // and: none of rows in collection2 should have their checkboxes checked
             expect(collection2.component.selection.selected.length).toEqual(0);
             expect(collection2.component.isAllSelected()).toEqual(false);
+
+            // and: the onSelectionChange should have been called on collection1
+            expect(spy).toHaveBeenCalledWith({
+                added: collection1.component.dataSource$.data,
+                removed: [],
+                source: collection1.component.selection
+            });
         });
     });
 

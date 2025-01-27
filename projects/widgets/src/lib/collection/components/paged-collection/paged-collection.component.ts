@@ -29,6 +29,7 @@ import { RemoteDataSource } from '../../services/remote-data-source.service';
 
 import { CollectionComponent } from '../collection/collection.component';
 import { SortDirection } from '@angular/material/sort';
+import { SelectionChange } from '@angular/cdk/collections';
 
 /**
  * The `PagedCollection` is a wrapper component for the `Collection` which adds
@@ -144,6 +145,9 @@ export class PagedCollectionComponent<T extends JsonModel>
     @Input() showFirstLastButtons: boolean = true;
     /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
+    /** Event to emit when selection changes. */
+    @Output() selectionChange: EventEmitter<SelectionChange<T>> =
+        new EventEmitter<SelectionChange<T>>();
     /** A reference to the paginator in the template. */
     @ViewChild(MatPaginator) paginator$?: MatPaginator;
     /** A reference to the collection in the template. */
@@ -182,6 +186,13 @@ export class PagedCollectionComponent<T extends JsonModel>
             }
         );
         this.sub.add(sub);
+
+        const selectionChange = this.collection$.selectionChange.subscribe(
+            (evt) => {
+                this.selectionChange.emit(evt);
+            }
+        );
+        this.sub.add(selectionChange);
     }
 
     ngOnDestroy(): void {

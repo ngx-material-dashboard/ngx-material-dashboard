@@ -7,7 +7,7 @@
  * https://github.com/ngx-material-dashboard/ngx-material-dashboard/license
  */
 
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -201,6 +201,9 @@ export class CollectionComponent<T extends JsonModel>
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** The event to emit when the collection data length changes. */
     @Output() lengthChange: EventEmitter<number>;
+    /** Event to emit when selection changes. */
+    @Output() selectionChange: EventEmitter<SelectionChange<T>> =
+        new EventEmitter<SelectionChange<T>>();
     /**
      * A reference to the sorter in the template. Only used for components that
      * utilize the SorterComponent (like list and grid), however MatSort is
@@ -342,18 +345,35 @@ export class CollectionComponent<T extends JsonModel>
      */
     masterToggle(): void {
         if (this.isAllSelected() || !this.multiple$) {
+            this.selectionChange.emit({
+                added: [],
+                removed: this.selection.selected,
+                source: this.selection
+            });
+
             // clear all selections and disable ToolbarButtons
             this.selection.clear();
             this.selectionService.selectionChangeSubject.next(true);
         } else {
+            const added: T[] = [];
+
             // select all rows in the table and enable ToolbarButtons
-            this.dataSource$.data.forEach((row: T) =>
-                this.selection.select(row)
-            );
+            this.dataSource$.data.forEach((row: T) => {
+                if (!this.selection.isSelected(row)) {
+                    this.selection.select(row);
+                    added.push(row);
+                }
+            });
             if (this.dataSource$.data.length > 0) {
                 // only enable ToolbarButtons if there is data in table
                 this.selectionService.selectionChangeSubject.next(false);
             }
+
+            this.selectionChange.emit({
+                added,
+                removed: [],
+                source: this.selection
+            });
         }
 
         // update the selection in the selectionService
@@ -392,5 +412,15 @@ export class CollectionComponent<T extends JsonModel>
         );
         // update the selection in the selectionService
         this.selectionService.selectionSubject.next(this.selection);
+
+        // determine if row was selected or deselected and emit change
+        const added = [];
+        const removed = [];
+        if (this.selection.isSelected(row)) {
+            added.push(row);
+        } else {
+            removed.push(row);
+        }
+        this.selectionChange.emit({ added, removed, source: this.selection });
     }
 }
