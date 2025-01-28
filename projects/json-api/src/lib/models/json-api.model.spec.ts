@@ -256,7 +256,7 @@ describe('JsonApiModel', () => {
                     );
                 } catch (error: any) {
                     expect(error.message).toEqual(
-                        'parseHasMany - Model type for relationship e-books not found.'
+                        'parseHasMany - Model type for relationship e-books not found. You probably need to add this relationship to the models in your DatastoreConfig.'
                     );
                 }
             });
