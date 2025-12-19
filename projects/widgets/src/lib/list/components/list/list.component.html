@@ -12,7 +12,7 @@
     </div>
     <div fxLayout="column" [fxLayoutGap]="spaceBetween">
         <div *ngFor="let model of models">
-            <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div class="marker-list-item" fxLayout="row" fxLayoutAlign="center center">
                 <mat-checkbox class="marker-checkbox-item-select"
                     *ngIf="selectable"
                     [aria-label]="'Select Row'"

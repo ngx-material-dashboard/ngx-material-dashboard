@@ -84,4 +84,32 @@ export default sandboxOf(ListComponent, {
             data: getTaskData(20),
             fields: [{ field: 'id', text: 'ID' }]
         }
+    })
+    .add('custom padding around items', {
+        template: `
+    <div style="padding: 0 16px">
+        <ngx-mat-list
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [fields]="fields"
+            class="marker-list">
+            <ng-template #model let-model="model">
+                <div style="padding: 0 16px">
+                    <mat-card>
+                        <mat-card-title>
+                            {{model.id}} Title
+                        </mat-card-title>
+                        <mat-card-content>
+                            Content for dummy object {{model.id}}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ngx-mat-list>
+    </div>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id']
+        }
     });
