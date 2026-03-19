@@ -197,6 +197,10 @@ export class CollectionComponent<T extends JsonModel>
      * functionality still exists, this just hides it from the user.
      */
     @Input() selectable: boolean = true;
+    @Input() sortingDataAccessor?: (
+        data: T,
+        sortHeaderId: string
+    ) => string | number;
     /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** The event to emit when the collection data length changes. */
@@ -251,6 +255,12 @@ export class CollectionComponent<T extends JsonModel>
      * Initializes the sort for the component after the view is initialized.
      */
     ngAfterViewInit(): void {
+        if (
+            this.sortingDataAccessor &&
+            this.dataSource$ instanceof MatTableDataSource
+        ) {
+            this.dataSource$.sortingDataAccessor = this.sortingDataAccessor;
+        }
         this.initSort();
     }
 
