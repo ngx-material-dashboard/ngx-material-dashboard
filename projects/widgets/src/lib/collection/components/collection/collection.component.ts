@@ -197,10 +197,23 @@ export class CollectionComponent<T extends JsonModel>
      * functionality still exists, this just hides it from the user.
      */
     @Input() selectable: boolean = true;
+    /**
+     * Customize how MatTableDataSource retrieves data for sorting. If sortData
+     * is defined, then this is bypassed. If you need to define a custom data
+     * accessor while using sortData, then you should call your custom data
+     * accessor from your custom sortData call. Check the list.component.sandbox.ts
+     * for an example of this.
+     */
     @Input() sortingDataAccessor?: (
         data: T,
         sortHeaderId: string
     ) => string | number;
+    /**
+     * Custom sort function to use for MatTableDataSource data. If this is used
+     * the sortingDataAccessor is bypassed, so you should probably only use this
+     * or sortingDataAccessor, but NOT both.
+     */
+    @Input() sortData?: (data: T[], sort: MatSort) => T[];
     /** The event to emit when button is clicked in collection. */
     @Output() buttonClick: EventEmitter<ButtonClick>;
     /** The event to emit when the collection data length changes. */
@@ -255,12 +268,6 @@ export class CollectionComponent<T extends JsonModel>
      * Initializes the sort for the component after the view is initialized.
      */
     ngAfterViewInit(): void {
-        if (
-            this.sortingDataAccessor &&
-            this.dataSource$ instanceof MatTableDataSource
-        ) {
-            this.dataSource$.sortingDataAccessor = this.sortingDataAccessor;
-        }
         this.initSort();
     }
 
@@ -292,6 +299,9 @@ export class CollectionComponent<T extends JsonModel>
             }
         }
 
+        // initialize the sort on the dataSource
+        this.initSort();
+
         // subscribe to connect observable to get filtered, paged, sorted
         // data; see below github issue comment
         // https://github.com/angular/components/issues/9419#issuecomment-359594686
@@ -317,18 +327,25 @@ export class CollectionComponent<T extends JsonModel>
             this.selectionService.selectionChangeSubject.next(true);
         });
         this.sub.add(sub);
-
-        // re-initialize the sort on the dataSource
-        this.initSort();
     }
 
     /**
      * Initializes subscription for when user changes the sort order for data
-     * in the collection.
+     * in the collection and sets any custom sorting properties.
      */
     initSort(): void {
         if (this.dataSource$ && this.sort) {
             this.dataSource$.sort = this.sort;
+        }
+
+        if (this.dataSource$ instanceof MatTableDataSource) {
+            if (this.sortingDataAccessor) {
+                this.dataSource$.sortingDataAccessor = this.sortingDataAccessor;
+            }
+
+            if (this.sortData) {
+                this.dataSource$.sortData = this.sortData;
+            }
         }
     }
 

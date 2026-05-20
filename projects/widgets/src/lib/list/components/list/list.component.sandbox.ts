@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JsonDatastore } from '@ngx-material-dashboard/base-json';
 import { Datastore, getTaskData, Task } from '@ngx-material-dashboard/testing';
@@ -23,6 +23,18 @@ class CustomTask extends Task {
     child?: Task;
 }
 
+function addNullIdTasks(tasks: any[]) {
+    for (let i = 0; i < 5; i++) {
+        tasks.push({
+            name: '',
+            description: '',
+            dueDate: new Date(),
+            isComplete: false
+        });
+    }
+    return tasks;
+}
+
 function addRelations(tasks: CustomTask[]) {
     tasks.forEach((task) => {
         const index = getRandomIntInclusive(0, tasks.length);
@@ -30,6 +42,14 @@ function addRelations(tasks: CustomTask[]) {
     });
     return tasks;
 }
+
+const customSortingAccessor = (item: CustomTask, property: string) => {
+    if (property === 'child.id') {
+        return item.child?.id;
+    } else {
+        return item[property];
+    }
+};
 
 function getRandomIntInclusive(min: number, max: number): number {
     // Use Math.ceil and Math.floor to handle potential non-integer inputs gracefully
@@ -153,7 +173,7 @@ export default sandboxOf(ListComponent, {
                             {{model.id}} Title
                         </mat-card-title>
                         <mat-card-content>
-                            Content for dummy object {{model.id}}
+                            Content for dummy object {{model.id}} with child {{model.child?.id}}
                         </mat-card-content>
                     </mat-card>
                 </div>
@@ -170,6 +190,58 @@ export default sandboxOf(ListComponent, {
                 } else {
                     return item[property];
                 }
+            }
+        }
+    })
+    .add('custom sortingDataAccessor and sortData', {
+        template: `
+    <div style="padding: 0 16px">
+        <ngx-mat-list
+            [collectionButtons]="collectionButtons"
+            [dataSource]="data"
+            [fields]="fields"
+            [sortData]="sortData"
+            class="marker-list">
+            <ng-template #model let-model="model">
+                <div style="padding: 0 16px">
+                    <mat-card>
+                        <mat-card-title>
+                            {{model.id}} Title
+                        </mat-card-title>
+                        <mat-card-content>
+                            Content for dummy object {{model.id}}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ngx-mat-list>
+    </div>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: addRelations(addNullIdTasks(getTaskData(20))),
+            fields: ['id', 'child.id'],
+            sortData: (data: CustomTask[], sort: MatSort) => {
+                const active = sort.active;
+                const direction = sort.direction;
+
+                if (!active || direction === '') {
+                    return data;
+                }
+
+                return data.sort((a, b) => {
+                    // use custom sortingDataAccessor to extract values
+                    const valueA = customSortingAccessor(a, active);
+                    const valueB = customSortingAccessor(b, active);
+
+                    // always put null/undefined at the end
+                    if (valueA === null || valueA === undefined) return 1;
+                    if (valueB === null || valueB === undefined) return -1;
+
+                    const comparatorResult =
+                        valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+
+                    return comparatorResult * (direction === 'asc' ? 1 : -1);
+                });
             }
         }
     });
