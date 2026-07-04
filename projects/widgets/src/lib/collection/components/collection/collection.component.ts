@@ -179,6 +179,8 @@ export class CollectionComponent<T extends JsonModel>
         });
         this.selectionService.selectionSubject.next(this.selection);
     }
+    /** Boolean to indicate if data is loading (defaults to true). */
+    @Input() isLoading = true;
     /** The id of the most recently sorted MatSortable. */
     @Input() matSortActive: string = 'id';
     /** The sort direction of the currently active MatSortable. */
@@ -233,8 +235,6 @@ export class CollectionComponent<T extends JsonModel>
     @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;
     /** The source for the collection data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
-    /** Boolean to indicate if data is loading (defaults to true). */
-    isLoading = true;
     /** The total number of elements in the collection. */
     length: number = 0;
     /** The models to display in collection. */
