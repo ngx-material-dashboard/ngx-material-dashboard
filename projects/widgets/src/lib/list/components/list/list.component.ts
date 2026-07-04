@@ -48,7 +48,7 @@ import { SelectionService } from '../../../collection/services/selection.service
 @Component({
     selector: 'ngx-mat-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css'],
+    styleUrls: ['./list.component.scss'],
     providers: [SelectionService]
 })
 export class ListComponent<T extends JsonModel> extends CollectionComponent<T> {

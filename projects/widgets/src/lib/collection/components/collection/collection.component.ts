@@ -23,7 +23,7 @@ import {
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { JsonModel } from '@ngx-material-dashboard/base-json';
-import { Subscription } from 'rxjs';
+import { delay, Subscription } from 'rxjs';
 import { Button } from '../../interfaces/button.interface';
 
 import { RemoteDataSource } from '../../services/remote-data-source.service';
@@ -126,7 +126,10 @@ export class CollectionComponent<T extends JsonModel>
     implements AfterViewInit, OnDestroy
 {
     @ContentChild('model', { static: false }) template!: TemplateRef<any>;
-    @ContentChild('noData') noDataTemplate!: TemplateRef<any>;
+    @ContentChild('noData', { static: false })
+    noDataTemplate!: TemplateRef<any>;
+    @ContentChild('skeleton', { static: false })
+    skeletonTemplate?: TemplateRef<any>;
     /** The buttons to render with each element in the collection. */
     @Input() collectionButtons: Button[] = [];
     /**
@@ -230,6 +233,8 @@ export class CollectionComponent<T extends JsonModel>
     @ViewChild(SorterComponent) sort$?: MatSort | SorterComponent;
     /** The source for the collection data. */
     dataSource$!: RemoteDataSource<T> | MatTableDataSource<T>;
+    /** Boolean to indicate if data is loading (defaults to true). */
+    isLoading = true;
     /** The total number of elements in the collection. */
     length: number = 0;
     /** The models to display in collection. */
@@ -238,6 +243,7 @@ export class CollectionComponent<T extends JsonModel>
     multiple$: boolean = true;
     /** The model to track items selected in the collection. */
     selection: SelectionModel<T>;
+    skeletonCount = Array(6);
     /** The subscriptions for the component. */
     sub: Subscription;
 
@@ -325,6 +331,7 @@ export class CollectionComponent<T extends JsonModel>
             // clear any selections
             this.selection.clear();
             this.selectionService.selectionChangeSubject.next(true);
+            this.isLoading = false;
         });
         this.sub.add(sub);
     }

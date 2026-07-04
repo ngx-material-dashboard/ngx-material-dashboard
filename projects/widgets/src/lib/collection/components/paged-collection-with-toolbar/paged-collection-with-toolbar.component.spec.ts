@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Task, getTaskData } from '@ngx-material-dashboard/testing';
 
+import { SkeletonListDirective } from '../../../list/directives/skeleton-list.directive';
 import { PagedListWithRaisedButtonsBarComponent } from '../../../list/pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';
 import { PagedListComponent } from '../../../list/pages/paged-list/paged-list.component';
 import { ListComponent } from '../../../list/components/list/list.component';
@@ -81,7 +82,8 @@ describe('PagedCollectionWithToolbarComponent', () => {
                 ListComponent,
                 PagedListComponent,
                 PagedListWithRaisedButtonsBarComponent,
-                TestPagedCollectionWithToolbarComponent
+                TestPagedCollectionWithToolbarComponent,
+                SkeletonListDirective
             ],
             imports: [
                 FlexLayoutModule,

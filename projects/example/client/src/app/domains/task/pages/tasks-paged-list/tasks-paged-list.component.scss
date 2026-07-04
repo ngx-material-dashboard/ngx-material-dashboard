@@ -1,3 +1,53 @@
+@import './custom-skeleton-theme';
+
+.custom-skeleton-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+    height: 60px;
+}
+
+/* Elements share the global shimmer animations from the last step */
+.custom-skeleton-line,
+.custom-skeleton-btn-icon {
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+}
+
+.custom-skeleton-text-block {
+    flex-grow: 1;
+    .title {
+        width: 40%;
+        height: 16px;
+    }
+}
+
+.custom-skeleton-row .delete-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Matches circular mat-icon-button shape */
+    margin-left: auto; /* Pushes button cleanly all the way to the right side */
+    flex-shrink: 0;
+}
+
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Theme injection for skeleton pieces */
+:host-context(.light-theme) {
+    @include custom-skeleton-theme('light');
+}
+:host-context(.dark-theme) {
+    @include custom-skeleton-theme('dark');
+}
+
 .no-data > fa-icon {
     font-size: 4em;
 }

@@ -33,5 +33,17 @@
                 </span>
             </div>
         </ng-template>
+        <ng-template #skeleton>
+            <div fxLayout="column" fxLayoutGap="10px">
+                <div *ngFor="let item of [0, 1, 2, 3, 4]">
+                    <div class="custom-skeleton-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <div class="custom-skeleton-text-block">
+                            <div class="custom-skeleton-line title"></div>
+                        </div>
+                        <div class="custom-skeleton-btn-icon delete-btn"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
     </ngx-mat-list>
 </ngx-mat-list-with-icon-buttons-paginator-bar>

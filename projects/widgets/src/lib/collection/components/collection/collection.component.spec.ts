@@ -20,11 +20,11 @@ import {
 } from '@ngx-material-dashboard/testing';
 
 import { ListComponent } from '../../../list/components/list/list.component';
+import { SkeletonListDirective } from '../../../list/directives/skeleton-list.directive';
 import { DELETE_BUTTON, EDIT_BUTTON } from '../../shared/buttons';
 import { Button } from '../../interfaces/button.interface';
 import { SorterComponent } from '../../../toolbar/pages/sorter/sorter.component';
 import { CollectionComponent } from './collection.component';
-import { SelectionChange } from '@angular/cdk/collections';
 
 /** Component to test with. */
 @Component({
@@ -100,7 +100,8 @@ describe('CollectionComponent', () => {
                     CollectionComponent,
                     ListComponent,
                     SorterComponent,
-                    TestMultipleCollectionComponent
+                    TestMultipleCollectionComponent,
+                    SkeletonListDirective
                 ],
                 imports: [
                     HttpClientTestingModule,
@@ -173,7 +174,8 @@ describe('CollectionComponent', () => {
                     CollectionComponent,
                     ListComponent,
                     SorterComponent,
-                    TestCollectionComponent
+                    TestCollectionComponent,
+                    SkeletonListDirective
                 ],
                 imports: [
                     HttpClientTestingModule,

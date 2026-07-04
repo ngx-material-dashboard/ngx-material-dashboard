@@ -18,6 +18,7 @@ import { ToolbarModule } from '../../../toolbar/toolbar.module';
 import { DEFAULT_COLLECTION_BUTTONS } from '../../../collection/shared/buttons';
 import { MatSelectModule } from '@angular/material/select';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { SkeletonListDirective } from '../../directives/skeleton-list.directive';
 
 class CustomTask extends Task {
     child?: Task;
@@ -60,6 +61,7 @@ function getRandomIntInclusive(min: number, max: number): number {
 }
 
 export default sandboxOf(ListComponent, {
+    declarations: [SkeletonListDirective],
     imports: [
         HttpClientTestingModule,
         OverlayModule,
@@ -87,7 +89,7 @@ export default sandboxOf(ListComponent, {
         [collectionButtons]="collectionButtons"
         [dataSource]="data"
         [fields]="fields"
-        class="marker-list">
+        class="marker-list light-theme">
         <ng-template #model let-model="model">
             <mat-card>
                 <mat-card-title>
@@ -243,5 +245,44 @@ export default sandboxOf(ListComponent, {
                     return comparatorResult * (direction === 'asc' ? 1 : -1);
                 });
             }
+        }
+    })
+    .add('custom skeleton template', {
+        template: `
+    <ngx-mat-list
+        [collectionButtons]="collectionButtons"
+        [dataSource]="data"
+        [fields]="fields"
+        class="marker-list light-theme">
+        <ng-template #model let-model="model">
+            <mat-card>
+                <mat-card-title>
+                    {{model.id}} Title
+                </mat-card-title>
+                <mat-card-content>
+                    Content for dummy object {{model.id}}
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+        <ng-template #skeleton>
+            <div fxLayout="column" fxLayoutGap="20px">
+                <ng-container *ngFor="let item of skeletons">
+                    <mat-card class="skeleton-row">
+                        <mat-card-content fxLayout="row">
+                            <div class="skeleton-text-block" fxLayoutAlign="start center">
+                                <div class="skeleton-line title"></div>
+                            </div>
+                            <div class="skeleton-btn-icon delete-btn"></div>
+                        </mat-card-content>
+                    </mat-card>
+                </ng-container>
+            </div>
+        </ng-template>
+    </ngx-mat-list>`,
+        context: {
+            collectionButtons: DEFAULT_COLLECTION_BUTTONS,
+            data: getTaskData(20),
+            fields: ['id'],
+            skeletons: [0, 1, 2, 3, 4]
         }
     });

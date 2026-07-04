@@ -59,6 +59,7 @@ export * from './layout/pages/default-layout/default-layout.component';
 export * from './layout/layout.module';
 
 export * from './list/components/list/list.component';
+export * from './list/directives/skeleton-list.directive';
 export * from './list/pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
 export * from './list/pages/paged-list/paged-list.component';
 export * from './list/pages/paged-list-with-raised-buttons-bar/paged-list-with-raised-buttons-bar.component';

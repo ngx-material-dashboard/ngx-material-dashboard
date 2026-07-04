@@ -15,6 +15,7 @@ import {
     getTaskData
 } from '@ngx-material-dashboard/testing';
 import { ListComponent } from '../../../list/components/list/list.component';
+import { SkeletonListDirective } from '../../../list/directives/skeleton-list.directive';
 import { ListWithIconButtonsPaginatorBarComponent } from '../../../list/pages/list-with-icon-buttons-paginator-bar/list-with-icon-buttons-paginator-bar.component';
 
 import { ButtonClick } from '../../../toolbar/interfaces/button-click.interface';
@@ -86,7 +87,8 @@ describe('PagedCollectionWithIconToolbarComponent', () => {
             declarations: [
                 ListComponent,
                 ListWithIconButtonsPaginatorBarComponent,
-                TestPagedCollectionWithIconToolbarComponent
+                TestPagedCollectionWithIconToolbarComponent,
+                SkeletonListDirective
             ],
             imports: [
                 FlexLayoutModule,
