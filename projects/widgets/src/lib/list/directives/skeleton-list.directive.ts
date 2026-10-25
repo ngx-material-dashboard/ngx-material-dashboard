@@ -115,7 +115,6 @@ export class SkeletonListDirective {
     private buildSkeletonContent() {
         if (!this.skeletonLayer) return;
 
-        console.log(this.customSkeletonTemplate);
         if (this.customSkeletonTemplate) {
             this.viewContainer.clear();
             const embeddedView = this.viewContainer.createEmbeddedView(
@@ -160,8 +159,6 @@ export class SkeletonListDirective {
             );
 
             embeddedView.rootNodes.forEach((node) => {
-                console.log(node);
-                console.log(this.wrapper);
                 this.renderer.addClass(node, 'real-data-list-layer');
                 this.renderer.appendChild(this.wrapper, node);
             });
